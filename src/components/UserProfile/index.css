@@ -1,0 +1,8 @@
+.attendance_button{
+    text-transform: capitalize !important;
+    padding:5px !important;
+    height: 30px;
+    width:auto !important;
+    background-color: #F1F2F6 !important;
+    color:#2E3591 !important;
+}

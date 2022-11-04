@@ -1,0 +1,17 @@
+.center_div{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100%;
+    flex-direction: column;
+    z-index: 1999;
+    background: rgba(0,0,0,0.1);
+}
+#loader{
+    background: transparent;
+    color: #2e3591;
+}

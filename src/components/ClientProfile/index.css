@@ -1,0 +1,91 @@
+.client_profile_section {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  width: auto;
+  /* margin: 10px; */
+  height: 88vh;
+  /* margin-left: 0.9rem; */
+}
+
+.icon {
+  color: #2e3591;
+  font-size: 35px !important;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  padding: 8px;
+  margin-right: 15px;
+}
+
+.client_profile_tab button {
+  text-transform: capitalize;
+}
+.client_attendance_tab{
+  background-color: #F1F2F6;
+}
+.client_attendance_tab button{
+  text-transform: capitalize ;
+  /* background-color:#2E3591 !important; */
+  border-radius: 3px;
+}
+.client_attendance_tab .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  background-color: #2E3591 !important;
+}
+.client_attendance_tab .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected{
+  color:#fff ;
+}
+.client_attendance_tab .css-1aquho2-MuiTabs-indicator{
+  background-color: transparent !important;
+}
+.tab_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.add_status_button {
+  background-color: #2e3591 !important;
+  text-transform: capitalize !important;
+  box-shadow: none !important;
+  margin-right: 10px !important;
+}
+
+.status_close_button {
+  background-color: #f11f12 !important;
+  text-transform: capitalize !important;
+  box-shadow: none !important;
+  margin-right: 10px !important;
+}
+
+.client_profile_detail {
+  /* margin-top: 20px; */
+  width: 70%;
+  /* padding: 20px; */
+}
+
+.client_profile_table_section {
+  display: flex;
+  border-radius: 5px;
+  flex-direction: column;
+}
+
+audio::-internal-media-controls-download-button {
+  display: none;
+}
+
+.client_profile_table_header tr th {
+  font-weight: 600;
+}
+
+.client_profile_edit_button {
+  border: 1px solid #e5e5e5 !important;
+  text-transform: capitalize !important;
+}
+
+.status_description {
+  max-width: 200px;
+  white-space: nowrap;
+  overFlow: hidden;
+  text-overflow: ellipsis;
+
+}

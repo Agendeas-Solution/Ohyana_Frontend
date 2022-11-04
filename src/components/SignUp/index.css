@@ -1,0 +1,42 @@
+.signup_section{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+.signup_left_section{
+    background-color: #2e3591;
+    width: 60%;
+    height: 100vh;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.Logo_img{
+    width: 200px;
+    height: 100px;
+}
+.signup_right_section{
+    width:40%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 30px 10px 30px;
+    height: 100%;
+}
+.textfield{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.verify_button{
+    padding:2px !important;
+    text-transform: capitalize !important;
+    font-size: 12px !important;
+}
+.copyright_footer{
+    position: sticky;     
+    bottom: 0px; 
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+}

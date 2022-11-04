@@ -1,0 +1,83 @@
+.leave_holiday_section {
+  display: flex;
+  background: #ffffff;
+  width: 96% !important;
+  padding: 20px;
+  height: 83vh;
+  margin: 1.5rem !important;
+  border-radius: 5px;
+  /* margin-left: 4rem; */
+  /* height: auto; */
+  flex-direction: column;
+  overflow-y: auto;
+
+  /* justify-content: space-between; */
+}
+
+.leave_holiday_section th,
+tr,
+td,
+table {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.leave_holiday_section .css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+  box-shadow: none !important;
+}
+
+.occassional_holiday_section {
+  border: 1px solid #E5E6EB;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.regular_holiday_heading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.regular_holiday_section {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #E5E6EB;
+  border-radius: 5px;
+  padding: 5px;
+  width: 49%;
+  height: max-content;
+}
+
+.leave_management_section {
+  border: 1px solid #E5E6EB;
+  border-radius: 5px;
+  width: 49%;
+}
+
+.leave_holiday_row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub_heading {
+  color: #8E8E8E;
+}
+
+.leave_holidays_table_header {
+  background-color: #F1F2F6;
+  border-radius: 5px;
+}
+
+.leave_management_header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.leave_holiday_buttons {
+  background: #F1F2F6 !important;
+  color: #2E3591 !important;
+  text-transform: capitalize !important;
+  padding:5px !important;
+  box-shadow: none !important;
+}

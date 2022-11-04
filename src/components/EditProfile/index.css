@@ -1,0 +1,73 @@
+.input_field_row {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+.input_fields {
+  display: flex;
+  flex-direction: column;
+}
+.input_fields input {
+  /* padding: 5px; */
+  width: 275px;
+}
+.input_field_label {
+  margin-bottom: 5px !important;
+  margin-top: 20px !important;
+}
+.edit_profile_section {
+  margin-top: 1.5rem !important;
+  display: flex;
+  background: #fff;
+  width: 100%;
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 5px;
+  overflow: auto;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 85%;
+  padding: 0.4rem;
+
+  /* margin-left: 1.9rem;
+  margin-right: 1.2rem; */
+}
+.edit_page_save_button {
+  margin-top: 20px !important;
+  background-color: #2e3591 !important;
+  width: 200px;
+  text-transform: capitalize !important;
+  font-size: 17px !important;
+  padding: 7px !important;
+}
+
+/* .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  border: 1px solid !important;
+} */
+
+fieldset {
+  display: none;
+}
+
+.css-hdw1oc {
+  display: none !important;
+}
+
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+  border: 1px solid #e5e5e5 !important;
+}
+/* .MuiInputBase-root MuiInputBase-colorPrimary {
+  border: 1px solid;
+} */
+
+.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select {
+  border: 1px solid #e5e5e5;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  height: 45px !important;
+}
+/* .MuiInputBase-colorPrimary MuiInputBase-adornedEnd {
+  border: 1px solid;
+} */

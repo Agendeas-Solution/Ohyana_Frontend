@@ -1,0 +1,6 @@
+.no_data_found_root{
+    background:transparent;
+    text-align:center;
+    display: flex;
+    flex-direction: column;
+}

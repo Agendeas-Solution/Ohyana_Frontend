@@ -1,0 +1,7 @@
+.client_profile_table_header tr th{
+    font-weight: 600;
+}
+.client_profile_edit_button{
+    border:1px solid #E5E5E5 !important;
+    text-transform: capitalize !important;
+}

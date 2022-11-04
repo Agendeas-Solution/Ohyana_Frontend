@@ -1,0 +1,95 @@
+.attendance_buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+}
+
+.inquiry_sales_statistics {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.inquiry_overview {
+    border: 1px solid #E5E5E5;
+    width: 70%;
+    border-radius: 5px;
+    padding: 5px;
+}
+.common_row{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.platform_data_detail{
+    width:65%;
+    display: flex;
+    justify-content: space-between;
+}
+.inquiry_from_name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.inquiry_row{
+    display: flex;
+    justify-content: space-between;
+}
+.inquiry_detail_box{
+    width: 40%;
+}
+.doughnut_chart_inquiry {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sales_statistics{
+    width: 29%;
+    background-color: #F1F2F6;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+.sales_statistics_data{
+    width: 45%;
+}
+.sales_statistics_heading{
+    font-weight: 500;
+    width: 100%;
+}
+.common_icon{
+    color:#2E3591;
+}
+.sales_parameter{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    border-bottom:1px solid #E5E5E5;
+}
+.team_overview{
+    border:1px solid #E5E5E5;
+    margin: 10px;
+    border-radius: 5px;
+    padding:5px;
+}
+.team_overview_heading{
+    display: flex;
+    justify-content: space-between;
+}
+.view_all_button{
+    color:#2E3591;
+}
+.team_overview_table_heading{
+    background:#F1F2F6;
+}
+.team_overview_table_heading tr th{
+    border-bottom:none;
+}
