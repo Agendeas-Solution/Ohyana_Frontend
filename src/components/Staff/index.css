@@ -79,7 +79,7 @@
   height: max-content;
   display: flex;
   flex-direction: column;
-  
+
 }
 
 .access_control .access_control_box:nth-of-type(odd) {
@@ -117,8 +117,8 @@
   display: flex;
   flex-direction: column;
   border-radius: 5px;
-  padding: 10px;
-  margin-left: 4px;
+  padding: 8px;
+  margin-left: 3px;
   /* width: fit-content; */
   height: max-content;
 }
@@ -130,7 +130,98 @@
 
 .range_days_data {
   display: flex;
-  /* flex-direction: row; */
   flex-wrap: wrap;
   background-color: #F1F2F6;
+  height: 45px;
+  margin:2px;
+  border-radius: 5px;
+}
+
+.target_section {
+  border: 1px solid #E5E5E5;
+  padding: 5px;
+  margin: 5px;
+}
+
+.week_data {
+  background-color: #ECE9FF;
+}
+
+.target_order_data {
+  background: #C0DEDD;
+}
+
+.target_achieved_data {
+  background: #E6DFF1;
+}
+
+.days_remain_data {
+  background-color: #F2EEE9;
+}
+
+.point_section {
+  border: 1px solid #E5E5E5;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+.point_left_section {
+  width: 40%;
+  background: #F1F2F6;
+  padding: 10px;
+}
+
+.point_right_section {
+  width: 60%;
+}
+
+.point_data_heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #C4C4C4;
+  margin: 5px;
+}
+
+.other_expenses_data {
+  background-color: #F2EEE9;
+  width: 16%;
+}
+
+.total_expenses_data {
+  background: #ECE9FF;
+  width: 22%;
+}
+
+.payment_done_data {
+  background: #FFEAD1;
+  width: 16%;
+}
+
+.food_data {
+  background-color: #C0DEDD;
+  width: 16%;
+}
+
+.travel_data {
+  background-color: #E6DFF1;
+  width: 16%;
+}
+
+.late_status_color {
+  color: #F1C40F !important;
+}
+
+.absent_status_color {
+  color: #F11F12 !important;
+}
+
+.leave_status_color {
+  color: #2E3591 !important;
+}
+
+.present_status_color {
+  color: #3498DB !important;
 }

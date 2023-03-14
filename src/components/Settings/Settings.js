@@ -12,7 +12,7 @@ const Settings = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Box className="product_list_section mt-4">
+      <Box className="main_section mt-4">
         <Box
           className="setting_cards-list"
           onClick={() => {
@@ -37,7 +37,7 @@ const Settings = () => {
             src={DepartmentIcon}
             alt="department_icon"
           />
-          <Typography variant="span">Team</Typography>
+          <Typography variant="span">Team Role</Typography>
         </Box>}
         {permissions?.viewProduct
           && <Box
@@ -75,14 +75,14 @@ const Settings = () => {
           <img
             className="department_icon"
             src={ProductIcon}
-            alt="ProductIcon"
+            alt="DepartmentIcon"
           />
           <Typography variant="span">Leave & Holiday</Typography>
         </Box>
         <Box
           className="setting_cards-list"
           onClick={() => {
-            navigate("/leaveholidaymanagement");
+            navigate("/poll");
           }}
         >
           <img

@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Box,
   Dialog,
@@ -53,14 +53,14 @@ const ClientStatusCloseDialog = (props) => {
     );
   }, []);
   const handleAddNotification = () => {
-    console.log("Add Notification",addNotificationDetail);
+    console.log("Add Notification", addNotificationDetail);
     //debugger;
     AddNotificationDetail(addNotificationDetail, (res) => {
       props.CloseDeleteRemainder();
       setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
     }, (err) => {
-    setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.error })
-    props.CloseDeleteRemainder();
+      setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.error })
+      props.CloseDeleteRemainder();
     })
   }
   return (
@@ -184,7 +184,7 @@ const ClientStatusCloseDialog = (props) => {
             variant="contained"
             onClick={handleAddNotification}
           >
-            Ok
+            Create
           </Button>
           <Button
             className="cancel-btn"

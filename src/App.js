@@ -48,6 +48,14 @@ import Support from "./components/Support/Support";
 import Complaint from "./components/Complaint/Complaint";
 import Orders from "./components/Orders/Orders";
 import DashboardEmployee from "./components/DashboardEmployee/DashboardEmployee";
+import Task from "./components/Task/Task";
+import TaskDetail from "./components/Task/TaskDetail";
+import OrderDetail from "./components/Orders/OrderDetail";
+import Poll from "./components/Settings/Poll";
+import Dealer from "./components/Dealer/Dealer";
+import EditCompanyProfile from "./components/CompanyProfile/EditCompanyProfile";
+import AddProduct from "./components/Settings/AddProduct";
+import JobRolesList from "./components/Settings/JobRolesList";
 const socket = io("http://192.168.1.65:8008");
 const App = () => {
   const { successSnackbar, errorSnackbar, notificationSnackbar } = useContext(ContextSnackbar)?.state;
@@ -100,7 +108,7 @@ const App = () => {
                   <Route path="/profile" element={<UserProfile />}></Route>
                   <Route path="/editprofile" element={<EditProfile />}></Route>
                   <Route path="/dashboard" element={<Dashboard />}></Route>
-                  {/* <Route path="/dashboard" element={<DashboardEmployee />}></Route> */}
+                  <Route path="/dashboardemployee" element={<DashboardEmployee />}></Route>
                   <Route
                     path="/notification"
                     element={<Notification />}
@@ -126,25 +134,37 @@ const App = () => {
                     path="/addstaffmember"
                     element={<AddStaffMember />}
                   ></Route>}
+                  <Route path="/task" element={<Task />}></Route>
+                  <Route path="/dealer" element={<Dealer />}></Route>
+                  <Route path="/taskdetail/:id" element={<TaskDetail />}></Route>
                   <Route path="/calendar" element={<Calendar />}></Route>
-                  <Route path="/statistics" element={<Statistics />}></Route>
+                  <Route path="/report" element={<Statistics />}></Route>
                   <Route path="/support" element={<Support />}></Route>
-                  <Route path="/complaint" element={<Complaint />}></Route>
+                  <Route path="/complaint/:id" element={<Complaint />}></Route>
                   <Route path="/premium" element={<Premium />}></Route>
                   <Route path="/orders" element={<Orders />}></Route>
+                  <Route path="/poll" element={<Poll />}></Route>
+                  <Route path="/orderdetail/:id" element={<OrderDetail />}></Route>
                   <Route path="/leaveholidaymanagement" element={<HolidayAndLeaveManagement />}></Route>
                   <Route path='/companyprofile' element={<CompanyProfile />}></Route>
+                  <Route path="/editcompanyprofile" element={<EditCompanyProfile />}></Route>
                   {permissions?.settingMenu && <Route path="/settings" element={<Settings />}></Route>}
                   {permissions?.viewDepartment && <Route
                     path="/departmentlist"
                     element={<DepartmentList />}
                   ></Route>}
                   {permissions?.viewDepartment && <Route
-                    path="/department/:id"
+                    path="/jobrolelist/:id"
+                    element={<JobRolesList />}
+                  ></Route>}
+                  {permissions?.viewDepartment && <Route
+                    path="/jobroleaccess/:id"
                     element={<Department />}
                   ></Route>}
                   {permissions?.viewProduct && <Route path="/productlist" element={<ProductList />}></Route>}
                 </Route>
+                <Route path="/addproduct" element={<AddProduct />}></Route>
+                <Route path="/editproduct/:id" element={<AddProduct />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/signup" element={<SignUp />}></Route>
                 <Route path="/register" element={<Register />}></Route>

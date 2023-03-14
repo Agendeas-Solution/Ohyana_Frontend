@@ -8,7 +8,6 @@ import DeleteJobRoleDialog from "./DeleteJobRoleDialog";
 import DeleteDepartmentDialog from "./DeleteDepartmentDialog";
 import AddEditDepartmentDialog from "./AddEditDepartmentDialog";
 import { GetAdminRole } from "../../services/apiservices/adminprofile";
-import SuccessSnackbar from "../SuccessSnackbar/SuccessSnackbar";
 import EditJobRoleDialog from "./EditJobRoleDialog";
 import { UpdatePermission, getUserPermissions } from '../../services/apiservices/adminprofile';
 import { Context as ContextSnackbar } from "../../context/pageContext";
@@ -30,7 +29,8 @@ const Department = () => {
     status: false,
     departmentId: null,
     name: "",
-    description: "", roleId: null
+    description: "", 
+    roleId: null
   })
   const [addEditDepartmentDialogControl, setAddEditDepartmentDialogControl] =
     useState({
@@ -162,7 +162,7 @@ const Department = () => {
 
   return (
     <>
-      <Box className="Sales_section mt-3">
+      <Box className="main_section mt-3">
         <Box className="sales_header_section">
           <Typography variant="h5">{jobRoleList.name}</Typography>
           <Box>
@@ -181,71 +181,6 @@ const Department = () => {
           </Box>
         </Box>
         <Divider sx={{ width: "95%", margin: "0 auto" }} />
-        {/* <div className="bg-body p-4">
-          <Box className="job_role_title mb-3">
-            <Typography variant="span" className="ms-2">
-              Job Roles
-            </Typography>
-            {permissions?.editDepartment && <Button
-              onClick={() => {
-                setJobRoleDialogControl(true);
-              }}
-              variant="contained"
-            >
-              + Add Job Role
-            </Button>}
-          </Box>
-          {jobRoleList.roles.length > 0 &&
-            jobRoleList?.roles.map((data, index) => {
-              return (
-                <Box className="appointment_notification">
-                  <Grid
-                    container
-                    spacing={2}
-                    className="align-items-center d-flex justify-content-center"
-                  >
-                    <Grid item xs={2}>
-                      <Typography variant="span">{index + 1}</Typography>
-                    </Grid>
-                    <Grid item xs={2}>
-                      <Typography variant="span">{data.name}</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="span">{data.description}</Typography>
-                    </Grid>
-                    <Grid item spacing={2}>
-                      <Button variant="contained" className="attendance_button">View</Button>
-                      {permissions?.editDepartment && <EditRoundedIcon
-                        onClick={() => {
-                          setEditJobRoleDialogControl({
-                            ...editJobRoleDialogControl, status: true,
-                            departmentId: jobRoleList.departmentId,
-                            name: data.name,
-                            description: data.description, roleId: data.id
-                          })
-                        }}
-                        className="edit_icon_profile" />}
-                      <Button className="btn-outlined">Edit</Button>
-                      <Button
-                        className="btn-outlined"
-                        onClick={() => {
-                          setDeleteJobRoleDialogControl(true);
-                        }}
-                      >
-                        Delete
-                      </Button>
-                      {permissions?.editDepartment && <DeleteRoundedIcon
-                        onClick={() => {
-                          setDeleteJobRoleDialogControl({ ...deleteJobRoleDialogControl, status: true, id: data.id });
-                        }}
-                        className="edit_icon_profile"
-                      />}
-                    </Grid>
-                  </Grid>
-                </Box>
-              );
-            })}
-        </div> */}
         <Box className="bg-body p-4">
           <Box className="post_detail">
             <Box className="post_name">
@@ -550,7 +485,6 @@ const Department = () => {
                   </Box>}
                 </Box>
               }
-
             </Box>
             <Button variant="contained" onClick={handleUserPermissions}>Save</Button>
           </div>

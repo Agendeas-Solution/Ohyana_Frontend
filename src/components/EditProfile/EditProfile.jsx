@@ -7,9 +7,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import ProfileImg from "../../assets/img/profile_logo.png";
 import { useNavigate } from "react-router-dom";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
@@ -210,6 +208,7 @@ const EditProfile = () => {
               <MenuItem value="Male">Male</MenuItem>
               <MenuItem value="Female">Female</MenuItem>
             </Select>
+            
           </Box>
         </Box>
         <Box className="input_field_row">

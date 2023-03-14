@@ -168,7 +168,7 @@ const ClientProfile = () => {
 
   return (
     <>
-      <Box className="bg-body p-4 mt-4">
+      <Box className="main_section p-4 mt-4">
         <Box>
           <Box
             sx={{
@@ -360,7 +360,7 @@ const ClientProfile = () => {
               <ProfileTable clientProfileDetail={clientProfileDetail} />
             </TabPanel>
             <TabPanel value="5">
-                <OrderList/>
+              <OrderList />
             </TabPanel>
           </TabContext>
           <RemainderDialog

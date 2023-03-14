@@ -24,26 +24,33 @@ import { useNavigate } from "react-router-dom";
 import CallIcon from "../../assets/img/call.svg"
 import MailIcon from "../../assets/img/mail.svg";
 import { Context as AuthContext } from "../../context/authContext/authContext";
-import { GetAdminStaffDetailList } from "../../services/apiservices/staffDetail";
+import { GetAdminStaffDetailList, GetUsersAttendanceList } from "../../services/apiservices/staffDetail";
 import {
   GetAdminDepartmentList,
   GetAdminRole,
 } from "../../services/apiservices/adminprofile";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import SuccessSnackbar from "../SuccessSnackbar/SuccessSnackbar";
 import Loader from "../Loader/Loader";
+import moment from 'moment';
 const Staff = () => {
   let navigate = useNavigate();
   const { flagLoader, permissions } = useContext(AuthContext).state;
-
   const { setFlagLoader } = useContext(AuthContext);
   const [value, setValue] = useState("1");
   const [loader, setLoader] = useState(false);
+  const d = new Date();
+  const [datePicker, setDatePicker] = useState({ $M: d.getMonth() + 1, $y: d.getFullYear() });
   const [staffDetailList, setStaffDetailList] = useState([]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   const [departmentList, setDepartmentList] = useState([]);
   const [jobRoleList, setJobRoleList] = useState([]);
+  const [usersAttendanceList, setUserAttendanceList] = useState([]);
   const [departmentAndJobRoles, setDepartmentAndJobRoles] = useState({
     departmentId: null,
     roleId: null,
@@ -88,11 +95,19 @@ const Staff = () => {
       }
     );
   }, [departmentAndJobRoles?.departmentId]);
+  useEffect(() => {
+    console.log("datePicker", datePicker.$M);
+    value === "2" && GetUsersAttendanceList({ month: datePicker.$M, year: datePicker.$y }, (res) => {
+      setUserAttendanceList(res?.data);
+      debugger
+    }, (err) => {
+      debugger
+    })
+  }, [value, datePicker])
   return (
     <>
       {loader && <Loader />}
-
-      <Box className="staff_section">
+      <Box className="client_section">
         <Box sx={{ width: "100%", typography: "body1" }}>
           <TabContext value={value}>
             <Box className="align-items-center d-flex notification_tabs_root">
@@ -104,41 +119,56 @@ const Staff = () => {
               >
                 <Tab label="Detail" value="1" />
                 <Tab label="Attendance" value="2" />
-
               </TabList>
               <div className="d-flex justify-content-end w-50">
-                <Autocomplete
-                  className="align-items-center d-flex justify-content-center"
-                  options={jobRoleList}
-                  onChange={(e, value) => {
-                    console.log(value);
-                    setDepartmentAndJobRoles({
-                      ...departmentAndJobRoles,
-                      roleId: value?.id,
-                    });
-                  }}
-                  getOptionLabel={(option) => option.name}
-                  sx={{ width: 300 }}
-                  renderInput={(params) => (
-                    <TextField {...params} placeholder="Select Job Role" />
-                  )}
-                />
-                <Autocomplete
-                  className="align-items-center d-flex justify-content-center mx-2"
-                  options={departmentList}
-                  onChange={(e, value) => {
-                    console.log(value);
-                    setDepartmentAndJobRoles({
-                      ...departmentAndJobRoles,
-                      departmentId: value?.id,
-                    });
-                  }}
-                  sx={{ width: 300 }}
-                  getOptionLabel={(option) => option.name}
-                  renderInput={(params) => (
-                    <TextField {...params} placeholder="Select Department" />
-                  )}
-                />
+                {value === "2" &&
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      views={['year', 'month']}
+                      disableFuture
+                      value={datePicker}
+                      onChange={(newValue) => {
+                        setDatePicker(newValue);
+
+                      }}
+                      renderInput={(params) => <TextField placeholder="Year and Month" {...params} helperText={null} />}
+                    />
+                  </LocalizationProvider>}
+                {value === "1" ?
+                  <>
+                    <Autocomplete
+                      className="align-items-center d-flex justify-content-center"
+                      options={jobRoleList}
+                      onChange={(e, value) => {
+                        console.log(value);
+                        setDepartmentAndJobRoles({
+                          ...departmentAndJobRoles,
+                          roleId: value?.id,
+                        });
+                      }}
+                      getOptionLabel={(option) => option.name}
+                      sx={{ width: 300 }}
+                      renderInput={(params) => (
+                        <TextField {...params} placeholder="Select Job Role" />
+                      )}
+                    />
+                    <Autocomplete
+                      className="align-items-center d-flex justify-content-center mx-2"
+                      options={departmentList}
+                      onChange={(e, value) => {
+                        console.log(value);
+                        setDepartmentAndJobRoles({
+                          ...departmentAndJobRoles,
+                          departmentId: value?.id,
+                        });
+                      }}
+                      sx={{ width: 300 }}
+                      getOptionLabel={(option) => option.name}
+                      renderInput={(params) => (
+                        <TextField {...params} placeholder="Select Department" />
+                      )}
+                    />
+                  </> : null}
                 <Box>
                   {value === "1" ? (
                     <>
@@ -173,13 +203,13 @@ const Staff = () => {
                   <TableBody>
                     {staffDetailList.map((row, index) => (
                       <TableRow
-                        key={index + 1}
+                        key={row.id}
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
                       >
                         <TableCell scope="row">
-                          {index + 1}
+                          {row.id}
                         </TableCell>
                         <TableCell align="right">{row.name}</TableCell>
                         <TableCell align="right">{row.role.name}</TableCell>
@@ -196,8 +226,8 @@ const Staff = () => {
                           >
                             View
                           </Button>
-                          <Button className="common_button"><img src={CallIcon} /></Button>
-                          <Button className="common_button"><img src={MailIcon} /></Button>
+                          <a href={`tel:${row.contact_number}`} > <Button className="common_button"><img src={CallIcon} /></Button></a>
+                          <a href={`mailto:${row.email}`} > <Button className="common_button"><img src={MailIcon} /></Button></a>
                         </TableCell>
                       </TableRow>))}
                   </TableBody>
@@ -207,58 +237,32 @@ const Staff = () => {
             </TabPanel>
             <TabPanel value="2">
               <TableContainer sx={{ height: "70vh" }} component={Paper}>
-                {staffDetailList.length > 0 ? <Table stickyHeader sx={{ minWidth: 650 }}>
+                {usersAttendanceList.length > 0 ? <Table stickyHeader sx={{ minWidth: 650 }}>
                   <TableHead>
                     <TableRow>
-                      <TableCell>Sr No.</TableCell>
                       <TableCell align="right">Name</TableCell>
-                      <TableCell align="right">Department</TableCell>
-                      <TableCell align="right">Check In</TableCell>
-                      <TableCell align="right">Check Out</TableCell>
-                      <TableCell align="right">Break Time</TableCell>
-                      <TableCell align="right">Total Hour</TableCell>
-                      <TableCell></TableCell>
+                      {usersAttendanceList[0].attendances.map((days) => {
+
+                        return <TableCell align="right">{moment(days?.date).format("D")}</TableCell>
+                      })}
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {staffDetailList.map((row, index) => (
-                      <TableRow
-                        key={index + 1}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell scope="row">
-                          {index + 1}
-                        </TableCell>
-                        <TableCell align="right">{row.name}</TableCell>
-                        <TableCell align="right">{row.role.name}</TableCell>
-                        <TableCell align="right">{row.email}</TableCell>
-                        <TableCell align="right">{row.name}</TableCell>
-                        <TableCell align="right">{row.role.name}</TableCell>
-                        <TableCell align="right">{row.email}</TableCell>
-                        <TableCell align="right">
-                          {row.contact_number}
-                        </TableCell>
-                        <TableCell align="right">
-                          <Button
-                            onClick={() => {
-                              navigate(`/staffprofile/${row.id}`);
-                            }}
-                            className="common_button"
-                          >
-                            View
-                          </Button>
-                          {/* <Button className="common_button"><img src={CallIcon} /></Button>
-                          <Button className="common_button"><img src={MailIcon} /></Button> */}
-                        </TableCell>
-                      </TableRow>))}
+                    {usersAttendanceList.map((nameData) => {
+                      return <TableRow sx={{
+                        "&:last-child td, &:last-child th": { border: 0 }
+                      }}>
+                        <TableCell align="right">{nameData?.name}</TableCell>
+                        {nameData?.attendances.map((status) => {
+                          return <TableCell className={status?.attendanceType === "LT" ? "late_status_color" : status?.attendanceType === "A" ? "absent_status_color" : status?.attendanceType === "L" ? "leave_status_color" : "present_status_color"} align="right" > {status?.attendanceType}</TableCell>
+                        })}
+                      </TableRow>
+                    })}
                   </TableBody>
                 </Table> : <p style={{ display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", width: "100%", height: "100%" }}>No Data Found</p>
                 }
               </TableContainer>
             </TabPanel>
-
           </TabContext>
         </Box>
         <Pagination className="mt-1" />

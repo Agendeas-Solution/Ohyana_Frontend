@@ -87,6 +87,7 @@ const AddRemainderDialog = (props) => {
                     value={addReminder.date}
                     onChange={(e) => {
                       setAddReminder({ ...addReminder, date: moment(e).format('YYYY-MM-DD') });
+                      debugger
                     }}
                     renderInput={(params) => <TextField className="w-100" {...params} />}
                   />

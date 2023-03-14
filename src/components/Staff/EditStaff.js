@@ -163,7 +163,6 @@ const EditStaff = () => {
       );
     } else {
       console.log(userDetail);
-      //
     }
   };
   return (
@@ -332,6 +331,64 @@ const EditStaff = () => {
               <MenuItem value="Female">Female</MenuItem>
             </Select>
           </Box>
+          <Box className="input_fields">
+            <Typography className="input_field_label" variant="span">
+              City<span className="required_star">*</span>
+            </Typography>
+            <TextField
+              autoComplete="off"
+              placeholder="Enter City"
+              onChange={(e) => {
+                setUserDetail({ ...userDetail, city: e.target.value });
+              }}
+              value={userDetail?.city}
+              variant="outlined"
+            />
+          </Box>
+        </Box>
+        <Box className="input_field_row">
+          {/* <Box className="input_fields">
+            <Typography className="input_field_label" variant="span">
+              Gender<span className="required_star">*</span>
+            </Typography>
+            <Select
+              value={userDetail?.gender}
+              onChange={(e) => {
+                setUserDetail({ ...userDetail, gender: e.target.value });
+              }}
+            >
+              <MenuItem value="Male">Male</MenuItem>
+              <MenuItem value="Female">Female</MenuItem>
+            </Select>
+          </Box> */}
+          <Box className="input_fields">
+            <Typography className="input_field_label" variant="span">
+              State<span className="required_star">*</span>
+            </Typography>
+            <TextField
+              autoComplete="off"
+              placeholder="Enter State"
+              onChange={(e) => {
+                setUserDetail({ ...userDetail, state: e.target.value });
+              }}
+              value={userDetail?.state}
+              variant="outlined"
+            />
+          </Box>
+          <Box className="input_fields">
+            <Typography className="input_field_label" variant="span">
+              PinCode<span className="required_star">*</span>
+            </Typography>
+            <TextField
+              autoComplete="off"
+              placeholder="Enter PinCode"
+              onChange={(e) => {
+                setUserDetail({ ...userDetail, pincode: e.target.value });
+              }}
+              value={userDetail.pincode}
+              variant="outlined"
+            />
+          </Box>
         </Box>
         <Box sx={{ justifyContent: "flex-start" }} className="input_field_row">
           <Button
@@ -345,7 +402,6 @@ const EditStaff = () => {
         <Dialog open={successDialog} onClose={() => setSuccessDialog(false)}>
           <Box className="successdialog">
             <Box className="drawdownsuccessellipse">
-              {/* <Box className="canceliconbackground"><CancelIcon /></Box> */}
               <Box>
                 <CheckCircleIcon />
               </Box>

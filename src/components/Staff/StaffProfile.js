@@ -22,6 +22,9 @@ import { useNavigate } from "react-router-dom";
 import Attendance from "./StaffAttendance";
 import StaffAttendance from "./StaffAttendance";
 import PJPDetail from './PJPDetail';
+import StaffTarget from "./StaffTarget";
+import StaffPoint from "./StaffPoint";
+import StaffExpenses from "./StaffExpenses";
 const StaffProfile = () => {
   const [value, setValue] = useState("1");
   const { flagLoader, permissions } = useContext(AuthContext).state;
@@ -72,7 +75,7 @@ const StaffProfile = () => {
   }, [])
   return (
     <>
-      <Box className="bg-body staff_profile_section p-4 mt-4">
+      <Box className="main_section">
         <Box className="profile_img">
           <Box
             sx={{
@@ -99,7 +102,6 @@ const StaffProfile = () => {
               </Box>
             </Box>
           </Box>
-
           <Box>
             {/* <img
               src={ChangeRole}
@@ -125,6 +127,9 @@ const StaffProfile = () => {
                 <Tab label="PJP" value="3" />
                 <Tab label="Profile" value="1" />
                 <Tab label="Attendance" value="2" />
+                <Tab label="Target" value="4" />
+                <Tab label="Expenses" value="5" />
+                <Tab label="Points" value="6" />
               </TabList>
             </Box>
             <TabPanel value="1">
@@ -135,6 +140,15 @@ const StaffProfile = () => {
             </TabPanel>
             <TabPanel value="3">
               <PJPDetail />
+            </TabPanel>
+            <TabPanel value="4">
+              <StaffTarget />
+            </TabPanel>
+            <TabPanel value="5">
+              <StaffExpenses />
+            </TabPanel>
+            <TabPanel value="6">
+              <StaffPoint />
             </TabPanel>
           </TabContext>
           <ChangeRoleDialog changeRoleDialogControl={changeRoleDialogControl} />

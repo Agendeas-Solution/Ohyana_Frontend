@@ -1,7 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DonutChart from 'react-donut-chart';
-
-
 import { Tabs, Tab, Box, Typography, Button } from "@mui/material";
 import "./index.css";
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
@@ -13,7 +11,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+import { AttendanceStatus, GetInquiryAnalytics } from "../../services/apiservices/staffDetail";
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
@@ -23,11 +21,17 @@ const rows = [
 ];
 
 const Dashboard = () => {
-  const [value, setValue] = React.useState("All");
+  const [value, setValue] = useState("All");
+  const [inquiryData, setInquiryData] = useState();
+  useEffect(() => {
+    GetInquiryAnalytics({}, (res) => {
+      setInquiryData(res.data.data);
+      debugger;
+    }, (err) => {
+      debugger;
+    })
+  }, [])
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
   const data = {
     labels: ["I", "II", "III", "IIII"],
     datasets: [
@@ -39,6 +43,13 @@ const Dashboard = () => {
       }
     ]
   };
+  const handleCheckIn = (type) => {
+    AttendanceStatus(type, (res) => {
+      debugger;
+    }, (err) => {
+
+    })
+  }
 
   return (
     <>
@@ -48,16 +59,16 @@ const Dashboard = () => {
             <Typography variant="span">Today’s Present</Typography>
           </Box>
           <Box>
-            <Button className="common_button">
+            <Button onClick={() => handleCheckIn("checkIn")} className="common_button">
               Check In
             </Button>
-            <Button className="common_button">
+            <Button onClick={() => handleCheckIn("breakIn")} className="common_button">
               Break In
             </Button>
-            <Button className="common_button">
+            <Button onClick={() => handleCheckIn("breakOut")} className="common_button">
               Break Out
             </Button>
-            <Button className="common_button">
+            <Button onClick={() => handleCheckIn("checkOut")} className="common_button">
               Check Out
             </Button>
           </Box>
@@ -77,8 +88,34 @@ const Dashboard = () => {
                     </Typography>
                   </Box>
                   <Box className="inquiry_row">
+                    <Typography variant="span">{inquiryData?.inquiry?.crtMonIndiaMart}</Typography>
+                    <Typography variant="span">{inquiryData?.inquiry?.percentageIndiaMart}</Typography>
+                  </Box>
+                  <Typography variant="span">Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}</Typography>
+                </Box>
+                <Box className="inquiry_detail_box">
+                  <Box className="inquiry_from_name">
+                    <Box sx={{ backgroundColor: "#FFAB00", height: "10px", width: "10px", marginRight: "10px" }}></Box>
+                    <Typography variant="span">
+                      Website
+                    </Typography>
+                  </Box>
+                  <Box className="inquiry_row">
+                    <Typography variant="span">{inquiryData?.inquiry?.crtMonWeb}</Typography>
                     <Typography variant="span">100</Typography>
-                    <Typography variant="span">100</Typography>
+                  </Box>
+                  <Typography variant="span">Last Month :{inquiryData?.inquiry?.lstMonWeb} </Typography>
+                </Box>
+                <Box className="inquiry_detail_box">
+                  <Box className="inquiry_from_name">
+                    <Box sx={{ backgroundColor: "#FFAB00", height: "10px", width: "10px", marginRight: "10px" }}></Box>
+                    <Typography variant="span">
+                      From PJP
+                    </Typography>
+                  </Box>
+                  <Box className="inquiry_row">
+                    <Typography variant="span">{inquiryData?.inquiry?.lstMonWeb}</Typography>
+                    <Typography variant="span">{inquiryData?.inquiry?.lstMonWeb}</Typography>
                   </Box>
                   <Typography variant="span">Last Month : 85</Typography>
                 </Box>
@@ -86,40 +123,14 @@ const Dashboard = () => {
                   <Box className="inquiry_from_name">
                     <Box sx={{ backgroundColor: "#FFAB00", height: "10px", width: "10px", marginRight: "10px" }}></Box>
                     <Typography variant="span">
-                      IndiaMart
+                      Other
                     </Typography>
                   </Box>
                   <Box className="inquiry_row">
-                    <Typography variant="span">100</Typography>
-                    <Typography variant="span">100</Typography>
+                    <Typography variant="span">{inquiryData?.inquiry?.crtMonOther}</Typography>
+                    <Typography variant="span">{inquiryData?.inquiry?.lstMonWeb}</Typography>
                   </Box>
-                  <Typography variant="span">Last Month : 85</Typography>
-                </Box>
-                <Box className="inquiry_detail_box">
-                  <Box className="inquiry_from_name">
-                    <Box sx={{ backgroundColor: "#FFAB00", height: "10px", width: "10px", marginRight: "10px" }}></Box>
-                    <Typography variant="span">
-                      IndiaMart
-                    </Typography>
-                  </Box>
-                  <Box className="inquiry_row">
-                    <Typography variant="span">100</Typography>
-                    <Typography variant="span">100</Typography>
-                  </Box>
-                  <Typography variant="span">Last Month : 85</Typography>
-                </Box>
-                <Box className="inquiry_detail_box">
-                  <Box className="inquiry_from_name">
-                    <Box sx={{ backgroundColor: "#FFAB00", height: "10px", width: "10px", marginRight: "10px" }}></Box>
-                    <Typography variant="span">
-                      IndiaMart
-                    </Typography>
-                  </Box>
-                  <Box className="inquiry_row">
-                    <Typography variant="span">100</Typography>
-                    <Typography variant="span">100</Typography>
-                  </Box>
-                  <Typography variant="span">Last Month : 85</Typography>
+                  <Typography variant="span">Last Month : {inquiryData?.inquiry?.lstMonOther}</Typography>
                 </Box></Box>
               <Box className="doughnut_chart_inquiry">
                 <DonutChart
@@ -158,41 +169,41 @@ const Dashboard = () => {
             <Box className="sales_statistics_data">
               <Typography variant="span">Total</Typography>
               <Box className="sales_parameter">
-                <Typography variant="span">280</Typography>
+                <Typography variant="span">{inquiryData?.sales?.crtLead}</Typography>
                 <Typography variant="span"><TrendingUpRoundedIcon className="common_icon" /> 5%</Typography>
               </Box>
             </Box>
             <Box className="sales_statistics_data">
-              <Typography>Total</Typography>
+              <Typography>Getting lead </Typography>
               <Box className="sales_parameter">
-                <Typography >280</Typography>
+                <Typography >{inquiryData?.sales?.crtLead}</Typography>
                 <Typography ><TrendingDownRoundedIcon className="common_icon" /> 5%</Typography>
               </Box>
             </Box>
             <Box className="sales_statistics_data">
-              <Typography>Total</Typography>
+              <Typography>Get Order </Typography>
               <Box className="sales_parameter">
-                <Typography >280</Typography>
+                <Typography >{inquiryData?.sales?.crtOrders}</Typography>
                 <Typography ><TrendingDownRoundedIcon className="common_icon" /> 5%</Typography>
               </Box>
             </Box>
             <Box className="sales_statistics_data">
-              <Typography>Total</Typography>
+              <Typography>Pending</Typography>
               <Box className="sales_parameter">
-                <Typography >280</Typography>
+                <Typography >{inquiryData?.sales?.crtPending}</Typography>
                 <Typography ><TrendingDownRoundedIcon className="common_icon" /> 5%</Typography>
               </Box>
             </Box>
             <Box className="sales_statistics_data">
-              <Typography>Total</Typography>
+              <Typography>Irrelevant</Typography>
               <Box className="sales_parameter">
-                <Typography >280</Typography>
+                <Typography >{inquiryData?.sales?.crtIrrelevant}</Typography>
                 <Typography ><TrendingDownRoundedIcon className="common_icon" /> 5%</Typography>
               </Box>
             </Box> <Box className="sales_statistics_data">
-              <Typography>Total</Typography>
+              <Typography>No Response</Typography>
               <Box className="sales_parameter">
-                <Typography >280</Typography>
+                <Typography >{inquiryData?.sales?.crtNoResponse}</Typography>
                 <Typography ><TrendingDownRoundedIcon className="common_icon" /> 5%</Typography>
               </Box>
             </Box>
@@ -208,34 +219,36 @@ const Dashboard = () => {
               <TableHead className="team_overview_table_heading">
                 <TableRow>
                   <TableCell>Team Member</TableCell>
-                  <TableCell align="right">Name</TableCell>
+                  <TableCell align="right">Role</TableCell>
+                  <TableCell align="right">Attendance</TableCell>
                   <TableCell align="right">Points</TableCell>
                   <TableCell align="right">Performance</TableCell>
                   <TableCell align="right">Location</TableCell>
                   <TableCell align="right"></TableCell>
+                  <TableCell align="right"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
-                  <TableRow
+                {inquiryData?.teams.map((data) => {
+                  return <TableRow
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell>
-                      row.name
+                    <TableCell align="right">{data?.name}</TableCell>
+                    <TableCell align="right"> {data?.role?.name}</TableCell>
+                    <TableCell align="right">{data.attendances[0]?.attendanceType}</TableCell>
+                    <TableCell align="right">{data.points}</TableCell>
+                    <TableCell align="right"></TableCell>
+                    <TableCell align="right"> {data?.location}</TableCell>
+                    <TableCell align="right">
+                      <Button className="common_button">View</Button>
                     </TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"><Button className="common_button">View</Button></TableCell>
                   </TableRow>
-                ))}
+                })
+                }
               </TableBody>
             </Table>
           </TableContainer>
-
         </Box>
-
         <Box className="team_overview">
           <Box className="team_overview_heading">
             <Typography variant="span">Order Overview</Typography>
@@ -256,7 +269,7 @@ const Dashboard = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {inquiryData?.orderData.map((row) => (
                   <TableRow
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >

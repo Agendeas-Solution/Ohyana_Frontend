@@ -19,6 +19,12 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import AttendanceData from "./AttendanceData";
+import PresentData from "./PresentData";
+import LeaveData from "./LeaveData";
+import HolidayData from "./HolidayData";
+import { GetHolidayList, AttendanceStatus } from "../../services/apiservices/staffDetail";
+import { GetAdminAttendanceList, GetAdminLeaveList } from '../../services/apiservices/adminprofile';
+import ApplyLeaveDialog from "./ApplyLeaveDialog";
 const UserProfile = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState("Profile");
@@ -30,7 +36,6 @@ const UserProfile = () => {
     endDate: '',
   });
   const [attendanceTab, setAttendanceTab] = useState("1");
-
   const handleTabChange = (event, newValue) => {
     setAttendanceTab(newValue);
   };
@@ -38,7 +43,11 @@ const UserProfile = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { flagLoader } = useContext(AuthContext).state;
   const { setFlagLoader } = useContext(AuthContext);
-
+  const [activeTab, setActiveTab] = useState("present");
+  const [staffAttendanceList, setStaffAttendanceList] = useState([])
+  const [leaveList, setLeaveList] = useState([]);
+  const [holidayList, setHolidayList] = useState([]);
+  const [leaveDialogControl, setLeaveDialogControl] = useState(false)
   useEffect(() => {
     GetAdminProfile(
       {},
@@ -52,8 +61,31 @@ const UserProfile = () => {
       }
     );
   }, []);
-  localStorage.setItem("userEmail", userDetail?.member?.email)
+  localStorage.setItem("userEmail", userDetail?.email)
 
+  useEffect(() => {
+    activeTab === "present" && GetAdminAttendanceList(userDetail?.id, (res) => {
+      setStaffAttendanceList(res?.data);
+    }, (err) => {
+
+    })
+    activeTab === "leave" && GetAdminLeaveList(userDetail?.id, (res) => {
+      debugger;
+      setLeaveList(res?.data)
+    }, (err) => {
+      debugger
+    })
+  }, [value, activeTab])
+  const handleCheckIn = (type) => {
+    AttendanceStatus(type, (res) => {
+      debugger;
+    }, (err) => {
+
+    })
+  }
+  const handleCloseDialog = () => {
+    setLeaveDialogControl(false);
+  }
   return (
     <>
       <div className="w-100 mt-4">
@@ -73,27 +105,26 @@ const UserProfile = () => {
                     variant="span"
                     sx={{ fontWeight: "bold", fontSize: "18px" }}
                   >
-                    {userDetail?.member?.name}
+                    {userDetail?.name}
                   </Typography>
                   <Typography sx={{ marginTop: "10px" }} variant="span">
-                    {userDetail?.member?.role?.name}
+                    {userDetail?.role?.name}
                   </Typography>
                 </Box>
               </Box>
             </Box>
             <Box className="row">
-              {attendanceTab === "1" && <Box>
-                <Button className="attendance_button m-1" variant="contained">Check in</Button>
-                <Button className="attendance_button m-1" variant="contained">Break in</Button>
-                <Button className="attendance_button m-1" variant="contained">Break out</Button>
-                <Button className="attendance_button m-1" variant="contained">Check out</Button>
-                <Button className="attendance_button"><EditRoundedIcon
-                    onClick={() => {
-                      console.log("Printing Edit icon");
-                      navigate("/editprofile");
-                    }}
-                  /></Button>
-              </Box>}
+
+              {value === "Attendance" && <> <Button onClick={() => handleCheckIn("checkIn")} className="attendance_button m-1" variant="contained">Check in</Button>
+                <Button onClick={() => handleCheckIn("breakIn")} className="attendance_button m-1" vsariant="contained">Break in</Button>
+                <Button onClick={() => handleCheckIn("breakOut")} className="attendance_button m-1" variant="contained">Break out</Button>
+                <Button onClick={() => handleCheckIn("checkOut")} className="attendance_button m-1" variant="contained">Check out</Button></>}
+              <Button className="attendance_button"><EditRoundedIcon
+                onClick={() => {
+                  console.log("Printing Edit icon");
+                  navigate("/editprofile");
+                }}
+              /></Button>
 
             </Box>
           </Box>
@@ -119,7 +150,7 @@ const UserProfile = () => {
                     Contact No:
                   </Typography>
                   <Typography variant="span">
-                    {userDetail?.member?.contact_number}
+                    {userDetail?.contact_number}
                   </Typography>
                 </Box>
                 <Box className="userdetail_root">
@@ -127,7 +158,7 @@ const UserProfile = () => {
                     Email:
                   </Typography>
                   <Typography variant="span">
-                    {userDetail?.member?.email}
+                    {userDetail?.email}
                   </Typography>
                 </Box>
                 <Box className="userdetail_root">
@@ -138,7 +169,7 @@ const UserProfile = () => {
                     <TextField
                       className="password_field"
                       type={showPassword ? "text" : "password"}
-                      value={userDetail?.member?.password}
+                      value={userDetail?.password}
                       variant="standard"
                     />
                     {showPassword ? (
@@ -161,7 +192,7 @@ const UserProfile = () => {
                     Gender:
                   </Typography>
                   <Typography variant="span">
-                    {userDetail?.member?.gender}
+                    {userDetail?.gender}
                   </Typography>
                 </Box>
                 <Box className="userdetail_root">
@@ -169,28 +200,39 @@ const UserProfile = () => {
                     Birthday:
                   </Typography>
                   <Typography variant="span">
-
-                    {moment(userDetail?.member?.birthDay).format('DD-MM-YYYY')}
+                    {moment(userDetail?.birthDay).format('DD-MM-YYYY')}
                   </Typography>
                 </Box>
               </Box>
             </TabPanel>
             <TabPanel value="Attendance">
-              <Box className="attendance_data_row col-md-12">
+              <Box className="attendance_data_row col-md-12 mb-1">
                 <Box className="total_days_data days_data col-md-2">
                   <Typography variant="span">Total Days</Typography>
-                  <Typography variant="span">24</Typography>
+                  <Typography variant="span">{staffAttendanceList?.totalDays}</Typography>
                 </Box>
                 <Box className="Absent_days_data days_data col-md-2">
                   <Typography variant="span">Absent Days</Typography>
-                  <Typography variant="span">24</Typography>
+                  <Typography variant="span">{staffAttendanceList?.absentDays}</Typography>
                 </Box>
                 <Box className="Late_days_data days_data col-md-2">
                   <Typography variant="span">Late Days</Typography>
-                  <Typography variant="span">24</Typography>
+                  <Typography variant="span">{staffAttendanceList?.lateDays}</Typography>
                 </Box>
-                <Box className="range_days_data days_data col-md-6">
-                  <Typography variant="span">Select Date Range</Typography>
+                <Box className="col-md-4">
+                  <Box sx={{ background: "#F1F2F6", borderRadius: "5px" }}>
+                    <Button className={activeTab === "present" ? "active_button" : "common_button"} onClick={() => {
+                      setActiveTab("present")
+                    }} variant="contained">
+                      Present
+                    </Button>
+                    <Button className={activeTab === "leave" ? "active_button" : "common_button"}
+                      onClick={() => {
+                        setActiveTab("leave")
+                      }} variant="contained">Leave</Button>
+
+                  </Box>
+                  {/* <Typography variant="span">Select Date Range</Typography>
                   <Box>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <DatePicker
@@ -212,16 +254,33 @@ const UserProfile = () => {
                         // }}
                         renderInput={(params) => <TextField className='w-50' {...params} />}
                       />
-                    </LocalizationProvider>
-                  </Box>
+                    </LocalizationProvider> */}
+                  {/* </Box> */}
                 </Box>
               </Box>
-              <AttendanceData />
+              {/* <AttendanceData /> */}
+              <Box className="tab_row">
+                {/* <TabList
+                    className="client_attendance_tab mb-2"
+                    onChange={handleTabChange}
+                  >
+                    <Tab label="Present" value="1" />
+                    <Tab label="Leave" value="2" />
+                    <Tab label="Holiday" value="3" />
+                  </TabList> */}
 
+                {activeTab === "leave" && <Box>
+                  <Button onClick={() => setLeaveDialogControl(true)} className="attendance_button m-2" variant="contained">Apply For Leave</Button>
+                </Box>}
+              </Box>
+              {activeTab === "present" && <PresentData staffAttendanceList={staffAttendanceList} />}
+              {activeTab === "leave" && <LeaveData leaveList={leaveList} />}
+              {activeTab === "holiday" && <HolidayData holidayList={holidayList} />}
             </TabPanel>
           </TabContext>
+          <ApplyLeaveDialog leaveDialogControl={leaveDialogControl} handleCloseDialog={handleCloseDialog} />
         </Box>
-      </div>
+      </div >
     </>
   );
 };

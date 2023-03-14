@@ -73,7 +73,7 @@ const AddEditDepartmentDialog = (props) => {
           </div>
         </DialogContent >
         <DialogActions className="d-flex w-100 col-md-12">
-          <Button  variant="contained" onClick={handleAddDepartment}>
+          <Button className="ok-btn" variant="contained" onClick={handleAddDepartment}>
             Ok
           </Button>
           <Button className="cancel-btn" onClick={props.handleClose} autoFocus>

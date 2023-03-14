@@ -5,46 +5,19 @@ import TabList from "@mui/lab/TabList";
 import TableBody from '@mui/material/TableBody';
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import { useNavigate } from "react-router-dom";
-import { GetAdminProfile } from "../../services/apiservices/adminprofile";
-import moment from "moment";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import SuccessSnackbar from "../SuccessSnackbar/SuccessSnackbar";
-import { Context as AuthContext } from "../../context/authContext/authContext";
-import ErrorSnackbar from "../ErrorSnackbar/ErrorSnackbar";
-import TabPanel from "@mui/lab/TabPanel";
-import TabContext from "@mui/lab/TabContext";
+import { GetCompanyProfile } from "../../services/apiservices/companyprofile";
+import './index.css'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-// import AttendanceData from "./AttendanceData";
 const CompanyProfile = () => {
     const navigate = useNavigate();
-    const [value, setValue] = useState("Profile");
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-    const [dateRange, setDateRange] = useState({
-        startDate: '',
-        endDate: '',
-    });
-    const [attendanceTab, setAttendanceTab] = useState("1");
-
-    const handleTabChange = (event, newValue) => {
-        setAttendanceTab(newValue);
-    };
-    const [userDetail, setUserDetail] = useState({});
+    const [companyDetail, setCompanyDetail] = useState({});
     const [showPassword, setShowPassword] = useState(false);
-    const { flagLoader } = useContext(AuthContext).state;
-    const { setFlagLoader } = useContext(AuthContext);
-
     useEffect(() => {
-        GetAdminProfile(
+        GetCompanyProfile(
             {},
             (res) => {
                 if (res.status === 200) {
-                    setUserDetail(res.data);
+                    setCompanyDetail(res.data);
                 }
             },
             (err) => {
@@ -52,8 +25,7 @@ const CompanyProfile = () => {
             }
         );
     }, []);
-    localStorage.setItem("userEmail", userDetail?.member?.email)
-
+    // localStorage.setItem("userEmail", companyDetail?.member?.email)
     return (
         <>  <div className="w-100 mt-4">
             <Box className="profile_section">
@@ -72,10 +44,7 @@ const CompanyProfile = () => {
                                     variant="span"
                                     sx={{ fontWeight: "bold", fontSize: "18px" }}
                                 >
-                                    {userDetail?.member?.name}
-                                </Typography>
-                                <Typography sx={{ marginTop: "10px" }} variant="span">
-                                    {userDetail?.member?.role?.name}
+                                    {companyDetail?.name}
                                 </Typography>
                             </Box>
                         </Box>
@@ -83,72 +52,69 @@ const CompanyProfile = () => {
                     <EditRoundedIcon
                         onClick={() => {
                             console.log("Printing Edit icon");
-                            navigate("/editprofile");
+                            navigate("/editcompanyprofile");
                         }}
                         className="edit_icon_profile cursor-pointer"
                     />
                 </Box>
-
-                <Box className="profile_detail">
+                <Box className="companyDetail">
                     {/* <Typography variant="span" className="profile_detail_heading">
                         Profile Detail
                     </Typography> */}
-                    <Box className="userdetail_root">
-                        <Typography className="userdetail_field_heading" variant="span">
-                            Contact No:
-                        </Typography>
-                        <Typography variant="span">
-                            {userDetail?.member?.contact_number}
-                        </Typography>
-                    </Box>
-                    <Box className="userdetail_root">
-                        <Typography variant="span" className="userdetail_field_heading">
+                    <Box className="companyDetail_root">
+                        <Typography className="companyDetail_field_heading" variant="span">
                             Email:
                         </Typography>
                         <Typography variant="span">
-                            {userDetail?.member?.email}
+                            {companyDetail?.email}
                         </Typography>
                     </Box>
-                    <Box className="userdetail_root">
-                        <Typography className="userdetail_field_heading" variant="span">
-                            Password:
-                        </Typography>
-                        <Box>
-                            <TextField
-                                className="password_field"
-                                type={showPassword ? "text" : "password"}
-                                value={userDetail?.member?.password}
-                                variant="standard"
-                            />
-                            {showPassword ? (
-                                <Visibility
-                                    onClick={() => {
-                                        setShowPassword(!showPassword);
-                                    }}
-                                />
-                            ) : (
-                                <VisibilityOff
-                                    onClick={() => {
-                                        setShowPassword(!showPassword);
-                                    }}
-                                />
-                            )}
-                        </Box>
-                    </Box>
-                    <Box className="userdetail_root">
-                        <Typography className="userdetail_field_heading" variant="span">
-                            Gender:
+                    <Box className="companyDetail_root">
+                        <Typography variant="span" className="companyDetail_field_heading">
+                            City:
                         </Typography>
                         <Typography variant="span">
-                            {userDetail?.member?.gender}
+                            {companyDetail?.city}
                         </Typography>
                     </Box>
-                    <Box className="userdetail_root">
-                        <Typography className="userdetail_field_heading" variant="span">
-                            Birthday:
+                    <Box className="companyDetail_root">
+                        <Typography variant="span" className="companyDetail_field_heading">
+                            State:
                         </Typography>
                         <Typography variant="span">
-                            {userDetail?.member?.birthDay}
+                            {companyDetail?.state}
+                        </Typography>
+                    </Box>
+                    <Box className="companyDetail_root">
+                        <Typography variant="span" className="companyDetail_field_heading">
+                            Country:
+                        </Typography>
+                        <Typography variant="span">
+                            {companyDetail?.country?.name}
+                        </Typography>
+                    </Box>
+                    <Box className="companyDetail_root">
+                        <Typography className="companyDetail_field_heading" variant="span">
+                            GSTIN:
+                        </Typography>
+                        <Typography variant="span">
+                            {companyDetail?.GSTIN}
+                        </Typography>
+                    </Box>
+                    <Box className="companyDetail_root common_row">
+                        <Typography className="companyDetail_field_heading" variant="span">
+                            Business Type:
+                        </Typography>
+                        <Typography variant="span">
+                            {companyDetail?.businessType}
+                        </Typography>
+                    </Box>
+                    <Box className="companyDetail_root">
+                        <Typography className="companyDetail_field_heading" variant="span">
+                            IndiaMart CRM Key:
+                        </Typography>
+                        <Typography variant="span">
+                            {companyDetail?.crmKey}
                         </Typography>
                     </Box>
                 </Box>

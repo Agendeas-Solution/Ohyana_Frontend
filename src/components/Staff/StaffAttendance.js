@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.css';
 import { Box, Typography, Button, TextField } from "@mui/material";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -15,16 +15,55 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { GetStaffAttendanceList, GetStaffLeaveList, GrantLeave } from '../../services/apiservices/staffDetail';
+import moment from 'moment';
+import ApproveLeaveDialog from './ApproveLeaveDialog';
 const StaffAttendance = () => {
     const [dateRange, setDateRange] = useState({
         startDate: '',
         endDate: '',
     });
     const [value, setValue] = useState("1");
-
+    const [staffAttendanceList, setStaffAttendanceList] = useState([]);
+    const [staffLeaveList, setStaffLeaveList] = useState([]);
+    const [approveLeave, setApproveLeave] = useState({
+        status: false,
+        id: null,
+        leaveStatus: true
+    })
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    const handleGrantLeave = () => {
+        debugger;
+        GrantLeave({id:approveLeave.id,leaveStatus:approveLeave?.leaveStatus}, (res) => {
+            handleCloseDialog();
+        }, (err) => {
+            console.log(err);
+            debugger;
+        })
+    }
+    const handleCloseDialog=()=>{
+        setApproveLeave({...approveLeave,status:false});
+    }
+    useEffect(() => {
+        let path = window.location.pathname;
+        console.log("Printing Path of ", path);
+        console.log("Printing ", path.split("/").pop());
+        path = path.split("/").pop();
+        value === "1" && GetStaffAttendanceList(path, (res) => {
+            setStaffAttendanceList(res?.data);
+            debugger;
+        }, (err) => {
+
+        })
+        value === "2" && GetStaffLeaveList(path, (res) => {
+            setStaffLeaveList(res?.data);
+            debugger;
+        }, (err) => {
+        })
+    }, [value])
+
     return (
         <><Box>
             <Box className="attendance_data_row col-md-12">
@@ -78,7 +117,6 @@ const StaffAttendance = () => {
                     </TabList>
                 </Box>
                 <TabPanel value="1">
-                    {/* <StaffDetail adminProfileDetail={adminProfileDetail} /> */}
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
@@ -88,29 +126,19 @@ const StaffAttendance = () => {
                                     <TableCell align="left">Check Out</TableCell>
                                     <TableCell align="left">Break Time</TableCell>
                                     <TableCell align="left">Working Hours</TableCell>
-
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                <TableCell>Date</TableCell>
-                                <TableCell align="left">Check In</TableCell>
-                                <TableCell align="left">Check Out</TableCell>
-                                <TableCell align="left">Break Time</TableCell>
-                                <TableCell align="left">Working Hours</TableCell>
-                                {/* {rows.map((row) => (
-                                    <TableRow
-                                        key={row.name}
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                    >
-                                        <TableCell component="th" scope="row">
-                                            {row.name}
-                                        </TableCell>
-                                        <TableCell align="left">{row.calories}</TableCell>
-                                        <TableCell align="left">{row.fat}</TableCell>
-                                        <TableCell align="left">{row.carbs}</TableCell>
-                                        <TableCell align="left">{row.protein}</TableCell>
+                                {staffAttendanceList.length > 0 && staffAttendanceList.map((staffList) => {
+                                    return <TableRow>
+                                        <TableCell>{staffList.date}</TableCell>
+                                        <TableCell align="left">{staffList?.checkIn}</TableCell>
+                                        <TableCell align="left">{staffList?.checkOut}</TableCell>
+                                        <TableCell align="left">{staffList?.breakIn}</TableCell>
+                                        <TableCell align="left">{staffList?.breakOut}</TableCell>
+                                        <TableCell align="left">{staffList?.totalHours}</TableCell>
                                     </TableRow>
-                                ))} */}
+                                })}
                             </TableBody>
                         </Table>
                     </TableContainer>
@@ -118,7 +146,7 @@ const StaffAttendance = () => {
                 <TabPanel value="2">
                     {/* <StaffAttendance /> */}
                     <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <Table sx={{ minWidth: 650 }}>
                             <TableHead>
                                 <TableRow>
                                     <TableCell align="left">Date</TableCell>
@@ -126,35 +154,30 @@ const StaffAttendance = () => {
                                     <TableCell align="left">Taken</TableCell>
                                     <TableCell align="left">Remain</TableCell>
                                     <TableCell align="left">Status</TableCell>
-
+                                    <TableCell align="left"></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                <TableCell align="left">Date</TableCell>
-                                <TableCell align="left">Leave Type</TableCell>
-                                <TableCell align="left">Taken</TableCell>
-                                <TableCell align="left">Remain</TableCell>
-                                <TableCell align="left">Status</TableCell>
-                                {/* {rows.map((row) => (
-                                    <TableRow
-                                        key={row.name}
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                    >
-                                        <TableCell component="th" scope="row">
-                                            {row.name}
-                                        </TableCell>
-                                        <TableCell align="left">{row.calories}</TableCell>
-                                        <TableCell align="left">{row.fat}</TableCell>
-                                        <TableCell align="left">{row.carbs}</TableCell>
-                                        <TableCell align="left">{row.protein}</TableCell>
+                                {staffLeaveList.length > 0 && staffLeaveList.map((leaveList) => {
+                                    return <TableRow>
+                                        <TableCell align="left">{moment(leaveList?.date).format("DD/MM/YY")}</TableCell>
+                                        <TableCell align="left">{leaveList?.leave?.type}</TableCell>
+                                        <TableCell align="left">{leaveList?.takenDays}</TableCell>
+                                        <TableCell align="left">{leaveList?.remainDays}</TableCell>
+                                        <TableCell align="left">{leaveList?.status}</TableCell>
+                                        <TableCell align="left"><Button className="common_button" onClick={() => {
+                                            setApproveLeave({ ...approveLeave, status: true, id: leaveList?.id })
+                                        }}>Approve</Button></TableCell>
                                     </TableRow>
-                                ))} */}
+                                })}
                             </TableBody>
                         </Table>
                     </TableContainer>
                 </TabPanel>
             </TabContext>
-        </Box></>
+        </Box>
+            <ApproveLeaveDialog approveLeave={approveLeave} handleGrantLeave={handleGrantLeave} handleCloseDialog={handleCloseDialog}/>
+        </>
     )
 }
 

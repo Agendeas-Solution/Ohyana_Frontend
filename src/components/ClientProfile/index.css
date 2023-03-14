@@ -20,23 +20,29 @@
 .client_profile_tab button {
   text-transform: capitalize;
 }
-.client_attendance_tab{
+
+.client_attendance_tab {
   background-color: #F1F2F6;
 }
-.client_attendance_tab button{
-  text-transform: capitalize ;
+
+.client_attendance_tab button {
+  text-transform: capitalize;
   /* background-color:#2E3591 !important; */
   border-radius: 3px;
 }
+
 .client_attendance_tab .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
   background-color: #2E3591 !important;
 }
-.client_attendance_tab .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected{
-  color:#fff ;
+
+.client_attendance_tab .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color: #fff;
 }
-.client_attendance_tab .css-1aquho2-MuiTabs-indicator{
+
+.client_attendance_tab .css-1aquho2-MuiTabs-indicator {
   background-color: transparent !important;
 }
+
 .tab_row {
   display: flex;
   flex-direction: row;
@@ -88,4 +94,10 @@ audio::-internal-media-controls-download-button {
   overFlow: hidden;
   text-overflow: ellipsis;
 
+}
+
+.business_card_dialog_section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

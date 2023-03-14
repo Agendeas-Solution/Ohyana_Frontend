@@ -6,6 +6,7 @@ const defaultHeaders = {
   withCredentials: true,
   Authorization: `Barear ${Cookie.get("userToken")}`,
 };
+
 export const GetAdminClientDetail = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
@@ -229,8 +230,9 @@ export const EditClientStage = async (id, value, onSuccess, onError) => {
 
 export const CustomerTake = async (id, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
+  console.log(defaultHeaders)
   try {
-    const response = await axiosInstance.put(`/take/client/${id}`, {
+    const response = await axiosInstance.put(`/take/client/${id}`, {}, {
       headers: { ...defaultHeaders },
     });
     console.log("Printing response of CustomerTake", response);
@@ -240,6 +242,48 @@ export const CustomerTake = async (id, onSuccess, onError) => {
       "Got error while calling API - CustomerTake",
       err
     );
+    onError && onError(err);
+  }
+};
+
+export const GetBusinessCard = async (id, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
+  try {
+    const response = await axiosInstance.get(`/clients?businessCard=true`, {
+      headers: { ...defaultHeaders },
+    });
+    console.log("Printing response of GetBusinessCard", response);
+    onSuccess && onSuccess(response);
+  } catch (err) {
+    console.log("Got error while calling API - GetBusinessCard", err);
+    onError && onError(err);
+    //
+  }
+};
+export const GetBusinessDetail = async (id, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
+  try {
+    const response = await axiosInstance.get(`/businesscard/${id}`, {
+      headers: { ...defaultHeaders },
+    });
+    console.log("Printing response of GetBusinessDetail", response);
+    onSuccess && onSuccess(response);
+  } catch (err) {
+    console.log("Got error while calling API - GetBusinessDetail", err);
+    onError && onError(err);
+  }
+};
+
+export const DeleteBusinessCard = async (id, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
+  try {
+    const response = await axiosInstance.delete(`/businesscard/${id}`, {
+      headers: { ...defaultHeaders },
+    });
+    console.log("Printing response of DeleteBusinessCard", response);
+    onSuccess && onSuccess(response);
+  } catch (err) {
+    console.log("Got error while calling API - DeleteBusinessCard", err);
     onError && onError(err);
   }
 };

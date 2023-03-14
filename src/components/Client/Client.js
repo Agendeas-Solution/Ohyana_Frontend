@@ -7,46 +7,28 @@ import {
   Autocomplete,
   TextField,
   Pagination,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
   Button, Dialog,
   DialogActions,
-  Typography, Checkbox, TablePagination
+  Typography, Checkbox, FormControl, OutlinedInput, InputAdornment
 } from "@mui/material";
 import "./index.css";
 import { socket } from '../../App'
 import DeleteIcon from '../../assets/img/delete.png'
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { useNavigate } from "react-router-dom";
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { GetAdminClientDetail, DeleteClientDetail } from "../../services/apiservices/clientDetail";
 import { Context as ContextSnackbar } from "../../context/pageContext";
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { Context as AuthContext } from "../../context/authContext/authContext";
 import moment from "moment";
 import Loader from "../Loader/Loader";
 import Drawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import CssBaseline from '@mui/material/CssBaseline';
-import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import FilterIcon from '../../assets/img/Filter.svg'
-import CallIcon from "../../assets/img/call.svg"
-import MailIcon from "../../assets/img/mail.svg";
 import { styled, useTheme } from '@mui/material/styles';
 import CustomerList from "./CustomerList";
 import BusinessCard from "./BusinessCard";
@@ -55,7 +37,7 @@ const drawerWidth = 240;
 const Client = () => {
   const theme = useTheme();
   // const socket = io("http://159.89.165.83", { transports: ["websocket"] });
-  const [value, setValue] = useState("All");
+  const [value, setValue] = useState("Telephony");
   const navigate = useNavigate();
   const { flagLoader, permissions } = useContext(AuthContext).state;
   const { setFlagLoader } = useContext(AuthContext);
@@ -68,7 +50,6 @@ const Client = () => {
   const [isInternational, setIsInternational] = useState(null);
   const { successSnackbar } = useContext(ContextSnackbar)?.state;
   const { setSuccessSnackbar } = useContext(ContextSnackbar);
-  const [timerArray, setTimerArray] = useState([]);
   const [deleteClientDialogControl, setDeleteClientDialogControl] = useState({
     status: false,
     clientId: null,
@@ -174,6 +155,9 @@ const Client = () => {
     if (isInternational !== null) {
       data["isInternational"] = isInternational;
     }
+    if (value === "PJP") {
+      data["pjp"] = true;
+    }
     data["stage"] = clientStage;
     setClientLoader(true)
     GetAdminClientDetail(
@@ -197,33 +181,6 @@ const Client = () => {
       }
     );
   }, [currentPage, isInternational, value, clientStage, deleteClientDialogControl.status]);
-  useEffect(() => {
-    let data = [...clientDetails];
-    const myfunc = setInterval(displayTimer, 1000)
-    function displayTimer() {
-      {
-        const updateData = data.map((rowData, index) => {
-          var date = moment(rowData?.createdAt).add(15, 'm');
-          var now = new Date(date).getTime();
-          var actualTime = new Date().getTime();
-          var timeleft = now - actualTime;
-          if (timeleft < 0) {
-            data.splice(index, 1)
-            clearInterval(displayTimer)
-          }
-          else {
-            var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
-            if (seconds < 10) {
-              seconds = "0" + seconds
-            }
-            return { ...rowData, timer: minutes + ":" + seconds }
-          }
-        })
-        setTimerArray(updateData);
-      }
-    }
-  }, [clientDetails])
   return (
     <>
       {clientLoader && <Loader />}
@@ -234,6 +191,8 @@ const Client = () => {
             onChange={handleChange}
             textColor="secondary"
             indicatorColor="secondary"
+            variant="scrollable"
+            scrollButtons="auto"
           >
             {/* <Tab value="All" label="All" /> */}
             <Tab value="Telephony" label="Telephony" />
@@ -258,6 +217,21 @@ const Client = () => {
                 <TextField className="client_type_select" {...params} placeholder="Select Client Type" />
               )}
             /> */}
+            <FormControl variant="outlined">
+              <OutlinedInput
+                className="search_field"
+                placeholder='Search Here...'
+                startAdornment={
+                  <InputAdornment position="start"
+                  >
+                    <IconButton
+                    >
+                      <SearchRoundedIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
             {permissions?.editClient && <Button
               className="main_button"
               onClick={() => {
@@ -268,15 +242,11 @@ const Client = () => {
               New Clients
             </Button>}
             <Toolbar>
-              {/* <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
-                Persistent drawer
-              </Typography> */}
               <IconButton
                 edge="end"
                 onClick={handleDrawerOpen}
                 sx={{ ...(open && { display: 'none' }) }}
               >
-                {/* <MenuIcon /> */}
                 <img src={FilterIcon} alt="" />
               </IconButton>
             </Toolbar>
@@ -333,7 +303,8 @@ const Client = () => {
           </div>
         </Box>
         <Box>
-          {value !== "BusinessCard" ? <CustomerList clientDetails={clientDetails} ViewClientDetail={ViewClientDetail} /> : null}
+          {value === "Telephony" ? <CustomerList clientDetails={clientDetails} ViewClientDetail={ViewClientDetail} /> : null}
+          {value === "PJP" ? <CustomerList clientDetails={clientDetails} ViewClientDetail={ViewClientDetail} /> : null}
 
           {value === "BusinessCard" ? <BusinessCard /> : null}
           <Pagination

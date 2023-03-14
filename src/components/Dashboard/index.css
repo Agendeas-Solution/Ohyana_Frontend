@@ -23,6 +23,8 @@
 .common_row{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
     width: 100%;
 }
 .platform_data_detail{
@@ -72,6 +74,7 @@
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+    align-items: center;
     border-bottom:1px solid #E5E5E5;
 }
 .team_overview{

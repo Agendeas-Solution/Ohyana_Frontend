@@ -6,45 +6,56 @@ import TableBody from '@mui/material/TableBody';
 import { useNavigate } from "react-router-dom";
 import { Context as AuthContext } from "../../context/authContext/authContext";
 import TabPanel from "@mui/lab/TabPanel";
+import dayjs from 'dayjs';
 import TabContext from "@mui/lab/TabContext";
-const LeaveData = () => {
-  return (
-    <>
-     <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align="left">Date</TableCell>
-                                    <TableCell align="left">Leave Type</TableCell>
-                                    <TableCell align="left">Taken</TableCell>
-                                    <TableCell align="left">Remain</TableCell>
-                                    <TableCell align="left">Status</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import Grid from '@mui/material/Grid';
+import moment from "moment";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { CalendarPicker } from '@mui/x-date-pickers/CalendarPicker';
+const LeaveData = ({ leaveList }) => {
+    const [date, setDate] = React.useState(dayjs());
+    return (
+        <>
+            <Box className="common_row align-items-start">
+                <TableContainer sx={{ width: "70%", boxShadow: "none" }} component={Paper}>
+                    <Table>
+                        <TableHead className="team_overview_table_heading">
+                            <TableRow>
                                 <TableCell align="left">Date</TableCell>
                                 <TableCell align="left">Leave Type</TableCell>
                                 <TableCell align="left">Taken</TableCell>
                                 <TableCell align="left">Remain</TableCell>
                                 <TableCell align="left">Status</TableCell>
-                                {/* {rows.map((row) => (
-                                    <TableRow
-                                        key={row.name}
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                    >
-                                        <TableCell component="th" scope="row">
-                                            {row.name}
-                                        </TableCell>
-                                        <TableCell align="left">{row.calories}</TableCell>
-                                        <TableCell align="left">{row.fat}</TableCell>
-                                        <TableCell align="left">{row.carbs}</TableCell>
-                                        <TableCell align="left">{row.protein}</TableCell>
-                                    </TableRow>
-                                ))} */}
-                            </TableBody>
-                        </Table>
-                    </TableContainer></>
-  )
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+
+                            {leaveList.map((row) => (
+                                <TableRow
+                                    key={row.date}
+                                    sx={{ '&:last-child td,th': { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        {moment(row.date).format('D/MM/YY')}
+                                    </TableCell>
+                                    <TableCell align="left">{row?.leave?.type}</TableCell>
+                                    <TableCell align="left">{row?.takenDays}</TableCell>
+                                    <TableCell align="left">{row?.remainDays}</TableCell>
+                                    <TableCell align="left">{row?.status}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <Grid item xs={12} md={6}>
+                        <CalendarPicker date={date} onChange={(newDate) => setDate(newDate)} />
+                    </Grid>
+                </LocalizationProvider>
+            </Box>
+        </>
+    )
 }
 
 export default LeaveData

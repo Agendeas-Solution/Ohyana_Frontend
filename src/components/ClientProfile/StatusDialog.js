@@ -82,7 +82,6 @@ const StatusDialog = (props) => {
         <div style={{ textAlign: 'center' }} className="px-3 pt-3">
           <h4 style={{ fontWeight: '600' }}>Add Status</h4>
         </div>
-        {/* <form enctype="multipart/form-data"> */}
         <DialogContent>
           <Box>
             <div className="row">
@@ -125,7 +124,6 @@ const StatusDialog = (props) => {
             Cancel
           </Button>
         </DialogActions>
-        {/* </form> */}
       </Dialog>
     </>
   );

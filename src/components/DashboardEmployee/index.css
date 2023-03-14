@@ -1,0 +1,89 @@
+.performance_attendance_row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.performance_section {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 1px solid #E5E5E5;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.attendance_section {
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.performance_terms {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.performance_parameter {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid#E5E5E5;
+    flex-direction: row;
+
+}
+
+.performance_statistics_data {
+    width: 32%;
+}
+
+.attendance_section {
+    width: 29%;
+    border-radius: 5px;
+    margin: 5px;
+    background: #F1F2F6;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.attendance_subheading {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.my_task_section {
+    padding:5px;
+    margin: 5px;
+    width: 70%;
+    border:1px solid #E5E5E5;
+    border-radius: 5px;
+}
+
+.my_task_heading {
+    display: flex;
+    justify-content: space-between;
+    border-bottom:1px solid #E5E5E5;
+}
+.my_task_subheading{
+    display: flex;
+    justify-content: space-between;
+}
+.point_table_section{
+    border:1px solid #e5e5e5;
+    width: 29%;
+    padding:5px;
+    margin: 5px;
+    border-radius: 5px;
+}
+.point_table_heading{
+    display: flex;
+    justify-content: space-between;
+
+}

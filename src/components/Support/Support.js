@@ -8,6 +8,7 @@ import {
 import CallIcon from "../../assets/img/call.svg"
 import MailIcon from "../../assets/img/mail.svg";
 import LikeIcon from '../../assets/img/like.svg';
+import DisLikeIcon from '../../assets/img/dislike.svg';
 import { useNavigate } from 'react-router-dom';
 import { GetComplaintList } from '../../services/apiservices/support';
 import moment from 'moment';
@@ -45,24 +46,23 @@ const Support = () => {
                             {complaintList.map((complaint) => {
                                 return (
                                     <TableRow>
-                                        <TableCell align="right">{complaint.id}</TableCell>
-                                        <TableCell align="right">{complaint?.dealerName}</TableCell>
+                                        <TableCell align="right">{complaint?.id}</TableCell>
+                                        <TableCell align="right">{complaint?.dealer?.name}</TableCell>
                                         <TableCell align="right">{moment(complaint?.date).format("DD-MM-YYYY")}</TableCell>
-                                        <TableCell align="right">{complaint.description}</TableCell>
+                                        <TableCell align="right">{complaint.complaintType}</TableCell>
                                         <TableCell align="right">{complaint.status}</TableCell>
                                         <TableCell align="right">
-                                            {/* {row.feedback === "like" ? <img src={LikeIcon} alt="" /> : <img src={} alt="" />} */}
+                                            {complaint.complaint_feedback.feedbackType === "LIKED" ? <img src={LikeIcon} alt="" /> : <img src={DisLikeIcon} alt="" />}
                                         </TableCell>
                                         <TableCell></TableCell>
                                         <TableCell><Button
                                             className="common_button"
                                             onClick={() => {
-                                                navigate("/complaint");
+                                                navigate(`/complaint/${complaint?.id}`);
                                             }}>View</Button></TableCell>
                                     </TableRow>
                                 )
                             })}
-
                         </TableBody>
                     </Table>
                 </TableContainer>

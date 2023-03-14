@@ -1,12 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Typography, Button, TextField } from "@mui/material";
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -18,15 +12,112 @@ import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { CalendarPicker } from '@mui/x-date-pickers/CalendarPicker';
-import { MonthPicker } from '@mui/x-date-pickers/MonthPicker';
-import { YearPicker } from '@mui/x-date-pickers/YearPicker';
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-
+import { GetAllHoliday, GetAllLeaveType } from '../../services/apiservices/holiday';
 import './index.css';
+import { CreateHoliday, UpdateHoliday, DeleteHoliday, CreateLeaveType, DeleteLeaveType, UpdateLeaveType } from '../../services/apiservices/holiday';
+import HolidayDialog from './HolidayDialog'; import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import AddLeaveDialog from './AddLeaveDialog';
 const minDate = dayjs('2020-01-01T00:00:00.000');
 const maxDate = dayjs('2034-01-01T00:00:00.000');
 const HolidayAndLeaveManagement = () => {
     const [date, setDate] = React.useState(dayjs());
+    const [holidayList, setHolidayList] = useState([]);
+    const [leaveList, setLeaveList] = useState([]);
+    const [addHolidayDialog, setAddHolidayDialog] = useState({
+        status: false,
+    });
+    const [addHolidayDetail, setAddHolidayDetail] = useState({
+        date: "",
+        duration: "",
+        occasion: "",
+        regular: false
+    })
+    const [addLeaveDialog, setAddLeaveDialog] = useState({
+        status: false,
+        type: "",
+        duration: ""
+    });
+    useEffect(() => {
+        GetAllHoliday({}, (res) => {
+            setHolidayList(res?.data);
+            debugger
+        }, (err) => {
+            console.log("Printing Error", err);
+        })
+        GetAllLeaveType({}, (res) => {
+            setLeaveList(res?.data);
+            debugger
+        }, (err) => {
+
+        })
+
+    }, [])
+    const handleCloseDialog = () => {
+        setAddHolidayDialog({ ...addHolidayDialog, status: false })
+        setAddHolidayDetail({
+            ...addHolidayDetail, date: "",
+            duration: "",
+            occasion: "",
+            regular: false
+        })
+        setAddLeaveDialog({ ...addLeaveDialog, status: false })
+    }
+    const SetHoliday = () => {
+        CreateHoliday(addHolidayDetail, (res) => {
+            handleCloseDialog();
+            debugger;
+        }, (err) => {
+
+        })
+    }
+    const UpdateHolidayFunc = (id, holidayDetail) => {
+        UpdateHoliday(id, holidayDetail, (res) => {
+            handleCloseDialog();
+            debugger;
+        }, (err) => {
+
+        })
+    }
+    const DeleteHolidayFunc = (id) => {
+        DeleteHoliday(id, (res) => {
+            debugger;
+        }, (err) => {
+            debugger;
+        })
+    }
+    const DeleteLeaveFunc = (id) => {
+        debugger;
+        DeleteLeaveType(id, (res) => {
+            debugger;
+        }, (err) => {
+            debugger;
+        })
+    }
+    const AddLeave = () => {
+        CreateLeaveType(
+            {
+                duration: addLeaveDialog.duration,
+                type: addLeaveDialog.type
+            }, (res) => {
+                debugger;
+                handleCloseDialog()
+            }, (err) => {
+
+            })
+    }
+    const UpdateLeave = () => {
+        UpdateLeaveType(addLeaveDialog?.id, { type: addLeaveDialog?.type, duration: addLeaveDialog?.duration },
+            (res) => {
+                setAddLeaveDialog({
+                    status: false,
+                    type: "",
+                    duration: ""
+                })
+            }, (err) => {
+                debugger;
+            })
+    }
     return (
         <>
             <Box className='leave_holiday_section'>
@@ -44,30 +135,40 @@ const HolidayAndLeaveManagement = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    <TableCell>11-08-2022</TableCell>
-                                    <TableCell align="left">Raksha Bandhan </TableCell>
-                                    <TableCell align="left">1</TableCell>
-                                    <TableCell align="left"><EditRoundedIcon className="icon" /></TableCell>
-                                    {/* {rows.map((row) => (
-                                    <TableRow
-                                        key={row.name}
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                    >
-                                        <TableCell component="th" scope="row">
-                                            {row.name}
-                                        </TableCell>
-                                        <TableCell align="left">{row.calories}</TableCell>
-                                        <TableCell align="left">{row.fat}</TableCell>
-                                        <TableCell align="left">{row.carbs}</TableCell>
-                                        <TableCell align="left">{row.protein}</TableCell>
-                                    </TableRow>
-                                ))} */}
+                                    {holidayList.length > 0 && holidayList.map((data) => {
+                                        return <TableRow>
+                                            <TableCell>{data?.date}</TableCell>
+                                            <TableCell align="left">{data?.occasion} </TableCell>
+                                            <TableCell align="left">{data?.duration}</TableCell>
+                                            <td className="common_row">
+                                                <Box>
+                                                    <EditRoundedIcon onClick={
+                                                        () => {
+                                                            setAddHolidayDialog({ ...addHolidayDialog, status: true })
+                                                            let value = data;
+                                                            value.regular = false;
+                                                            setAddHolidayDetail(value);
+                                                        }
+                                                    } className="icon common_row" />
+                                                </Box>
+                                                <Box>
+                                                    <DeleteRoundedIcon onClick={() => DeleteLeaveFunc(data?.id)} className='icon' />
+                                                </Box>
+                                            </td>
+                                        </TableRow>
+                                    })}
                                 </TableBody>
                             </Table>
                         </TableContainer>
                     </Box>
                     <Box className="w-50" sx={{ maxHeight: "310px" }}>
-                        <Button sx={{float:"right"}} className="leave_holiday_buttons" variant="contained">+ Leave</Button>
+                        <Button
+                            onClick={
+                                () => {
+                                    setAddHolidayDetail({ ...addHolidayDetail, regular: true })
+                                    setAddHolidayDialog({ ...addHolidayDialog, status: true })
+                                }}
+                            sx={{ float: "right" }} className="leave_holiday_buttons" variant="contained">+ Holiday</Button>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <Grid item xs={12} md={6}>
                                 <CalendarPicker date={date} onChange={(newDate) => setDate(newDate)} />
@@ -79,7 +180,10 @@ const HolidayAndLeaveManagement = () => {
                     <Box className="leave_management_section">
                         <Box className="leave_management_header mb-2 mt-2">
                             <Typography className="sub_heading" variant="span">Leave Management</Typography>
-                            <Button className="leave_holiday_buttons" variant="contained">+ Leave</Button>
+                            <Button onClick={() => setAddLeaveDialog({
+                                ...addLeaveDialog, status: true, type: "",
+                                duration: ""
+                            })} className="leave_holiday_buttons" >+ Leave</Button>
                         </Box>
                         <TableContainer component={Paper}>
                             <Table>
@@ -91,23 +195,27 @@ const HolidayAndLeaveManagement = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    <TableCell>Unpaid</TableCell>
-                                    <TableCell align="left">3</TableCell>
-                                    <TableCell align="right"><EditRoundedIcon className="icon" /></TableCell>
-                                    {/* {rows.map((row) => (
-                                    <TableRow
-                                        key={row.name}
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                    >
-                                        <TableCell component="th" scope="row">
-                                            {row.name}
-                                        </TableCell>
-                                        <TableCell align="left">{row.calories}</TableCell>
-                                        <TableCell align="left">{row.fat}</TableCell>
-                                        <TableCell align="left">{row.carbs}</TableCell>
-                                        <TableCell align="left">{row.protein}</TableCell>
-                                    </TableRow>
-                                ))} */}
+                                    {leaveList.length > 0 && leaveList.map((row) => {
+                                        return <TableRow
+                                            key={row.id}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                        >
+                                            <TableCell component="th" scope="row">
+                                                {row.type}
+                                            </TableCell>
+                                            <TableCell align="left">{row.duration}</TableCell>
+                                            <TableCell align="right">
+                                                <EditRoundedIcon
+                                                    onClick={
+                                                        () => {
+                                                            setAddLeaveDialog({ ...addLeaveDialog, status: true, type: row?.type, duration: row?.duration, id: row?.id });
+                                                        }
+                                                    }
+                                                    className="icon common_row" />
+                                                <DeleteRoundedIcon onClick={() => DeleteLeaveFunc(row?.id)} className='icon' />
+                                            </TableCell>
+                                        </TableRow>
+                                    })}
                                 </TableBody>
                             </Table>
                         </TableContainer>
@@ -123,9 +231,10 @@ const HolidayAndLeaveManagement = () => {
                         </Box>
                     </Box>
                 </Box>
+                <HolidayDialog addHolidayDetail={addHolidayDetail} setAddHolidayDetail={setAddHolidayDetail} addHolidayDialog={addHolidayDialog} UpdateHolidayFunc={UpdateHolidayFunc} SetHoliday={SetHoliday} handleCloseDialog={handleCloseDialog} />
+                <AddLeaveDialog addLeaveDialog={addLeaveDialog} handleCloseDialog={handleCloseDialog} AddLeave={AddLeave} setAddLeaveDialog={setAddLeaveDialog} UpdateLeave={UpdateLeave} />
             </Box>
         </>
     )
 }
-
 export default HolidayAndLeaveManagement

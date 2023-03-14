@@ -18,11 +18,13 @@ import MyProfile from '../../assets/img/myprofile.svg';
 import SignOut from '../../assets/img/sign_out.svg';
 import Loader from "../Loader/Loader";
 import Support from '../../assets/img/support.svg'
+import Task from '../../assets/img/task.svg';
 import Dealer from '../../assets/img/dealer.svg';
 import NotificationSnackbar from "../NotificationSnackbar/NotificationSnackbar";
 import { Context as ContextSnackbar } from "../../context/pageContext";
 import Logo from '../../assets/img/Ohyana Logo Blue.svg';
 import Orders from '../../assets/img/Orders.svg';
+import { TaskSharp } from "@mui/icons-material";
 const SideBar = () => {
   let navigate = useNavigate();
   const { authorize, flagLoader, permissions } = useContext(AuthContext).state;
@@ -120,7 +122,7 @@ const SideBar = () => {
             </Typography>
           </Box>
 
-          <Box
+          {/* <Box
             to={"/notification"}
             className={`sidebar_icons ${path === "/notification" && "selected-link"
               }`}
@@ -138,7 +140,7 @@ const SideBar = () => {
             <Typography className="page_name_root" variant="div">
               Notifications
             </Typography>
-          </Box>
+          </Box> */}
 
           {permissions?.clientMenu && <Box
             className={`sidebar_icons ${path === "/client" && "selected-link"
@@ -171,6 +173,24 @@ const SideBar = () => {
               Team
             </Typography>
           </Box>}
+
+          <Box
+            className={`sidebar_icons ${path === "/task" && "selected-link"
+              }`}
+            onClick={() => {
+              handleNavItemClick("/task", "Task");
+              // navigate("/staff");
+              // setActivePage("Staff");
+            }}
+          >
+            <Box className="sidebar_icon_root">
+              <img src={Task} className="sidebar_img" />
+            </Box>
+            <Typography className="page_name_root" variant="div">
+              Task
+            </Typography>
+          </Box>
+
           {permissions?.staffMenu && <Box
             className={`sidebar_icons ${path === "/dealer" && "selected-link"
               }`}
@@ -204,17 +224,17 @@ const SideBar = () => {
           </Box>
 
           <Box
-            className={`sidebar_icons ${path === "/Statistics" && "selected-link"
+            className={`sidebar_icons ${path === "/Report" && "selected-link"
               }`}
             onClick={() => {
-              handleNavItemClick("/statistics", "Statistics");
+              handleNavItemClick("/report", "Report");
             }}
           >
             <Box className="sidebar_icon_root">
               <img src={Statistics} className="sidebar_img" />
             </Box>
             <Typography className="page_name_root" variant="div">
-              Statistics
+              Report
             </Typography>
           </Box>
 
@@ -254,7 +274,7 @@ const SideBar = () => {
               handleNavItemClick("/profile", "Profile");
             }}
           >
-            <Box className="sidebar_icon_root">
+          <Box className="sidebar_icon_root">
               <img src={MyProfile} className="sidebar_img" />
             </Box>
             <Typography className="page_name_root" variant="div">

@@ -64,7 +64,6 @@ const Login = () => {
       setErrorSnackbar({ ...errorSnackbar, status: true, message: "Username and password are required" })
     }
   };
-
   return (
     <>
       <Box className="login_page_root">

@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Typography, TextField, Button } from '@mui/material'
 import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -14,15 +10,25 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Logo from '../../assets/img/Ohyana Logo.svg';
+import { VerifyOTP, SentOtp, RegisterUser } from '../../services/apiservices/register';
 import './index.css';
 const Register = () => {
     const [values, setValues] = useState({
         email: "",
         showPassword: false
     });
-    const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
+    const [registerData, setRegisterData] = useState({
+        name: "",
+        email: "",
+        companyName: "",
+        password: "",
+        contactNo: ""
+    })
+    const [otpValue, setOtpValue] = useState({
+        value: null,
+        status: false
+    });
+
     const handleClickShowPassword = () => {
         setValues({
             ...values,
@@ -32,6 +38,33 @@ const Register = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+    const handleSentOtp = () => {
+        SentOtp({ email: registerData?.email }, (res) => {
+            if (res.status === 200) {
+                setOtpValue({
+                    ...otpValue,
+                    status: true
+                })
+                debugger;
+            }
+        }, (err) => {
+
+        })
+    }
+    const handleOtp = () => {
+        VerifyOTP({ email: registerData?.email, otp: otpValue.value }, (res) => {
+            debugger;
+        }, (err) => {
+            debugger
+        })
+    }
+    const handleRegister = () => {
+        RegisterUser(registerData, (res) => {
+            debugger
+        }, (err) => {
+            debugger
+        })
+    }
     return (
         <>
             <Box className="register_section">
@@ -44,30 +77,35 @@ const Register = () => {
                     <Box className="register_textfield">
                         <Box className="textfield">
                             <Typography variant="span">Name</Typography>
-                            <TextField placeholder="Name" variant="outlined" />
+                            <TextField value={registerData?.name} onChange={(e) => {
+                                setRegisterData({ ...registerData, name: e.target.value })
+                            }} placeholder="Name" variant="outlined" />
                         </Box>
                         <Box className="textfield">
                             <Typography variant="span">Email</Typography>
-                            <TextField placeholder="Email" variant="outlined" />
+                            <FormControl variant="outlined">
+                                <OutlinedInput
+                                    placeholder="Email"
+                                    type={'email'}
+                                    value={registerData?.email}
+                                    onChange={(e) => {
+                                        setRegisterData({ ...registerData, email: e.target.value })
+                                    }}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            {<Button onClick={handleSentOtp} className="verify_button" variant="contained">Verify</Button>}
+                                        </InputAdornment>
+                                    }
+                                />
+                            </FormControl>
                         </Box>
-                        {/* <FormControl variant="outlined">
-                            <InputLabel sx={{ color: "#8e8e8e" }}>Email</InputLabel>
-                            <OutlinedInput
-                                type={'email'}
-                                value={values.email}
-                                onChange={(e) => setValues({ ...values, email: e.target.value })}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        {<Button className="verify_button" variant="contained">Verify</Button>}
-                                    </InputAdornment>
-                                }
-                            />
-                        </FormControl> */}
                     </Box>
                     <Box className="register_textfield">
                         <Box className="textfield" >
                             <Typography variant="span">Company Name</Typography>
-                            <TextField placeholder="Company Name" variant="outlined" />
+                            <TextField value={registerData?.companyName} onChange={(e) => {
+                                setRegisterData({ ...registerData, companyName: e.target.value })
+                            }} placeholder="Company Name" variant="outlined" />
                         </Box>
                         <Box className="textfield" >
                             <Typography variant="span">Password</Typography>
@@ -76,8 +114,10 @@ const Register = () => {
                                 autoFocus
                                 autoComplete={false}
                                 type={values.showPassword ? "text" : "password"}
-                                value={values.password}
-                                onChange={handleChange("password")}
+                                value={registerData?.password}
+                                onChange={(e) => {
+                                    setRegisterData({ ...registerData, password: e.target.value })
+                                }}
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
@@ -98,33 +138,36 @@ const Register = () => {
                     </Box>
                     <Box className="register_textfield">
                         <Box className="textfield">
-                            <Typography variant="span">Contact Number</Typography>
+                            <Typography variant="span">Contact No</Typography>
+                            <TextField type="number" value={registerData?.contactNo} onChange={(e) => {
+                                setRegisterData({ ...registerData, contactNo: e.target.value })
+                            }} placeholder="ContactNo" variant="outlined" />
+                        </Box>
+
+                        <Box className="textfield">
+                            <Typography variant="span">OTP</Typography>
                             <FormControl variant="outlined">
                                 <OutlinedInput
-                                    placeholder="Contact Number"
-                                    type={'email'}
-                                    value={values.email}
-                                    onChange={(e) => setValues({ ...values, email: e.target.value })}
+                                    type={'number'}
+                                    value={otpValue.value} onChange={(e) => {
+                                        setOtpValue({ ...otpValue, value: e.target.value })
+                                    }} placeholder="Enter OTP"
                                     endAdornment={
                                         <InputAdornment position="end">
-                                            {<Button className="verify_button" variant="contained">Verify</Button>}
+                                            {<Button onClick={handleOtp} className="verify_button" variant="contained">Verify</Button>}
                                         </InputAdornment>
                                     }
                                 />
                             </FormControl>
                         </Box>
-                        <Box className="textfield">
-                            <Typography variant="span">OTP</Typography>
-                            <TextField placeholder="Enter OTP" variant="outlined" />
-                        </Box>
                     </Box>
 
                     <Box className="term_and_condition">
                         <FormGroup>
-                            <FormControlLabel  control={<Checkbox className="check_box_color" defaultChecked />} label="I Agree to all The Terms and Privacy Policy." />
+                            <FormControlLabel control={<Checkbox className="check_box_color" defaultChecked />} label="I Agree to all The Terms and Privacy Policy." />
                         </FormGroup>
                     </Box>
-                    <Button className="next_button" variant="contained">Next</Button>
+                    <Button onClick={handleRegister} className="next_button" variant="contained">Next</Button>
                 </Box>
             </Box>
         </>

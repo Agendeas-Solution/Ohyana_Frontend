@@ -20,7 +20,7 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
             }
         }, (err) => {
             console.log("Printing Error", err);
-            setErrorSnackbar({ ...errorSnackbar, status: true, message:err.response.data.error  })
+            setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.error })
         })
     }
     return (
@@ -49,12 +49,6 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
                                     <TableCell scope="row">
                                         {row.id}
                                     </TableCell>
-                                    {/* <TableCell sx={{ minWidth: "60px", maxWidth: "60px" }}
-                        className={timerArray[index]?.timer === "" ? null : "timer"
-                        }
-                      >
-                        {row.id === timerArray[index]?.id && row?.timer_status === false ? timerArray[index]?.timer : null}
-                      </TableCell> */}
                                     <TableCell align="right">{row.name}</TableCell>
                                     <TableCell align="right" sx={{ maxWidth: "150px" }}>{row.business}</TableCell>
                                     <TableCell align="right">{row.contact_number}</TableCell>
@@ -73,15 +67,14 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
                                             View
                                         </Button>
                                         {row.teamId ? <>
-                                            <Button className="common_button"><img src={CallIcon} /></Button>
-                                            <Button className="common_button"><img src={MailIcon} /></Button>
+                                            <a href={`tel:${row.contact_number}`} ><Button className="common_button"><img src={CallIcon} /></Button></a>
+                                            <a href={`mailto:${row.email}`} > <Button className="common_button"><img src={MailIcon} /></Button></a>
                                         </> : null}
                                         {/* {permissions?.deleteClient && <DeleteRoundedIcon className="delete_client_icon" onClick={() => {
                           setDeleteClientDialogControl({ ...deleteClientDialogControl, status: true, clientId: row.id })
                         }} />} */}
                                     </TableCell>
                                 </TableRow>))}
-
                         </TableBody>
                     </Table> :
                     <p style={{ display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", width: "100%", height: "100%" }}>No Data Found</p>

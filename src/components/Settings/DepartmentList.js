@@ -1,7 +1,5 @@
-import React, { useEffect, useState,useContext } from "react";
-import { Box, Tabs, Tab, FormControl, Button, Typography } from "@mui/material";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import TabPanel from "@mui/lab/TabPanel";
+import React, { useEffect, useState, useContext } from "react";
+import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { GetAdminDepartmentList } from "../../services/apiservices/adminprofile";
 import AddEditDepartmentDialog from "./AddEditDepartmentDialog";
@@ -48,19 +46,17 @@ const DepartmentList = () => {
           + Add Department
         </Button>}
       </div>
-      <Box className="product_list_section bg-body">
-        <Box>
-          {AdminDepartmentList.map((row) => {
-            return (
-              <Box
-                onClick={() => navigate(`/department/${row.id}`)}
-                className="setting_cards"
-              >
-                <Typography variant="span">{row.name}</Typography>
-              </Box>
-            );
-          })}
-        </Box>
+      <Box className="department_list_section bg-body">
+        {AdminDepartmentList.map((row) => {
+          return (
+            <Box
+              onClick={() => navigate(`/jobrolelist/${row.id}`)}
+              className="setting_cards"
+            >
+              <Typography variant="span">{row.name}</Typography>
+            </Box>
+          );
+        })}
       </Box>
       <AddEditDepartmentDialog
         addEditDepartmentDialogControl={addEditDepartmentDialogControl}
