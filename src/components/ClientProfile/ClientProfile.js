@@ -35,20 +35,22 @@ import {
   GetAdminClientReminderDetail,
   GetAdminClientAppointmentDetail,
 } from "../../services/apiservices/clientDetail";
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import moment from "moment";
+import PoorContact from "./PoorContact";
 import EditStatusDialog from "./EditStatusDialog";
-import Stage0 from '../../assets/img/stage_0.svg';
-import Stage1 from '../../assets/img/stage_1.svg';
-import Stage2 from '../../assets/img/stage_2.svg';
-import CallNotReceived from '../../assets/img/callnotreceived.svg'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
+import Stage0 from "../../assets/img/stage_0.svg";
+import Stage1 from "../../assets/img/stage_1.svg";
+import Stage2 from "../../assets/img/stage_2.svg";
+import CallNotReceived from "../../assets/img/callnotreceived.svg";
+import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 import StageDialog from "./StageDialog";
 import OrderList from "./OrderList";
 const ClientProfile = () => {
   const [value, setValue] = useState("1");
   const { flagLoader, permissions } = useContext(AuthContext).state;
   const [remainderDialog, setRemainderDialog] = useState(false);
+  const [callDialog, setCallDialog] = useState(false);
   const [statusDialog, setStatusDialog] = useState(false);
   const [appointmentDialog, setAppointmentDialog] = useState(false);
   const [clientProfileDetail, setClientProfileDetail] = useState({});
@@ -60,13 +62,18 @@ const ClientProfile = () => {
     clientId: null,
     description: "",
     statusId: null,
-    status: false
+    status: false,
+  });
+  const [addPoorContact, setAddPoorContact] = useState({
+    clientId: null,
+    inquiry: "",
+    status: false,
   });
   const [viewClientStatus, setViewClientStatus] = useState({
     clientId: null,
     statusDetail: {},
-    status: false
-  })
+    status: false,
+  });
   let navigate = useNavigate();
   useEffect(() => {
     let path = window.location.pathname;
@@ -85,10 +92,11 @@ const ClientProfile = () => {
       }
     );
   }, [stageDialog]);
+
   useEffect(() => {
     let path = window.location.pathname;
-    console.log("Printing Path of ", path);
-    console.log("Printing ", path.split("/").pop());
+    // console.log("Printing Path of ", path);
+    // console.log("Printing ", path.split("/").pop());
     path = path.split("/").pop();
     value === "1" &&
       GetAdminClientStatusDetail(
@@ -136,16 +144,29 @@ const ClientProfile = () => {
 
   const handleClose = () => {
     setRemainderDialog(false);
-    setStageDialog(false)
+    setStageDialog(false);
   };
+
+  const handleCallOpen = () => {
+    setCallDialog(true);
+  };
+  const handleCallClose = () => {
+    setCallDialog(false);
+    setAddPoorContact({
+      ...addPoorContact,
+      status: false,
+    });
+  };
+
   const handleStatusOpen = () => {
     setStatusDialog(true);
   };
   const handleStatusClose = () => {
     setStatusDialog(false);
     setEditStatusDialog({
-      ...editStatusDialog, status: false
-    })
+      ...editStatusDialog,
+      status: false,
+    });
   };
   const handleAppointmentOpen = () => {
     setAppointmentDialog(true);
@@ -155,21 +176,31 @@ const ClientProfile = () => {
   };
   const handleEditClientStatus = (row, clientid) => {
     setEditStatusDialog({
-      ...editStatusDialog, status: true, clientId: clientid, description: row.description,
-      statusId: row.id, statusDetail: row
-    })
-  }
+      ...editStatusDialog,
+      status: true,
+      clientId: clientid,
+      description: row.description,
+      statusId: row.id,
+      statusDetail: row,
+    });
+  };
   const handleViewClientStatus = (row, clientid) => {
-    setViewClientStatus({ ...viewClientStatus, status: true, clientId: clientid, statusDetail: row })
-  }
+    setViewClientStatus({
+      ...viewClientStatus,
+      status: true,
+      clientId: clientid,
+      statusDetail: row,
+    });
+  };
   const handleViewStatusDialogClose = () => {
-    setViewClientStatus({ ...viewClientStatus, status: false })
-  }
+    setViewClientStatus({ ...viewClientStatus, status: false });
+  };
 
   return (
     <>
-      <Box className="main_section p-4 mt-4">
-        <Box>
+      {/* <Box className="main_section p-4 mt-4"> */}
+      <Box className="main_section">
+        <Box sx={{ marginTop: -2 }}>
           <Box
             sx={{
               display: "flex",
@@ -181,24 +212,45 @@ const ClientProfile = () => {
           >
             <Box className="userName_and_position">
               {/* <img src={ProfileImg} alt="profile" /> */}
-              <AccountCircleRoundedIcon className="userprofile_dummy_icon" />
-              <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", marginLeft: 2 }}>
+              <AccountCircleRoundedIcon
+                className="userprofile_dummy_icon"
+                sx={{
+                  paddingTop: 2,
+                }}
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  marginLeft: 2,
+                }}
+              >
                 <Typography
                   variant="span"
-                  sx={{ fontWeight: "bold", fontSize: "18px" }}
+                  sx={{ fontWeight: "bold", fontSize: "26px" }}
                 >
                   {clientProfileDetail?.name}
 
-                  <img className="ml-1" onClick={
-                    () => {
-                      setStageDialog(true)
+                  <img
+                    className="ml-1 p-1"
+                    onClick={() => {
+                      setStageDialog(true);
+                    }}
+                    src={
+                      (clientProfileDetail?.stage === 0 && Stage0) ||
+                      (clientProfileDetail?.stage === 1 && Stage1) ||
+                      (clientProfileDetail?.stage === 2 && Stage2)
                     }
-                  } src={(clientProfileDetail?.stage === 0 && Stage0) || (clientProfileDetail?.stage === 1 && Stage1) || (clientProfileDetail?.stage === 2 && Stage2)} alt="" />
-                  {(clientProfileDetail?.stage === 3 && <WarningRoundedIcon onClick={
-                    () => {
-                      setStageDialog(true)
-                    }
-                  } />)}
+                    alt=""
+                  />
+                  {clientProfileDetail?.stage === 3 && (
+                    <WarningRoundedIcon
+                      onClick={() => {
+                        setStageDialog(true);
+                      }}
+                    />
+                  )}
                 </Typography>
                 <Typography sx={{ marginTop: "10px" }} variant="span">
                   {clientProfileDetail?.business}
@@ -207,12 +259,14 @@ const ClientProfile = () => {
             </Box>
             <Box>
               {/* <PrintRoundedIcon className="icon" /> */}
-              {permissions?.editClient && <EditRoundedIcon
-                onClick={() => {
-                  navigate(`/editclient/${clientProfileDetail.id}`);
-                }}
-                className="icon"
-              />}
+              {permissions?.editClient && (
+                <EditRoundedIcon
+                  onClick={() => {
+                    navigate(`/editclient/${clientProfileDetail.id}`);
+                  }}
+                  className="icon"
+                />
+              )}
             </Box>
           </Box>
         </Box>
@@ -232,7 +286,9 @@ const ClientProfile = () => {
               <Box>
                 {value === "1" ? (
                   <>
-                    <Button className="common_button"><img src={CallNotReceived} /></Button>
+                    <Button onClick={handleCallOpen} className="common_button">
+                      <img src={CallNotReceived} />
+                    </Button>
                     <Button
                       onClick={handleStatusOpen}
                       className="common_button"
@@ -286,35 +342,34 @@ const ClientProfile = () => {
             </Box>
             <TabPanel value="1">
               <TableContainer sx={{ height: "50vh" }} component={Paper}>
-                {clientStatusList.length > 0 ? <Table stickyHeader sx={{ minWidth: 650 }}>
-                  <TableHead className="client_profile_table_header">
-                    <TableRow>
-                      <TableCell>Sr No.</TableCell>
-                      <TableCell align="left">Status Added By</TableCell>
-                      {/* <TableCell align="left">Job Role</TableCell> */}
-                      {/* <TableCell align="left">Audio</TableCell> */}
-                      <TableCell align="left">Date</TableCell>
-                      <TableCell align="left">Time</TableCell>
-                      <TableCell align="left">Description</TableCell>
-                      <TableCell></TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {clientStatusList.map((row, index) => (
-                      <TableRow
-                        key={index}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell scope="row">
-                          {index + 1}
-                        </TableCell>
-                        <TableCell align="left">{row?.team?.name}</TableCell>
-                        {/* <TableCell align="left">
+                {clientStatusList.length > 0 ? (
+                  <Table stickyHeader sx={{ minWidth: 650 }}>
+                    <TableHead className="client_profile_table_header">
+                      <TableRow>
+                        <TableCell>Sr No.</TableCell>
+                        <TableCell align="left">Status Added By</TableCell>
+                        {/* <TableCell align="left">Job Role</TableCell> */}
+                        {/* <TableCell align="left">Audio</TableCell> */}
+                        <TableCell align="left">Date</TableCell>
+                        <TableCell align="left">Time</TableCell>
+                        <TableCell align="left">Description</TableCell>
+                        <TableCell></TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {clientStatusList.map((row, index) => (
+                        <TableRow
+                          key={index}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell scope="row">{index + 1}</TableCell>
+                          <TableCell align="left">{row?.team?.name}</TableCell>
+                          {/* <TableCell align="left">
                           {row?.team?.role?.name}
                         </TableCell> */}
-                        {/* <TableCell align="left">
+                          {/* <TableCell align="left">
                           <audio controls controlsList="nodownload" >
                             <source src={`${process.env.REACT_APP_API_CALL_URL}/status/audio/${row?.audioUrl}`}
                               type="audio/wav">
@@ -324,30 +379,61 @@ const ClientProfile = () => {
                             </source>
                           </audio>
                         </TableCell> */}
-                        <TableCell align="left">{moment(row?.date).format('LL')}</TableCell>
-                        <TableCell align="left">{moment(row.time, 'hh:mm:ss').format('LT')}</TableCell>
-                        <TableCell className="status_description" align="left">{row?.description}</TableCell>
-                        <TableCell align="left" >
-                          <Button onClick={() => {
-                            handleViewClientStatus(row, clientProfileDetail.id)
-                          }} className="client_profile_edit_button m-1">
-                            View
-                          </Button>
-                          <Button
-                            className="client_profile_edit_button"
-                            onClick={() => {
-                              handleEditClientStatus(row, clientProfileDetail.id)
-                            }}
+                          <TableCell align="left">
+                            {moment(row?.date).format("LL")}
+                          </TableCell>
+                          <TableCell align="left">
+                            {moment(row.time, "hh:mm:ss").format("LT")}
+                          </TableCell>
+                          <TableCell
+                            className="status_description"
+                            align="left"
                           >
-                            Edit
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table> :
-                  <p style={{ display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", width: "100%", height: "70%", flexGrow: "auto" }}>No Data Found</p>
-                }
+                            {row?.description}
+                          </TableCell>
+                          <TableCell align="left">
+                            <Button
+                              onClick={() => {
+                                handleViewClientStatus(
+                                  row,
+                                  clientProfileDetail.id
+                                );
+                              }}
+                              className="client_profile_edit_button m-1"
+                            >
+                              View
+                            </Button>
+                            <Button
+                              className="client_profile_edit_button"
+                              onClick={() => {
+                                handleEditClientStatus(
+                                  row,
+                                  clientProfileDetail.id
+                                );
+                              }}
+                            >
+                              Edit
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                ) : (
+                  <p
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      textAlign: "center",
+                      width: "100%",
+                      height: "70%",
+                      flexGrow: "auto",
+                    }}
+                  >
+                    No Data Found
+                  </p>
+                )}
               </TableContainer>
             </TabPanel>
             <TabPanel value="2">
@@ -373,13 +459,33 @@ const ClientProfile = () => {
             statusDialog={statusDialog}
             handleStatusClose={handleStatusClose}
           />
+          <PoorContact
+            handleCallClose={handleCallClose}
+            addPoorContact={addPoorContact}
+          />
           <StageDialog
             clientProfileDetail={clientProfileDetail}
             stageDialog={stageDialog}
             handleClose={handleClose}
           />
-          {editStatusDialog.status === true ? <EditStatusDialog handleStatusClose={handleStatusClose} editStatusDialog={editStatusDialog} /> : null}
-          {viewClientStatus.status === true ? <ViewClientStatusDialog handleViewStatusDialogClose={handleViewStatusDialogClose} viewClientStatus={viewClientStatus} /> : null}
+          {editStatusDialog.status === true ? (
+            <EditStatusDialog
+              handleStatusClose={handleStatusClose}
+              editStatusDialog={editStatusDialog}
+            />
+          ) : null}
+          {addPoorContact.status === true ? (
+            <PoorContact
+              handleCallClose={handleCallClose}
+              addPoorContact={addPoorContact}
+            />
+          ) : null}
+          {viewClientStatus.status === true ? (
+            <ViewClientStatusDialog
+              handleViewStatusDialogClose={handleViewStatusDialogClose}
+              viewClientStatus={viewClientStatus}
+            />
+          ) : null}
           <AppointmentDialog
             appointmentDialog={appointmentDialog}
             handleAppointmentClose={handleAppointmentClose}

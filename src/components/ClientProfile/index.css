@@ -22,7 +22,7 @@
 }
 
 .client_attendance_tab {
-  background-color: #F1F2F6;
+  background-color: #f1f2f6;
 }
 
 .client_attendance_tab button {
@@ -31,11 +31,13 @@
   border-radius: 3px;
 }
 
-.client_attendance_tab .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
-  background-color: #2E3591 !important;
+.client_attendance_tab
+  .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  background-color: #2e3591 !important;
 }
 
-.client_attendance_tab .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+.client_attendance_tab
+  .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
   color: #fff;
 }
 
@@ -91,13 +93,24 @@ audio::-internal-media-controls-download-button {
 .status_description {
   max-width: 200px;
   white-space: nowrap;
-  overFlow: hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
-
 }
 
 .business_card_dialog_section {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.set_reminder_bg {
+  background-color: #f1f2f6;
+}
+
+.set_date_time_bg {
+  background-color: white;
+}
+
+.set_radio_button_bg {
+  background-color: #f1f2f6;
 }
