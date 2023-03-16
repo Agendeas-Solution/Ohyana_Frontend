@@ -209,7 +209,7 @@ const SideBar = () => {
           </Box>}
 
           <Box
-            className={`sidebar_icons ${path === "/Orders" && "selected-link"
+            className={`sidebar_icons ${path === "/orders" && "selected-link"
               }`}
             onClick={() => {
               handleNavItemClick("/orders", "Order");
@@ -224,7 +224,7 @@ const SideBar = () => {
           </Box>
 
           <Box
-            className={`sidebar_icons ${path === "/Report" && "selected-link"
+            className={`sidebar_icons ${path === "/report" && "selected-link"
               }`}
             onClick={() => {
               handleNavItemClick("/report", "Report");
