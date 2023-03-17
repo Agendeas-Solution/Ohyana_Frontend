@@ -31,7 +31,6 @@ const ForgetPassword = () => {
     }
     return (
         <>
-            {/* <Header/> */}
             <Box className="login_page_root">
                 <Box className="login_page_logo_root">
                     <img src={CompanyLogo} alt="Company logo" />

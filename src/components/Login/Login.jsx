@@ -1,13 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
-import CompanyLogo from "../../assets/img/Ohyana_logo.png";
 import "./index.css";
 import { login } from "../../services/apiservices/login";
 import { Context as AuthContext } from "../../context/authContext/authContext";
 import { useNavigate } from "react-router-dom";
 import ErrorSnackbar from '../ErrorSnackbar/ErrorSnackbar';
 import { Context as ContextSnackbar } from "../../context/pageContext";
-import Loader from "../Loader/Loader";
 import Logo from '../../assets/img/Ohyana Logo Blue.svg';
 
 import { socket } from "../../App";
@@ -21,23 +19,7 @@ const Login = () => {
   const { setErrorSnackbar } = useContext(ContextSnackbar);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
-  // useEffect(() => {
-  //   const keyDownHandler = event => {
-  //     if (event.key === 'Enter') {
-  //       event.preventDefault();
-  //       userlogin();
-  //     }
-  //   };
-
-  //   document.addEventListener('keydown', keyDownHandler);
-
-  //   return () => {
-  //     document.removeEventListener('keydown', keyDownHandler);
-  //   };
-  // }, []);
   const userlogin = () => {
-    console.log(userDetail);
-    //debugger;
     if (userDetail.email !== "" && userDetail.password !== "") {
       setFlagLoader(true)
       login(
@@ -48,7 +30,6 @@ const Login = () => {
             setFlagLoader(false)
             navigate("/profile");
             socket.emit('join', { email: userDetail?.email });
-            // setUserDetail({ ...userDetail, email: e.target.value });
           } else {
             if (res?.data?.error) {
               setErrorMessage(res?.data?.error?.message);
@@ -117,7 +98,6 @@ const Login = () => {
           {new Date().getFullYear()} ©  Ohyana.
         </Typography>
       </Box>
-      {/* </form> */}
       <ErrorSnackbar />
     </>
   );

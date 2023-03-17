@@ -25,11 +25,9 @@ const EditReminderDialog = (props) => {
     const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar);
     const handleEditReminder = () => {
         console.log("Add Reminder", clientReminderDetail);
-        //debugger;
         if (clientReminderDetail.description !== "" && clientReminderDetail.date !== "" && clientReminderDetail.time !== "") {
             EditAdminClientReminderDetail(clientReminderDetail, (res) => {
                 props.handleClose();
-                //debugger
                 setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
             }, (err) => {
                 setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.error })
@@ -84,11 +82,7 @@ const EditReminderDialog = (props) => {
                                 <Typography variant="span">Description</Typography>
                             </div>
                             <div className="col-md-12">
-                                {/* <TextField onChange={(e) => {
-                                    setClientReminderDetail({ ...clientReminderDetail, description: e.target.value });
-                                }} value={clientReminderDetail.description} placeholder="Description..." className="w-100" /> */}
                                 <TextareaAutosize
-
                                     className="w-100"
                                     sx={{ borderRadius: "10px" }}
                                     onChange={(e) => {

@@ -84,8 +84,7 @@ const AddStatusDialog = ({ setAddStatus, addStatus, handleDialogOpen, businessDe
                                         ...addStatusDetail,
                                         description: e.target.value,
                                     })
-                                }
-                                }
+                                }}
                                 placeholder="Description Here..."
                             />
                         </div>

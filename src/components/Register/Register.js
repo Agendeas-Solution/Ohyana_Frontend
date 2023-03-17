@@ -45,7 +45,6 @@ const Register = () => {
                     ...otpValue,
                     status: true
                 })
-                debugger;
             }
         }, (err) => {
 
@@ -53,16 +52,12 @@ const Register = () => {
     }
     const handleOtp = () => {
         VerifyOTP({ email: registerData?.email, otp: otpValue.value }, (res) => {
-            debugger;
         }, (err) => {
-            debugger
         })
     }
     const handleRegister = () => {
         RegisterUser(registerData, (res) => {
-            debugger
         }, (err) => {
-            debugger
         })
     }
     return (

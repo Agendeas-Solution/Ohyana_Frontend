@@ -1,16 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
-import {
-  Typography,
-  Box,
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-} from "@mui/material";
-import {
-  GetAdminDepartmentList,
-  GetAdminRole,
-} from "../../services/apiservices/adminprofile";
+import {Typography,Box,TextField,Button,Select,MenuItem,} from "@mui/material";
+import {GetAdminDepartmentList,GetAdminRole,} from "../../services/apiservices/adminprofile";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -52,7 +42,6 @@ const AddStaffMember = () => {
         }
       },
       (err) => {
-        //
       }
     );
   }, []);
@@ -64,7 +53,6 @@ const AddStaffMember = () => {
           (res) => {
             if (res.status === 200) {
               setEmployeeJobRole(res.data?.roles);
-              //
             }
           },
           (err) => {
@@ -119,7 +107,6 @@ const AddStaffMember = () => {
       );
     } else {
       console.log(userDetail);
-      //
     }
   };
   return (
@@ -254,33 +241,6 @@ const AddStaffMember = () => {
               }
             />
           </Box>
-          {/* <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Confirm Password<span className="required_star">*</span>
-            </Typography>
-            <OutlinedInput
-              type={userDetail.showPassword ? "text" : "password"}
-              value={userDetail.confirmpassword}
-              onChange={handleChange("confirmpassword")}
-              autoComplete="off"
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {userDetail.showPassword ? (
-                      <VisibilityOff />
-                    ) : (
-                      <Visibility />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </Box> */}
-          {/* <Box className="input_field_row"> */}
           <Box className="input_fields">
             <Typography className="input_field_label" variant="span">
               Gender<span className="required_star">*</span>
@@ -296,8 +256,6 @@ const AddStaffMember = () => {
             </Select>
           </Box>
         </Box>
-        {/* </Box> */}
-
         <Box
           sx={{ justifyContent: "flex-start" }}
           className="input_field_row"

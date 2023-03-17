@@ -9,8 +9,6 @@ import AddRemainderDialog from "./AddRemainderDialog";
 import AddAppointmentDialog from "./AddAppointmentDialog";
 import {
   GetAdminAppointmentOrReminder,
-  DeleteAppointment,
-  AddCalendarReminder,
 } from "../../services/apiservices/adminprofile";
 import { Context as ContextEditAppointmentDialog } from "../../context/pageContext";
 import Loader from "../Loader/Loader";
@@ -19,12 +17,6 @@ const Calendar = () => {
   const [value, setValue] = useState("Appointments");
   const { editAppointmentDialogFlag } = useContext(ContextEditAppointmentDialog)?.state;
   const [loader, setLoader] = useState(false);
-
-  const [clientType, setClientType] = useState([
-    "intiate",
-    "inter-mediate",
-    "confirm",
-  ]);
   const [remainderDialogControl, setRemainderDialogControl] = useState(false);
   const [appointmentDialogControl, setAppointmentDialogControl] =
     useState(false);

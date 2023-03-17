@@ -57,7 +57,6 @@ const Task = () => {
             (res) => {
                 if (res?.status === 200) {
                     setTaskList(res?.data);
-                    debugger;
                 }
             },
             (err) => {
@@ -77,9 +76,7 @@ const Task = () => {
     const handleAssignMember = (memberId) => {
 
         AssignMemberParticularTask({ taskid: taskId, memberid: memberId }, (res) => {
-            debugger;
         }, (err) => {
-            debugger;
         })
     }
 

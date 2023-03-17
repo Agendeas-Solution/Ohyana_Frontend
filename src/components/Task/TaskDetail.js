@@ -52,13 +52,11 @@ const TaskDetail = () => {
             setCheckLists(res?.data?.checklists)
         }, (err) => {
             console.log(err);
-            debugger;
         })
     }
     const handleAddItem = () => {
         AddItemCheckList({ id: path, task: addCheckList }, (res) => {
             setAddCheckList("");
-            debugger;
             setCheckLists(res?.data?.checklists)
             setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
         }, (err) => {

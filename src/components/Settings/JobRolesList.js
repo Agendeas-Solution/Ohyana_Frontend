@@ -63,7 +63,6 @@ const JobRolesList = () => {
             },
             (err) => {
                 console.log(err);
-                //
             }
         );
     }, [deleteJobRoleDialogControl.status, jobRoleDialogControl, editJobRoleDialogControl.status]);

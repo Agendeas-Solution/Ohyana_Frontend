@@ -35,12 +35,10 @@ const StaffAttendance = () => {
         setValue(newValue);
     };
     const handleGrantLeave = () => {
-        debugger;
         GrantLeave({id:approveLeave.id,leaveStatus:approveLeave?.leaveStatus}, (res) => {
             handleCloseDialog();
         }, (err) => {
             console.log(err);
-            debugger;
         })
     }
     const handleCloseDialog=()=>{
@@ -53,17 +51,13 @@ const StaffAttendance = () => {
         path = path.split("/").pop();
         value === "1" && GetStaffAttendanceList(path, (res) => {
             setStaffAttendanceList(res?.data);
-            debugger;
         }, (err) => {
-
         })
         value === "2" && GetStaffLeaveList(path, (res) => {
             setStaffLeaveList(res?.data);
-            debugger;
         }, (err) => {
         })
     }, [value])
-
     return (
         <><Box>
             <Box className="attendance_data_row col-md-12">
@@ -144,7 +138,6 @@ const StaffAttendance = () => {
                     </TableContainer>
                 </TabPanel>
                 <TabPanel value="2">
-                    {/* <StaffAttendance /> */}
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }}>
                             <TableHead>

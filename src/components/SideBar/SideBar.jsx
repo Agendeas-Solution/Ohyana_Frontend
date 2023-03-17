@@ -89,18 +89,7 @@ const SideBar = () => {
   return (
     <>
       <div
-        // className="w-25"
         style={{ width: "20%", background: "white" }}
-      // sx={{
-      //   width: "15%",
-      //   flexShrink: 0,
-      //   "& .MuiDrawer-paper": {
-      //     width: "15%",
-      //     boxSizing: "border-box",
-      //   },
-      // }}
-      // variant="permanent"
-      // anchor="left"
       >
         {flagLoader ? <Loader></Loader> : null}
         <div className="main-logo">
@@ -237,7 +226,6 @@ const SideBar = () => {
               Report
             </Typography>
           </Box>
-
           <Box
             className={`sidebar_icons ${path === "/support" && "selected-link"
               }`}
@@ -252,7 +240,6 @@ const SideBar = () => {
               Support
             </Typography>
           </Box>
-
           {permissions?.settingMenu && <Box
             className={`sidebar_icons ${path === "/settings" && "selected-link"
               }`}
@@ -281,7 +268,6 @@ const SideBar = () => {
               My Profile
             </Typography>
           </Box>}
-
           <Box className="sidebar_icons" onClick={clearLoginToken}>
             <Box className="sidebar_icon_root">
               <img src={SignOut} className="sidebar_img" />

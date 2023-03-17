@@ -1,6 +1,5 @@
 import React from 'react'
-import { Box, Typography, Autocomplete, TextField, Button, Pagination } from '@mui/material'
-
+import { Box, Typography, Button } from '@mui/material'
 const Poll = () => {
     return (
         <>

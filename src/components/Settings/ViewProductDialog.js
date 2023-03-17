@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import {
-    Box, Tabs, Tab, Button, Typography, Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions, TextField
-} from "@mui/material";
+import {Box, Tabs, Tab, Button, Typography, Dialog,DialogTitle,DialogContent,DialogActions, TextField} from "@mui/material";
 import SampleProduct from '../../assets/img/sample_product.png'
-
 import { GetProductDetail } from '../../services/apiservices/productDetail';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
@@ -23,7 +17,6 @@ const ViewProductDialog = ({ viewProductDialog, handleClose }) => {
 
         })
     }, [viewProductDialog?.id])
-    // let image_url = `${process.env.REACT_APP_API_CALL_URL}/file/${productDetail?.imageUrl}`
     const handleDeleteProduct = () => {
         DeleteAdminProduct(viewProductDialog?.id, (res) => {
             console.log("Printing Response", res.data)

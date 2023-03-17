@@ -1,19 +1,11 @@
-import React, { useState,useContext } from "react";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  TextField,
-  Typography,TextareaAutosize
-} from "@mui/material";
+import React, { useState, useContext } from "react";
+import { Box, Button, Dialog, DialogActions, DialogContent, TextField, Typography, TextareaAutosize } from "@mui/material";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AddAdminClientReminderDetail } from '../../services/apiservices/clientDetail';
 import moment from "moment";
-import { Context as  ContextSnackbar } from "../../context/pageContext";
+import { Context as ContextSnackbar } from "../../context/pageContext";
 const RemainderDialog = (props) => {
   const [clientReminderDetail, setClientReminderDetail] = useState({
     description: "",
@@ -21,19 +13,17 @@ const RemainderDialog = (props) => {
     time: "",
     clientId: props?.clientProfileDetail?.id
   });
-  const { successSnackbar } = useContext( ContextSnackbar)?.state;
-  const { setSuccessSnackbar } = useContext( ContextSnackbar);
+  const { successSnackbar } = useContext(ContextSnackbar)?.state;
+  const { setSuccessSnackbar } = useContext(ContextSnackbar);
   const handleAddReminder = () => {
     console.log("Add Reminder", clientReminderDetail);
     debugger
     if (clientReminderDetail.description !== "" && clientReminderDetail.date !== "" && clientReminderDetail.time !== "") {
-
       AddAdminClientReminderDetail(clientReminderDetail, (res) => {
         props.handleClose();
         setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
       }, (err) => {
         console.log("Error :", err);
-        //debugger
       })
     }
   }
@@ -53,13 +43,13 @@ const RemainderDialog = (props) => {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     disablePast
-                     
+
                     inputFormat="dd/MM/yyyy"
                     value={clientReminderDetail.date}
                     onChange={(e) => {
                       setClientReminderDetail({ ...clientReminderDetail, date: moment(e).format('YYYY-MM-DD') });
                     }}
-                    renderInput={(params) => <TextField  className="w-100" {...params} />}
+                    renderInput={(params) => <TextField className="w-100" {...params} />}
                   />
                 </LocalizationProvider>
               </div>
@@ -85,7 +75,7 @@ const RemainderDialog = (props) => {
                 <Typography variant="span">Description</Typography>
               </div>
               <div className="col-md-12">
-                 <TextareaAutosize
+                <TextareaAutosize
                   style={{ width: 150 }}
                   placeholder="Description Here..."
                   className="w-100"

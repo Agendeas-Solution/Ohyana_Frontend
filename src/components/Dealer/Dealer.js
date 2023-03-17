@@ -4,18 +4,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import FilterIcon from '../../assets/img/Filter.svg'
-import {
-    Box, FormControl,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Paper,
-    Button,
-    Typography
-} from "@mui/material";
+import {Box, FormControl,Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper,Button,Typography} from "@mui/material";
 import CallIcon from '../../assets/img/call.svg'
 import { GetDealerList, AddDealerCall } from '../../services/apiservices/dealerDetail';
 import AddDealerDialog from './AddDealerDialog';
@@ -31,17 +20,14 @@ const Dealer = () => {
         path = path.split("/").pop();
         GetDealerList(parseInt(path), (res) => {
             setDealerList(res.data);
-            debugger;
         }, (err) => {
             console.log("Printing OrderList Error", err);
         })
     }, [])
     const AddDealerDetail = () => {
         AddDealerCall({ username: addDealer.dealerId }, (res) => {
-            debugger;
         }, (err) => {
             console.log("Printing Error", err);
-            debugger;
         })
     }
     const handleCloseDialog = () => {
@@ -72,10 +58,7 @@ const Dealer = () => {
                         <Button onClick={() => setAddDealer({ ...addDealer, status: true })} sx={{ background: "#fff", color: "#2E3591" }} variant="contained">+ Dealer</Button>
                         <IconButton
                             edge="end"
-                        // onClick={handleDrawerOpen}
-                        // sx={{ ...(open && { display: 'none' }) }}
                         >
-                            {/* <MenuIcon /> */}
                             <img src={FilterIcon} alt="" />
                         </IconButton>
                     </Box>
@@ -110,7 +93,6 @@ const Dealer = () => {
                                             <TableCell align="right">
                                                 <Button className="common_button">View</Button>
                                                 <Button className="common_button"><img src={CallIcon} /></Button>
-                                                {/*<Button className="common_button"><img src={MailIcon} /></Button> */}
                                             </TableCell>
                                         </TableRow>
                                     })

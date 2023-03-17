@@ -10,23 +10,19 @@ import NorthEastIcon from '@mui/icons-material/NorthEast';
 const MyApp = () => {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const navigate = useNavigate();
-
     const { notificationSnackbar } = useContext(ContextSnackbar)?.state;
-
     const action = snackbarId => (
         <>
             <NorthEastIcon sx={{marginRight:1}} onClick={() => { navigate("/notification") }} />
             <CancelRoundedIcon sx={{ marginRight: 1 }} onClick={() => { closeSnackbar(snackbarId) }} />
         </>
     );
-
     useEffect(() => {
         {
             notificationSnackbar.status && enqueueSnackbar(notificationSnackbar?.heading, {
                 action
             });
         }
-        //debugger;
     }, [notificationSnackbar])
 
     return (
@@ -52,7 +48,6 @@ const MyApp = () => {
     // )
 }
 export default function NotificationSnackbar() {
-
     return (
         <SnackbarProvider autoHideDuration={10000} variant="info" anchorOrigin={{
             vertical: 'bottom',

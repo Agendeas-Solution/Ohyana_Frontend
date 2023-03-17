@@ -31,20 +31,17 @@ const StaffExpenses = () => {
         GetExpenseList(path, (res) => {
             setExpenseList(res.data.expenses)
             setExpensesData(res.data);
-            debugger;
         }, (err) => {
         })
     }, [])
     const handlePaymentStatusUpdate = (id) => {
         PaymentStatusUpdate(id, (res) => {
-            debugger;
         }, (err) => {
             console.log("Printing Error Payment Status Update", err);
         })
     }
     const handleStatusUpdate = (id, status) => {
         StatusUpdate(id, status, (res) => {
-            debugger;
         }, (err) => {
 
         })

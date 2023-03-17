@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react'
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { Box, Typography, Button, Dialog, DialogTitle, DialogActions, TextareaAutosize } from '@mui/material'
 import Like from '../../assets/img/like.svg'
 import moment from 'moment';
@@ -9,7 +8,6 @@ import { Context as ContextSnackbar } from "../../context/pageContext";
 import { GetComplaintDetail } from '../../services/apiservices/support';
 import { AddStatusInComplaint, CloseTicket } from '../../services/apiservices/support';
 
-
 const Complaint = () => {
     const [complaintDetail, setComplaintDetail] = useState([]);
     const [open, setOpen] = React.useState(false);
@@ -18,13 +16,6 @@ const Complaint = () => {
     const { successSnackbar } = useContext(ContextSnackbar)?.state;
     const theme = useTheme();
     const { setSuccessSnackbar } = useContext(ContextSnackbar);
-    const [createTask, setCreateTask] = useState({
-        title: "",
-        description: "",
-        due_date: ""
-    })
-    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -66,7 +57,6 @@ const Complaint = () => {
             console.log(err);
         })
     }
-
     const handleCloseTicket = () => {
         let path = window.location.pathname;
         console.log("Printing Path of ", path);
@@ -169,7 +159,6 @@ const Complaint = () => {
                                 </div>
                             </div>
                         </Box>
-
                         <DialogActions className="m-auto">
                             <Button
                                 variant="contained"

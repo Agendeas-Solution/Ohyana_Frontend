@@ -70,15 +70,12 @@ const UserProfile = () => {
 
     })
     activeTab === "leave" && GetAdminLeaveList(userDetail?.id, (res) => {
-      debugger;
       setLeaveList(res?.data)
     }, (err) => {
-      debugger
     })
   }, [value, activeTab])
   const handleCheckIn = (type) => {
     AttendanceStatus(type, (res) => {
-      debugger;
     }, (err) => {
 
     })
@@ -232,43 +229,9 @@ const UserProfile = () => {
                       }} variant="contained">Leave</Button>
 
                   </Box>
-                  {/* <Typography variant="span">Select Date Range</Typography>
-                  <Box>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <DatePicker
-                        disablePast
-                        inputFormat="dd/MM/yyyy"
-                        // value={dateRange.startDate}
-                        // onChange={(e) => {
-                        //   setDateRange({ ...dateRange, startDate: e });
-                        // }}
-                        renderInput={(params) => <TextField className='w-50' {...params} />}
-                      />
-                      <DatePicker
-                        disablePast
-                        inputFormat="dd/MM/yyyy"
-                        // minDate={dateRange.startDate}
-                        // value={dateRange.endDate}
-                        // onChange={(e) => {
-                        //   setDateRange({ ...dateRange, endDate: e });
-                        // }}
-                        renderInput={(params) => <TextField className='w-50' {...params} />}
-                      />
-                    </LocalizationProvider> */}
-                  {/* </Box> */}
                 </Box>
               </Box>
-              {/* <AttendanceData /> */}
               <Box className="tab_row">
-                {/* <TabList
-                    className="client_attendance_tab mb-2"
-                    onChange={handleTabChange}
-                  >
-                    <Tab label="Present" value="1" />
-                    <Tab label="Leave" value="2" />
-                    <Tab label="Holiday" value="3" />
-                  </TabList> */}
-
                 {activeTab === "leave" && <Box>
                   <Button onClick={() => setLeaveDialogControl(true)} className="attendance_button m-2" variant="contained">Apply For Leave</Button>
                 </Box>}

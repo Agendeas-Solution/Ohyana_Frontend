@@ -1,20 +1,9 @@
 import React, { useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-} from "@mui/material";
+import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper,Button} from "@mui/material";
 import "./index.css";
-import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import EditAppointmentDialog from './EditAppointmentDialog'
 const AppointmentTable = (props) => {
-  let navigate = useNavigate();
   const [editClientAppointmentDetail, setEditClientAppointmentDetail] = useState({
     date: "",
     time: "",
@@ -26,7 +15,6 @@ const AppointmentTable = (props) => {
   })
   const handleAppointmentReminder = (row) => {
     setEditClientAppointmentDetail({ ...editClientAppointmentDetail, date: row.date, time: row.time, description: row.description, status: true, appointmentId: row.id, appointed_member: row.teams })
-    debugger;
   }
   const handleAppointmentClose = () => {
     setEditClientAppointmentDetail({ ...editClientAppointmentDetail, status: false })

@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-    Dialog,
-    Box,
-    DialogContent,
-    DialogActions,
-    Button,
-    Typography, TextareaAutosize
-} from "@mui/material";
+import {Dialog, Box, DialogContent, DialogActions, Button, Typography, TextareaAutosize} from "@mui/material";
 import { EditTaskDescription } from '../../services/apiservices/task';
 const EditDescriptionDialog = ({ editDescriptionDialog, setEditDescriptionDialog, handleDialogClose }) => {
     const handleEditDescription = () => {

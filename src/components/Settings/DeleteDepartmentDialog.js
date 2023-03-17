@@ -1,12 +1,5 @@
 import React, { useContext } from "react";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Typography,
-} from "@mui/material";
+import {Dialog,DialogTitle,DialogContent,DialogActions,Button,Typography,} from "@mui/material";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { DeleteDepartment } from "../../services/apiservices/staffDetail";
 import { useNavigate } from "react-router-dom";
@@ -20,8 +13,6 @@ const DeleteDepartmentDialog = (props) => {
       navigate("/departmentlist");
       setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
     }, (err) => {
-      //debugger;
-
     })
   }
   return (

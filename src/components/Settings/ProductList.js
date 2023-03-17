@@ -65,7 +65,6 @@ const ProductList = () => {
             onClick={() => {
               navigate("/addproduct");
             }}
-            // variant="contained"
             className="main_button"
           >
             + Add Product
@@ -79,7 +78,6 @@ const ProductList = () => {
                 return (
                   <>
                     <Box className="product_card" onClick={() => setViewProductDialog({ ...viewProductDialog, status: true, id: row?.id })}>
-                      {/* <img src={image_url} alt="sample" /> */}
                     </Box>
                   </>
                 );

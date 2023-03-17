@@ -1,28 +1,9 @@
 import { React, useEffect, useState, useContext } from "react";
-import {
-  Typography,
-  Box,
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-  Autocomplete,
-} from "@mui/material";
-import {
-  GetAdminProductList,
-  EditClientDetail,
-} from "../../services/apiservices/adminprofile";
-import {
-  GetAdminClientProfileDetail,
-  GetCountryList,
-} from "../../services/apiservices/clientDetail";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { Typography, Box, TextField, Button, Select, MenuItem, Autocomplete,} from "@mui/material";
+import {GetAdminProductList,EditClientDetail,} from "../../services/apiservices/adminprofile";
+import {GetAdminClientProfileDetail,GetCountryList,} from "../../services/apiservices/clientDetail";
 import { useNavigate } from "react-router-dom";
 import { Context as ContextSnackbar } from "../../context/pageContext";
-import SuccessSnackbar from "../SuccessSnackbar/SuccessSnackbar";
 const EditClient = () => {
   const [userDetail, setUserDetail] = useState({
     clientName: "",
@@ -41,7 +22,6 @@ const EditClient = () => {
   });
   const [adminProductList, setAdminProductList] = useState([]);
   const [filteredProductList, setFilteredProductList] = useState([]);
-  const [successDialog, setSuccessDialog] = useState(false);
   const [countryList, setCountryList] = useState([]);
   const navigate = useNavigate();
   const { successSnackbar } = useContext(ContextSnackbar)?.state;
@@ -128,10 +108,6 @@ const EditClient = () => {
     }
     setFilteredProductList(productlist);
   }, [userDetail?.inquiryfor]);
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
   const EditClient = () => {
     if (
       userDetail.clientName !== "" &&
@@ -161,7 +137,6 @@ const EditClient = () => {
         memberId: 3,
         reference_name: userDetail?.referenceName
       };
-      debugger;
       let path = window.location.pathname;
       console.log("Printing Path of ", path);
       console.log("Printing ", path.split("/").pop());
@@ -172,12 +147,10 @@ const EditClient = () => {
         (res) => {
           if (res.status === 200) {
             navigate(`/clientprofile/${path}`);
-            //debugger;
             setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
           }
         },
         (err) => {
-          //debugger
         }
       );
     }

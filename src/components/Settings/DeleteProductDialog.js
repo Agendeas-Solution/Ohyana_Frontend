@@ -1,15 +1,6 @@
 import React, { useContext } from "react";
-
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Typography,
-} from "@mui/material";
+import {Dialog,DialogTitle, DialogContent, DialogActions, Button, Typography,} from "@mui/material";
 import { DeleteAdminProduct } from "../../services/apiservices/adminprofile";
-import SuccessSnackbar from "../SuccessSnackbar/SuccessSnackbar";
 import { Context as  ContextSnackbar } from "../../context/pageContext";
 const DeleteProductDialog = (props) => {
   const { successSnackbar } = useContext( ContextSnackbar)?.state;
@@ -20,7 +11,6 @@ const DeleteProductDialog = (props) => {
       (res) => {
         if (res.status === 200) {
           props.handleClose();
-          //debugger
           setSuccessSnackbar({ ...successSnackbar, status: true, message: `${props.DeleteProductDialogControl.type.charAt(0) + props.DeleteProductDialogControl.type.toLowerCase().slice(1)} Deleted Successfully` });
         }
       },

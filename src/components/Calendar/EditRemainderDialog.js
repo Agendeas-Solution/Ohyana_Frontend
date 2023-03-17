@@ -89,7 +89,6 @@ const EditRemainderDialog = (props) => {
                             <div className="col-md-6">
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DatePicker
-                                          
                                         inputFormat="dd/MM/yyyy"
                                         value={editReminderDetail.date}
                                         onChange={(e) => {
@@ -187,14 +186,6 @@ const EditRemainderDialog = (props) => {
                                 <Typography variant="span">Date</Typography>
                             </div>
                             <div className="col-md-12">
-                                {/* <TextField
-                  value={addReminder.date}
-                  className="w-100"
-                  onChange={(e) => {
-                    setAddReminder({ ...addReminder, date: e.target.value });
-                  }}
-                  type="date"
-                /> */}
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DatePicker
                                         disablePast

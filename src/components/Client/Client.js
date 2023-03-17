@@ -1,14 +1,6 @@
 import { React, useEffect, useState, useContext } from "react";
 import {
-  Tabs,
-  Tab,
-  Box,
-  FormControlLabel,
-  Autocomplete,
-  TextField,
-  Pagination,
-  Button, Dialog,
-  DialogActions,
+  Tabs,Tab,Box,FormControlLabel,Autocomplete,TextField,Pagination,Button, Dialog,DialogActions,
   Typography, Checkbox, FormControl, OutlinedInput, InputAdornment
 } from "@mui/material";
 import "./index.css";
@@ -57,7 +49,6 @@ const Client = () => {
   const [numbersToDisplayOnPagination, setNumbersToDisplayOnPagination] =
     useState(0)
   const [clientLoader, setClientLoader] = useState(false)
-
   const [clientType, setClientType] = useState([
     { stage: "intiate", id: 0 },
     { stage: "no response", id: 1 },
@@ -69,7 +60,6 @@ const Client = () => {
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   }));
@@ -87,7 +77,6 @@ const Client = () => {
       }
     })
     setClientType(value);
-    //debugger;
   }, [])
   const [clientStage, setClientStage] = useState();
   const handleClientDelete = () => {
@@ -172,7 +161,6 @@ const Client = () => {
               : null;
           setNumbersToDisplayOnPagination(pages);
           setClientLoader(false)
-          // debugger;
         }
       },
       (err) => {
@@ -203,20 +191,6 @@ const Client = () => {
             <Tab value="OTHER" label="Other" />
           </Tabs>
           <div className="d-flex">
-            {/* <Autocomplete
-              className="align-items-center d-flex justify-content-center me-2"
-              options={clientType}
-              value={clientStage !== null ? clientType[clientStage] : null}
-              sx={{ width: 200 }}
-              onChange={(e, value) => {
-                console.log(value);
-                setClientStage(value?.id);
-              }}
-              getOptionLabel={(option) => option.stage}
-              renderInput={(params) => (
-                <TextField className="client_type_select" {...params} placeholder="Select Client Type" />
-              )}
-            /> */}
             <FormControl variant="outlined">
               <OutlinedInput
                 className="search_field"
@@ -305,7 +279,6 @@ const Client = () => {
         <Box>
           {value === "Telephony" ? <CustomerList clientDetails={clientDetails} ViewClientDetail={ViewClientDetail} /> : null}
           {value === "PJP" ? <CustomerList clientDetails={clientDetails} ViewClientDetail={ViewClientDetail} /> : null}
-
           {value === "BusinessCard" ? <BusinessCard /> : null}
           <Pagination
             className="mt-3"
@@ -319,17 +292,6 @@ const Client = () => {
               setCurrentPage(value);
             }}
           />
-          {/* <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            colSpan={3}
-            count={clientDetails.length}
-            rowsPerPage={numbersToDisplayOnPagination}
-            page={currentPage}
-            onChange={(e, value) => {
-              setCurrentPage(value);
-              debugger;
-            }}
-          /> */}
         </Box >
       </Box >
       <Dialog

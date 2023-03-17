@@ -25,7 +25,6 @@ const CompanyProfile = () => {
             }
         );
     }, []);
-    // localStorage.setItem("userEmail", companyDetail?.member?.email)
     return (
         <>  <div className="w-100 mt-4">
             <Box className="profile_section">
@@ -58,9 +57,6 @@ const CompanyProfile = () => {
                     />
                 </Box>
                 <Box className="companyDetail">
-                    {/* <Typography variant="span" className="profile_detail_heading">
-                        Profile Detail
-                    </Typography> */}
                     <Box className="companyDetail_root">
                         <Typography className="companyDetail_field_heading" variant="span">
                             Email:

@@ -5,7 +5,6 @@ import { GetAdminDepartmentList } from "../../services/apiservices/adminprofile"
 import AddEditDepartmentDialog from "./AddEditDepartmentDialog";
 import SuccessSnackbar from "../SuccessSnackbar/SuccessSnackbar";
 import { Context as AuthContext } from "../../context/authContext/authContext";
-
 const DepartmentList = () => {
   let navigate = useNavigate();
   const { flagLoader, permissions } = useContext(AuthContext).state;
@@ -40,7 +39,6 @@ const DepartmentList = () => {
               status: true,
             });
           }}
-          // variant="contained"
           className="main_button"
         >
           + Add Department

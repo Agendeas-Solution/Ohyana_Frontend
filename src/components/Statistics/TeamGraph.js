@@ -24,7 +24,6 @@ const TeamGraph = ({selectedPeriod}) => {
     useEffect(() => {
         GetTeamReport({selectedPeriod:selectedPeriod}, (res) => {
             setGraphData(res?.data?.data);
-            debugger;
         }, (err) => {
         })
 

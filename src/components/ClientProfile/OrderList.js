@@ -15,7 +15,6 @@ import { useNavigate } from 'react-router-dom';
 const OrderList = () => {
     const [orderList, setOrderList] = useState([]);
     const navigate = useNavigate();
-
     useEffect(() => {
         let path = window.location.pathname;
         console.log("Printing Path of ", path);

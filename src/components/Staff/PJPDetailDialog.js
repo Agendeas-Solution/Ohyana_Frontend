@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Box, Typography, Button, TextField, DialogContent,
-  DialogActions, Dialog, Divider
-} from "@mui/material";
+import {Box, Typography, Button, DialogContent, Dialog, Divider} from "@mui/material";
 import { GetPJPDetail } from '../../services/apiservices/teamcall';
-
 import './index.css';
 const PJPDetailDialog = ({ pjpDetailDialog, handleCloseDialog }) => {
   const [pjpDetail, setPJPDetail] = useState([]);
   useEffect(() => {
     GetPJPDetail(pjpDetailDialog.id, (res) => {
       setPJPDetail(res.data);
-      debugger;
     }, (Err) => {
 
     })
@@ -56,7 +51,6 @@ const PJPDetailDialog = ({ pjpDetailDialog, handleCloseDialog }) => {
             <Typography variant="span">{pjpDetail?.description}</Typography>
           </Box>
         </DialogContent>
-       
       </Dialog>
     </>
   )

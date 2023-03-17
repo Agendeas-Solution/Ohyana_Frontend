@@ -1,12 +1,5 @@
 import React, { useState, useContext } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogActions,
-  Button,
-  Typography,
-  TextField,
-} from "@mui/material";
+import {Dialog,DialogContent,DialogActions,Button,Typography,TextField} from "@mui/material";
 import { Context as  ContextSnackbar } from "../../context/pageContext";
 import { AddAdminDepartment, EditAdminDepartment } from "../../services/apiservices/adminprofile";
 const AddEditDepartmentDialog = (props) => {
@@ -20,12 +13,10 @@ const AddEditDepartmentDialog = (props) => {
         (res) => {
           if (res.status === 200) {
             props.handleClose();
-            //debugger;
             setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
           }
         },
         (err) => {
-          //
         }
       );
     }
@@ -39,7 +30,6 @@ const AddEditDepartmentDialog = (props) => {
           }
         },
         (err) => {
-          //
         }
       );
     }

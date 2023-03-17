@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Dialog, Select, DialogActions, DialogContent, DialogContentText, DialogTitle, MenuItem, Typography, TextField } from '@mui/material';
+import { Box, Dialog, Select, DialogActions, DialogContent, DialogTitle, MenuItem, Typography, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 const AddNotification = (props) => {
     const [age, setAge] = React.useState('');
@@ -18,10 +18,6 @@ const AddNotification = (props) => {
                     Set Notification
                 </DialogTitle>
                 <DialogContent>
-                    {/* <DialogContentText id="alert-dialog-description">
-                        Let Google help apps determine location. This means sending anonymous
-                        location data to Google, even when no apps are running.
-                    </DialogContentText> */}
                     <Box className="input_fields">
                         <Typography variant="span">Department</Typography>
                         <Select

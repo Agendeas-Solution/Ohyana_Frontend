@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import {
-    Box, Typography, Button, TextField, DialogContent,
-    DialogActions, Dialog
-} from "@mui/material";
+import {Box, Typography, Button, TextField, DialogContent,DialogActions, Dialog} from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import './index.css';
 const AddPJPDialog = ({ addPJPDetail, handleCloseDialog, setAddPJPdetail, handleAddPJPDetail,getLocation }) => {
-
     return (
         <>
             <Dialog

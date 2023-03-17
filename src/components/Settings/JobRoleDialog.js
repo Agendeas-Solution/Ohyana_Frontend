@@ -1,20 +1,8 @@
 import React, { useState } from "react";
-import {
-  Dialog,
-  Box,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-  Typography,
-  TextField,TextareaAutosize
-} from "@mui/material";
+import {Dialog, Box, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Typography, TextField,TextareaAutosize} from "@mui/material";
 import Department from "./Department";
 import { CreateJobRole } from "../../services/apiservices/adminprofile";
 const JobRoleDialog = (props) => {
-  console.log(props?.jobRoleList?.departmentId);
-
   const [jobRoleDetail, setJobRoleDetail] = useState({
     name: "",
     description: "",
@@ -28,7 +16,6 @@ const JobRoleDialog = (props) => {
         props.handleClose();
       },
       (err) => {
-        //
       }
     );
   };

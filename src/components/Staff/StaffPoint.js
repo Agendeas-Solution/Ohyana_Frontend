@@ -41,14 +41,11 @@ const StaffPoint = () => {
                     : null;
             setTotalPage(pages);
         }, (err) => {
-
         })
     }, [selectMonth, currentPage])
 
     const handleAppreciation = () => {
-
         GiveAppreciation(parseInt(path), (res) => {
-            debugger;
         }, (err) => {
 
         })

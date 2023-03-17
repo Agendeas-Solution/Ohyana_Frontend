@@ -14,10 +14,7 @@ import StaffRatingTable from "./StaffRatingTable";
 import ChangeRoleDialog from "./ChangeRoleDialog";
 import PlaceIcon from '@mui/icons-material/Place';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-import {
-  GetAdminStaffProfileDetail,
-  GetAdminStaffRatingDetail,
-} from "../../services/apiservices/staffDetail";
+import { GetAdminStaffProfileDetail, GetAdminStaffRatingDetail,} from "../../services/apiservices/staffDetail";
 import { useNavigate } from "react-router-dom";
 import Attendance from "./StaffAttendance";
 import StaffAttendance from "./StaffAttendance";
@@ -69,10 +66,6 @@ const StaffProfile = () => {
         }
       );
   }, [value, giveRating]);
-  useEffect(() => {
-    console.log("Printing", permissions);
-    //debugger;
-  }, [])
   return (
     <>
       <Box className="main_section">
@@ -87,7 +80,6 @@ const StaffProfile = () => {
             }}
           >
             <Box className="userName_and_position">
-              {/* <img src={ProfileImg} alt="profile" /> */}
               <AccountCircleRoundedIcon className="userprofile_dummy_icon" />
               <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", marginLeft: 2 }}>
                 <Typography
@@ -103,12 +95,6 @@ const StaffProfile = () => {
             </Box>
           </Box>
           <Box>
-            {/* <img
-              src={ChangeRole}
-              // onClick={() => setChangeRoleDialogControl(true)}
-              className="icon"
-              alt="changeroleicon"
-            /> */}
             <Button className="common_button"><PlaceIcon />View On Map</Button>
             {permissions?.editStaff && <Button className="common_button"><EditRoundedIcon
               onClick={() => {

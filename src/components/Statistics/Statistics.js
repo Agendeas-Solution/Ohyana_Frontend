@@ -26,8 +26,6 @@ const Statistics = () => {
         setValue(newValue);
     };
     const [activeTab, setActiveTab] = useState("product");
-
-
     return (
         <>
             <Box className="main_section">

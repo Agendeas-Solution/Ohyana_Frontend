@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DonutChart from 'react-donut-chart';
-import { Tabs, Tab, Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import "./index.css";
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@mui/icons-material/TrendingDownRounded';
@@ -12,17 +12,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { AttendanceStatus, GetInquiryAnalytics } from "../../services/apiservices/staffDetail";
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-];
-
 const Dashboard = () => {
-  const [value, setValue] = useState("All");
   const [inquiryData, setInquiryData] = useState();
+
   useEffect(() => {
     GetInquiryAnalytics({}, (res) => {
       setInquiryData(res.data.data);
@@ -32,17 +24,6 @@ const Dashboard = () => {
     })
   }, [])
 
-  const data = {
-    labels: ["I", "II", "III", "IIII"],
-    datasets: [
-      {
-        data: [500, 500, 500, 500],
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-        borderWidth: 1
-      }
-    ]
-  };
   const handleCheckIn = (type) => {
     AttendanceStatus(type, (res) => {
       debugger;
@@ -157,11 +138,9 @@ const Dashboard = () => {
                     },
                   ]}
                 />
-
               </Box>
             </Box>
             <Box>
-
             </Box>
           </Box>
           <Box className="sales_statistics">
@@ -229,13 +208,13 @@ const Dashboard = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {inquiryData?.teams.map((data) => {
+                {inquiryData?.teamWithPoints.map((data) => {
                   return <TableRow
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell align="right">{data?.name}</TableCell>
-                    <TableCell align="right"> {data?.role?.name}</TableCell>
-                    <TableCell align="right">{data.attendances[0]?.attendanceType}</TableCell>
+                    <TableCell align="right"> {data?.role}</TableCell>
+                    <TableCell align="right">{data.attendances}</TableCell>
                     <TableCell align="right">{data.points}</TableCell>
                     <TableCell align="right"></TableCell>
                     <TableCell align="right"> {data?.location}</TableCell>

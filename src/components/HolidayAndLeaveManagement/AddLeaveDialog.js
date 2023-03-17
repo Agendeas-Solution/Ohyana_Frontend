@@ -5,8 +5,6 @@ import {
 } from "@mui/material";
 import dayjs from 'dayjs';
 import './index.css';
-const minDate = dayjs('2020-01-01T00:00:00.000');
-const maxDate = dayjs('2034-01-01T00:00:00.000');
 const AddLeaveDialog = ({ addLeaveDialog, setAddLeaveDialog, AddLeave, handleCloseDialog, UpdateLeave }) => {
     return (
         <>

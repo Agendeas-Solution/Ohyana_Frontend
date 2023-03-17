@@ -12,11 +12,8 @@ const ForgotPasswordEmail = () => {
     });
     const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state;
     const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar);
-    const navigate = useNavigate();
-
     const handleForgotPassword = () => {
         console.log(userDetail.email);
-        //debugger
         ForgotPassword(userDetail, (res) => {
             setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
         }, (err) => {

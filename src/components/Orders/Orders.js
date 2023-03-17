@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-    Box, Table,
-    TableBody,
-    TableCell,
-    TableContainer, Button, Paper, TableHead, TableRow, Typography, FormControl, OutlinedInput, InputAdornment, IconButton,
-} from '@mui/material'
+import {Box, Table, TableBody, TableCell, TableContainer, Button, Paper, TableHead, TableRow, Typography, FormControl, OutlinedInput, InputAdornment, IconButton} from '@mui/material'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import FilterIcon from '../../assets/img/Filter.svg'
 import './index.css';
@@ -21,7 +16,6 @@ const Orders = () => {
         path = path.split("/").pop();
         GetAllClientOrderList(parseInt(path), (res) => {
             setOrderList(res?.data?.orders);
-            debugger;
         }, (err) => {
             console.log("Printing OrderList Error", err);
         })
@@ -51,7 +45,6 @@ const Orders = () => {
                     <IconButton
                         edge="end"
                     >
-                        {/* <MenuIcon /> */}
                         <img src={FilterIcon} alt="" />
                     </IconButton>
                 </Box>
@@ -94,13 +87,9 @@ const Orders = () => {
                                         navigate(`/orderDetail/${orderData?.id}`)
                                     }} className='common_button'>View</Button></TableCell>
                                 </TableRow>
-                                // "paymentStatus": "Pending"
                             })}
                         </TableBody>
                     </Table>
-                    {/*:
-                    <p style={{ display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", width: "100%", height: "70%", flexGrow: "auto" }}>No Data Found</p>
-                } */}
                 </TableContainer>
             </Box>
         </>

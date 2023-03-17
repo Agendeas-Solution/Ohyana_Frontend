@@ -24,7 +24,6 @@ const AppointmentList = (props) => {
   const { editAppointmentDialogFlag } = useContext(ContextEditAppointmentDialog)?.state;
   const { setEditAppointmentDialogFlag } = useContext(ContextEditAppointmentDialog);
   const [AppointmentDetails, setAppointmentDetails] = useState({});
-
   const { successSnackbar } = useContext(ContextSnackbar)?.state;
   const { setSuccessSnackbar } = useContext(ContextSnackbar);
   const [deleteAppointmentDialogControl, setDeleteAppointmentDialogControl] = useState({

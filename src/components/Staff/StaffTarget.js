@@ -36,7 +36,6 @@ const StaffTarget = () => {
             (res) => {
                 if (res.status === 200) {
                     setTargetList(res?.data);
-                    debugger;
                 }
             },
             (err) => {

@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import {
-    Dialog,
-    Box,
-    DialogContent,
-    DialogActions,
-    Button,
-    Typography, TextField, Autocomplete
-} from "@mui/material";
+import {Dialog, Box, DialogContent, DialogActions, Button, Typography, TextField, Autocomplete} from "@mui/material";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { GetAllLeaveType, ApplyLeave } from '../../services/apiservices/holiday';
 import moment from 'moment';
 const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
-    const [value, setValue] = useState(null);
     const [leaveType, setLeaveType] = useState([]);
     const [leaveDetail, setLeaveDetail] = useState({
         duration: "",
@@ -29,9 +21,7 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
     const handleApplyLeave = () => {
         ApplyLeave({ leavetypeId: leaveDetail.leaveType.id, duration: leaveDetail.leaveType.duration }, (res) => {
             handleCloseDialog();
-            debugger;
         }, (err) => {
-            debugger
         })
     }
     return (

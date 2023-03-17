@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  Typography,
-  Box,
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-} from "@mui/material";
-import {
-  GetAdminDepartmentList,
-  GetAdminRole,
-} from "../../services/apiservices/adminprofile";
+import {Typography,Box,TextField,Button,Select,MenuItem,} from "@mui/material";
+import {  GetAdminDepartmentList,GetAdminRole} from "../../services/apiservices/adminprofile";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -23,10 +13,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import {
-  EditEmployee,
-  GetAdminStaffProfileDetail,
-} from "../../services/apiservices/staffDetail";
+import {EditEmployee,GetAdminStaffProfileDetail,} from "../../services/apiservices/staffDetail";
 import { useNavigate } from "react-router-dom";
 const EditStaff = () => {
   const [userDetail, setUserDetail] = useState({
@@ -57,18 +44,15 @@ const EditStaff = () => {
         }
       },
       (err) => {
-        //
       }
     );
   }, []);
 
   useEffect(() => {
     let path = window.location.pathname;
-
     console.log("Printing Path of ", path);
     console.log("Printing ", path.split("/").pop());
     path = path.split("/").pop();
-
     GetAdminStaffProfileDetail(
       parseInt(path),
       (res) => {
@@ -100,7 +84,6 @@ const EditStaff = () => {
           (res) => {
             if (res.status === 200) {
               setEmployeeJobRole(res.data?.roles);
-              //
             }
           },
           (err) => {
@@ -148,7 +131,6 @@ const EditStaff = () => {
       console.log("Printing Path of ", path);
       console.log("Printing ", path.split("/").pop());
       path = path.split("/").pop();
-
       EditEmployee(
         parseInt(path),
         employeeDetail,
@@ -158,7 +140,6 @@ const EditStaff = () => {
           }
         },
         (err) => {
-          //
         }
       );
     } else {
@@ -347,20 +328,6 @@ const EditStaff = () => {
           </Box>
         </Box>
         <Box className="input_field_row">
-          {/* <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Gender<span className="required_star">*</span>
-            </Typography>
-            <Select
-              value={userDetail?.gender}
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, gender: e.target.value });
-              }}
-            >
-              <MenuItem value="Male">Male</MenuItem>
-              <MenuItem value="Female">Female</MenuItem>
-            </Select>
-          </Box> */}
           <Box className="input_fields">
             <Typography className="input_field_label" variant="span">
               State<span className="required_star">*</span>

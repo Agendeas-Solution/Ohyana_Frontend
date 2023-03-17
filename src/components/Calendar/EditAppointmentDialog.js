@@ -93,7 +93,6 @@ const EditAppointmentDialog = (props) => {
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DatePicker
                                         disablePast
-                                          
                                         inputFormat="dd/MM/yyyy"
                                         value={editAppointment.date}
                                         onChange={(e) => {
@@ -152,7 +151,6 @@ const EditAppointmentDialog = (props) => {
                         Add
                     </Button>
                     <Button
-                        // variant="contained"
                         className="cancel-btn"
                         onClick={props.handleAppointmentDialogClose}
                     >

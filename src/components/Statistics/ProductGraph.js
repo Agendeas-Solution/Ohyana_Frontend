@@ -25,7 +25,6 @@ const ProductGraph = ({ selectedPeriod }) => {
         })
         GetAdminProductList({}, (res) => {
             setProductList(res?.data?.products);
-            debugger;
         }, (err) => {
         })
     }, [selectedPeriod])

@@ -1,11 +1,9 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import {
   Dialog,
   Button,
   TextareaAutosize,
   FormControlLabel,
-  Checkbox,
-  FormGroup,
   Typography,
   TextField,
   Radio,
@@ -16,11 +14,10 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { Box } from "@mui/system";
 
-const PoorContact = (props) => {
-  console.log(`${props.handleCallClose}`);
+const PoorContact = ({addPoorContact,handleCallClose}) => {
   return (
     <>
-      <Dialog open={props.addPoorContact} onClose={props.handleCallClose}>
+      <Dialog open={addPoorContact.status} onClose={handleCallClose}>
         {/* <Dialog> */}
         <div style={{ textAlign: "center" }} className="px-3 pt-3">
           <h4
@@ -59,9 +56,6 @@ const PoorContact = (props) => {
               placeholder="Brief in late inquiry"
             />
           </div>
-
-          {/* onClick={props.handleStatusClose} */}
-
           <Box className="mt-4 p-3 set_reminder_bg" sx={{ borderRadius: 3 }}>
             <h6 align="left">Set Reminder</h6>
             <Box>
@@ -112,7 +106,6 @@ const PoorContact = (props) => {
             </Box>
           </Box>
           <Button
-            // sx={{ mt: 2, pl: 5, paddingRight: 5 }}
             className="mt-3"
             sx={{
               paddingRight: 12,

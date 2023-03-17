@@ -1,19 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-    Box,
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    TextField,
-    Typography, Autocomplete
-} from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, TextField, Typography, Autocomplete } from "@mui/material";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { EditAdminClientAppointmentDetail } from '../../services/apiservices/clientDetail';
 import { GetAllStaffList } from '../../services/apiservices/staffDetail.js';
-
 import moment from "moment";
 import { Context as ContextSnackbar } from "../../context/pageContext";
 
@@ -36,22 +27,6 @@ const EditAppointmentDialog = (props) => {
         }, (err) => {
         })
     }, [])
-    // useEffect(() => {
-
-    //     if (staffDetailList.length > 0) {
-    //         let data = staffDetailList.filter((member) => {
-    //             clientAppointmentDetail.appointed_member.map((appointedMember) => {
-    //                 if (appointedMember === member.id) {
-    //                     return member;
-    //                     debugger;
-    //                 }
-    //             }
-    //             )
-    //         })
-    //         setClientAppointmentDetail({ ...clientAppointmentDetail, appointed_member: data[0] })
-    //         debugger
-    //     }
-    // }, [staffDetailList])
     const handleAddAppointment = () => {
         console.log("Add Reminder", clientAppointmentDetail);
         if (clientAppointmentDetail.description !== "" && clientAppointmentDetail.date !== "" && clientAppointmentDetail.time !== "") {
@@ -70,7 +45,6 @@ const EditAppointmentDialog = (props) => {
             <Dialog
                 open={props.editClientAppointmentDetail.status}
                 onClose={props.handleAppointmentClose}
-            // sx={{maxWidth:"500px"}}
             >
                 <div className="px-3 my-3">
                     <h3>Appointment</h3>
@@ -138,12 +112,10 @@ const EditAppointmentDialog = (props) => {
                                         setClientAppointmentDetail({ ...clientAppointmentDetail, appointment_unit: value });
                                     }}
                                     getOptionLabel={(option) => option}
-                                    // freeSolo
-                                    // multiple
+                                  
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
-                                            // className="w-100"
                                             placeholder={
                                                 clientAppointmentDetail?.appointed_member ? "" : "Add Member"
                                             }
@@ -169,12 +141,10 @@ const EditAppointmentDialog = (props) => {
                                         debugger
                                     }}
                                     getOptionLabel={(option) => option?.name}
-                                    // freeSolo
                                     multiple
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
-                                            // className="w-100"
                                             placeholder={
                                                 clientAppointmentDetail?.appointed_member > 0 ? "" : "Add Member"
                                             }

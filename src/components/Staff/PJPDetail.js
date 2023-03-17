@@ -36,17 +36,11 @@ const PJPDetail = () => {
     }
     const getLocation = () => {
         if (!window.navigator.geolocation) {
-        //   setStatus('Geolocation is not supported by your browser');
         } else {
-        //   setStatus('Locating...');
           window.navigator.geolocation.getCurrentPosition((position) => {
-            // setStatus(null);
             setAddPJPdetail({...addPJPDetail,latitude:position.coords.latitude,longitude:position.coords.longitude});
-            // setAddPJPdetail({...addPJPDetail,dialogStatus:true})
-            debugger;
         }
         , () => {
-            // setStatus('Unable to retrieve your location');
           });
         }
       }
@@ -60,7 +54,6 @@ const PJPDetail = () => {
             (res) => {
                 if (res.status === 200) {
                     setPjpList(res?.data?.pjps);
-                    debugger;
                 }
             },
             (err) => {
@@ -70,15 +63,12 @@ const PJPDetail = () => {
     }, [value])
     useEffect(()=>{
         console.log("Printing Add PJP detail",addPJPDetail);
-        debugger;
     },[addPJPDetail])
     const handleAddPJPDetail = () => {
         let pjpDetail=addPJPDetail;
         delete pjpDetail.dialogStatus;
         CreatePJP(pjpDetail, (res) => {
-            debugger;
         }, (err) => {
-            debugger;
         })
     }
     return (

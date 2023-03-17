@@ -5,7 +5,6 @@ const StaffDetail = (props) => {
     return (
         <>
             <Box className="client_profile_detail">
-                {/* <Typography variant="span" className='profile_detail_heading'>Profile Detail</Typography> */}
                 <Box className="userdetail_root">
                     <Typography className="userdetail_field_heading" variant="span">Department</Typography>
                     <Typography variant="span">{props?.adminProfileDetail?.department?.name}</Typography>

@@ -15,11 +15,9 @@ const AccessPanel = () => {
         { stage: "inter-mediate", id: 3 },
         { stage: "confirm", id: 4 },
     ]);
-
     const [accessControl, setAccessControl] = useState({
         clientControl: false,
         client: {
-            // viewClient:false,
             editClient: false,
             deleteClient: false,
             accessClient: false,
@@ -62,7 +60,6 @@ const AccessPanel = () => {
 
                     })
             }, (err) => {
-                //debugger;
             })
     }, [])
     const handleUserPermissions = () => {
@@ -86,10 +83,8 @@ const AccessPanel = () => {
             accessSetting: accessControl?.setting.accessSetting,
             clientStageAccess: accessControl?.client?.clientStage,
         }
-        //debugger
         UpdatePermission(userPermission, (res) => {
             setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
-            //debugger
         }, (err) => {
             setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.error })
         })
@@ -233,9 +228,6 @@ const AccessPanel = () => {
                                     setAccessControl({ ...accessControl, client: { ...accessControl.client, clientStage: value?.id } });
                                 }}
                                 getOptionLabel={(option) => option.stage}
-                                // getOptionDisabled={(option) =>
-                                //   option.stage === clientType[1].stage
-                                // }
                                 renderInput={(params) => (
                                     <TextField className="client_type_select" {...params} placeholder="Select Client Type" />
                                 )}
@@ -243,7 +235,6 @@ const AccessPanel = () => {
                         </Box>
                     </Box>
                 </Box>}
-                {/* <Box className="col-md-2"></Box> */}
                 {(accessControl?.staffControl && permissions.accessStaff) && <Box className="access_control_box p-2 col-md-5 mb-2">
                     <Typography className="heading_access_box" variant="span">Staff Control</Typography>
                     <Box className="row">
@@ -383,7 +374,6 @@ const AccessPanel = () => {
                         </Box>}
                     </Box>
                 }
-
             </Box>
             <Button variant="contained" onClick={handleUserPermissions}>Save</Button>
         </div>

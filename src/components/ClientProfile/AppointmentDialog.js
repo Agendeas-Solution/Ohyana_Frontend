@@ -32,7 +32,6 @@ const AppointmentDialog = (props) => {
   useEffect(() => {
     GetAllStaffList({}, (res) => {
       setStaffDetailList(res.data.team);
-      //debugger
     }, (err) => {
       //debugger;
 

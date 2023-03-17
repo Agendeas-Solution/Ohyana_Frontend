@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Tabs, Tab, Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';

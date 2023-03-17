@@ -26,8 +26,6 @@ const AddAppointmentDialog = (props) => {
   const { successSnackbar } = useContext( ContextSnackbar)?.state;
   const { setSuccessSnackbar } = useContext( ContextSnackbar);
   const handleAddAppointment = () => {
-    console.log("Printing addAppointment", addAppointment);
-    //debugger
     AddCalendarAppointment(
       addAppointment,
       (res) => {
@@ -147,7 +145,6 @@ const AddAppointmentDialog = (props) => {
             Add
           </Button>
           <Button
-            // variant="contained"
             className="cancel-btn"
             onClick={props.handleAppointmentDialogClose}
           >

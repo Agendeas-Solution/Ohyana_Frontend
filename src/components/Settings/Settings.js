@@ -8,7 +8,6 @@ import { Context as AuthContext } from "../../context/authContext/authContext";
 import Poll from '../../assets/img/Poll.svg'
 const Settings = () => {
   const { flagLoader, permissions } = useContext(AuthContext).state;
-
   const navigate = useNavigate();
   return (
     <>

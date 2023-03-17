@@ -1,19 +1,5 @@
 import { React, useEffect, useState, useContext } from "react";
-import {
-  Box,
-  TextField,
-  Button,
-  Autocomplete,
-  MenuItem,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Pagination,
-} from "@mui/material";
+import {Box,TextField,Button,Autocomplete,MenuItem,Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper,Pagination,} from "@mui/material";
 import "./index.css";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -25,10 +11,7 @@ import CallIcon from "../../assets/img/call.svg"
 import MailIcon from "../../assets/img/mail.svg";
 import { Context as AuthContext } from "../../context/authContext/authContext";
 import { GetAdminStaffDetailList, GetUsersAttendanceList } from "../../services/apiservices/staffDetail";
-import {
-  GetAdminDepartmentList,
-  GetAdminRole,
-} from "../../services/apiservices/adminprofile";
+import {GetAdminDepartmentList,GetAdminRole,} from "../../services/apiservices/adminprofile";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -99,9 +82,7 @@ const Staff = () => {
     console.log("datePicker", datePicker.$M);
     value === "2" && GetUsersAttendanceList({ month: datePicker.$M, year: datePicker.$y }, (res) => {
       setUserAttendanceList(res?.data);
-      debugger
     }, (err) => {
-      debugger
     })
   }, [value, datePicker])
   return (
@@ -129,7 +110,6 @@ const Staff = () => {
                       value={datePicker}
                       onChange={(newValue) => {
                         setDatePicker(newValue);
-
                       }}
                       renderInput={(params) => <TextField placeholder="Year and Month" {...params} helperText={null} />}
                     />
@@ -177,7 +157,6 @@ const Staff = () => {
                           navigate("/addstaffmember");
                         }}
                         className="main_button"
-                      // variant="contained"
                       >
                         <AddRoundedIcon />
                         Add Staff
@@ -196,7 +175,6 @@ const Staff = () => {
                       <TableCell align="right">Name</TableCell>
                       <TableCell align="right">Job Role</TableCell>
                       <TableCell align="right">Location</TableCell>
-                      {/* <TableCell align="right">Contact No.</TableCell> */}
                       <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
@@ -214,9 +192,6 @@ const Staff = () => {
                         <TableCell align="right">{row.name}</TableCell>
                         <TableCell align="right">{row.role.name}</TableCell>
                         <TableCell align="right">{row?.location}</TableCell>
-                        {/* <TableCell align="right">
-                          {row.contact_number}
-                        </TableCell> */}
                         <TableCell align="right">
                           <Button
                             onClick={() => {

@@ -212,7 +212,6 @@ export const AddCalendarAppointment = async (value, onSuccess, onError) => {
 
 export const EditCalendarAppointment = async (id, value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
-  //debugger
   try {
     const response = await axiosInstance.put(
       `/appointmentOrReminder/${id}`,
@@ -223,17 +222,14 @@ export const EditCalendarAppointment = async (id, value, onSuccess, onError) => 
     );
     console.log("Printing response of EditCalendarAppointment", response);
     onSuccess && onSuccess(response);
-    //debugger
   } catch (err) {
     console.log("Got error while calling API - EditCalendarAppointment", err);
     onError && onError(err);
-    //debugger
   }
 };
 
 export const EditCalendarReminder = async (id, value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
-  //debugger
   try {
     const response = await axiosInstance.put(
       `/appointmentOrReminder/${id}`,
@@ -244,11 +240,9 @@ export const EditCalendarReminder = async (id, value, onSuccess, onError) => {
     );
     console.log("Printing response of EditCalendarReminder", response);
     onSuccess && onSuccess(response);
-    //////debugger
   } catch (err) {
     console.log("Got error while calling API - EditCalendarReminder", err);
     onError && onError(err);
-    //////debugger
   }
 };
 
@@ -345,7 +339,6 @@ export const CreateJobRole = async (value, onSuccess, onError) => {
 };
 export const EditJobRole = async (id, value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
-  //debugger;
   try {
     const response = await axiosInstance.put(`/role/${id}`, value, {
       headers: { ...defaultHeaders },

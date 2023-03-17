@@ -1,16 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  Box,
-  Dialog,
-  TextField,
-  Typography,
-  TextareaAutosize, Autocomplete, Select, MenuItem, DialogActions, Button
-} from "@mui/material";
+import { Box, Dialog, TextField, Typography, TextareaAutosize, Autocomplete, Select, MenuItem, DialogActions, Button } from "@mui/material";
 import { Context as ContextSnackbar } from "../../context/pageContext";
-import {
-  GetAdminDepartmentList,
-  GetAdminRole, AddNotificationDetail
-} from "../../services/apiservices/adminprofile";
+import { GetAdminDepartmentList, GetAdminRole, AddNotificationDetail } from "../../services/apiservices/adminprofile";
 const ClientStatusCloseDialog = (props) => {
   const [addNotificationDetail, setAddNotificationDetail] = useState({
     heading: "",
@@ -54,7 +45,6 @@ const ClientStatusCloseDialog = (props) => {
   }, []);
   const handleAddNotification = () => {
     console.log("Add Notification", addNotificationDetail);
-    //debugger;
     AddNotificationDetail(addNotificationDetail, (res) => {
       props.CloseDeleteRemainder();
       setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })

@@ -47,7 +47,6 @@ const AddClient = () => {
       (res) => {
         if (res.status === 200) {
           setAdminProductList(res?.data?.products);
-          //
         }
       },
       (err) => {

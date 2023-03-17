@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Box, Table,
-  TableBody,
-  TableCell,
-  TableContainer, Button, Paper, TableHead, TableRow, Typography
-} from '@mui/material'
+import {Box, Table,TableBody,TableCell,TableContainer, Button, Paper, TableHead, TableRow, Typography} from '@mui/material'
 import ReceiptRoundedIcon from '@mui/icons-material/ReceiptRounded';
 import './index.css';
 import Stepper from '@mui/material/Stepper';
@@ -31,11 +26,8 @@ const OrderDetail = () => {
     GetOrderDetail(parseInt(path), (res) => {
       setOrderDetail(res.data.orderDetail);
       setOrderItems(res.data.orderitems);
-      debugger;
     }, (err) => {
       console.log("Printing OrderList Error", err);
-      debugger;
-
     })
   }, [])
   const handleActiveStep = (Status) => {
@@ -55,11 +47,9 @@ const OrderDetail = () => {
     UpdatePaymentStatus({
       paymentDetail, orderId: path
     }, (res) => {
-      debugger
       setOrderDetail({ ...orderDetail, method: res.data.order.method, status: res.data.order.status });
       handleClosePaymentDialog()
     }, (err) => {
-      debugger;
     })
   }
 

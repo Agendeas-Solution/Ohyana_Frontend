@@ -16,7 +16,7 @@ import ClientIcon from '../../assets/img/Clients.svg';
 import SettingIcon from '../../assets/img/setting.svg';
 import { Context as AuthContext } from "../../context/authContext/authContext";
 const Department = () => {
-  const { flagLoader, permissions } = useContext(AuthContext).state;
+  const { permissions } = useContext(AuthContext).state;
   const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false);
   const [deleteJobRoleDialogControl, setDeleteJobRoleDialogControl] =
     useState({ status: false, id: null });
@@ -29,7 +29,7 @@ const Department = () => {
     status: false,
     departmentId: null,
     name: "",
-    description: "", 
+    description: "",
     roleId: null
   })
   const [addEditDepartmentDialogControl, setAddEditDepartmentDialogControl] =
@@ -54,7 +54,6 @@ const Department = () => {
   const [accessControl, setAccessControl] = useState({
     clientControl: false,
     client: {
-      // viewClient:false,
       editClient: false,
       deleteClient: false,
       accessClient: false,
@@ -65,7 +64,6 @@ const Department = () => {
       editStaff: false,
       deleteStaff: false,
       accessStaff: false
-
     },
     settingControl: false,
     setting: {
@@ -97,7 +95,6 @@ const Department = () => {
 
           })
       }, (err) => {
-        //debugger;
       })
   }, [])
   const handleUserPermissions = () => {
@@ -121,10 +118,8 @@ const Department = () => {
       accessSetting: accessControl?.setting.accessSetting,
       clientStageAccess: accessControl?.client?.clientStage,
     }
-    //debugger
     UpdatePermission(userPermission, (res) => {
       setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
-      //debugger
     }, (err) => {
       setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.error })
     })
@@ -155,7 +150,6 @@ const Department = () => {
       },
       (err) => {
         console.log(err);
-        //
       }
     );
   }, [deleteJobRoleDialogControl.status, jobRoleDialogControl, editJobRoleDialogControl.status]);
@@ -335,9 +329,6 @@ const Department = () => {
                         setAccessControl({ ...accessControl, client: { ...accessControl.client, clientStage: value?.id } });
                       }}
                       getOptionLabel={(option) => option.stage}
-                      // getOptionDisabled={(option) =>
-                      //   option.stage === clientType[1].stage
-                      // }
                       renderInput={(params) => (
                         <TextField className="client_type_select" {...params} placeholder="Select Client Type" />
                       )}
@@ -345,7 +336,6 @@ const Department = () => {
                   </Box>
                 </Box>
               </Box>}
-              {/* <Box className="col-md-2"></Box> */}
               {(accessControl?.staffControl && permissions.accessStaff) && <Box className="access_control_box p-2 col-md-5 mb-2">
                 <Typography className="heading_access_box" variant="span">Staff Control</Typography>
                 <Box className="row">

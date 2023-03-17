@@ -47,7 +47,6 @@ const StatusDialog = (props) => {
       formData.append('callNotReceived', addStatusDetail.callNotReceived)
     }
     console.log(formData);
-    debugger
     AddClientStatus(
       formData,
       (res) => {
@@ -63,7 +62,6 @@ const StatusDialog = (props) => {
     e.preventDefault();
     if (e.target.files[0]) {
       console.log(e.target.files);
-      // debugger
       setAddStatusDetail({ ...addStatusDetail, audio: URL.createObjectURL(e.target.files[0]) });
     }
   };

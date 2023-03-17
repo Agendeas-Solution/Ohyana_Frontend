@@ -1,20 +1,10 @@
 import React, { useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-} from "@mui/material";
+import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper,Button,} from "@mui/material";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import EditReminderDialog from './EditReminderDialog';
 const RemainderTable = (props) => {
-  let navigate = useNavigate();
   const [editReminderDetail, setEditReminderDetail] = useState({
     description: "",
     date: "",

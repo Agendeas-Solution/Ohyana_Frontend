@@ -1,9 +1,7 @@
 import React, { useEffect, useState,useContext } from 'react'
 import {
     Dialog,
-    DialogTitle,
     DialogContent,
-    DialogActions,
     Button,
     Typography, Box
 } from "@mui/material";
@@ -41,7 +39,6 @@ const ViewBusinessCardDetail = ({ viewBusinessCardDialog, handleDialogClose }) =
             debugger
         })
     }
-
     return (
         <div>
             <Dialog

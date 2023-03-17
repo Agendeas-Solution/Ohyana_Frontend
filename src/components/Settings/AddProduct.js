@@ -1,21 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
-import {
-  Dialog,
-  Box,
-  DialogContent,
-  DialogActions,
-  Button,
-  Typography,
-  TextField, TextareaAutosize
-} from "@mui/material";
-import {
-  AddAdminProduct,
-  EditAdminProduct,
-} from "../../services/apiservices/adminprofile";
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Context as ContextSnackbar } from "../../context/pageContext";
+import React, { useState, useEffect } from "react";
+import {Box,Button,Typography,TextField, TextareaAutosize} from "@mui/material";
+import {AddAdminProduct,EditAdminProduct} from "../../services/apiservices/adminprofile";
 import { GetProductDetail } from "../../services/apiservices/productDetail";
 const AddProduct = (props) => {
   const [productDetail, setProductDetail] = useState({
@@ -32,10 +17,8 @@ const AddProduct = (props) => {
   console.log("Printing ", path.split("/").pop());
   path = path.split("/").pop();
   useEffect(() => {
-
     parseInt(path) && GetProductDetail(parseInt(path), (res) => {
       setProductDetail({ ...productDetail, name: res.data.name, description: res.data.description, price: res.data.price, quantity: res.data.quantity, materialType: res.data.materialType, weight: res.data.weight, skuId: res.data.skuId });
-      debugger
     }, (err) => {
 
     })

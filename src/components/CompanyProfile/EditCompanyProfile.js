@@ -1,15 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
-import {
-    Typography,
-    Box,
-    TextField,
-    Button, TextareaAutosize
-} from "@mui/material";
+import { Typography, Box, TextField, Button, TextareaAutosize} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
-import {
-    GetCompanyProfile, editCompanyProfile
-} from "../../services/apiservices/companyprofile";
+import {GetCompanyProfile, editCompanyProfile} from "../../services/apiservices/companyprofile";
 import { Context as ContextSnackbar } from "../../context/pageContext";
 const EditCompanyProfile = () => {
     const [companyDetail, setCompanyDetail] = useState({
@@ -69,7 +62,6 @@ const EditCompanyProfile = () => {
     return (
         <>
             <Box className="main_section">
-                {/* <Box className="edit_profile_section"> */}
                 <Box className="input_field_row">
                     <Box className="input_fields">
                         <Typography className="input_field_label" variant="span">

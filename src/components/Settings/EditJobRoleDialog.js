@@ -1,14 +1,5 @@
 import React, { useState, useContext } from "react";
-import {
-    Dialog,
-    Box,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    Button,
-    Typography,
-    TextField,TextareaAutosize
-} from "@mui/material";
+import {Dialog, Box, DialogTitle, DialogContent, DialogActions, Button, Typography, TextField,TextareaAutosize} from "@mui/material";
 import { EditJobRole } from "../../services/apiservices/adminprofile";
 import { Context as ContextSnackbar } from "../../context/pageContext";
 const EditJobRoleDialog = (props) => {
@@ -33,7 +24,6 @@ const EditJobRoleDialog = (props) => {
                     setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
                 },
                 (err) => {
-                    //debugger
                 }
             );
         }

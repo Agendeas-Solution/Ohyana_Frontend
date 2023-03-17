@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Typography, Button, TextField } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -18,8 +18,6 @@ import './index.css';
 import { CreateHoliday, UpdateHoliday, DeleteHoliday, CreateLeaveType, DeleteLeaveType, UpdateLeaveType } from '../../services/apiservices/holiday';
 import HolidayDialog from './HolidayDialog'; import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddLeaveDialog from './AddLeaveDialog';
-const minDate = dayjs('2020-01-01T00:00:00.000');
-const maxDate = dayjs('2034-01-01T00:00:00.000');
 const HolidayAndLeaveManagement = () => {
     const [date, setDate] = React.useState(dayjs());
     const [holidayList, setHolidayList] = useState([]);
@@ -41,13 +39,11 @@ const HolidayAndLeaveManagement = () => {
     useEffect(() => {
         GetAllHoliday({}, (res) => {
             setHolidayList(res?.data);
-            debugger
         }, (err) => {
             console.log("Printing Error", err);
         })
         GetAllLeaveType({}, (res) => {
             setLeaveList(res?.data);
-            debugger
         }, (err) => {
 
         })
@@ -66,7 +62,6 @@ const HolidayAndLeaveManagement = () => {
     const SetHoliday = () => {
         CreateHoliday(addHolidayDetail, (res) => {
             handleCloseDialog();
-            debugger;
         }, (err) => {
 
         })
@@ -74,24 +69,13 @@ const HolidayAndLeaveManagement = () => {
     const UpdateHolidayFunc = (id, holidayDetail) => {
         UpdateHoliday(id, holidayDetail, (res) => {
             handleCloseDialog();
-            debugger;
         }, (err) => {
 
         })
     }
-    const DeleteHolidayFunc = (id) => {
-        DeleteHoliday(id, (res) => {
-            debugger;
-        }, (err) => {
-            debugger;
-        })
-    }
     const DeleteLeaveFunc = (id) => {
-        debugger;
         DeleteLeaveType(id, (res) => {
-            debugger;
         }, (err) => {
-            debugger;
         })
     }
     const AddLeave = () => {
@@ -100,7 +84,6 @@ const HolidayAndLeaveManagement = () => {
                 duration: addLeaveDialog.duration,
                 type: addLeaveDialog.type
             }, (res) => {
-                debugger;
                 handleCloseDialog()
             }, (err) => {
 
@@ -115,7 +98,6 @@ const HolidayAndLeaveManagement = () => {
                     duration: ""
                 })
             }, (err) => {
-                debugger;
             })
     }
     return (

@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-    Box, Typography, Button, TextField, DialogContent,
-    DialogActions, Dialog
-} from "@mui/material";
-import { GetPJPDetail } from '../../services/apiservices/teamcall';
+import {Box, Typography, Button, TextField, DialogContent,DialogActions, Dialog} from "@mui/material";
 
 const AddDealerDialog = ({ addDealer, setAddDealer, handleCloseDialog, AddDealerDetail }) => {
     return (

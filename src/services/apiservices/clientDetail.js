@@ -29,11 +29,9 @@ export const DeleteClientDetail = async (value, onSuccess, onError) => {
     });
     console.log("Printing response of DeleteClientDetail", response);
     onSuccess && onSuccess(response);
-    //debugger
   } catch (err) {
     console.log("Got error while calling API - DeleteClientDetail", err);
     onError && onError(err);
-    //debugger
   }
 };
 
@@ -137,7 +135,6 @@ export const AddAdminClientAppointmentDetail = async (
   onError
 ) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
-  //debugger
   try {
     const response = await axiosInstance.post(`/appointment/client`, value, {
       headers: { ...defaultHeaders },
@@ -147,14 +144,12 @@ export const AddAdminClientAppointmentDetail = async (
       response
     );
     onSuccess && onSuccess(response);
-    //debugger
   } catch (err) {
     console.log(
       "Got error while calling API - AddAdminClientAppointmentDetail",
       err
     );
     onError && onError(err);
-    //debugger
   }
 };
 export const EditAdminClientAppointmentDetail = async (
@@ -163,7 +158,6 @@ export const EditAdminClientAppointmentDetail = async (
   onError
 ) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
-  //debugger
   try {
     const response = await axiosInstance.put(`/appointment/client`, value, {
       headers: { ...defaultHeaders },
@@ -173,14 +167,12 @@ export const EditAdminClientAppointmentDetail = async (
       response
     );
     onSuccess && onSuccess(response);
-    //debugger
   } catch (err) {
     console.log(
       "Got error while calling API - EditAdminClientAppointmentDetail",
       err
     );
     onError && onError(err);
-    //debugger
   }
 };
 
@@ -226,7 +218,6 @@ export const GetCountryList = async (id, onSuccess, onError) => {
 
 export const EditClientStage = async (id, value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
-  //debugger
   try {
     const response = await axiosInstance.put(`/stage/client/${id}`, value, {
       headers: { ...defaultHeaders },
