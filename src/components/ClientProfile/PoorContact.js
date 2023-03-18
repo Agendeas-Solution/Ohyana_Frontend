@@ -1,11 +1,9 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import {
   Dialog,
   Button,
   TextareaAutosize,
   FormControlLabel,
-  Checkbox,
-  FormGroup,
   Typography,
   TextField,
   Radio,
@@ -74,13 +72,6 @@ const PoorContact = (props) => {
                     <DatePicker
                       disablePast
                       inputFormat="dd/MM/yyyy"
-                      //   value={clientAppointmentDetail.date}
-                      //   onChange={(e) => {
-                      //     setClientAppointmentDetail({
-                      //       ...clientAppointmentDetail,
-                      //       date: moment(e).format("YYYY-MM-DD"),
-                      //     });
-                      //   }}
                       className="set_date_time_bg w-100"
                       renderInput={(params) => (
                         <TextField className="w-100" {...params} />
@@ -96,23 +87,12 @@ const PoorContact = (props) => {
                   <Typography align="left">Time</Typography>
                 </div>
                 <div className="col-md-12">
-                  <TextField
-                    // onChange={(e) => {
-                    //   setClientAppointmentDetail({
-                    //     ...clientAppointmentDetail,
-                    //     time: e.target.value,
-                    //   });
-                    // }}
-                    // value={clientAppointmentDetail.time}
-                    className="set_date_time_bg w-100"
-                    type="time"
-                  />
+                  <TextField className="set_date_time_bg w-100" type="time" />
                 </div>
               </div>
             </Box>
           </Box>
           <Button
-            // sx={{ mt: 2, pl: 5, paddingRight: 5 }}
             className="mt-3"
             sx={{
               paddingRight: 12,
