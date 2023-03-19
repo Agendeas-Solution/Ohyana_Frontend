@@ -6,7 +6,7 @@ import DeleteProductDialog from "./DeleteProductDialog";
 import { GetAdminProductList } from "../../services/apiservices/adminprofile";
 import TabPanel from "@mui/lab/TabPanel";
 import TabContext from "@mui/lab/TabContext";
-import SampleProduct from '../../assets/img/sample_product.png'
+import SampleProduct from "../../assets/img/sample_product.png";
 import { Context as AuthContext } from "../../context/authContext/authContext";
 import ViewProductDialog from "./ViewProductDialog";
 import { useNavigate } from "react-router-dom";
@@ -22,11 +22,11 @@ const ProductList = () => {
   const [DeleteProductDialogControl, setDeleteProductDialogControl] = useState({
     status: false,
     id: null,
-    type: ""
+    type: "",
   });
-  const [value, setValue] = useState('ProductList');
+  const [value, setValue] = useState("ProductList");
   const [viewProductDialog, setViewProductDialog] = useState({
-    status: false
+    status: false,
   });
 
   const handleChange = (event, newValue) => {
@@ -54,31 +54,46 @@ const ProductList = () => {
       status: false,
     });
     setViewProductDialog({ ...viewProductDialog, status: false });
-    setAddProductDialogControl({ ...addProductDialogControl, status: false, id: null });
+    setAddProductDialogControl({
+      ...addProductDialogControl,
+      status: false,
+      id: null,
+    });
   };
   return (
     <>
       <TabContext value={value}>
-        <div className="add_product_button py-2">
+        <div className="add_product_button p-3">
           <Typography variant="span">All Products</Typography>
-          {permissions?.editProduct && <Button
-            onClick={() => {
-              navigate("/addproduct");
-            }}
-            // variant="contained"
-            className="main_button"
-          >
-            + Add Product
-          </Button>}
+          {permissions?.editProduct && (
+            <Button
+              onClick={() => {
+                navigate("/addproduct");
+              }}
+              // variant="contained"
+              className="main_button"
+            >
+              + Add Product
+            </Button>
+          )}
         </div>
         <Box className="product_list_section">
           <TabPanel value="ProductList">
             <div className="p-2 h-75 row">
               {AdminProductList.map((row) => {
-                let image_url = `${process.env.REACT_APP_API_CALL_URL}/file/${row?.imageUrl}`
+                let image_url = `${process.env.REACT_APP_API_CALL_URL}/file/${row?.imageUrl}`;
                 return (
                   <>
-                    <Box className="product_card" onClick={() => setViewProductDialog({ ...viewProductDialog, status: true, id: row?.id })}>
+                    <Box
+                      className="product_card"
+                      onClick={() =>
+                        setViewProductDialog({
+                          ...viewProductDialog,
+                          status: true,
+                          id: row?.id,
+                        })
+                      }
+                    >
                       {/* <img src={image_url} alt="sample" /> */}
                     </Box>
                   </>
@@ -92,7 +107,10 @@ const ProductList = () => {
         DeleteProductDialogControl={DeleteProductDialogControl}
         handleClose={handleClose}
       />
-      <ViewProductDialog handleClose={handleClose} viewProductDialog={viewProductDialog} />
+      <ViewProductDialog
+        handleClose={handleClose}
+        viewProductDialog={viewProductDialog}
+      />
     </>
   );
 };

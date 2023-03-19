@@ -82,7 +82,7 @@ const PoorContact = (props) => {
               </div>
             </Box>
             <Box className="my-3">
-              <div className="row  mt-2">
+              <div className="row mt-2">
                 <div className="col-md-12">
                   <Typography align="left">Time</Typography>
                 </div>

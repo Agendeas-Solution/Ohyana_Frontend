@@ -191,7 +191,7 @@ const SideBar = () => {
             </Typography>
           </Box>
 
-          {permissions?.staffMenu && <Box
+          {/* {permissions?.staffMenu && <Box
             className={`sidebar_icons ${path === "/dealer" && "selected-link"
               }`}
             onClick={() => {
@@ -206,7 +206,7 @@ const SideBar = () => {
             <Typography className="page_name_root" variant="div">
               Dealer
             </Typography>
-          </Box>}
+          </Box>} */}
 
           <Box
             className={`sidebar_icons ${path === "/orders" && "selected-link"
@@ -238,7 +238,7 @@ const SideBar = () => {
             </Typography>
           </Box>
 
-          <Box
+          {/* <Box
             className={`sidebar_icons ${path === "/support" && "selected-link"
               }`}
             onClick={() => {
@@ -251,7 +251,7 @@ const SideBar = () => {
             <Typography className="page_name_root" variant="div">
               Support
             </Typography>
-          </Box>
+          </Box> */}
 
           {permissions?.settingMenu && <Box
             className={`sidebar_icons ${path === "/settings" && "selected-link"

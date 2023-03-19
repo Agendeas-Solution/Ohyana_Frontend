@@ -36,7 +36,7 @@ import Cookie from "js-cookie";
 import ForgotPasswordEmail from "./components/ForgotPasswordEmail/ForgotPasswordEmail";
 import SignUp from "./components/SignUp/SignUp";
 import Register from "./components/Register/Register";
-import { clearLoginToken } from './services/storage'
+import { clearLoginToken } from "./services/storage";
 import { io } from "socket.io-client";
 import { Context as ContextSnackbar } from "./context/pageContext";
 import CompanyProfile from "./components/CompanyProfile/CompanyProfile";
@@ -58,8 +58,10 @@ import AddProduct from "./components/Settings/AddProduct";
 import JobRolesList from "./components/Settings/JobRolesList";
 const socket = io("http://192.168.1.65:8008");
 const App = () => {
-  const { successSnackbar, errorSnackbar, notificationSnackbar } = useContext(ContextSnackbar)?.state;
-  const { setSuccessSnackbar, setErrorSnackbar, setNotificationSnackbar } = useContext(ContextSnackbar);
+  const { successSnackbar, errorSnackbar, notificationSnackbar } =
+    useContext(ContextSnackbar)?.state;
+  const { setSuccessSnackbar, setErrorSnackbar, setNotificationSnackbar } =
+    useContext(ContextSnackbar);
   const { setPermissions } = useContext(AuthContext);
   const { authorize, flagLoader, permissions } = useContext(AuthContext).state;
   const [pathName, setPathName] = useState("");
@@ -72,34 +74,41 @@ const App = () => {
     setPathName(path);
   });
   useEffect(() => {
-    var retrievedObject = JSON.parse(localStorage.getItem('permissions'));
+    var retrievedObject = JSON.parse(localStorage.getItem("permissions"));
     setPermissions(retrievedObject);
-    socket.on('reJoin', () => { socket.emit('join', { email: localStorage.getItem("userEmail") }); })
-    socket.on('connect', () => {
-      console.log('Successfully connected to server')
-      socket.emit('join', { email: localStorage.getItem("userEmail") });
-    })
+    socket.on("reJoin", () => {
+      socket.emit("join", { email: localStorage.getItem("userEmail") });
+    });
+    socket.on("connect", () => {
+      console.log("Successfully connected to server");
+      socket.emit("join", { email: localStorage.getItem("userEmail") });
+    });
     socket.on("permissionChanged", () => {
       clearLoginToken();
-    })
-
-  }, [])
+    });
+  }, []);
 
   return (
     <>
       <BrowserRouter>
         <Box
-          className={
-            Cookie.get("userToken")
-              ? "login_page_section"
-              : ""
-          }
+          className={Cookie.get("userToken") ? "login_page_section" : ""}
           sx={{ width: "15%" }}
         ></Box>
         <div className="d-flex">
-          {(Cookie.get("userToken") && pathName !== "/login") ? <SideBar /> : null}
-          <div className={Cookie.get("userToken") && pathName !== "/login" ? "width-main" : "w-100"}>
-            {Cookie.get("userToken") && pathName !== "/login" ? <Header /> : null}
+          {Cookie.get("userToken") && pathName !== "/login" ? (
+            <SideBar />
+          ) : null}
+          <div
+            className={
+              Cookie.get("userToken") && pathName !== "/login"
+                ? "width-main"
+                : "w-100"
+            }
+          >
+            {Cookie.get("userToken") && pathName !== "/login" ? (
+              <Header />
+            ) : null}
             <Box className="home_page_section">
               <Routes>
                 <Route path="/" element={<ProtectedRoutes />}>
@@ -108,35 +117,60 @@ const App = () => {
                   <Route path="/profile" element={<UserProfile />}></Route>
                   <Route path="/editprofile" element={<EditProfile />}></Route>
                   <Route path="/dashboard" element={<Dashboard />}></Route>
-                  <Route path="/dashboardemployee" element={<DashboardEmployee />}></Route>
+                  <Route
+                    path="/dashboardemployee"
+                    element={<DashboardEmployee />}
+                  ></Route>
                   <Route
                     path="/notification"
                     element={<Notification />}
                   ></Route>
-                  {permissions?.clientMenu && <Route path="/client" element={<Client />}></Route>}
-                  {permissions?.clientMenu && <Route
-                    path="/clientprofile/:id"
-                    element={<ClientProfile />}
-                  ></Route>}
-                  {permissions?.editClient && <Route
-                    path="/editclient/:id"
-                    element={<EditClient />}
-                  ></Route>}
-                  {permissions?.editStaff && <Route path="/editstaff/:id" element={<EditStaff />}></Route>}
-                  {permissions?.editClient && <Route path="/addclient" element={<AddClient />}></Route>}
-                  {permissions?.staffMenu && <Route path="/staff" element={<Staff />}></Route>}
-                  {permissions?.staffMenu && <Route
-                    path="/staffprofile/:id"
-                    element={<StaffProfile />}
-                  ></Route>}
+                  {permissions?.clientMenu && (
+                    <Route path="/client" element={<Client />}></Route>
+                  )}
+                  {permissions?.clientMenu && (
+                    <Route
+                      path="/clientprofile/:id"
+                      element={<ClientProfile />}
+                    ></Route>
+                  )}
+                  {permissions?.editClient && (
+                    <Route
+                      path="/editclient/:id"
+                      element={<EditClient />}
+                    ></Route>
+                  )}
+                  {permissions?.editStaff && (
+                    <Route
+                      path="/editstaff/:id"
+                      element={<EditStaff />}
+                    ></Route>
+                  )}
+                  {permissions?.editClient && (
+                    <Route path="/addclient" element={<AddClient />}></Route>
+                  )}
+                  {permissions?.staffMenu && (
+                    <Route path="/staff" element={<Staff />}></Route>
+                  )}
+                  {permissions?.staffMenu && (
+                    <Route
+                      path="/staffprofile/:id"
+                      element={<StaffProfile />}
+                    ></Route>
+                  )}
                   <Route path="*" element={<Login />}></Route>
-                  {permissions?.editStaff && <Route
-                    path="/addstaffmember"
-                    element={<AddStaffMember />}
-                  ></Route>}
+                  {permissions?.editStaff && (
+                    <Route
+                      path="/addstaffmember"
+                      element={<AddStaffMember />}
+                    ></Route>
+                  )}
                   <Route path="/task" element={<Task />}></Route>
                   <Route path="/dealer" element={<Dealer />}></Route>
-                  <Route path="/taskdetail/:id" element={<TaskDetail />}></Route>
+                  <Route
+                    path="/taskdetail/:id"
+                    element={<TaskDetail />}
+                  ></Route>
                   <Route path="/calendar" element={<Calendar />}></Route>
                   <Route path="/report" element={<Statistics />}></Route>
                   <Route path="/support" element={<Support />}></Route>
@@ -144,24 +178,49 @@ const App = () => {
                   <Route path="/premium" element={<Premium />}></Route>
                   <Route path="/orders" element={<Orders />}></Route>
                   <Route path="/poll" element={<Poll />}></Route>
-                  <Route path="/orderdetail/:id" element={<OrderDetail />}></Route>
-                  <Route path="/leaveholidaymanagement" element={<HolidayAndLeaveManagement />}></Route>
-                  <Route path='/companyprofile' element={<CompanyProfile />}></Route>
-                  <Route path="/editcompanyprofile" element={<EditCompanyProfile />}></Route>
-                  {permissions?.settingMenu && <Route path="/settings" element={<Settings />}></Route>}
-                  {permissions?.viewDepartment && <Route
-                    path="/departmentlist"
-                    element={<DepartmentList />}
-                  ></Route>}
-                  {permissions?.viewDepartment && <Route
-                    path="/jobrolelist/:id"
-                    element={<JobRolesList />}
-                  ></Route>}
-                  {permissions?.viewDepartment && <Route
-                    path="/jobroleaccess/:id"
-                    element={<Department />}
-                  ></Route>}
-                  {permissions?.viewProduct && <Route path="/productlist" element={<ProductList />}></Route>}
+                  <Route
+                    path="/orderdetail/:id"
+                    element={<OrderDetail />}
+                  ></Route>
+                  <Route
+                    path="/leaveholidaymanagement"
+                    element={<HolidayAndLeaveManagement />}
+                  ></Route>
+                  <Route
+                    path="/companyprofile"
+                    element={<CompanyProfile />}
+                  ></Route>
+                  <Route
+                    path="/editcompanyprofile"
+                    element={<EditCompanyProfile />}
+                  ></Route>
+                  {permissions?.settingMenu && (
+                    <Route path="/settings" element={<Settings />}></Route>
+                  )}
+                  {permissions?.viewDepartment && (
+                    <Route
+                      path="/departmentlist"
+                      element={<DepartmentList />}
+                    ></Route>
+                  )}
+                  {permissions?.viewDepartment && (
+                    <Route
+                      path="/jobrolelist/:id"
+                      element={<JobRolesList />}
+                    ></Route>
+                  )}
+                  {permissions?.viewDepartment && (
+                    <Route
+                      path="/jobroleaccess/:id"
+                      element={<Department />}
+                    ></Route>
+                  )}
+                  {permissions?.viewProduct && (
+                    <Route
+                      path="/productlist"
+                      element={<ProductList />}
+                    ></Route>
+                  )}
                 </Route>
                 <Route path="/addproduct" element={<AddProduct />}></Route>
                 <Route path="/editproduct/:id" element={<AddProduct />}></Route>
@@ -172,12 +231,14 @@ const App = () => {
                   path="/resetpassword"
                   element={<ForgetPassword />}
                 ></Route>
-                <Route path="/forgotpassword" element={<ForgotPasswordEmail />}></Route>
+                <Route
+                  path="/forgotpassword"
+                  element={<ForgotPasswordEmail />}
+                ></Route>
               </Routes>
             </Box>
           </div>
         </div>
-
       </BrowserRouter>
     </>
   );

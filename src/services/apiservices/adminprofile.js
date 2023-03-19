@@ -8,7 +8,6 @@ const defaultHeaders = {
 };
 // const authHeaders = { Authorization: `Barear ${getLoginToken()}` };
 export const GetAdminProfile = async (value, onSuccess, onError) => {
-
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
     const response = await axiosInstance.get(`/profile`, {
@@ -22,7 +21,6 @@ export const GetAdminProfile = async (value, onSuccess, onError) => {
   }
 };
 export const GetCompanyProfile = async (value, onSuccess, onError) => {
-
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
     const response = await axiosInstance.get(`/company`, {
@@ -36,7 +34,6 @@ export const GetCompanyProfile = async (value, onSuccess, onError) => {
   }
 };
 export const GetNotification = async (value, onSuccess, onError) => {
-
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
     const response = await axiosInstance.get(`/notification`, {
@@ -51,7 +48,6 @@ export const GetNotification = async (value, onSuccess, onError) => {
 };
 
 export const GetSentNotification = async (value, onSuccess, onError) => {
-
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
     const response = await axiosInstance.get(`/notification?sent=true`, {
@@ -83,7 +79,6 @@ export const GetAdminAppointmentOrReminder = async (
   onSuccess,
   onError
 ) => {
-
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
     const response = await axiosInstance.get(
@@ -104,7 +99,6 @@ export const GetAdminAppointmentOrReminder = async (
   }
 };
 export const GetAdminDepartmentList = async (value, onSuccess, onError) => {
-
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
     const response = await axiosInstance.get(`/department`, {
@@ -165,9 +159,12 @@ export const UpdateProductQuantity = async (value, id, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
     const response = await axiosInstance.patch(
-      `/product/${id}`, { quantity: parseInt(value) }, {
-      headers: { ...defaultHeaders },
-    });
+      `/product/${id}`,
+      { quantity: parseInt(value) },
+      {
+        headers: { ...defaultHeaders },
+      }
+    );
     console.log("Printing response of UpdateProductQuantity", response);
     onSuccess && onSuccess(response);
   } catch (err) {
@@ -178,8 +175,7 @@ export const UpdateProductQuantity = async (value, id, onSuccess, onError) => {
 export const EditAdminProduct = async (value, id, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
-    const response = await axiosInstance.put(
-      `/product/${id}`, value, {
+    const response = await axiosInstance.put(`/product/${id}`, value, {
       headers: { ...defaultHeaders },
     });
     console.log("Printing response of EditAdminProduct", response);
@@ -193,13 +189,9 @@ export const EditAdminProduct = async (value, id, onSuccess, onError) => {
 export const AddCalendarAppointment = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
-    const response = await axiosInstance.post(
-      `/appointmentOrReminder`,
-      value,
-      {
-        headers: { ...defaultHeaders },
-      }
-    );
+    const response = await axiosInstance.post(`/appointmentOrReminder`, value, {
+      headers: { ...defaultHeaders },
+    });
     console.log("Printing response of AddCalendarAppointment", response);
     onSuccess && onSuccess(response);
     ////
@@ -210,7 +202,12 @@ export const AddCalendarAppointment = async (value, onSuccess, onError) => {
   }
 };
 
-export const EditCalendarAppointment = async (id, value, onSuccess, onError) => {
+export const EditCalendarAppointment = async (
+  id,
+  value,
+  onSuccess,
+  onError
+) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   //debugger
   try {
@@ -252,17 +249,12 @@ export const EditCalendarReminder = async (id, value, onSuccess, onError) => {
   }
 };
 
-
 export const AddCalendarReminder = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
-    const response = await axiosInstance.post(
-      `/appointmentOrReminder`,
-      value,
-      {
-        headers: { ...defaultHeaders },
-      }
-    );
+    const response = await axiosInstance.post(`/appointmentOrReminder`, value, {
+      headers: { ...defaultHeaders },
+    });
     console.log("Printing response of AddCalendarReminder", response);
     onSuccess && onSuccess(response);
     ////
@@ -441,13 +433,9 @@ export const AddClientDetail = async (value, onSuccess, onError) => {
 export const EditClientDetail = async (clientId, value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
-    const response = await axiosInstance.put(
-      `/client/${clientId}`,
-      value,
-      {
-        headers: { ...defaultHeaders },
-      }
-    );
+    const response = await axiosInstance.put(`/client/${clientId}`, value, {
+      headers: { ...defaultHeaders },
+    });
     console.log("Printing response of AddClientDetail", response);
     onSuccess && onSuccess(response);
     ////
@@ -458,17 +446,12 @@ export const EditClientDetail = async (clientId, value, onSuccess, onError) => {
   }
 };
 
-
 export const AddNotificationDetail = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
-    const response = await axiosInstance.post(
-      `/notification`,
-      value,
-      {
-        headers: { ...defaultHeaders },
-      }
-    );
+    const response = await axiosInstance.post(`/notification`, value, {
+      headers: { ...defaultHeaders },
+    });
     console.log("Printing response of AddNotificationDetail", response);
     onSuccess && onSuccess(response);
     ////
@@ -478,7 +461,6 @@ export const AddNotificationDetail = async (value, onSuccess, onError) => {
     ////
   }
 };
-
 
 export const UpdatePermission = async (formData, onSuccess, onError) => {
   try {
@@ -491,17 +473,14 @@ export const UpdatePermission = async (formData, onSuccess, onError) => {
     onError && onError(res_1);
     console.log(res_1);
   }
-}
+};
 
 export const getUserPermissions = async (value, onSuccess, onError) => {
   //defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
-    const response = await axiosInstance.get(
-      `/permissions/${value}`,
-      {
-        headers: { ...defaultHeaders },
-      }
-    );
+    const response = await axiosInstance.get(`/permissions/${value}`, {
+      headers: { ...defaultHeaders },
+    });
     console.log("Printing response of getUserPermissions", response);
     onSuccess && onSuccess(response);
     ////
@@ -512,14 +491,12 @@ export const getUserPermissions = async (value, onSuccess, onError) => {
   }
 };
 
-
 export const GetAdminAttendanceList = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
     const response = await axiosInstance.get(`/attendance?profile=true`, {
       headers: { ...defaultHeaders },
-    }
-    );
+    });
     console.log("Printing response of GetAdminAttendanceList", response);
     onSuccess && onSuccess(response);
   } catch (err) {
