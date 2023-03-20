@@ -56,6 +56,7 @@ import Dealer from "./components/Dealer/Dealer";
 import EditCompanyProfile from "./components/CompanyProfile/EditCompanyProfile";
 import AddProduct from "./components/Settings/AddProduct";
 import JobRolesList from "./components/Settings/JobRolesList";
+import ExpenseList from "./components/Expense/ExpenseList";
 const socket = io("http://192.168.1.65:8008");
 const App = () => {
   const { successSnackbar, errorSnackbar, notificationSnackbar } =
@@ -202,6 +203,9 @@ const App = () => {
                       path="/departmentlist"
                       element={<DepartmentList />}
                     ></Route>
+                  )}
+                  {permissions?.viewDepartment && (
+                    <Route path="/expenselist" element={<ExpenseList />} />
                   )}
                   {permissions?.viewDepartment && (
                     <Route

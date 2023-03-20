@@ -104,100 +104,150 @@ const Premium = () => {
         <Box className="row premium_plan m-1">
           <Box className="access_control_box p-2 mb-2">
             <Box className="plan_pricing_name p-2">
-              <Typography variant="span">Foundation</Typography>
-              <Typography variant="span">₹24,999</Typography>
+              <Typography sx={{ fontSize: "18px" }} variant="span">
+                Foundation
+              </Typography>
+              <Typography sx={{ fontSize: "20px" }} variant="span">
+                ₹24,999
+              </Typography>
             </Box>
             <Typography className="plan_card_description p-2" variant="span">
               For companies that are just getting started with automation.
             </Typography>
-            <Button className="choose_plan_button p-2" variant="contained">
+            <Button
+              sx={{ marginBottom: "18px" }}
+              className="choose_plan_button p-2"
+              variant="contained"
+            >
               Choose Plan
             </Button>
-            <Divider />
-            <Typography variant="span" className="plan_pricing_name">
+            <Divider
+              sx={{
+                marginBottom: "10px",
+                borderColor: "#8E8E8E",
+                margin: "2 auto",
+              }}
+            />
+            <Typography
+              sx={{ paddingBottom: "13px" }}
+              variant="span"
+              className="plan_pricing_name"
+            >
               Essential automation features
             </Typography>
-            <Typography className="plan_card_sub_heading" variant="span">
+            <Typography
+              sx={{ paddingBottom: "12px" }}
+              className="plan_card_sub_heading"
+              variant="span"
+            >
               CLIENTS ADD-ONS{" "}
             </Typography>
-            <Typography variant="span">
+            <Typography className="sub_heading_points" variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Upto 10,000 clients Inquiry(₹1 per additional Inquiry).
             </Typography>
-            <Typography variant="span">
+            <Typography className="sub_heading_points" variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Inquiry’s status tracking.
             </Typography>
-            <Typography variant="span">
+            <Typography className="sub_heading_points" variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Custom reminder and appoinment.
             </Typography>
-            <Typography variant="span">
+            <Typography sx={{ paddingBottom: "15px" }} variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Advance notifications.
             </Typography>
-            <Typography className="plan_card_sub_heading" variant="span">
+            <Typography
+              sx={{ paddingBottom: "12px" }}
+              className="plan_card_sub_heading"
+              variant="span"
+            >
               CORE HR
             </Typography>
-            <Typography variant="span">
+            <Typography className="sub_heading_points" variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Upto 5 team members.
             </Typography>
-            <Typography variant="span">
+            <Typography className="sub_heading_points" variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Manage hierarchy Employe role.
             </Typography>
-            <Typography variant="span">
+            <Typography className="sub_heading_points" variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Attendance management.
             </Typography>
           </Box>
           <Box className="access_control_box p-2 mb-2">
-            <Box className="plan_pricing_name">
-              <Typography variant="span">Strength</Typography>
-              <Typography variant="span">₹32,999</Typography>
+            <Box className="plan_pricing_name p-2">
+              <Typography sx={{ fontSize: "18px" }} variant="span">
+                Strength
+              </Typography>
+              <Typography sx={{ fontSize: "20px" }} nvariant="span">
+                ₹32,999
+              </Typography>
             </Box>
-            <Typography className="plan_card_description" variant="span">
+            <Typography className="plan_card_description p-2" variant="span">
               Scaling with advanced automation & employee engagement.
             </Typography>
-            <Button className="choose_plan_button" variant="contained">
+            <Button
+              sx={{ marginBottom: "18px" }}
+              className="choose_plan_button p-2"
+              variant="contained"
+            >
               Choose Plan
             </Button>
-            <Divider />
-            <Typography className="plan_pricing_name" variant="span">
+            <Divider
+              sx={{
+                marginBottom: "10px",
+                borderColor: "#8E8E8E",
+                margin: "2 auto",
+              }}
+            />
+            <Typography
+              // sx={{ paddingBottom: "13px" }}
+              className="plan_pricing_name main_heading"
+              variant="span"
+            >
               All Foundation features plus:
             </Typography>
-            <Typography className="plan_card_sub_heading" variant="span">
+            <Typography
+              className="plan_card_sub_heading main_sub_heading"
+              variant="span"
+            >
               CLIENTS ADD-ONS{" "}
             </Typography>
-            <Typography variant="span">
+            <Typography className="sub_heading_points" variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Upto 16,000 clients Inquiry(₹1 per additional Inquiry).
             </Typography>
-            <Typography variant="span">
+            <Typography className="sub_heading_points" variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Inquiry’s status tracking.
             </Typography>
-            <Typography variant="span">
+            <Typography className="sub_heading_points" variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Custom reminder and appoinment.
             </Typography>
-            <Typography variant="span">
+            <Typography sx={{ paddingBottom: "15px" }} variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Advance notifications.
             </Typography>
-            <Typography className="plan_card_sub_heading" variant="span">
+            <Typography
+              className="plan_card_sub_heading main_sub_heading"
+              variant="span"
+            >
               CORE HR
             </Typography>
-            <Typography variant="span">
+            <Typography className="sub_heading_points" variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Upto 5 team members.
             </Typography>
-            <Typography variant="span">
+            <Typography className="sub_heading_points" variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Manage hierarchy Employe role.
             </Typography>
-            <Typography variant="span">
+            <Typography className="sub_heading_points" variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Attendance management.
             </Typography>

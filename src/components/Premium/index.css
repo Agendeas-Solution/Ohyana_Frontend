@@ -1,81 +1,90 @@
 .current_premium_section {
-    background-color: #F1F2F6;
-    padding: 10px;
-    border-radius: 5px;
+  background-color: #f1f2f6;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .current_premium_plan {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .plan_info {
-    width: 45%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
-    /* border-right: 1px solid #8E8E8E; */
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  /* border-right: 1px solid #8E8E8E; */
 }
 
 .plan_terms {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .terms_heading {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .plan_title {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
 .plan_heading {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .choose_plan_button {
-    width: 100%;
-    text-transform: capitalize !important;
-    background-color: #E5E6EB !important;
-    color: #2E3591 !important;
+  width: 100%;
+  text-transform: capitalize !important;
+  background-color: #e5e6eb !important;
+  color: #2e3591 !important;
 }
 
 .premium_plan {
-    overflow-y: auto;
-    /* max-height: 30% !important; */
-    display: flex;
-    justify-content: space-between;
+  overflow-y: auto;
+  /* max-height: 30% !important; */
+  display: flex;
+  justify-content: space-between;
 }
 
 .premium_plan .access_control_box {
-    margin: 5px;
-    width: 47%;
+  margin: 5px;
+  width: 47%;
 }
 
 .check_circle_icon {
-    color: #2E3591;
-    height: 15px !important;
-    width: 15px !important;
-    margin-right: 5px;
+  color: #2e3591;
+  height: 15px !important;
+  width: 15px !important;
+  margin-right: 5px;
 }
-.plan_card_sub_heading{
-    color:#2E3591;
-    font-size: 14px;
+.plan_card_sub_heading {
+  color: #2e3591;
+  font-size: 14px;
 }
-.plan_card_description{
-    color:#8E8E8E;
+.sub_heading_points {
+  padding-bottom: 20px;
 }
-.plan_pricing_name{
-    display: flex;
-    justify-content: space-between;
-    font-weight: 600;
+.plan_card_description {
+  color: #8e8e8e;
+}
+.plan_pricing_name {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+.main_heading {
+  padding-bottom: 13px;
+}
+.main_sub_heading {
+  padding-bottom: 12px;
 }

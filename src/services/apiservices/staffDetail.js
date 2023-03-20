@@ -40,12 +40,9 @@ export const GetAdminStaffProfileDetail = async (value, onSuccess, onError) => {
 export const GetAdminStaffRatingDetail = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
-    const response = await axiosInstance.get(
-      `/feedback/member/${value}`,
-      {
-        headers: { ...defaultHeaders },
-      }
-    );
+    const response = await axiosInstance.get(`/feedback/member/${value}`, {
+      headers: { ...defaultHeaders },
+    });
     console.log("Printing response of GetAdminStaffRatingDetail", response);
     onSuccess && onSuccess(response);
   } catch (err) {
@@ -122,7 +119,6 @@ export const DeleteDepartment = async (id, onSuccess, onError) => {
   }
 };
 
-
 export const DeleteJobRole = async (id, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
@@ -139,9 +135,11 @@ export const DeleteJobRole = async (id, onSuccess, onError) => {
 export const GetStaffAttendanceList = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
-    const response = await axiosInstance.get(`/attendance?teamId=${parseInt(value)}&profile=true`, {
-      headers: { ...defaultHeaders },
-    }
+    const response = await axiosInstance.get(
+      `/attendance?teamId=${parseInt(value)}&profile=true`,
+      {
+        headers: { ...defaultHeaders },
+      }
     );
     console.log("Printing response of GetStaffAttendanceList", response);
     onSuccess && onSuccess(response);
@@ -189,13 +187,29 @@ export const GetExpenseList = async (value, onSuccess, onError) => {
     onError && onError(err);
   }
 };
-
+export const GetExpenseTypeList = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
+  try {
+    const response = await axiosInstance.get(`/expense`, {
+      headers: { ...defaultHeaders },
+    });
+    console.log("Printing response of GetExpenseList", response);
+    onSuccess && onSuccess(response);
+  } catch (err) {
+    console.log("Got error while calling API - GetExpenseList", err);
+    onError && onError(err);
+  }
+};
 export const PaymentStatusUpdate = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
-    const response = await axiosInstance.patch(`/expense/${value}?payment=true`, { status: "DONE" }, {
-      headers: { ...defaultHeaders },
-    });
+    const response = await axiosInstance.patch(
+      `/expense/${value}?payment=true`,
+      { status: "DONE" },
+      {
+        headers: { ...defaultHeaders },
+      }
+    );
     console.log("Printing response of PaymentStatusUpdate", response);
     onSuccess && onSuccess(response);
   } catch (err) {
@@ -206,9 +220,13 @@ export const PaymentStatusUpdate = async (value, onSuccess, onError) => {
 export const StatusUpdate = async (id, value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
-    const response = await axiosInstance.patch(`/expense/${id}`, { status: value }, {
-      headers: { ...defaultHeaders },
-    });
+    const response = await axiosInstance.patch(
+      `/expense/${id}`,
+      { status: value },
+      {
+        headers: { ...defaultHeaders },
+      }
+    );
     console.log("Printing response of StatusUpdate", response);
     onSuccess && onSuccess(response);
   } catch (err) {
@@ -220,9 +238,12 @@ export const StatusUpdate = async (id, value, onSuccess, onError) => {
 export const GetUsersAttendanceList = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
-    const response = await axiosInstance.get(`/attendanceofall?month=${value?.month}&year=${value?.year}`, {
-      headers: { ...defaultHeaders },
-    });
+    const response = await axiosInstance.get(
+      `/attendanceofall?month=${value?.month}&year=${value?.year}`,
+      {
+        headers: { ...defaultHeaders },
+      }
+    );
     console.log("Printing response of GetExpenseList", response);
     onSuccess && onSuccess(response);
   } catch (err) {
@@ -233,9 +254,13 @@ export const GetUsersAttendanceList = async (value, onSuccess, onError) => {
 export const AttendanceStatus = async (type, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
-    const response = await axiosInstance.put(`/attendance?${type}=true`, {}, {
-      headers: { ...defaultHeaders },
-    });
+    const response = await axiosInstance.put(
+      `/attendance?${type}=true`,
+      {},
+      {
+        headers: { ...defaultHeaders },
+      }
+    );
     console.log("Printing response of AttendanceStatus", response);
     onSuccess && onSuccess(response);
   } catch (err) {
@@ -272,9 +297,13 @@ export const GetSalesInquiry = async (type, onSuccess, onError) => {
 export const GrantLeave = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
-    const response = await axiosInstance.put(`/grant/leave/${value?.id}?isApproved=${value?.leaveStatus}`, {}, {
-      headers: { ...defaultHeaders },
-    });
+    const response = await axiosInstance.put(
+      `/grant/leave/${value?.id}?isApproved=${value?.leaveStatus}`,
+      {},
+      {
+        headers: { ...defaultHeaders },
+      }
+    );
     console.log("Printing response of GrantLeave", response);
     onSuccess && onSuccess(response);
   } catch (err) {

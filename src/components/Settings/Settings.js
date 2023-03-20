@@ -83,6 +83,20 @@ const Settings = () => {
           />
           <Typography variant="span">Leave & Holiday</Typography>
         </Box>
+        <Box
+          className="setting_cards-list"
+          onClick={() => {
+            // navigate("/departmentlist");
+            navigate("/expenselist");
+          }}
+        >
+          <img
+            className="department_icon"
+            src={ProductIcon}
+            alt="DepartmentIcon"
+          />
+          <Typography variant="span">Expense Policy</Typography>
+        </Box>
         {/* <Box
           className="setting_cards-list"
           onClick={() => {

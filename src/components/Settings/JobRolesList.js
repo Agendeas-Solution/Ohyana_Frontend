@@ -9,6 +9,10 @@ import {
   Autocomplete,
   TextField,
   Checkbox,
+  makeStyles,
+  TableHead,
+  TableRow,
+  TableCell,
 } from "@mui/material";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
@@ -29,7 +33,31 @@ import ClientIcon from "../../assets/img/Clients.svg";
 import SettingIcon from "../../assets/img/setting.svg";
 import { Context as AuthContext } from "../../context/authContext/authContext";
 import { useNavigate } from "react-router-dom";
+
+// const useStyles = makeStyles((theme) => ({
+//   // root: {
+//   //   flexGrow: 1
+//   // },
+//   // paper: {
+//   //   padding: theme.spacing(2),
+//   //   margin: "auto",
+//   //   maxWidth: 500
+//   // },
+//   // outerColumn: {
+//   //   borderRight: "1px solid grey",
+//   //   borderBottom: "1px solid grey",
+//   //   borderLeft: "1px solid grey",
+//   //   height: 100
+//   // },
+//   centerColumn: {
+//     borderBottom: "1px solid grey",
+//     height: 100,
+//   },
+// }));
+
 const JobRolesList = () => {
+  // const classes = useStyles();
+
   let navigate = useNavigate();
   const { flagLoader, permissions } = useContext(AuthContext).state;
   const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false);
@@ -37,10 +65,12 @@ const JobRolesList = () => {
     status: false,
     id: null,
   });
+
   const [deleteDepartmentDialogControl, setDeleteDepartmentControl] = useState({
     status: false,
     id: null,
   });
+
   const [editJobRoleDialogControl, setEditJobRoleDialogControl] = useState({
     status: false,
     departmentId: null,
@@ -48,25 +78,29 @@ const JobRolesList = () => {
     description: "",
     roleId: null,
   });
+
   const [addEditDepartmentDialogControl, setAddEditDepartmentDialogControl] =
     useState({
       status: false,
       id: null,
       departmentName: "",
     });
+
   const [jobRoleList, setJobRoleList] = useState({
     name: "",
     roles: [],
     departmentId: null,
   });
+
   useEffect(() => {
+    console.log("Job role list: " + { jobRoleList });
+    console.log({ jobRoleList });
     let path = window.location.pathname;
     console.log("Printing Path of ", path);
     console.log("Printing ", path.split("/").pop());
     path = path.split("/").pop();
     GetAdminRole(
       parseInt(path),
-      //   null,
       (res) => {
         if (res.status === 200) {
           setJobRoleList({
@@ -106,6 +140,67 @@ const JobRolesList = () => {
             </Button>
           )}
         </Box>
+        {/* <Divider sx={{ width: "95%", margin: "0 auto" }} /> */}
+        <Divider
+          sx={{ borderColor: "#8E8E8E" }}
+          orientation="horizontal"
+          // variant="middle"
+          width="100%"
+          // flexItem
+        />
+        <Box sx={{ marginTop: "19px", width: "initial" }}>
+          {/* <Grid
+            sx={{
+              background: "#F1F2F6",
+              marginLeft: "1px",
+              marginRight: "8px",
+            }}
+            container
+            spacing={2}
+            className="align-items-center d-flex justify-content-center"
+          >
+            <Grid align="left" item xs={1}>
+              <Typography variant="span">Sr. No.</Typography>
+            </Grid>
+            <Grid align="left" item xs={3}>
+              <Typography variant="span">Job Role</Typography>
+            </Grid>
+            <Grid align="left" item xs={3}>
+              <Typography variant="span">Senior Post</Typography>
+            </Grid>
+            <Grid align="left" item xs={3}>
+              <Typography variant="span">Description</Typography>
+            </Grid>
+            <Grid item xs={3}></Grid>
+          </Grid> */}
+          <Box
+            sx={{
+              backgroundColor: "#F1F2F6",
+              marginBottom: "20px",
+              borderRadius: "6px",
+            }}
+          >
+            <TableHead
+              sx={{ paddingTop: "5px" }}
+              className="client_profile_table_header"
+            >
+              <TableRow>
+                <TableCell sx={{ paddingRight: "4px" }}></TableCell>
+                <TableCell sx={{ paddingRight: "64px" }}>Sr No.</TableCell>
+                <TableCell sx={{ paddingRight: "70px" }} align="left">
+                  Job Role
+                </TableCell>
+                <TableCell sx={{ paddingLeft: "130px" }} align="left">
+                  Senior Post
+                </TableCell>
+                <TableCell sx={{ paddingLeft: "114px" }} align="left">
+                  Description
+                </TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableHead>
+          </Box>
+        </Box>
         {jobRoleList.roles.length > 0 &&
           jobRoleList?.roles.map((data, index) => {
             return (
@@ -115,8 +210,11 @@ const JobRolesList = () => {
                   spacing={2}
                   className="align-items-center d-flex justify-content-center"
                 >
-                  <Grid item xs={3}>
+                  <Grid item xs={1}>
                     <Typography variant="span">{index + 1}</Typography>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography variant="span">{data.name}</Typography>
                   </Grid>
                   <Grid item xs={3}>
                     <Typography variant="span">{data.name}</Typography>
@@ -124,7 +222,7 @@ const JobRolesList = () => {
                   <Grid item xs={3}>
                     <Typography variant="span">{data.description}</Typography>
                   </Grid>
-                  <Grid item xs={3}>
+                  <Grid item xs={2}>
                     <Button
                       variant="contained"
                       onClick={() => navigate(`/jobroleaccess/${data.id}`)}

@@ -234,18 +234,6 @@ const Department = () => {
     editJobRoleDialogControl.status,
   ]);
 
-  // const handleOpen = () => setOpen(!open);
-  // const handleCloseTime = () => setOpen(false);
-
-  // const handleOpenTime = () => {
-  //   console.log("inside handle open time");
-  //   setOpenTime(!openTime);
-  // };
-
-  // const handleOpenOutTime = () => {
-  //   setOpenOutTime(!openOutTime);
-  // };
-
   const style = {
     position: "absolute",
     top: "50%",
