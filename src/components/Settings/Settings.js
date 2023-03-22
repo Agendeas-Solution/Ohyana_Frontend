@@ -5,7 +5,7 @@ import DepartmentIcon from "../../assets/img/department_icon.svg";
 import ProductIcon from "../../assets/img/Product.svg";
 import { useNavigate } from "react-router-dom";
 import { Context as AuthContext } from "../../context/authContext/authContext";
-import Poll from '../../assets/img/Poll.svg'
+import Poll from "../../assets/img/Poll.svg";
 const Settings = () => {
   const { flagLoader, permissions } = useContext(AuthContext).state;
   const navigate = useNavigate();
@@ -25,21 +25,24 @@ const Settings = () => {
           />
           <Typography variant="span">Company Profile</Typography>
         </Box>
-        {permissions?.viewDepartment && <Box
-          className="setting_cards-list"
-          onClick={() => {
-            navigate("/departmentlist");
-          }}
-        >
-          <img
-            className="department_icon"
-            src={DepartmentIcon}
-            alt="department_icon"
-          />
-          <Typography variant="span">Team Role</Typography>
-        </Box>}
-        {permissions?.viewProduct
-          && <Box
+        {permissions?.viewDepartment && (
+          <Box
+            className="setting_cards-list"
+            onClick={() => {
+              navigate("/departmentlist/");
+              // navigate("/jobrolelist/1");
+            }}
+          >
+            <img
+              className="department_icon"
+              src={DepartmentIcon}
+              alt="department_icon"
+            />
+            <Typography variant="span">Team Role</Typography>
+          </Box>
+        )}
+        {permissions?.viewProduct && (
+          <Box
             className="setting_cards-list"
             onClick={() => {
               navigate("/productlist");
@@ -51,7 +54,8 @@ const Settings = () => {
               alt="ProductIcon"
             />
             <Typography variant="span">Product</Typography>
-          </Box>}
+          </Box>
+        )}
         <Box
           className="setting_cards-list"
           onClick={() => {
@@ -78,7 +82,7 @@ const Settings = () => {
           />
           <Typography variant="span">Leave & Holiday</Typography>
         </Box>
-        <Box
+        {/* <Box
           className="setting_cards-list"
           onClick={() => {
             navigate("/poll");
@@ -90,7 +94,7 @@ const Settings = () => {
             alt="Poll Icon"
           />
           <Typography variant="span">Poll</Typography>
-        </Box>
+        </Box> */}
       </Box>
     </>
   );

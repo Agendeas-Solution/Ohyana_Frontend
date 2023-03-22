@@ -118,7 +118,7 @@ const ClientProfile = () => {
           console.log("Printing", err);
         }
       );
-  }, [value, statusDialog, appointmentDialog, remainderDialog]);
+  }, [value, statusDialog, appointmentDialog, remainderDialog, callDialog]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -446,8 +446,8 @@ const ClientProfile = () => {
             handleStatusClose={handleStatusClose}
           />
           <PoorContact
+            addPoorContact={callDialog}
             handleCallClose={handleCallClose}
-            addPoorContact={addPoorContact}
           />
           <StageDialog
             clientProfileDetail={clientProfileDetail}

@@ -68,13 +68,6 @@ const PoorContact = ({addPoorContact,handleCallClose}) => {
                     <DatePicker
                       disablePast
                       inputFormat="dd/MM/yyyy"
-                      //   value={clientAppointmentDetail.date}
-                      //   onChange={(e) => {
-                      //     setClientAppointmentDetail({
-                      //       ...clientAppointmentDetail,
-                      //       date: moment(e).format("YYYY-MM-DD"),
-                      //     });
-                      //   }}
                       className="set_date_time_bg w-100"
                       renderInput={(params) => (
                         <TextField className="w-100" {...params} />
@@ -85,22 +78,12 @@ const PoorContact = ({addPoorContact,handleCallClose}) => {
               </div>
             </Box>
             <Box className="my-3">
-              <div className="row  mt-2">
+              <div className="row mt-2">
                 <div className="col-md-12">
                   <Typography align="left">Time</Typography>
                 </div>
                 <div className="col-md-12">
-                  <TextField
-                    // onChange={(e) => {
-                    //   setClientAppointmentDetail({
-                    //     ...clientAppointmentDetail,
-                    //     time: e.target.value,
-                    //   });
-                    // }}
-                    // value={clientAppointmentDetail.time}
-                    className="set_date_time_bg w-100"
-                    type="time"
-                  />
+                  <TextField className="set_date_time_bg w-100" type="time" />
                 </div>
               </div>
             </Box>
