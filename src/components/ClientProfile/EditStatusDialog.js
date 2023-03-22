@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react'
 import {
   Box,
   Button,
@@ -8,38 +8,38 @@ import {
   TextField,
   Typography,
   TextareaAutosize,
-} from "@mui/material";
-import { EditClientStatus } from "../../services/apiservices/adminprofile";
-import { Context as ContextSnackbar } from "../../context/pageContext";
+} from '@mui/material'
+import { EditClientStatus } from '../../services/apiservices/adminprofile'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 
-const EditStatusDialog = (props) => {
+const EditStatusDialog = props => {
   const [editStatusDetail, setEditStatusDetail] = useState({
     description: props?.editStatusDialog?.description,
     statusId: props?.editStatusDialog?.statusId,
-  });
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state;
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar);
+  })
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
 
   const EditStatus = () => {
     EditClientStatus(
       editStatusDetail,
-      (res) => {
-        props.handleStatusClose();
+      res => {
+        props.handleStatusClose()
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
           message: res.data.message,
-        });
+        })
       },
-      (err) => {
+      err => {
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
           message: err.response.data.error,
-        });
-      }
-    );
-  };
+        })
+      },
+    )
+  }
 
   return (
     <>
@@ -47,8 +47,8 @@ const EditStatusDialog = (props) => {
         open={props.editStatusDialog.status}
         onClose={props.handleStatusClose}
       >
-        <div style={{ textAlign: "center" }} className="px-3 pt-3">
-          <h4 style={{ fontWeight: "600" }}>Add Status</h4>
+        <div style={{ textAlign: 'center' }} className="px-3 pt-3">
+          <h4 style={{ fontWeight: '600' }}>Add Status</h4>
         </div>
         <DialogContent>
           <Box>
@@ -60,8 +60,8 @@ const EditStatusDialog = (props) => {
                 <TextareaAutosize
                   value={editStatusDetail?.description}
                   className="w-100"
-                  sx={{ borderRadius: "10px" }}
-                  onChange={(e) =>
+                  sx={{ borderRadius: '10px' }}
+                  onChange={e =>
                     setEditStatusDetail({
                       ...editStatusDetail,
                       description: e.target.value,
@@ -83,7 +83,7 @@ const EditStatusDialog = (props) => {
         </DialogActions>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default EditStatusDialog;
+export default EditStatusDialog

@@ -1,52 +1,66 @@
-import { React, useEffect, useState, useContext } from "react";
-import { Typography, Box, TextField, Button, Select, MenuItem, Autocomplete,} from "@mui/material";
-import {GetAdminProductList,EditClientDetail,} from "../../services/apiservices/adminprofile";
-import {GetAdminClientProfileDetail,GetCountryList,} from "../../services/apiservices/clientDetail";
-import { useNavigate } from "react-router-dom";
-import { Context as ContextSnackbar } from "../../context/pageContext";
+import { React, useEffect, useState, useContext } from 'react'
+import {
+  Typography,
+  Box,
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  Autocomplete,
+} from '@mui/material'
+import {
+  GetAdminProductList,
+  EditClientDetail,
+} from '../../services/apiservices/adminprofile'
+import {
+  GetAdminClientProfileDetail,
+  GetCountryList,
+} from '../../services/apiservices/clientDetail'
+import { useNavigate } from 'react-router-dom'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 const EditClient = () => {
   const [userDetail, setUserDetail] = useState({
-    clientName: "",
-    reference: "",
+    clientName: '',
+    reference: '',
     email: null,
     contactNo: null,
-    clientType: "",
+    clientType: '',
     country: null,
-    inquiryfor: "",
+    inquiryfor: '',
     product: [],
-    address: "",
-    state: "",
-    city: "",
-    business: "",
-    referenceName: null
-  });
-  const [adminProductList, setAdminProductList] = useState([]);
-  const [filteredProductList, setFilteredProductList] = useState([]);
-  const [countryList, setCountryList] = useState([]);
-  const navigate = useNavigate();
-  const { successSnackbar } = useContext(ContextSnackbar)?.state;
-  const { setSuccessSnackbar } = useContext(ContextSnackbar);
-  const handleChange = (prop) => (event) => {
-    setUserDetail({ ...userDetail, [prop]: event.target.value });
-  };
+    address: '',
+    state: '',
+    city: '',
+    business: '',
+    referenceName: null,
+  })
+  const [adminProductList, setAdminProductList] = useState([])
+  const [filteredProductList, setFilteredProductList] = useState([])
+  const [countryList, setCountryList] = useState([])
+  const navigate = useNavigate()
+  const { successSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar } = useContext(ContextSnackbar)
+  const handleChange = prop => event => {
+    setUserDetail({ ...userDetail, [prop]: event.target.value })
+  }
 
   useEffect(() => {
-    let path = window.location.pathname;
-    path = path.split("/").pop();
+    let path = window.location.pathname
+    path = path.split('/').pop()
     GetCountryList(
       {},
-      (res) => {
+      res => {
         if (res.success) {
-          setCountryList(res.data.country);
+          setCountryList(res.data.country)
         }
       },
-      (err) => {
-        console.log("Printing ", err);
-      }
-    );
+      err => {
+        console.log('Printing ', err)
+      },
+    )
     GetAdminClientProfileDetail(
       parseInt(path),
-      (res) => {
+      res => {
         if (res.success) {
           setUserDetail({
             ...userDetail,
@@ -62,63 +76,63 @@ const EditClient = () => {
             city: res.data.city,
             business: res.data.business,
             clientType: res.data.isInternational.toString(),
-            referenceName:res.data.reference_name
-          });
+            referenceName: res.data.reference_name,
+          })
         }
       },
-      (err) => {
-        console.log("Printing ", err);
-      }
-    );
-  }, []);
+      err => {
+        console.log('Printing ', err)
+      },
+    )
+  }, [])
   useEffect(() => {
     GetAdminProductList(
       {},
-      (res) => {
+      res => {
         if (res.success) {
-          setAdminProductList(res?.data?.products);
+          setAdminProductList(res?.data?.products)
           const inquiry_type = [
-            ...new Set(userDetail?.product.map((item) => item?.type)),
-          ];
+            ...new Set(userDetail?.product.map(item => item?.type)),
+          ]
           if (inquiry_type.length > 1) {
-            setUserDetail({ ...userDetail, inquiryfor: "BOTH" });
+            setUserDetail({ ...userDetail, inquiryfor: 'BOTH' })
           } else if (inquiry_type.length > 0 && inquiry_type.length < 2) {
-            setUserDetail({ ...userDetail, inquiryfor: inquiry_type[0] });
+            setUserDetail({ ...userDetail, inquiryfor: inquiry_type[0] })
           }
         }
       },
-      (err) => {
-        console.log("Printing Error", err);
-      }
-    );
+      err => {
+        console.log('Printing Error', err)
+      },
+    )
 
-    let productlist = [];
-    if (userDetail.inquiryfor === "BOTH") {
-      productlist = adminProductList.map((value) => {
-        return value;
-      });
-    } else if (userDetail.inquiryfor === "PRODUCT") {
-      productlist = adminProductList.map((value) => {
-        return value.type === "PRODUCT" && value;
-      });
-    } else if (userDetail.inquiryfor === "MACHINE") {
-      productlist = adminProductList.map((value) => {
-        return value.type === "MACHINE" && value;
-      });
+    let productlist = []
+    if (userDetail.inquiryfor === 'BOTH') {
+      productlist = adminProductList.map(value => {
+        return value
+      })
+    } else if (userDetail.inquiryfor === 'PRODUCT') {
+      productlist = adminProductList.map(value => {
+        return value.type === 'PRODUCT' && value
+      })
+    } else if (userDetail.inquiryfor === 'MACHINE') {
+      productlist = adminProductList.map(value => {
+        return value.type === 'MACHINE' && value
+      })
     }
-    setFilteredProductList(productlist);
-  }, [userDetail?.inquiryfor]);
+    setFilteredProductList(productlist)
+  }, [userDetail?.inquiryfor])
   const EditClient = () => {
     if (
-      userDetail.clientName !== "" &&
+      userDetail.clientName !== '' &&
       (userDetail.email || userDetail.contactNo) &&
       userDetail.reference &&
-      userDetail.clientType !== "" &&
-      userDetail.state !== "" &&
-      userDetail.city !== "" &&
-      userDetail.memberId !== "" &&
+      userDetail.clientType !== '' &&
+      userDetail.state !== '' &&
+      userDetail.city !== '' &&
+      userDetail.memberId !== '' &&
       userDetail.product.length > 0 &&
-      userDetail.inquiryfor !== "" &&
+      userDetail.inquiryfor !== '' &&
       userDetail.country
     ) {
       let clientDetail = {
@@ -131,30 +145,33 @@ const EditClient = () => {
         state: userDetail.state,
         address: userDetail.address,
         countryId: userDetail.country?.id,
-        products: [...new Set(userDetail?.product.map((item) => item?.id))],
+        products: [...new Set(userDetail?.product.map(item => item?.id))],
         memberId: userDetail.clientName,
         city: userDetail.city,
         memberId: 3,
-        reference_name: userDetail?.referenceName
-      };
-      let path = window.location.pathname;
-      console.log("Printing Path of ", path);
-      console.log("Printing ", path.split("/").pop());
-      path = path.split("/").pop();
+        reference_name: userDetail?.referenceName,
+      }
+      let path = window.location.pathname
+      console.log('Printing Path of ', path)
+      console.log('Printing ', path.split('/').pop())
+      path = path.split('/').pop()
       EditClientDetail(
         path,
         clientDetail,
-        (res) => {
+        res => {
           if (res.success) {
-            navigate(`/clientprofile/${path}`);
-            setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
+            navigate(`/clientprofile/${path}`)
+            setSuccessSnackbar({
+              ...successSnackbar,
+              status: true,
+              message: res.data.message,
+            })
           }
         },
-        (err) => {
-        }
-      );
+        err => {},
+      )
     }
-  };
+  }
   return (
     <>
       <div>
@@ -166,8 +183,8 @@ const EditClient = () => {
               </Typography>
               <TextField
                 placeholder="Client Name"
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, clientName: e.target.value });
+                onChange={e => {
+                  setUserDetail({ ...userDetail, clientName: e.target.value })
                 }}
                 value={userDetail.clientName}
                 variant="outlined"
@@ -179,8 +196,8 @@ const EditClient = () => {
               </Typography>
               <Select
                 value={userDetail.reference}
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, reference: e.target.value });
+                onChange={e => {
+                  setUserDetail({ ...userDetail, reference: e.target.value })
                 }}
               >
                 <MenuItem value="INDIAMART">Indiamart</MenuItem>
@@ -190,21 +207,26 @@ const EditClient = () => {
               </Select>
             </Box>
           </Box>
-          {userDetail.reference === "OTHER" && <Box className="input_field_row">
-            <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                Reference Name:<span className="required_star">*</span>
-              </Typography>
-              <TextField
-                placeholder="Reference Name"
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, referenceName: e.target.value });
-                }}
-                value={userDetail.referenceName}
-                variant="outlined"
-              />
+          {userDetail.reference === 'OTHER' && (
+            <Box className="input_field_row">
+              <Box className="input_fields">
+                <Typography className="input_field_label" variant="span">
+                  Reference Name:<span className="required_star">*</span>
+                </Typography>
+                <TextField
+                  placeholder="Reference Name"
+                  onChange={e => {
+                    setUserDetail({
+                      ...userDetail,
+                      referenceName: e.target.value,
+                    })
+                  }}
+                  value={userDetail.referenceName}
+                  variant="outlined"
+                />
+              </Box>
             </Box>
-          </Box>}
+          )}
           <Box className="input_field_row">
             <Box className="input_fields">
               <Typography className="input_field_label" variant="span">
@@ -212,8 +234,8 @@ const EditClient = () => {
               </Typography>
               <TextField
                 placeholder="Contact No"
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, contactNo: e.target.value });
+                onChange={e => {
+                  setUserDetail({ ...userDetail, contactNo: e.target.value })
                 }}
                 value={userDetail.contactNo}
                 variant="outlined"
@@ -225,8 +247,8 @@ const EditClient = () => {
               </Typography>
               <Select
                 value={userDetail.clientType}
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, clientType: e.target.value });
+                onChange={e => {
+                  setUserDetail({ ...userDetail, clientType: e.target.value })
                 }}
               >
                 <MenuItem value="false">Domestic</MenuItem>
@@ -241,8 +263,8 @@ const EditClient = () => {
               </Typography>
               <TextField
                 placeholder="Enter Email"
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, email: e.target.value });
+                onChange={e => {
+                  setUserDetail({ ...userDetail, email: e.target.value })
                 }}
                 value={userDetail.email}
                 variant="outlined"
@@ -256,11 +278,11 @@ const EditClient = () => {
                 options={countryList}
                 value={userDetail?.country}
                 onChange={(e, value) => {
-                  console.log(value);
-                  setUserDetail({ ...userDetail, country: value });
+                  console.log(value)
+                  setUserDetail({ ...userDetail, country: value })
                 }}
-                getOptionLabel={(option) => option?.name}
-                renderInput={(params) => (
+                getOptionLabel={option => option?.name}
+                renderInput={params => (
                   <TextField {...params} placeholder="Select Country" />
                 )}
               />
@@ -273,8 +295,8 @@ const EditClient = () => {
               </Typography>
               <Select
                 value={userDetail.inquiryfor}
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, inquiryfor: e.target.value });
+                onChange={e => {
+                  setUserDetail({ ...userDetail, inquiryfor: e.target.value })
                 }}
               >
                 <MenuItem value="BOTH">Both</MenuItem>
@@ -288,8 +310,8 @@ const EditClient = () => {
               </Typography>
               <TextField
                 placeholder="Enter State"
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, state: e.target.value });
+                onChange={e => {
+                  setUserDetail({ ...userDetail, state: e.target.value })
                 }}
                 value={userDetail.state}
                 variant="outlined"
@@ -307,16 +329,16 @@ const EditClient = () => {
                 options={filteredProductList}
                 value={userDetail?.product}
                 onChange={(e, value) => {
-                  console.log(value);
-                  setUserDetail({ ...userDetail, product: value });
+                  console.log(value)
+                  setUserDetail({ ...userDetail, product: value })
                 }}
-                getOptionLabel={(option) => option?.name}
+                getOptionLabel={option => option?.name}
                 multiple
-                renderInput={(params) => (
+                renderInput={params => (
                   <TextField
                     {...params}
                     placeholder={
-                      userDetail?.product.length > 0 ? "" : "Select Product"
+                      userDetail?.product.length > 0 ? '' : 'Select Product'
                     }
                   />
                 )}
@@ -329,8 +351,8 @@ const EditClient = () => {
               <TextField
                 autocomplete="off"
                 placeholder="Enter Address"
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, address: e.target.value });
+                onChange={e => {
+                  setUserDetail({ ...userDetail, address: e.target.value })
                 }}
                 value={userDetail.address}
                 variant="outlined"
@@ -344,8 +366,8 @@ const EditClient = () => {
               </Typography>
               <TextField
                 placeholder="Enter City"
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, city: e.target.value });
+                onChange={e => {
+                  setUserDetail({ ...userDetail, city: e.target.value })
                 }}
                 value={userDetail.city}
                 variant="outlined"
@@ -357,8 +379,8 @@ const EditClient = () => {
               </Typography>
               <TextField
                 placeholder="Enter Business"
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, business: e.target.value });
+                onChange={e => {
+                  setUserDetail({ ...userDetail, business: e.target.value })
                 }}
                 value={userDetail.business}
                 variant="outlined"
@@ -366,7 +388,7 @@ const EditClient = () => {
             </Box>
           </Box>
           <Box
-            sx={{ justifyContent: "flex-start" }}
+            sx={{ justifyContent: 'flex-start' }}
             className="input_field_row"
           >
             <Button
@@ -380,7 +402,7 @@ const EditClient = () => {
         </Box>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default EditClient;
+export default EditClient

@@ -4,9 +4,9 @@ import "./index.css";
 import { login } from "../../services/apiservices/login";
 import { Context as AuthContext } from "../../context/authContext/authContext";
 import { useNavigate } from "react-router-dom";
-import ErrorSnackbar from '../ErrorSnackbar/ErrorSnackbar';
+import ErrorSnackbar from "../ErrorSnackbar/ErrorSnackbar";
 import { Context as ContextSnackbar } from "../../context/pageContext";
-import Logo from '../../assets/img/Ohyana Logo Blue.svg';
+import Logo from "../../assets/img/Ohyana Logo Blue.svg";
 
 import { socket } from "../../App";
 const Login = () => {
@@ -21,16 +21,16 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const userlogin = () => {
     if (userDetail.email !== "" && userDetail.password !== "") {
-      setFlagLoader(true)
+      setFlagLoader(true);
       login(
         { email: userDetail.email, password: userDetail.password },
         (res) => {
           debugger;
           if (res.success) {
             setAuthorize(true);
-            setFlagLoader(false)
+            setFlagLoader(false);
             navigate("/profile");
-            socket.emit('join', { email: userDetail?.email });
+            socket.emit("join", { email: userDetail?.email });
           } else {
             if (res?.data?.error) {
               setErrorMessage(res?.data?.error?.message);
@@ -38,12 +38,20 @@ const Login = () => {
           }
         },
         (resError) => {
-          setErrorSnackbar({ ...errorSnackbar, status: true, message: resError.response.data.error })
-          setFlagLoader(false)
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: resError.response.data.error,
+          });
+          setFlagLoader(false);
         }
       );
     } else {
-      setErrorSnackbar({ ...errorSnackbar, status: true, message: "Username and password are required" })
+      setErrorSnackbar({
+        ...errorSnackbar,
+        status: true,
+        message: "Username and password are required",
+      });
     }
   };
   return (
@@ -56,10 +64,13 @@ const Login = () => {
           <Typography className="login_heading_root" variant="span">
             Welcome To Ohyana.
           </Typography>
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            userlogin();
-          }} className="w-100">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              userlogin();
+            }}
+            className="w-100"
+          >
             <Box className="login_email_root">
               <Typography>Email</Typography>
               <TextField
@@ -86,7 +97,10 @@ const Login = () => {
               />
             </Box>
             <Typography className="login_forget_password_root" variant="span">
-              <Button onClick={() => navigate("/forgotpassword")} > Forgotten password ? </Button>
+              <Button onClick={() => navigate("/forgotpassword")}>
+                {" "}
+                Forgotten password ?{" "}
+              </Button>
             </Typography>
             <Box className="login_submit_button_root overflow-hidden">
               <Button type="submit" onClick={userlogin} variant="contained">
@@ -96,7 +110,7 @@ const Login = () => {
           </form>
         </Box>
         <Typography className="login_copyright_root" variant="span">
-          {new Date().getFullYear()} ©  Ohyana.
+          {new Date().getFullYear()} © Ohyana.
         </Typography>
       </Box>
       <ErrorSnackbar />

@@ -1,57 +1,88 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Box, Dialog, TextField, Typography, TextareaAutosize, Autocomplete, Select, MenuItem, DialogActions, Button } from "@mui/material";
-import { Context as ContextSnackbar } from "../../context/pageContext";
-import { GetAdminDepartmentList, GetAdminRole, AddNotificationDetail } from "../../services/apiservices/adminprofile";
-const ClientStatusCloseDialog = (props) => {
+import React, { useState, useEffect, useContext } from 'react'
+import {
+  Box,
+  Dialog,
+  TextField,
+  Typography,
+  TextareaAutosize,
+  Autocomplete,
+  Select,
+  MenuItem,
+  DialogActions,
+  Button,
+} from '@mui/material'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+import {
+  GetAdminDepartmentList,
+  GetAdminRole,
+  AddNotificationDetail,
+} from '../../services/apiservices/adminprofile'
+const ClientStatusCloseDialog = props => {
   const [addNotificationDetail, setAddNotificationDetail] = useState({
-    heading: "",
-    description: "",
+    heading: '',
+    description: '',
     departmentId: null,
     roleId: null,
-    type: "",
-  });
-  const [departmentList, setDepartmentList] = useState([]);
-  const [employeeJobRole, setEmployeeJobRole] = useState([]);
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state;
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar);
-  const [notificationType, setNotificationType] = useState(["NOTICE", "ACHIEVEMENT", "INFORMATION"]);
+    type: '',
+  })
+  const [departmentList, setDepartmentList] = useState([])
+  const [employeeJobRole, setEmployeeJobRole] = useState([])
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [notificationType, setNotificationType] = useState([
+    'NOTICE',
+    'ACHIEVEMENT',
+    'INFORMATION',
+  ])
   useEffect(() => {
     {
       addNotificationDetail?.departmentId &&
         GetAdminRole(
           parseInt(addNotificationDetail?.departmentId),
-          (res) => {
+          res => {
             if (res.success) {
-              setEmployeeJobRole(res.data?.roles);
+              setEmployeeJobRole(res.data?.roles)
             }
           },
-          (err) => {
-            console.log("Printing Error of GetAdminRole", err);
-          }
-        );
+          err => {
+            console.log('Printing Error of GetAdminRole', err)
+          },
+        )
     }
-  }, [addNotificationDetail?.departmentId]);
+  }, [addNotificationDetail?.departmentId])
 
   useEffect(() => {
     GetAdminDepartmentList(
       {},
-      (res) => {
-        setDepartmentList(res?.data?.department);
+      res => {
+        setDepartmentList(res?.data?.department)
       },
-      (err) => {
-        console.log("Printing Error", err);
-      }
-    );
-  }, []);
+      err => {
+        console.log('Printing Error', err)
+      },
+    )
+  }, [])
   const handleAddNotification = () => {
-    console.log("Add Notification", addNotificationDetail);
-    AddNotificationDetail(addNotificationDetail, (res) => {
-      props.CloseDeleteRemainder();
-      setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
-    }, (err) => {
-      setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.error })
-      props.CloseDeleteRemainder();
-    })
+    console.log('Add Notification', addNotificationDetail)
+    AddNotificationDetail(
+      addNotificationDetail,
+      res => {
+        props.CloseDeleteRemainder()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.data.message,
+        })
+      },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err.response.data.error,
+        })
+        props.CloseDeleteRemainder()
+      },
+    )
   }
   return (
     <>
@@ -65,21 +96,23 @@ const ClientStatusCloseDialog = (props) => {
         <Box>
           <div className="row">
             <div className="col-md-6">
-              <Typography variant="span">Department<span className="required_star">*</span></Typography>
+              <Typography variant="span">
+                Department<span className="required_star">*</span>
+              </Typography>
             </div>
             <Autocomplete
               className="align-items-center d-flex justify-content-center  w-100"
               options={departmentList}
               onChange={(e, value) => {
-                console.log(value);
+                console.log(value)
                 setAddNotificationDetail({
                   ...addNotificationDetail,
                   departmentId: value?.id,
-                });
+                })
               }}
               sx={{ width: 300 }}
-              getOptionLabel={(option) => option.name}
-              renderInput={(params) => (
+              getOptionLabel={option => option.name}
+              renderInput={params => (
                 <TextField {...params} placeholder="Select Department" />
               )}
             />
@@ -88,19 +121,24 @@ const ClientStatusCloseDialog = (props) => {
         <Box className="my-3">
           <div className="row">
             <div className="col-md-6">
-              <Typography variant="span">Job Role<span className="required_star">*</span></Typography>
+              <Typography variant="span">
+                Job Role<span className="required_star">*</span>
+              </Typography>
             </div>
             <div className="col-md-12">
               <Select
                 className="w-100"
                 value={addNotificationDetail?.roleId}
-                onChange={(e) => {
-                  setAddNotificationDetail({ ...addNotificationDetail, roleId: e.target.value });
+                onChange={e => {
+                  setAddNotificationDetail({
+                    ...addNotificationDetail,
+                    roleId: e.target.value,
+                  })
                 }}
               >
                 {employeeJobRole &&
-                  employeeJobRole.map((data) => {
-                    return <MenuItem value={data?.id}>{data?.name}</MenuItem>;
+                  employeeJobRole.map(data => {
+                    return <MenuItem value={data?.id}>{data?.name}</MenuItem>
                   })}
               </Select>
             </div>
@@ -109,19 +147,24 @@ const ClientStatusCloseDialog = (props) => {
         <Box className="my-3">
           <div className="row">
             <div className="col-md-12">
-              <Typography variant="span">Notification Type<span className="required_star">*</span></Typography>
+              <Typography variant="span">
+                Notification Type<span className="required_star">*</span>
+              </Typography>
             </div>
             <div className="col-md-12">
               <Select
                 className="w-100"
                 value={addNotificationDetail?.type}
-                onChange={(e) => {
-                  setAddNotificationDetail({ ...addNotificationDetail, type: e.target.value });
+                onChange={e => {
+                  setAddNotificationDetail({
+                    ...addNotificationDetail,
+                    type: e.target.value,
+                  })
                 }}
               >
                 {notificationType &&
-                  notificationType.map((data) => {
-                    return <MenuItem value={data}>{data}</MenuItem>;
+                  notificationType.map(data => {
+                    return <MenuItem value={data}>{data}</MenuItem>
                   })}
               </Select>
             </div>
@@ -138,8 +181,11 @@ const ClientStatusCloseDialog = (props) => {
               <TextField
                 className="w-100"
                 placeholder="Enter Subject"
-                onChange={(e) => {
-                  setAddNotificationDetail({ ...addNotificationDetail, heading: e.target.value });
+                onChange={e => {
+                  setAddNotificationDetail({
+                    ...addNotificationDetail,
+                    heading: e.target.value,
+                  })
                 }}
                 value={addNotificationDetail.heading}
                 variant="outlined"
@@ -159,21 +205,18 @@ const ClientStatusCloseDialog = (props) => {
                 placeholder="Description Here..."
                 className="w-100"
                 value={addNotificationDetail.description}
-                onChange={(e) => {
+                onChange={e => {
                   setAddNotificationDetail({
                     ...addNotificationDetail,
                     description: e.target.value,
-                  });
+                  })
                 }}
               />
             </div>
           </div>
         </Box>
         <DialogActions className="m-auto">
-          <Button
-            variant="contained"
-            onClick={handleAddNotification}
-          >
+          <Button variant="contained" onClick={handleAddNotification}>
             Create
           </Button>
           <Button
@@ -186,7 +229,7 @@ const ClientStatusCloseDialog = (props) => {
         </DialogActions>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default ClientStatusCloseDialog;
+export default ClientStatusCloseDialog

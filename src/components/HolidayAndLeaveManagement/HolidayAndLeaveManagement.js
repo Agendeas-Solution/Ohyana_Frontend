@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Box, Typography, Button, TextField, Tab, Tabs } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import dayjs from "dayjs";
-import Grid from "@mui/material/Grid";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import React, { useEffect, useState } from 'react'
+import { Box, Typography, Button, TextField, Tab, Tabs } from '@mui/material'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
+import dayjs from 'dayjs'
+import Grid from '@mui/material/Grid'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { CalendarPicker } from '@mui/x-date-pickers/CalendarPicker'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import {
   GetAllHoliday,
   GetAllLeaveType,
-} from "../../services/apiservices/holiday";
-import "./index.css";
+} from '../../services/apiservices/holiday'
+import './index.css'
 import {
   CreateHoliday,
   UpdateHoliday,
@@ -25,140 +25,140 @@ import {
   CreateLeaveType,
   DeleteLeaveType,
   UpdateLeaveType,
-} from "../../services/apiservices/holiday";
-import HolidayDialog from "./HolidayDialog";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import AddLeaveDialog from "./AddLeaveDialog";
-import { TabPanel } from "@mui/lab";
-const minDate = dayjs("2020-01-01T00:00:00.000");
-const maxDate = dayjs("2034-01-01T00:00:00.000");
+} from '../../services/apiservices/holiday'
+import HolidayDialog from './HolidayDialog'
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import AddLeaveDialog from './AddLeaveDialog'
+import { TabPanel } from '@mui/lab'
+const minDate = dayjs('2020-01-01T00:00:00.000')
+const maxDate = dayjs('2034-01-01T00:00:00.000')
 const HolidayAndLeaveManagement = () => {
-  const [date, setDate] = React.useState(dayjs());
-  const [holidayList, setHolidayList] = useState([]);
-  const [leaveList, setLeaveList] = useState([]);
+  const [date, setDate] = React.useState(dayjs())
+  const [holidayList, setHolidayList] = useState([])
+  const [leaveList, setLeaveList] = useState([])
   const [addHolidayDialog, setAddHolidayDialog] = useState({
     status: false,
-  });
+  })
   const [addHolidayDetail, setAddHolidayDetail] = useState({
-    date: "",
-    duration: "",
-    occasion: "",
+    date: '',
+    duration: '',
+    occasion: '',
     regular: false,
-  });
+  })
   const [addLeaveDialog, setAddLeaveDialog] = useState({
     status: false,
-    type: "",
-    duration: "",
-  });
+    type: '',
+    duration: '',
+  })
   useEffect(() => {
     GetAllHoliday(
       {},
-      (res) => {
-        setHolidayList(res?.data);
-        debugger;
+      res => {
+        setHolidayList(res?.data)
+        debugger
       },
-      (err) => {
-        console.log("Printing Error", err);
-      }
-    );
+      err => {
+        console.log('Printing Error', err)
+      },
+    )
     GetAllLeaveType(
       {},
-      (res) => {
-        setLeaveList(res?.data);
-        debugger;
+      res => {
+        setLeaveList(res?.data)
+        debugger
       },
-      (err) => {}
-    );
-  }, []);
+      err => {},
+    )
+  }, [])
   const handleCloseDialog = () => {
-    setAddHolidayDialog({ ...addHolidayDialog, status: false });
+    setAddHolidayDialog({ ...addHolidayDialog, status: false })
     setAddHolidayDetail({
       ...addHolidayDetail,
-      date: "",
-      duration: "",
-      occasion: "",
+      date: '',
+      duration: '',
+      occasion: '',
       regular: false,
-    });
-    setAddLeaveDialog({ ...addLeaveDialog, status: false });
-  };
+    })
+    setAddLeaveDialog({ ...addLeaveDialog, status: false })
+  }
   const SetHoliday = () => {
     CreateHoliday(
       addHolidayDetail,
-      (res) => {
-        handleCloseDialog();
-        debugger;
+      res => {
+        handleCloseDialog()
+        debugger
       },
-      (err) => {}
-    );
-  };
+      err => {},
+    )
+  }
   const UpdateHolidayFunc = (id, holidayDetail) => {
     UpdateHoliday(
       id,
       holidayDetail,
-      (res) => {
-        handleCloseDialog();
-        debugger;
+      res => {
+        handleCloseDialog()
+        debugger
       },
-      (err) => {}
-    );
-  };
-  const DeleteHolidayFunc = (id) => {
+      err => {},
+    )
+  }
+  const DeleteHolidayFunc = id => {
     DeleteHoliday(
       id,
-      (res) => {
-        debugger;
+      res => {
+        debugger
       },
-      (err) => {
-        debugger;
-      }
-    );
-  };
-  const DeleteLeaveFunc = (id) => {
-    debugger;
+      err => {
+        debugger
+      },
+    )
+  }
+  const DeleteLeaveFunc = id => {
+    debugger
     DeleteLeaveType(
       id,
-      (res) => {
-        debugger;
+      res => {
+        debugger
       },
-      (err) => {
-        debugger;
-      }
-    );
-  };
+      err => {
+        debugger
+      },
+    )
+  }
   const AddLeave = () => {
     CreateLeaveType(
       {
         duration: addLeaveDialog.duration,
         type: addLeaveDialog.type,
       },
-      (res) => {
-        debugger;
-        handleCloseDialog();
+      res => {
+        debugger
+        handleCloseDialog()
       },
-      (err) => {}
-    );
-  };
+      err => {},
+    )
+  }
   const UpdateLeave = () => {
     UpdateLeaveType(
       addLeaveDialog?.id,
       { type: addLeaveDialog?.type, duration: addLeaveDialog?.duration },
-      (res) => {
+      res => {
         setAddLeaveDialog({
           status: false,
-          type: "",
-          duration: "",
-        });
+          type: '',
+          duration: '',
+        })
       },
-      (err) => {
-        debugger;
-      }
-    );
-  };
+      err => {
+        debugger
+      },
+    )
+  }
   return (
     <>
       <Box className="leave_holiday_section">
         <Box
-          sx={{ marginBottom: "10px" }}
+          sx={{ marginBottom: '10px' }}
           className="occassional_holiday_section"
         >
           <Box className="w-50">
@@ -174,8 +174,8 @@ const HolidayAndLeaveManagement = () => {
             {/* <Box sx={{ width: "30rem" }}> */}
             <Box>
               <Box
-                style={{ display: "flex" }}
-                sx={{ borderBottom: 1, borderColor: "divider" }}
+                style={{ display: 'flex' }}
+                sx={{ borderBottom: 1, borderColor: 'divider' }}
               >
                 <Tabs
                   //   value={value}
@@ -217,7 +217,7 @@ const HolidayAndLeaveManagement = () => {
                 </TableHead>
                 <TableBody>
                   {holidayList.length > 0 &&
-                    holidayList.map((data) => {
+                    holidayList.map(data => {
                       return (
                         <TableRow>
                           <TableCell>{data?.date}</TableCell>
@@ -230,10 +230,10 @@ const HolidayAndLeaveManagement = () => {
                                   setAddHolidayDialog({
                                     ...addHolidayDialog,
                                     status: true,
-                                  });
-                                  let value = data;
-                                  value.regular = false;
-                                  setAddHolidayDetail(value);
+                                  })
+                                  let value = data
+                                  value.regular = false
+                                  setAddHolidayDetail(value)
                                 }}
                                 className="icon common_row"
                               />
@@ -246,7 +246,7 @@ const HolidayAndLeaveManagement = () => {
                             </Box>
                           </td>
                         </TableRow>
-                      );
+                      )
                     })}
                 </TableBody>
               </Table>
@@ -264,33 +264,33 @@ const HolidayAndLeaveManagement = () => {
             </Box>
           </Box> */}
 
-          <Box className="w-50" sx={{ maxHeight: "330px" }}>
+          <Box className="w-50" sx={{ maxHeight: '330px' }}>
             <Button
               onClick={() => {
-                setAddHolidayDetail({ ...addHolidayDetail, regular: true });
-                setAddHolidayDialog({ ...addHolidayDialog, status: true });
+                setAddHolidayDetail({ ...addHolidayDetail, regular: true })
+                setAddHolidayDialog({ ...addHolidayDialog, status: true })
               }}
-              sx={{ float: "right", marginTop: "8px" }}
+              sx={{ float: 'right', marginTop: '8px' }}
               className="leave_holiday_buttons"
               variant="contained"
             >
               + Holiday
             </Button>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Grid sx={{ padding: "33px" }} item xs={12} md={6}>
+              <Grid sx={{ padding: '33px' }} item xs={12} md={6}>
                 <CalendarPicker
                   date={date}
-                  onChange={(newDate) => setDate(newDate)}
+                  onChange={newDate => setDate(newDate)}
                 />
               </Grid>
             </LocalizationProvider>
           </Box>
         </Box>
-        <Box sx={{ marginLeft: "0px" }} className="row mt-2 leave_holiday_row">
+        <Box sx={{ marginLeft: '0px' }} className="row mt-2 leave_holiday_row">
           <Box className="leave_management_section">
             <Box className="leave_management_header mb-2 mt-2">
               <Typography
-                sx={{ marginTop: "24px", marginLeft: "25px" }}
+                sx={{ marginTop: '24px', marginLeft: '25px' }}
                 className="sub_heading"
                 variant="span"
               >
@@ -298,16 +298,16 @@ const HolidayAndLeaveManagement = () => {
               </Typography>
               <Button
                 sx={{
-                  marginTop: "16px",
-                  marginBottom: "14px",
-                  marginRight: "25px",
+                  marginTop: '16px',
+                  marginBottom: '14px',
+                  marginRight: '25px',
                 }}
                 onClick={() =>
                   setAddLeaveDialog({
                     ...addLeaveDialog,
                     status: true,
-                    type: "",
-                    duration: "",
+                    type: '',
+                    duration: '',
                   })
                 }
                 className="leave_holiday_buttons"
@@ -327,12 +327,12 @@ const HolidayAndLeaveManagement = () => {
                 </TableHead>
                 <TableBody>
                   {leaveList.length > 0 &&
-                    leaveList.map((row) => {
+                    leaveList.map(row => {
                       return (
                         <TableRow
                           key={row.id}
                           sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
+                            '&:last-child td, &:last-child th': { border: 0 },
                           }}
                         >
                           <TableCell component="th" scope="row">
@@ -341,7 +341,7 @@ const HolidayAndLeaveManagement = () => {
                           <TableCell align="right">{row.duration}</TableCell>
                           <TableCell align="right">
                             <EditRoundedIcon
-                              sx={{ marginLeft: "11rem" }}
+                              sx={{ marginLeft: '11rem' }}
                               onClick={() => {
                                 setAddLeaveDialog({
                                   ...addLeaveDialog,
@@ -349,7 +349,7 @@ const HolidayAndLeaveManagement = () => {
                                   type: row?.type,
                                   duration: row?.duration,
                                   id: row?.id,
-                                });
+                                })
                               }}
                               className="icon common_row"
                             />
@@ -359,16 +359,16 @@ const HolidayAndLeaveManagement = () => {
                             />
                           </TableCell>
                         </TableRow>
-                      );
+                      )
                     })}
                 </TableBody>
               </Table>
             </TableContainer>
           </Box>
-          <Box sx={{ marginRight: "10px" }} className="regular_holiday_section">
+          <Box sx={{ marginRight: '10px' }} className="regular_holiday_section">
             <Box className="regular_holiday_heading">
               <Typography
-                sx={{ marginTop: "24px", marginLeft: "25px" }}
+                sx={{ marginTop: '24px', marginLeft: '25px' }}
                 className="sub_heading"
                 variant="span"
               >
@@ -376,9 +376,9 @@ const HolidayAndLeaveManagement = () => {
               </Typography>
               <Button
                 sx={{
-                  marginTop: "16px",
-                  marginBottom: "14px",
-                  marginRight: "25px",
+                  marginTop: '16px',
+                  marginBottom: '14px',
+                  marginRight: '25px',
                 }}
                 className="leave_holiday_buttons"
                 variant="contained"
@@ -390,14 +390,14 @@ const HolidayAndLeaveManagement = () => {
               <Typography
                 sx={{
                   //   marginTop: "23px",
-                  marginLeft: "25px",
+                  marginLeft: '25px',
                 }}
                 variant="span"
               >
                 Sunday
               </Typography>
               <EditRoundedIcon
-                sx={{ marginRight: "25px", marginBottom: "15px" }}
+                sx={{ marginRight: '25px', marginBottom: '15px' }}
                 className="icon"
               />
             </Box>
@@ -420,6 +420,6 @@ const HolidayAndLeaveManagement = () => {
         />
       </Box>
     </>
-  );
-};
-export default HolidayAndLeaveManagement;
+  )
+}
+export default HolidayAndLeaveManagement

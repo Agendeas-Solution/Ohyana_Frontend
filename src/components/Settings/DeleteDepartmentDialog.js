@@ -1,19 +1,33 @@
-import React, { useContext } from "react";
-import {Dialog,DialogTitle,DialogContent,DialogActions,Button,Typography,} from "@mui/material";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import { DeleteDepartment } from "../../services/apiservices/staffDetail";
-import { useNavigate } from "react-router-dom";
-import { Context as  ContextSnackbar } from "../../context/pageContext";
-const DeleteDepartmentDialog = (props) => {
-  const { successSnackbar } = useContext( ContextSnackbar)?.state;
-  const { setSuccessSnackbar } = useContext( ContextSnackbar);
-  const navigate = useNavigate();
+import React, { useContext } from 'react'
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  Typography,
+} from '@mui/material'
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import { DeleteDepartment } from '../../services/apiservices/staffDetail'
+import { useNavigate } from 'react-router-dom'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+const DeleteDepartmentDialog = props => {
+  const { successSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar } = useContext(ContextSnackbar)
+  const navigate = useNavigate()
   const handleDeleteDepartment = () => {
-    DeleteDepartment(props.deleteDepartmentDialogControl.id, (res) => {
-      navigate("/departmentlist");
-      setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
-    }, (err) => {
-    })
+    DeleteDepartment(
+      props.deleteDepartmentDialogControl.id,
+      res => {
+        navigate('/departmentlist')
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.data.message,
+        })
+      },
+      err => {},
+    )
   }
   return (
     <>
@@ -39,7 +53,7 @@ const DeleteDepartmentDialog = (props) => {
         </DialogActions>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default DeleteDepartmentDialog;
+export default DeleteDepartmentDialog

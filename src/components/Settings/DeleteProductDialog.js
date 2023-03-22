@@ -1,24 +1,38 @@
-import React, { useContext } from "react";
-import {Dialog,DialogTitle, DialogContent, DialogActions, Button, Typography,} from "@mui/material";
-import { DeleteAdminProduct } from "../../services/apiservices/adminprofile";
-import { Context as  ContextSnackbar } from "../../context/pageContext";
-const DeleteProductDialog = (props) => {
-  const { successSnackbar } = useContext( ContextSnackbar)?.state;
-  const { setSuccessSnackbar } = useContext( ContextSnackbar);
-  const handleDelete = (id) => {
+import React, { useContext } from 'react'
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  Typography,
+} from '@mui/material'
+import { DeleteAdminProduct } from '../../services/apiservices/adminprofile'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+const DeleteProductDialog = props => {
+  const { successSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar } = useContext(ContextSnackbar)
+  const handleDelete = id => {
     DeleteAdminProduct(
       id,
-      (res) => {
+      res => {
         if (res.success) {
-          props.handleClose();
-          setSuccessSnackbar({ ...successSnackbar, status: true, message: `${props.DeleteProductDialogControl.type.charAt(0) + props.DeleteProductDialogControl.type.toLowerCase().slice(1)} Deleted Successfully` });
+          props.handleClose()
+          setSuccessSnackbar({
+            ...successSnackbar,
+            status: true,
+            message: `${
+              props.DeleteProductDialogControl.type.charAt(0) +
+              props.DeleteProductDialogControl.type.toLowerCase().slice(1)
+            } Deleted Successfully`,
+          })
         }
       },
-      (err) => {
-        console.log(err);
-      }
-    );
-  };
+      err => {
+        console.log(err)
+      },
+    )
+  }
   return (
     <>
       <Dialog
@@ -38,17 +52,13 @@ const DeleteProductDialog = (props) => {
           >
             Ok
           </Button>
-          <Button
-            className="cancel-btn"
-            onClick={props.handleClose}
-            autoFocus
-          >
+          <Button className="cancel-btn" onClick={props.handleClose} autoFocus>
             Cancel
           </Button>
         </DialogActions>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default DeleteProductDialog;
+export default DeleteProductDialog

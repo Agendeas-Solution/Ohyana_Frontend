@@ -1,39 +1,59 @@
-import React, { useState, useContext } from "react";
-import {Dialog,DialogContent,DialogActions,Button,Typography,TextField} from "@mui/material";
-import { Context as  ContextSnackbar } from "../../context/pageContext";
-import { AddAdminDepartment, EditAdminDepartment } from "../../services/apiservices/adminprofile";
-const AddEditDepartmentDialog = (props) => {
-  const [departmentName, setdepartmentName] = useState(props?.addEditDepartmentDialogControl?.id ? props?.addEditDepartmentDialogControl?.departmentName : "");
-  const { successSnackbar } = useContext( ContextSnackbar)?.state;
-  const { setSuccessSnackbar } = useContext( ContextSnackbar);
+import React, { useState, useContext } from 'react'
+import {
+  Dialog,
+  DialogContent,
+  DialogActions,
+  Button,
+  Typography,
+  TextField,
+} from '@mui/material'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+import {
+  AddAdminDepartment,
+  EditAdminDepartment,
+} from '../../services/apiservices/adminprofile'
+const AddEditDepartmentDialog = props => {
+  const [departmentName, setdepartmentName] = useState(
+    props?.addEditDepartmentDialogControl?.id
+      ? props?.addEditDepartmentDialogControl?.departmentName
+      : '',
+  )
+  const { successSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const handleAddDepartment = () => {
     if (props?.addEditDepartmentDialogControl?.id) {
       EditAdminDepartment(
-        props?.addEditDepartmentDialogControl?.id, { name: departmentName },
-        (res) => {
+        props?.addEditDepartmentDialogControl?.id,
+        { name: departmentName },
+        res => {
           if (res.success) {
-            props.handleClose();
-            setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
+            props.handleClose()
+            setSuccessSnackbar({
+              ...successSnackbar,
+              status: true,
+              message: res.data.message,
+            })
           }
         },
-        (err) => {
-        }
-      );
-    }
-    else {
+        err => {},
+      )
+    } else {
       AddAdminDepartment(
         { name: departmentName },
-        (res) => {
+        res => {
           if (res.success) {
-            props.handleClose();
-            setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
+            props.handleClose()
+            setSuccessSnackbar({
+              ...successSnackbar,
+              status: true,
+              message: res.data.message,
+            })
           }
         },
-        (err) => {
-        }
-      );
+        err => {},
+      )
     }
-  };
+  }
 
   return (
     <>
@@ -47,7 +67,9 @@ const AddEditDepartmentDialog = (props) => {
         <DialogContent>
           <div className="row my-3">
             <div className="col-md-6">
-              <Typography variant="span">Department Name<span className="required_star">*</span></Typography>
+              <Typography variant="span">
+                Department Name<span className="required_star">*</span>
+              </Typography>
             </div>
             <div className="col-md-12">
               <TextField
@@ -55,15 +77,19 @@ const AddEditDepartmentDialog = (props) => {
                 variant="outlined"
                 placeholder="Enter Department Name"
                 value={departmentName}
-                onChange={(e) => {
-                  setdepartmentName(e.target.value);
+                onChange={e => {
+                  setdepartmentName(e.target.value)
                 }}
               />
             </div>
           </div>
-        </DialogContent >
+        </DialogContent>
         <DialogActions className="d-flex w-100 col-md-12">
-          <Button className="ok-btn" variant="contained" onClick={handleAddDepartment}>
+          <Button
+            className="ok-btn"
+            variant="contained"
+            onClick={handleAddDepartment}
+          >
             Ok
           </Button>
           <Button className="cancel-btn" onClick={props.handleClose} autoFocus>
@@ -72,7 +98,7 @@ const AddEditDepartmentDialog = (props) => {
         </DialogActions>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default AddEditDepartmentDialog;
+export default AddEditDepartmentDialog

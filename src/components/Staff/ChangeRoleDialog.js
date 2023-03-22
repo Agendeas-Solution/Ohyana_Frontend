@@ -1,6 +1,13 @@
-import React from "react";
-import {Dialog,DialogTitle,TextField,DialogContent,DialogContentText,DialogActions,} from "@mui/material";
-const ChangeRoleDialog = (props) => {
+import React from 'react'
+import {
+  Dialog,
+  DialogTitle,
+  TextField,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from '@mui/material'
+const ChangeRoleDialog = props => {
   return (
     <>
       <Dialog
@@ -29,7 +36,7 @@ const ChangeRoleDialog = (props) => {
         </DialogActions>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default ChangeRoleDialog;
+export default ChangeRoleDialog

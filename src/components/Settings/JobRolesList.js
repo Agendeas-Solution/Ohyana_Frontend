@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from 'react'
 import {
   Box,
   Typography,
@@ -13,26 +13,26 @@ import {
   TableHead,
   TableRow,
   TableCell,
-} from "@mui/material";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import "./index.css";
-import JobRoleDialog from "./JobRoleDialog";
-import DeleteJobRoleDialog from "./DeleteJobRoleDialog";
-import DeleteDepartmentDialog from "./DeleteDepartmentDialog";
-import AddEditDepartmentDialog from "./AddEditDepartmentDialog";
-import { GetAdminRole } from "../../services/apiservices/adminprofile";
-import EditJobRoleDialog from "./EditJobRoleDialog";
+} from '@mui/material'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import './index.css'
+import JobRoleDialog from './JobRoleDialog'
+import DeleteJobRoleDialog from './DeleteJobRoleDialog'
+import DeleteDepartmentDialog from './DeleteDepartmentDialog'
+import AddEditDepartmentDialog from './AddEditDepartmentDialog'
+import { GetAdminRole } from '../../services/apiservices/adminprofile'
+import EditJobRoleDialog from './EditJobRoleDialog'
 import {
   UpdatePermission,
   getUserPermissions,
-} from "../../services/apiservices/adminprofile";
-import { Context as ContextSnackbar } from "../../context/pageContext";
-import StaffIcon from "../../assets/img/staff.svg";
-import ClientIcon from "../../assets/img/Clients.svg";
-import SettingIcon from "../../assets/img/setting.svg";
-import { Context as AuthContext } from "../../context/authContext/authContext";
-import { useNavigate } from "react-router-dom";
+} from '../../services/apiservices/adminprofile'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+import StaffIcon from '../../assets/img/staff.svg'
+import ClientIcon from '../../assets/img/Clients.svg'
+import SettingIcon from '../../assets/img/setting.svg'
+import { Context as AuthContext } from '../../context/authContext/authContext'
+import { useNavigate } from 'react-router-dom'
 
 // const useStyles = makeStyles((theme) => ({
 //   // root: {
@@ -58,69 +58,69 @@ import { useNavigate } from "react-router-dom";
 const JobRolesList = () => {
   // const classes = useStyles();
 
-  let navigate = useNavigate();
-  const { flagLoader, permissions } = useContext(AuthContext).state;
-  const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false);
+  let navigate = useNavigate()
+  const { flagLoader, permissions } = useContext(AuthContext).state
+  const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false)
   const [deleteJobRoleDialogControl, setDeleteJobRoleDialogControl] = useState({
     status: false,
     id: null,
-  });
+  })
 
   const [deleteDepartmentDialogControl, setDeleteDepartmentControl] = useState({
     status: false,
     id: null,
-  });
+  })
 
   const [editJobRoleDialogControl, setEditJobRoleDialogControl] = useState({
     status: false,
     departmentId: null,
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     roleId: null,
-  });
+  })
 
   const [addEditDepartmentDialogControl, setAddEditDepartmentDialogControl] =
     useState({
       status: false,
       id: null,
-      departmentName: "",
-    });
+      departmentName: '',
+    })
 
   const [jobRoleList, setJobRoleList] = useState({
-    name: "",
+    name: '',
     roles: [],
     departmentId: null,
-  });
+  })
 
   useEffect(() => {
-    console.log("Job role list: " + { jobRoleList });
-    console.log({ jobRoleList });
-    let path = window.location.pathname;
-    console.log("Printing Path of ", path);
-    console.log("Printing ", path.split("/").pop());
-    path = path.split("/").pop();
+    console.log('Job role list: ' + { jobRoleList })
+    console.log({ jobRoleList })
+    let path = window.location.pathname
+    console.log('Printing Path of ', path)
+    console.log('Printing ', path.split('/').pop())
+    path = path.split('/').pop()
     GetAdminRole(
       parseInt(path),
-      (res) => {
+      res => {
         if (res.success) {
           setJobRoleList({
             ...jobRoleList,
             departmentId: res.data.department.id,
             name: res.data.department.name,
             roles: res.data.roles,
-          });
+          })
         }
       },
-      (err) => {
-        console.log(err);
+      err => {
+        console.log(err)
         //
-      }
-    );
+      },
+    )
   }, [
     deleteJobRoleDialogControl.status,
     jobRoleDialogControl,
     editJobRoleDialogControl.status,
-  ]);
+  ])
 
   return (
     <>
@@ -132,7 +132,7 @@ const JobRolesList = () => {
           {permissions?.editDepartment && (
             <Button
               onClick={() => {
-                setJobRoleDialogControl(true);
+                setJobRoleDialogControl(true)
               }}
               variant="contained"
             >
@@ -142,13 +142,13 @@ const JobRolesList = () => {
         </Box>
         {/* <Divider sx={{ width: "95%", margin: "0 auto" }} /> */}
         <Divider
-          sx={{ borderColor: "#8E8E8E" }}
+          sx={{ borderColor: '#8E8E8E' }}
           orientation="horizontal"
           // variant="middle"
           width="100%"
           // flexItem
         />
-        <Box sx={{ marginTop: "19px", width: "initial" }}>
+        <Box sx={{ marginTop: '19px', width: 'initial' }}>
           {/* <Grid
             sx={{
               background: "#F1F2F6",
@@ -175,25 +175,25 @@ const JobRolesList = () => {
           </Grid> */}
           <Box
             sx={{
-              backgroundColor: "#F1F2F6",
-              marginBottom: "20px",
-              borderRadius: "6px",
+              backgroundColor: '#F1F2F6',
+              marginBottom: '20px',
+              borderRadius: '6px',
             }}
           >
             <TableHead
-              sx={{ paddingTop: "5px" }}
+              sx={{ paddingTop: '5px' }}
               className="client_profile_table_header"
             >
               <TableRow>
-                <TableCell sx={{ paddingRight: "4px" }}></TableCell>
-                <TableCell sx={{ paddingRight: "64px" }}>Sr No.</TableCell>
-                <TableCell sx={{ paddingRight: "70px" }} align="left">
+                <TableCell sx={{ paddingRight: '4px' }}></TableCell>
+                <TableCell sx={{ paddingRight: '64px' }}>Sr No.</TableCell>
+                <TableCell sx={{ paddingRight: '70px' }} align="left">
                   Job Role
                 </TableCell>
-                <TableCell sx={{ paddingLeft: "130px" }} align="left">
+                <TableCell sx={{ paddingLeft: '130px' }} align="left">
                   Senior Post
                 </TableCell>
-                <TableCell sx={{ paddingLeft: "114px" }} align="left">
+                <TableCell sx={{ paddingLeft: '114px' }} align="left">
                   Description
                 </TableCell>
                 <TableCell></TableCell>
@@ -233,11 +233,11 @@ const JobRolesList = () => {
                   </Grid>
                 </Grid>
               </Box>
-            );
+            )
           })}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default JobRolesList;
+export default JobRolesList

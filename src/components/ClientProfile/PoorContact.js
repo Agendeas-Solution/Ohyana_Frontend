@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Dialog,
   Button,
@@ -9,22 +9,22 @@ import {
   Radio,
   RadioGroup,
   FormControl,
-} from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { Box } from "@mui/system";
+} from '@mui/material'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { Box } from '@mui/system'
 
-const PoorContact = ({addPoorContact,handleCallClose}) => {
+const PoorContact = ({ addPoorContact, handleCallClose }) => {
   return (
     <>
       <Dialog open={addPoorContact.status} onClose={handleCallClose}>
         {/* <Dialog> */}
-        <div style={{ textAlign: "center" }} className="px-3 pt-3">
+        <div style={{ textAlign: 'center' }} className="px-3 pt-3">
           <h4
             style={{
-              fontWeight: "600",
-              textAlign: "center",
-              marginBottom: "15px",
+              fontWeight: '600',
+              textAlign: 'center',
+              marginBottom: '15px',
             }}
           >
             Poor Contact
@@ -52,7 +52,7 @@ const PoorContact = ({addPoorContact,handleCallClose}) => {
           <div className="col-md-12 mt-3">
             <TextareaAutosize
               className="w-100"
-              sx={{ borderRadius: "10px" }}
+              sx={{ borderRadius: '10px' }}
               placeholder="Brief in late inquiry"
             />
           </div>
@@ -69,7 +69,7 @@ const PoorContact = ({addPoorContact,handleCallClose}) => {
                       disablePast
                       inputFormat="dd/MM/yyyy"
                       className="set_date_time_bg w-100"
-                      renderInput={(params) => (
+                      renderInput={params => (
                         <TextField className="w-100" {...params} />
                       )}
                     />
@@ -95,17 +95,17 @@ const PoorContact = ({addPoorContact,handleCallClose}) => {
               paddingLeft: 12,
               borderRadius: 2,
               fontSize: 22,
-              backgroundColor: "#2E3591",
+              backgroundColor: '#2E3591',
             }}
             variant="contained"
-            onClick={() => console.log("Save button clicked!!!")}
+            onClick={() => console.log('Save button clicked!!!')}
           >
             Save
           </Button>
         </div>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default PoorContact;
+export default PoorContact

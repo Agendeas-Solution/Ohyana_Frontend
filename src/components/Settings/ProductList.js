@@ -1,65 +1,65 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Box, Tabs, Tab, Button, Typography } from "@mui/material";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import DeleteProductDialog from "./DeleteProductDialog";
-import { GetAdminProductList } from "../../services/apiservices/adminprofile";
-import TabPanel from "@mui/lab/TabPanel";
-import TabContext from "@mui/lab/TabContext";
-import SampleProduct from "../../assets/img/sample_product.png";
-import { Context as AuthContext } from "../../context/authContext/authContext";
-import ViewProductDialog from "./ViewProductDialog";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from 'react'
+import { Box, Tabs, Tab, Button, Typography } from '@mui/material'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import DeleteProductDialog from './DeleteProductDialog'
+import { GetAdminProductList } from '../../services/apiservices/adminprofile'
+import TabPanel from '@mui/lab/TabPanel'
+import TabContext from '@mui/lab/TabContext'
+import SampleProduct from '../../assets/img/sample_product.png'
+import { Context as AuthContext } from '../../context/authContext/authContext'
+import ViewProductDialog from './ViewProductDialog'
+import { useNavigate } from 'react-router-dom'
 const ProductList = () => {
-  const { flagLoader, permissions } = useContext(AuthContext).state;
-  const navigate = useNavigate();
+  const { flagLoader, permissions } = useContext(AuthContext).state
+  const navigate = useNavigate()
   const [addProductDialogControl, setAddProductDialogControl] = useState({
     status: false,
     id: null,
-    name: "",
-    type: "",
-  });
+    name: '',
+    type: '',
+  })
   const [DeleteProductDialogControl, setDeleteProductDialogControl] = useState({
     status: false,
     id: null,
-    type: "",
-  });
-  const [value, setValue] = useState("ProductList");
+    type: '',
+  })
+  const [value, setValue] = useState('ProductList')
   const [viewProductDialog, setViewProductDialog] = useState({
     status: false,
-  });
+  })
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
 
-  const [AdminProductList, setAdminProductList] = useState([]);
+  const [AdminProductList, setAdminProductList] = useState([])
   useEffect(() => {
     GetAdminProductList(
       {},
-      (res) => {
+      res => {
         if (res.success) {
-          setAdminProductList(res?.data?.products);
+          setAdminProductList(res?.data?.products)
         }
       },
-      (err) => {
-        console.log("Printing Error", err);
+      err => {
+        console.log('Printing Error', err)
         //
-      }
-    );
-  }, [addProductDialogControl.status, DeleteProductDialogControl.status]);
+      },
+    )
+  }, [addProductDialogControl.status, DeleteProductDialogControl.status])
   const handleClose = () => {
     setDeleteProductDialogControl({
       ...DeleteProductDialogControl,
       status: false,
-    });
-    setViewProductDialog({ ...viewProductDialog, status: false });
+    })
+    setViewProductDialog({ ...viewProductDialog, status: false })
     setAddProductDialogControl({
       ...addProductDialogControl,
       status: false,
       id: null,
-    });
-  };
+    })
+  }
   return (
     <>
       <TabContext value={value}>
@@ -68,7 +68,7 @@ const ProductList = () => {
           {permissions?.editProduct && (
             <Button
               onClick={() => {
-                navigate("/addproduct");
+                navigate('/addproduct')
               }}
               // variant="contained"
               className="main_button"
@@ -80,8 +80,8 @@ const ProductList = () => {
         <Box className="product_list_section">
           <TabPanel value="ProductList">
             <div className="p-2 h-75 row">
-              {AdminProductList.map((row) => {
-                let image_url = `${process.env.REACT_APP_API_CALL_URL}/file/${row?.imageUrl}`;
+              {AdminProductList.map(row => {
+                let image_url = `${process.env.REACT_APP_API_CALL_URL}/file/${row?.imageUrl}`
                 return (
                   <>
                     <Box
@@ -97,7 +97,7 @@ const ProductList = () => {
                       {/* <img src={image_url} alt="sample" /> */}
                     </Box>
                   </>
-                );
+                )
               })}
             </div>
           </TabPanel>
@@ -112,7 +112,7 @@ const ProductList = () => {
         viewProductDialog={viewProductDialog}
       />
     </>
-  );
-};
+  )
+}
 
-export default ProductList;
+export default ProductList

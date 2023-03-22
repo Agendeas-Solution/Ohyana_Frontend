@@ -1,177 +1,239 @@
 import React, { useEffect, useState } from 'react'
-import './index.css';
-import { Box, Typography, Button, TextField } from "@mui/material";
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { GetStaffAttendanceList, GetStaffLeaveList, GrantLeave } from '../../services/apiservices/staffDetail';
-import moment from 'moment';
-import ApproveLeaveDialog from './ApproveLeaveDialog';
+import './index.css'
+import { Box, Typography, Button, TextField } from '@mui/material'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import Tab from '@mui/material/Tab'
+import TabContext from '@mui/lab/TabContext'
+import TabList from '@mui/lab/TabList'
+import TabPanel from '@mui/lab/TabPanel'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
+import {
+  GetStaffAttendanceList,
+  GetStaffLeaveList,
+  GrantLeave,
+} from '../../services/apiservices/staffDetail'
+import moment from 'moment'
+import ApproveLeaveDialog from './ApproveLeaveDialog'
 const StaffAttendance = () => {
-    const [dateRange, setDateRange] = useState({
-        startDate: '',
-        endDate: '',
-    });
-    const [value, setValue] = useState("1");
-    const [staffAttendanceList, setStaffAttendanceList] = useState([]);
-    const [staffLeaveList, setStaffLeaveList] = useState([]);
-    const [approveLeave, setApproveLeave] = useState({
-        status: false,
-        id: null,
-        leaveStatus: true
-    })
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-    const handleGrantLeave = () => {
-        GrantLeave({id:approveLeave.id,leaveStatus:approveLeave?.leaveStatus}, (res) => {
-            handleCloseDialog();
-        }, (err) => {
-            console.log(err);
-        })
-    }
-    const handleCloseDialog=()=>{
-        setApproveLeave({...approveLeave,status:false});
-    }
-    useEffect(() => {
-        let path = window.location.pathname;
-        console.log("Printing Path of ", path);
-        console.log("Printing ", path.split("/").pop());
-        path = path.split("/").pop();
-        value === "1" && GetStaffAttendanceList(path, (res) => {
-            setStaffAttendanceList(res?.data);
-        }, (err) => {
-        })
-        value === "2" && GetStaffLeaveList(path, (res) => {
-            setStaffLeaveList(res?.data);
-        }, (err) => {
-        })
-    }, [value])
-    return (
-        <><Box>
-            <Box className="attendance_data_row col-md-12">
-                <Box className="total_days_data days_data col-md-2">
-                    <Typography variant="span">Total Days</Typography>
-                    <Typography variant="span">24</Typography>
-                </Box>
-                <Box className="Absent_days_data days_data col-md-2">
-                    <Typography variant="span">Absent Days</Typography>
-                    <Typography variant="span">24</Typography>
-                </Box>
-                <Box className="Late_days_data days_data col-md-2">
-                    <Typography variant="span">Late Days</Typography>
-                    <Typography variant="span">24</Typography>
-                </Box>
-                <Box className="range_days_data days_data col-md-6">
-                    <Typography variant="span">Select Date Range</Typography>
-                    <Box>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <DatePicker
-                                disablePast
-                                inputFormat="dd/MM/yyyy"
-                                value={dateRange.startDate}
-                                onChange={(e) => {
-                                    setDateRange({ ...dateRange, startDate: e });
-                                }}
-                                renderInput={(params) => <TextField className='w-50' {...params} />}
-                            />
-                            <DatePicker
-                                disablePast
-                                inputFormat="dd/MM/yyyy"
-                                minDate={dateRange.startDate}
-                                value={dateRange.endDate}
-                                onChange={(e) => {
-                                    setDateRange({ ...dateRange, endDate: e });
-                                }}
-                                renderInput={(params) => <TextField className='w-50' {...params} />}
-                            />
-                        </LocalizationProvider>
-                    </Box>
-                </Box>
-            </Box>
-            <TabContext value={value}>
-                <Box className="tab_row">
-                    <TabList
-                        className="client_profile_tab mb-2"
-                        onChange={handleChange}
-                    >
-                        <Tab label="Present" value="1" />
-                        <Tab label="Leave" value="2" />
-                    </TabList>
-                </Box>
-                <TabPanel value="1">
-                    <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Date</TableCell>
-                                    <TableCell align="left">Check In</TableCell>
-                                    <TableCell align="left">Check Out</TableCell>
-                                    <TableCell align="left">Break Time</TableCell>
-                                    <TableCell align="left">Working Hours</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {staffAttendanceList.length > 0 && staffAttendanceList.map((staffList) => {
-                                    return <TableRow>
-                                        <TableCell>{staffList.date}</TableCell>
-                                        <TableCell align="left">{staffList?.checkIn}</TableCell>
-                                        <TableCell align="left">{staffList?.checkOut}</TableCell>
-                                        <TableCell align="left">{staffList?.breakIn}</TableCell>
-                                        <TableCell align="left">{staffList?.breakOut}</TableCell>
-                                        <TableCell align="left">{staffList?.totalHours}</TableCell>
-                                    </TableRow>
-                                })}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </TabPanel>
-                <TabPanel value="2">
-                    <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }}>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align="left">Date</TableCell>
-                                    <TableCell align="left">Leave Type</TableCell>
-                                    <TableCell align="left">Taken</TableCell>
-                                    <TableCell align="left">Remain</TableCell>
-                                    <TableCell align="left">Status</TableCell>
-                                    <TableCell align="left"></TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {staffLeaveList.length > 0 && staffLeaveList.map((leaveList) => {
-                                    return <TableRow>
-                                        <TableCell align="left">{moment(leaveList?.date).format("DD/MM/YY")}</TableCell>
-                                        <TableCell align="left">{leaveList?.leave?.type}</TableCell>
-                                        <TableCell align="left">{leaveList?.takenDays}</TableCell>
-                                        <TableCell align="left">{leaveList?.remainDays}</TableCell>
-                                        <TableCell align="left">{leaveList?.status}</TableCell>
-                                        <TableCell align="left"><Button className="common_button" onClick={() => {
-                                            setApproveLeave({ ...approveLeave, status: true, id: leaveList?.id })
-                                        }}>Approve</Button></TableCell>
-                                    </TableRow>
-                                })}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </TabPanel>
-            </TabContext>
-        </Box>
-            <ApproveLeaveDialog approveLeave={approveLeave} handleGrantLeave={handleGrantLeave} handleCloseDialog={handleCloseDialog}/>
-        </>
+  const [dateRange, setDateRange] = useState({
+    startDate: '',
+    endDate: '',
+  })
+  const [value, setValue] = useState('1')
+  const [staffAttendanceList, setStaffAttendanceList] = useState([])
+  const [staffLeaveList, setStaffLeaveList] = useState([])
+  const [approveLeave, setApproveLeave] = useState({
+    status: false,
+    id: null,
+    leaveStatus: true,
+  })
+  const handleChange = (event, newValue) => {
+    setValue(newValue)
+  }
+  const handleGrantLeave = () => {
+    GrantLeave(
+      { id: approveLeave.id, leaveStatus: approveLeave?.leaveStatus },
+      res => {
+        handleCloseDialog()
+      },
+      err => {
+        console.log(err)
+      },
     )
+  }
+  const handleCloseDialog = () => {
+    setApproveLeave({ ...approveLeave, status: false })
+  }
+  useEffect(() => {
+    let path = window.location.pathname
+    console.log('Printing Path of ', path)
+    console.log('Printing ', path.split('/').pop())
+    path = path.split('/').pop()
+    value === '1' &&
+      GetStaffAttendanceList(
+        path,
+        res => {
+          setStaffAttendanceList(res?.data)
+        },
+        err => {},
+      )
+    value === '2' &&
+      GetStaffLeaveList(
+        path,
+        res => {
+          setStaffLeaveList(res?.data)
+        },
+        err => {},
+      )
+  }, [value])
+  return (
+    <>
+      <Box>
+        <Box className="attendance_data_row col-md-12">
+          <Box className="total_days_data days_data col-md-2">
+            <Typography variant="span">Total Days</Typography>
+            <Typography variant="span">24</Typography>
+          </Box>
+          <Box className="Absent_days_data days_data col-md-2">
+            <Typography variant="span">Absent Days</Typography>
+            <Typography variant="span">24</Typography>
+          </Box>
+          <Box className="Late_days_data days_data col-md-2">
+            <Typography variant="span">Late Days</Typography>
+            <Typography variant="span">24</Typography>
+          </Box>
+          <Box className="range_days_data days_data col-md-6">
+            <Typography variant="span">Select Date Range</Typography>
+            <Box>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  disablePast
+                  inputFormat="dd/MM/yyyy"
+                  value={dateRange.startDate}
+                  onChange={e => {
+                    setDateRange({ ...dateRange, startDate: e })
+                  }}
+                  renderInput={params => (
+                    <TextField className="w-50" {...params} />
+                  )}
+                />
+                <DatePicker
+                  disablePast
+                  inputFormat="dd/MM/yyyy"
+                  minDate={dateRange.startDate}
+                  value={dateRange.endDate}
+                  onChange={e => {
+                    setDateRange({ ...dateRange, endDate: e })
+                  }}
+                  renderInput={params => (
+                    <TextField className="w-50" {...params} />
+                  )}
+                />
+              </LocalizationProvider>
+            </Box>
+          </Box>
+        </Box>
+        <TabContext value={value}>
+          <Box className="tab_row">
+            <TabList
+              className="client_profile_tab mb-2"
+              onChange={handleChange}
+            >
+              <Tab label="Present" value="1" />
+              <Tab label="Leave" value="2" />
+            </TabList>
+          </Box>
+          <TabPanel value="1">
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Date</TableCell>
+                    <TableCell align="left">Check In</TableCell>
+                    <TableCell align="left">Check Out</TableCell>
+                    <TableCell align="left">Break Time</TableCell>
+                    <TableCell align="left">Working Hours</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {staffAttendanceList.length > 0 &&
+                    staffAttendanceList.map(staffList => {
+                      return (
+                        <TableRow>
+                          <TableCell>{staffList.date}</TableCell>
+                          <TableCell align="left">
+                            {staffList?.checkIn}
+                          </TableCell>
+                          <TableCell align="left">
+                            {staffList?.checkOut}
+                          </TableCell>
+                          <TableCell align="left">
+                            {staffList?.breakIn}
+                          </TableCell>
+                          <TableCell align="left">
+                            {staffList?.breakOut}
+                          </TableCell>
+                          <TableCell align="left">
+                            {staffList?.totalHours}
+                          </TableCell>
+                        </TableRow>
+                      )
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </TabPanel>
+          <TabPanel value="2">
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="left">Date</TableCell>
+                    <TableCell align="left">Leave Type</TableCell>
+                    <TableCell align="left">Taken</TableCell>
+                    <TableCell align="left">Remain</TableCell>
+                    <TableCell align="left">Status</TableCell>
+                    <TableCell align="left"></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {staffLeaveList.length > 0 &&
+                    staffLeaveList.map(leaveList => {
+                      return (
+                        <TableRow>
+                          <TableCell align="left">
+                            {moment(leaveList?.date).format('DD/MM/YY')}
+                          </TableCell>
+                          <TableCell align="left">
+                            {leaveList?.leave?.type}
+                          </TableCell>
+                          <TableCell align="left">
+                            {leaveList?.takenDays}
+                          </TableCell>
+                          <TableCell align="left">
+                            {leaveList?.remainDays}
+                          </TableCell>
+                          <TableCell align="left">
+                            {leaveList?.status}
+                          </TableCell>
+                          <TableCell align="left">
+                            <Button
+                              className="common_button"
+                              onClick={() => {
+                                setApproveLeave({
+                                  ...approveLeave,
+                                  status: true,
+                                  id: leaveList?.id,
+                                })
+                              }}
+                            >
+                              Approve
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      )
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </TabPanel>
+        </TabContext>
+      </Box>
+      <ApproveLeaveDialog
+        approveLeave={approveLeave}
+        handleGrantLeave={handleGrantLeave}
+        handleCloseDialog={handleCloseDialog}
+      />
+    </>
+  )
 }
 
 export default StaffAttendance

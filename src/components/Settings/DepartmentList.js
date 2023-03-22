@@ -1,32 +1,32 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Box, Button, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { GetAdminDepartmentList } from "../../services/apiservices/adminprofile";
-import AddEditDepartmentDialog from "./AddEditDepartmentDialog";
-import SuccessSnackbar from "../SuccessSnackbar/SuccessSnackbar";
-import { Context as AuthContext } from "../../context/authContext/authContext";
+import React, { useEffect, useState, useContext } from 'react'
+import { Box, Button, Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import { GetAdminDepartmentList } from '../../services/apiservices/adminprofile'
+import AddEditDepartmentDialog from './AddEditDepartmentDialog'
+import SuccessSnackbar from '../SuccessSnackbar/SuccessSnackbar'
+import { Context as AuthContext } from '../../context/authContext/authContext'
 const DepartmentList = () => {
-  let navigate = useNavigate();
-  const { flagLoader, permissions } = useContext(AuthContext).state;
-  const [AdminDepartmentList, setAdminDepartmentList] = useState([]);
+  let navigate = useNavigate()
+  const { flagLoader, permissions } = useContext(AuthContext).state
+  const [AdminDepartmentList, setAdminDepartmentList] = useState([])
   const [addEditDepartmentDialogControl, setAddEditDepartmentDialogControl] =
-    useState(false);
+    useState(false)
   useEffect(() => {
     GetAdminDepartmentList(
       {},
-      (res) => {
+      res => {
         if (res.success) {
-          setAdminDepartmentList(res?.data);
+          setAdminDepartmentList(res?.data)
         }
       },
-      (err) => {
-        console.log("Printing Error", err);
-      }
-    );
-  }, [addEditDepartmentDialogControl]);
+      err => {
+        console.log('Printing Error', err)
+      },
+    )
+  }, [addEditDepartmentDialogControl])
   const handleClose = () => {
-    setAddEditDepartmentDialogControl(false);
-  };
+    setAddEditDepartmentDialogControl(false)
+  }
 
   return (
     <>
@@ -38,7 +38,7 @@ const DepartmentList = () => {
               setAddEditDepartmentDialogControl({
                 ...addEditDepartmentDialogControl,
                 status: true,
-              });
+              })
             }}
             // variant="contained"
             className="main_button"
@@ -48,7 +48,7 @@ const DepartmentList = () => {
         )}
       </div>
       <Box className="department_list_section bg-body">
-        {AdminDepartmentList.map((row) => {
+        {AdminDepartmentList.map(row => {
           return (
             <Box
               onClick={() => navigate(`/jobrolelist/${row.id}`)}
@@ -56,7 +56,7 @@ const DepartmentList = () => {
             >
               <Typography variant="span">{row.name}</Typography>
             </Box>
-          );
+          )
         })}
       </Box>
       <AddEditDepartmentDialog
@@ -64,7 +64,7 @@ const DepartmentList = () => {
         handleClose={handleClose}
       />
     </>
-  );
-};
+  )
+}
 
-export default DepartmentList;
+export default DepartmentList

@@ -1,17 +1,31 @@
-import React, { useContext } from "react";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography,} from "@mui/material";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import { DeleteJobRole } from "../../services/apiservices/staffDetail";
-import { Context as  ContextSnackbar } from "../../context/pageContext";
-const DeleteJobRoleDialog = (props) => {
-  const { successSnackbar } = useContext( ContextSnackbar)?.state;
-  const { setSuccessSnackbar } = useContext( ContextSnackbar);
+import React, { useContext } from 'react'
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  Typography,
+} from '@mui/material'
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import { DeleteJobRole } from '../../services/apiservices/staffDetail'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+const DeleteJobRoleDialog = props => {
+  const { successSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const handleJobRoleDelete = () => {
-    DeleteJobRole(props.deleteJobRoleDialogControl.id, (res) => {
-      setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message})
-      props.handleClose();
-    }, (err) => {
-    })
+    DeleteJobRole(
+      props.deleteJobRoleDialogControl.id,
+      res => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.data.message,
+        })
+        props.handleClose()
+      },
+      err => {},
+    )
   }
   return (
     <>
@@ -37,7 +51,7 @@ const DeleteJobRoleDialog = (props) => {
         </DialogActions>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default DeleteJobRoleDialog;
+export default DeleteJobRoleDialog

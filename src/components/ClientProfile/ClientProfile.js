@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from 'react'
 import {
   Box,
   Typography,
@@ -11,170 +11,170 @@ import {
   Paper,
   Button,
   Divider,
-} from "@mui/material";
-import "./index.css";
-import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
-import ProfileImg from "../../assets/img/profile_logo.png";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import PrintRoundedIcon from "@mui/icons-material/PrintRounded";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import RemainderTable from "./RemainderTable";
-import AppointmentTable from "./AppointmentTable";
-import ProfileTable from "./ProfileTable.js";
-import RemainderDialog from "./RemainderDialog.js";
-import StatusDialog from "./StatusDialog.js";
-import AppointmentDialog from "./AppointmentDialog";
-import { useNavigate } from "react-router-dom";
-import ViewClientStatusDialog from "./ViewClientStatusDialog";
-import { Context as AuthContext } from "../../context/authContext/authContext";
+} from '@mui/material'
+import './index.css'
+import Tab from '@mui/material/Tab'
+import TabContext from '@mui/lab/TabContext'
+import TabList from '@mui/lab/TabList'
+import TabPanel from '@mui/lab/TabPanel'
+import ProfileImg from '../../assets/img/profile_logo.png'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
+import PrintRoundedIcon from '@mui/icons-material/PrintRounded'
+import AddRoundedIcon from '@mui/icons-material/AddRounded'
+import RemainderTable from './RemainderTable'
+import AppointmentTable from './AppointmentTable'
+import ProfileTable from './ProfileTable.js'
+import RemainderDialog from './RemainderDialog.js'
+import StatusDialog from './StatusDialog.js'
+import AppointmentDialog from './AppointmentDialog'
+import { useNavigate } from 'react-router-dom'
+import ViewClientStatusDialog from './ViewClientStatusDialog'
+import { Context as AuthContext } from '../../context/authContext/authContext'
 import {
   GetAdminClientProfileDetail,
   GetAdminClientStatusDetail,
   GetAdminClientReminderDetail,
   GetAdminClientAppointmentDetail,
-} from "../../services/apiservices/clientDetail";
-import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
-import moment from "moment";
-import PoorContact from "./PoorContact";
-import EditStatusDialog from "./EditStatusDialog";
-import Stage0 from "../../assets/img/stage_0.svg";
-import Stage1 from "../../assets/img/stage_1.svg";
-import Stage2 from "../../assets/img/stage_2.svg";
-import CallNotReceived from "../../assets/img/callnotreceived.svg";
-import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
-import StageDialog from "./StageDialog";
-import OrderList from "./OrderList";
+} from '../../services/apiservices/clientDetail'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
+import moment from 'moment'
+import PoorContact from './PoorContact'
+import EditStatusDialog from './EditStatusDialog'
+import Stage0 from '../../assets/img/stage_0.svg'
+import Stage1 from '../../assets/img/stage_1.svg'
+import Stage2 from '../../assets/img/stage_2.svg'
+import CallNotReceived from '../../assets/img/callnotreceived.svg'
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
+import StageDialog from './StageDialog'
+import OrderList from './OrderList'
 const ClientProfile = () => {
-  const [value, setValue] = useState("1");
-  const { flagLoader, permissions } = useContext(AuthContext).state;
-  const [remainderDialog, setRemainderDialog] = useState(false);
-  const [callDialog, setCallDialog] = useState(false);
-  const [statusDialog, setStatusDialog] = useState(false);
-  const [appointmentDialog, setAppointmentDialog] = useState(false);
-  const [clientProfileDetail, setClientProfileDetail] = useState({});
-  const [clientStatusList, setClientStatusList] = useState([]);
-  const [clientReminderList, setClientReminderList] = useState([]);
-  const [clientAppointmentList, setClientAppointmentList] = useState([]);
-  const [stageDialog, setStageDialog] = useState(false);
+  const [value, setValue] = useState('1')
+  const { flagLoader, permissions } = useContext(AuthContext).state
+  const [remainderDialog, setRemainderDialog] = useState(false)
+  const [callDialog, setCallDialog] = useState(false)
+  const [statusDialog, setStatusDialog] = useState(false)
+  const [appointmentDialog, setAppointmentDialog] = useState(false)
+  const [clientProfileDetail, setClientProfileDetail] = useState({})
+  const [clientStatusList, setClientStatusList] = useState([])
+  const [clientReminderList, setClientReminderList] = useState([])
+  const [clientAppointmentList, setClientAppointmentList] = useState([])
+  const [stageDialog, setStageDialog] = useState(false)
   const [editStatusDialog, setEditStatusDialog] = useState({
     clientId: null,
-    description: "",
+    description: '',
     statusId: null,
     status: false,
-  });
+  })
   const [addPoorContact, setAddPoorContact] = useState({
     clientId: null,
-    inquiry: "",
+    inquiry: '',
     status: false,
-  });
+  })
   const [viewClientStatus, setViewClientStatus] = useState({
     clientId: null,
     statusDetail: {},
     status: false,
-  });
-  let navigate = useNavigate();
+  })
+  let navigate = useNavigate()
   useEffect(() => {
-    let path = window.location.pathname;
-    console.log("Printing Path of ", path);
-    console.log("Printing ", path.split("/").pop());
-    path = path.split("/").pop();
+    let path = window.location.pathname
+    console.log('Printing Path of ', path)
+    console.log('Printing ', path.split('/').pop())
+    path = path.split('/').pop()
     GetAdminClientProfileDetail(
       parseInt(path),
-      (res) => {
+      res => {
         if (res.success) {
-          setClientProfileDetail(res?.data);
+          setClientProfileDetail(res?.data)
         }
       },
-      (err) => {
-        console.log("Printing ", err);
-      }
-    );
-  }, [stageDialog]);
+      err => {
+        console.log('Printing ', err)
+      },
+    )
+  }, [stageDialog])
 
   useEffect(() => {
-    let path = window.location.pathname;
+    let path = window.location.pathname
     // console.log("Printing Path of ", path);
     // console.log("Printing ", path.split("/").pop());
-    path = path.split("/").pop();
-    value === "1" &&
+    path = path.split('/').pop()
+    value === '1' &&
       GetAdminClientStatusDetail(
         parseInt(path),
-        (res) => {
+        res => {
           if (res.success) {
-            setClientStatusList(res?.data);
+            setClientStatusList(res?.data)
           }
         },
-        (err) => {
-          console.log("Printing Error", err);
-        }
-      );
-    value === "2" &&
+        err => {
+          console.log('Printing Error', err)
+        },
+      )
+    value === '2' &&
       GetAdminClientReminderDetail(
         parseInt(path),
-        (res) => {
+        res => {
           if (res.success) {
-            setClientReminderList(res.data);
+            setClientReminderList(res.data)
           }
         },
-        (err) => {
-          console.log("Printing", err);
-        }
-      );
-    value === "3" &&
+        err => {
+          console.log('Printing', err)
+        },
+      )
+    value === '3' &&
       GetAdminClientAppointmentDetail(
         parseInt(path),
-        (res) => {
+        res => {
           if (res.success) {
-            setClientAppointmentList(res.data);
+            setClientAppointmentList(res.data)
           }
         },
-        (err) => {
-          console.log("Printing", err);
-        }
-      );
-  }, [value, statusDialog, appointmentDialog, remainderDialog, callDialog]);
+        err => {
+          console.log('Printing', err)
+        },
+      )
+  }, [value, statusDialog, appointmentDialog, remainderDialog, callDialog])
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
   const handleClickOpen = () => {
-    setRemainderDialog(true);
-  };
+    setRemainderDialog(true)
+  }
 
   const handleClose = () => {
-    setRemainderDialog(false);
-    setStageDialog(false);
-  };
+    setRemainderDialog(false)
+    setStageDialog(false)
+  }
 
   const handleCallOpen = () => {
-    setCallDialog(true);
-  };
+    setCallDialog(true)
+  }
   const handleCallClose = () => {
-    setCallDialog(false);
+    setCallDialog(false)
     setAddPoorContact({
       ...addPoorContact,
       status: false,
-    });
-  };
+    })
+  }
 
   const handleStatusOpen = () => {
-    setStatusDialog(true);
-  };
+    setStatusDialog(true)
+  }
   const handleStatusClose = () => {
-    setStatusDialog(false);
+    setStatusDialog(false)
     setEditStatusDialog({
       ...editStatusDialog,
       status: false,
-    });
-  };
+    })
+  }
   const handleAppointmentOpen = () => {
-    setAppointmentDialog(true);
-  };
+    setAppointmentDialog(true)
+  }
   const handleAppointmentClose = () => {
-    setAppointmentDialog(false);
-  };
+    setAppointmentDialog(false)
+  }
   const handleEditClientStatus = (row, clientid) => {
     setEditStatusDialog({
       ...editStatusDialog,
@@ -183,19 +183,19 @@ const ClientProfile = () => {
       description: row.description,
       statusId: row.id,
       statusDetail: row,
-    });
-  };
+    })
+  }
   const handleViewClientStatus = (row, clientid) => {
     setViewClientStatus({
       ...viewClientStatus,
       status: true,
       clientId: clientid,
       statusDetail: row,
-    });
-  };
+    })
+  }
   const handleViewStatusDialogClose = () => {
-    setViewClientStatus({ ...viewClientStatus, status: false });
-  };
+    setViewClientStatus({ ...viewClientStatus, status: false })
+  }
 
   return (
     <>
@@ -204,11 +204,11 @@ const ClientProfile = () => {
         <Box sx={{ marginTop: -2 }}>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              flexDirection: "row",
-              width: "100%",
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexDirection: 'row',
+              width: '100%',
             }}
           >
             <Box className="userName_and_position">
@@ -221,22 +221,22 @@ const ClientProfile = () => {
               />
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
                   marginLeft: 2,
                 }}
               >
                 <Typography
                   variant="span"
-                  sx={{ fontWeight: "bold", fontSize: "26px" }}
+                  sx={{ fontWeight: 'bold', fontSize: '26px' }}
                 >
                   {clientProfileDetail?.name}
 
                   <img
                     className="ml-1 p-1"
                     onClick={() => {
-                      setStageDialog(true);
+                      setStageDialog(true)
                     }}
                     src={
                       (clientProfileDetail?.stage === 0 && Stage0) ||
@@ -248,12 +248,12 @@ const ClientProfile = () => {
                   {clientProfileDetail?.stage === 3 && (
                     <WarningRoundedIcon
                       onClick={() => {
-                        setStageDialog(true);
+                        setStageDialog(true)
                       }}
                     />
                   )}
                 </Typography>
-                <Typography sx={{ marginTop: "10px" }} variant="span">
+                <Typography sx={{ marginTop: '10px' }} variant="span">
                   {clientProfileDetail?.business}
                 </Typography>
               </Box>
@@ -263,7 +263,7 @@ const ClientProfile = () => {
               {permissions?.editClient && (
                 <EditRoundedIcon
                   onClick={() => {
-                    navigate(`/editclient/${clientProfileDetail.id}`);
+                    navigate(`/editclient/${clientProfileDetail.id}`)
                   }}
                   className="icon"
                 />
@@ -271,7 +271,7 @@ const ClientProfile = () => {
             </Box>
           </Box>
         </Box>
-        <Box sx={{ width: "100%", typography: "body1" }}>
+        <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={value}>
             <Box className="tab_row">
               <TabList
@@ -286,7 +286,7 @@ const ClientProfile = () => {
               </TabList>
 
               <Box>
-                {value === "1" ? (
+                {value === '1' ? (
                   <>
                     <Button onClick={handleCallOpen} className="common_button">
                       <img src={CallNotReceived} />
@@ -305,7 +305,7 @@ const ClientProfile = () => {
                     </Button> */}
                   </>
                 ) : null}
-                {value === "2" ? (
+                {value === '2' ? (
                   <>
                     <Button
                       onClick={handleClickOpen}
@@ -317,7 +317,7 @@ const ClientProfile = () => {
                     </Button>
                   </>
                 ) : null}
-                {value === "3" ? (
+                {value === '3' ? (
                   <>
                     <Button
                       className="common_button"
@@ -329,7 +329,7 @@ const ClientProfile = () => {
                     </Button>
                   </>
                 ) : null}
-                {value === "5" ? (
+                {value === '5' ? (
                   <>
                     <Button
                       className="common_button"
@@ -343,9 +343,9 @@ const ClientProfile = () => {
                 ) : null}
               </Box>
             </Box>
-            <Divider sx={{ margin: "0 auto" }} />
+            <Divider sx={{ margin: '0 auto' }} />
             <TabPanel value="1">
-              <TableContainer sx={{ height: "50vh" }} component={Paper}>
+              <TableContainer sx={{ height: '50vh' }} component={Paper}>
                 {clientStatusList.length > 0 ? (
                   <Table stickyHeader sx={{ minWidth: 650 }}>
                     <TableHead className="client_profile_table_header">
@@ -365,7 +365,7 @@ const ClientProfile = () => {
                         <TableRow
                           key={index}
                           sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
+                            '&:last-child td, &:last-child th': { border: 0 },
                           }}
                         >
                           <TableCell scope="row">{index + 1}</TableCell>
@@ -384,10 +384,10 @@ const ClientProfile = () => {
                           </audio>
                         </TableCell> */}
                           <TableCell align="left">
-                            {moment(row?.date).format("LL")}
+                            {moment(row?.date).format('LL')}
                           </TableCell>
                           <TableCell align="left">
-                            {moment(row.time, "hh:mm:ss").format("LT")}
+                            {moment(row.time, 'hh:mm:ss').format('LT')}
                           </TableCell>
                           <TableCell
                             className="status_description"
@@ -400,8 +400,8 @@ const ClientProfile = () => {
                               onClick={() => {
                                 handleViewClientStatus(
                                   row,
-                                  clientProfileDetail.id
-                                );
+                                  clientProfileDetail.id,
+                                )
                               }}
                               className="client_profile_edit_button m-1"
                             >
@@ -412,8 +412,8 @@ const ClientProfile = () => {
                               onClick={() => {
                                 handleEditClientStatus(
                                   row,
-                                  clientProfileDetail.id
-                                );
+                                  clientProfileDetail.id,
+                                )
                               }}
                             >
                               Edit
@@ -426,13 +426,13 @@ const ClientProfile = () => {
                 ) : (
                   <p
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      textAlign: "center",
-                      width: "100%",
-                      height: "70%",
-                      flexGrow: "auto",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      textAlign: 'center',
+                      width: '100%',
+                      height: '70%',
+                      flexGrow: 'auto',
                     }}
                   >
                     No Data Found
@@ -498,7 +498,7 @@ const ClientProfile = () => {
         </Box>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default ClientProfile;
+export default ClientProfile
