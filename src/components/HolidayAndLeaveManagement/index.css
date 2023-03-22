@@ -8,7 +8,7 @@
   border-radius: 5px;
   /* margin-left: 4rem; */
   /* height: auto; */
-  flex-direction: column;
+  flex-direction: row;
   overflow-y: auto;
 
   /* justify-content: space-between; */
@@ -32,6 +32,28 @@ table {
   padding: 10px;
   display: flex;
   flex-direction: row;
+  width: 59%;
+}
+
+.holiday_inner_class {
+  /* border: 1px solid #6706de; */
+  /* border-radius: 5px; */
+  /* padding: 10px; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* width: 120%; */
+  width: 700px;
+  /* height: 500px; */
+}
+
+.dummy {
+  /* border: 1px solid #c51010; */
+  border-radius: 5px;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  width: 39%;
+  /* width: max-content; */
 }
 
 .regular_holiday_heading {
@@ -40,24 +62,27 @@ table {
 }
 
 .regular_holiday_section {
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   border: 1px solid #e5e6eb;
   border-radius: 5px;
   padding: 5px;
-  width: 49%;
+  width: 100%;
+  /* width: max-content; */
   height: max-content;
 }
 
 .leave_management_section {
   border: 1px solid #e5e6eb;
   border-radius: 5px;
-  width: 49%;
+  width: 100%;
 }
 
 .leave_holiday_row {
   display: flex;
   justify-content: space-between;
+  width: 40%;
 }
 
 .sub_heading {
@@ -68,6 +93,7 @@ table {
 .leave_holidays_table_header {
   background-color: #f1f2f6;
   border-radius: 5px;
+  /* width: 60%; */
 }
 
 .leave_management_header {

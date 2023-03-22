@@ -157,114 +157,83 @@ const HolidayAndLeaveManagement = () => {
   return (
     <>
       <Box className="leave_holiday_section">
+        {/* <Box className="dummy"> */}
         <Box
           sx={{ marginBottom: "10px" }}
+          // className="w-100"
           className="occassional_holiday_section"
         >
-          <Box className="w-50">
-            {/* <Typography
-              //   sx={{ paddingBottom: "15px" }}
-              sx={{ marginTop: "24px", marginLeft: "25px" }}
-              className="sub_heading"
-              variant="span"
-            >
-              Occasional Holiday
-            </Typography> */}
-
-            {/* <Box sx={{ width: "30rem" }}> */}
+          {/* <Box className="dummy_class"> */}
+          <Box className="holiday_inner_class">
             <Box>
-              <Box
-                style={{ display: "flex" }}
-                sx={{ borderBottom: 1, borderColor: "divider" }}
+              <Typography variant="span" pl={1}>
+                Holidays
+              </Typography>
+              <Button
+                // onClick={() => {
+                //   setAddHolidayDetail({ ...addHolidayDetail, regular: true });
+                //   setAddHolidayDialog({ ...addHolidayDialog, status: true });
+                // }}
+                sx={{ float: "right", marginBottom: "5px" }}
+                className="leave_holiday_buttons"
+                variant="span"
               >
-                <Tabs
-                  //   value={value}
-                  //   onChange={handleChange}
-                  textColor="secondary"
-                  indicatorColor="secondary"
-                >
-                  <Tab value="Profile" label="Leave" />
-                  <Tab value="Attendance" label="Holiday" />
-                </Tabs>
-
-                {/* <Button
-                  //   sx={{}}
-                  onClick={() => {
-                    setAddHolidayDetail({ ...addHolidayDetail, regular: true });
-                    setAddHolidayDialog({ ...addHolidayDialog, status: true });
-                  }}
-                  //   sx={{ float: "right" }}
-                  style={{ display: "flex" }}
-                  className="leave_holiday_buttons"
-                  variant="contained"
-                >
-                  + Holidayy
-                </Button> */}
-              </Box>
-              {/* <Box variant="span">
-                
-              </Box> */}
+                + Holiday
+              </Button>
             </Box>
-            <TableContainer className="mt-2" component={Paper}>
-              <Table>
-                <TableHead className="leave_holidays_table_header">
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell align="left">Occasion Name</TableCell>
-                    <TableCell align="left">Duration Day</TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {holidayList.length > 0 &&
-                    holidayList.map((data) => {
-                      return (
-                        <TableRow>
-                          <TableCell>{data?.date}</TableCell>
-                          <TableCell align="left">{data?.occasion} </TableCell>
-                          <TableCell align="left">{data?.duration}</TableCell>
-                          <td className="common_row">
-                            <Box>
-                              <EditRoundedIcon
-                                onClick={() => {
-                                  setAddHolidayDialog({
-                                    ...addHolidayDialog,
-                                    status: true,
-                                  });
-                                  let value = data;
-                                  value.regular = false;
-                                  setAddHolidayDetail(value);
-                                }}
-                                className="icon common_row"
-                              />
-                            </Box>
-                            <Box>
-                              <DeleteRoundedIcon
-                                onClick={() => DeleteLeaveFunc(data?.id)}
-                                className="icon"
-                              />
-                            </Box>
-                          </td>
-                        </TableRow>
-                      );
-                    })}
-                </TableBody>
-              </Table>
-            </TableContainer>
+            <Box>
+              <TableContainer className="mt-2" component={Paper}>
+                <Table>
+                  <TableHead className="leave_holidays_table_header">
+                    <TableRow>
+                      <TableCell>Date</TableCell>
+                      <TableCell align="left">Occasion Name</TableCell>
+                      <TableCell align="left">Duration Day</TableCell>
+                      <TableCell></TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {holidayList.length > 0 &&
+                      holidayList.map((data) => {
+                        return (
+                          <TableRow>
+                            <TableCell>{data?.date}</TableCell>
+                            <TableCell align="left">
+                              {data?.occasion}{" "}
+                            </TableCell>
+                            <TableCell align="left">{data?.duration}</TableCell>
+                            <td className="common_row">
+                              <Box>
+                                <EditRoundedIcon
+                                  onClick={() => {
+                                    setAddHolidayDialog({
+                                      ...addHolidayDialog,
+                                      status: true,
+                                    });
+                                    let value = data;
+                                    value.regular = false;
+                                    setAddHolidayDetail(value);
+                                  }}
+                                  className="icon common_row"
+                                />
+                              </Box>
+                              <Box>
+                                <DeleteRoundedIcon
+                                  onClick={() => DeleteLeaveFunc(data?.id)}
+                                  className="icon delete_icon_style"
+                                />
+                              </Box>
+                            </td>
+                          </TableRow>
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
           </Box>
 
-          {/* <Box sx={{ width: "100%" }}> */}
-          {/* <Box>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <Tabs aria-label="basic tabs example">
-                <Tab label="Item One" />
-                <Tab label="Item Two" />
-                <Tab label="Item Three" />
-              </Tabs>
-            </Box>
-          </Box> */}
-
-          <Box className="w-50" sx={{ maxHeight: "330px" }}>
+          {/* <Box className="w-50" sx={{ maxHeight: "330px" }}>
             <Button
               onClick={() => {
                 setAddHolidayDetail({ ...addHolidayDetail, regular: true });
@@ -284,24 +253,39 @@ const HolidayAndLeaveManagement = () => {
                 />
               </Grid>
             </LocalizationProvider>
-          </Box>
+          </Box> */}
         </Box>
-        <Box sx={{ marginLeft: "0px" }} className="row mt-2 leave_holiday_row">
+        {/* </Box> */}
+
+        {/* starting of SECOND section */}
+        {/* <Box> */}
+        <Box
+          // display="flex"
+          variant="span"
+          sx={{ marginLeft: "0px" }}
+          // className="row mt-2 leave_holiday_row"
+          className=" row ms-4 dummy"
+        >
           <Box className="leave_management_section">
-            <Box className="leave_management_header mb-2 mt-2">
+            <Box
+              // sx={{ marginTop: "7px", marginLeft: "5px" }}
+              className="leave_management_header mb-2 mt-2"
+            >
               <Typography
-                sx={{ marginTop: "24px", marginLeft: "25px" }}
+                // sx={{ marginTop: "19px", marginLeft: "5px" }}
+                // sx={{ marginTop: "5px", marginLeft: "5px" }}
                 className="sub_heading"
                 variant="span"
               >
                 Leave Management
               </Typography>
               <Button
-                sx={{
-                  marginTop: "16px",
-                  marginBottom: "14px",
-                  marginRight: "25px",
-                }}
+                // sx={{
+                //   marginTop: "16px",
+                //   marginBottom: "14px",
+                //   // marginRight: "3px",
+                // }}
+                // sx={{ marginTop: "5px", marginLeft: "5px" }}
                 onClick={() =>
                   setAddLeaveDialog({
                     ...addLeaveDialog,
@@ -335,13 +319,11 @@ const HolidayAndLeaveManagement = () => {
                             "&:last-child td, &:last-child th": { border: 0 },
                           }}
                         >
-                          <TableCell component="th" scope="row">
-                            {row.type}
-                          </TableCell>
+                          <TableCell scope="row">{row.type}</TableCell>
                           <TableCell align="right">{row.duration}</TableCell>
                           <TableCell align="right">
                             <EditRoundedIcon
-                              sx={{ marginLeft: "11rem" }}
+                              sx={{ marginLeft: "4rem" }}
                               onClick={() => {
                                 setAddLeaveDialog({
                                   ...addLeaveDialog,
@@ -365,21 +347,25 @@ const HolidayAndLeaveManagement = () => {
               </Table>
             </TableContainer>
           </Box>
+          {/* </Box> */}
           <Box sx={{ marginRight: "10px" }} className="regular_holiday_section">
-            <Box className="regular_holiday_heading">
+            {/* <Box className="regular_holiday_section"> */}
+            <Box className="regular_holiday_heading mb-3">
               <Typography
-                sx={{ marginTop: "24px", marginLeft: "25px" }}
+                // sx={{ marginTop: "24px", marginLeft: "25px" }}
+                sx={{ marginTop: "5px", marginLeft: "5px" }}
                 className="sub_heading"
                 variant="span"
               >
                 Regular Holiday On
               </Typography>
               <Button
-                sx={{
-                  marginTop: "16px",
-                  marginBottom: "14px",
-                  marginRight: "25px",
-                }}
+                // sx={{
+                //   marginTop: "16px",
+                //   marginBottom: "14px",
+                //   marginRight: "5px",
+                // }}
+                sx={{ marginTop: "5px", marginLeft: "5px", marginRight: "7px" }}
                 className="leave_holiday_buttons"
                 variant="contained"
               >
