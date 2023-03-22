@@ -56,7 +56,7 @@ const EditClient = () => {
     GetCountryList(
       {},
       res => {
-        if (res.status === 200) {
+        if (res.success) {
           setCountryList(res.data.country)
         }
       },
@@ -67,7 +67,7 @@ const EditClient = () => {
     GetAdminClientProfileDetail(
       parseInt(path),
       res => {
-        if (res.status === 200) {
+        if (res.success) {
           setUserDetail({
             ...userDetail,
             clientName: res.data.name,
@@ -95,7 +95,7 @@ const EditClient = () => {
     GetAdminProductList(
       {},
       res => {
-        if (res.status === 200) {
+        if (res.success) {
           setAdminProductList(res?.data?.products)
           const inquiry_type = [
             ...new Set(userDetail?.product.map(item => item?.type)),
@@ -128,10 +128,6 @@ const EditClient = () => {
     }
     setFilteredProductList(productlist)
   }, [userDetail?.inquiryfor])
-
-  const handleMouseDownPassword = event => {
-    event.preventDefault()
-  }
   const EditClient = () => {
     if (
       userDetail.clientName !== '' &&
@@ -161,7 +157,6 @@ const EditClient = () => {
         memberId: 3,
         reference_name: userDetail?.referenceName,
       }
-      debugger
       let path = window.location.pathname
       console.log('Printing Path of ', path)
       console.log('Printing ', path.split('/').pop())
@@ -170,9 +165,9 @@ const EditClient = () => {
         path,
         clientDetail,
         res => {
-          if (res.status === 200) {
+          if (res.success) {
             navigate(`/clientprofile/${path}`)
-            //debugger;
+
             setSuccessSnackbar({
               ...successSnackbar,
               status: true,
@@ -180,9 +175,7 @@ const EditClient = () => {
             })
           }
         },
-        err => {
-          //debugger
-        },
+        err => {},
       )
     }
   }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from 'react'
 import {
   Typography,
   Box,
@@ -6,96 +6,93 @@ import {
   Button,
   Select,
   MenuItem,
-} from "@mui/material";
+} from '@mui/material'
 import {
   GetAdminDepartmentList,
   GetAdminRole,
-} from "../../services/apiservices/adminprofile";
-import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputAdornment from "@mui/material/InputAdornment";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { AddEmployee } from "../../services/apiservices/staffDetail";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import ErrorSnackbar from "../ErrorSnackbar/ErrorSnackbar";
-import { useNavigate } from "react-router-dom";
-import { Context as ContextSnackbar } from "../../context/pageContext";
+} from '../../services/apiservices/adminprofile'
+import IconButton from '@mui/material/IconButton'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputAdornment from '@mui/material/InputAdornment'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import { AddEmployee } from '../../services/apiservices/staffDetail'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import ErrorSnackbar from '../ErrorSnackbar/ErrorSnackbar'
+import { useNavigate } from 'react-router-dom'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 const AddStaffMember = () => {
   const [userDetail, setUserDetail] = useState({
-    employeeName: "",
+    employeeName: '',
     departmentId: null,
-    email: "",
-    jobRole: "",
-    contactNo: "",
-    password: "",
-    gender: "",
-    birthDate: "",
+    email: '',
+    jobRole: '',
+    contactNo: '',
+    password: '',
+    gender: '',
+    birthDate: '',
     showPassword: false,
-  });
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state;
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar);
-  const [departmentList, setDepartmentList] = useState([]);
-  const [employeeJobRole, setEmployeeJobRole] = useState([]);
-  const navigate = useNavigate();
-  const handleChange = (prop) => (event) => {
-    setUserDetail({ ...userDetail, [prop]: event.target.value });
-  };
+  })
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [departmentList, setDepartmentList] = useState([])
+  const [employeeJobRole, setEmployeeJobRole] = useState([])
+  const navigate = useNavigate()
+  const handleChange = prop => event => {
+    setUserDetail({ ...userDetail, [prop]: event.target.value })
+  }
   useEffect(() => {
     GetAdminDepartmentList(
       {},
-      (res) => {
-        if (res?.status === 200) {
-          setDepartmentList(res?.data?.department);
+      res => {
+        if (res?.success) {
+          setDepartmentList(res?.data?.department)
         }
       },
-      (err) => {
-        //
-      }
-    );
-  }, []);
+      err => {},
+    )
+  }, [])
   useEffect(() => {
     {
       userDetail?.departmentId &&
         GetAdminRole(
           parseInt(userDetail?.departmentId),
-          (res) => {
-            if (res.status === 200) {
-              setEmployeeJobRole(res.data?.roles);
-              //
+          res => {
+            if (res.success) {
+              setEmployeeJobRole(res.data?.roles)
             }
           },
-          (err) => {
-            console.log("Printing Error of GetAdminRole", err);
-          }
-        );
+          err => {
+            console.log('Printing Error of GetAdminRole', err)
+          },
+        )
     }
-  }, [userDetail?.departmentId]);
+  }, [userDetail?.departmentId])
 
   const handleClickShowPassword = () => {
     setUserDetail({
       ...userDetail,
       showPassword: !userDetail.showPassword,
-    });
-  };
+    })
+  }
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  const handleMouseDownPassword = event => {
+    event.preventDefault()
+  }
 
   const handleAddEmployee = () => {
     if (
-      userDetail.employeeName !== "" &&
+      userDetail.employeeName !== '' &&
       userDetail.departmentId !== null &&
-      userDetail.email !== "" &&
-      userDetail.jobRole !== "" &&
+      userDetail.email !== '' &&
+      userDetail.jobRole !== '' &&
       userDetail.contactNo &&
-      userDetail.password !== "" &&
-      userDetail.birthDate !== "" &&
-      userDetail.showPassword !== "" &&
-      userDetail.gender !== ""
+      userDetail.password !== '' &&
+      userDetail.birthDate !== '' &&
+      userDetail.showPassword !== '' &&
+      userDetail.gender !== ''
     ) {
       let employeeDetail = {
         name: userDetail.employeeName,
@@ -106,22 +103,29 @@ const AddStaffMember = () => {
         contact_number: userDetail.contactNo,
         gender: userDetail.gender,
         birthDay: userDetail.birthDate,
-      };
+      }
       AddEmployee(
         employeeDetail,
-        (res) => {
-          navigate("/staff");
-          setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
+        res => {
+          navigate('/staff')
+          setSuccessSnackbar({
+            ...successSnackbar,
+            status: true,
+            message: res.data.message,
+          })
         },
-        (err) => {
-          setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.error })
-        }
-      );
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err.response.data.error,
+          })
+        },
+      )
     } else {
-      console.log(userDetail);
-      //
+      console.log(userDetail)
     }
-  };
+  }
   return (
     <>
       <Box className="add_staff_section mt-3 p-3">
@@ -133,11 +137,11 @@ const AddStaffMember = () => {
             <TextField
               autoComplete="off"
               placeholder="Employee Name"
-              onChange={(e) => {
+              onChange={e => {
                 setUserDetail({
                   ...userDetail,
                   employeeName: e.target.value,
-                });
+                })
               }}
               value={userDetail.employeeName}
               variant="outlined"
@@ -149,16 +153,16 @@ const AddStaffMember = () => {
             </Typography>
             <Select
               value={userDetail?.departmentId}
-              onChange={(e) => {
+              onChange={e => {
                 setUserDetail({
                   ...userDetail,
                   departmentId: e.target.value,
-                });
+                })
               }}
             >
               {departmentList &&
-                departmentList.map((data) => {
-                  return <MenuItem value={data?.id}>{data?.name}</MenuItem>;
+                departmentList.map(data => {
+                  return <MenuItem value={data?.id}>{data?.name}</MenuItem>
                 })}
             </Select>
           </Box>
@@ -171,8 +175,8 @@ const AddStaffMember = () => {
             <TextField
               type="number"
               placeholder="Contact No"
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, contactNo: e.target.value });
+              onChange={e => {
+                setUserDetail({ ...userDetail, contactNo: e.target.value })
               }}
               value={userDetail.contactNo}
               variant="outlined"
@@ -184,13 +188,13 @@ const AddStaffMember = () => {
             </Typography>
             <Select
               value={userDetail?.jobRole}
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, jobRole: e.target.value });
+              onChange={e => {
+                setUserDetail({ ...userDetail, jobRole: e.target.value })
               }}
             >
               {employeeJobRole &&
-                employeeJobRole.map((data) => {
-                  return <MenuItem value={data?.id}>{data?.name}</MenuItem>;
+                employeeJobRole.map(data => {
+                  return <MenuItem value={data?.id}>{data?.name}</MenuItem>
                 })}
             </Select>
           </Box>
@@ -203,8 +207,8 @@ const AddStaffMember = () => {
             <TextField
               placeholder="Enter Email"
               type="email"
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, email: e.target.value });
+              onChange={e => {
+                setUserDetail({ ...userDetail, email: e.target.value })
               }}
               value={userDetail.email}
               variant="outlined"
@@ -219,10 +223,10 @@ const AddStaffMember = () => {
                 autoComplete="off"
                 inputFormat="dd/MM/yyyy"
                 value={userDetail.birthDate}
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, birthDate: e });
+                onChange={e => {
+                  setUserDetail({ ...userDetail, birthDate: e })
                 }}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={params => <TextField {...params} />}
               />
             </LocalizationProvider>
           </Box>
@@ -233,9 +237,9 @@ const AddStaffMember = () => {
               Password<span className="required_star">*</span>
             </Typography>
             <OutlinedInput
-              type={userDetail.showPassword ? "text" : "password"}
+              type={userDetail.showPassword ? 'text' : 'password'}
               value={userDetail.password}
-              onChange={handleChange("password")}
+              onChange={handleChange('password')}
               autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
@@ -254,41 +258,14 @@ const AddStaffMember = () => {
               }
             />
           </Box>
-          {/* <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Confirm Password<span className="required_star">*</span>
-            </Typography>
-            <OutlinedInput
-              type={userDetail.showPassword ? "text" : "password"}
-              value={userDetail.confirmpassword}
-              onChange={handleChange("confirmpassword")}
-              autoComplete="off"
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {userDetail.showPassword ? (
-                      <VisibilityOff />
-                    ) : (
-                      <Visibility />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </Box> */}
-          {/* <Box className="input_field_row"> */}
           <Box className="input_fields">
             <Typography className="input_field_label" variant="span">
               Gender<span className="required_star">*</span>
             </Typography>
             <Select
               value={userDetail?.gender}
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, gender: e.target.value });
+              onChange={e => {
+                setUserDetail({ ...userDetail, gender: e.target.value })
               }}
             >
               <MenuItem value="Male">Male</MenuItem>
@@ -296,12 +273,7 @@ const AddStaffMember = () => {
             </Select>
           </Box>
         </Box>
-        {/* </Box> */}
-
-        <Box
-          sx={{ justifyContent: "flex-start" }}
-          className="input_field_row"
-        >
+        <Box sx={{ justifyContent: 'flex-start' }} className="input_field_row">
           <Button
             onClick={handleAddEmployee}
             variant="contained"
@@ -313,7 +285,7 @@ const AddStaffMember = () => {
       </Box>
       <ErrorSnackbar />
     </>
-  );
-};
+  )
+}
 
-export default AddStaffMember;
+export default AddStaffMember

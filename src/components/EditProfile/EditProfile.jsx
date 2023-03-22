@@ -1,12 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import {
-  Typography,
-  Box,
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Typography, Box, TextField, Button, Select, MenuItem, } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -14,10 +7,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import "./index.css";
-import {
-  EditAdminProfile,
-  GetAdminProfile,
-} from "../../services/apiservices/adminprofile";
+import { EditAdminProfile, GetAdminProfile, } from "../../services/apiservices/adminprofile";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -42,7 +32,7 @@ const EditProfile = () => {
     GetAdminProfile(
       {},
       (res) => {
-        if (res?.status === 200) {
+        if (res?.success) {
           let { member: adminDetail } = res?.data;
           console.log(adminDetail);
           setUserDetail({
@@ -59,7 +49,6 @@ const EditProfile = () => {
       },
       (err) => {
         console.log(err);
-        //
       }
     );
   }, []);
@@ -90,14 +79,13 @@ const EditProfile = () => {
     EditAdminProfile(
       data,
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setSuccessSnackbar({ ...successSnackbar, status: true, message: "Profile Edited Successfully" });
           navigate("/profile");
         }
       },
       (err) => {
         console.log("Printing Err", err);
-        //debugger;
         setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.error })
       });
 
@@ -208,40 +196,10 @@ const EditProfile = () => {
               <MenuItem value="Male">Male</MenuItem>
               <MenuItem value="Female">Female</MenuItem>
             </Select>
-            
+
           </Box>
         </Box>
         <Box className="input_field_row">
-          {/* <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Confirm Password
-            </Typography>
-            <OutlinedInput
-              type={userDetail.showPassword ? "text" : "password"}
-              value={userDetail.confirmpassword}
-              onChange={(e) => {
-                setUserDetail({
-                  ...userDetail,
-                  confirmpassword: e.target.value,
-                });
-              }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {userDetail.showPassword ? (
-                      <Visibility />
-                    ) : (
-                      <VisibilityOff />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </Box> */}
           <Box className="input_fields">
             <Typography className="input_field_label" variant="span">
               Birth Date:

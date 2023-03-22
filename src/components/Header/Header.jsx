@@ -7,7 +7,6 @@ import backButton from "../../assets/img/back.svg";
 import "./index.css";
 const Header = () => {
   const { ActivePage } = useContext(ContextActivePage)?.state;
-  const { setActivePage } = useContext(ContextActivePage);
   const navigate = useNavigate();
   const [pathName, setPathName] = useState("");
   useEffect(() => {
@@ -24,22 +23,19 @@ const Header = () => {
       <Box
         className={pathName === "/login" ? "login_page_section" : "header_root"}
       >
-        <div className="header-info mx-4">
-          <div className="user_profile_photo_root">
-            <div className="align-items-center d-flex">
-              <div onClick={() => handleGoback()}>
+        <Box className="header-info mx-4">
+          <Box className="user_profile_photo_root">
+            <Box className="align-items-center d-flex">
+              <Box onClick={() => handleGoback()}>
                 <img className="ms-2" src={backButton} />
-              </div>
+              </Box>
               <h3 className="mb-0">{ActivePage}</h3>
-            </div>
-            {/* <img onClick={() => {
-              navigate("/profile")
-              // window.location.reload(false);
-            }} src={CompanyLogo} alt="user_profile" /> */}
-          </div>
-        </div>
+            </Box>
+          </Box>
+        </Box>
       </Box>
-      <Box> </Box>
+      <Box>
+      </Box>
     </>
   );
 };

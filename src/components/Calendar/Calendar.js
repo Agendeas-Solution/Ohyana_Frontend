@@ -1,65 +1,55 @@
-import { React, useState, useEffect, useContext } from "react";
-import { Box, Tabs, Tab, Button } from "@mui/material";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import AppointmentList from "./AppointmentList";
-import TabPanel from "@mui/lab/TabPanel";
-import TabContext from "@mui/lab/TabContext";
-import ReminderList from "./ReminderList";
-import AddRemainderDialog from "./AddRemainderDialog";
-import AddAppointmentDialog from "./AddAppointmentDialog";
-import {
-  GetAdminAppointmentOrReminder,
-  DeleteAppointment,
-  AddCalendarReminder,
-} from "../../services/apiservices/adminprofile";
-import { Context as ContextEditAppointmentDialog } from "../../context/pageContext";
-import Loader from "../Loader/Loader";
+import { React, useState, useEffect, useContext } from 'react'
+import { Box, Tabs, Tab, Button } from '@mui/material'
+import AddRoundedIcon from '@mui/icons-material/AddRounded'
+import AppointmentList from './AppointmentList'
+import TabPanel from '@mui/lab/TabPanel'
+import TabContext from '@mui/lab/TabContext'
+import ReminderList from './ReminderList'
+import AddRemainderDialog from './AddRemainderDialog'
+import AddAppointmentDialog from './AddAppointmentDialog'
+import { GetAdminAppointmentOrReminder } from '../../services/apiservices/adminprofile'
+import { Context as ContextEditAppointmentDialog } from '../../context/pageContext'
+import Loader from '../Loader/Loader'
 
 const Calendar = () => {
-  const [value, setValue] = useState("Appointments");
-  const { editAppointmentDialogFlag } = useContext(ContextEditAppointmentDialog)?.state;
-  const [loader, setLoader] = useState(false);
-
-  const [clientType, setClientType] = useState([
-    "intiate",
-    "inter-mediate",
-    "confirm",
-  ]);
-  const [remainderDialogControl, setRemainderDialogControl] = useState(false);
+  const [value, setValue] = useState('Appointments')
+  const { editAppointmentDialogFlag } = useContext(
+    ContextEditAppointmentDialog,
+  )?.state
+  const [loader, setLoader] = useState(false)
+  const [remainderDialogControl, setRemainderDialogControl] = useState(false)
   const [appointmentDialogControl, setAppointmentDialogControl] =
-    useState(false);
-  const [AppointmentListDetail, setAppointmentListDetail] = useState([]);
+    useState(false)
+  const [AppointmentListDetail, setAppointmentListDetail] = useState([])
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
   const handleAppointmentDialogClose = () => {
-    setAppointmentDialogControl(!appointmentDialogControl);
-  };
+    setAppointmentDialogControl(!appointmentDialogControl)
+  }
   const handleRemainderDialogClose = () => {
-    setRemainderDialogControl(!remainderDialogControl);
-  };
+    setRemainderDialogControl(!remainderDialogControl)
+  }
 
   useEffect(() => {
     setLoader(true)
     GetAdminAppointmentOrReminder(
-      { type: "APPOINTMENT" },
-      (res) => {
-        if (res.status === 200) {
-          setAppointmentListDetail(res.data);
+      { type: 'APPOINTMENT' },
+      res => {
+        if (res.success) {
+          setAppointmentListDetail(res.data)
           setLoader(false)
         }
       },
-      (err) => {
+      err => {
         setLoader(false)
-      }
-    );
-  }, [appointmentDialogControl, editAppointmentDialogFlag]);
+      },
+    )
+  }, [appointmentDialogControl, editAppointmentDialogFlag])
 
   return (
     <>
-      {
-        loader && <Loader />
-      }
+      {loader && <Loader />}
       <Box className="calender_section">
         <TabContext value={value}>
           <Box className="notification_tabs_root">
@@ -72,22 +62,22 @@ const Calendar = () => {
               <Tab value="Appointments" label="Appointments" />
               <Tab value="My Reminder" label="My Reminder" />
             </Tabs>
-            {value === "Appointments" ? (
+            {value === 'Appointments' ? (
               <Button
                 className="main_button"
                 onClick={() => {
-                  setAppointmentDialogControl(true);
+                  setAppointmentDialogControl(true)
                 }}
               >
                 <AddRoundedIcon />
                 Appointment
               </Button>
             ) : null}
-            {value === "My Reminder" ? (
+            {value === 'My Reminder' ? (
               <Button
                 className="main_button"
                 onClick={() => {
-                  setRemainderDialogControl(true);
+                  setRemainderDialogControl(true)
                 }}
               >
                 <AddRoundedIcon />
@@ -117,7 +107,7 @@ const Calendar = () => {
         />
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default Calendar;
+export default Calendar

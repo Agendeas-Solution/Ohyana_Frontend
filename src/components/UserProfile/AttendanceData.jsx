@@ -25,10 +25,6 @@ const AttendanceData = () => {
     const handleTabChange = (event, newValue) => {
         setAttendanceTab(newValue);
     };
-    const [userDetail, setUserDetail] = useState({});
-    const [showPassword, setShowPassword] = useState(false);
-    const { flagLoader } = useContext(AuthContext).state;
-    const { setFlagLoader } = useContext(AuthContext);
     return (
         <>
             <TabContext value={attendanceTab}>

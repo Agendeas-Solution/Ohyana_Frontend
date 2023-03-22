@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react'
 import {
   Box,
   Button,
@@ -8,46 +8,46 @@ import {
   TextField,
   Typography,
   TextareaAutosize,
-} from "@mui/material";
-import { Context as  ContextSnackbar } from "../../context/pageContext";
-import { AddCalendarAppointment } from "../../services/apiservices/adminprofile";
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import moment from 'moment';
-const AddAppointmentDialog = (props) => {
+} from '@mui/material'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+import { AddCalendarAppointment } from '../../services/apiservices/adminprofile'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import moment from 'moment'
+const AddAppointmentDialog = props => {
   const [addAppointment, setAddAppointment] = useState({
-    heading: "",
-    description: "",
-    date: "",
-    time: "",
-    type: "APPOINTMENT",
-  });
-  const { successSnackbar } = useContext( ContextSnackbar)?.state;
-  const { setSuccessSnackbar } = useContext( ContextSnackbar);
+    heading: '',
+    description: '',
+    date: '',
+    time: '',
+    type: 'APPOINTMENT',
+  })
+  const { successSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const handleAddAppointment = () => {
-    console.log("Printing addAppointment", addAppointment);
-    //debugger
     AddCalendarAppointment(
       addAppointment,
-      (res) => {
-        if (res.status === 200) {
-          props.handleAppointmentDialogClose();
-          setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message });
+      res => {
+        if (res.success) {
+          props.handleAppointmentDialogClose()
+          setSuccessSnackbar({
+            ...successSnackbar,
+            status: true,
+            message: res.data.message,
+          })
           setAddAppointment({
             ...addAppointment,
-            heading: "",
-            description: "",
-            date: "",
-            time: "",
-          });
+            heading: '',
+            description: '',
+            date: '',
+            time: '',
+          })
         }
       },
-      (err) => {
-        //debugger
-      }
-    );
-  };
+      err => {},
+    )
+  }
   return (
     <>
       <Dialog
@@ -61,18 +61,20 @@ const AddAppointmentDialog = (props) => {
           <Box>
             <div className="row">
               <div className="col-md-6">
-                <Typography variant="span">Heading<span className="required_star">*</span></Typography>
+                <Typography variant="span">
+                  Heading<span className="required_star">*</span>
+                </Typography>
               </div>
               <div className="col-md-12">
                 <TextField
                   className={`w-100`}
                   value={addAppointment.heading}
                   placeholder="Enter Heading"
-                  onChange={(e) => {
+                  onChange={e => {
                     setAddAppointment({
                       ...addAppointment,
                       heading: e.target.value,
-                    });
+                    })
                   }}
                   type="text"
                 />
@@ -82,19 +84,25 @@ const AddAppointmentDialog = (props) => {
           <Box className="my-3">
             <div className="row">
               <div className="col-md-6">
-                <Typography variant="span">Date<span className="required_star">*</span></Typography>
+                <Typography variant="span">
+                  Date<span className="required_star">*</span>
+                </Typography>
               </div>
               <div className="col-md-12  ">
-                <LocalizationProvider  dateAdapter={AdapterDateFns}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     disablePast
-                      
                     inputFormat="dd/MM/yyyy"
                     value={addAppointment.date}
-                    onChange={(e) => {
-                      setAddAppointment({ ...addAppointment, date: moment(e).format('YYYY-MM-DD') });
+                    onChange={e => {
+                      setAddAppointment({
+                        ...addAppointment,
+                        date: moment(e).format('YYYY-MM-DD'),
+                      })
                     }}
-                    renderInput={(params) => <TextField  className={`w-100`} {...params} />}
+                    renderInput={params => (
+                      <TextField className={`w-100`} {...params} />
+                    )}
                   />
                 </LocalizationProvider>
               </div>
@@ -103,17 +111,19 @@ const AddAppointmentDialog = (props) => {
           <Box className="my-3">
             <div className="row">
               <div className="col-md-6">
-                <Typography variant="span">Time<span className="required_star">*</span></Typography>
+                <Typography variant="span">
+                  Time<span className="required_star">*</span>
+                </Typography>
               </div>
               <div className="col-md-12">
                 <TextField
                   className="w-100"
                   value={addAppointment.time}
-                  onChange={(e) => {
+                  onChange={e => {
                     setAddAppointment({
                       ...addAppointment,
                       time: e.target.value,
-                    });
+                    })
                   }}
                   type="time"
                 />
@@ -123,7 +133,9 @@ const AddAppointmentDialog = (props) => {
           <Box className="my-3">
             <div className="row">
               <div className="col-md-6">
-                <Typography variant="span">Description<span className="required_star">*</span></Typography>
+                <Typography variant="span">
+                  Description<span className="required_star">*</span>
+                </Typography>
               </div>
               <div className="col-md-12">
                 <TextareaAutosize
@@ -131,11 +143,11 @@ const AddAppointmentDialog = (props) => {
                   placeholder="Description Here..."
                   className="w-100"
                   value={addAppointment.description}
-                  onChange={(e) => {
+                  onChange={e => {
                     setAddAppointment({
                       ...addAppointment,
                       description: e.target.value,
-                    });
+                    })
                   }}
                 />
               </div>
@@ -147,7 +159,6 @@ const AddAppointmentDialog = (props) => {
             Add
           </Button>
           <Button
-            // variant="contained"
             className="cancel-btn"
             onClick={props.handleAppointmentDialogClose}
           >
@@ -156,7 +167,7 @@ const AddAppointmentDialog = (props) => {
         </DialogActions>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default AddAppointmentDialog;
+export default AddAppointmentDialog

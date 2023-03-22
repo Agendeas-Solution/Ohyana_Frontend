@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Typography,
   Box,
@@ -13,15 +13,15 @@ import {
   TableRow,
   TableHead,
   Divider,
-} from "@mui/material";
-import "./index.css";
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+} from '@mui/material'
+import './index.css'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 const Premium = () => {
-  const [value, setValue] = React.useState("one");
+  const [value, setValue] = React.useState('one')
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
   return (
     <>
       <Box className="w-100 mt-4 profile_section">
@@ -51,7 +51,7 @@ const Premium = () => {
               </Box>
             </Box>
             <Divider
-              sx={{ borderColor: "#8E8E8E" }}
+              sx={{ borderColor: '#8E8E8E' }}
               orientation="vertical"
               variant="middle"
               flexItem
@@ -76,13 +76,13 @@ const Premium = () => {
           <Box className="plan_title mb-1">
             <Typography
               className="mb-2"
-              sx={{ fontSize: "24px", fontWeight: "600" }}
+              sx={{ fontSize: '24px', fontWeight: '600' }}
               variant="span"
             >
               Simple, transparent pricing
             </Typography>
             <Typography
-              sx={{ color: "#8E8E8E", fontSize: "15px" }}
+              sx={{ color: '#8E8E8E', fontSize: '15px' }}
               variant="span"
             >
               No contracts, No surprise fees
@@ -104,10 +104,10 @@ const Premium = () => {
         <Box className="row premium_plan m-1">
           <Box className="access_control_box p-2 mb-2">
             <Box className="plan_pricing_name p-2">
-              <Typography sx={{ fontSize: "18px" }} variant="span">
+              <Typography sx={{ fontSize: '18px' }} variant="span">
                 Foundation
               </Typography>
-              <Typography sx={{ fontSize: "20px" }} variant="span">
+              <Typography sx={{ fontSize: '20px' }} variant="span">
                 ₹24,999
               </Typography>
             </Box>
@@ -115,7 +115,7 @@ const Premium = () => {
               For companies that are just getting started with automation.
             </Typography>
             <Button
-              sx={{ marginBottom: "18px" }}
+              sx={{ marginBottom: '18px' }}
               className="choose_plan_button p-2"
               variant="contained"
             >
@@ -123,24 +123,24 @@ const Premium = () => {
             </Button>
             <Divider
               sx={{
-                marginBottom: "10px",
-                borderColor: "#8E8E8E",
-                margin: "2 auto",
+                marginBottom: '10px',
+                borderColor: '#8E8E8E',
+                margin: '2 auto',
               }}
             />
             <Typography
-              sx={{ paddingBottom: "13px" }}
+              sx={{ paddingBottom: '13px' }}
               variant="span"
               className="plan_pricing_name"
             >
               Essential automation features
             </Typography>
             <Typography
-              sx={{ paddingBottom: "12px" }}
+              sx={{ paddingBottom: '12px' }}
               className="plan_card_sub_heading"
               variant="span"
             >
-              CLIENTS ADD-ONS{" "}
+              CLIENTS ADD-ONS{' '}
             </Typography>
             <Typography className="sub_heading_points" variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
@@ -154,12 +154,12 @@ const Premium = () => {
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Custom reminder and appoinment.
             </Typography>
-            <Typography sx={{ paddingBottom: "15px" }} variant="span">
+            <Typography sx={{ paddingBottom: '15px' }} variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Advance notifications.
             </Typography>
             <Typography
-              sx={{ paddingBottom: "12px" }}
+              sx={{ paddingBottom: '12px' }}
               className="plan_card_sub_heading"
               variant="span"
             >
@@ -180,10 +180,10 @@ const Premium = () => {
           </Box>
           <Box className="access_control_box p-2 mb-2">
             <Box className="plan_pricing_name p-2">
-              <Typography sx={{ fontSize: "18px" }} variant="span">
+              <Typography sx={{ fontSize: '18px' }} variant="span">
                 Strength
               </Typography>
-              <Typography sx={{ fontSize: "20px" }} nvariant="span">
+              <Typography sx={{ fontSize: '20px' }} nvariant="span">
                 ₹32,999
               </Typography>
             </Box>
@@ -191,7 +191,7 @@ const Premium = () => {
               Scaling with advanced automation & employee engagement.
             </Typography>
             <Button
-              sx={{ marginBottom: "18px" }}
+              sx={{ marginBottom: '18px' }}
               className="choose_plan_button p-2"
               variant="contained"
             >
@@ -199,9 +199,9 @@ const Premium = () => {
             </Button>
             <Divider
               sx={{
-                marginBottom: "10px",
-                borderColor: "#8E8E8E",
-                margin: "2 auto",
+                marginBottom: '10px',
+                borderColor: '#8E8E8E',
+                margin: '2 auto',
               }}
             />
             <Typography
@@ -215,7 +215,7 @@ const Premium = () => {
               className="plan_card_sub_heading main_sub_heading"
               variant="span"
             >
-              CLIENTS ADD-ONS{" "}
+              CLIENTS ADD-ONS{' '}
             </Typography>
             <Typography className="sub_heading_points" variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
@@ -229,7 +229,7 @@ const Premium = () => {
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Custom reminder and appoinment.
             </Typography>
-            <Typography sx={{ paddingBottom: "15px" }} variant="span">
+            <Typography sx={{ paddingBottom: '15px' }} variant="span">
               <CheckCircleRoundedIcon className="check_circle_icon" />
               Advance notifications.
             </Typography>
@@ -255,7 +255,7 @@ const Premium = () => {
         </Box>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default Premium;
+export default Premium

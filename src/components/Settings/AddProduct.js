@@ -1,70 +1,73 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 import {
-  Dialog,
   Box,
-  DialogContent,
-  DialogActions,
   Button,
   Typography,
-  TextField, TextareaAutosize
-} from "@mui/material";
+  TextField,
+  TextareaAutosize,
+} from '@mui/material'
 import {
   AddAdminProduct,
   EditAdminProduct,
-} from "../../services/apiservices/adminprofile";
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Context as ContextSnackbar } from "../../context/pageContext";
-import { GetProductDetail } from "../../services/apiservices/productDetail";
-const AddProduct = (props) => {
+} from '../../services/apiservices/adminprofile'
+import { GetProductDetail } from '../../services/apiservices/productDetail'
+const AddProduct = props => {
   const [productDetail, setProductDetail] = useState({
-    name: "",
-    skuId: "",
-    price: "",
-    quantity: "",
-    materialType: "",
-    weight: "",
-    description: ""
+    name: '',
+    skuId: '',
+    price: '',
+    quantity: '',
+    materialType: '',
+    weight: '',
+    description: '',
   })
-  let path = window.location.pathname;
-  console.log("Printing Path of ", path);
-  console.log("Printing ", path.split("/").pop());
-  path = path.split("/").pop();
+  let path = window.location.pathname
+  console.log('Printing Path of ', path)
+  console.log('Printing ', path.split('/').pop())
+  path = path.split('/').pop()
   useEffect(() => {
-
-    parseInt(path) && GetProductDetail(parseInt(path), (res) => {
-      setProductDetail({ ...productDetail, name: res.data.name, description: res.data.description, price: res.data.price, quantity: res.data.quantity, materialType: res.data.materialType, weight: res.data.weight, skuId: res.data.skuId });
-      debugger
-    }, (err) => {
-
-    })
+    parseInt(path) &&
+      GetProductDetail(
+        parseInt(path),
+        res => {
+          setProductDetail({
+            ...productDetail,
+            name: res.data.name,
+            description: res.data.description,
+            price: res.data.price,
+            quantity: res.data.quantity,
+            materialType: res.data.materialType,
+            weight: res.data.weight,
+            skuId: res.data.skuId,
+          })
+        },
+        err => {},
+      )
   }, [])
   const handleAddProduct = () => {
     if (parseInt(path)) {
       EditAdminProduct(
-        productDetail, parseInt(path),
-        (res) => {
-          if (res.status === 200) {
-            console.log("printing Data", res.data)
+        productDetail,
+        parseInt(path),
+        res => {
+          if (res.success) {
+            console.log('printing Data', res.data)
           }
         },
-        (err) => { }
-      );
-    }
-    else {
+        err => {},
+      )
+    } else {
       AddAdminProduct(
         productDetail,
-        (res) => {
-          if (res.status === 200) {
-            console.log("printing Data", res.data)
+        res => {
+          if (res.success) {
+            console.log('printing Data', res.data)
           }
         },
-        (err) => {
-        }
-      );
+        err => {},
+      )
     }
-  };
+  }
   return (
     <>
       {/* <Dialog
@@ -170,8 +173,8 @@ const AddProduct = (props) => {
             </Typography>
             <TextField
               placeholder="Enter Product Name"
-              onChange={(e) => {
-                setProductDetail({ ...productDetail, name: e.target.value });
+              onChange={e => {
+                setProductDetail({ ...productDetail, name: e.target.value })
               }}
               value={productDetail.name}
               className="form-control"
@@ -185,8 +188,8 @@ const AddProduct = (props) => {
             </Typography>
             <TextField
               placeholder="Enter Product Id"
-              onChange={(e) => {
-                setProductDetail({ ...productDetail, skuId: e.target.value });
+              onChange={e => {
+                setProductDetail({ ...productDetail, skuId: e.target.value })
               }}
               value={productDetail.skuId}
               variant="outlined"
@@ -201,8 +204,8 @@ const AddProduct = (props) => {
             <TextField
               placeholder="Enter Price"
               autoComplete={false}
-              onChange={(e) => {
-                setProductDetail({ ...productDetail, price: e.target.value });
+              onChange={e => {
+                setProductDetail({ ...productDetail, price: e.target.value })
               }}
               value={productDetail.price}
               variant="outlined"
@@ -214,8 +217,8 @@ const AddProduct = (props) => {
             </Typography>
             <TextField
               placeholder="Enter Quantity"
-              onChange={(e) => {
-                setProductDetail({ ...productDetail, quantity: e.target.value });
+              onChange={e => {
+                setProductDetail({ ...productDetail, quantity: e.target.value })
               }}
               value={productDetail.quantity}
               variant="outlined"
@@ -229,8 +232,11 @@ const AddProduct = (props) => {
             </Typography>
             <TextField
               placeholder="Enter Material Type"
-              onChange={(e) => {
-                setProductDetail({ ...productDetail, materialType: e.target.value });
+              onChange={e => {
+                setProductDetail({
+                  ...productDetail,
+                  materialType: e.target.value,
+                })
               }}
               value={productDetail.materialType}
             />
@@ -241,8 +247,8 @@ const AddProduct = (props) => {
             </Typography>
             <TextField
               placeholder="Enter Weight"
-              onChange={(e) => {
-                setProductDetail({ ...productDetail, weight: e.target.value });
+              onChange={e => {
+                setProductDetail({ ...productDetail, weight: e.target.value })
               }}
               value={productDetail.weight}
             />
@@ -258,16 +264,16 @@ const AddProduct = (props) => {
               className="w-100"
               minRows={3}
               value={productDetail.description}
-              onChange={(e) => {
+              onChange={e => {
                 setProductDetail({
                   ...productDetail,
                   description: e.target.value,
-                });
+                })
               }}
             />
           </Box>
         </Box>
-        <Box sx={{ justifyContent: "flex-start" }} className="input_field_row">
+        <Box sx={{ justifyContent: 'flex-start' }} className="input_field_row">
           <Button
             onClick={handleAddProduct}
             variant="contained"
@@ -278,7 +284,7 @@ const AddProduct = (props) => {
         </Box>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default AddProduct;
+export default AddProduct

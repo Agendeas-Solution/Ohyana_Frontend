@@ -41,7 +41,9 @@
     "start": " env-cmd -f .env react-scripts start",
     "build": "CI=false && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier:check": "prettier --check \"./src/**/*.js\"",
+    "prettier:write": "prettier --write \"./src/**/*.js\""
   },
   "eslintConfig": {
     "extends": [
@@ -60,5 +62,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "^2.8.6"
   }
 }

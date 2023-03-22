@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from 'react'
 import {
   Box,
   Typography,
@@ -8,8 +8,9 @@ import {
   TableHead,
   TableRow,
   TableCell,
-} from "@mui/material";
+} from '@mui/material'
 // import "./index.css";
+
 // import EditRoundedIcon from "@mui/icons-material/EditRounded";
 // import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import DeleteIcon from "../../assets/img/Delete_Icon.svg";
@@ -25,22 +26,23 @@ import {
 import ExpenseType from "./ExpenseType";
 
 const ExpenseList = () => {
-  let navigate = useNavigate();
-  const { flagLoader, permissions } = useContext(AuthContext).state;
-  const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false);
+  let navigate = useNavigate()
+  const { flagLoader, permissions } = useContext(AuthContext).state
+  const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false)
 
   const [deleteJobRoleDialogControl, setDeleteJobRoleDialogControl] = useState({
     status: false,
     id: null,
-  });
+  })
 
   const [editExpenseListDialog, setEditExpenseListDialog] = useState({
     status: false,
     departmentId: null,
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     roleId: null,
-  });
+  })
+
 
   const [addExpenseType, setAddExpenseType] = useState({
     status: false,
@@ -96,9 +98,6 @@ const ExpenseList = () => {
           </Typography>
           {permissions?.editDepartment && (
             <Button
-              // onClick={() => {
-              //   setJobRoleDialogControl(true);
-              // }}
               onClick={() =>
                 setAddExpenseType({
                   ...addExpenseType,
@@ -114,25 +113,26 @@ const ExpenseList = () => {
           )}
         </Box>
         <Divider
-          sx={{ borderColor: "#8E8E8E" }}
+          sx={{ borderColor: '#8E8E8E' }}
           orientation="horizontal"
           // variant="middle"
           width="100%"
           // flexItem
         />
-        <Box sx={{ marginTop: "19px", width: "initial" }}>
+        <Box sx={{ marginTop: '19px', width: 'initial' }}>
           <Box
             sx={{
-              backgroundColor: "#F1F2F6",
-              marginBottom: "20px",
-              borderRadius: "6px",
+              backgroundColor: '#F1F2F6',
+              marginBottom: '20px',
+              borderRadius: '6px',
             }}
           >
             <TableHead
-              sx={{ paddingTop: "5px" }}
+              sx={{ paddingTop: '5px' }}
               className="client_profile_table_header"
             >
               <TableRow>
+
                 <TableCell sx={{ paddingRight: "4px" }}></TableCell>
                 <TableCell sx={{ paddingRight: "68px" }}>Sr No.</TableCell>
                 <TableCell sx={{ paddingRight: "70px" }} align="left">
@@ -177,7 +177,7 @@ const ExpenseList = () => {
                   </Grid>
                 </Grid>
               </Box>
-            );
+            )
           })}
         <ExpenseType
           addExpenseType={addExpenseType}
@@ -185,7 +185,7 @@ const ExpenseList = () => {
         />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ExpenseList;
+export default ExpenseList

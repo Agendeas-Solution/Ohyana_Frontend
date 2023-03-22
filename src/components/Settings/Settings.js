@@ -1,22 +1,21 @@
-import React, { useContext } from "react";
-import { Box, Typography } from "@mui/material";
-import "./index.css";
-import DepartmentIcon from "../../assets/img/department_icon.svg";
-import ProductIcon from "../../assets/img/Product.svg";
-import { useNavigate } from "react-router-dom";
-import { Context as AuthContext } from "../../context/authContext/authContext";
-import Poll from "../../assets/img/Poll.svg";
+import React, { useContext } from 'react'
+import { Box, Typography } from '@mui/material'
+import './index.css'
+import DepartmentIcon from '../../assets/img/department_icon.svg'
+import ProductIcon from '../../assets/img/Product.svg'
+import { useNavigate } from 'react-router-dom'
+import { Context as AuthContext } from '../../context/authContext/authContext'
+import Poll from '../../assets/img/Poll.svg'
 const Settings = () => {
-  const { flagLoader, permissions } = useContext(AuthContext).state;
-
-  const navigate = useNavigate();
+  const { flagLoader, permissions } = useContext(AuthContext).state
+  const navigate = useNavigate()
   return (
     <>
       <Box className="main_section mt-4">
         <Box
           className="setting_cards-list"
           onClick={() => {
-            navigate("/companyprofile");
+            navigate('/companyprofile')
           }}
         >
           <img
@@ -30,7 +29,7 @@ const Settings = () => {
           <Box
             className="setting_cards-list"
             onClick={() => {
-              navigate("/departmentlist/");
+              navigate('/departmentlist/')
               // navigate("/jobrolelist/1");
             }}
           >
@@ -46,7 +45,7 @@ const Settings = () => {
           <Box
             className="setting_cards-list"
             onClick={() => {
-              navigate("/productlist");
+              navigate('/productlist')
             }}
           >
             <img
@@ -60,7 +59,7 @@ const Settings = () => {
         <Box
           className="setting_cards-list"
           onClick={() => {
-            navigate("/premium");
+            navigate('/premium')
           }}
         >
           <img
@@ -73,7 +72,7 @@ const Settings = () => {
         <Box
           className="setting_cards-list"
           onClick={() => {
-            navigate("/leaveholidaymanagement");
+            navigate('/leaveholidaymanagement')
           }}
         >
           <img
@@ -87,7 +86,7 @@ const Settings = () => {
           className="setting_cards-list"
           onClick={() => {
             // navigate("/departmentlist");
-            navigate("/expenselist");
+            navigate('/expenselist')
           }}
         >
           <img
@@ -112,7 +111,7 @@ const Settings = () => {
         </Box> */}
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default Settings;
+export default Settings

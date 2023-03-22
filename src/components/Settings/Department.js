@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from 'react'
 import {
   Box,
   Typography,
@@ -14,79 +14,78 @@ import {
   MenuItem,
   FormGroup,
   Modal,
-} from "@mui/material";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import "./index.css";
-import JobRoleDialog from "./JobRoleDialog";
-import DeleteJobRoleDialog from "./DeleteJobRoleDialog";
-import DeleteDepartmentDialog from "./DeleteDepartmentDialog";
-import AddEditDepartmentDialog from "./AddEditDepartmentDialog";
-import { GetAdminRole } from "../../services/apiservices/adminprofile";
-import EditJobRoleDialog from "./EditJobRoleDialog";
+} from '@mui/material'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import './index.css'
+import JobRoleDialog from './JobRoleDialog'
+import DeleteJobRoleDialog from './DeleteJobRoleDialog'
+import DeleteDepartmentDialog from './DeleteDepartmentDialog'
+import AddEditDepartmentDialog from './AddEditDepartmentDialog'
+import { GetAdminRole } from '../../services/apiservices/adminprofile'
+import EditJobRoleDialog from './EditJobRoleDialog'
 import {
   UpdatePermission,
   getUserPermissions,
-} from "../../services/apiservices/adminprofile";
-import { Context as ContextSnackbar } from "../../context/pageContext";
-import StaffIcon from "../../assets/img/staff.svg";
-import StatisticsIcon from "../../assets/img/statistics.svg";
-import ClientIcon from "../../assets/img/Clients.svg";
-import SettingIcon from "../../assets/img/setting.svg";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { Context as AuthContext } from "../../context/authContext/authContext";
-import { CheckBox } from "@mui/icons-material";
+} from '../../services/apiservices/adminprofile'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+import StaffIcon from '../../assets/img/staff.svg'
+import StatisticsIcon from '../../assets/img/statistics.svg'
+import ClientIcon from '../../assets/img/Clients.svg'
+import SettingIcon from '../../assets/img/setting.svg'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { Context as AuthContext } from '../../context/authContext/authContext'
+import { CheckBox } from '@mui/icons-material'
 import {
   DatePicker,
   LocalizationProvider,
   StaticTimePicker,
-} from "@mui/x-date-pickers";
-import { borderRadius } from "@mui/system";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+} from '@mui/x-date-pickers'
+import { borderRadius } from '@mui/system'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 const Department = () => {
-  const { flagLoader, permissions } = useContext(AuthContext).state;
-  const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false);
-  const [openTime, setOpenTime] = useState(true);
-  const [openOutTime, setOpenOutTime] = useState(true);
-  const [open, setOpen] = useState(false);
+  const { permissions } = useContext(AuthContext).state
+  const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false)
+  const [openTime, setOpenTime] = useState(true)
+  const [openOutTime, setOpenOutTime] = useState(true)
+  const [open, setOpen] = useState(false)
   const [deleteJobRoleDialogControl, setDeleteJobRoleDialogControl] = useState({
     status: false,
     id: null,
-  });
+  })
   const [deleteDepartmentDialogControl, setDeleteDepartmentControl] = useState({
     status: false,
     id: null,
-  });
+  })
   const [editJobRoleDialogControl, setEditJobRoleDialogControl] = useState({
     status: false,
     departmentId: null,
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     roleId: null,
-  });
+  })
   const [addEditDepartmentDialogControl, setAddEditDepartmentDialogControl] =
     useState({
       status: false,
       id: null,
-      departmentName: "",
-    });
+      departmentName: '',
+    })
   const [jobRoleList, setJobRoleList] = useState({
-    name: "",
+    name: '',
     roles: [],
     departmentId: null,
-  });
+  })
   const [clientType, setClientType] = useState([
-    { stage: "intiate", id: 0 },
-    { stage: "no response", id: 1 },
-    { stage: "irrelevant", id: 2 },
-    { stage: "inter-mediate", id: 3 },
-    { stage: "confirm", id: 4 },
-  ]);
+    { stage: 'intiate', id: 0 },
+    { stage: 'no response', id: 1 },
+    { stage: 'irrelevant', id: 2 },
+    { stage: 'inter-mediate', id: 3 },
+    { stage: 'confirm', id: 4 },
+  ])
 
   const [accessControl, setAccessControl] = useState({
     clientControl: false,
     client: {
-      // viewClient:false,
       editClient: false,
       deleteClient: false,
       accessClient: false,
@@ -108,15 +107,15 @@ const Department = () => {
       accessSetting: false,
       deleteProduct: false,
     },
-  });
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar);
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state;
+  })
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state
 
   useEffect(() => {
     getUserPermissions(
-      parseInt(window.location.pathname.split("/").pop()),
-      (res) => {
-        let staffPermission = res?.data?.permissions;
+      parseInt(window.location.pathname.split('/').pop()),
+      res => {
+        let staffPermission = res?.data?.permissions
         setAccessControl({
           ...accessControl,
           clientControl: staffPermission?.clientMenu,
@@ -145,16 +144,16 @@ const Department = () => {
             deleteProduct: staffPermission?.deleteProduct,
             accessSetting: staffPermission?.accessSetting,
           },
-        });
+        })
       },
-      (err) => {
+      err => {
         //debugger;
-      }
-    );
-  }, []);
+      },
+    )
+  }, [])
   const handleUserPermissions = () => {
     let userPermission = {
-      teamId: parseInt(window.location.pathname.split("/").pop()),
+      teamId: parseInt(window.location.pathname.split('/').pop()),
       clientMenu: accessControl?.clientControl,
       editClient: accessControl?.client?.editClient,
       deleteClient: accessControl?.client?.deleteClient,
@@ -172,79 +171,78 @@ const Department = () => {
       accessStaff: accessControl?.staff.accessStaff,
       accessSetting: accessControl?.setting.accessSetting,
       clientStageAccess: accessControl?.client?.clientStage,
-    };
+    }
     //debugger
     UpdatePermission(
       userPermission,
-      (res) => {
+      res => {
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
           message: res.data.message,
-        });
+        })
         //debugger
       },
-      (err) => {
+      err => {
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
           message: err.response.data.error,
-        });
-      }
-    );
-  };
+        })
+      },
+    )
+  }
   const handleClose = () => {
-    setJobRoleDialogControl(false);
+    setJobRoleDialogControl(false)
     setDeleteJobRoleDialogControl({
       ...deleteJobRoleDialogControl,
       status: false,
-    });
+    })
     setDeleteDepartmentControl({
       ...deleteDepartmentDialogControl,
       status: false,
-    });
-    setAddEditDepartmentDialogControl(false);
-    setEditJobRoleDialogControl({ ...editJobRoleDialogControl, status: false });
-  };
+    })
+    setAddEditDepartmentDialogControl(false)
+    setEditJobRoleDialogControl({ ...editJobRoleDialogControl, status: false })
+  }
   useEffect(() => {
-    let path = window.location.pathname;
-    console.log("Printing Path of ", path);
-    console.log("Printing ", path.split("/").pop());
-    path = path.split("/").pop();
+    let path = window.location.pathname
+    console.log('Printing Path of ', path)
+    console.log('Printing ', path.split('/').pop())
+    path = path.split('/').pop()
     GetAdminRole(
       parseInt(path),
-      (res) => {
-        if (res.status === 200) {
+      res => {
+        if (res.success) {
           setJobRoleList({
             ...jobRoleList,
             departmentId: res.data.department.id,
             name: res.data.department.name,
             roles: res.data.roles,
-          });
+          })
         }
       },
-      (err) => {
-        console.log(err);
-        //
-      }
-    );
+      err => {
+        console.log(err)
+      },
+    )
   }, [
     deleteJobRoleDialogControl.status,
     jobRoleDialogControl,
     editJobRoleDialogControl.status,
-  ]);
+  ])
 
   const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
     width: 700,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
     boxShadow: 24,
     p: 2,
-  };
+  }
 
   return (
     <>
@@ -261,7 +259,7 @@ const Department = () => {
                     id: jobRoleList.departmentId,
                     status: true,
                     departmentName: jobRoleList.name,
-                  });
+                  })
                 }}
                 className="edit_icon_profile"
               />
@@ -273,20 +271,20 @@ const Department = () => {
                     ...deleteDepartmentDialogControl,
                     status: true,
                     id: jobRoleList.departmentId,
-                  });
+                  })
                 }}
                 className="edit_icon_profile"
               />
             )}
           </Box>
         </Box>
-        <Divider sx={{ width: "95%", margin: "0 auto" }} />
+        <Divider sx={{ width: '95%', margin: '0 auto' }} />
         <Box className="bg-body p-4">
           <Box className="mb-3 row post_detail">
             {/* <Box className="post_detail mb-3"> */}
             <Box className="post_name">
               <Typography
-                sx={{ color: "#8E8E8E" }}
+                sx={{ color: '#8E8E8E' }}
                 className="p-1"
                 variant="span"
               >
@@ -298,7 +296,7 @@ const Department = () => {
             </Box>
             <Box className="post_description">
               <Typography
-                sx={{ color: "#8E8E8E" }}
+                sx={{ color: '#8E8E8E' }}
                 className="p-1"
                 variant="span"
               >
@@ -315,7 +313,7 @@ const Department = () => {
 
           <Box className="mb-1 row">
             <FormControl
-              sx={{ width: "30rem", marginRight: 5 }}
+              sx={{ width: '30rem', marginRight: 5 }}
               className="mb-3"
             >
               <InputLabel id="demo-simple-select-label">
@@ -327,15 +325,15 @@ const Department = () => {
                 id="demo-simple-select"
                 // value={age}
                 label="Office Time Management"
-                onChange={() => console.log("Clicking on Drop down options")}
+                onChange={() => console.log('Clicking on Drop down options')}
               >
                 {/* <Box> */}
                 <Box sx={{ padding: 1 }}>
-                  <MenuItem sx={{ paddingTop: "19px", display: "inline" }}>
+                  <MenuItem sx={{ paddingTop: '19px', display: 'inline' }}>
                     Clock In
                   </MenuItem>
                   <TextField
-                    sx={{ display: "inline", marginLeft: "18rem" }}
+                    sx={{ display: 'inline', marginLeft: '18rem' }}
                     className="set_date_time_bg"
                     type="time"
                   />
@@ -360,9 +358,9 @@ const Department = () => {
                 </Box>
                 <Box sx={{ padding: 1 }}>
                   {/* <MenuItem sx={{ display: "inline" }}>Clock Out</MenuItem> */}
-                  <MenuItem sx={{ display: "inline" }}>Clock Out</MenuItem>
+                  <MenuItem sx={{ display: 'inline' }}>Clock Out</MenuItem>
                   <TextField
-                    sx={{ display: "inline", marginLeft: "17rem" }}
+                    sx={{ display: 'inline', marginLeft: '17rem' }}
                     className="set_date_time_bg"
                     type="time"
                   />
@@ -373,61 +371,61 @@ const Department = () => {
                 {/* </Box> */}
               </Select>
             </FormControl>
-            <FormControl sx={{ width: "31rem" }} className="mb-3 ">
+            <FormControl sx={{ width: '31rem' }} className="mb-3 ">
               <InputLabel id="demo-simple-select-label">
                 Expanse Management
               </InputLabel>
               <Select id="demo-multiple-checkbox-label">
                 <FormGroup className="p-2">
-                  <Box sx={{ margin: "5px" }}>
+                  <Box sx={{ margin: '5px' }}>
                     <FormControlLabel
-                      sx={{ display: "inline" }}
+                      sx={{ display: 'inline' }}
                       control={
                         <Checkbox
                           className="check_box_color"
-                          onChange={() => console.log("checkbox selected...")}
+                          onChange={() => console.log('checkbox selected...')}
                         />
                       }
                       label="Travel"
                     />
                     <TextField
-                      sx={{ display: "inline", marginLeft: "17rem" }}
+                      sx={{ display: 'inline', marginLeft: '17rem' }}
                       placeholder="Max Amount"
                     />
                     <Button className="p-2 m-1" variant="contained">
                       Save
                     </Button>
                   </Box>
-                  <Box sx={{ margin: "5px" }}>
+                  <Box sx={{ margin: '5px' }}>
                     <FormControlLabel
                       control={
                         <Checkbox
                           className="check_box_color"
-                          onChange={() => console.log("checkbox selected...")}
+                          onChange={() => console.log('checkbox selected...')}
                         />
                       }
                       label="Food"
                     />
                     <TextField
-                      sx={{ display: "inline", marginLeft: "17rem" }}
+                      sx={{ display: 'inline', marginLeft: '17rem' }}
                       placeholder="Max Amount"
                     />
                     <Button className="p-2 m-1" variant="contained">
                       Save
                     </Button>
                   </Box>
-                  <Box sx={{ margin: "5px" }}>
+                  <Box sx={{ margin: '5px' }}>
                     <FormControlLabel
                       control={
                         <Checkbox
                           className="check_box_color"
-                          onChange={() => console.log("checkbox selected...")}
+                          onChange={() => console.log('checkbox selected...')}
                         />
                       }
                       label="Hotel"
                     />
                     <TextField
-                      sx={{ display: "inline", marginLeft: "17rem" }}
+                      sx={{ display: 'inline', marginLeft: '17rem' }}
                       placeholder="Max Amount"
                     />
                     <Button className="p-2 m-1" variant="contained">
@@ -449,22 +447,22 @@ const Department = () => {
 
             {permissions.accessClient && (
               <Box
-                sx={{ marginRight: "30px" }}
-                className="d-flex m-2 w-23 col-md-2 align-items-center justify-content-between row access_checkbox"
+                sx={{ marginRight: '30px' }}
+                className="d-flex m-2 align-items-center justify-content-between row access_checkbox"
               >
                 <Box className="col-md-10">
-                  <img style={{ marginRight: "1px" }} src={ClientIcon} alt="" />
-                  <Typography sx={{ paddingLeft: "8px" }} variant="span">
+                  <img style={{ marginRight: '1px' }} src={ClientIcon} alt="" />
+                  <Typography sx={{ paddingLeft: '8px' }} variant="span">
                     Clients
                   </Typography>
                 </Box>
-                <Box className="col-md-2 ">
+                <Box className="col-md-2">
                   <FormControlLabel
                     control={
                       <Checkbox
                         className="check_box_color"
                         checked={accessControl.clientControl}
-                        onChange={(e) => {
+                        onChange={e => {
                           if (e.target.checked === false) {
                             setAccessControl({
                               ...accessControl,
@@ -475,12 +473,12 @@ const Department = () => {
                                 accessClient: false,
                               },
                               clientControl: e.target.checked,
-                            });
+                            })
                           } else {
                             setAccessControl({
                               ...accessControl,
                               clientControl: e.target.checked,
-                            });
+                            })
                           }
                         }}
                       />
@@ -491,10 +489,10 @@ const Department = () => {
             )}
             {/* <Box className="col-md-1"></Box> */}
             {permissions.accessStaff && (
-              <Box className="d-flex m-2 w-23 col-md-2 align-items-center justify-content-between row access_checkbox">
+              <Box className="d-flex m-2 align-items-center justify-content-between row access_checkbox">
                 <Box className="col-md-10 ">
-                  <img style={{ marginRight: "1px" }} src={StaffIcon} alt="" />
-                  <Typography sx={{ paddingLeft: "8px" }} variant="span">
+                  <img style={{ marginRight: '1px' }} src={StaffIcon} alt="" />
+                  <Typography sx={{ paddingLeft: '8px' }} variant="span">
                     Staff
                   </Typography>
                 </Box>
@@ -504,7 +502,7 @@ const Department = () => {
                       <Checkbox
                         className="check_box_color"
                         checked={accessControl.staffControl}
-                        onChange={(e) => {
+                        onChange={e => {
                           if (e.target.checked === false) {
                             setAccessControl({
                               ...accessControl,
@@ -515,12 +513,12 @@ const Department = () => {
                                 accessStaff: false,
                               },
                               staffControl: e.target.checked,
-                            });
+                            })
                           } else {
                             setAccessControl({
                               ...accessControl,
                               staffControl: e.target.checked,
-                            });
+                            })
                           }
                         }}
                       />
@@ -531,14 +529,14 @@ const Department = () => {
             )}
             {/* <Box className="col-md-1"></Box> */}
             {permissions.accessSetting && (
-              <Box className="d-flex m-2 w-23 col-md-2 align-items-center justify-content-between row access_checkbox">
+              <Box className="d-flex m-2 align-items-center justify-content-between row access_checkbox">
                 <Box className="col-md-10 ">
                   <img
-                    style={{ marginRight: "1px" }}
+                    style={{ marginRight: '1px' }}
                     src={SettingIcon}
                     alt=""
                   />
-                  <Typography sx={{ paddingLeft: "8px" }} variant="span">
+                  <Typography sx={{ paddingLeft: '8px' }} variant="span">
                     Setting
                   </Typography>
                 </Box>
@@ -548,7 +546,7 @@ const Department = () => {
                       <Checkbox
                         className="check_box_color"
                         checked={accessControl.settingControl}
-                        onChange={(e) => {
+                        onChange={e => {
                           if (e.target.checked === false) {
                             setAccessControl({
                               ...accessControl,
@@ -563,12 +561,12 @@ const Department = () => {
                                 accessSetting: false,
                               },
                               settingControl: e.target.checked,
-                            });
+                            })
                           } else {
                             setAccessControl({
                               ...accessControl,
                               settingControl: e.target.checked,
-                            });
+                            })
                           }
                         }}
                       />
@@ -579,14 +577,14 @@ const Department = () => {
             )}
             {/* <Box className="col-md-1"></Box> */}
             {permissions.accessSetting && (
-              <Box className="d-flex m-2 w-23 col-md-2 align-items-center justify-content-between row access_checkbox">
-                <Box className="col-md-10 ">
+              <Box className="d-flex m-2 align-items-center justify-content-between row access_checkbox">
+                <Box className="col-md-10">
                   <img
-                    style={{ marginRight: "1px" }}
+                    style={{ marginRight: '1px' }}
                     src={StatisticsIcon}
                     alt=""
                   />
-                  <Typography sx={{ paddingLeft: "3px" }} variant="span">
+                  <Typography sx={{ paddingLeft: '3px' }} variant="span">
                     Statistics
                   </Typography>
                 </Box>
@@ -596,7 +594,7 @@ const Department = () => {
                       <Checkbox
                         className="check_box_color"
                         checked={accessControl.settingControl}
-                        onChange={(e) => {
+                        onChange={e => {
                           if (e.target.checked === false) {
                             setAccessControl({
                               ...accessControl,
@@ -611,12 +609,12 @@ const Department = () => {
                                 accessSetting: false,
                               },
                               settingControl: e.target.checked,
-                            });
+                            })
                           } else {
                             setAccessControl({
                               ...accessControl,
                               settingControl: e.target.checked,
-                            });
+                            })
                           }
                         }}
                       />
@@ -636,63 +634,63 @@ const Department = () => {
                 <Box className="row  ">
                   <Box className="d-flex col-md-8 align-items-center">
                     <Typography variant="span">
-                      Can Edit a Client Detail ?{" "}
+                      Can Edit a Client Detail ?{' '}
                     </Typography>
                   </Box>
                   <Checkbox
                     disableRipple
                     className="col-md-4 check_box_color"
                     checked={accessControl?.client?.editClient}
-                    onChange={(e) => {
+                    onChange={e => {
                       setAccessControl({
                         ...accessControl,
                         client: {
                           ...accessControl.client,
                           editClient: e.target.checked,
                         },
-                      });
+                      })
                     }}
                   />
                 </Box>
                 <Box className="row">
                   <Box className="d-flex col-md-8 align-items-center">
                     <Typography variant="span">
-                      Can Delete a Client Detail ?{" "}
+                      Can Delete a Client Detail ?{' '}
                     </Typography>
                   </Box>
                   <Checkbox
                     disableRipple
                     className="col-md-4 check_box_color"
                     checked={accessControl?.client?.deleteClient}
-                    onChange={(e) => {
+                    onChange={e => {
                       setAccessControl({
                         ...accessControl,
                         client: {
                           ...accessControl.client,
                           deleteClient: e.target.checked,
                         },
-                      });
+                      })
                     }}
                   />
                 </Box>
                 <Box className="row">
                   <Box className="d-flex col-md-8 align-items-center">
                     <Typography variant="span">
-                      Give Access to Client ?{" "}
+                      Give Access to Client ?{' '}
                     </Typography>
                   </Box>
                   <Checkbox
                     disableRipple
                     className="col-md-4 check_box_color"
                     checked={accessControl?.client?.accessClient}
-                    onChange={(e) => {
+                    onChange={e => {
                       setAccessControl({
                         ...accessControl,
                         client: {
                           ...accessControl.client,
                           accessClient: e.target.checked,
                         },
-                      });
+                      })
                     }}
                   />
                 </Box>
@@ -703,20 +701,17 @@ const Department = () => {
                       options={clientType}
                       value={clientType[accessControl?.client?.clientStage]}
                       onChange={(e, value) => {
-                        console.log(value);
+                        console.log(value)
                         setAccessControl({
                           ...accessControl,
                           client: {
                             ...accessControl.client,
                             clientStage: value?.id,
                           },
-                        });
+                        })
                       }}
-                      getOptionLabel={(option) => option.stage}
-                      // getOptionDisabled={(option) =>
-                      //   option.stage === clientType[1].stage
-                      // }
-                      renderInput={(params) => (
+                      getOptionLabel={option => option.stage}
+                      renderInput={params => (
                         <TextField
                           className="client_type_select"
                           {...params}
@@ -737,42 +732,42 @@ const Department = () => {
                 <Box className="row">
                   <Box className="d-flex col-md-8 align-items-center">
                     <Typography variant="span">
-                      Can Edit a Staff Detail ?{" "}
+                      Can Edit a Staff Detail ?{' '}
                     </Typography>
                   </Box>
                   <Checkbox
                     disableRipple
                     className="col-md-4 check_box_color"
                     checked={accessControl?.staff?.editStaff}
-                    onChange={(e) => {
+                    onChange={e => {
                       setAccessControl({
                         ...accessControl,
                         staff: {
                           ...accessControl.staff,
                           editStaff: e.target.checked,
                         },
-                      });
+                      })
                     }}
                   />
                 </Box>
                 <Box className="row">
                   <Box className="d-flex col-md-8 align-items-center">
                     <Typography variant="span">
-                      Can Delete a Staff Detail ?{" "}
+                      Can Delete a Staff Detail ?{' '}
                     </Typography>
                   </Box>
                   <Checkbox
                     disableRipple
                     className="col-md-4 check_box_color"
                     checked={accessControl?.staff?.deleteStaff}
-                    onChange={(e) => {
+                    onChange={e => {
                       setAccessControl({
                         ...accessControl,
                         staff: {
                           ...accessControl.staff,
                           deleteStaff: e.target.checked,
                         },
-                      });
+                      })
                     }}
                   />
                 </Box>
@@ -780,21 +775,21 @@ const Department = () => {
                   <Box className="row">
                     <Box className="d-flex col-md-8 align-items-center">
                       <Typography variant="span">
-                        Give Access to Staff ?{" "}
+                        Give Access to Staff ?{' '}
                       </Typography>
                     </Box>
                     <Checkbox
                       disableRipple
                       className="col-md-4 check_box_color"
                       checked={accessControl?.staff?.accessStaff}
-                      onChange={(e) => {
+                      onChange={e => {
                         setAccessControl({
                           ...accessControl,
                           staff: {
                             ...accessControl.staff,
                             accessStaff: e.target.checked,
                           },
-                        });
+                        })
                       }}
                     />
                   </Box>
@@ -809,42 +804,42 @@ const Department = () => {
                 <Box className="row">
                   <Box className="d-flex col-md-8 align-items-center">
                     <Typography variant="span">
-                      Can View Department ?{" "}
+                      Can View Department ?{' '}
                     </Typography>
                   </Box>
                   <Checkbox
                     disableRipple
                     className="col-md-4 check_box_color"
                     checked={accessControl?.setting?.viewDepartment}
-                    onChange={(e) => {
+                    onChange={e => {
                       setAccessControl({
                         ...accessControl,
                         setting: {
                           ...accessControl.setting,
                           viewDepartment: e.target.checked,
                         },
-                      });
+                      })
                     }}
                   />
                 </Box>
                 <Box className="row">
                   <Box className="d-flex col-md-8 align-items-center">
                     <Typography variant="span">
-                      Can Edit Department ?{" "}
+                      Can Edit Department ?{' '}
                     </Typography>
                   </Box>
                   <Checkbox
                     disableRipple
                     className="col-md-4 check_box_color"
                     checked={accessControl?.setting?.editDepartment}
-                    onChange={(e) => {
+                    onChange={e => {
                       setAccessControl({
                         ...accessControl,
                         setting: {
                           ...accessControl.setting,
                           editDepartment: e.target.checked,
                         },
-                      });
+                      })
                     }}
                   />
                 </Box>
@@ -852,21 +847,21 @@ const Department = () => {
                 <Box className="row">
                   <Box className="d-flex col-md-8 align-items-center">
                     <Typography variant="span">
-                      Can Delete Department ?{" "}
+                      Can Delete Department ?{' '}
                     </Typography>
                   </Box>
                   <Checkbox
                     disableRipple
                     className="col-md-4 check_box_color"
                     checked={accessControl?.setting?.deleteDepartment}
-                    onChange={(e) => {
+                    onChange={e => {
                       setAccessControl({
                         ...accessControl,
                         setting: {
                           ...accessControl.setting,
                           deleteDepartment: e.target.checked,
                         },
-                      });
+                      })
                     }}
                   />
                 </Box>
@@ -878,14 +873,14 @@ const Department = () => {
                     disableRipple
                     className="col-md-4 check_box_color"
                     checked={accessControl?.setting?.viewProduct}
-                    onChange={(e) => {
+                    onChange={e => {
                       setAccessControl({
                         ...accessControl,
                         setting: {
                           ...accessControl.setting,
                           viewProduct: e.target.checked,
                         },
-                      });
+                      })
                     }}
                   />
                 </Box>
@@ -897,35 +892,35 @@ const Department = () => {
                     disableRipple
                     className="col-md-4 check_box_color"
                     checked={accessControl?.setting?.editProduct}
-                    onChange={(e) => {
+                    onChange={e => {
                       setAccessControl({
                         ...accessControl,
                         setting: {
                           ...accessControl.setting,
                           editProduct: e.target.checked,
                         },
-                      });
+                      })
                     }}
                   />
                 </Box>
                 <Box className="row">
                   <Box className="d-flex col-md-8 align-items-center">
                     <Typography variant="span">
-                      Can Delete Product ?{" "}
+                      Can Delete Product ?{' '}
                     </Typography>
                   </Box>
                   <Checkbox
                     disableRipple
                     className="col-md-4 check_box_color"
                     checked={accessControl?.setting?.deleteProduct}
-                    onChange={(e) => {
+                    onChange={e => {
                       setAccessControl({
                         ...accessControl,
                         setting: {
                           ...accessControl.setting,
                           deleteProduct: e.target.checked,
                         },
-                      });
+                      })
                     }}
                   />
                 </Box>
@@ -933,21 +928,21 @@ const Department = () => {
                   <Box className="row">
                     <Box className="d-flex col-md-8 align-items-center">
                       <Typography variant="span">
-                        Give Access to Setting ?{" "}
+                        Give Access to Setting ?{' '}
                       </Typography>
                     </Box>
                     <Checkbox
                       disableRipple
                       className="col-md-4 check_box_color"
                       checked={accessControl?.setting?.accessSetting}
-                      onChange={(e) => {
+                      onChange={e => {
                         setAccessControl({
                           ...accessControl,
                           setting: {
                             ...accessControl.setting,
                             accessSetting: e.target.checked,
                           },
-                        });
+                        })
                       }}
                     />
                   </Box>
@@ -957,7 +952,7 @@ const Department = () => {
           </Box>
           <Box className="mb-1 row">
             <Button
-              sx={{ width: "15px" }}
+              sx={{ width: '15px' }}
               className="mt-2"
               variant="contained"
               onClick={handleUserPermissions}
@@ -994,7 +989,7 @@ const Department = () => {
         )}
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default Department;
+export default Department

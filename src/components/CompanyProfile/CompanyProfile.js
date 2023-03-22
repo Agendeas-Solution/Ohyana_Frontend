@@ -1,40 +1,40 @@
-import React, { useEffect, useState, useContext } from "react";
-import ProfileImg from "../../assets/img/profile_logo.png";
-import { Typography, Box } from "@mui/material";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import { useNavigate } from "react-router-dom";
-import { GetCompanyProfile } from "../../services/apiservices/companyprofile";
-import "./index.css";
-import { AccountBoxSharp } from "@mui/icons-material";
+import React, { useEffect, useState, useContext } from 'react'
+import ProfileImg from '../../assets/img/profile_logo.png'
+import { Typography, Box } from '@mui/material'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
+import { useNavigate } from 'react-router-dom'
+import { GetCompanyProfile } from '../../services/apiservices/companyprofile'
+import './index.css'
+import { AccountBoxSharp } from '@mui/icons-material'
 const CompanyProfile = () => {
-  const navigate = useNavigate();
-  const [companyDetail, setCompanyDetail] = useState({});
-  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate()
+  const [companyDetail, setCompanyDetail] = useState({})
+  const [showPassword, setShowPassword] = useState(false)
   useEffect(() => {
     GetCompanyProfile(
       {},
-      (res) => {
-        if (res.status === 200) {
-          setCompanyDetail(res.data);
+      res => {
+        if (res.success) {
+          setCompanyDetail(res.data)
         }
       },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }, []);
+      err => {
+        console.log(err)
+      },
+    )
+  }, [])
   // localStorage.setItem("userEmail", companyDetail?.member?.email)
   return (
     <>
-      {" "}
+      {' '}
       <div className="w-100 mt-4">
         <Box className="profile_section">
           <Box className="profile_img">
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
               <Box className="userName_and_position">
@@ -42,15 +42,15 @@ const CompanyProfile = () => {
                 <AccountBoxSharp className="userprofile_dummy_icon" />
                 <Box
                   sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
                     marginLeft: 2,
                   }}
                 >
                   <Typography
                     variant="span"
-                    sx={{ fontWeight: "bold", fontSize: "18px" }}
+                    sx={{ fontWeight: 'bold', fontSize: '18px' }}
                   >
                     {companyDetail?.name}
                   </Typography>
@@ -59,8 +59,8 @@ const CompanyProfile = () => {
             </Box>
             <EditRoundedIcon
               onClick={() => {
-                console.log("Printing Edit icon");
-                navigate("/editcompanyprofile");
+                console.log('Printing Edit icon')
+                navigate('/editcompanyprofile')
               }}
               className="edit_icon_profile cursor-pointer"
             />
@@ -137,7 +137,7 @@ const CompanyProfile = () => {
         </Box>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default CompanyProfile;
+export default CompanyProfile

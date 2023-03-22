@@ -1,7 +1,7 @@
-import React from "react";
-import { Box, Typography } from "@mui/material";
-import moment from "moment";
-const ProfileTable = (props) => {
+import React from 'react'
+import { Box, Typography } from '@mui/material'
+import moment from 'moment'
+const ProfileTable = props => {
   return (
     <>
       <Box className="client_profile_table_section">
@@ -12,7 +12,7 @@ const ProfileTable = (props) => {
             </Typography>
             <Typography variant="span">
               {moment(props?.clientProfileDetail?.arrivalDate).format(
-                "DD-MM-YYYY"
+                'DD-MM-YYYY',
               )}
             </Typography>
           </Box>
@@ -23,8 +23,8 @@ const ProfileTable = (props) => {
             <Typography variant="span">
               {moment(
                 props?.clientProfileDetail?.arrivalTime,
-                "hh:mm:ss"
-              ).format("LT")}
+                'hh:mm:ss',
+              ).format('LT')}
             </Typography>
           </Box>
           <Box className="userdetail_root">
@@ -56,7 +56,7 @@ const ProfileTable = (props) => {
               Address
             </Typography>
             <Typography
-              sx={{ maxWidth: "250px", textAlign: "right" }}
+              sx={{ maxWidth: '250px', textAlign: 'right' }}
               variant="span"
             >
               {props?.clientProfileDetail?.address}
@@ -84,7 +84,7 @@ const ProfileTable = (props) => {
                 Indiamart Product Name
               </Typography>
               <Typography
-                sx={{ maxWidth: "250px", textAlign: "right" }}
+                sx={{ maxWidth: '250px', textAlign: 'right' }}
                 variant="span"
               >
                 {props?.clientProfileDetail?.indiaMartProductName}
@@ -97,7 +97,7 @@ const ProfileTable = (props) => {
                 Indiamart Message
               </Typography>
               <Typography
-                sx={{ maxWidth: "250px", textAlign: "right" }}
+                sx={{ maxWidth: '250px', textAlign: 'right' }}
                 variant="span"
               >
                 {props?.clientProfileDetail?.indiaMartMessage}
@@ -108,10 +108,10 @@ const ProfileTable = (props) => {
             <Typography className="userdetail_field_heading" variant="span">
               Product Name
             </Typography>
-            <Box sx={{ maxWidth: "50%" }}>
+            <Box sx={{ maxWidth: '50%' }}>
               {props?.clientProfileDetail?.products
-                .map((data) => {
-                  return " " + data.name;
+                .map(data => {
+                  return ' ' + data.name
                 })
                 .toString()}
             </Box>
@@ -120,18 +120,18 @@ const ProfileTable = (props) => {
             <Typography className="userdetail_field_heading" variant="span">
               Client stage
             </Typography>
-            <Box sx={{ maxWidth: "50%" }}></Box>
+            <Box sx={{ maxWidth: '50%' }}></Box>
           </Box>
           <Box className="userdetail_root">
             <Typography className="userdetail_field_heading" variant="span">
               Current Business
             </Typography>
-            <Box sx={{ maxWidth: "50%" }}></Box>
+            <Box sx={{ maxWidth: '50%' }}></Box>
           </Box>
         </Box>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default ProfileTable;
+export default ProfileTable
