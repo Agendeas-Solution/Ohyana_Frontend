@@ -104,3 +104,6 @@
   font-weight: 600 !important;
   font-size: 16px !important;
 }
+.client_type_select {
+  border: 1px solid #e5e5e5;
+}

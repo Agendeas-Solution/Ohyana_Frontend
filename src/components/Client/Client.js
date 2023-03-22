@@ -40,12 +40,12 @@ import FilterIcon from '../../assets/img/Filter.svg'
 import { styled, useTheme } from '@mui/material/styles'
 import CustomerList from './CustomerList'
 import BusinessCard from './BusinessCard'
-const drawerWidth = 240
+const drawerWidth = 400
 
 const Client = () => {
   const theme = useTheme()
   // const socket = io("http://159.89.165.83", { transports: ["websocket"] });
-  const [value, setValue] = useState('Telephony')
+  const [value, setValue] = useState('Digital')
   const navigate = useNavigate()
   const { flagLoader, permissions } = useContext(AuthContext).state
   const { setFlagLoader } = useContext(AuthContext)
@@ -168,16 +168,16 @@ const Client = () => {
 
   useEffect(() => {
     let data = { page: currentPage, size: rowsPerPage }
-    if (value !== 'All') {
-      data['type'] = value
-    }
+    // if (value !== 'All') {
+    //   data['type'] = value
+    // }
     if (isInternational !== null) {
       data['isInternational'] = isInternational
     }
     if (value === 'PJP') {
       data['pjp'] = true
     }
-    data['stage'] = clientStage
+    data['stage'] = 0
     setClientLoader(true)
     GetAdminClientDetail(
       data,
@@ -219,11 +219,11 @@ const Client = () => {
             scrollButtons="auto"
           >
             {/* <Tab value="All" label="All" /> */}
-            <Tab value="Telephony" label="Telephony" />
-            <Tab value="PJP" label="From PJP" />
+            <Tab value="Digital" label="Digital" />
+            {/* <Tab value="PJP" label="From PJP" /> */}
             <Tab value="BusinessCard" label="Business Card" />
-            <Tab value="Projected" label="Projected" />
-            <Tab value="Regular" label="Regular" />
+            <Tab value="Prospective" label="Prospective" />
+            <Tab value="Existing" label="Existing" />
             <Tab value="OTHER" label="Other" />
           </Tabs>
           <div className="d-flex">
@@ -273,16 +273,57 @@ const Client = () => {
               open={open}
             >
               <DrawerHeader>
-                <IconButton onClick={handleDrawerClose}>
-                  {theme.direction === 'rtl' ? (
-                    <ChevronLeftIcon />
-                  ) : (
-                    <ChevronRightIcon />
-                  )}
-                </IconButton>
+                <Box className="d-flex justify-content-between column w-100 align-items-center">
+                  <Box className="d-flex column justify-content-between w-50 align-items-center">
+                    <IconButton
+                      // sx={{ paddingRight: '10px' }}
+                      // sx={{ paddingRight: '12rem' }}
+                      // className="pe-5"
+                      disableRipple={true}
+                      onClick={handleDrawerClose}
+                    >
+                      {theme.direction === 'rtl' ? (
+                        <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                      ) : (
+                        <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                      )}
+                    </IconButton>
+
+                    <Typography sx={{ fontSize: '16px', paddingRight: '80px' }}>
+                      Filter By
+                    </Typography>
+                  </Box>
+                  <Box className=" d-flex justify-content-end row w-50">
+                    <Typography sx={{ textAlign: 'end' }}>Clear All</Typography>
+                  </Box>
+                </Box>
+                {/* <Box> */}
+
+                {/* </Box> */}
               </DrawerHeader>
               <Divider />
-              <FormControlLabel
+              <Box className="py-3">
+                <div className="row px-3">
+                  <div className="col-md-12 mb-1">
+                    <Typography variant="span">Location</Typography>
+                  </div>
+                  <div className="mb-4">
+                    <TextField
+                      inputProps={{
+                        style: {
+                          height: '50px',
+                        },
+                      }}
+                      className="w-100 h-500"
+                      placeholder="Enter Location"
+                      variant="outlined"
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    <Typography variant="span">Customer Stage</Typography>
+                  </div>
+
+                  {/* <FormControlLabel
                 checked={isInternational === false ? !isInternational : null}
                 onChange={e => {
                   if (e.target.checked === true) {
@@ -292,7 +333,7 @@ const Client = () => {
                   }
                 }}
                 control={<Checkbox className="check_box_color" />}
-                label="Domestic"
+                label="Domesticcc"
               />
               <FormControlLabel
                 checked={isInternational === true ? isInternational : null}
@@ -305,30 +346,36 @@ const Client = () => {
                 }}
                 control={<Checkbox className="check_box_color" />}
                 label="International"
-              />
-              <Autocomplete
-                className="align-items-center d-flex justify-content-center me-2"
-                options={clientType}
-                value={clientStage !== null ? clientType[clientStage] : null}
-                sx={{ width: 200 }}
-                onChange={(e, value) => {
-                  console.log(value)
-                  setClientStage(value?.id)
-                }}
-                getOptionLabel={option => option.stage}
-                renderInput={params => (
-                  <TextField
-                    className="client_type_select"
-                    {...params}
-                    placeholder="Select Client Type"
+              /> */}
+                  <Autocomplete
+                    className="mt-1 mx-2 align-items-center d-flex client_type_select justify-content-center "
+                    options={clientType}
+                    value={
+                      clientStage !== null ? clientType[clientStage] : null
+                    }
+                    // sx={{ width: '30rem' }}
+                    onChange={(e, value) => {
+                      console.log(value)
+                      setClientStage(value?.id)
+                    }}
+                    getOptionLabel={option => option.stage}
+                    renderInput={params => (
+                      <TextField
+                        // className="m-3"
+                        variant="outlined"
+                        // sx={{ width: '24rem' }}
+                        {...params}
+                        placeholder="Confirm"
+                      />
+                    )}
                   />
-                )}
-              />
+                </div>
+              </Box>
             </Drawer>
           </div>
         </Box>
         <Box>
-          {value === 'Telephony' ? (
+          {value === 'Digital' ? (
             <CustomerList
               clientDetails={clientDetails}
               ViewClientDetail={ViewClientDetail}
