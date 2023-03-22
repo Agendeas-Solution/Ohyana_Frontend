@@ -10,13 +10,20 @@ import {
   TableCell,
 } from '@mui/material'
 // import "./index.css";
-import { GetAdminRole } from '../../services/apiservices/adminprofile'
-import { Context as AuthContext } from '../../context/authContext/authContext'
-import { useNavigate } from 'react-router-dom'
+
+// import EditRoundedIcon from "@mui/icons-material/EditRounded";
+// import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import DeleteIcon from "../../assets/img/Delete_Icon.svg";
+import EditIcon from "../../assets/img/Edit_Icon.svg";
+import RoundIcon from "../../assets/img/Round_Icon.svg";
+import { GetAdminRole } from "../../services/apiservices/adminprofile";
+import { Context as AuthContext } from "../../context/authContext/authContext";
+import { useNavigate } from "react-router-dom";
 import {
   GetExpenseList,
   GetExpenseTypeList,
-} from '../../services/apiservices/staffDetail'
+} from "../../services/apiservices/staffDetail";
+import ExpenseType from "./ExpenseType";
 
 const ExpenseList = () => {
   let navigate = useNavigate()
@@ -36,44 +43,51 @@ const ExpenseList = () => {
     roleId: null,
   })
 
-  const [expenseList, setExpenseList] = useState([])
 
-  useEffect(() => {
-    let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
-    path = path.split('/').pop()
-    GetExpenseTypeList(
-      parseInt(path),
-      res => {
-        if (res.status === 200) {
-          //   for (let i = 0; i < res.data.length; i++) {
-          //     for (let j = 0; j < res.data.length; j++) {
-          //       console.log(res.data[i].name);
-          //       console.log(res.data[i].description);
-          //       console.log(res.data[i].departmentId);
-          //       setExpenseList({
-          //         ...expenseList,
-          //         name: res.data[i].name,
-          //         description: res.data[i].description,
-          //         departmentId: res.data[i].id,
-          //         // roles: res.data[i].description,
-          //         // roles: res.data[i][j],
-          //       });
-          //     }
-          //   }
-          setExpenseList(res?.data)
+  const [addExpenseType, setAddExpenseType] = useState({
+    status: false,
+    type: "",
+    description: "",
+  });
+
+  const [expenseList, setExpenseList] = useState([]);
+
+  useEffect(
+    () => {
+      let path = window.location.pathname;
+      console.log("Printing Path of ", path);
+      console.log("Printing ", path.split("/").pop());
+      path = path.split("/").pop();
+      GetExpenseTypeList(
+        parseInt(path),
+        (res) => {
+          if (res.status === 200) {
+            setExpenseList(res?.data);
+          }
+        },
+        (err) => {
+          console.log(err);
         }
-      },
-      err => {
-        console.log(err)
-      },
-    )
-  }, [
-    deleteJobRoleDialogControl.status,
-    jobRoleDialogControl,
-    editExpenseListDialog.status,
-  ])
+      );
+    },
+    [
+      // deleteJobRoleDialogControl.status,
+      // jobRoleDialogControl,
+      // editExpenseListDialog.status,
+    ]
+  );
+
+  const handleCloseDialog = () => {
+    // setAddHolidayDialog({ ...addHolidayDialog, status: false });
+    // setAddHolidayDetail({
+    //   ...addHolidayDetail,
+    //   date: "",
+    //   description: "",
+    //   occasion: "",
+    //   regular: false,
+    // });
+    setAddExpenseType({ ...addExpenseType, status: false });
+  };
 
   return (
     <>
@@ -84,9 +98,14 @@ const ExpenseList = () => {
           </Typography>
           {permissions?.editDepartment && (
             <Button
-              onClick={() => {
-                setJobRoleDialogControl(true)
-              }}
+              onClick={() =>
+                setAddExpenseType({
+                  ...addExpenseType,
+                  status: true,
+                  type: "",
+                  description: "",
+                })
+              }
               variant="contained"
             >
               + Expense Type
@@ -113,12 +132,13 @@ const ExpenseList = () => {
               className="client_profile_table_header"
             >
               <TableRow>
-                <TableCell sx={{ paddingRight: '4px' }}></TableCell>
-                <TableCell sx={{ paddingRight: '64px' }}>Sr No.</TableCell>
-                <TableCell sx={{ paddingRight: '70px' }} align="left">
+
+                <TableCell sx={{ paddingRight: "4px" }}></TableCell>
+                <TableCell sx={{ paddingRight: "68px" }}>Sr No.</TableCell>
+                <TableCell sx={{ paddingRight: "70px" }} align="left">
                   Name
                 </TableCell>
-                <TableCell sx={{ paddingLeft: '130px' }} align="left">
+                <TableCell sx={{ paddingLeft: "75px" }} align="center">
                   Description
                 </TableCell>
                 <TableCell></TableCell>
@@ -138,25 +158,31 @@ const ExpenseList = () => {
                   <Grid item xs={1}>
                     <Typography variant="span">{index + 1}</Typography>
                   </Grid>
-                  <Grid item xs={3}>
+                  <Grid item xs={2}>
                     <Typography variant="span">{data.name}</Typography>
                   </Grid>
                   <Grid item xs={3}>
                     <Typography variant="span">{data.description}</Typography>
                   </Grid>
-                  <Grid item xs={2}>
-                    <Button
-                      variant="contained"
-                      onClick={() => navigate(`/jobroleaccess/${data.id}`)}
-                      className="attendance_button"
-                    >
-                      Edit and Delete Icons
-                    </Button>
+                  <Grid
+                    display="inline-flex"
+                    // justifyContent="flex-end"
+                    // alignItems="flex-end"
+                    item
+                    xs={6}
+                  >
+                    <img className="me-3 p-2" src={EditIcon} alt="" />
+
+                    <img className="iconn ms-2" src={DeleteIcon} alt="" />
                   </Grid>
                 </Grid>
               </Box>
             )
           })}
+        <ExpenseType
+          addExpenseType={addExpenseType}
+          handleCloseDialog={handleCloseDialog}
+        />
       </div>
     </>
   )
