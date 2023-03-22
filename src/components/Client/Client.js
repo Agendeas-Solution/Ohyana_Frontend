@@ -168,16 +168,13 @@ const Client = () => {
 
   useEffect(() => {
     let data = { page: currentPage, size: rowsPerPage }
-    if (value !== 'All') {
-      data['type'] = value
-    }
     if (isInternational !== null) {
       data['isInternational'] = isInternational
     }
     if (value === 'PJP') {
       data['pjp'] = true
     }
-    data['stage'] = clientStage
+    data['stage'] = 0
     setClientLoader(true)
     GetAdminClientDetail(
       data,

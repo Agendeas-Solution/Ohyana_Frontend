@@ -24,7 +24,7 @@ const TeamGraph = ({ selectedPeriod }) => {
     GetTeamReport(
       { selectedPeriod: selectedPeriod },
       res => {
-        setGraphData(res?.data?.data)
+        setGraphData(res?.data)
       },
       err => {},
     )

@@ -58,11 +58,12 @@ const TaskDetail = () => {
   console.log('Printing Path of ', path)
   console.log('Printing ', path.split('/').pop())
   path = path.split('/').pop()
-  const updateCheckListStatus = id => {
+  const updateCheckListStatus = (id) => {
     UpdateCheckListItemStatus(
       [id, path],
       res => {
-        setCheckLists(res?.data?.checklists)
+        setCheckLists(res?.data)
+        debugger
       },
       err => {
         console.log(err)
@@ -74,36 +75,36 @@ const TaskDetail = () => {
       { id: path, task: addCheckList },
       res => {
         setAddCheckList('')
-        setCheckLists(res?.data?.checklists)
+        setCheckLists(res?.data)
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
           message: res.data.message,
         })
       },
-      err => {
+      (err) => {
         console.log(err)
       },
     )
   }
-  const handleDeleteTask = id => {
+  const handleDeleteTask = (id) => {
     DeleteCheckListTask(
       { taskid: path, id: id },
       res => {
-        setCheckLists(res?.data?.checklists)
+        setCheckLists(res?.data)
       },
-      err => {
+      (err) => {
         console.log(err)
       },
     )
   }
-  const DeleteTask = id => {
+  const DeleteTask = (id) => {
     DeleteSingleTask(
       id,
       res => {
         navigate('/task')
       },
-      err => {},
+      (err) => { },
     )
   }
   const handleDialogClose = () => {
@@ -111,14 +112,16 @@ const TaskDetail = () => {
     setEditTaskNameDialog({ ...editTaskNameDialog, status: false })
   }
   useEffect(() => {
-    let countDone = checkLists.filter(data => {
-      let count = 0
-      if (data.done === true) {
-        count = count + 1
-      }
-      return count
-    })
-    setTaskRatio(((countDone.length / checkLists.length) * 100).toFixed(2))
+    if (checkLists) {
+      let countDone = checkLists.filter(data => {
+        let count = 0
+        if (data.done === true) {
+          count = count + 1
+        }
+        return count
+      })
+      setTaskRatio(((countDone.length / checkLists.length) * 100).toFixed(2))
+    }
   }, [checkLists, countDoneTask])
   return (
     <>
@@ -155,7 +158,7 @@ const TaskDetail = () => {
               sx={{ color: '#2E3591' }}
             />
             <FormGroup>
-              {checkLists.map(checklistData => {
+              {checkLists && checkLists.map(checklistData => {
                 if (checklistData.done === false) {
                   return (
                     <Box className="d-flex justify-content-between">
@@ -196,7 +199,7 @@ const TaskDetail = () => {
             </Box>
             <Typography variant="span">Completed</Typography>
             <FormGroup className="completed_task_list">
-              {checkLists.map(checklistData => {
+              {checkLists && checkLists.map(checklistData => {
                 if (checklistData.done === true) {
                   return (
                     <FormControlLabel

@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Box, Typography, Autocomplete, TextField } from '@mui/material'
-import Tab from '@mui/material/Tab'
-import TabContext from '@mui/lab/TabContext'
-import TabList from '@mui/lab/TabList'
-import TabPanel from '@mui/lab/TabPanel'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
 import './index.css'
 import { UserData } from './Data'
 import LineChart from './LineChart'
@@ -22,16 +14,17 @@ const ProductGraph = ({ selectedPeriod }) => {
     GetProductReport(
       { selectedPeriod: selectedPeriod },
       res => {
-        setGraphData(res?.data?.data)
+        setGraphData(res?.data)
       },
-      err => {},
+      (err) => {},
     )
     GetAdminProductList(
       {},
       res => {
         setProductList(res?.data?.products)
+        debugger;
       },
-      err => {},
+      (err) => {},
     )
   }, [selectedPeriod])
   const top100Films = [
