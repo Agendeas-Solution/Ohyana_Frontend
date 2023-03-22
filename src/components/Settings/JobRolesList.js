@@ -68,7 +68,7 @@ const JobRolesList = () => {
       parseInt(path),
       //   null,
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setJobRoleList({
             ...jobRoleList,
             departmentId: res.data.department.id,

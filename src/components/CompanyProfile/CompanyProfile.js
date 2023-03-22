@@ -14,7 +14,7 @@ const CompanyProfile = () => {
     GetCompanyProfile(
       {},
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setCompanyDetail(res.data);
         }
       },

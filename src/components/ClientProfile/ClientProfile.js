@@ -1,11 +1,24 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+} from "@mui/material";
 import "./index.css";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+import ProfileImg from "../../assets/img/profile_logo.png";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import PrintRoundedIcon from "@mui/icons-material/PrintRounded";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import RemainderTable from "./RemainderTable";
 import AppointmentTable from "./AppointmentTable";
@@ -35,8 +48,9 @@ import StageDialog from "./StageDialog";
 import OrderList from "./OrderList";
 const ClientProfile = () => {
   const [value, setValue] = useState("1");
-  const { permissions } = useContext(AuthContext).state;
+  const { flagLoader, permissions } = useContext(AuthContext).state;
   const [remainderDialog, setRemainderDialog] = useState(false);
+  const [callDialog, setCallDialog] = useState(false);
   const [statusDialog, setStatusDialog] = useState(false);
   const [appointmentDialog, setAppointmentDialog] = useState(false);
   const [clientProfileDetail, setClientProfileDetail] = useState({});
@@ -81,6 +95,8 @@ const ClientProfile = () => {
 
   useEffect(() => {
     let path = window.location.pathname;
+    // console.log("Printing Path of ", path);
+    // console.log("Printing ", path.split("/").pop());
     path = path.split("/").pop();
     value === "1" &&
       GetAdminClientStatusDetail(
@@ -132,12 +148,10 @@ const ClientProfile = () => {
   };
 
   const handleCallOpen = () => {
-    setAddPoorContact({
-      ...addPoorContact,
-      status: true,
-    });
+    setCallDialog(true);
   };
   const handleCallClose = () => {
+    setCallDialog(false);
     setAddPoorContact({
       ...addPoorContact,
       status: false,
@@ -460,12 +474,12 @@ const ClientProfile = () => {
               editStatusDialog={editStatusDialog}
             />
           ) : null}
-          {/* {addPoorContact.status === true ? (
+          {addPoorContact.status === true ? (
             <PoorContact
               handleCallClose={handleCallClose}
               addPoorContact={addPoorContact}
             />
-          ) : null} */}
+          ) : null}
           {viewClientStatus.status === true ? (
             <ViewClientStatusDialog
               handleViewStatusDialogClose={handleViewStatusDialogClose}

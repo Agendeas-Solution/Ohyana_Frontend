@@ -460,7 +460,7 @@ const Department = () => {
             {permissions.accessClient && (
               <Box
                 sx={{ marginRight: "30px" }}
-                className="d-flex m-2 w-23 col-md-2 align-items-center justify-content-between row access_checkbox"
+                className="d-flex m-2 align-items-center justify-content-between row access_checkbox"
               >
                 <Box className="col-md-10">
                   <img style={{ marginRight: "1px" }} src={ClientIcon} alt="" />
@@ -468,7 +468,7 @@ const Department = () => {
                     Clients
                   </Typography>
                 </Box>
-                <Box className="col-md-2 ">
+                <Box className="col-md-2">
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -501,7 +501,7 @@ const Department = () => {
             )}
             {/* <Box className="col-md-1"></Box> */}
             {permissions.accessStaff && (
-              <Box className="d-flex m-2 w-23 col-md-2 align-items-center justify-content-between row access_checkbox">
+              <Box className="d-flex m-2 align-items-center justify-content-between row access_checkbox">
                 <Box className="col-md-10 ">
                   <img style={{ marginRight: "1px" }} src={StaffIcon} alt="" />
                   <Typography sx={{ paddingLeft: "8px" }} variant="span">
@@ -541,7 +541,7 @@ const Department = () => {
             )}
             {/* <Box className="col-md-1"></Box> */}
             {permissions.accessSetting && (
-              <Box className="d-flex m-2 w-23 col-md-2 align-items-center justify-content-between row access_checkbox">
+              <Box className="d-flex m-2 align-items-center justify-content-between row access_checkbox">
                 <Box className="col-md-10 ">
                   <img
                     style={{ marginRight: "1px" }}
@@ -589,8 +589,8 @@ const Department = () => {
             )}
             {/* <Box className="col-md-1"></Box> */}
             {permissions.accessSetting && (
-              <Box className="d-flex m-2 w-23 col-md-2 align-items-center justify-content-between row access_checkbox">
-                <Box className="col-md-10 ">
+              <Box className="d-flex m-2 align-items-center justify-content-between row access_checkbox">
+                <Box className="col-md-10">
                   <img
                     style={{ marginRight: "1px" }}
                     src={StatisticsIcon}
