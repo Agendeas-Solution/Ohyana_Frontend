@@ -9,7 +9,7 @@ const DeleteProductDialog = (props) => {
     DeleteAdminProduct(
       id,
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           props.handleClose();
           setSuccessSnackbar({ ...successSnackbar, status: true, message: `${props.DeleteProductDialogControl.type.charAt(0) + props.DeleteProductDialogControl.type.toLowerCase().slice(1)} Deleted Successfully` });
         }

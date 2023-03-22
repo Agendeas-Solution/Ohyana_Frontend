@@ -32,7 +32,7 @@ const EditProfile = () => {
     GetAdminProfile(
       {},
       (res) => {
-        if (res?.status === 200) {
+        if (res?.success) {
           let { member: adminDetail } = res?.data;
           console.log(adminDetail);
           setUserDetail({
@@ -79,7 +79,7 @@ const EditProfile = () => {
     EditAdminProfile(
       data,
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setSuccessSnackbar({ ...successSnackbar, status: true, message: "Profile Edited Successfully" });
           navigate("/profile");
         }

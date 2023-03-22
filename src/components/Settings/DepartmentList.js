@@ -15,8 +15,8 @@ const DepartmentList = () => {
     GetAdminDepartmentList(
       {},
       (res) => {
-        if (res.status === 200) {
-          setAdminDepartmentList(res?.data?.department);
+        if (res.success) {
+          setAdminDepartmentList(res?.data);
         }
       },
       (err) => {

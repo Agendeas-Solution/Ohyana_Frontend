@@ -39,7 +39,7 @@ const EditStaff = () => {
     GetAdminDepartmentList(
       {},
       (res) => {
-        if (res?.status === 200) {
+        if (res?.success) {
           setDepartmentList(res?.data?.department);
         }
       },
@@ -56,7 +56,7 @@ const EditStaff = () => {
     GetAdminStaffProfileDetail(
       parseInt(path),
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setUserDetail({
             ...userDetail,
             employeeName: res.data.member.name,
@@ -82,7 +82,7 @@ const EditStaff = () => {
         GetAdminRole(
           parseInt(userDetail?.departmentId),
           (res) => {
-            if (res.status === 200) {
+            if (res.success) {
               setEmployeeJobRole(res.data?.roles);
             }
           },
@@ -135,7 +135,7 @@ const EditStaff = () => {
         parseInt(path),
         employeeDetail,
         (res) => {
-          if (res.status === 200) {
+          if (res.success) {
             setSuccessDialog(true);
           }
         },

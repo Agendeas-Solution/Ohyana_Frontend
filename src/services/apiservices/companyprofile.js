@@ -10,11 +10,11 @@ export const GetCompanyProfile = async (value, onSuccess, onError) => {
 
     defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
     try {
-        const response = await axiosInstance.get(`/company`, {
+        const {data} = await axiosInstance.get(`/company`, {
             headers: { ...defaultHeaders },
         });
-        console.log("Printing response of GetCompanyProfile", response);
-        onSuccess && onSuccess(response);
+        console.log("Printing data of GetCompanyProfile", data);
+        onSuccess && onSuccess(data);
     } catch (err) {
         console.log("Got error while calling API - GetCompanyProfile", err);
         onError && onError(err);
@@ -24,11 +24,11 @@ export const editCompanyProfile = async (value, onSuccess, onError) => {
 
     defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
     try {
-        const response = await axiosInstance.put(`/company`, value, {
+        const {data} = await axiosInstance.put(`/company`, value, {
             headers: { ...defaultHeaders },
         });
-        console.log("Printing response of editCompanyProfile", response);
-        onSuccess && onSuccess(response);
+        console.log("Printing data of editCompanyProfile", data);
+        onSuccess && onSuccess(data);
     } catch (err) {
         console.log("Got error while calling API - editCompanyProfile", err);
         onError && onError(err);

@@ -10,7 +10,7 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
     const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar);
     const handleTakeCustomer = (customerId) => {
         CustomerTake(customerId, (res) => {
-            if (res?.status === 200) {
+            if (res?.success) {
                 setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
             }
         }, (err) => {

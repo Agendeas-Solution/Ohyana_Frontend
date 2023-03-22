@@ -52,7 +52,7 @@ const UserProfile = () => {
     GetAdminProfile(
       {},
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setUserDetail(res.data);
         }
       },
@@ -64,13 +64,17 @@ const UserProfile = () => {
   localStorage.setItem("userEmail", userDetail?.email)
 
   useEffect(() => {
-    activeTab === "present" && GetAdminAttendanceList(userDetail?.id, (res) => {
-      setStaffAttendanceList(res?.data);
+    activeTab === "present"  && GetAdminAttendanceList(userDetail?.id, (res) => {
+      if (res.success) {
+        setStaffAttendanceList(res?.data);
+      }
     }, (err) => {
 
     })
     activeTab === "leave" && GetAdminLeaveList(userDetail?.id, (res) => {
-      setLeaveList(res?.data)
+      if (res.success) {
+        setLeaveList(res?.data)
+      }
     }, (err) => {
     })
   }, [value, activeTab])

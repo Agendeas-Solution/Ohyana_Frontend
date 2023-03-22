@@ -31,7 +31,7 @@ const Complaint = () => {
         GetComplaintDetail(
             parseInt(path),
             (res) => {
-                if (res.status === 200) {
+                if (res.success) {
                     setComplaintDetail(res?.data);
                     setComplaintProcesses(res?.data?.complaint_processes)
                     debugger;
@@ -49,7 +49,7 @@ const Complaint = () => {
         path = path.split("/").pop();
         setTicketAnswer({ ...ticketAnswer, id: path })
         AddStatusInComplaint(ticketAnswer, (res) => {
-            if (res?.status === 200) {
+            if (res?.success) {
                 setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
                 debugger
             }

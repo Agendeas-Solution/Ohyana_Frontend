@@ -34,7 +34,7 @@ const StaffTarget = () => {
         GetTargetList(
             path,
             (res) => {
-                if (res.status === 200) {
+                if (res.success) {
                     setTargetList(res?.data);
                 }
             },

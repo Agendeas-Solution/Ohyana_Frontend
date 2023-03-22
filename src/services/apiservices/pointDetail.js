@@ -10,11 +10,11 @@ const defaultHeaders = {
 export const GetPointRule = async (value, onSuccess, onError) => {
     defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
     try {
-        const response = await axiosInstance.get("/points/rules", {
+        const {data} = await axiosInstance.get("/points/rules", {
             headers: { ...defaultHeaders },
         });
-        console.log("Printing response of GetPointRule", response);
-        onSuccess && onSuccess(response);
+        console.log("Printing data of GetPointRule", data);
+        onSuccess && onSuccess(data);
     } catch (err) {
         console.log("Got error while calling API - GetPointRule", err);
         onError && onError(err);
@@ -23,11 +23,11 @@ export const GetPointRule = async (value, onSuccess, onError) => {
 export const GetPointTeamMember = async (value, onSuccess, onError) => {
     defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
     try {
-        const response = await axiosInstance.get(`/points?teamId=${value?.teamId}&page=${value?.page}&size=${value.size}&year=${value.year}&month=${value.month}`, {
+        const {data} = await axiosInstance.get(`/points?teamId=${value?.teamId}&page=${value?.page}&size=${value.size}&year=${value.year}&month=${value.month}`, {
             headers: { ...defaultHeaders },
         });
-        console.log("Printing response of GetPointTeamMember", response);
-        onSuccess && onSuccess(response);
+        console.log("Printing data of GetPointTeamMember", data);
+        onSuccess && onSuccess(data);
     } catch (err) {
         console.log("Got error while calling API - GetPointTeamMember", err);
         onError && onError(err);
@@ -36,11 +36,11 @@ export const GetPointTeamMember = async (value, onSuccess, onError) => {
 export const GiveAppreciation = async (value, onSuccess, onError) => {
     defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
     try {
-        const response = await axiosInstance.post(`/appreciation/points/${value}`,{}, {
+        const {data} = await axiosInstance.post(`/appreciation/points/${value}`,{}, {
             headers: { ...defaultHeaders },
         });
-        console.log("Printing response of GiveAppreciation", response);
-        onSuccess && onSuccess(response);
+        console.log("Printing data of GiveAppreciation", data);
+        onSuccess && onSuccess(data);
     } catch (err) {
         console.log("Got error while calling API - GiveAppreciation", err);
         onError && onError(err);

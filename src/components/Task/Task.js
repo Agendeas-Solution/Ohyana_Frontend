@@ -55,7 +55,7 @@ const Task = () => {
         GetTaskList(
             {},
             (res) => {
-                if (res?.status === 200) {
+                if (res?.success) {
                     setTaskList(res?.data);
                 }
             },
@@ -66,7 +66,7 @@ const Task = () => {
     }, [])
     const handleCreateTask = () => {
         CreateTaskCall(createTask, (res) => {
-            if (res?.status === 200) {
+            if (res?.success) {
                 setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
             }
         }, (err) => {

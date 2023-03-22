@@ -104,7 +104,7 @@ const Client = () => {
     //     GetAdminClientDetail(
     //       data,
     //       (res) => {
-    //         if (res?.status === 200) {
+    //         if (res?.success) {
     //           setClientDetails(res?.data.client);
     //         }
     //       },
@@ -122,7 +122,7 @@ const Client = () => {
       GetAdminClientDetail(
         data,
         (res) => {
-          if (res?.status === 200) {
+          if (res?.success) {
             setClientDetails(res?.data.client);
           }
         },
@@ -152,7 +152,7 @@ const Client = () => {
     GetAdminClientDetail(
       data,
       (res) => {
-        if (res?.status === 200) {
+        if (res?.success) {
           setTotalresult(res?.data?.total);
           setClientDetails(res?.data.client);
           let pages =

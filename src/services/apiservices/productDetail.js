@@ -11,11 +11,11 @@ export const GetProductDetail = async (value, onSuccess, onError) => {
 
     defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
     try {
-        const response = await axiosInstance.get(`/product/${value}`, {
+        const {data} = await axiosInstance.get(`/product/${value}`, {
             headers: { ...defaultHeaders },
         });
-        console.log("Printing response of GetOrderList", response);
-        onSuccess && onSuccess(response);
+        console.log("Printing data of GetOrderList", data);
+        onSuccess && onSuccess(data);
     } catch (err) {
         console.log("Got error while calling API - GetOrderList", err);
         onError && onError(err);
@@ -24,11 +24,11 @@ export const GetProductDetail = async (value, onSuccess, onError) => {
 export const GetProductReport = async (value, onSuccess, onError) => {
     defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
     try {
-        const response = await axiosInstance.get(`/report/product?period=${value.selectedPeriod}`, {
+        const {data} = await axiosInstance.get(`/report/product?period=${value.selectedPeriod}`, {
             headers: { ...defaultHeaders },
         });
-        console.log("Printing response of GetProductReport", response);
-        onSuccess && onSuccess(response);
+        console.log("Printing data of GetProductReport", data);
+        onSuccess && onSuccess(data);
     } catch (err) {
         console.log("Got error while calling API - GetProductReport", err);
         onError && onError(err);
@@ -38,11 +38,11 @@ export const GetProductReport = async (value, onSuccess, onError) => {
 export const GetTeamReport = async (value, onSuccess, onError) => {
     defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
     try {
-        const response = await axiosInstance.get(`/report/team?period=${value.selectedPeriod}&comparison=points`, {
+        const {data} = await axiosInstance.get(`/report/team?period=${value.selectedPeriod}&comparison=points`, {
             headers: { ...defaultHeaders },
         });
-        console.log("Printing response of GetProductReport", response);
-        onSuccess && onSuccess(response);
+        console.log("Printing data of GetProductReport", data);
+        onSuccess && onSuccess(data);
     } catch (err) {
         console.log("Got error while calling API - GetProductReport", err);
         onError && onError(err);

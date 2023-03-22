@@ -11,7 +11,7 @@ const AddEditDepartmentDialog = (props) => {
       EditAdminDepartment(
         props?.addEditDepartmentDialogControl?.id, { name: departmentName },
         (res) => {
-          if (res.status === 200) {
+          if (res.success) {
             props.handleClose();
             setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
           }
@@ -24,7 +24,7 @@ const AddEditDepartmentDialog = (props) => {
       AddAdminDepartment(
         { name: departmentName },
         (res) => {
-          if (res.status === 200) {
+          if (res.success) {
             props.handleClose();
             setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
           }

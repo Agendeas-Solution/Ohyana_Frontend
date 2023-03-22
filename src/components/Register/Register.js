@@ -22,7 +22,7 @@ const Register = () => {
         email: "",
         companyName: "",
         password: "",
-        contactNo: ""
+        contact_number: ""
     })
     const [otpValue, setOtpValue] = useState({
         value: null,
@@ -40,7 +40,7 @@ const Register = () => {
     };
     const handleSentOtp = () => {
         SentOtp({ email: registerData?.email }, (res) => {
-            if (res.status === 200) {
+            if (res.success) {
                 setOtpValue({
                     ...otpValue,
                     status: true
@@ -134,8 +134,8 @@ const Register = () => {
                     <Box className="register_textfield">
                         <Box className="textfield">
                             <Typography variant="span">Contact No</Typography>
-                            <TextField type="number" value={registerData?.contactNo} onChange={(e) => {
-                                setRegisterData({ ...registerData, contactNo: e.target.value })
+                            <TextField type="number" value={registerData?.contact_number} onChange={(e) => {
+                                setRegisterData({ ...registerData, contact_number: e.target.value })
                             }} placeholder="ContactNo" variant="outlined" />
                         </Box>
 

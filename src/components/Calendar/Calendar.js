@@ -36,7 +36,7 @@ const Calendar = () => {
     GetAdminAppointmentOrReminder(
       { type: "APPOINTMENT" },
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setAppointmentListDetail(res.data);
           setLoader(false)
         }

@@ -36,7 +36,7 @@ const EditRemainderDialog = (props) => {
                 type: "REMINDER",
             },
                 (res) => {
-                    if (res.status === 200) {
+                    if (res.success) {
                         props.handleRemainderDialogClose();
                         setEditReminderDetail({
                             ...editReminderDetail,

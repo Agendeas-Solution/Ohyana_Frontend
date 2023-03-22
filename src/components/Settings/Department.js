@@ -139,7 +139,7 @@ const Department = () => {
     GetAdminRole(
       parseInt(path),
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setJobRoleList({
             ...jobRoleList,
             departmentId: res.data.department.id,

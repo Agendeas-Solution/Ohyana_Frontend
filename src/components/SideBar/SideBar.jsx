@@ -40,7 +40,7 @@ const SideBar = () => {
     //   GetAdminClientDetail(
     //     data,
     //     (res) => {
-    //       if (res?.status === 200) {
+    //       if (res?.success) {
     //         setClientDetails(res?.data.client);
     //       }
     //     },

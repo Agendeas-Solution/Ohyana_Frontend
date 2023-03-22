@@ -44,7 +44,7 @@ const Staff = () => {
     GetAdminStaffDetailList(
       departmentAndJobRoles,
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setStaffDetailList(res?.data?.team);
           setLoader(false)
         }

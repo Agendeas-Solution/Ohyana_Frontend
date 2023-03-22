@@ -30,7 +30,7 @@ const AddRemainderDialog = (props) => {
     AddCalendarReminder(
       addReminder,
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           props.handleRemainderDialogClose();
           setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message });
           setAddReminder({

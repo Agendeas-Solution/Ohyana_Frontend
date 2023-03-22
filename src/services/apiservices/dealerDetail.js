@@ -10,11 +10,11 @@ const defaultHeaders = {
 export const GetDealerList = async (value, onSuccess, onError) => {
     defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
     try {
-        const response = await axiosInstance.get(`/dealer`, {
+        const {data} = await axiosInstance.get(`/dealer`, {
             headers: { ...defaultHeaders },
         });
-        console.log("Printing response of GetDealerList", response);
-        onSuccess && onSuccess(response);
+        console.log("Printing data of GetDealerList", data);
+        onSuccess && onSuccess(data);
     } catch (err) {
         console.log("Got error while calling API - GetDealerList", err);
         onError && onError(err);
@@ -23,11 +23,11 @@ export const GetDealerList = async (value, onSuccess, onError) => {
 export const AddDealerCall = async (value, onSuccess, onError) => {
     defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
     try {
-        const response = await axiosInstance.post(`/company/dealer`,value, {
+        const data = await axiosInstance.post(`/company/dealer`,value, {
             headers: { ...defaultHeaders },
         });
-        console.log("Printing response of AddDealerCall", response);
-        onSuccess && onSuccess(response);
+        console.log("Printing data of AddDealerCall", data);
+        onSuccess && onSuccess(data);
     } catch (err) {
         console.log("Got error while calling API - AddDealerCall", err);
         onError && onError(err);

@@ -17,7 +17,7 @@ import SettingIcon from '../../assets/img/setting.svg';
 import { Context as AuthContext } from "../../context/authContext/authContext";
 import { useNavigate } from "react-router-dom";
 const JobRolesList = () => {
-  let navigate = useNavigate();
+    let navigate = useNavigate();
     const { flagLoader, permissions } = useContext(AuthContext).state;
     const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false);
     const [deleteJobRoleDialogControl, setDeleteJobRoleDialogControl] =
@@ -52,7 +52,8 @@ const JobRolesList = () => {
         GetAdminRole(
             parseInt(path),
             (res) => {
-                if (res.status === 200) {
+                debugger;
+                if (res.success) {
                     setJobRoleList({
                         ...jobRoleList,
                         departmentId: res.data.department.id,
@@ -83,7 +84,7 @@ const JobRolesList = () => {
                         + Add Job Role
                     </Button>}
                 </Box>
-                {jobRoleList.roles.length > 0 &&
+                {jobRoleList.roles.length > 0 ?
                     jobRoleList?.roles.map((data, index) => {
                         return (
                             <Box className="appointment_notification">
@@ -102,12 +103,14 @@ const JobRolesList = () => {
                                         <Typography variant="span">{data.description}</Typography>
                                     </Grid>
                                     <Grid item spacing={2}>
-                                        <Button variant="contained"   onClick={() => navigate(`/jobroleaccess/${data.id}`)} className="attendance_button">View</Button>
+                                        <Button variant="contained" onClick={() => navigate(`/jobroleaccess/${data.id}`)} className="attendance_button">View</Button>
                                     </Grid>
                                 </Grid>
                             </Box>
                         );
-                    })}
+                    })
+                    : <p>Hello</p>}
+
             </div>
         </>
     )

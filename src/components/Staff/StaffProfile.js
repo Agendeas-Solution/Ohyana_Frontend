@@ -45,7 +45,7 @@ const StaffProfile = () => {
       GetAdminStaffProfileDetail(
         parseInt(path),
         (res) => {
-          if (res.status === 200) {
+          if (res.success) {
             setAdminProfileDetail(res?.data?.member);
           }
         },
@@ -57,7 +57,7 @@ const StaffProfile = () => {
       GetAdminStaffRatingDetail(
         parseInt(path),
         (res) => {
-          if (res.status === 200) {
+          if (res.success) {
             setAdminRatingList(res?.data?.teamFeedbacks);
           }
         },

@@ -48,7 +48,7 @@ const ReminderList = (props) => {
     GetAdminAppointmentOrReminder(
       { type: "REMINDER" },
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setReminderListDetail(res?.data);
           setLoader(false)
         }
@@ -67,13 +67,13 @@ const ReminderList = (props) => {
     DeleteReminder(
       deleteReminderDialogControl.id,
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
           handleDialogClose();
           GetAdminAppointmentOrReminder(
             { type: "REMINDER" },
             (res) => {
-              if (res.status === 200) {
+              if (res.success) {
                 setReminderListDetail(res?.data);
               }
             },

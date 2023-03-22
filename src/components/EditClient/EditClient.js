@@ -36,7 +36,7 @@ const EditClient = () => {
     GetCountryList(
       {},
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setCountryList(res.data.country);
         }
       },
@@ -47,7 +47,7 @@ const EditClient = () => {
     GetAdminClientProfileDetail(
       parseInt(path),
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setUserDetail({
             ...userDetail,
             clientName: res.data.name,
@@ -75,7 +75,7 @@ const EditClient = () => {
     GetAdminProductList(
       {},
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setAdminProductList(res?.data?.products);
           const inquiry_type = [
             ...new Set(userDetail?.product.map((item) => item?.type)),
@@ -145,7 +145,7 @@ const EditClient = () => {
         path,
         clientDetail,
         (res) => {
-          if (res.status === 200) {
+          if (res.success) {
             navigate(`/clientprofile/${path}`);
             setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
           }

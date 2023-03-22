@@ -25,7 +25,8 @@ const Login = () => {
       login(
         { email: userDetail.email, password: userDetail.password },
         (res) => {
-          if (res.status === 200) {
+          debugger;
+          if (res.success) {
             setAuthorize(true);
             setFlagLoader(false)
             navigate("/profile");

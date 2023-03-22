@@ -36,7 +36,7 @@ const EditAppointmentDialog = (props) => {
                 type: "APPOINTMENT",
             },
                 (res) => {
-                    if (res.status === 200) {
+                    if (res.success) {
                         props.handleAppointmentDialogClose();
                         setEditAppointment({
                             ...editAppointment, heading: "",

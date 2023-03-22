@@ -14,7 +14,7 @@ const ForgotPasswordEmail = () => {
     const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar);
     const handleForgotPassword = () => {
         console.log(userDetail.email);
-        ForgotPassword(userDetail, (res) => {
+        ForgotPassword({email:userDetail.email}, (res) => {
             setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
         }, (err) => {
             setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.error })
@@ -28,7 +28,7 @@ const ForgotPasswordEmail = () => {
                 </Box>
                 <Box className="login_form_root">
                     <Typography className="login_heading_root" variant="span">
-                        Welcome To BiguarTech.
+                        Welcome To Ohyana.
                     </Typography>
                     <Box className="login_email_root">
                         <label for="email">Email</label>

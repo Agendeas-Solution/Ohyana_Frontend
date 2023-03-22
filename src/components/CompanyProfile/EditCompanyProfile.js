@@ -19,7 +19,7 @@ const EditCompanyProfile = () => {
         GetCompanyProfile(
             {},
             (res) => {
-                if (res?.status === 200) {
+                if (res?.success) {
                     setCompanyDetail({
                         ...companyDetail,
                         companyName: res.data?.name,
@@ -48,7 +48,7 @@ const EditCompanyProfile = () => {
         editCompanyProfile(
             data,
             (res) => {
-                if (res.status === 200) {
+                if (res.success) {
                     setSuccessSnackbar({ ...successSnackbar, status: true, message: "Profile Edited Successfully" });
                     navigate("/profile");
                 }

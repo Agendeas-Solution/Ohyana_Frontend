@@ -41,7 +41,7 @@ const AppointmentList = (props) => {
     DeleteAppointment(
       deleteAppointmentDialogControl.id,
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setDeleteAppointmentDialogControl({ ...deleteAppointmentDialogControl, status: false })
           console.log(successSnackbar);
           setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message });
@@ -49,7 +49,7 @@ const AppointmentList = (props) => {
           GetAdminAppointmentOrReminder(
             { type: "APPOINTMENT" },
             (res) => {
-              if (res.status === 200) {
+              if (res.success) {
                 props.setAppointmentListDetail(res.data);
               }
             },

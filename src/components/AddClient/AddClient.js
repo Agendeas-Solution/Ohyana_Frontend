@@ -45,7 +45,7 @@ const AddClient = () => {
     GetAdminProductList(
       {},
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setAdminProductList(res?.data?.products);
         }
       },
@@ -56,7 +56,7 @@ const AddClient = () => {
     GetCountryList(
       {},
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setCountryList(res.data.country);
         }
       },
@@ -69,7 +69,7 @@ const AddClient = () => {
     GetAdminProductList(
       {},
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setAdminProductList(res?.data?.products);
           const inquiry_type = [
             ...new Set(userDetail?.product.map((item) => item?.type)),

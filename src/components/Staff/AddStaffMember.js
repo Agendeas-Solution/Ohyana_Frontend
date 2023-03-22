@@ -37,7 +37,7 @@ const AddStaffMember = () => {
     GetAdminDepartmentList(
       {},
       (res) => {
-        if (res?.status === 200) {
+        if (res?.success) {
           setDepartmentList(res?.data?.department);
         }
       },
@@ -51,7 +51,7 @@ const AddStaffMember = () => {
         GetAdminRole(
           parseInt(userDetail?.departmentId),
           (res) => {
-            if (res.status === 200) {
+            if (res.success) {
               setEmployeeJobRole(res.data?.roles);
             }
           },

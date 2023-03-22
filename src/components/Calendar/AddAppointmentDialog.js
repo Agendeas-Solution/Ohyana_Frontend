@@ -29,7 +29,7 @@ const AddAppointmentDialog = (props) => {
     AddCalendarAppointment(
       addAppointment,
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           props.handleAppointmentDialogClose();
           setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message });
           setAddAppointment({

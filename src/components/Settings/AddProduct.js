@@ -28,7 +28,7 @@ const AddProduct = (props) => {
       EditAdminProduct(
         productDetail, parseInt(path),
         (res) => {
-          if (res.status === 200) {
+          if (res.success) {
             console.log("printing Data", res.data)
           }
         },
@@ -39,7 +39,7 @@ const AddProduct = (props) => {
       AddAdminProduct(
         productDetail,
         (res) => {
-          if (res.status === 200) {
+          if (res.success) {
             console.log("printing Data", res.data)
           }
         },

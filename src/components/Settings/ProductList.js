@@ -38,7 +38,7 @@ const ProductList = () => {
     GetAdminProductList(
       {},
       (res) => {
-        if (res.status === 200) {
+        if (res.success) {
           setAdminProductList(res?.data?.products);
         }
       },

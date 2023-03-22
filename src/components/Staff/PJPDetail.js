@@ -52,7 +52,7 @@ const PJPDetail = () => {
                 day: value
             },
             (res) => {
-                if (res.status === 200) {
+                if (res.success) {
                     setPjpList(res?.data?.pjps);
                 }
             },

@@ -21,7 +21,7 @@ const ClientStatusCloseDialog = (props) => {
         GetAdminRole(
           parseInt(addNotificationDetail?.departmentId),
           (res) => {
-            if (res.status === 200) {
+            if (res.success) {
               setEmployeeJobRole(res.data?.roles);
             }
           },
