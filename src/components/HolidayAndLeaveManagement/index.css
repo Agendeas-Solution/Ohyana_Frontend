@@ -27,7 +27,7 @@ table {
 }
 
 .occassional_holiday_section {
-  border: 1px solid #E5E6EB;
+  border: 1px solid #e5e6eb;
   border-radius: 5px;
   padding: 10px;
   display: flex;
@@ -42,7 +42,7 @@ table {
 .regular_holiday_section {
   display: flex;
   flex-direction: column;
-  border: 1px solid #E5E6EB;
+  border: 1px solid #e5e6eb;
   border-radius: 5px;
   padding: 5px;
   width: 49%;
@@ -50,7 +50,7 @@ table {
 }
 
 .leave_management_section {
-  border: 1px solid #E5E6EB;
+  border: 1px solid #e5e6eb;
   border-radius: 5px;
   width: 49%;
 }
@@ -61,11 +61,12 @@ table {
 }
 
 .sub_heading {
-  color: #8E8E8E;
+  color: #8e8e8e;
+  /* margin: 24px 25px; */
 }
 
 .leave_holidays_table_header {
-  background-color: #F1F2F6;
+  background-color: #f1f2f6;
   border-radius: 5px;
 }
 
@@ -75,9 +76,16 @@ table {
 }
 
 .leave_holiday_buttons {
-  background: #F1F2F6 !important;
-  color: #2E3591 !important;
+  background: #f1f2f6 !important;
+  color: #2e3591 !important;
   text-transform: capitalize !important;
-  padding:5px !important;
+  padding: 5px !important;
   box-shadow: none !important;
+  /* margin: 16px 25px 14px 0px; */
+}
+
+.add_button {
+  margin-top: 16px;
+  margin-bottom: 14px;
+  margin-right: 25px;
 }

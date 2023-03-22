@@ -10,6 +10,7 @@ import {
   TableRow,
   Paper,
   Button,
+  Divider,
 } from "@mui/material";
 import "./index.css";
 import Tab from "@mui/material/Tab";
@@ -283,6 +284,7 @@ const ClientProfile = () => {
                 <Tab label="Profile" value="4" />
                 <Tab label="Orders" value="5" />
               </TabList>
+
               <Box>
                 {value === "1" ? (
                   <>
@@ -297,6 +299,7 @@ const ClientProfile = () => {
                       Status
                     </Button>
                     <Button className="common_button">Close</Button>
+
                     {/* <Button className="status_close_button" variant="contained">
                       Status Close
                     </Button> */}
@@ -340,6 +343,7 @@ const ClientProfile = () => {
                 ) : null}
               </Box>
             </Box>
+            <Divider sx={{ margin: "0 auto" }} />
             <TabPanel value="1">
               <TableContainer sx={{ height: "50vh" }} component={Paper}>
                 {clientStatusList.length > 0 ? (

@@ -122,7 +122,6 @@ export const DeleteDepartment = async (id, onSuccess, onError) => {
   }
 };
 
-
 export const DeleteJobRole = async (id, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
@@ -189,8 +188,7 @@ export const GetExpenseList = async (value, onSuccess, onError) => {
     onError && onError(err);
   }
 };
-
-export const PaymentStatusUpdate = async (value, onSuccess, onError) => {
+export const GetExpenseTypeList = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
     const {data} = await axiosInstance.patch(`/expense/${value}?payment=true`, { status: "DONE" }, {
