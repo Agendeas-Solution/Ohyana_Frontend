@@ -191,10 +191,27 @@ export const GetExpenseList = async (value, onSuccess, onError) => {
 export const GetExpenseTypeList = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
   try {
-    const {data} = await axiosInstance.patch(`/expense/${value}?payment=true`, { status: "DONE" }, {
+    const {data} = await axiosInstance.get(`/expense`, {
       headers: { ...defaultHeaders },
     });
-    console.log("Printing data of PaymentStatusUpdate", data);
+    console.log("Printing response of GetExpenseList", data);
+    onSuccess && onSuccess(data);
+  } catch (err) {
+    console.log("Got error while calling API - GetExpenseList", err);
+    onError && onError(err);
+  }
+};
+export const PaymentStatusUpdate = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get("userToken")}`;
+  try {
+    const {data} = await axiosInstance.patch(
+      `/expense/${value}?payment=true`,
+      { status: "DONE" },
+      {
+        headers: { ...defaultHeaders },
+      }
+    );
+    console.log("Printing response of PaymentStatusUpdate", data);
     onSuccess && onSuccess(data);
   } catch (err) {
     console.log("Got error while calling API - PaymentStatusUpdate", err);
