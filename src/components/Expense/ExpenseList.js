@@ -22,6 +22,7 @@ import {
   GetExpenseList,
   GetExpenseTypeList,
 } from "../../services/apiservices/staffDetail";
+import ExpenseType from "./ExpenseType";
 
 const ExpenseList = () => {
   let navigate = useNavigate();
@@ -41,29 +42,50 @@ const ExpenseList = () => {
     roleId: null,
   });
 
+  const [addExpenseType, setAddExpenseType] = useState({
+    status: false,
+    type: "",
+    description: "",
+  });
+
   const [expenseList, setExpenseList] = useState([]);
 
-  useEffect(() => {
-    let path = window.location.pathname;
-    console.log("Printing Path of ", path);
-    console.log("Printing ", path.split("/").pop());
-    path = path.split("/").pop();
-    GetExpenseTypeList(
-      parseInt(path),
-      (res) => {
-        if (res.status === 200) {
-          setExpenseList(res?.data);
+  useEffect(
+    () => {
+      let path = window.location.pathname;
+      console.log("Printing Path of ", path);
+      console.log("Printing ", path.split("/").pop());
+      path = path.split("/").pop();
+      GetExpenseTypeList(
+        parseInt(path),
+        (res) => {
+          if (res.status === 200) {
+            setExpenseList(res?.data);
+          }
+        },
+        (err) => {
+          console.log(err);
         }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }, [
-    deleteJobRoleDialogControl.status,
-    jobRoleDialogControl,
-    editExpenseListDialog.status,
-  ]);
+      );
+    },
+    [
+      // deleteJobRoleDialogControl.status,
+      // jobRoleDialogControl,
+      // editExpenseListDialog.status,
+    ]
+  );
+
+  const handleCloseDialog = () => {
+    // setAddHolidayDialog({ ...addHolidayDialog, status: false });
+    // setAddHolidayDetail({
+    //   ...addHolidayDetail,
+    //   date: "",
+    //   description: "",
+    //   occasion: "",
+    //   regular: false,
+    // });
+    setAddExpenseType({ ...addExpenseType, status: false });
+  };
 
   return (
     <>
@@ -74,9 +96,17 @@ const ExpenseList = () => {
           </Typography>
           {permissions?.editDepartment && (
             <Button
-              onClick={() => {
-                setJobRoleDialogControl(true);
-              }}
+              // onClick={() => {
+              //   setJobRoleDialogControl(true);
+              // }}
+              onClick={() =>
+                setAddExpenseType({
+                  ...addExpenseType,
+                  status: true,
+                  type: "",
+                  description: "",
+                })
+              }
               variant="contained"
             >
               + Expense Type
@@ -149,6 +179,10 @@ const ExpenseList = () => {
               </Box>
             );
           })}
+        <ExpenseType
+          addExpenseType={addExpenseType}
+          handleCloseDialog={handleCloseDialog}
+        />
       </div>
     </>
   );
