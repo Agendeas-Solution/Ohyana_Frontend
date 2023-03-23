@@ -12,7 +12,6 @@ const Header = () => {
   useEffect(() => {
     let path = window.location.pathname;
     setPathName(path);
-    console.log("Printing Path of ", path);
   });
   const prevRoute = useLocation();
   const handleGoback = () => {

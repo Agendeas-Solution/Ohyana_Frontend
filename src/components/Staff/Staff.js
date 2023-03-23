@@ -67,23 +67,24 @@ const Staff = () => {
       departmentAndJobRoles,
       res => {
         if (res.success) {
-          setStaffDetailList(res?.data?.team)
+          setStaffDetailList(res?.data)
           setLoader(false)
         }
       },
-      err => {
-        console.log('Printing ', err)
+      (err) => {
+        console.log(err);
         setLoader(false)
-      },
+      }
     )
   }, [value, departmentAndJobRoles])
   useEffect(() => {
     GetAdminDepartmentList(
       {},
       res => {
-        setDepartmentList(res?.data?.department)
+        setDepartmentList(res?.data)
+        debugger;
       },
-      err => {
+      (err) => {
         console.log('Printing Error', err)
       },
     )
@@ -92,22 +93,22 @@ const Staff = () => {
     GetAdminRole(
       departmentAndJobRoles?.departmentId,
       res => {
-        setJobRoleList(res.data.roles)
+        setJobRoleList(res.data)
+        debugger;
       },
-      err => {
+      (err) => {
         console.log('Printing Error', err)
       },
     )
   }, [departmentAndJobRoles?.departmentId])
   useEffect(() => {
-    console.log('datePicker', datePicker.$M)
     value === '2' &&
       GetUsersAttendanceList(
         { month: datePicker.$M, year: datePicker.$y },
         res => {
           setUserAttendanceList(res?.data)
         },
-        err => {},
+        (err) => { console.log('Printing Error', err) },
       )
   }, [value, datePicker])
   return (
@@ -305,10 +306,10 @@ const Staff = () => {
                                     status?.attendanceType === 'LT'
                                       ? 'late_status_color'
                                       : status?.attendanceType === 'A'
-                                      ? 'absent_status_color'
-                                      : status?.attendanceType === 'L'
-                                      ? 'leave_status_color'
-                                      : 'present_status_color'
+                                        ? 'absent_status_color'
+                                        : status?.attendanceType === 'L'
+                                          ? 'leave_status_color'
+                                          : 'present_status_color'
                                   }
                                   align="right"
                                 >

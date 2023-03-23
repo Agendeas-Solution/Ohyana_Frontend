@@ -59,9 +59,9 @@ const ExpenseList = () => {
       path = path.split('/').pop()
       GetExpenseTypeList(
         parseInt(path),
-        res => {
-          if (res.status === 200) {
-            setExpenseList(res?.data)
+        (res) => {
+          if (res?.success) {
+            setExpenseList(res?.data);
           }
         },
         err => {
