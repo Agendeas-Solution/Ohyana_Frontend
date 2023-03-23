@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Typography,
@@ -7,8 +7,9 @@ import {
   DialogContent,
   DialogActions,
   Dialog,
-} from "@mui/material";
-import "./index.css";
+  TextareaAutosize,
+} from '@mui/material'
+// import './index.css'
 const ExpenseType = ({
   addExpenseType,
   //   setAddLeaveDialog,
@@ -18,17 +19,24 @@ const ExpenseType = ({
 }) => {
   return (
     <>
-      <Dialog open={addExpenseType.status} onClose={handleCloseDialog}>
-        <div className="px-3 pt-3 text-center">
+      <Dialog
+        // fullWidth
+
+        // maxWidth="sm"
+
+        open={addExpenseType.status}
+        onClose={handleCloseDialog}
+      >
+        <div className="px-3 pt-3 text-center ms-5 me-5">
           <h3>Expense Type</h3>
         </div>
         <DialogContent>
           <Box className="py-3">
             <div className="row">
               <div className="col-md-12">
-                <Typography variant="span">Expense Type</Typography>
+                <Typography variant="span">Name</Typography>
               </div>
-              <div className="col-md-12">
+              <div>
                 <TextField
                   value={addExpenseType.type}
                   //   onChange={(e) => {
@@ -37,20 +45,26 @@ const ExpenseType = ({
                   //       type: e.target.value,
                   //     });
                   //   }}
-                  className="w-100"
+                  inputProps={{
+                    style: {
+                      height: '50px',
+                    },
+                  }}
+                  className="w-100 h-500"
                   placeholder="Expense Type"
                   variant="outlined"
                 />
               </div>
             </div>
           </Box>
+
           <Box className="py-3">
             <div className="row">
               <div className="col-md-6">
-                <Typography variant="span">Description</Typography>
+                <Typography variant="span">Details</Typography>
               </div>
               <div className="col-md-12">
-                <TextField
+                <TextareaAutosize
                   type="number"
                   value={addExpenseType.duration}
                   //   onChange={(e) => {
@@ -59,6 +73,7 @@ const ExpenseType = ({
                   //       duration: e.target.value,
                   //     });
                   //   }}
+                  // PaperProps={{ sx: { width: '30%', height: '100%' } }}
                   className="w-100"
                   placeholder="Description Here..."
                   variant="outlined"
@@ -68,13 +83,13 @@ const ExpenseType = ({
           </Box>
         </DialogContent>
         <DialogActions
-          sx={{ marginLeft: "13px", marginRight: "13px" }}
+          sx={{ marginLeft: '13px', marginRight: '13px' }}
           className="mt-1 d-flex justify-content-between"
         >
           <Button
             variant="contained"
             className="ok-btn"
-            sx={{}}
+            sx={{ marginLeft: '5rem', backgroundColor: '#2E3591' }}
             // onClick={addExpenseType?.id ? UpdateLeave : AddLeave}
           >
             Save
@@ -85,7 +100,7 @@ const ExpenseType = ({
         </DialogActions>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default ExpenseType;
+export default ExpenseType

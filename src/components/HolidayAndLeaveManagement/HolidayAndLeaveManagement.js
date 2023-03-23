@@ -159,15 +159,13 @@ const HolidayAndLeaveManagement = () => {
       <Box className="leave_holiday_section">
         {/* <Box className="dummy"> */}
         <Box
-
-          sx={{ marginBottom: "10px" }}
+          sx={{ marginBottom: '10px' }}
           // className="w-100"
           className="occassional_holiday_section"
         >
           {/* <Box className="dummy_class"> */}
           <Box className="holiday_inner_class">
             <Box>
-
               <Typography variant="span" pl={1}>
                 Holidays
               </Typography>
@@ -176,7 +174,7 @@ const HolidayAndLeaveManagement = () => {
                 //   setAddHolidayDetail({ ...addHolidayDetail, regular: true });
                 //   setAddHolidayDialog({ ...addHolidayDialog, status: true });
                 // }}
-                sx={{ float: "right", marginBottom: "5px" }}
+                sx={{ float: 'right', marginBottom: '5px' }}
                 className="leave_holiday_buttons"
                 variant="span"
               >
@@ -196,12 +194,12 @@ const HolidayAndLeaveManagement = () => {
                   </TableHead>
                   <TableBody>
                     {holidayList.length > 0 &&
-                      holidayList.map((data) => {
+                      holidayList.map(data => {
                         return (
                           <TableRow>
                             <TableCell>{data?.date}</TableCell>
                             <TableCell align="left">
-                              {data?.occasion}{" "}
+                              {data?.occasion}{' '}
                             </TableCell>
                             <TableCell align="left">{data?.duration}</TableCell>
                             <td className="common_row">
@@ -211,10 +209,10 @@ const HolidayAndLeaveManagement = () => {
                                     setAddHolidayDialog({
                                       ...addHolidayDialog,
                                       status: true,
-                                    });
-                                    let value = data;
-                                    value.regular = false;
-                                    setAddHolidayDetail(value);
+                                    })
+                                    let value = data
+                                    value.regular = false
+                                    setAddHolidayDetail(value)
                                   }}
                                   className="icon common_row"
                                 />
@@ -227,7 +225,7 @@ const HolidayAndLeaveManagement = () => {
                               </Box>
                             </td>
                           </TableRow>
-                        );
+                        )
                       })}
                   </TableBody>
                 </Table>
@@ -265,7 +263,7 @@ const HolidayAndLeaveManagement = () => {
         <Box
           // display="flex"
           variant="span"
-          sx={{ marginLeft: "0px" }}
+          sx={{ marginLeft: '0px' }}
           // className="row mt-2 leave_holiday_row"
           className=" row ms-4 dummy"
         >
@@ -275,7 +273,6 @@ const HolidayAndLeaveManagement = () => {
               className="leave_management_header mb-2 mt-2"
             >
               <Typography
-
                 // sx={{ marginTop: "19px", marginLeft: "5px" }}
                 // sx={{ marginTop: "5px", marginLeft: "5px" }}
                 className="sub_heading"
@@ -284,7 +281,6 @@ const HolidayAndLeaveManagement = () => {
                 Leave Management
               </Typography>
               <Button
-
                 // sx={{
                 //   marginTop: "16px",
                 //   marginBottom: "14px",
@@ -328,8 +324,7 @@ const HolidayAndLeaveManagement = () => {
                           <TableCell align="right">{row.duration}</TableCell>
                           <TableCell align="right">
                             <EditRoundedIcon
-
-                              sx={{ marginLeft: "4rem" }}
+                              sx={{ marginLeft: '4rem' }}
                               onClick={() => {
                                 setAddLeaveDialog({
                                   ...addLeaveDialog,
@@ -355,25 +350,24 @@ const HolidayAndLeaveManagement = () => {
           </Box>
 
           {/* </Box> */}
-          <Box sx={{ marginRight: "10px" }} className="regular_holiday_section">
+          <Box sx={{ marginRight: '10px' }} className="regular_holiday_section">
             {/* <Box className="regular_holiday_section"> */}
             <Box className="regular_holiday_heading mb-3">
               <Typography
                 // sx={{ marginTop: "24px", marginLeft: "25px" }}
-                sx={{ marginTop: "5px", marginLeft: "5px" }}
+                sx={{ marginTop: '5px', marginLeft: '5px' }}
                 className="sub_heading"
                 variant="span"
               >
                 Regular Holiday On
               </Typography>
               <Button
-
                 // sx={{
                 //   marginTop: "16px",
                 //   marginBottom: "14px",
                 //   marginRight: "5px",
                 // }}
-                sx={{ marginTop: "5px", marginLeft: "5px", marginRight: "7px" }}
+                sx={{ marginTop: '5px', marginLeft: '5px', marginRight: '7px' }}
                 className="leave_holiday_buttons"
                 variant="contained"
               >
