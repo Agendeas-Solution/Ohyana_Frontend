@@ -626,11 +626,14 @@ const Staff = () => {
             {/* <TableContainer className="mt-2"> */}
             <TableContainer>
               <Table
-                style={{
-                  borderCollapse: 'separate',
-                  borderSpacing: '0 4px',
-                  // borderRadius: '5px',
-                }}
+                style={
+                  {
+                    // borderCollapse: 'separate',
+                    // borderSpacing: '0 4px',
+                    // borderRadius: '5px',
+                  }
+                }
+                className="team_member_table"
               >
                 <TableHead>
                   <TableRow sx={{ backgroundColor: '#f1f2f6' }}>
