@@ -61,11 +61,19 @@ const JobRolesList = () => {
   let navigate = useNavigate()
   const { flagLoader, permissions } = useContext(AuthContext).state
   const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false)
+  const [
+    addEditDepartmentDialogControlDummy,
+    setAddEditDepartmentDialogControlDummy,
+  ] = useState(false)
   const [deleteJobRoleDialogControl, setDeleteJobRoleDialogControl] = useState({
     status: false,
     id: null,
   })
 
+  const handleClose = () => {
+    // setJobRoleDialogControl(false)
+    setAddEditDepartmentDialogControlDummy(false)
+  }
   const [deleteDepartmentDialogControl, setDeleteDepartmentControl] = useState({
     status: false,
     id: null,
@@ -132,7 +140,12 @@ const JobRolesList = () => {
           {permissions?.editDepartment && (
             <Button
               onClick={() => {
-                setJobRoleDialogControl(true)
+                // setJobRoleDialogControl(true)
+                setAddEditDepartmentDialogControlDummy({
+                  // ...addEditDepartmentDialogControl,
+                  ...addEditDepartmentDialogControlDummy,
+                  status: true,
+                })
               }}
               variant="contained"
             >
@@ -236,6 +249,12 @@ const JobRolesList = () => {
             )
           })}
       </div>
+      <EditJobRoleDialog
+        // editJobRoleDialogControl={addEditDepartmentDialogControl}
+        editJobRoleDialogControl={addEditDepartmentDialogControlDummy}
+        // addEditDepartmentDialogControl={addEditDepartmentDialogControl}
+        handleClose={handleClose}
+      />
     </>
   )
 }

@@ -248,7 +248,8 @@ const Department = () => {
     <>
       <Box className="main_section mt-3">
         <Box className="sales_header_section">
-          <Typography variant="h5">{jobRoleList.name}</Typography>
+          {/* <Typography variant="h5">{jobRoleList.name}</Typography> */}
+          <Typography variant="h5">Jr. Sales Person</Typography>
           <Box>
             {permissions?.editDepartment && (
               <EditRoundedIcon
@@ -261,7 +262,7 @@ const Department = () => {
                     departmentName: jobRoleList.name,
                   })
                 }}
-                className="edit_icon_profile"
+                className="edit_icon_profile "
               />
             )}
             {permissions?.deleteDepartment && (
@@ -313,7 +314,7 @@ const Department = () => {
 
           <Box className="mb-1 row">
             <FormControl
-              sx={{ width: '30rem', marginRight: 5 }}
+              sx={{ width: '32rem', marginRight: 5 }}
               className="mb-3"
             >
               <InputLabel id="demo-simple-select-label">

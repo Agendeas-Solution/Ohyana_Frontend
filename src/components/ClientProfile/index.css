@@ -83,6 +83,7 @@ audio::-internal-media-controls-download-button {
 
 .client_profile_table_header tr th {
   font-weight: 600;
+  background-color: #f1f2f6;
 }
 
 .client_profile_edit_button {
