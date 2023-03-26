@@ -102,13 +102,38 @@ const Task = () => {
   }
 
   return (
+    // <Box className="d-flex flex-row justify-content-between align-items-center mx-2 px-2">
+    //     <Typography variant="span">Overview</Typography>
+    //     <Box>
+    //       <FormControl variant="outlined">
+    //         <OutlinedInput
+    //           sx={{ background: '#fff' }}
+    //           className="mx-2"
+    //           placeholder="Search Here..."
+    //           startAdornment={
+    //             <InputAdornment position="start" sx={{ background: '#fff' }}>
+    //               <IconButton>
+    //                 <SearchRoundedIcon />
+    //               </IconButton>
+    //             </InputAdornment>
+    //           }
+    //           label="Password"
+    //         />
+    //       </FormControl>
+    //       <IconButton edge="end">
+    //         <img src={FilterIcon} alt="" />
+    //       </IconButton>
+    //     </Box>
+    //   </Box>
     <>
       <Box className="task_section">
-        <Box className="common_row m-2">
+        <Box className=" mt-2 mb-2 mx-2 px-2 common_row d-flex flex-row justify-content-between align-items-center">
           <Typography variant="span">Overview</Typography>
           <Box>
             <FormControl variant="outlined">
               <OutlinedInput
+                sx={{ background: '#fff' }}
+                className="mx-2"
                 placeholder="Search Here..."
                 startAdornment={
                   <InputAdornment position="start" sx={{ background: '#fff' }}>
@@ -121,6 +146,7 @@ const Task = () => {
               />
             </FormControl>
             <Button
+              className="mx-3 p-3"
               onClick={handleClickOpen}
               sx={{ background: '#fff' }}
               variant="filled"

@@ -258,6 +258,7 @@ const Client = () => {
                 <img src={FilterIcon} alt="" />
               </IconButton>
             </Toolbar>
+
             <Drawer
               sx={{
                 width: 2,
@@ -299,7 +300,9 @@ const Client = () => {
 
                 {/* </Box> */}
               </DrawerHeader>
+
               <Divider />
+
               <Box className="py-3">
                 <div className="row px-3">
                   <div className="col-md-12 mb-1">

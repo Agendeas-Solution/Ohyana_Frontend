@@ -11,6 +11,7 @@ const DepartmentList = () => {
   const [AdminDepartmentList, setAdminDepartmentList] = useState([])
   const [addEditDepartmentDialogControl, setAddEditDepartmentDialogControl] =
     useState(false)
+
   useEffect(() => {
     GetAdminDepartmentList(
       {},
@@ -41,7 +42,7 @@ const DepartmentList = () => {
               })
             }}
             // variant="contained"
-            className="main_button"
+            className="main_department_button"
           >
             + Add Department
           </Button>

@@ -10,6 +10,8 @@ import SampleProduct from '../../assets/img/sample_product.png'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import ViewProductDialog from './ViewProductDialog'
 import { useNavigate } from 'react-router-dom'
+import Snacks from '../../assets/img/Snacks.svg'
+
 const ProductList = () => {
   const { flagLoader, permissions } = useContext(AuthContext).state
   const navigate = useNavigate()
@@ -71,7 +73,8 @@ const ProductList = () => {
                 navigate('/addproduct')
               }}
               // variant="contained"
-              className="main_button"
+              className="main_product_button"
+              sx={{ color: '#2E3591' }}
             >
               + Add Product
             </Button>
@@ -82,10 +85,11 @@ const ProductList = () => {
             <div className="p-2 h-75 row">
               {AdminProductList.map(row => {
                 let image_url = `${process.env.REACT_APP_API_CALL_URL}/file/${row?.imageUrl}`
+                console.log(image_url)
                 return (
                   <>
                     <Box
-                      className="product_card"
+                      className="product_card me-4 mx-3"
                       onClick={() =>
                         setViewProductDialog({
                           ...viewProductDialog,
@@ -95,6 +99,7 @@ const ProductList = () => {
                       }
                     >
                       {/* <img src={image_url} alt="sample" /> */}
+                      <img src={Snacks} alt="sample" />
                     </Box>
                   </>
                 )

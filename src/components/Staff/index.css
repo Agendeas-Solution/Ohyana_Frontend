@@ -22,6 +22,16 @@
   background-color: #ffffff;
 }
 
+.search_field {
+  /* width: 109px; */
+  margin: auto 10px auto 0;
+  height: 40px;
+  background-color: #fff !important;
+  text-transform: capitalize !important;
+  color: #2e3591 !important;
+  padding-left: 0px;
+}
+
 /* .css-wdvzsn-MuiPaper-root-MuiTableContainer-root {
   height: 50vh !important;
 } */
@@ -30,7 +40,6 @@
   min-height: 300px;
   height: auto;
   width: 350px;
-
 }
 
 .drawdownsuccessellipse {
@@ -38,7 +47,7 @@
   justify-content: center;
   align-items: center;
   min-height: 150px;
-  background-color: #EAFFE2;
+  background-color: #eaffe2;
   border-radius: 0 0 100% 100%;
 }
 
@@ -50,36 +59,35 @@
 }
 
 .drawdownsuccessellipse .canceliconbackground .css-i4bv87-MuiSvgIcon-root {
-  color: #121F3E;
+  color: #121f3e;
 }
 
 .drawdownsuccessellipse .css-i4bv87-MuiSvgIcon-root {
   font-size: 60px;
-  color: #6BC04B;
+  color: #6bc04b;
 }
 
 .successful {
   text-align: center;
   font-weight: 700 !important;
   font-size: 28px !important;
-  color: #6BC04B !important;
+  color: #6bc04b !important;
   margin: 10px !important;
 }
 
 .successfulmessage {
   text-align: center;
   font-weight: 600 !important;
-  color: #121F3E !important;
+  color: #121f3e !important;
 }
 
 /* Success Dialog End */
 .access_control_box {
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   border-radius: 5px;
   height: max-content;
   display: flex;
   flex-direction: column;
-
 }
 
 .access_control .access_control_box:nth-of-type(odd) {
@@ -87,7 +95,7 @@
 }
 
 .access_checkbox {
-  background-color: #F1F2F6;
+  background-color: #f1f2f6;
   border-radius: 5px;
   margin-right: 10px;
   margin-left: 10px;
@@ -95,7 +103,7 @@
 }
 
 .accessMenus_checkbox {
-  border: 1px solid #F1F2F6;
+  border: 1px solid #f1f2f6;
   margin-bottom: 10px;
   padding: 10px;
 }
@@ -107,11 +115,11 @@
 }
 
 .total_days_data {
-  background-color: #C0DEDD;
+  background-color: #c0dedd;
 }
 
 .Absent_days_data {
-  background-color: #E6DFF1;
+  background-color: #e6dff1;
 }
 
 .days_data {
@@ -126,42 +134,42 @@
 
 .Late_days_data {
   display: flex;
-  background-color: #F2EEE9;
+  background-color: #f2eee9;
 }
 
 .range_days_data {
   display: flex;
-  /* flex-wrap: wrap; */
-  background-color: #F1F2F6;
-  /* height: 45px; */
-  margin:2px;
+  flex-wrap: wrap;
+  background-color: #f1f2f6;
+  height: 45px;
+  margin: 2px;
   border-radius: 5px;
 }
 
 .target_section {
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   padding: 5px;
   margin: 5px;
 }
 
 .week_data {
-  background-color: #ECE9FF;
+  background-color: #ece9ff;
 }
 
 .target_order_data {
-  background: #C0DEDD;
+  background: #c0dedd;
 }
 
 .target_achieved_data {
-  background: #E6DFF1;
+  background: #e6dff1;
 }
 
 .days_remain_data {
-  background-color: #F2EEE9;
+  background-color: #f2eee9;
 }
 
 .point_section {
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -170,7 +178,7 @@
 
 .point_left_section {
   width: 40%;
-  background: #F1F2F6;
+  background: #f1f2f6;
   padding: 10px;
 }
 
@@ -182,47 +190,158 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 1px solid #C4C4C4;
+  border-bottom: 1px solid #c4c4c4;
   margin: 5px;
 }
 
 .other_expenses_data {
-  background-color: #F2EEE9;
+  background-color: #f2eee9;
   width: 16%;
 }
 
 .total_expenses_data {
-  background: #ECE9FF;
+  background: #ece9ff;
   width: 22%;
 }
 
 .payment_done_data {
-  background: #FFEAD1;
+  background: #ffead1;
   width: 16%;
 }
 
 .food_data {
-  background-color: #C0DEDD;
+  background-color: #c0dedd;
   width: 16%;
 }
 
 .travel_data {
-  background-color: #E6DFF1;
+  background-color: #e6dff1;
   width: 16%;
 }
 
 .late_status_color {
-  color: #F1C40F !important;
+  color: #f1c40f !important;
 }
 
 .absent_status_color {
-  color: #F11F12 !important;
+  color: #f11f12 !important;
 }
 
 .leave_status_color {
-  color: #2E3591 !important;
+  color: #2e3591 !important;
 }
 
 .present_status_color {
-  color: #3498DB !important;
+  color: #3498db !important;
+}
+
+.left_panel {
+  /* width: 50%; */
+  /* border: 1px solid black; */
+  /* border: 1px solid #e5e6eb; */
+  border-radius: 5px;
+  padding: 7px;
+  display: flex;
+  flex-direction: row;
+  width: 54%;
+  /* margin-right: 1rem; */
+}
+
+.right_panel {
+  /* border: 1px solid black; */
+  /* border: 1px solid #e5e6eb; */
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  width: 44%;
+}
+
+.team_profile_section {
+  display: flex;
+  background: #ffffff;
+  width: 96% !important;
+  padding: 0px;
+  height: 83vh;
+  margin: 8px !important;
+  border-radius: 5px;
+  /* margin-left: 4rem; */
+  /* height: auto; */
+  flex-direction: row;
+  overflow-y: auto;
+
+  /* justify-content: space-between; */
+}
+
+.left_team_profile_section {
+  overflow-y: auto;
+}
+.profile_details_right_panel {
+  /* border: 1px solid black; */
+  /* margin: 10px;
+  padding: 10px; */
+}
+
+.add_team_button {
+  background: #ffffff !important;
+  color: #2e3591 !important;
+  text-transform: capitalize !important;
+  padding: 5px !important;
+  box-shadow: none !important;
+  /* margin: 16px 25px 14px 0px; */
+}
+
+.userName_and_position {
+  display: flex;
+  flex-direction: row;
+  /* padding-left: 30px; */
+  justify-content: space-between;
+}
+
+.inner_profile_details {
+  /* border: 1px solid black; */
+  border-radius: 5px;
+  width: 140px;
+  /* background-color: ; */
+}
+
+.first_box {
+  background-color: #e6dff1;
+}
+
+.middle_box {
+  background-color: #e5e6eb;
+}
+
+.last_box {
+  background-color: #f2eee9;
+}
+
+.team_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-top: 1rem;
+  margin-bottom: 1rem; */
+}
+
+/* .MuiTableRow-root td:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.MuiTableRow-root td:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+} */
+
+.checkbox_background_color {
+  background-color: #f1f2f6;
+  width: 48%;
+  margin-bottom: 12px;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+.team_member_table tbody tr {
+  border-bottom: 5px solid #f1f2f6;
 }

@@ -115,8 +115,8 @@ const Premium = () => {
               For companies that are just getting started with automation.
             </Typography>
             <Button
-              sx={{ marginBottom: '18px' }}
-              className="choose_plan_button p-2"
+              sx={{ marginBottom: '18px', fontSize: '20px' }}
+              className="choose_plan_button p-1"
               variant="contained"
             >
               Choose Plan
@@ -191,8 +191,8 @@ const Premium = () => {
               Scaling with advanced automation & employee engagement.
             </Typography>
             <Button
-              sx={{ marginBottom: '18px' }}
-              className="choose_plan_button p-2"
+              sx={{ marginBottom: '18px', fontSize: '20px' }}
+              className="choose_plan_button p-1"
               variant="contained"
             >
               Choose Plan

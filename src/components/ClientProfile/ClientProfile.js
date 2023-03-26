@@ -347,7 +347,8 @@ const ClientProfile = () => {
             <TabPanel value="1">
               <TableContainer sx={{ height: '50vh' }} component={Paper}>
                 {clientStatusList.length > 0 ? (
-                  <Table stickyHeader sx={{ minWidth: 650 }}>
+                  <Table stickyHeader>
+                    {/* <Table stickyHeader sx={{ minWidth: 650 }}> */}
                     <TableHead className="client_profile_table_header">
                       <TableRow>
                         <TableCell>Sr No.</TableCell>

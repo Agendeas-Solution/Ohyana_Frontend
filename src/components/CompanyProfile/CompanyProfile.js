@@ -5,6 +5,7 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import { useNavigate } from 'react-router-dom'
 import { GetCompanyProfile } from '../../services/apiservices/companyprofile'
 import './index.css'
+import ProfileImage from '../../assets/img/Profile_Image.svg'
 import { AccountBoxSharp } from '@mui/icons-material'
 const CompanyProfile = () => {
   const navigate = useNavigate()
@@ -39,7 +40,13 @@ const CompanyProfile = () => {
             >
               <Box className="userName_and_position">
                 {/* <AccountCircleRoundedIcon className="userprofile_dummy_icon" /> */}
-                <AccountBoxSharp className="userprofile_dummy_icon" />
+                {/* <AccountBoxSharp className="userprofile_dummy_icon" /> */}
+                <img
+                  src={ProfileImage}
+                  className="userprofile_dummy_icon m-3"
+                  alt="profile"
+                />
+
                 <Box
                   sx={{
                     display: 'flex',
