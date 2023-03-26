@@ -36,7 +36,7 @@ const SideBar = () => {
   useEffect(() => {
     // socket.on("client_list", (data) => {
     //   console.log("Printing Connections", data);
-    //   //debugger;
+    //   ;
     //   GetAdminClientDetail(
     //     data,
     //     (res) => {
@@ -58,7 +58,7 @@ const SideBar = () => {
     // socket.on("notification", function (result) {
     //   console.log(result?.data?.heading)
     //   setNotificationSnackbar({ ...notificationSnackbar, status: true, heading: result?.data?.heading, description: result?.data?.description });
-    //   //debugger;
+    //   ;
     // })
   }, [])
 
@@ -142,7 +142,7 @@ const SideBar = () => {
               <img src={Customer} className="sidebar_img" />
             </Box>
             <Typography className="page_name_root" variant="div">
-              Customers
+              Customer
             </Typography>
           </Box>}
 

@@ -40,7 +40,7 @@ const Notification = () => {
   // socket.on("notification", function (result) {
   //   console.log(result.data.heading)
   //   setNotificationSnackbar({ ...notificationSnackbar, status: true, heading: result?.data?.heading, description: result?.data?.description });
-  //   //debugger;
+  //   ;
   // })
 
   useEffect(() => {

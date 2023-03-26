@@ -17,13 +17,8 @@ const PJPDetail = () => {
   const [pjpList, setPjpList] = useState([])
   const [addPJPDetail, setAddPJPdetail] = useState({
     dialogStatus: false,
-    date: '2022 - 10 - 05',
-    name: '',
-    contact_number: '',
-    city: '',
-    business: '',
-    state: '',
-    teamId: path,
+    date: '',
+    clientId: 0,
     description: '',
     latitude: '',
     longitude: '',
@@ -41,8 +36,8 @@ const PJPDetail = () => {
         position => {
           setAddPJPdetail({
             ...addPJPDetail,
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
+            latitude: position.coords.latitude.toString(),
+            longitude: position.coords.longitude.toString(),
           })
         },
         () => {},
@@ -73,7 +68,9 @@ const PJPDetail = () => {
     delete pjpDetail.dialogStatus
     CreatePJP(
       pjpDetail,
-      res => {},
+      res => {
+        debugger;
+      },
       err => {},
     )
   }

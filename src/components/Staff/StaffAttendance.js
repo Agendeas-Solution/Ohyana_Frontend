@@ -62,8 +62,9 @@ const StaffAttendance = () => {
         path,
         res => {
           setStaffAttendanceList(res?.data)
+          debugger;
         },
-        err => {},
+        err => { },
       )
     value === '2' &&
       GetStaffLeaveList(
@@ -71,7 +72,7 @@ const StaffAttendance = () => {
         res => {
           setStaffLeaveList(res?.data)
         },
-        err => {},
+        err => { },
       )
   }, [value])
   return (
@@ -90,7 +91,7 @@ const StaffAttendance = () => {
             <Typography variant="span">Late Days</Typography>
             <Typography variant="span">24</Typography>
           </Box>
-          <Box className="range_days_data days_data col-md-6">
+          <Box className="range_days_data days_data col-md-5">
             <Typography variant="span">Select Date Range</Typography>
             <Box>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -133,19 +134,20 @@ const StaffAttendance = () => {
           </Box>
           <TabPanel value="1">
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <Table>
                 <TableHead>
                   <TableRow>
                     <TableCell>Date</TableCell>
                     <TableCell align="left">Check In</TableCell>
                     <TableCell align="left">Check Out</TableCell>
-                    <TableCell align="left">Break Time</TableCell>
+                    <TableCell align="left">Break In </TableCell>
+                    <TableCell align="left">Break Out</TableCell>
                     <TableCell align="left">Working Hours</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {staffAttendanceList.length > 0 &&
-                    staffAttendanceList.map(staffList => {
+                  {staffAttendanceList.attendancePerUser &&
+                    staffAttendanceList.attendancePerUser.map(staffList => {
                       return (
                         <TableRow>
                           <TableCell>{staffList.date}</TableCell>
@@ -173,7 +175,7 @@ const StaffAttendance = () => {
           </TabPanel>
           <TabPanel value="2">
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }}>
+              <Table>
                 <TableHead>
                   <TableRow>
                     <TableCell align="left">Date</TableCell>
@@ -185,7 +187,7 @@ const StaffAttendance = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {staffLeaveList.length > 0 &&
+                  {staffLeaveList &&
                     staffLeaveList.map(leaveList => {
                       return (
                         <TableRow>

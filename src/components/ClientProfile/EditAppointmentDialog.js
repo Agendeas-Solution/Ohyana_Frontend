@@ -195,7 +195,6 @@ const EditAppointmentDialog = props => {
                       ...clientAppointmentDetail,
                       appointed_member: value,
                     })
-                    debugger
                   }}
                   getOptionLabel={option => option?.name}
                   multiple

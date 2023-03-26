@@ -25,7 +25,7 @@ const Login = () => {
       login(
         { email: userDetail.email, password: userDetail.password },
         (res) => {
-          debugger;
+          ;
           if (res.success) {
             setAuthorize(true);
             setFlagLoader(false);

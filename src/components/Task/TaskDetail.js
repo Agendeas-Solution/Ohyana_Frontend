@@ -63,7 +63,7 @@ const TaskDetail = () => {
       [id, path],
       res => {
         setCheckLists(res?.data)
-        debugger
+        
       },
       err => {
         console.log(err)

@@ -22,7 +22,7 @@ const ProductGraph = ({ selectedPeriod }) => {
       {},
       res => {
         setProductList(res?.data?.products)
-        debugger;
+        ;
       },
       (err) => {},
     )
@@ -62,7 +62,7 @@ const ProductGraph = ({ selectedPeriod }) => {
     //     return data?.orders.map((a1) => a1.date)
     // })
     // console.log("Printing xlables", xlabels);
-    // debugger;
+    // ;
     datga && setUserData({ ...userData, datasets: datga })
     console.log('Printing userData', userData)
   }, [graphData])

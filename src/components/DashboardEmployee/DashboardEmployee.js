@@ -18,7 +18,6 @@ const DashboardEmployee = () => {
       {},
       res => {
         setSalesInquiry(res?.data?.data)
-        debugger
       },
       err => {},
     )

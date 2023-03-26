@@ -147,7 +147,7 @@ const Department = () => {
         })
       },
       err => {
-        //debugger;
+        ;
       },
     )
   }, [])
@@ -172,7 +172,7 @@ const Department = () => {
       accessSetting: accessControl?.setting.accessSetting,
       clientStageAccess: accessControl?.client?.clientStage,
     }
-    //debugger
+    
     UpdatePermission(
       userPermission,
       res => {
@@ -181,7 +181,7 @@ const Department = () => {
           status: true,
           message: res.data.message,
         })
-        //debugger
+        
       },
       err => {
         setErrorSnackbar({

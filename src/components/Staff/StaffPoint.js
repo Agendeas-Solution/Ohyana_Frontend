@@ -100,7 +100,7 @@ const StaffPoint = () => {
                   value={selectMonth}
                   onChange={newValue => {
                     setSelectMonth(newValue)
-                    debugger
+                    
                   }}
                   renderInput={params => (
                     <TextField

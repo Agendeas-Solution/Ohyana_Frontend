@@ -49,7 +49,7 @@ const StaffProfile = () => {
         parseInt(path),
         res => {
           if (res.success) {
-            setAdminProfileDetail(res?.data?.member)
+            setAdminProfileDetail(res?.data)
           }
         },
         err => {

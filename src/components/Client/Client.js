@@ -110,7 +110,6 @@ const Client = () => {
         })
       },
       err => {
-        //debugger
       },
     )
   }
@@ -148,7 +147,6 @@ const Client = () => {
     // const socket = io("http://159.89.165.83");
     socket.on('client_list', data => {
       console.log('Printing Connections', data)
-      //debugger;
       GetAdminClientDetail(
         data,
         res => {

@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Typography, Rating } from '@mui/material'
 const StaffDetail = props => {
-  const [clientRating, setClientRating] = useState(
-    props?.adminProfileDetail?.rating,
-  )
   return (
     <>
       <Box className="client_profile_detail">

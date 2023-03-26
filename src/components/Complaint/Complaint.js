@@ -45,7 +45,7 @@ const Complaint = () => {
         if (res.success) {
           setComplaintDetail(res?.data)
           setComplaintProcesses(res?.data?.complaint_processes)
-          debugger
+          
         }
       },
       err => {
@@ -68,7 +68,7 @@ const Complaint = () => {
             status: true,
             message: res.data.message,
           })
-          debugger
+          
         }
       },
       err => {
@@ -84,7 +84,7 @@ const Complaint = () => {
     CloseTicket(
       path,
       res => {
-        debugger
+        
       },
       err => {},
     )
