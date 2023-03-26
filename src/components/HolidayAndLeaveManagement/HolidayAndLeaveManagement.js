@@ -55,7 +55,7 @@ const HolidayAndLeaveManagement = () => {
       {},
       res => {
         setHolidayList(res?.data)
-        debugger
+        
       },
       err => {
         console.log('Printing Error', err)
@@ -65,7 +65,7 @@ const HolidayAndLeaveManagement = () => {
       {},
       res => {
         setLeaveList(res?.data)
-        debugger
+        
       },
       err => {},
     )
@@ -86,7 +86,7 @@ const HolidayAndLeaveManagement = () => {
       addHolidayDetail,
       res => {
         handleCloseDialog()
-        debugger
+        
       },
       err => {},
     )
@@ -97,7 +97,7 @@ const HolidayAndLeaveManagement = () => {
       holidayDetail,
       res => {
         handleCloseDialog()
-        debugger
+        
       },
       err => {},
     )
@@ -106,22 +106,22 @@ const HolidayAndLeaveManagement = () => {
     DeleteHoliday(
       id,
       res => {
-        debugger
+        
       },
       err => {
-        debugger
+        
       },
     )
   }
   const DeleteLeaveFunc = id => {
-    debugger
+    
     DeleteLeaveType(
       id,
       res => {
-        debugger
+        
       },
       err => {
-        debugger
+        
       },
     )
   }
@@ -132,7 +132,7 @@ const HolidayAndLeaveManagement = () => {
         type: addLeaveDialog.type,
       },
       res => {
-        debugger
+        
         handleCloseDialog()
       },
       err => {},
@@ -150,7 +150,7 @@ const HolidayAndLeaveManagement = () => {
         })
       },
       err => {
-        debugger
+        
       },
     )
   }

@@ -23,10 +23,10 @@ const Dashboard = () => {
       {},
       res => {
         setInquiryData(res.data.data)
-        debugger
+        
       },
       err => {
-        debugger
+        
       },
     )
   }, [])
@@ -35,7 +35,7 @@ const Dashboard = () => {
     AttendanceStatus(
       type,
       res => {
-        debugger
+        
       },
       err => {},
     )

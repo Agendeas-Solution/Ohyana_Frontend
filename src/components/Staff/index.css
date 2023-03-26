@@ -131,9 +131,9 @@
 
 .range_days_data {
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   background-color: #F1F2F6;
-  height: 45px;
+  /* height: 45px; */
   margin:2px;
   border-radius: 5px;
 }

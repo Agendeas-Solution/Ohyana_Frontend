@@ -133,7 +133,6 @@ const AddClient = () => {
         memberId: 3,
         reference_name: userDetail?.referenceName,
       }
-      debugger
       AddClientDetail(
         clientDetail,
         res => {
@@ -323,7 +322,6 @@ const AddClient = () => {
                 onChange={(e, value) => {
                   console.log(value)
                   setUserDetail({ ...userDetail, product: value })
-                  //debugger
                 }}
                 getOptionLabel={option => option?.name}
                 // freeSolo

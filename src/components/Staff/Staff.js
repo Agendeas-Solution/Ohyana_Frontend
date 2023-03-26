@@ -82,7 +82,7 @@ const Staff = () => {
       {},
       res => {
         setDepartmentList(res?.data)
-        debugger;
+        ;
       },
       (err) => {
         console.log('Printing Error', err)
@@ -94,7 +94,7 @@ const Staff = () => {
       departmentAndJobRoles?.departmentId,
       res => {
         setJobRoleList(res.data)
-        debugger;
+        ;
       },
       (err) => {
         console.log('Printing Error', err)

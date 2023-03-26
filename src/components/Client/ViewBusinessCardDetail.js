@@ -28,7 +28,6 @@ const ViewBusinessCardDetail = ({
             setBusinessDetail(res.data)
           },
           err => {
-            debugger
           },
         )
     }
@@ -49,7 +48,6 @@ const ViewBusinessCardDetail = ({
         handleDialogClose()
       },
       err => {
-        debugger
       },
     )
   }

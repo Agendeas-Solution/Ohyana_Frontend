@@ -40,7 +40,6 @@ const AppointmentDialog = props => {
         setStaffDetailList(res.data.team)
       },
       err => {
-        //debugger;
       },
     )
   }, [])
@@ -57,7 +56,6 @@ const AppointmentDialog = props => {
         ),
       ]
       console.log(clientAppointmentDetail)
-      debugger
       AddAdminClientAppointmentDetail(
         clientAppointmentDetail,
         res => {

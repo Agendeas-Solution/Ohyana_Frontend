@@ -133,7 +133,7 @@ export const GetStaffAttendanceList = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
     const { data } = await axiosInstance.get(
-      `/attendance?teamId=${parseInt(value)}&profile=true`,
+      `/attendance?teamId=${parseInt(value)}`,
       {
         headers: { ...defaultHeaders },
       },
