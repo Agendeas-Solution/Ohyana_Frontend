@@ -47,7 +47,7 @@ const Orders = () => {
           <FormControl variant="outlined">
             <OutlinedInput
               sx={{ background: '#fff' }}
-              className="mx-2"
+              className="order_search_field"
               placeholder="Search Here..."
               startAdornment={
                 <InputAdornment position="start" sx={{ background: '#fff' }}>
@@ -59,16 +59,24 @@ const Orders = () => {
               label="Password"
             />
           </FormControl>
-          <IconButton edge="end">
+          <IconButton className="me-1" edge="end">
             <img src={FilterIcon} alt="" />
           </IconButton>
         </Box>
       </Box>
       <Box className="order_section">
         <TableContainer sx={{ boxShadow: 'none' }} component={Paper}>
-          <Table stickyHeader sx={{ minWidth: 650 }}>
-            <TableHead className="client_profile_table_header">
-              <TableRow>
+          <Table sx={{ minWidth: 650 }}>
+            <TableHead>
+              <TableRow
+                sx={
+                  {
+                    // borderBottomStyle: 'solid',
+                    // borderBottomWidth: 'thin',
+                    // width: '100px',
+                  }
+                }
+              >
                 <TableCell>Order Id.</TableCell>
                 <TableCell align="left">Order By</TableCell>
                 <TableCell align="left">Date</TableCell>

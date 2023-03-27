@@ -208,6 +208,11 @@ textarea:focus {
 
 .MuiBox-root {
   // overflow-y: auto;
+  // margin-bottom: 6px;
+}
+
+.MuiButtonBase-root {
+  margin-bottom: 24px;
 }
 
 .MuiDialogActions-root {
@@ -309,6 +314,7 @@ button {
   height: 35px !important;
   border-radius: 3px;
   padding: 2px;
+  // font-size: 38px;
 }
 
 .common_sub_heading {

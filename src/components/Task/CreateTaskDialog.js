@@ -25,11 +25,16 @@ const CreateTaskDialog = ({
 }) => {
   return (
     <>
-      <Dialog fullScreen={fullScreen} open={open} onClose={handleClose}>
+      <Dialog
+        className="w-100"
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+      >
         <DialogTitle className="row justify-content-center font-weight-bold">
           Create Task
         </DialogTitle>
-        <Box className="my-3">
+        <Box className="my-3 mx-5">
           <div className="row">
             <div className="col-md-12">
               <Typography className="input_field_label" variant="span">
@@ -49,7 +54,7 @@ const CreateTaskDialog = ({
             </div>
           </div>
         </Box>
-        <Box className="my-3">
+        <Box className="my-3 mx-5">
           <div className="row">
             <div className="col-md-12">
               <Typography className="input_field_label" variant="span">
@@ -63,13 +68,16 @@ const CreateTaskDialog = ({
                 variant="outlined"
                 value={createTask.description}
                 onChange={e => {
-                  setCreateTask({ ...createTask, description: e.target.value })
+                  setCreateTask({
+                    ...createTask,
+                    description: e.target.value,
+                  })
                 }}
               />
             </div>
           </div>
         </Box>
-        <Box>
+        {/* <Box>
           <div className="row">
             <div className="col-md-6">
               <Typography variant="span">Date</Typography>
@@ -94,14 +102,19 @@ const CreateTaskDialog = ({
               </LocalizationProvider>
             </div>
           </div>
-        </Box>
+        </Box> */}
         <DialogActions className="m-auto">
-          <Button variant="contained" onClick={handleCreateTask}>
-            Ok
+          <Button
+            sx={{ fontSize: '20px', backgroundColor: '#2E3591' }}
+            className="px-5 pe-5"
+            variant="contained"
+            onClick={handleCreateTask}
+          >
+            Create
           </Button>
-          <Button className="cancel-btn" autoFocus onClick={handleClose}>
+          {/* <Button className="cancel-btn" autoFocus onClick={handleClose}>
             Cancel
-          </Button>
+          </Button> */}
         </DialogActions>
       </Dialog>
     </>

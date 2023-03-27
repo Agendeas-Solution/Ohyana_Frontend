@@ -72,6 +72,7 @@ const Client = () => {
     { stage: 'inter-mediate', id: 3 },
     { stage: 'confirm', id: 4 },
   ])
+
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -79,12 +80,15 @@ const Client = () => {
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   }))
+
   const handleDrawerOpen = () => {
     setOpen(true)
   }
+
   const handleDrawerClose = () => {
     setOpen(false)
   }
+
   useEffect(() => {
     console.log(clientType)
     let value = clientType.filter(data => {
@@ -94,6 +98,7 @@ const Client = () => {
     })
     setClientType(value)
   }, [])
+
   const [clientStage, setClientStage] = useState()
   const handleClientDelete = () => {
     DeleteClientDetail(
@@ -109,8 +114,7 @@ const Client = () => {
           message: res.data.message,
         })
       },
-      err => {
-      },
+      err => {},
     )
   }
   const handleDialogClose = () => {

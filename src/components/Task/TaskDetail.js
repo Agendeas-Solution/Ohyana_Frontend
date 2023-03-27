@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Box, Typography, Button, TextField, Checkbox } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Button,
+  TextField,
+  Checkbox,
+  Divider,
+} from '@mui/material'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded'
 import Slider from '@mui/material/Slider'
@@ -58,12 +65,11 @@ const TaskDetail = () => {
   console.log('Printing Path of ', path)
   console.log('Printing ', path.split('/').pop())
   path = path.split('/').pop()
-  const updateCheckListStatus = (id) => {
+  const updateCheckListStatus = id => {
     UpdateCheckListItemStatus(
       [id, path],
       res => {
         setCheckLists(res?.data)
-        
       },
       err => {
         console.log(err)
@@ -82,29 +88,29 @@ const TaskDetail = () => {
           message: res.data.message,
         })
       },
-      (err) => {
+      err => {
         console.log(err)
       },
     )
   }
-  const handleDeleteTask = (id) => {
+  const handleDeleteTask = id => {
     DeleteCheckListTask(
       { taskid: path, id: id },
       res => {
         setCheckLists(res?.data)
       },
-      (err) => {
+      err => {
         console.log(err)
       },
     )
   }
-  const DeleteTask = (id) => {
+  const DeleteTask = id => {
     DeleteSingleTask(
       id,
       res => {
         navigate('/task')
       },
-      (err) => { },
+      err => {},
     )
   }
   const handleDialogClose = () => {
@@ -126,12 +132,14 @@ const TaskDetail = () => {
   return (
     <>
       <Box className="main_section">
-        <Box className="task_heading">
+        <Box className="task_heading pb-2">
           <Typography className="task_card_heading" variant="span">
             {taskDetail?.title}
           </Typography>
           <Box>
             <EditRoundedIcon
+              // sx={{ padding: '0px', margin: '54px' }}
+              sx={{ fontSize: '40px', padding: '4px', marginRight: '10px' }}
               onClick={() => {
                 setEditTaskNameDialog({
                   ...editTaskNameDialog,
@@ -143,86 +151,115 @@ const TaskDetail = () => {
               className="common_button"
             />
             <DeleteOutlineRoundedIcon
+              sx={{ fontSize: '40px', marginLeft: '12px', padding: '4px' }}
               onClick={() => DeleteTask(taskDetail.id)}
               className="common_button"
             />
           </Box>
         </Box>
+
         <Box className="checklist_duedate_section">
-          <Box className="checklist_section">
-            <Typography variant="span">Checklist</Typography>
+          <Box className="checklist_section pt-3 px-2">
+            <Typography
+              sx={{ color: '#8E8E8E' }}
+              className="mx-2"
+              variant="span"
+            >
+              Checklist
+            </Typography>
+
             <Slider
               value={taskRatio ? taskRatio : 0}
               step={1}
               valueLabelDisplay="on"
               sx={{ color: '#2E3591' }}
+              className="task_slider"
             />
+
             <FormGroup>
-              {checkLists && checkLists.map(checklistData => {
-                if (checklistData.done === false) {
-                  return (
-                    <Box className="d-flex justify-content-between">
+              {checkLists &&
+                checkLists.map(checklistData => {
+                  if (checklistData.done === false) {
+                    return (
+                      <Box className="d-flex justify-content-between">
+                        <FormControlLabel
+                          className="task_list mx-1"
+                          control={
+                            <Checkbox
+                              onChange={() => {
+                                updateCheckListStatus(checklistData?.id)
+                              }}
+                              value={checklistData.done}
+                            />
+                          }
+                          label={checklistData?.task}
+                        />
+                        <DeleteRoundedIcon
+                          onClick={() => handleDeleteTask(checklistData?.id)}
+                          className="common_icon"
+                        />
+                      </Box>
+                    )
+                  }
+                })}
+            </FormGroup>
+            <Box className="mx-5 me-3">
+              <TextField
+                value={addCheckList}
+                onChange={e => {
+                  setAddCheckList(e.target.value)
+                }}
+                placeholder="Add an item"
+                // className="add_item_textfield w-100"
+                className="w-100 my-2"
+                variant="outlined"
+                // sx={{ marginBottom: '15px' }}
+              />
+            </Box>
+            <Box className="mx-5 me-3 mb-3">
+              <Button
+                onClick={handleAddItem}
+                className="common_button mb-8 mt-5"
+              >
+                Add an item
+              </Button>
+              <Button onClick={handleAddItem} className="common_button mb-5">
+                Cancel
+              </Button>
+            </Box>
+            <Typography className="completed_heading p-2" variant="span">
+              Completed
+            </Typography>
+            <FormGroup className="completed_task_list mt-2">
+              {checkLists &&
+                checkLists.map(checklistData => {
+                  if (checklistData.done === true) {
+                    return (
                       <FormControlLabel
-                        className="task_list"
+                        className="task_list mx-1"
                         control={
                           <Checkbox
                             onChange={() => {
                               updateCheckListStatus(checklistData?.id)
                             }}
                             value={checklistData.done}
+                            defaultChecked
                           />
                         }
                         label={checklistData?.task}
                       />
-                      <DeleteRoundedIcon
-                        onClick={() => handleDeleteTask(checklistData?.id)}
-                        className="common_icon"
-                      />
-                    </Box>
-                  )
-                }
-              })}
-            </FormGroup>
-            <TextField
-              value={addCheckList}
-              onChange={e => {
-                setAddCheckList(e.target.value)
-              }}
-              placeholder="Add an item"
-              className="w-100"
-              variant="outlined"
-            />
-            <Box>
-              <Button onClick={handleAddItem} className="common_button">
-                Add an item
-              </Button>
-            </Box>
-            <Typography variant="span">Completed</Typography>
-            <FormGroup className="completed_task_list">
-              {checkLists && checkLists.map(checklistData => {
-                if (checklistData.done === true) {
-                  return (
-                    <FormControlLabel
-                      className="task_list"
-                      control={
-                        <Checkbox
-                          onChange={() => {
-                            updateCheckListStatus(checklistData?.id)
-                          }}
-                          value={checklistData.done}
-                          defaultChecked
-                        />
-                      }
-                      label={checklistData?.task}
-                    />
-                  )
-                }
-              })}
+                    )
+                  }
+                })}
             </FormGroup>
           </Box>
+
           <Box className="task_details_section">
             <Box className="common_row">
-              <Typography className="common_sub_heading" variant="span">
+              <Typography
+                className="common_sub_heading mx-3 mt-3"
+                variant="span"
+              >
                 Due Date
               </Typography>
               <Button variant="filled" sx={{ background: '#fff' }}>
@@ -230,14 +267,20 @@ const TaskDetail = () => {
                 <CalendarMonthRoundedIcon sx={{ color: '#2E3591' }} />
               </Button>
             </Box>
-            <Typography variant="span">
+            <Typography className="mx-3 mt-3" variant="span">
               {moment(taskDetail?.due_date).format('MMMM Do YYYY, h:mm:ss a')}
             </Typography>
-            <Box className="common_row">
+            <Box className="common_row mx-3 mt-3">
               <Typography className="common_sub_heading" variant="span">
                 Description
               </Typography>
-              <Button variant="filled" sx={{ background: '#fff' }}>
+              <Button
+                className="me-3"
+                variant="filled"
+                sx={{
+                  background: '#fff',
+                }}
+              >
                 {' '}
                 <EditRoundedIcon
                   onClick={() =>
@@ -252,12 +295,14 @@ const TaskDetail = () => {
                 />
               </Button>
             </Box>
-            <Typography variant="span">{taskDetail?.description}</Typography>
-            <Typography className="common_sub_heading" variant="span">
+            <Typography className="mx-3 mt-3" variant="span">
+              {taskDetail?.description}
+            </Typography>
+            <Typography className="common_sub_heading mx-3 mt-3" variant="span">
               Assigned Member
             </Typography>
             {taskDetail?.team?.email ? (
-              <Box>
+              <Box className="mx-3 mt-4">
                 <Typography className="name_chip" variant="span">
                   {taskDetail?.team?.email &&
                     taskDetail?.team?.email?.charAt(0)}
@@ -267,13 +312,13 @@ const TaskDetail = () => {
                 </Typography>
               </Box>
             ) : (
-              <Typography>Not Assigned</Typography>
+              <Typography className="mx-3 mt-4">Not Assigned</Typography>
             )}
-            <Typography className="common_sub_heading" variant="span">
+            <Typography className="common_sub_heading mx-3 mt-3" variant="span">
               Task Create By
             </Typography>
-            <Box>
-              <Typography className="name_chip" variant="span">
+            <Box className="mx-3 mt-4 mb-2">
+              <Typography className="created_by_icon name_chip" variant="span">
                 {taskDetail?.createdBy && taskDetail?.createdBy.charAt(0)}
               </Typography>
               <Typography className="assigned_user_detail" variant="span">
