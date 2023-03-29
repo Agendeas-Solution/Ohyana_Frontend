@@ -116,3 +116,10 @@
   text-transform: capitalize !important;
   color: #8e8e8e !important;
 }
+
+.no_result {
+  width: 15%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

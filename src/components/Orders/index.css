@@ -4,20 +4,21 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  margin: 10px 0 12px 1px;
 }
 .order_description_left_section {
   display: flex;
   flex-direction: column;
   width: 45%;
   margin: 5px;
-  padding: 5px;
+  padding: 20px;
 }
 .order_description_middle_section {
   display: flex;
   flex-direction: column;
   width: 45%;
   margin: 5px;
-  padding: 5px;
+  padding: 20px;
 }
 .order_description_right_section {
   display: flex;
@@ -27,7 +28,7 @@
   background-color: #fff !important;
   color: #2e3591 !important;
   margin: 2px !important;
-  height: 35px !important;
+  height: 42px !important;
   border-radius: 3px;
   padding: 2px;
 }
@@ -40,13 +41,13 @@
   justify-content: space-between;
 }
 .order_tracking {
-  width: 45%;
+  width: 49%;
   background-color: #f1f2f6;
   padding: 10px;
   border-radius: 5px;
 }
 .payment_detail {
-  width: 45%;
+  width: 49%;
   background-color: #f1f2f6;
   padding: 10px;
   border-radius: 5px;
@@ -54,6 +55,7 @@
 .order_tracking_heading {
   display: flex;
   justify-content: space-between;
+  padding: 8px 0 0 12px;
 }
 .css-z7uhs0-MuiStepConnector-line {
   border-top-style: dashed !important ;
@@ -61,6 +63,8 @@
 .payment_detail_heading {
   display: flex;
   justify-content: space-between;
+  padding: 8px 0 0 10px;
+  margin-bottom: 16px;
 }
 .order_section {
   display: flex;
@@ -81,4 +85,15 @@
   text-transform: capitalize !important;
   color: #8e8e8e !important;
   padding-left: 0px;
+}
+
+/* .payment_detail_heading_dialog {
+  font-size: 24px;
+  font-weight: 900;
+} */
+
+.checkbox_button {
+  background-color: #f1f2f6;
+  border-radius: 5px;
+  padding-right: 53px;
 }

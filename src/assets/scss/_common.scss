@@ -128,16 +128,18 @@ fieldset {
 }
 
 .selected-link {
-  background-color: #f1f2f6;
+  // background-color: #f1f2f6;
+  background-color: #2E3591;
+  color: #fff;
   border: none !important;
 
   .sidebar_icon_root {
-
     // background-color: #2e3591;
     svg {
       color: #f1f1f1;
     }
   }
+
 }
 
 .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
@@ -182,6 +184,10 @@ textarea:focus {
 }
 .ok-btn {
   width: 165px;
+  height: 45px;
+}
+.save_btn {
+  width: 215px;
   height: 45px;
 }
 

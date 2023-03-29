@@ -91,7 +91,7 @@ const Task = () => {
     GetAllMemberList(
       {},
       res => {
-        setMemberList(res.data.team)
+        setMemberList(res.data)
       },
       err => {},
     )
@@ -237,7 +237,7 @@ const Task = () => {
                       </IconButton>
 
                       <Typography
-                        sx={{ fontSize: '16px', paddingRight: '80px' }}
+                        sx={{ fontSize: '22px', paddingRight: '60px' }}
                       >
                         Filter By
                       </Typography>

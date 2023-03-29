@@ -101,7 +101,6 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
                           </Button>
                         </a>
                         <a href={`mailto:${row.email}`}>
-                          {' '}
                           <Button className="common_button">
                             <img src={MailIcon} />
                           </Button>

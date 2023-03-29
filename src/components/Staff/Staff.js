@@ -496,7 +496,7 @@ const Staff = () => {
                       )}
                     </IconButton>
 
-                    <Typography sx={{ fontSize: '16px', paddingRight: '80px' }}>
+                    <Typography sx={{ fontSize: '22px', paddingRight: '60px' }}>
                       Filter By
                     </Typography>
                   </Box>
@@ -532,7 +532,7 @@ const Staff = () => {
                         value="office"
                         control={
                           <Radio
-                            sx={{ color: '#2E3591', backgroundColor: '2E3591' }}
+                          // sx={{ color: '#2E3591', backgroundColor: '2E3591' }}
                           />
                         }
                         label="Office"
@@ -540,11 +540,7 @@ const Staff = () => {
                       <FormControlLabel
                         className="checkbox_background_color"
                         value="onfields"
-                        control={
-                          <Radio
-                            sx={{ color: '#2E3591', backgroundColor: '2E3591' }}
-                          />
-                        }
+                        control={<Radio />}
                         label="On Field"
                       />
                     </RadioGroup>

@@ -25,6 +25,7 @@ import PJPDetail from './PJPDetail'
 import StaffTarget from './StaffTarget'
 import StaffPoint from './StaffPoint'
 import StaffExpenses from './StaffExpenses'
+
 const StaffProfile = () => {
   const [value, setValue] = useState('1')
   const { flagLoader, permissions } = useContext(AuthContext).state

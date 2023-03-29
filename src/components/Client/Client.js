@@ -38,6 +38,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import FilterIcon from '../../assets/img/Filter.svg'
 import { styled, useTheme } from '@mui/material/styles'
+
+import NoResultWithText from '../../assets/img/no_result_with_text.svg'
 import CustomerList from './CustomerList'
 import BusinessCard from './BusinessCard'
 const drawerWidth = 400
@@ -292,7 +294,7 @@ const Client = () => {
                       )}
                     </IconButton>
 
-                    <Typography sx={{ fontSize: '16px', paddingRight: '80px' }}>
+                    <Typography sx={{ fontSize: '22px', paddingRight: '60px' }}>
                       Filter By
                     </Typography>
                   </Box>
@@ -392,7 +394,11 @@ const Client = () => {
               ViewClientDetail={ViewClientDetail}
             />
           ) : null}
-          {value === 'BusinessCard' ? <BusinessCard /> : null}
+          {value === 'BusinessCard' ? (
+            <BusinessCard />
+          ) : (
+            <img className="no_result" src={NoResultWithText} alt="" />
+          )}
           <Pagination
             className="mt-3"
             boundaryCount={0}

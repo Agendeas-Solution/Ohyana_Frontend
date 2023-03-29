@@ -16,15 +16,14 @@ const ProductGraph = ({ selectedPeriod }) => {
       res => {
         setGraphData(res?.data)
       },
-      (err) => {},
+      err => {},
     )
     GetAdminProductList(
       {},
       res => {
         setProductList(res?.data?.products)
-        ;
       },
-      (err) => {},
+      err => {},
     )
   }, [selectedPeriod])
   const top100Films = [
@@ -69,9 +68,14 @@ const ProductGraph = ({ selectedPeriod }) => {
   return (
     <>
       <Box className="graph_detail_section">
-        <Box className=" graph_section">
-          <Box className="common_row">
-            <Typography variant="span">Overall</Typography>
+        <Box className="graph_section">
+          <Box className="common_row mb-3">
+            <Typography
+              sx={{ color: '#2E3591', fontSize: '20px' }}
+              variant="span"
+            >
+              Overall
+            </Typography>
             <Box className="row">
               <Autocomplete
                 disablePortal
@@ -90,7 +94,7 @@ const ProductGraph = ({ selectedPeriod }) => {
                   />
                 )}
               />
-              <Autocomplete
+              {/* <Autocomplete
                 disablePortal
                 options={top100Films}
                 sx={{ width: '200px' }}
@@ -101,7 +105,7 @@ const ProductGraph = ({ selectedPeriod }) => {
                     placeholder="City"
                   />
                 )}
-              />
+              /> */}
               <Autocomplete
                 disablePortal
                 options={productList}
@@ -133,7 +137,15 @@ const ProductGraph = ({ selectedPeriod }) => {
               />
             </Box>
           </Box>
-          {userData.datasets && <LineChart chartData={userData} />}
+          <Box
+            sx={{
+              border: '1px solid #E5E5E5',
+              borderRadius: '5px',
+              margin: '1px',
+            }}
+          >
+            {userData.datasets && <LineChart chartData={userData} />}
+          </Box>
         </Box>
         <Box className="detail_section">
           <Box className=" product_data">
@@ -150,7 +162,7 @@ const ProductGraph = ({ selectedPeriod }) => {
             </Box>
             <Box className="sales_parameter">
               <Typography variant="span">2500 Pc </Typography>
-              <Typography className="bg-white rounded p-1 m-1" variant="span">
+              <Typography className="bg-white rounded p-1 m-2" variant="span">
                 <TrendingUpRoundedIcon className="common_icon" /> 5%
               </Typography>
             </Box>
@@ -169,7 +181,7 @@ const ProductGraph = ({ selectedPeriod }) => {
             </Box>
             <Box className="sales_parameter">
               <Typography variant="span">2500 Pc </Typography>
-              <Typography className="bg-white rounded p-1 m-1" variant="span">
+              <Typography className="bg-white rounded p-1 m-2" variant="span">
                 <TrendingUpRoundedIcon className="common_icon" /> 5%
               </Typography>
             </Box>
@@ -188,7 +200,7 @@ const ProductGraph = ({ selectedPeriod }) => {
             </Box>
             <Box className="sales_parameter">
               <Typography variant="span">2500 Pc </Typography>
-              <Typography className="bg-white rounded p-1 m-1" variant="span">
+              <Typography className="bg-white rounded p-1 m-2" variant="span">
                 <TrendingUpRoundedIcon className="common_icon" /> 5%
               </Typography>
             </Box>
