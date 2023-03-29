@@ -62,7 +62,6 @@ const StaffAttendance = () => {
         path,
         res => {
           setStaffAttendanceList(res?.data)
-          debugger;
         },
         err => { },
       )

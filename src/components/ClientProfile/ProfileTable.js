@@ -109,7 +109,7 @@ const ProfileTable = props => {
               Product Name
             </Typography>
             <Box sx={{ maxWidth: '50%' }}>
-              {props?.clientProfileDetail?.products
+              {props?.clientProfileDetail?.products && props?.clientProfileDetail?.products
                 .map(data => {
                   return ' ' + data.name
                 })

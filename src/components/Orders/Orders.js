@@ -1,20 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  Button,
-  Paper,
-  TableHead,
-  TableRow,
-  Typography,
-  FormControl,
-  OutlinedInput,
-  InputAdornment,
-  IconButton,
-} from '@mui/material'
+import {Box,Table,TableBody,TableCell,TableContainer,Button,Paper,TableHead,TableRow,Typography,FormControl,OutlinedInput,InputAdornment,IconButton} from '@mui/material'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import FilterIcon from '../../assets/img/Filter.svg'
 import './index.css'
@@ -67,7 +52,7 @@ const Orders = () => {
       <Box className="order_section">
         <TableContainer sx={{ boxShadow: 'none' }} component={Paper}>
           <Table stickyHeader sx={{ minWidth: 650 }}>
-            <TableHead className="client_profile_table_header">
+            <TableHead>
               <TableRow>
                 <TableCell>Order Id.</TableCell>
                 <TableCell align="left">Order By</TableCell>

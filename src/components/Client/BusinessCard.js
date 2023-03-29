@@ -18,9 +18,10 @@ const BusinessCard = () => {
       {},
       res => {
         setBusinessCard(res.data?.client)
-        debugger;
       },
-      err => {},
+      err => {
+
+      },
     )
   }, [])
   const handleDialogClose = () => {

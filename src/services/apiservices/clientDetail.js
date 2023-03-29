@@ -242,7 +242,7 @@ export const CustomerTake = async (id, onSuccess, onError) => {
 export const GetBusinessCard = async (id, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.get(`/clients?businessCard=true`, {
+    const { data } = await axiosInstance.get(`/clients?tabType=business_card`, {
       headers: { ...defaultHeaders },
     })
     console.log('Printing data of GetBusinessCard', data)
@@ -250,7 +250,6 @@ export const GetBusinessCard = async (id, onSuccess, onError) => {
   } catch (err) {
     console.log('Got error while calling API - GetBusinessCard', err)
     onError && onError(err)
-    //
   }
 }
 export const GetBusinessDetail = async (id, onSuccess, onError) => {
