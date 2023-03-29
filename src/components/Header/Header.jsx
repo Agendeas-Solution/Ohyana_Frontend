@@ -12,8 +12,7 @@ import MenuItem from '@mui/material/MenuItem'
 import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import { clearLoginToken } from "../../services/storage";
-
-import './index.css'
+import './index.css';
 const Header = () => {
   const { ActivePage } = useContext(ContextActivePage)?.state
   const navigate = useNavigate()
@@ -26,7 +25,6 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null)
   }
-
   useEffect(() => {
     let path = window.location.pathname
     setPathName(path)
@@ -34,6 +32,14 @@ const Header = () => {
   const prevRoute = useLocation()
   const handleGoback = () => {
     navigate(-1)
+  }
+  const [anchorEl, setAnchorEl] = useState(null)
+  const open = Boolean(anchorEl)
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
   }
   return (
     <>
@@ -44,9 +50,70 @@ const Header = () => {
           <Box className="user_profile_photo_root">
             <Box className="align-items-center d-flex">
               <Box onClick={() => handleGoback()}>
-                <img className="ms-2" src={backButton} />
+                <img className="ms-2" src={backButton} alt="image" />
               </Box>
               <h3 className="mb-0">{ActivePage}</h3>
+              <Box>
+                <img
+                  className="notification_class"
+                  src={NotificationIcon}
+                  alt=""
+                />
+              </Box>
+              <Box>
+                <Button
+                  id="basic-button"
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                >
+                  <Avatar
+                    className="me-2"
+                    // sx={{ width: 40, height: 40 }}
+                    // src="/static/images/avatar/1.jpg"
+                  />
+                  <img
+                    style={{ width: '21px' }}
+                    className="notification_class m-1"
+                    src={DownIcon}
+                    alt=""
+                  />
+                </Button>
+
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                >
+                  <MenuItem
+                    onClick={() => console.log('profile clickedddd...')}
+                  >
+                    <img
+                      style={{ width: '21px' }}
+                      className="notification_class m-1"
+                      src={ProfileMainIcon}
+                      alt=""
+                    />
+                    My Profile
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => console.log('sign out clicked.....')}
+                  >
+                    <img
+                      style={{ width: '21px' }}
+                      className="notification_class m-1"
+                      src={SignOutIcon}
+                      alt=""
+                    />
+                    Sign Out
+                  </MenuItem>
+                </Menu>
+              </Box>
             </Box>
             <NotificationsRoundedIcon />
             <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>

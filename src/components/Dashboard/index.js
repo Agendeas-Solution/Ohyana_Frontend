@@ -23,20 +23,15 @@ const Dashboard = () => {
       {},
       res => {
         setInquiryData(res.data.data)
-        
       },
-      err => {
-        
-      },
+      err => {},
     )
   }, [])
 
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
-      res => {
-        
-      },
+      res => {},
       err => {},
     )
   }
@@ -77,7 +72,7 @@ const Dashboard = () => {
         </Box>
         <Box className="inquiry_sales_statistics">
           <Box className="inquiry_overview">
-            <Box>
+            <Box className="dashboard_inner_heading">
               <Typography variant="span">Inquiries Overview</Typography>
             </Box>
             <Box className="common_row">
@@ -102,10 +97,11 @@ const Dashboard = () => {
                       {inquiryData?.inquiry?.percentageIndiaMart}
                     </Typography>
                   </Box>
-                  <Typography variant="span">
+                  <Typography className="small_sub_heading" variant="span">
                     Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
                   </Typography>
                 </Box>
+
                 <Box className="inquiry_detail_box">
                   <Box className="inquiry_from_name">
                     <Box
@@ -124,10 +120,11 @@ const Dashboard = () => {
                     </Typography>
                     <Typography variant="span">100</Typography>
                   </Box>
-                  <Typography variant="span">
+                  <Typography className="small_sub_heading" variant="span">
                     Last Month :{inquiryData?.inquiry?.lstMonWeb}{' '}
                   </Typography>
                 </Box>
+
                 <Box className="inquiry_detail_box">
                   <Box className="inquiry_from_name">
                     <Box
@@ -150,6 +147,7 @@ const Dashboard = () => {
                   </Box>
                   <Typography variant="span">Last Month : 85</Typography>
                 </Box>
+
                 <Box className="inquiry_detail_box">
                   <Box className="inquiry_from_name">
                     <Box

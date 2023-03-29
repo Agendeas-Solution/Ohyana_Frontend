@@ -38,3 +38,8 @@
   flex-direction: row;
   align-items: center;
 }
+.notification_class {
+  /* display: flex; */
+  margin-left: 810px;
+  padding: 4px;
+}

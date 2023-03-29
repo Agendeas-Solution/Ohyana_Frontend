@@ -22,10 +22,13 @@ const AssignMemberDialog = ({
   return (
     <>
       <Dialog open={openMemberDialog} onClose={handleCloseMemberDialog}>
-        <DialogTitle className="row justify-content-center font-weight-bold">
+        <DialogTitle
+          sx={{ fontWeight: '800' }}
+          className="row justify-content-left font-weight-bold"
+        >
           Members
         </DialogTitle>
-        <Box className="my-3">
+        <Box className="my-3 mx-3 p-2">
           <div className="row">
             <div className="col-md-12">
               <Autocomplete
@@ -36,7 +39,11 @@ const AssignMemberDialog = ({
                   console.log(value)
                   setMember(value)
                 }}
-                sx={{ width: 300 }}
+                sx={{
+                  width: 300,
+                  border: '1px solid #E5E5E5',
+                  borderRadius: '5px',
+                }}
                 renderInput={params => (
                   <TextField {...params} placeholder="Search Members" />
                 )}
@@ -44,7 +51,7 @@ const AssignMemberDialog = ({
             </div>
           </div>
         </Box>
-        <DialogActions className="m-auto">
+        {/* <DialogActions className="m-auto">
           <Button
             variant="contained"
             onClick={() => handleAssignMember(member.id)}
@@ -58,7 +65,7 @@ const AssignMemberDialog = ({
           >
             Cancel
           </Button>
-        </DialogActions>
+        </DialogActions> */}
       </Dialog>
     </>
   )

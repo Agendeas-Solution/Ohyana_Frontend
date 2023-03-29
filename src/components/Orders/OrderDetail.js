@@ -8,6 +8,7 @@ import StepLabel from '@mui/material/StepLabel'
 import SampleProduct from '../../assets/img/sample_product.png'
 import { GetOrderDetail, UpdatePaymentStatus } from '../../services/apiservices/orderDetail'
 import PaymentDetailDialog from './PaymentDetailDialog'
+import moment from 'moment'
 const steps = ['Shipping', 'Dispatch', 'Delivered']
 const OrderDetail = () => {
   const [orderDetail, setOrderDetail] = useState([])
@@ -75,13 +76,13 @@ const OrderDetail = () => {
       <Box className="main_section">
         <Box className="order_description">
           <Box className="order_description_left_section">
-            <Box className="common_row mb-2">
+            <Box className="common_row mb-4">
               <Typography className="order_desc_subheading" variant="span">
                 Order Id
               </Typography>
               <Typography variant="span">{orderDetail?.id}</Typography>
             </Box>
-            <Box className="common_row mb-2">
+            <Box className="common_row mb-4">
               <Typography className="order_desc_subheading" variant="span ">
                 Order For
               </Typography>
@@ -89,21 +90,23 @@ const OrderDetail = () => {
                 {orderDetail?.client?.name}
               </Typography>
             </Box>
-            <Box className="common_row mb-2">
+            <Box className="common_row mb-4">
               <Typography className="order_desc_subheading" variant="span">
                 Date
               </Typography>
-              <Typography variant="span">{orderDetail?.date}</Typography>
+              <Typography variant="span">
+                {moment(orderDetail?.date).format('DD-MM-YYYY hh:mm A')}
+              </Typography>
             </Box>
           </Box>
           <Box className="order_description_middle_section">
-            <Box className="common_row mb-2">
+            <Box className="common_row mb-4">
               <Typography className="order_desc_subheading" variant="span">
                 Total
               </Typography>
               <Typography variant="span">{orderDetail?.order_total}</Typography>
             </Box>
-            <Box className="common_row mb-2">
+            <Box className="common_row mb-4">
               <Typography className="order_desc_subheading" variant="span">
                 City & State
               </Typography>
@@ -111,7 +114,7 @@ const OrderDetail = () => {
                 {orderDetail?.client?.city + ',' + orderDetail?.client?.state}
               </Typography>
             </Box>
-            <Box className="common_row align-items-start mb-2">
+            <Box className="common_row align-items-start mb-4">
               <Typography className="order_desc_subheading" variant="span">
                 Address
               </Typography>
@@ -120,27 +123,32 @@ const OrderDetail = () => {
               </Typography>
             </Box>
           </Box>
-          <Box className="order_description_right_section">
+          <Box className="order_description_right_section mt-3">
             <Button className="invoice_button">
               <ReceiptRoundedIcon />
             </Button>
           </Box>
         </Box>
+
         <Box className="order_tracking_payment_detail mt-2">
           <Box className="order_tracking">
-            <Box className="order_tracking_heading align-items-center mb-1">
+            <Box className="order_tracking_heading align-items-center mb-4">
               <Typography className="common_sub_heading" variant="span">
                 Order Tracking
               </Typography>
               <Button
                 variant="contained"
-                sx={{ background: '#fff', color: '#2E3591' }}
+                sx={{
+                  background: '#fff',
+                  color: '#2E3591',
+                  marginRight: '10px',
+                }}
               >
                 {' '}
                 Dispatch
               </Button>
             </Box>
-            <Box sx={{ width: '100%' }}>
+            <Box sx={{ width: '100%', marginBottom: '8px' }}>
               <Stepper
                 activeStep={handleActiveStep(orderDetail?.orderTrackingStatus)}
                 alternativeLabel
@@ -153,6 +161,7 @@ const OrderDetail = () => {
               </Stepper>
             </Box>
           </Box>
+
           <Box className="payment_detail">
             <Box className="payment_detail_heading align-items-center">
               <Typography className="common_sub_heading" variant="span">
@@ -161,32 +170,37 @@ const OrderDetail = () => {
               <Button
                 onClick={handleOpenPaymentDialog}
                 variant="contained"
-                sx={{ background: '#fff', color: '#2E3591' }}
+                sx={{
+                  background: '#fff',
+                  color: '#2E3591',
+                  marginRight: '10px',
+                }}
               >
                 {' '}
                 Update
               </Button>
             </Box>
-            <Box className="common_row mb-2">
+            <Box className="common_row mb-3 mx-2">
               <Typography className="order_desc_subheading" variant="span">
                 Status
               </Typography>
-              <Typography variant="span">
+              <Typography className="pe-3" variant="span">
                 {orderDetail?.paymentStatus?.charAt(0)?.toUpperCase() +
                   orderDetail?.paymentStatus?.toLowerCase()?.substr(1)}
               </Typography>
             </Box>
-            <Box className="common_row mb-2">
+            <Box className="common_row mb-3 mx-2">
               <Typography className="order_desc_subheading" variant="span">
                 Method
               </Typography>
-              <Typography variant="span">
+              <Typography className="pe-3" variant="span">
                 {orderDetail?.paymentMethod?.charAt(0)?.toUpperCase() +
                   orderDetail?.paymentMethod?.toLowerCase()?.substr(1)}
               </Typography>
             </Box>
           </Box>
         </Box>
+
         <TableContainer
           component={Paper}
           sx={{ boxShadow: 'none', marginTop: 2 }}
@@ -209,7 +223,14 @@ const OrderDetail = () => {
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell align="right">
-                        <img src={SampleProduct} />
+                        <img
+                          style={{
+                            border: '1px solid #E5E5E5',
+                            borderRadius: '5px',
+                            padding: '4px',
+                          }}
+                          src={SampleProduct}
+                        />
                       </TableCell>
                       <TableCell align="right">{data?.product?.name}</TableCell>
                       <TableCell align="right">

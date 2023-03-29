@@ -25,7 +25,7 @@
   width: 80%;
   display: flex;
   flex-direction: row;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
   border-radius: 10px;
   margin: 0 auto;
@@ -37,7 +37,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-right:10px ;
+  margin-right: 10px;
 }
 .page_name_root {
   width: 80%;
@@ -45,11 +45,12 @@
   justify-content: flex-start;
   align-items: center;
   /* margin-top: 10px !important; */
-  font-size: 1.1rem;
+  /* background-color: #2e3591; */
+  font-size: 1rem;
 }
 .sidebar_img {
   color: #2e3591;
 }
-.sidebar_img svg{
-  color:#f1f1f1;
+.sidebar_img svg {
+  color: #f1f1f1;
 }

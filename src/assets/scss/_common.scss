@@ -128,16 +128,18 @@ fieldset {
 }
 
 .selected-link {
-  background-color: #f1f2f6;
+  // background-color: #f1f2f6;
+  background-color: #2E3591;
+  color: #fff;
   border: none !important;
 
   .sidebar_icon_root {
-
     // background-color: #2e3591;
     svg {
       color: #f1f1f1;
     }
   }
+
 }
 
 .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
@@ -184,6 +186,10 @@ textarea:focus {
   width: 165px;
   height: 45px;
 }
+.save_btn {
+  width: 215px;
+  height: 45px;
+}
 
 .cancel-btn:hover {
   background-color: #e4e5e7 !important;
@@ -208,6 +214,11 @@ textarea:focus {
 
 .MuiBox-root {
   // overflow-y: auto;
+  // margin-bottom: 6px;
+}
+
+.MuiButtonBase-root {
+  margin-bottom: 24px;
 }
 
 .MuiDialogActions-root {
@@ -309,6 +320,7 @@ button {
   height: 35px !important;
   border-radius: 3px;
   padding: 2px;
+  // font-size: 38px;
 }
 
 .common_sub_heading {

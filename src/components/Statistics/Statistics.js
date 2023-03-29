@@ -37,7 +37,14 @@ const Statistics = () => {
         <Box className="statistics_title">
           <Typography variant="span">Product</Typography>
           <Box className="column">
-            <Box sx={{ background: '#F1F2F6', borderRadius: '5px' }}>
+            <Box
+              sx={{
+                background: '#F1F2F6',
+                borderRadius: '5px',
+
+                // marginRight: '100px',
+              }}
+            >
               <Button
                 className={
                   activeTab === 'product' ? 'active_button' : 'common_button'
@@ -61,7 +68,10 @@ const Statistics = () => {
                 Team
               </Button>
             </Box>
+
             <Autocomplete
+              // sx={{ display: 'flex', flexDirection: 'row' }}
+              // className="m-2"
               disablePortal
               options={daterange}
               value={selectedPeriod}

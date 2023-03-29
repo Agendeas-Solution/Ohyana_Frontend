@@ -8,6 +8,7 @@ import {
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import moment from 'moment'
 import AddStatusDialog from './AddStatusDialog'
+
 const ViewBusinessCardDetail = ({
   viewBusinessCardDialog,
   handleDialogClose,
@@ -27,8 +28,7 @@ const ViewBusinessCardDetail = ({
           res => {
             setBusinessDetail(res.data)
           },
-          err => {
-          },
+          err => {},
         )
     }
   }, [viewBusinessCardDialog?.id])
@@ -47,8 +47,7 @@ const ViewBusinessCardDetail = ({
         })
         handleDialogClose()
       },
-      err => {
-      },
+      err => {},
     )
   }
   return (

@@ -107,3 +107,19 @@
 .client_type_select {
   border: 1px solid #e5e5e5;
 }
+
+.main_button {
+  /* width: 109px; */
+  height: 40px;
+  margin: auto 0 !important;
+  background-color: #fff !important;
+  text-transform: capitalize !important;
+  color: #8e8e8e !important;
+}
+
+.no_result {
+  width: 15%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

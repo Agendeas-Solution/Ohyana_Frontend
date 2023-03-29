@@ -65,8 +65,13 @@ const TeamGraph = ({ selectedPeriod }) => {
       <Box>
         <Box className=" graph_section team_graph">
           <Box className="common_row">
-            <Typography variant="span">Overall</Typography>
-            <Box className="row">
+            <Typography
+              variant="span"
+              sx={{ color: '#2E3591', fontSize: '20px', float: 'center' }}
+            >
+              Overall
+            </Typography>
+            <Box className="row me-1 mx-1 mt-1 mb-3">
               <Autocomplete
                 disablePortal
                 options={top100Films}
@@ -75,7 +80,7 @@ const TeamGraph = ({ selectedPeriod }) => {
                   <TextField
                     className="common_dropdown"
                     {...params}
-                    placeholder="City"
+                    placeholder="Performance"
                   />
                 )}
               />
@@ -87,7 +92,7 @@ const TeamGraph = ({ selectedPeriod }) => {
                   <TextField
                     className="common_dropdown"
                     {...params}
-                    placeholder="City"
+                    placeholder="Jr. Sales Person"
                   />
                 )}
               />
@@ -99,33 +104,70 @@ const TeamGraph = ({ selectedPeriod }) => {
                   <TextField
                     className="common_dropdown"
                     {...params}
-                    placeholder="City"
+                    placeholder="Benedict Cumberbatch"
                   />
                 )}
               />
             </Box>
           </Box>
-          {userData?.datasets && <BarChart chartData={userData} />}
+          <Box
+            sx={{
+              border: '1px solid #E5E5E5',
+              borderRadius: '5px',
+              // margin: '3px',
+            }}
+            className="me-3"
+          >
+            {userData?.datasets && <BarChart chartData={userData} />}
+          </Box>
           <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
-            <Table sx={{ maxWidth: 300 }}>
+            <Table
+              sx={{
+                maxWidth: 300,
+                marginTop: '20px',
+                // border: '1px solid black',
+              }}
+            >
               <TableHead className="team_overview_table_heading">
                 <TableRow>
-                  <TableCell>Occasion Name</TableCell>
-                  <TableCell align="right">Total Selling(Pc)</TableCell>
+                  <TableCell>Sr No.</TableCell>
+                  <TableCell align="left">Team Member</TableCell>
+                  <TableCell align="left">Points</TableCell>
+                  <TableCell align="left">Performance</TableCell>
+                  <TableCell align="left"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 <TableRow
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  sx={{
+                    '&:last-child td, &:last-child th': { border: 0 },
+                  }}
                 >
-                  <TableCell align="right">Instant Noodles </TableCell>
-                  <TableCell align="right">3000</TableCell>
+                  <TableCell align="left">1</TableCell>
+                  <TableCell align="left">Benedict Cumberbatch</TableCell>
+                  <TableCell align="left">30</TableCell>
+                  <TableCell align="left">+ 4%</TableCell>
+                  <TableCell align="left">
+                    <Button
+                      // onClick={() => {
+                      //   navigate(`/orderDetail/${orderData?.id}`)
+                      // }}
+                      className="common_button"
+                    >
+                      View
+                    </Button>
+                  </TableCell>
                 </TableRow>
                 <TableRow
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <TableCell align="right">Instant Noodles </TableCell>
-                  <TableCell align="right">3000</TableCell>
+                  <TableCell align="right">2</TableCell>
+                  <TableCell align="right"> Rober Downey</TableCell>
+                  <TableCell align="right">20</TableCell>
+                  <TableCell align="right">- 2%</TableCell>
+                  <TableCell align="right">
+                    <Button className="common_button">View</Button>
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
