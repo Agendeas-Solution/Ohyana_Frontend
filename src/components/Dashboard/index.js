@@ -41,30 +41,32 @@ const Dashboard = () => {
       <Box className="main_section">
         <Box className="attendance_buttons">
           <Box>
-            <Typography variant="span">Today’s Present</Typography>
+            <Typography sx={{ fontSize: '18px' }} variant="span">
+              Today’s Present
+            </Typography>
           </Box>
           <Box>
             <Button
               onClick={() => handleCheckIn('checkIn')}
-              className="common_button"
+              className="check_InOut_Break_InOut_Btn"
             >
               Check In
             </Button>
             <Button
               onClick={() => handleCheckIn('breakIn')}
-              className="common_button"
+              className="check_InOut_Break_InOut_Btn"
             >
               Break In
             </Button>
             <Button
               onClick={() => handleCheckIn('breakOut')}
-              className="common_button"
+              className="check_InOut_Break_InOut_Btn"
             >
               Break Out
             </Button>
             <Button
               onClick={() => handleCheckIn('checkOut')}
-              className="common_button"
+              className="check_InOut_Break_InOut_Btn"
             >
               Check Out
             </Button>
@@ -94,10 +96,14 @@ const Dashboard = () => {
                       {inquiryData?.inquiry?.crtMonIndiaMart}
                     </Typography>
                     <Typography variant="span">
-                      {inquiryData?.inquiry?.percentageIndiaMart}
+                      {inquiryData?.inquiry?.percentageIndiaMart}%
                     </Typography>
                   </Box>
-                  <Typography className="small_sub_heading" variant="span">
+                  <Typography
+                    className="small_sub_heading"
+                    // className="sales_parameter_bottom_border small_sub_heading"
+                    variant="span"
+                  >
                     Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
                   </Typography>
                 </Box>
@@ -118,7 +124,7 @@ const Dashboard = () => {
                     <Typography variant="span">
                       {inquiryData?.inquiry?.crtMonWeb}
                     </Typography>
-                    <Typography variant="span">100</Typography>
+                    <Typography variant="span">100%</Typography>
                   </Box>
                   <Typography className="small_sub_heading" variant="span">
                     Last Month :{inquiryData?.inquiry?.lstMonWeb}{' '}
@@ -142,10 +148,12 @@ const Dashboard = () => {
                       {inquiryData?.inquiry?.lstMonWeb}
                     </Typography>
                     <Typography variant="span">
-                      {inquiryData?.inquiry?.lstMonWeb}
+                      {inquiryData?.inquiry?.lstMonWeb}%
                     </Typography>
                   </Box>
-                  <Typography variant="span">Last Month : 85</Typography>
+                  <Typography className="small_sub_heading" variant="span">
+                    Last Month : 85
+                  </Typography>
                 </Box>
 
                 <Box className="inquiry_detail_box">
@@ -165,14 +173,15 @@ const Dashboard = () => {
                       {inquiryData?.inquiry?.crtMonOther}
                     </Typography>
                     <Typography variant="span">
-                      {inquiryData?.inquiry?.lstMonWeb}
+                      {inquiryData?.inquiry?.lstMonWeb}%
                     </Typography>
                   </Box>
-                  <Typography variant="span">
+                  <Typography className="small_sub_heading" variant="span">
                     Last Month : {inquiryData?.inquiry?.lstMonOther}
                   </Typography>
                 </Box>
               </Box>
+
               <Box className="doughnut_chart_inquiry">
                 <DonutChart
                   height={200}
@@ -204,13 +213,14 @@ const Dashboard = () => {
             </Box>
             <Box></Box>
           </Box>
+
           <Box className="sales_statistics">
             <Typography className="sales_statistics_heading" variant="span">
               Sales Statistics
             </Typography>
             <Box className="sales_statistics_data">
               <Typography variant="span">Total</Typography>
-              <Box className="sales_parameter">
+              <Box className="sales_parameter sales_parameter_bottom_border">
                 <Typography variant="span">
                   {inquiryData?.sales?.crtLead}
                 </Typography>
@@ -221,7 +231,7 @@ const Dashboard = () => {
             </Box>
             <Box className="sales_statistics_data">
               <Typography>Getting lead </Typography>
-              <Box className="sales_parameter">
+              <Box className="sales_parameter sales_parameter_bottom_border">
                 <Typography>{inquiryData?.sales?.crtLead}</Typography>
                 <Typography>
                   <TrendingDownRoundedIcon className="common_icon" /> 5%
@@ -230,7 +240,7 @@ const Dashboard = () => {
             </Box>
             <Box className="sales_statistics_data">
               <Typography>Get Order </Typography>
-              <Box className="sales_parameter">
+              <Box className="sales_parameter sales_parameter_bottom_border">
                 <Typography>{inquiryData?.sales?.crtOrders}</Typography>
                 <Typography>
                   <TrendingDownRoundedIcon className="common_icon" /> 5%
@@ -239,7 +249,7 @@ const Dashboard = () => {
             </Box>
             <Box className="sales_statistics_data">
               <Typography>Pending</Typography>
-              <Box className="sales_parameter">
+              <Box className="sales_parameter sales_parameter_bottom_border">
                 <Typography>{inquiryData?.sales?.crtPending}</Typography>
                 <Typography>
                   <TrendingDownRoundedIcon className="common_icon" /> 5%
@@ -266,9 +276,12 @@ const Dashboard = () => {
             </Box>
           </Box>
         </Box>
+
         <Box className="team_overview">
           <Box className="team_overview_heading">
-            <Typography variant="span">Team Overview</Typography>
+            <Typography sx={{ padding: '8px' }} variant="span">
+              Team Overview
+            </Typography>
             <Button className="view_all_button"> View All > </Button>
           </Box>
           <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
@@ -307,9 +320,12 @@ const Dashboard = () => {
             </Table>
           </TableContainer>
         </Box>
+
         <Box className="team_overview">
           <Box className="team_overview_heading">
-            <Typography variant="span">Order Overview</Typography>
+            <Typography sx={{ padding: '8px' }} variant="span">
+              Order Overview
+            </Typography>
             <Button className="view_all_button"> View More > </Button>
           </Box>
           <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
@@ -331,13 +347,13 @@ const Dashboard = () => {
                   <TableRow
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell>row.name</TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"> row.name</TableCell>
+                    <TableCell>{row.name}</TableCell>
+                    <TableCell align="right">{row.name}</TableCell>
+                    <TableCell align="right">{row.name}</TableCell>
+                    <TableCell align="right">{row.name}</TableCell>
+                    <TableCell align="right">{row.name}</TableCell>
+                    <TableCell align="right">{row.name}</TableCell>
+                    <TableCell align="right">{row.name}</TableCell>
                     <TableCell align="right">
                       <Button className="common_button">View</Button>
                     </TableCell>

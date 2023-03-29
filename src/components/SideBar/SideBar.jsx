@@ -27,6 +27,9 @@ import Orders from '../../assets/img/Orders.svg'
 import { TaskSharp } from '@mui/icons-material'
 const SideBar = () => {
   let navigate = useNavigate()
+  const [customer, setCustomer] = useState(Customer)
+  const [team, setTeam] = useState(Team)
+  const [dashboard, setDashboard] = useState(Dashboard)
   const { authorize, flagLoader, permissions } = useContext(AuthContext).state
   const { setPermissions } = useContext(AuthContext)
   const { setActivePage } = useContext(ContextActivePage)
@@ -141,10 +144,11 @@ const SideBar = () => {
               }`}
               onClick={() => {
                 handleNavItemClick('/client', 'Clients')
+                setCustomer(Team)
               }}
             >
               <Box className="sidebar_icon_root">
-                <img src={Customer} className="sidebar_img" />
+                <img src={customer} className="sidebar_img" />
               </Box>
               <Typography className="page_name_root" variant="div">
                 Customer
@@ -159,6 +163,7 @@ const SideBar = () => {
               }`}
               onClick={() => {
                 handleNavItemClick('/staff', 'Staff')
+                setCustomer(Customer)
                 // navigate("/staff");
                 // setActivePage("Staff");
               }}
@@ -232,7 +237,6 @@ const SideBar = () => {
               Report
             </Typography>
           </Box>
-
           {/* <Box
             className={`sidebar_icons ${path === "/support" && "selected-link"
               }`}
@@ -247,7 +251,6 @@ const SideBar = () => {
               Support
             </Typography>
           </Box> */}
-
           {permissions?.settingMenu && (
             <Box
               className={`sidebar_icons ${
@@ -265,7 +268,7 @@ const SideBar = () => {
               </Typography>
             </Box>
           )}
-          {permissions?.settingMenu && (
+          {/* {permissions?.settingMenu && (
             <Box
               className={`sidebar_icons ${
                 path === '/profile' && 'selected-link'
@@ -281,15 +284,16 @@ const SideBar = () => {
                 My Profile
               </Typography>
             </Box>
-          )}
-          <Box className="sidebar_icons" onClick={clearLoginToken}>
+          )} */}
+
+          {/* <Box className="sidebar_icons" onClick={clearLoginToken}>
             <Box className="sidebar_icon_root">
               <img src={SignOut} className="sidebar_img" />
             </Box>
             <Typography className="page_name_root" variant="div">
               Sign Out
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
         <SuccessSnackbar />
         <ErrorSnackbar />

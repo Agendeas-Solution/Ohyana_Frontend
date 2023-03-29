@@ -1,9 +1,14 @@
 import { React, useContext, useEffect, useState } from 'react'
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { useLocation, useNavigate } from 'react-router-dom'
 import CompanyLogo from '../../assets/img/Ohyana_logo.png'
 import { Context as ContextActivePage } from '../../context/pageContext'
 import backButton from '../../assets/img/back.svg'
+import NotificationIcon from '../../assets/img/Notification.svg'
+import DownIcon from '../../assets/img/Down.svg'
+import ProfileMainIcon from '../../assets/img/ProfileMainIcon.svg'
+import SignOutIcon from '../../assets/img/sign_out.svg'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import Avatar from '@mui/material/Avatar'
 import Stack from '@mui/material/Stack'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded'
@@ -11,8 +16,9 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
-import { clearLoginToken } from "../../services/storage";
-import './index.css';
+import { clearLoginToken } from '../../services/storage'
+import './index.css'
+
 const Header = () => {
   const { ActivePage } = useContext(ContextActivePage)?.state
   const navigate = useNavigate()
@@ -33,14 +39,14 @@ const Header = () => {
   const handleGoback = () => {
     navigate(-1)
   }
-  const [anchorEl, setAnchorEl] = useState(null)
-  const open = Boolean(anchorEl)
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
+  // const [anchorEl, setAnchorEl] = useState(null)
+  // const open = Boolean(anchorEl)
+  // const handleClick = event => {
+  //   setAnchorEl(event.currentTarget)
+  // }
+  // const handleClose = () => {
+  //   setAnchorEl(null)
+  // }
   return (
     <>
       <Box
@@ -53,14 +59,15 @@ const Header = () => {
                 <img className="ms-2" src={backButton} alt="image" />
               </Box>
               <h3 className="mb-0">{ActivePage}</h3>
-              <Box>
+              {/* <Box>
                 <img
                   className="notification_class"
                   src={NotificationIcon}
                   alt=""
                 />
-              </Box>
-              <Box>
+              </Box> */}
+
+              {/* <Box>
                 <Button
                   id="basic-button"
                   aria-controls={open ? 'basic-menu' : undefined}
@@ -113,11 +120,17 @@ const Header = () => {
                     Sign Out
                   </MenuItem>
                 </Menu>
-              </Box>
+              </Box> */}
             </Box>
             <NotificationsRoundedIcon />
+
             <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-              <MenuItem onClick={handleClose}>
+              {/* <MenuItem onClick={handleClose}> */}
+              <MenuItem
+                onClick={() => {
+                  navigate('/profile')
+                }}
+              >
                 <PersonOutlineRoundedIcon />
                 My Profile
               </MenuItem>
@@ -127,13 +140,21 @@ const Header = () => {
               </MenuItem>
             </Menu>
           </Box>
-          <Box>
-            <Stack direction="row" spacing={2}>
-              <Avatar
-                onClick={handleClick}
-                alt="Remy Sharp"
-                src="/static/images/avatar/1.jpg"
-              />
+
+          <Box className="mx-3">
+            <Stack
+              onClick={handleClick}
+              direction="row"
+              // spacing={2}
+            >
+              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+              {/* <img
+                style={{ width: '21px' }}
+                className="notification_class m-1"
+                src={DownIcon}
+                alt=""
+              /> */}
+              <KeyboardArrowDownIcon className="mt-2 " />
             </Stack>
           </Box>
         </Box>
