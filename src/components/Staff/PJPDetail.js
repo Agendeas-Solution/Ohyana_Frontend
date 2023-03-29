@@ -60,16 +60,12 @@ const PJPDetail = () => {
       },
     )
   }, [value])
-  useEffect(() => {
-    console.log('Printing Add PJP detail', addPJPDetail)
-  }, [addPJPDetail])
   const handleAddPJPDetail = () => {
     let pjpDetail = addPJPDetail
     delete pjpDetail.dialogStatus
     CreatePJP(
       pjpDetail,
       res => {
-        debugger;
       },
       err => {},
     )

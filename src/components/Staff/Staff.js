@@ -1,34 +1,6 @@
 import { React, useEffect, useState, useContext } from 'react'
 import {
-  Box,
-  TextField,
-  Button,
-  Autocomplete,
-  MenuItem,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Pagination,
-  Tabs,
-  FormControl,
-  OutlinedInput,
-  InputAdornment,
-  IconButton,
-  Toolbar,
-  Typography,
-  Avatar,
-  Divider,
-  Drawer,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-} from '@mui/material'
-
+  Box, TextField, Button, Autocomplete, MenuItem, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Pagination, Tabs, FormControl, OutlinedInput, InputAdornment, IconButton, Toolbar, Typography, Avatar, Divider, Drawer, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material'
 import './index.css'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
@@ -44,14 +16,8 @@ import { useNavigate } from 'react-router-dom'
 import CallIcon from '../../assets/img/call.svg'
 import MailIcon from '../../assets/img/mail.svg'
 import { Context as AuthContext } from '../../context/authContext/authContext'
-import {
-  GetAdminStaffDetailList,
-  GetUsersAttendanceList,
-} from '../../services/apiservices/staffDetail'
-import {
-  GetAdminDepartmentList,
-  GetAdminRole,
-} from '../../services/apiservices/adminprofile'
+import { GetAdminStaffDetailList, GetUsersAttendanceList } from '../../services/apiservices/staffDetail'
+import { GetAdminDepartmentList, GetAdminRole } from '../../services/apiservices/adminprofile'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
@@ -62,7 +28,6 @@ import SuccessSnackbar from '../SuccessSnackbar/SuccessSnackbar'
 import Loader from '../Loader/Loader'
 import moment from 'moment'
 import { styled, useTheme } from '@mui/material/styles'
-
 const drawerWidth = 400
 
 const Staff = () => {
@@ -118,12 +83,10 @@ const Staff = () => {
         if (res.success) {
           setStaffDetailList(res?.data)
           setLoader(false)
-          debugger
         }
       },
       err => {
         console.log(err)
-        debugger
         setLoader(false)
       },
     )
@@ -409,7 +372,7 @@ const Staff = () => {
     //   </Box>
     // </>
 
-    //startttttttttttt
+    //start
     <Box sx={{ backgroundColor: '#f1f2f6' }} className="team_profile_section">
       <Box
         sx={{ marginBottom: '10px' }}
@@ -764,6 +727,7 @@ const Staff = () => {
                   backgroundColor: '#F1F2F6',
                   float: 'right',
                 }}
+                // onClick={() => navigate(`/staffprofile/${}`)}
               >
                 View Profile
               </Button>

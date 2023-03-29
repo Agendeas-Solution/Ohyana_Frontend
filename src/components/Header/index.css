@@ -33,7 +33,10 @@
 .header-info {
   width: 100%;
   /* margin: 0rem 1.5rem 0rem 5.7rem; */
+  display: flex;
   border-bottom: 1px solid #c4c4c4;
+  flex-direction: row;
+  align-items: center;
 }
 .notification_class {
   /* display: flex; */
