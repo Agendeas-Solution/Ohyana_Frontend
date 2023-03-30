@@ -1,7 +1,6 @@
 import { React, useContext, useEffect, useState } from 'react'
-import { Box, Button,Avatar } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Menu, MenuItem, Button } from '@mui/material'
 import CompanyLogo from '../../assets/img/Ohyana_logo.png'
 import { Context as ContextActivePage } from '../../context/pageContext'
 import backButton from '../../assets/img/back.svg'
@@ -24,16 +23,6 @@ const Header = () => {
   const { ActivePage } = useContext(ContextActivePage)?.state
   const navigate = useNavigate()
   const [pathName, setPathName] = useState('')
-
-  useEffect(() => {
-    let path = window.location.pathname
-    setPathName(path)
-  }, [])
-
-  const prevRoute = useLocation()
-  const handleGoback = () => {
-    navigate(-1)
-  }
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
   const handleClick = event => {
@@ -42,6 +31,22 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null)
   }
+  useEffect(() => {
+    let path = window.location.pathname
+    setPathName(path)
+  })
+  const prevRoute = useLocation()
+  const handleGoback = () => {
+    navigate(-1)
+  }
+  // const [anchorEl, setAnchorEl] = useState(null)
+  // const open = Boolean(anchorEl)
+  // const handleClick = event => {
+  //   setAnchorEl(event.currentTarget)
+  // }
+  // const handleClose = () => {
+  //   setAnchorEl(null)
+  // }
   return (
     <>
       <Box
@@ -49,18 +54,15 @@ const Header = () => {
       >
         <Box className="header-info mx-4">
           <Box className="user_profile_photo_root">
-            <Box className="d-flex">
-              <img
-                onClick={() => handleGoback()}
-                className="ms-2"
-                src={backButton}
-                alt="image"
-              />
+            <Box className="align-items-center d-flex">
+              <Box onClick={() => handleGoback()}>
+                <img className="ms-2" src={backButton} alt="image" />
+              </Box>
               <h3 className="mb-0">{ActivePage}</h3>
+              {/* <Box>
                 <img
-                  style={{ width: '21px' }}
-                  className="notification_class m-1"
-                  src={DownIcon}
+                  className="notification_class"
+                  src={NotificationIcon}
                   alt=""
                 />
               </Box> */}
@@ -78,13 +80,10 @@ const Header = () => {
                     // sx={{ width: 40, height: 40 }}
                     // src="/static/images/avatar/1.jpg"
                   />
-                  My Profile
-                </MenuItem>
-                <MenuItem onClick={clearLoginToken}>
                   <img
                     style={{ width: '21px' }}
                     className="notification_class m-1"
-                    src={SignOutIcon}
+                    src={DownIcon}
                     alt=""
                   />
                 </Button>
@@ -157,7 +156,6 @@ const Header = () => {
               /> */}
               <KeyboardArrowDownIcon className="mt-2 " />
             </Stack>
-
           </Box>
         </Box>
       </Box>
