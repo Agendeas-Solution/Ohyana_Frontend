@@ -14,6 +14,7 @@ import MailIcon from '../../assets/img/mail.svg'
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { CustomerTake } from '../../services/apiservices/clientDetail'
+import NoResultFound from '../ErrorComponent/NoResultFound'
 const CustomerList = ({ clientDetails, ViewClientDetail }) => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -72,7 +73,7 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
                     {row.state}
                   </TableCell>
                   <TableCell align="right">
-                    {moment(row.createdAt.split(' ')[0]).format('DD-MM-YYYY')}
+                    {moment(row.createdAt).format('DD-MM-YYYY')}
                   </TableCell>
                   <TableCell align="right">
                     {row.teamId === null ? (
@@ -116,18 +117,7 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
             </TableBody>
           </Table>
         ) : (
-          <p
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              textAlign: 'center',
-              width: '100%',
-              height: '100%',
-            }}
-          >
-            No Data Found
-          </p>
+          <NoResultFound />
         )}
       </TableContainer>
     </>

@@ -34,7 +34,7 @@ const StaffExpenses = () => {
     console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
     GetExpenseList(
-      path,
+      {},
       res => {
         setExpenseList(res.data.expenses)
         setExpensesData(res.data)

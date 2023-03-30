@@ -186,7 +186,7 @@ const UserProfile = () => {
               )}
 
               {/* FOR STAFF EXPENSES TAB */}
-              {/* {value == 'Expenses' && <StaffExpenses />} */}
+              {/* {value === 'Expenses' && <StaffExpenses />} */}
               <Button className="attendance_button check_InOut_Break_InOut_Btn">
                 <EditRoundedIcon
                   onClick={() => {
@@ -209,7 +209,6 @@ const UserProfile = () => {
                 <Tab value="Expenses" label="Expenses" />
               </Tabs>
             </Box>
-
             <TabPanel value="Attendance">
               <Box className="attendance_data_row col-md-12 mb-1">
                 <Box className="total_days_data days_data">
@@ -298,6 +297,9 @@ const UserProfile = () => {
               )}
             </TabPanel>
 
+            <TabPanel value="Expenses">
+              <StaffExpenses />
+            </TabPanel>
             <TabPanel value="Profile">
               <Box className="profile_detail">
                 <Typography variant="span" className="profile_detail_heading">
