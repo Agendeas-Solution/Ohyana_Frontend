@@ -118,7 +118,7 @@ const UserProfile = () => {
   }
   return (
     <>
-      <div className="w-100 mt-4">
+      <div className="w-100 mt-3">
         <Box className="profile_section">
           <Box className="profile_img">
             <Box
@@ -129,13 +129,13 @@ const UserProfile = () => {
               }}
             >
               <Box className="userName_and_position">
-                <AccountCircleRoundedIcon className="userprofile_dummy_icon" />
+                <AccountCircleRoundedIcon className="user_profile_icon" />
                 <Box
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    marginLeft: 2,
+                    marginLeft: 1,
                   }}
                 >
                   <Typography
@@ -150,11 +150,19 @@ const UserProfile = () => {
                 </Box>
               </Box>
             </Box>
+
             <Box>
               {/* FOR ATTENDANCE TAB */}
               {value === 'Attendance' && (
                 <>
                   <Button
+                    onClick={() => handleCheckIn('checkIn')}
+                    className="attendance_button check_InOut_Break_InOut_Btn m-1"
+                    variant="contained"
+                  >
+                    + Apply Leave
+                  </Button>
+                  {/* <Button
                     onClick={() => handleCheckIn('checkIn')}
                     className="attendance_button check_InOut_Break_InOut_Btn m-1"
                     variant="contained"
@@ -181,7 +189,7 @@ const UserProfile = () => {
                     variant="contained"
                   >
                     Check out
-                  </Button>
+                  </Button> */}
                 </>
               )}
 
@@ -197,6 +205,66 @@ const UserProfile = () => {
               </Button>
             </Box>
           </Box>
+
+          {/* <Box
+            sx={{
+              // display: 'flex',
+              // flexDirection: 'column',
+              marginTop: '5px',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              // padding: '16px',
+            }}
+          >
+            <Box className="profile_data prof_data">
+              <Typography className="profile_heading_name" variant="span">
+                Contact No.
+              </Typography>
+              <Typography className="pt-2" variant="span">
+                +91 98545985443
+              </Typography>
+            </Box>
+
+            <Box className="profile_data prof_data">
+              <Typography className="profile_heading_name" variant="span">
+                Email
+              </Typography>
+              <Typography className="pt-2" variant="span">
+                roberdowneyjr@gmail.com
+              </Typography>
+            </Box>
+
+            <Box className="profile_data prof_data">
+              <Typography className="profile_heading_name" variant="span">
+                Birthdate
+              </Typography>
+              <Typography className="pt-2" variant="span">
+                02 Feb 1990
+              </Typography>
+            </Box>
+
+            <Box className="profile_data prof_data">
+              <Typography className="profile_heading_name" variant="span">
+                Gender
+              </Typography>
+              <Typography className="pt-2" variant="span">
+                Male
+              </Typography>
+            </Box>
+
+            <Box className="profile_data prof_data">
+              <Typography className="profile_heading_name" variant="span">
+                Password
+              </Typography>
+              <Typography className="pt-2" variant="span">
+                rdowneyjr@123
+              </Typography>
+            </Box>
+          </Box> */}
+
+          {/* </Box> */}
+
           <TabContext value={value}>
             <Box className="notification_tabs_root">
               <Tabs
@@ -207,29 +275,104 @@ const UserProfile = () => {
               >
                 <Tab value="Attendance" label="Attendance" />
                 <Tab value="Expenses" label="Expenses" />
+                <Tab value="Profile" label="Profile" />
               </Tabs>
             </Box>
 
             <TabPanel value="Attendance">
-              <Box className="attendance_data_row col-md-12 mb-1">
-                <Box className="total_days_data days_data">
+              {/* <Box className="attendance_data_row col-md-12 mb-1">
+                <Box className="inner_profile_details first_box m-1 p-2 total_days_data days_data">
                   <Typography variant="span">Total Days</Typography>
-                  <Typography variant="span">
+                  <Typography className="pt-1" variant="span">
                     {staffAttendanceList?.totalDays}
                   </Typography>
                 </Box>
-                <Box className="Absent_days_data days_data">
+                <Box
+                  sx={{ marginRight: '20px' }}
+                  className="inner_profile_details first_box m-1 p-2 Absent_days_data days_data"
+                >
                   <Typography variant="span">Absent Days</Typography>
-                  <Typography variant="span">
+                  <Typography className="pt-1" variant="span">
                     {staffAttendanceList?.absentDays}
                   </Typography>
                 </Box>
-                <Box className="Late_days_data days_data">
+                <Box className="inner_profile_details first_box m-1 p-2 Late_days_data days_data">
                   <Typography variant="span">Late Days</Typography>
-                  <Typography variant="span">
+                  <Typography className="pt-1" variant="span">
                     {staffAttendanceList?.lateDays}
                   </Typography>
                 </Box>
+
+                <Box className="col-md-3">
+                  <Box sx={{ background: '#F1F2F6', borderRadius: '5px' }}>
+                    <Button
+                      className={
+                        activeTab === 'present'
+                          ? 'active_button'
+                          : 'common_button'
+                      }
+                      onClick={() => {
+                        setActiveTab('present')
+                      }}
+                      variant="contained"
+                    >
+                      Present
+                    </Button>
+                    <Button
+                      className={
+                        activeTab === 'leave'
+                          ? 'active_button'
+                          : 'common_button'
+                      }
+                      onClick={() => {
+                        setActiveTab('leave')
+                      }}
+                      variant="contained"
+                    >
+                      Leave
+                    </Button>
+                    <Button
+                      className={
+                        activeTab === 'holiday'
+                          ? 'active_button'
+                          : 'common_button'
+                      }
+                      onClick={() => {
+                        setActiveTab('holiday')
+                      }}
+                      variant="contained"
+                    >
+                      Holiday
+                    </Button>
+                  </Box>
+                </Box>
+              </Box> */}
+
+              <Box className="attendance_data_row col-md-12 mb-1">
+                <Box
+                  sx={{
+                    // background: '#F1F2F6',
+                    borderRadius: '5px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <Box className="inner_profile_details first_box  me-3 p-2">
+                    <Typography>Total Days</Typography>
+                    <Typography>24</Typography>
+                  </Box>
+
+                  <Box className="inner_profile_details middle_box  me-3 p-2">
+                    <Typography>Absent Days</Typography>
+                    <Typography>10</Typography>
+                  </Box>
+
+                  <Box className="inner_profile_details last_box p-2">
+                    <Typography>Late Days</Typography>
+                    <Typography>5d</Typography>
+                  </Box>
+                </Box>
+
                 <Box className="col-md-3">
                   <Box sx={{ background: '#F1F2F6', borderRadius: '5px' }}>
                     <Button
@@ -274,7 +417,6 @@ const UserProfile = () => {
                   </Box>
                 </Box>
               </Box>
-
               {/* <Box className="tab_row">
                 {activeTab === 'leave' && (
                   <Box>
@@ -299,10 +441,7 @@ const UserProfile = () => {
             </TabPanel>
 
             <TabPanel value="Profile">
-              <Box className="profile_detail">
-                <Typography variant="span" className="profile_detail_heading">
-                  Profile Detail
-                </Typography>
+              {/* <Box className="profile_detail">
                 <Box className="userdetail_root">
                   <Typography
                     className="userdetail_field_heading"
@@ -351,7 +490,7 @@ const UserProfile = () => {
                       />
                     )}
                   </Box>
-                </Box>
+                </Box> 
                 <Box className="userdetail_root">
                   <Typography
                     className="userdetail_field_heading"
@@ -371,6 +510,63 @@ const UserProfile = () => {
                   <Typography variant="span">
                     {moment(userDetail?.birthDay).format('DD-MM-YYYY')}
                   </Typography>
+                </Box>
+              </Box> */}
+
+              <Box className="companyDetail">
+                <Box className="companyDetail_root p-3">
+                  <Typography
+                    className="companyDetail_field_heading user_profile_color"
+                    variant="span"
+                  >
+                    Email:
+                  </Typography>
+                  <Typography variant="span">chrisowens@email.com</Typography>
+                </Box>
+                <Box className="companyDetail_root p-3">
+                  <Typography
+                    variant="span"
+                    className="companyDetail_field_heading user_profile_color"
+                  >
+                    City:
+                  </Typography>
+                  <Typography variant="span">Rajkot</Typography>
+                </Box>
+                <Box className="companyDetail_root p-3">
+                  <Typography
+                    variant="span"
+                    className="companyDetail_field_heading user_profile_color"
+                  >
+                    State:
+                  </Typography>
+                  <Typography variant="span">Gujarat</Typography>
+                </Box>
+                <Box className="companyDetail_root  p-3">
+                  <Typography
+                    variant="span"
+                    className="companyDetail_field_heading user_profile_color"
+                  >
+                    Country:
+                  </Typography>
+                  <Typography variant="span">India</Typography>
+                </Box>
+                <Box className="companyDetail_root  p-3">
+                  <Typography
+                    className="companyDetail_field_heading user_profile_color"
+                    variant="span"
+                  >
+                    Business Type
+                  </Typography>
+                  <Typography variant="span">ABC</Typography>
+                </Box>
+                <Box className="companyDetail_root  p-3">
+                  <Typography
+                    className="companyDetail_field_heading user_profile_color"
+                    variant="span"
+                  >
+                    IndiaMart CRM Key:
+                  </Typography>
+                  <Typography variant="span">XYZ</Typography>
                 </Box>
               </Box>
             </TabPanel>

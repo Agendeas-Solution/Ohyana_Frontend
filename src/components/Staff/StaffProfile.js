@@ -80,17 +80,17 @@ const StaffProfile = () => {
               justifyContent: 'flex-start',
               alignItems: 'center',
               width: '50%',
-              padding: '15px 0 0 15px',
+              // padding: '15px 0 0 15px',
             }}
           >
             <Box className="userName_and_position">
-              <AccountCircleRoundedIcon className="userprofile_dummy_icon" />
+              <AccountCircleRoundedIcon className="user_profile_icon" />
               <Box
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
-                  marginLeft: 2,
+                  marginLeft: 1,
                 }}
               >
                 <Typography
@@ -129,11 +129,11 @@ const StaffProfile = () => {
                 onChange={handleChange}
               >
                 <Tab label="PJP" value="3" />
-                <Tab label="Profile" value="1" />
-                <Tab label="Attendance" value="2" />
                 <Tab label="Target" value="4" />
                 <Tab label="Expenses" value="5" />
+                <Tab label="Attendance" value="2" />
                 <Tab label="Points" value="6" />
+                <Tab label="Profile" value="1" />
               </TabList>
             </Box>
             <TabPanel value="1">

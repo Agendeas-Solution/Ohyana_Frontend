@@ -20,7 +20,7 @@ const PJPScheduleTable = ({ pjpList }) => {
     <>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
+          <TableHead className="pjp_all_table_header">
             <TableRow>
               <TableCell align="left">Sr No.</TableCell>
               <TableCell align="left">Date</TableCell>

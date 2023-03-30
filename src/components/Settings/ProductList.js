@@ -10,7 +10,7 @@ import SampleProduct from '../../assets/img/sample_product.png'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import ViewProductDialog from './ViewProductDialog'
 import { useNavigate } from 'react-router-dom'
-import Snacks from '../../assets/img/Snacks.svg'
+import SnacksPhoto from '../../assets/img/SnacksPhoto.png'
 
 const ProductList = () => {
   const { flagLoader, permissions } = useContext(AuthContext).state
@@ -99,7 +99,7 @@ const ProductList = () => {
                       }
                     >
                       {/* <img src={image_url} alt="sample" /> */}
-                      <img src={Snacks} alt="sample" />
+                      <img src={SnacksPhoto} alt="sample" />
                     </Box>
                   </>
                 )

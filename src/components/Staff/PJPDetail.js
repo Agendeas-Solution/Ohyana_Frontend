@@ -8,6 +8,7 @@ import Filter from '../../assets/img/Filter.svg'
 import PJPScheduleTable from './PJPScheduleTable'
 import { GetPJPList, CreatePJP } from '../../services/apiservices/teamcall'
 import AddPJPDialog from './AddPJPDialog'
+
 const PJPDetail = () => {
   let path = window.location.pathname
   console.log('Printing Path of ', path)
@@ -65,14 +66,13 @@ const PJPDetail = () => {
     delete pjpDetail.dialogStatus
     CreatePJP(
       pjpDetail,
-      res => {
-      },
+      res => {},
       err => {},
     )
   }
   return (
     <>
-      <Box>
+      <Box className="pjp_detail_main_box">
         <TabContext value={value}>
           <Box className="tab_row">
             <TabList

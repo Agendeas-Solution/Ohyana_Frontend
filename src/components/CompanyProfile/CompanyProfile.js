@@ -43,7 +43,8 @@ const CompanyProfile = () => {
                 {/* <AccountBoxSharp className="userprofile_dummy_icon" /> */}
                 <img
                   src={ProfileImage}
-                  className="userprofile_dummy_icon m-3"
+                  // className="userprofile_dummy_icon m-3"
+                  className="user_profile_icon m-3"
                   alt="profile"
                 />
 
@@ -72,6 +73,7 @@ const CompanyProfile = () => {
               className="edit_icon_profile cursor-pointer"
             />
           </Box>
+
           <Box className="companyDetail">
             <Box className="companyDetail_root p-3">
               <Typography

@@ -1,6 +1,33 @@
 import { React, useEffect, useState, useContext } from 'react'
 import {
-  Box, TextField, Button, Autocomplete, MenuItem, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Pagination, Tabs, FormControl, OutlinedInput, InputAdornment, IconButton, Toolbar, Typography, Avatar, Divider, Drawer, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material'
+  Box,
+  TextField,
+  Button,
+  Autocomplete,
+  MenuItem,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Pagination,
+  Tabs,
+  FormControl,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+  Toolbar,
+  Typography,
+  Avatar,
+  Divider,
+  Drawer,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+} from '@mui/material'
 import './index.css'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
@@ -16,8 +43,14 @@ import { useNavigate } from 'react-router-dom'
 import CallIcon from '../../assets/img/call.svg'
 import MailIcon from '../../assets/img/mail.svg'
 import { Context as AuthContext } from '../../context/authContext/authContext'
-import { GetAdminStaffDetailList, GetUsersAttendanceList } from '../../services/apiservices/staffDetail'
-import { GetAdminDepartmentList, GetAdminRole } from '../../services/apiservices/adminprofile'
+import {
+  GetAdminStaffDetailList,
+  GetUsersAttendanceList,
+} from '../../services/apiservices/staffDetail'
+import {
+  GetAdminDepartmentList,
+  GetAdminRole,
+} from '../../services/apiservices/adminprofile'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'

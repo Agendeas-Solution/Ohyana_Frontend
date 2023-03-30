@@ -24,11 +24,13 @@
 .profile_section {
   display: flex;
   background: #ffffff;
-  width: 96% !important;
-  padding: 20px;
-  height: 83vh;
-  margin-left: 1.5rem !important;
+  width: 97% !important;
+  padding: 10px;
+  height: 88vh;
+  /* margin-left: 1rem !important; */
   border-radius: 5px;
+  margin: 20px auto;
+  overflow-y: auto;
   /* overflow-y: auto; */
   /* margin-left: 4rem; */
   /* height: auto; */
