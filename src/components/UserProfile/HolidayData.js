@@ -22,9 +22,9 @@ const HolidayData = ({ holidayList }) => {
   const [date, setDate] = React.useState(dayjs())
   return (
     <>
-      <Box className="common_row align-items-start">
+      <Box className="common_row align-items-start leave_data_main">
         <TableContainer
-          sx={{ width: '70%', boxShadow: 'none' }}
+          sx={{ width: '700px', boxShadow: 'none', margin: '20px' }}
           component={Paper}
         >
           <Table>

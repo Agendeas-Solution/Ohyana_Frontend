@@ -479,12 +479,12 @@ const ClientProfile = () => {
               editStatusDialog={editStatusDialog}
             />
           ) : null}
-          {addPoorContact.status === true ? (
+          {/* {addPoorContact.status === true ? (
             <PoorContact
               handleCallClose={handleCallClose}
               addPoorContact={addPoorContact}
             />
-          ) : null}
+          ) : null} */}
           {viewClientStatus.status === true ? (
             <ViewClientStatusDialog
               handleViewStatusDialogClose={handleViewStatusDialogClose}

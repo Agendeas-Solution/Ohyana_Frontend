@@ -16,6 +16,7 @@ import {
   PaymentStatusUpdate,
   StatusUpdate,
 } from '../../services/apiservices/staffDetail'
+
 const StaffExpenses = () => {
   const [dateRange, setDateRange] = useState({
     startDate: '',
@@ -58,6 +59,7 @@ const StaffExpenses = () => {
       err => {},
     )
   }
+
   return (
     <>
       <Box className="target_section">

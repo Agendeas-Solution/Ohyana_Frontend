@@ -266,6 +266,7 @@ const AddClient = () => {
                 Country<span className="required_star">*</span>
               </Typography>
               <Autocomplete
+                sx={{ border: '1px solid #E5E5E5', borderRadius: '5px' }}
                 options={countryList}
                 value={userDetail?.country}
                 onChange={(e, value) => {
@@ -315,6 +316,7 @@ const AddClient = () => {
                 Product<span className="required_star">*</span>
               </Typography>
               <Autocomplete
+                sx={{ border: '1px solid #E5E5E5', borderRadius: '5px' }}
                 limitTags={2}
                 filterSelectedOptions
                 options={filteredProductList}

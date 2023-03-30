@@ -112,14 +112,18 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  border: 1px solid #e5e5e5;
+  padding: 12px;
 }
 
 .total_days_data {
+  width: auto;
   background-color: #c0dedd;
 }
 
 .Absent_days_data {
   background-color: #e6dff1;
+  /* margin-right: 130px; */
 }
 
 .days_data {
@@ -135,6 +139,7 @@
 .Late_days_data {
   display: flex;
   background-color: #f2eee9;
+  margin-right: 380px;
 }
 
 .range_days_data {

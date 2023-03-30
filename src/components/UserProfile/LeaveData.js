@@ -7,7 +7,9 @@ import {
   Paper,
   TableRow,
   TableHead,
+  Button,
 } from '@mui/material'
+import './index.css'
 import TableBody from '@mui/material/TableBody'
 import dayjs from 'dayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -19,9 +21,9 @@ const LeaveData = ({ leaveList }) => {
   const [date, setDate] = React.useState(dayjs())
   return (
     <>
-      <Box className="common_row align-items-start">
+      <Box className="common_row align-items-start leave_data_main">
         <TableContainer
-          sx={{ width: '70%', boxShadow: 'none' }}
+          sx={{ width: '70%', boxShadow: 'none', margin: '20px' }}
           component={Paper}
         >
           <Table>
@@ -52,14 +54,26 @@ const LeaveData = ({ leaveList }) => {
             </TableBody>
           </Table>
         </TableContainer>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Grid item xs={12} md={6}>
-            <CalendarPicker
-              date={date}
-              onChange={newDate => setDate(newDate)}
-            />
-          </Grid>
-        </LocalizationProvider>
+
+        <Box sx={{ margin: '16px' }}>
+          <Box className="m-10 float-right flex-end">
+            <Button
+              // onClick={() => setLeaveDialogControl(true)}
+              className="attendance_button m-2"
+              variant="contained"
+            >
+              + Apply For Leave
+            </Button>
+          </Box>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Grid item xs={12} md={6}>
+              <CalendarPicker
+                date={date}
+                onChange={newDate => setDate(newDate)}
+              />
+            </Grid>
+          </LocalizationProvider>
+        </Box>
       </Box>
     </>
   )

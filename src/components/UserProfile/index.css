@@ -1,8 +1,14 @@
-.attendance_button{
-    text-transform: capitalize !important;
-    padding:5px !important;
-    height: 30px;
-    width:auto !important;
-    background-color: #F1F2F6 !important;
-    color:#2E3591 !important;
+.attendance_button {
+  text-transform: capitalize !important;
+  padding: 8px !important;
+  height: 30px;
+  width: auto !important;
+  background-color: #f1f2f6 !important;
+  color: #2e3591 !important;
+}
+
+.leave_data_main {
+  border: 1px solid #e5e5e5;
+  height: 35vh;
+  overflow-y: auto;
 }

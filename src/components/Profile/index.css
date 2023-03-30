@@ -26,10 +26,10 @@
   background: #ffffff;
   width: 96% !important;
   padding: 20px;
-  height:83vh;
+  height: 83vh;
   margin-left: 1.5rem !important;
   border-radius: 5px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   /* margin-left: 4rem; */
   /* height: auto; */
   flex-direction: column;
