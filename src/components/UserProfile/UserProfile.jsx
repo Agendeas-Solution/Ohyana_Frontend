@@ -20,6 +20,7 @@ import { GetAdminProfile } from '../../services/apiservices/adminprofile'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
+import './index.css'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import {
   GetHolidayList,
