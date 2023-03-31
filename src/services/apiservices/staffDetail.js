@@ -177,9 +177,12 @@ export const GetExpenseList = async (value, onSuccess, onError) => {
     console.log(value)
     const { data } = await axiosInstance.get(`/team/expense`, {
       headers: { ...defaultHeaders },
-      params: Object.keys(value).length > 0 ? {
-        teamId: value
-      } : {}
+      params:
+        Object.keys(value).length > 0
+          ? {
+              teamId: value,
+            }
+          : {},
     })
     console.log('Printing data of GetExpenseList', data)
     onSuccess && onSuccess(data)
@@ -204,7 +207,7 @@ export const GetExpenseTypeList = async (value, onSuccess, onError) => {
 export const CreateExpenseType = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.post(`/expense`,value, {
+    const { data } = await axiosInstance.post(`/expense`, value, {
       headers: { ...defaultHeaders },
     })
     console.log('Printing response of CreateExpenseType', data)

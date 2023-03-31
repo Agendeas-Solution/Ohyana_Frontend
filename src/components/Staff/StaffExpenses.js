@@ -11,6 +11,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import moment from 'moment'
+import './index.css'
 import {
   GetExpenseList,
   PaymentStatusUpdate,
@@ -28,6 +29,7 @@ const StaffExpenses = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
+
   useEffect(() => {
     let path = window.location.pathname
     console.log('Printing Path of ', path)
@@ -63,25 +65,50 @@ const StaffExpenses = () => {
   return (
     <>
       <Box className="target_section">
-        <Box className="attendance_data_row col-md-12">
-          <Box className="total_expenses_data days_data  col-md-2">
-            <Typography sx={{ fontSize: '15px' }} variant="span">
-              Approved
-            </Typography>
-            <Typography variant="span">{expensesData?.approved}</Typography>
+        <Box className="expenses_data_row col-md-12">
+          {/* <Box className="inner_profile_details first_box days_data">
+            <Typography>Approved</Typography>
+            <Typography>{expensesData?.approved}</Typography>
           </Box>
-          <Box className="payment_done_data days_data col-md-2">
-            <Typography variant="span">Rejected</Typography>
-            <Typography variant="span">{expensesData?.rejected}</Typography>
+          <Box className="inner_profile_details middle_box days_data me-5">
+            <Typography>Rejected</Typography>
+            <Typography>{expensesData?.rejected}</Typography>
           </Box>
-          <Box className="food_data days_data col-md-2">
-            <Typography variant="span">Pending</Typography>
-            <Typography variant="span">{expensesData?.pending}</Typography>
+          <Box className="inner_profile_details last_box days_data me-5">
+            <Typography>Pending</Typography>
+            <Typography>{expensesData?.pending}</Typography>
           </Box>
-          <Box className="travel_data days_data col-md-2">
-            <Typography variant="span">Payment Done</Typography>
-            <Typography variant="span">{expensesData?.paymentDone}</Typography>
+          <Box className="inner_profile_details first_box days_data">
+            <Typography>Payment Done</Typography>
+            <Typography>{expensesData?.paymentDone}</Typography>
+          </Box> */}
+
+          <Box
+            sx={{
+              // background: '#F1F2F6',
+              borderRadius: '5px',
+              display: 'flex',
+              flexDirection: 'row',
+            }}
+          >
+            <Box className="inner_profile_details first_box me-3 p-2">
+              <Typography>Approved</Typography>
+              <Typography>24000</Typography>
+            </Box>
+            <Box className="inner_profile_details middle_box  me-3 p-2">
+              <Typography>Rejected</Typography>
+              <Typography>1000</Typography>
+            </Box>
+            <Box className="inner_profile_details last_box me-3 p-2">
+              <Typography>Pending</Typography>
+              <Typography>5000</Typography>
+            </Box>
+            <Box className="inner_profile_details last_box p-2">
+              <Typography>Payment Done</Typography>
+              <Typography>5000</Typography>
+            </Box>
           </Box>
+
           <Box className="_days_data days_data">
             <Box>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -98,12 +125,22 @@ const StaffExpenses = () => {
             </Box>
           </Box>
         </Box>
+
         <TableContainer
-          className="mt-2"
+          className="expenses_table_height mt-2"
           component={Paper}
-          sx={{ boxShadow: 'none' }}
+          sx={{
+            boxShadow: 'none',
+            border: '1px solid #e5e5e5',
+            borderTop: 'none',
+          }}
         >
-          <Table sx={{ minWidth: 650 }} className="table_heading">
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            className="table_heading "
+          >
             <TableHead>
               <TableRow>
                 <TableCell>Date</TableCell>
@@ -120,8 +157,16 @@ const StaffExpenses = () => {
               {expenseList &&
                 expenseList.map(row => {
                   return (
-                    <TableRow>
-                      <TableCell>
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      // key={attendanceList.id}
+                      sx={{
+                        '&:last-child td,th': { border: 0 },
+                      }}
+                    >
+                      <TableCell className="tablecell_height">
                         {moment(row?.date).format('D/MM/YY')}
                       </TableCell>
                       <TableCell align="left">{row?.name}</TableCell>

@@ -116,6 +116,14 @@
   padding: 12px;
 }
 
+.expenses_data_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid #e5e5e5;
+  padding: 12px;
+}
+
 .total_days_data {
   width: auto;
   background-color: #c0dedd;
@@ -152,9 +160,8 @@
 }
 
 .target_section {
-  border: 1px solid #e5e5e5;
-  padding: 5px;
-  margin: 5px;
+  /* border: 1px solid #e5e5e5; */
+  padding: 0px;
 }
 
 .week_data {
@@ -205,23 +212,23 @@
 }
 
 .total_expenses_data {
-  background: #ece9ff;
-  width: 22%;
+  background-color: #e6dff1;
+  /* width: auto; */
 }
 
 .payment_done_data {
-  background: #ffead1;
-  width: 16%;
+  background: #e5e6eb;
+  /* width: auto; */
 }
 
 .food_data {
-  background-color: #c0dedd;
-  width: 16%;
+  background-color: #f2eee9;
+  /* width: auto; */
 }
 
 .travel_data {
   background-color: #e6dff1;
-  width: 16%;
+  /* width: auto; */
 }
 
 .late_status_color {
@@ -396,3 +403,30 @@
   justify-content: space-between;
   padding: 12px;
 } */
+
+.expenses_table_data {
+  border: 1px solid #e5e5e5;
+  /* height: 35vh; */
+  box-shadow: 'none';
+  height: 44vh;
+  /* overflow-y: auto; */
+  border-top: none;
+  margin: 0;
+  padding: 0;
+}
+
+.staff_expenses_talbe tr th {
+  background-color: #f1f2f6;
+  padding: 12px;
+  margin-top: 15px;
+}
+.staff_expenses_talbe tr th:nth-child(1) {
+  border-radius: 5px 0 0 5px;
+}
+.staff_expenses_talbe tr th:nth-last-child() {
+  border-radius: 5px 0 0 5px;
+}
+
+.expenses_table_height {
+  height: 48vh;
+}

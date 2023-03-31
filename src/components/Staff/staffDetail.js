@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Typography, Rating } from '@mui/material'
+
 const StaffDetail = props => {
   console.log({ props })
   return (
@@ -74,7 +75,7 @@ const StaffDetail = props => {
             Senior Post:
           </Typography>
           <Typography variant="span">
-            {props?.adminProfileDetail?.role.name || '-'}
+            {props?.adminProfileDetail?.role?.name || '-'}
           </Typography>
         </Box>
         <Box className="companyDetail_root p-3">

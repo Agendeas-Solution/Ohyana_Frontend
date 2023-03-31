@@ -155,10 +155,10 @@ const UserProfile = () => {
                     variant="span"
                     sx={{ fontWeight: 'bold', fontSize: '18px' }}
                   >
-                    {userDetail?.name}
+                    {userDetail?.name || '-'}
                   </Typography>
                   <Typography sx={{ marginTop: '10px' }} variant="span">
-                    {userDetail?.role?.name}
+                    {userDetail?.role?.name || '-'}
                   </Typography>
                 </Box>
               </Box>
@@ -279,7 +279,10 @@ const UserProfile = () => {
           {/* </Box> */}
 
           <TabContext value={value}>
-            <Box className="notification_tabs_root">
+            <Box
+              className="notification_tabs_root"
+              sx={{ borderBottom: '1px solid #F1F2F6' }}
+            >
               <Tabs
                 value={value}
                 onChange={handleChange}
@@ -369,7 +372,7 @@ const UserProfile = () => {
                     flexDirection: 'row',
                   }}
                 >
-                  <Box className="inner_profile_details first_box  me-3 p-2">
+                  <Box className="inner_profile_details first_box me-3 p-2">
                     <Typography>Total Days</Typography>
                     <Typography>24</Typography>
                   </Box>
@@ -385,8 +388,13 @@ const UserProfile = () => {
                   </Box>
                 </Box>
 
-                <Box className="col-md-3">
-                  <Box sx={{ background: '#F1F2F6', borderRadius: '5px' }}>
+                <Box>
+                  <Box
+                    sx={{
+                      background: '#F1F2F6',
+                      borderRadius: '5px',
+                    }}
+                  >
                     <Button
                       className={
                         activeTab === 'present'
@@ -529,7 +537,7 @@ const UserProfile = () => {
               </Box> */}
 
               <Box className="companyDetail">
-                <Box className="companyDetail_root p-3">
+                <Box className="companyDetail_root px-3 pb-3">
                   <Typography
                     className="companyDetail_field_heading user_profile_color"
                     variant="span"
