@@ -368,3 +368,13 @@ button {
 .common_heading{
   font-weight: 600 !important;
 }
+.companyDetail{
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  flex-direction: column;
+}
+.companyDetail_root{
+  display: flex;
+  justify-content: space-between;
+}

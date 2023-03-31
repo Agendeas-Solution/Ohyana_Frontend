@@ -1,4 +1,4 @@
-import { React, useContext, useEffect, useState } from 'react'
+import React, { lazy,Suspense, useContext, useEffect, useState } from 'react'
 import {
   BrowserRouter,
   Routes,
@@ -7,57 +7,61 @@ import {
   Navigate,
 } from 'react-router-dom'
 import './App.scss'
-import Login from './components/Login/Login'
-import ForgetPassword from './components/ForgetPassword/ForgetPassword'
-import Profile from './components/Profile/profile'
-import AddClient from './components/AddClient/AddClient'
+
 import { Context as AuthContext } from './context/authContext/authContext'
 import { Box } from '@mui/material'
-import Header from './components/Header/Header'
-import SideBar from './components/SideBar/SideBar'
-import UserProfile from './components/UserProfile/UserProfile'
-import EditProfile from './components/EditProfile/EditProfile'
-import Dashboard from './components/Dashboard'
-import Notification from './components/Notification/Notification'
-import Client from './components/Client/Client'
-import ClientProfile from './components/ClientProfile/ClientProfile'
-import Department from './components/Settings/Department'
-import Staff from './components/Staff/Staff'
-import StaffProfile from './components/Staff/StaffProfile'
-import AddStaffMember from './components/Staff/AddStaffMember'
-import Calendar from './components/Calendar/Calendar'
-import Settings from './components/Settings/Settings'
-import DepartmentList from './components/Settings/DepartmentList'
-import ProductList from './components/Settings/ProductList'
-import Loader from './components/Loader/Loader'
-import EditClient from './components/EditClient/EditClient'
-import EditStaff from './components/Staff/EditStaff'
+
 import Cookie from 'js-cookie'
-import ForgotPasswordEmail from './components/ForgotPasswordEmail/ForgotPasswordEmail'
-import SignUp from './components/SignUp/SignUp'
-import Register from './components/Register/Register'
 import { clearLoginToken } from './services/storage'
 import { io } from 'socket.io-client'
 import { Context as ContextSnackbar } from './context/pageContext'
-import CompanyProfile from './components/CompanyProfile/CompanyProfile'
-import Premium from './components/Premium/Premium'
-import HolidayAndLeaveManagement from './components/HolidayAndLeaveManagement/HolidayAndLeaveManagement'
-import Statistics from './components/Statistics/Statistics'
-import BusinessCard from './components/Client/BusinessCard'
-import Support from './components/Support/Support'
-import Complaint from './components/Complaint/Complaint'
-import Orders from './components/Orders/Orders'
-import DashboardEmployee from './components/DashboardEmployee/DashboardEmployee'
-import Task from './components/Task/Task'
-import TaskDetail from './components/Task/TaskDetail'
-import OrderDetail from './components/Orders/OrderDetail'
-import Poll from './components/Settings/Poll'
-import Dealer from './components/Dealer/Dealer'
-import EditCompanyProfile from './components/CompanyProfile/EditCompanyProfile'
-import AddProduct from './components/Settings/AddProduct'
-import JobRolesList from './components/Settings/JobRolesList'
-import ExpenseList from './components/Expense/ExpenseList'
 const socket = io('http://192.168.1.65:8008')
+
+const Login = React.lazy(() => import("./components/Login/Login"));
+const ForgetPassword = React.lazy(() => import("./components/ForgetPassword/ForgetPassword"));
+const Profile = React.lazy(() => import("./components/Profile/profile"));
+const AddClient = React.lazy(() => import("./components/AddClient/AddClient"));
+const Header = React.lazy(() => import("./components/Header/Header"));
+const SideBar = React.lazy(() => import("./components/SideBar/SideBar"));
+const UserProfile = React.lazy(() => import("./components/UserProfile/UserProfile"));
+const EditProfile = React.lazy(() => import("./components/EditProfile/EditProfile"));
+const Dashboard = React.lazy(() => import("./components/Dashboard"));
+const Notification = React.lazy(() => import("./components/Notification/Notification"));  
+const Client = React.lazy(() => import("./components/Client/Client"));
+const ClientProfile = React.lazy(() => import("./components/ClientProfile/ClientProfile"));
+const Department = React.lazy(() => import("./components/Settings/Department"));
+const Staff = React.lazy(() => import("./components/Staff/Staff"));
+const StaffProfile = React.lazy(() => import("./components/Staff/StaffProfile"));
+const AddStaffMember = React.lazy(() => import("./components/Staff/AddStaffMember"));
+const Calendar = React.lazy(() => import("./components/Calendar/Calendar"));
+const Settings = React.lazy(() => import("./components/Settings/Settings"));
+const DepartmentList = React.lazy(() => import("./components/Settings/DepartmentList"));
+const ProductList = React.lazy(() => import("./components/Settings/ProductList"));
+const EditClient = React.lazy(() => import("./components/EditClient/EditClient"));
+const EditStaff = React.lazy(() => import("./components/Staff/EditStaff"));
+const ForgotPasswordEmail = React.lazy(() => import("./components/AddClient/AddClient"));
+const SignUp = React.lazy(() => import("./components/SignUp/SignUp"));
+const Register = React.lazy(() => import("./components/Register/Register"));
+const CompanyProfile = React.lazy(() => import("./components/CompanyProfile/CompanyProfile"));
+const Premium = React.lazy(() => import("./components/Premium/Premium"));
+const HolidayAndLeaveManagement = React.lazy(() => import("./components/HolidayAndLeaveManagement/HolidayAndLeaveManagement"));
+const Statistics = React.lazy(() => import("./components/Statistics/Statistics"));  
+const Support = React.lazy(() => import("./components/Support/Support"));
+const Complaint = React.lazy(() => import("./components/Complaint/Complaint"));
+const Orders = React.lazy(() => import("./components/Orders/Orders"));
+const DashboardEmployee = React.lazy(() => import("./components/DashboardEmployee/DashboardEmployee"));
+const Task = React.lazy(() => import("./components/Task/Task"));
+const TaskDetail = React.lazy(() => import("./components/Task/TaskDetail"));
+const OrderDetail = React.lazy(() => import("./components/Orders/OrderDetail"));
+const Poll = React.lazy(() => import("./components/Settings/Poll"));
+const Dealer = React.lazy(() => import("./components/Dealer/Dealer"));
+const EditCompanyProfile = React.lazy(() => import("./components/CompanyProfile/EditCompanyProfile"));
+const AddProduct = React.lazy(() => import("./components/Settings/AddProduct"));
+const JobRolesList = React.lazy(() => import("./components/Settings/JobRolesList"));
+const ExpenseList = React.lazy(() => import("./components/Expense/ExpenseList"));
+
+
+
 const App = () => {
   const { successSnackbar, errorSnackbar, notificationSnackbar } =
     useContext(ContextSnackbar)?.state
@@ -92,157 +96,159 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
-        <Box
-          className={Cookie.get('userToken') ? 'login_page_section' : ''}
-          sx={{ width: '15%' }}
-        ></Box>
-        <div className="d-flex">
-          {Cookie.get('userToken') && pathName !== '/login' ? (
-            <SideBar />
-          ) : null}
-          <div
-            className={
-              Cookie.get('userToken') && pathName !== '/login'
-                ? 'width-main'
-                : 'w-100'
-            }
-          >
+        <Suspense>
+          <Box
+            className={Cookie.get('userToken') ? 'login_page_section' : ''}
+            sx={{ width: '15%' }}
+          ></Box>
+          <div className="d-flex">
             {Cookie.get('userToken') && pathName !== '/login' ? (
-              <Header />
+              <SideBar />
             ) : null}
-            <Box className="home_page_section">
-              <Routes>
-                <Route path="/" element={<ProtectedRoutes />}>
-                  {/* <Route path=" /resetpassword" element={<ForgetPassword />}></Route> */}
-                  <Route path="/" element={<UserProfile />}></Route>
-                  <Route path="/profile" element={<UserProfile />}></Route>
-                  <Route path="/editprofile" element={<EditProfile />}></Route>
-                  <Route path="/dashboard" element={<Dashboard />}></Route>
+            <div
+              className={
+                Cookie.get('userToken') && pathName !== '/login'
+                  ? 'width-main'
+                  : 'w-100'
+              }
+            >
+              {Cookie.get('userToken') && pathName !== '/login' ? (
+                <Header />
+              ) : null}
+              <Box className="home_page_section">
+                <Routes>
+                  <Route path="/" element={<ProtectedRoutes />}>
+                    {/* <Route path=" /resetpassword" element={<ForgetPassword />}></Route> */}
+                    <Route path="/" element={<UserProfile />}></Route>
+                    <Route path="/profile" element={<UserProfile />}></Route>
+                    <Route path="/editprofile" element={<EditProfile />}></Route>
+                    <Route path="/dashboard" element={<Dashboard />}></Route>
+                    <Route
+                      path="/dashboardemployee"
+                      element={<DashboardEmployee />}
+                    ></Route>
+                    <Route
+                      path="/notification"
+                      element={<Notification />}
+                    ></Route>
+                    {permissions?.clientMenu && (
+                      <Route path="/client" element={<Client />}></Route>
+                    )}
+                    {permissions?.clientMenu && (
+                      <Route
+                        path="/clientprofile/:id"
+                        element={<ClientProfile />}
+                      ></Route>
+                    )}
+                    {permissions?.editClient && (
+                      <Route
+                        path="/editclient/:id"
+                        element={<EditClient />}
+                      ></Route>
+                    )}
+                    {permissions?.editStaff && (
+                      <Route
+                        path="/editstaff/:id"
+                        element={<EditStaff />}
+                      ></Route>
+                    )}
+                    {permissions?.editClient && (
+                      <Route path="/addclient" element={<AddClient />}></Route>
+                    )}
+                    {permissions?.staffMenu && (
+                      <Route path="/staff" element={<Staff />}></Route>
+                    )}
+                    {permissions?.staffMenu && (
+                      <Route
+                        path="/staffprofile/:id"
+                        element={<StaffProfile />}
+                      ></Route>
+                    )}
+                    <Route path="*" element={<Login />}></Route>
+                    {permissions?.editStaff && (
+                      <Route
+                        path="/addstaffmember"
+                        element={<AddStaffMember />}
+                      ></Route>
+                    )}
+                    <Route path="/task" element={<Task />}></Route>
+                    <Route path="/dealer" element={<Dealer />}></Route>
+                    <Route
+                      path="/taskdetail/:id"
+                      element={<TaskDetail />}
+                    ></Route>
+                    <Route path="/calendar" element={<Calendar />}></Route>
+                    <Route path="/report" element={<Statistics />}></Route>
+                    <Route path="/support" element={<Support />}></Route>
+                    <Route path="/complaint/:id" element={<Complaint />}></Route>
+                    <Route path="/premium" element={<Premium />}></Route>
+                    <Route path="/orders" element={<Orders />}></Route>
+                    <Route path="/poll" element={<Poll />}></Route>
+                    <Route
+                      path="/orderdetail/:id"
+                      element={<OrderDetail />}
+                    ></Route>
+                    <Route
+                      path="/leaveholidaymanagement"
+                      element={<HolidayAndLeaveManagement />}
+                    ></Route>
+                    <Route
+                      path="/companyprofile"
+                      element={<CompanyProfile />}
+                    ></Route>
+                    <Route
+                      path="/editcompanyprofile"
+                      element={<EditCompanyProfile />}
+                    ></Route>
+                    {permissions?.settingMenu && (
+                      <Route path="/settings" element={<Settings />}></Route>
+                    )}
+                    {permissions?.viewDepartment && (
+                      <Route
+                        path="/departmentlist"
+                        element={<DepartmentList />}
+                      ></Route>
+                    )}
+                    {permissions?.viewDepartment && (
+                      <Route path="/expenselist" element={<ExpenseList />} />
+                    )}
+                    {permissions?.viewDepartment && (
+                      <Route
+                        path="/jobrolelist/:id"
+                        element={<JobRolesList />}
+                      ></Route>
+                    )}
+                    {permissions?.viewDepartment && (
+                      <Route
+                        path="/jobroleaccess/:id"
+                        element={<Department />}
+                      ></Route>
+                    )}
+                    {permissions?.viewProduct && (
+                      <Route
+                        path="/productlist"
+                        element={<ProductList />}
+                      ></Route>
+                    )}
+                  </Route>
+                  <Route path="/addproduct" element={<AddProduct />}></Route>
+                  <Route path="/editproduct/:id" element={<AddProduct />}></Route>
+                  <Route path="/login" element={<Login />}></Route>
+                  <Route path="/signup" element={<SignUp />}></Route>
+                  <Route path="/register" element={<Register />}></Route>
                   <Route
-                    path="/dashboardemployee"
-                    element={<DashboardEmployee />}
+                    path="/resetpassword"
+                    element={<ForgetPassword />}
                   ></Route>
                   <Route
-                    path="/notification"
-                    element={<Notification />}
+                    path="/forgotpassword"
+                    element={<ForgotPasswordEmail />}
                   ></Route>
-                  {permissions?.clientMenu && (
-                    <Route path="/client" element={<Client />}></Route>
-                  )}
-                  {permissions?.clientMenu && (
-                    <Route
-                      path="/clientprofile/:id"
-                      element={<ClientProfile />}
-                    ></Route>
-                  )}
-                  {permissions?.editClient && (
-                    <Route
-                      path="/editclient/:id"
-                      element={<EditClient />}
-                    ></Route>
-                  )}
-                  {permissions?.editStaff && (
-                    <Route
-                      path="/editstaff/:id"
-                      element={<EditStaff />}
-                    ></Route>
-                  )}
-                  {permissions?.editClient && (
-                    <Route path="/addclient" element={<AddClient />}></Route>
-                  )}
-                  {permissions?.staffMenu && (
-                    <Route path="/staff" element={<Staff />}></Route>
-                  )}
-                  {permissions?.staffMenu && (
-                    <Route
-                      path="/staffprofile/:id"
-                      element={<StaffProfile />}
-                    ></Route>
-                  )}
-                  <Route path="*" element={<Login />}></Route>
-                  {permissions?.editStaff && (
-                    <Route
-                      path="/addstaffmember"
-                      element={<AddStaffMember />}
-                    ></Route>
-                  )}
-                  <Route path="/task" element={<Task />}></Route>
-                  <Route path="/dealer" element={<Dealer />}></Route>
-                  <Route
-                    path="/taskdetail/:id"
-                    element={<TaskDetail />}
-                  ></Route>
-                  <Route path="/calendar" element={<Calendar />}></Route>
-                  <Route path="/report" element={<Statistics />}></Route>
-                  <Route path="/support" element={<Support />}></Route>
-                  <Route path="/complaint/:id" element={<Complaint />}></Route>
-                  <Route path="/premium" element={<Premium />}></Route>
-                  <Route path="/orders" element={<Orders />}></Route>
-                  <Route path="/poll" element={<Poll />}></Route>
-                  <Route
-                    path="/orderdetail/:id"
-                    element={<OrderDetail />}
-                  ></Route>
-                  <Route
-                    path="/leaveholidaymanagement"
-                    element={<HolidayAndLeaveManagement />}
-                  ></Route>
-                  <Route
-                    path="/companyprofile"
-                    element={<CompanyProfile />}
-                  ></Route>
-                  <Route
-                    path="/editcompanyprofile"
-                    element={<EditCompanyProfile />}
-                  ></Route>
-                  {permissions?.settingMenu && (
-                    <Route path="/settings" element={<Settings />}></Route>
-                  )}
-                  {permissions?.viewDepartment && (
-                    <Route
-                      path="/departmentlist"
-                      element={<DepartmentList />}
-                    ></Route>
-                  )}
-                  {permissions?.viewDepartment && (
-                    <Route path="/expenselist" element={<ExpenseList />} />
-                  )}
-                  {permissions?.viewDepartment && (
-                    <Route
-                      path="/jobrolelist/:id"
-                      element={<JobRolesList />}
-                    ></Route>
-                  )}
-                  {permissions?.viewDepartment && (
-                    <Route
-                      path="/jobroleaccess/:id"
-                      element={<Department />}
-                    ></Route>
-                  )}
-                  {permissions?.viewProduct && (
-                    <Route
-                      path="/productlist"
-                      element={<ProductList />}
-                    ></Route>
-                  )}
-                </Route>
-                <Route path="/addproduct" element={<AddProduct />}></Route>
-                <Route path="/editproduct/:id" element={<AddProduct />}></Route>
-                <Route path="/login" element={<Login />}></Route>
-                <Route path="/signup" element={<SignUp />}></Route>
-                <Route path="/register" element={<Register />}></Route>
-                <Route
-                  path="/resetpassword"
-                  element={<ForgetPassword />}
-                ></Route>
-                <Route
-                  path="/forgotpassword"
-                  element={<ForgotPasswordEmail />}
-                ></Route>
-              </Routes>
-            </Box>
+                </Routes>
+              </Box>
+            </div>
           </div>
-        </div>
+        </Suspense>
       </BrowserRouter>
     </>
   )

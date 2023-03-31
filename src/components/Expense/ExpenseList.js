@@ -9,21 +9,13 @@ import {
   TableRow,
   TableCell,
 } from '@mui/material'
-// import "./index.css";
-
-// import EditRoundedIcon from "@mui/icons-material/EditRounded";
-// import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import DeleteIcon from '../../assets/img/Delete_Icon.svg'
 import EditIcon from '../../assets/img/Edit_Icon.svg'
-import RoundIcon from '../../assets/img/Round_Icon.svg'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { GetAdminRole } from '../../services/apiservices/adminprofile'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
-import {
-  GetExpenseList,
-  GetExpenseTypeList, CreateExpenseType, DeleteExpenseType
-} from '../../services/apiservices/staffDetail'
+import {  GetExpenseTypeList, CreateExpenseType, DeleteExpenseType,UpdateExpenseType } from '../../services/apiservices/staffDetail'
 import ExpenseType from './ExpenseType'
 import DeleteExpenseTypeDialog from './DeleteExpenseTypeDialog'
 
@@ -37,16 +29,12 @@ const ExpenseList = () => {
     status: false,
     id: null,
   })
-
-  const [editExpenseListDialog, setEditExpenseListDialog] = useState({
-    status: false,
-    departmentId: null,
-    name: '',
-    description: '',
-    roleId: null,
-  })
-
+  let path = window.location.pathname
+  console.log('Printing Path of ', path)
+  console.log('Printing ', path.split('/').pop())
+  path = path.split('/').pop()
   const [addExpenseType, setAddExpenseType] = useState({
+    expenseId: null,
     status: false,
     name: '',
     description: '',
@@ -54,23 +42,23 @@ const ExpenseList = () => {
 
   const [expenseList, setExpenseList] = useState([])
 
+  const GetExpenseList=()=>{
+    GetExpenseTypeList(
+      parseInt(path),
+      (res) => {
+        if (res?.success) {
+          setExpenseList(res?.data);
+        }
+      },
+      err => {
+        console.log(err)
+      },
+    )
+  }
   useEffect(
     () => {
-      let path = window.location.pathname
-      console.log('Printing Path of ', path)
-      console.log('Printing ', path.split('/').pop())
-      path = path.split('/').pop()
-      GetExpenseTypeList(
-        parseInt(path),
-        (res) => {
-          if (res?.success) {
-            setExpenseList(res?.data);
-          }
-        },
-        err => {
-          console.log(err)
-        },
-      )
+     
+      GetExpenseList();
     },
     []
   )
@@ -101,6 +89,7 @@ const ExpenseList = () => {
   const handleAddExpenses = () => {
     let data = addExpenseType;
     delete data.status;
+    delete data.expenseId;
     CreateExpenseType(
       data,
       (res) => {
@@ -108,7 +97,7 @@ const ExpenseList = () => {
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
-            message: res.data.message,
+            message: res.message,
           })
         }
       },
@@ -117,7 +106,26 @@ const ExpenseList = () => {
       },
     )
   }
-
+  const handleEditExpenses = () => {
+    let data = addExpenseType;
+    delete data.status;
+    UpdateExpenseType(
+      data,
+      (res) => {
+        if (res?.success) {
+          setSuccessSnackbar({
+            ...successSnackbar,
+            status: true,
+            message: res.message,
+          })
+          GetExpenseList();
+        }
+      },
+      (err) => {
+        console.log(err)
+      },
+    )
+  }
   return (
     <>
       <div className="main_section p-4">
@@ -194,13 +202,10 @@ const ExpenseList = () => {
                   </Grid>
                   <Grid
                     display="inline-flex"
-                    // justifyContent="flex-end"
-                    // alignItems="flex-end"
                     item
-                    xs={6}
+                    xs={6}  
                   >
-                    <img className="me-3 p-2" src={EditIcon} alt="" />
-
+                    <img onClick={() => setAddExpenseType({ ...addExpenseType, status: true, expenseId: data.id, name: data.name, description: data.description })} className="me-3 p-2" src={EditIcon} alt="" />
                     <img className="iconn ms-2" onClick={() => setDeletexpenseListDialog({ ...deletexpenseListDialog, status: true, id: data.id })} src={DeleteIcon} alt="" />
                   </Grid>
                 </Grid>
@@ -212,6 +217,7 @@ const ExpenseList = () => {
           handleCloseDialog={handleCloseDialog}
           setAddExpenseType={setAddExpenseType}
           handleAddExpenses={handleAddExpenses}
+          handleEditExpenses={handleEditExpenses}
         />
         <DeleteExpenseTypeDialog deletexpenseListDialog={deletexpenseListDialog} setDeletexpenseListDialog={setDeletexpenseListDialog} handleCloseDialog={handleCloseDialog} handleDelete={handleDelete} />
       </div>

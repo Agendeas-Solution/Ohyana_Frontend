@@ -12,12 +12,10 @@ import {
 // import './index.css'
 const ExpenseType = ({
   addExpenseType,
-  //   setAddLeaveDialog,
-  //   AddLeave,
+  handleEditExpenses,
   setAddExpenseType,
   handleAddExpenses,
   handleCloseDialog,
-  //   UpdateLeave,
 }) => {
   return (
     <>
@@ -37,12 +35,12 @@ const ExpenseType = ({
               <div>
                 <TextField
                   value={addExpenseType.name}
-                    onChange={(e) => {
-                      setAddExpenseType({
-                        ...addExpenseType,
-                         name: e.target.value,
-                      });
-                    }}
+                  onChange={(e) => {
+                    setAddExpenseType({
+                      ...addExpenseType,
+                      name: e.target.value,
+                    });
+                  }}
                   inputProps={{
                     style: {
                       height: '50px',
@@ -65,12 +63,12 @@ const ExpenseType = ({
                 <TextareaAutosize
                   type="number"
                   value={addExpenseType.description}
-                    onChange={(e) => {
-                      setAddExpenseType({
-                        ...addExpenseType,
-                        description: e.target.value,
-                      });
-                    }}
+                  onChange={(e) => {
+                    setAddExpenseType({
+                      ...addExpenseType,
+                      description: e.target.value,
+                    });
+                  }}
                   // PaperProps={{ sx: { width: '30%', height: '100%' } }}
                   className="w-100"
                   placeholder="Description Here..."
@@ -81,15 +79,15 @@ const ExpenseType = ({
           </Box>
         </DialogContent>
         <DialogActions
-          sx={{ marginLeft: '13px', marginRight: '13px' }}
-          className="mt-1 d-flex justify-content-between"
+          // sx={{ marginLeft: '13px', marginRight: '13px' }}
+          className="d-flex justify-content-between"
         >
           <Button
             variant="contained"
             className="ok-btn"
             sx={{ marginLeft: '5rem', backgroundColor: '#2E3591' }}
             // onClick={addExpenseType?.id ? UpdateLeave : AddLeave}Save
-            onClick={handleAddExpenses}
+            onClick={addExpenseType?.expenseId ? handleEditExpenses : handleAddExpenses}
           >
             Save
           </Button>
