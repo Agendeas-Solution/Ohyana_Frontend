@@ -1,6 +1,6 @@
-import React, { useEffect, useState, } from "react";
+import React, { useEffect, useState, lazy} from "react";
 import "./index.css";
-import Header from "../Header/Header";
+const Header = React.lazy(() => import("../Header/Header"));
 const Profile = () => {
   const [pathName, setPathName] = useState("");
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useContext } from 'react'
+import  React,{useEffect, useState, useContext,lazy } from 'react'
 import {
   Tabs,
   Tab,
@@ -29,7 +29,6 @@ import {
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import moment from 'moment'
-import Loader from '../Loader/Loader'
 import Drawer from '@mui/material/Drawer'
 import Toolbar from '@mui/material/Toolbar'
 import Divider from '@mui/material/Divider'
@@ -38,11 +37,14 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import FilterIcon from '../../assets/img/Filter.svg'
 import { styled, useTheme } from '@mui/material/styles'
-import NoResultFound from '../ErrorComponent/NoResultFound'
 import NoResultWithText from '../../assets/img/no_result_with_text.svg'
-import CustomerList from './CustomerList'
-import BusinessCard from './BusinessCard'
 const drawerWidth = 400
+
+const Loader = React.lazy(() => import("../Loader/Loader"));
+const NoResultFound = React.lazy(() => import("../ErrorComponent/NoResultFound"));
+
+const CustomerList = React.lazy(() => import("./CustomerList"));
+const BusinessCard = React.lazy(() => import("./BusinessCard"));
 
 const Client = () => {
   const theme = useTheme()

@@ -22,7 +22,8 @@ import DialogContentText from '@mui/material/DialogContentText'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-import SuccessSnackbar from '../SuccessSnackbar/SuccessSnackbar'
+const SuccessSnackbar = React.lazy(() => import("../SuccessSnackbar/SuccessSnackbar"));
+
 const EditClient = () => {
   const [userDetail, setUserDetail] = useState({
     clientName: '',

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext,lazy } from "react";
 import { Typography, Box, TextField, Button, Select, MenuItem, } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -12,7 +12,9 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Context as ContextSnackbar } from "../../context/pageContext";
-import ErrorSnackbar from "../ErrorSnackbar/ErrorSnackbar";
+
+const ErrorSnackbar = React.lazy(() => import("../ErrorSnackbar/ErrorSnackbar"));
+const SuccessSnackbar = React.lazy(() => import("../SuccessSnackbar/SuccessSnackbar"));
 const EditProfile = () => {
   const [userDetail, setUserDetail] = useState({
     employeeName: "",
