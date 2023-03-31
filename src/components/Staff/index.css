@@ -121,11 +121,6 @@
   background-color: #c0dedd;
 }
 
-.Absent_days_data {
-  background-color: #e6dff1;
-  /* margin-right: 130px; */
-}
-
 .days_data {
   display: flex;
   flex-direction: column;
@@ -134,6 +129,11 @@
   margin-left: 3px;
   /* width: fit-content; */
   height: max-content;
+}
+
+.Absent_days_data {
+  background-color: #e6dff1;
+  /* margin-right: 130px; */
 }
 
 .Late_days_data {
@@ -351,3 +351,48 @@
 .team_member_table tbody tr {
   border-bottom: 5px solid #f1f2f6;
 }
+
+.profile_data {
+  margin-right: 12px;
+  width: 25%;
+  background-color: #f1f2f6;
+}
+
+.prof_data {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 12px;
+  margin-left: 3px;
+  /* width: fit-content; */
+  height: max-content;
+}
+
+.profile_heading_name {
+  color: #8e8e8e;
+}
+
+.pjp_detail_main_box {
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  box-shadow: none;
+}
+
+.pjp_all_table_header tr th {
+  font-weight: 600;
+  background-color: #f1f2f6;
+}
+
+/* .target_boxes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.target_section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 12px;
+} */

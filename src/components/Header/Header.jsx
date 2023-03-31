@@ -1,5 +1,5 @@
 import { React, useContext, useEffect, useState } from 'react'
-import { Box, Button } from '@mui/material'
+import { Box, Button, Avatar, Menu, MenuItem } from '@mui/material'
 import { useLocation, useNavigate } from 'react-router-dom'
 import CompanyLogo from '../../assets/img/Ohyana_logo.png'
 import { Context as ContextActivePage } from '../../context/pageContext'
@@ -9,14 +9,12 @@ import DownIcon from '../../assets/img/Down.svg'
 import ProfileMainIcon from '../../assets/img/ProfileMainIcon.svg'
 import SignOutIcon from '../../assets/img/sign_out.svg'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import Avatar from '@mui/material/Avatar'
 import Stack from '@mui/material/Stack'
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
 import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import { clearLoginToken } from '../../services/storage'
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 import './index.css'
 
 const Header = () => {
@@ -59,15 +57,16 @@ const Header = () => {
                 <img className="ms-2" src={backButton} alt="image" />
               </Box>
               <h3 className="mb-0">{ActivePage}</h3>
-              {/* <Box>
-                <img
-                  className="notification_class"
-                  src={NotificationIcon}
-                  alt=""
-                />
-              </Box> */}
+              {/* <img
+                style={{ width: '21px' }}
+                className="notification_class m-1"
+                src={DownIcon}
+                alt=""
+              /> */}
+            </Box>
 
-              {/* <Box>
+
+            {/* <Box>
                 <Button
                   id="basic-button"
                   aria-controls={open ? 'basic-menu' : undefined}
@@ -121,45 +120,55 @@ const Header = () => {
                   </MenuItem>
                 </Menu>
               </Box> */}
-            </Box>
-            <NotificationsRoundedIcon />
-
-            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-              {/* <MenuItem onClick={handleClose}> */}
-              <MenuItem
-                onClick={() => {
-                  navigate('/profile')
-                }}
-              >
-                <PersonOutlineRoundedIcon />
-                My Profile
-              </MenuItem>
-              <MenuItem onClick={clearLoginToken}>
-                <LogoutRoundedIcon />
-                Logout
-              </MenuItem>
-            </Menu>
           </Box>
+          {/* <NotificationsRoundedIcon /> */}
 
-          <Box className="mx-3">
-            <Stack
-              onClick={handleClick}
-              direction="row"
-              // spacing={2}
+          <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+            {/* <MenuItem onClick={handleClose}> */}
+            <MenuItem
+              onClick={() => {
+                navigate('/profile')
+              }}
             >
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-              {/* <img
+              <PersonOutlineRoundedIcon />
+              My Profile
+            </MenuItem>
+            <MenuItem onClick={clearLoginToken}>
+              <LogoutRoundedIcon />
+              Logout
+            </MenuItem>
+          </Menu>
+          <NotificationsNoneIcon sx={{ marginRight: '10px' }} />
+
+          {/* <Box className="mx-3"> */}
+          <Stack
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+            }}
+            onClick={handleClick}
+            direction="row"
+            // spacing={2}
+          >
+            <Avatar
+              sx={{ width: 32, height: 32 }}
+              alt="Remy Sharp"
+              src="/static/images/avatar/1.jpg"
+            />
+            {/* <img
                 style={{ width: '21px' }}
                 className="notification_class m-1"
                 src={DownIcon}
                 alt=""
               /> */}
-              <KeyboardArrowDownIcon className="mt-2 " />
-            </Stack>
-          </Box>
+            <KeyboardArrowDownIcon />
+          </Stack>
+
         </Box>
+        {/* </Box> */}
       </Box>
-      <Box></Box>
     </>
   )
 }

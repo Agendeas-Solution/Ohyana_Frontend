@@ -174,8 +174,12 @@ export const GetHolidayList = async (value, onSuccess, onError) => {
 export const GetExpenseList = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.get(`/team/expense?teamId=${value}`, {
+    console.log(value)
+    const { data } = await axiosInstance.get(`/team/expense`, {
       headers: { ...defaultHeaders },
+      params: Object.keys(value).length > 0 ? {
+        teamId: value
+      } : {}
     })
     console.log('Printing data of GetExpenseList', data)
     onSuccess && onSuccess(data)
@@ -194,6 +198,32 @@ export const GetExpenseTypeList = async (value, onSuccess, onError) => {
     onSuccess && onSuccess(data)
   } catch (err) {
     console.log('Got error while calling API - GetExpenseList', err)
+    onError && onError(err)
+  }
+}
+export const CreateExpenseType = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.post(`/expense`,value, {
+      headers: { ...defaultHeaders },
+    })
+    console.log('Printing response of CreateExpenseType', data)
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log('Got error while calling API - CreateExpenseType', err)
+    onError && onError(err)
+  }
+}
+export const DeleteExpenseType = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.delete(`/expense/${value}`, {
+      headers: { ...defaultHeaders },
+    })
+    console.log('Printing response of DeleteExpenseType', data)
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log('Got error while calling API - DeleteExpenseType', err)
     onError && onError(err)
   }
 }

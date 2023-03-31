@@ -91,7 +91,7 @@ fieldset {
 .notification_tabs_root {
   fieldset {
     height: 40px !important;
-    margin-top: 5px;
+    margin-top: 2px;
   }
 }
 
@@ -291,6 +291,12 @@ table .css-177gid-MuiTableCell-root {
   color: #f1f2f6 !important;
 }
 
+.user_profile_icon {
+  height: 110px !important;
+  width: 110px !important;
+  color: #f1f2f6 !important;
+}
+
 .check_box_color {
   color: #2E3591 !important;
 }
@@ -319,6 +325,7 @@ button {
   margin: 2px !important;
   height: 35px !important;
   border-radius: 3px;
+  font-weight: 600;
   padding-top: 2px;
   // font-size: 38px;
 }
@@ -330,6 +337,7 @@ button {
   height: 50px !important;
   border-radius: 3px;
   padding-top: 2px;
+  font-weight: "600";
 }
 .common_sub_heading {
   color: #8E8E8E;
@@ -337,15 +345,15 @@ button {
 
 .main_section {
   display: flex;
-  width: 95%;
-  height: 85%;
+  background-color: #fff;
+  padding: 10px;
+  height: 87%;
+  border-radius: 5px;
+  width: 97%;
   flex-direction: column !important;
   margin: 20px auto;
   overflow-y: auto;
   // align-items: center;
-  background-color: #fff;
-  border-radius: 5px;
-  padding: 10px;
 }
 
 .table_heading tr th {

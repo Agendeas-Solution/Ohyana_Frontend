@@ -50,6 +50,8 @@
 }
 .sidebar_img {
   color: #2e3591;
+  height: 24px;
+  width: 24px;
 }
 .sidebar_img svg {
   color: #f1f1f1;

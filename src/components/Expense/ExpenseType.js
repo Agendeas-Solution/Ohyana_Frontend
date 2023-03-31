@@ -14,16 +14,14 @@ const ExpenseType = ({
   addExpenseType,
   //   setAddLeaveDialog,
   //   AddLeave,
+  setAddExpenseType,
+  handleAddExpenses,
   handleCloseDialog,
   //   UpdateLeave,
 }) => {
   return (
     <>
       <Dialog
-        // fullWidth
-
-        // maxWidth="sm"
-
         open={addExpenseType.status}
         onClose={handleCloseDialog}
       >
@@ -38,13 +36,13 @@ const ExpenseType = ({
               </div>
               <div>
                 <TextField
-                  value={addExpenseType.type}
-                  //   onChange={(e) => {
-                  //     setAddLeaveDialog({
-                  //       ...addExpenseType,
-                  //       type: e.target.value,
-                  //     });
-                  //   }}
+                  value={addExpenseType.name}
+                    onChange={(e) => {
+                      setAddExpenseType({
+                        ...addExpenseType,
+                         name: e.target.value,
+                      });
+                    }}
                   inputProps={{
                     style: {
                       height: '50px',
@@ -66,13 +64,13 @@ const ExpenseType = ({
               <div className="col-md-12">
                 <TextareaAutosize
                   type="number"
-                  value={addExpenseType.duration}
-                  //   onChange={(e) => {
-                  //     setAddLeaveDialog({
-                  //       ...addExpenseType,
-                  //       duration: e.target.value,
-                  //     });
-                  //   }}
+                  value={addExpenseType.description}
+                    onChange={(e) => {
+                      setAddExpenseType({
+                        ...addExpenseType,
+                        description: e.target.value,
+                      });
+                    }}
                   // PaperProps={{ sx: { width: '30%', height: '100%' } }}
                   className="w-100"
                   placeholder="Description Here..."
@@ -90,7 +88,8 @@ const ExpenseType = ({
             variant="contained"
             className="ok-btn"
             sx={{ marginLeft: '5rem', backgroundColor: '#2E3591' }}
-            // onClick={addExpenseType?.id ? UpdateLeave : AddLeave}
+            // onClick={addExpenseType?.id ? UpdateLeave : AddLeave}Save
+            onClick={handleAddExpenses}
           >
             Save
           </Button>

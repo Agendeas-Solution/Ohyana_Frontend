@@ -38,7 +38,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import FilterIcon from '../../assets/img/Filter.svg'
 import { styled, useTheme } from '@mui/material/styles'
-
+import NoResultFound from '../ErrorComponent/NoResultFound'
 import NoResultWithText from '../../assets/img/no_result_with_text.svg'
 import CustomerList from './CustomerList'
 import BusinessCard from './BusinessCard'
@@ -47,7 +47,7 @@ const drawerWidth = 400
 const Client = () => {
   const theme = useTheme()
   // const socket = io("http://159.89.165.83", { transports: ["websocket"] });
-  const [value, setValue] = useState('Digital')
+  const [value, setValue] = useState('digital')
   const navigate = useNavigate()
   const { flagLoader, permissions } = useContext(AuthContext).state
   const { setFlagLoader } = useContext(AuthContext)
@@ -116,7 +116,7 @@ const Client = () => {
           message: res.data.message,
         })
       },
-      err => {},
+      err => { },
     )
   }
   const handleDialogClose = () => {
@@ -172,9 +172,7 @@ const Client = () => {
 
   useEffect(() => {
     let data = { page: currentPage, size: rowsPerPage }
-    // if (value !== 'All') {
-    //   data['type'] = value
-    // }
+    data['tabType'] = value
     if (isInternational !== null) {
       data['isInternational'] = isInternational
     }
@@ -199,6 +197,7 @@ const Client = () => {
       },
       err => {
         console.log(err)
+        debugger;
         setClientLoader(false)
       },
     )
@@ -222,13 +221,11 @@ const Client = () => {
             variant="scrollable"
             scrollButtons="auto"
           >
-            {/* <Tab value="All" label="All" /> */}
-            <Tab value="Digital" label="Digital" />
-            {/* <Tab value="PJP" label="From PJP" /> */}
-            <Tab value="BusinessCard" label="Business Card" />
-            <Tab value="Prospective" label="Prospective" />
-            <Tab value="Existing" label="Existing" />
-            <Tab value="OTHER" label="Other" />
+            <Tab value="digital" label="Digital" />
+            <Tab value="business_card" label="Business Card" />
+            <Tab value="prospective" label="Prospective" />
+            <Tab value="existing" label="Existing" />
+            <Tab value="other" label="Other" />
           </Tabs>
           <div className="d-flex">
             <FormControl variant="outlined">
@@ -382,22 +379,14 @@ const Client = () => {
           </div>
         </Box>
         <Box>
-          {value === 'Digital' ? (
-            <CustomerList
-              clientDetails={clientDetails}
-              ViewClientDetail={ViewClientDetail}
-            />
-          ) : null}
-          {value === 'PJP' ? (
-            <CustomerList
-              clientDetails={clientDetails}
-              ViewClientDetail={ViewClientDetail}
-            />
-          ) : null}
-          {value === 'BusinessCard' ? (
-            <BusinessCard />
+
+          {value === 'business_card' ? (
+            <BusinessCard clientDetails={clientDetails} />
           ) : (
-            <img className="no_result" src={NoResultWithText} alt="" />
+            <CustomerList
+              clientDetails={clientDetails}
+              ViewClientDetail={ViewClientDetail}
+            />
           )}
           <Pagination
             className="mt-3"
