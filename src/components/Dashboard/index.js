@@ -99,11 +99,7 @@ const Dashboard = () => {
                       {inquiryData?.inquiry?.percentageIndiaMart}%
                     </Typography>
                   </Box>
-                  <Typography
-                    className="small_sub_heading"
-                    // className="sales_parameter_bottom_border small_sub_heading"
-                    variant="span"
-                  >
+                  <Typography className="small_sub_heading" variant="span">
                     Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
                   </Typography>
                 </Box>

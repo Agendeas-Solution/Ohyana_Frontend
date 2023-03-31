@@ -117,3 +117,8 @@
   color: #8e8e8e !important;
 }
 
+.business_card_dialog_section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

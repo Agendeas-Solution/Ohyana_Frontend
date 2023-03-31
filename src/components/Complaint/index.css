@@ -1,67 +1,68 @@
 .complaint_section {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .complaint_left_section {
-    width: 50%;
-    padding: 5px;
+  width: 50%;
+  padding: 5px;
 }
 
 .complaint_right_section {
-    width: 50%;
+  width: 50%;
 }
 
 .ticket_detail {
-    width: 100%;
-    background-color: #F1F2F6;
-    border-radius: 5px;
-    padding:10px;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  background-color: #f1f2f6;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
-.ticket_sub_heading{
-    color:#8E8E8E;
-    margin-top: 5px;
+
+.ticket_sub_heading {
+  color: #8e8e8e;
+  margin-top: 5px;
 }
 
 .close_ticket_button {
-    background-color: #FFF !important;
-    color: #2E3591 !important;
-    white-space: nowrap;
-    height:40px !important;
+  background-color: #fff !important;
+  color: #2e3591 !important;
+  white-space: nowrap;
+  height: 40px !important;
 }
-.customer_feedback_section{
-    border:1px solid #E5E6EB;
-    margin-top:10px;
-    padding: 10px;
+.customer_feedback_section {
+  border: 1px solid #e5e6eb;
+  margin-top: 10px;
+  padding: 10px;
 }
-.ticket_number_row{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.ticket_number_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-.customer_feedback_heading{
-    display: flex;
-    justify-content: space-between;
+.customer_feedback_heading {
+  display: flex;
+  justify-content: space-between;
 }
-.date_cell{
-    border:1px solid #E5E6EB;
-    display: flex;
-    flex-direction: column;
-    min-width:60px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    margin-right: 10px;
+.date_cell {
+  border: 1px solid #e5e6eb;
+  display: flex;
+  flex-direction: column;
+  min-width: 60px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin-right: 10px;
 }
-.complaint_updates{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding:8px;
+.complaint_updates {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 8px;
 }
-.complain_updates_description{
-    border-bottom:1px solid #E5E6EB;
-    width: 100%;
+.complain_updates_description {
+  border-bottom: 1px solid #e5e6eb;
+  width: 100%;
 }

@@ -173,245 +173,8 @@ const Staff = () => {
   }, [])
 
   return (
-    // <>
-    //   {loader && <Loader />}
-    //   <Box className="client_section ">
-    //     <Box sx={{ width: '100%', typography: 'body1' }}>
-    //       <TabContext value={value}>
-    //         <Box className="align-items-center d-flex notification_tabs_root">
-    //           <TabList
-    //             className="client_profile_tab"
-    //             onChange={handleChange}
-    //             textColor="secondary"
-    //             indicatorColor="secondary"
-    //           >
-    //             <Tab label="Detail" value="1" />
-    //             {/* <Tab label="Attendance" value="2" /> */}
-    //           </TabList>
-    //           <div className="d-flex justify-content-end w-50">
-    //             {value === '2' && (
-    //               <LocalizationProvider dateAdapter={AdapterDayjs}>
-    //                 <DatePicker
-    //                   views={['year', 'month']}
-    //                   disableFuture
-    //                   value={datePicker}
-    //                   onChange={newValue => {
-    //                     setDatePicker(newValue)
-    //                   }}
-    //                   renderInput={params => (
-    //                     <TextField
-    //                       placeholder="Year and Month"
-    //                       {...params}
-    //                       helperText={null}
-    //                     />
-    //                   )}
-    //                 />
-    //               </LocalizationProvider>
-    //             )}
-    //             {value === '1' ? (
-    //               <>
-    //                 {/* <Autocomplete
-    //                   className="align-items-center d-flex justify-content-center"
-    //                   options={jobRoleList}
-    //                   onChange={(e, value) => {
-    //                     console.log(value)
-    //                     setDepartmentAndJobRoles({
-    //                       ...departmentAndJobRoles,
-    //                       roleId: value?.id,
-    //                     })
-    //                   }}
-    //                   getOptionLabel={option => option.name}
-    //                   sx={{ width: 300 }}
-    //                   renderInput={params => (
-    //                     <TextField {...params} placeholder="Team Type" />
-    //                   )}
-    //                 />
-    //                 <Autocomplete
-    //                   className="align-items-center d-flex justify-content-center mx-2"
-    //                   options={departmentList}
-    //                   onChange={(e, value) => {
-    //                     console.log(value)
-    //                     setDepartmentAndJobRoles({
-    //                       ...departmentAndJobRoles,
-    //                       departmentId: value?.id,
-    //                     })
-    //                   }}
-    //                   sx={{ width: 300 }}
-    //                   getOptionLabel={option => option.name}
-    //                   renderInput={params => (
-    //                     <TextField {...params} placeholder="Result for" />
-    //                   )}
-    //                 /> */}
-    //                 <FormControl variant="outlined">
-    //                   <OutlinedInput
-    //                     className="search_field"
-    //                     placeholder="Search Here..."
-    //                     startAdornment={
-    //                       <InputAdornment position="start">
-    //                         <IconButton>
-    //                           <SearchRoundedIcon />
-    //                         </IconButton>
-    //                       </InputAdornment>
-    //                     }
-    //                   />
-    //                 </FormControl>
-    //               </>
-    //             ) : null}
-    //             <Box>
-    //               {value === '1' ? (
-    //                 <>
-    //                   {permissions?.editStaff && (
-    //                     <Button
-    //                       onClick={() => {
-    //                         navigate('/addstaffmember')
-    //                       }}
-    //                       className="main_button"
-    //                     >
-    //                       <AddRoundedIcon />
-    //                       Add Team
-    //                     </Button>
-    //                   )}
-    //                 </>
-    //               ) : null}
-    //             </Box>
-    //             <Toolbar>
-    //               <IconButton
-    //                 edge="end"
-    //                 // onClick={handleDrawerOpen}
-    //                 // sx={{ ...(open && { display: 'none' }) }}
-    //               >
-    //                 <img src={FilterIcon} alt="" />
-    //               </IconButton>
-    //             </Toolbar>
-    //           </div>
-    //         </Box>
-    //         <TabPanel value="1">
-    //           <TableContainer sx={{ height: '70vh' }} component={Paper}>
-    //             {staffDetailList.length > 0 ? (
-    //               <Table stickyHeader sx={{ minWidth: 650 }}>
-    //                 <TableHead>
-    //                   <TableRow>
-    //                     {/* <TableCell>Sr No.</TableCell> */}
-    //                     <TableCell align="right">Name</TableCell>
-    //                     <TableCell align="right">Attendance</TableCell>
-    //                     <TableCell align="right">Points</TableCell>
-
-    //                     {/* <TableCell></TableCell> */}
-    //                   </TableRow>
-    //                 </TableHead>
-    //                 <TableBody>
-    //                   {staffDetailList.map((row, index) => (
-    //                     <TableRow
-    //                       key={row.id}
-    //                       sx={{
-    //                         '&:last-child td, &:last-child th': { border: 0 },
-    //                       }}
-    //                     >
-    //                       {/* <TableCell scope="row">{row.id}</TableCell> */}
-    //                       <TableCell align="right">{row.name}</TableCell>
-    //                       <TableCell align="right">{row.role.name}</TableCell>
-    //                       <TableCell align="right">{row.id}</TableCell>
-    //                     </TableRow>
-    //                   ))}
-    //                 </TableBody>
-    //               </Table>
-    //             ) : (
-    //               <p
-    //                 style={{
-    //                   display: 'flex',
-    //                   alignItems: 'center',
-    //                   justifyContent: 'center',
-    //                   textAlign: 'center',
-    //                   width: '100%',
-    //                   height: '100%',
-    //                 }}
-    //               >
-    //                 No Data Found
-    //               </p>
-    //             )}
-    //           </TableContainer>
-    //         </TabPanel>
-    //         <TabPanel value="2">
-    //           <TableContainer sx={{ height: '70vh' }} component={Paper}>
-    //             {usersAttendanceList.length > 0 ? (
-    //               <Table stickyHeader sx={{ minWidth: 650 }}>
-    //                 <TableHead>
-    //                   <TableRow>
-    //                     <TableCell align="right">Name</TableCell>
-    //                     {usersAttendanceList[0].attendances.map(days => {
-    //                       return (
-    //                         <TableCell align="right">
-    //                           {moment(days?.date).format('D')}
-    //                         </TableCell>
-    //                       )
-    //                     })}
-    //                   </TableRow>
-    //                 </TableHead>
-    //                 <TableBody>
-    //                   {usersAttendanceList.map(nameData => {
-    //                     return (
-    //                       <TableRow
-    //                         sx={{
-    //                           '&:last-child td, &:last-child th': { border: 0 },
-    //                         }}
-    //                       >
-    //                         <TableCell align="right">
-    //                           {nameData?.name}
-    //                         </TableCell>
-    //                         {nameData?.attendances.map(status => {
-    //                           return (
-    //                             <TableCell
-    //                               className={
-    //                                 status?.attendanceType === 'LT'
-    //                                   ? 'late_status_color'
-    //                                   : status?.attendanceType === 'A'
-    //                                   ? 'absent_status_color'
-    //                                   : status?.attendanceType === 'L'
-    //                                   ? 'leave_status_color'
-    //                                   : 'present_status_color'
-    //                               }
-    //                               align="right"
-    //                             >
-    //                               {' '}
-    //                               {status?.attendanceType}
-    //                             </TableCell>
-    //                           )
-    //                         })}
-    //                       </TableRow>
-    //                     )
-    //                   })}
-    //                 </TableBody>
-    //               </Table>
-    //             ) : (
-    //               <p
-    //                 style={{
-    //                   display: 'flex',
-    //                   alignItems: 'center',
-    //                   justifyContent: 'center',
-    //                   textAlign: 'center',
-    //                   width: '100%',
-    //                   height: '100%',
-    //                 }}
-    //               >
-    //                 No Data Found
-    //               </p>
-    //             )}
-    //           </TableContainer>
-    //         </TabPanel>
-    //       </TabContext>
-    //     </Box>
-    //     <Box></Box>
-    //     {/* <Pagination className="mt-1" /> */}
-    //   </Box>
-    // </>
-
-    //start
     <Box sx={{ backgroundColor: '#f1f2f6' }} className="team_profile_section">
-      <Box
-        sx={{ marginBottom: '10px' }}
-        // className="occassional_holiday_section"
-        className="left_panel"
-      >
+      <Box sx={{ marginBottom: '10px' }} className="left_panel">
         <Box className="holiday_inner_class">
           <Box sx={{ justifyContent: 'space-between' }} className="team_header">
             <Typography
@@ -698,7 +461,7 @@ const Staff = () => {
             backgroundColor: '#FFFFFF',
           }}
         >
-          <Box className="userName_and_position profile_details_right_panel">
+          <Box className="userName_and_position">
             {/* <img src={ProfileImg} alt="profile" /> */}
             <AccountCircleRoundedIcon
               // src={BenedictPhoto}
@@ -740,7 +503,7 @@ const Staff = () => {
             </Box>
           </Box>
 
-          <Box className="profile_details_right_panel mt-3 mb-4 mx-2">
+          <Box className="mt-3 mb-4 mx-2">
             <Box
               className="m-3 me-5"
               sx={{
@@ -789,7 +552,7 @@ const Staff = () => {
 
           <Box
             // sx={{ display: 'flex', flexDirection: 'row' }}
-            className="mt-3 profile_details_right_panel"
+            className="mt-3"
           >
             <Typography className="px-3">Inquiry Status</Typography>
             <Box

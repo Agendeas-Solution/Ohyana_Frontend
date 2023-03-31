@@ -45,6 +45,8 @@ fieldset {
 
 .input_fields {
   width: 40%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* width */
@@ -377,4 +379,442 @@ button {
 .companyDetail_root{
   display: flex;
   justify-content: space-between;
+}
+.profile_section {
+  display: flex;
+  background: #ffffff;
+  width: 97% !important;
+  padding: 10px;
+  height: 88vh;
+  /* margin-left: 1rem !important; */
+  border-radius: 5px;
+  margin: 20px auto;
+  overflow-y: auto;
+  /* overflow-y: auto; */
+  /* margin-left: 4rem; */
+  /* height: auto; */
+  flex-direction: column;
+  /* justify-content: space-between; */
+}.edit_icon {
+  border: 1px solid #e5e6eb;
+  border-radius: 50%;
+  padding: 5px;
+  margin-right: 5px;
+}
+.delete_icon {
+  border: 1px solid #e5e6eb;
+  border-radius: 50%;
+  padding: 5px;
+}
+.client_appointment_content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 25px;
+  margin-right: 25px;
+  text-align: center;
+}
+.client_appointment_dialog{
+  padding:10px;
+  width: 350px;
+}
+.icon {
+  color: #2e3591;
+  font-size: 35px !important;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  padding: 8px;
+  margin-right: 15px;
+}
+.client_profile_tab button {
+  text-transform: capitalize;
+}
+.tab_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.client_profile_table_header tr th {
+  font-weight: 600;
+  background-color: #f1f2f6;
+}
+.client_profile_edit_button {
+  border: 1px solid #e5e5e5 !important;
+  text-transform: capitalize !important;
+}
+.status_description {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.set_date_time_bg {
+  background-color: white;
+}
+.attendance_buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 3px;
+}
+.common_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.common_icon {
+  color: #2e3591;
+}
+.sales_parameter {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+  font-size: 18px;
+  font-weight: 500;
+}
+.team_overview_table_heading {
+  background: #f1f2f6;
+}
+.team_overview_table_heading tr th {
+  border-bottom: none;
+  padding: 8px;
+}
+.input_field_row {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+.input_field_label {
+  margin-bottom: 5px !important;
+  margin-top: 20px !important;
+}
+.edit_profile_section {
+  margin-top: 1.5rem !important;
+  display: flex;
+  background: #fff;
+  width: 100%;
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 5px;
+  overflow: auto;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 85%;
+  padding: 0.4rem;
+}
+.edit_page_save_button {
+  margin-top: 20px !important;
+  background-color: #2e3591 !important;
+  width: 200px;
+  text-transform: capitalize !important;
+  font-size: 17px !important;
+  padding: 7px !important;
+}
+.holiday_inner_class {
+  width: 700px;
+}
+.login_page_root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  background: #F1F2F6;
+}
+.login_form_root {
+  background: #FFFFFF;
+  width: 35%;
+  height: 65%;
+  display: flex;
+  justify-content:center;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 35px;
+}
+.login_heading_root {
+  font-size: 24px;
+  text-align: left;
+  width: 100%;
+}
+.login_email_root {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 30px;
+}
+.login_password_root label {
+  margin-bottom: 10px;
+}
+.login_submit_button_root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.login_copyright_root {
+  color: #000000;
+  font-size: 17px;
+  font-weight: 400;
+  margin-top: 10px !important;
+}
+.main_button {
+  /* width: 109px; */
+  height: 40px;
+  margin: auto 0 !important;
+  background-color: #fff !important;
+  text-transform: capitalize !important;
+  color: #8e8e8e !important;
+}
+.access_control_box {
+  margin: 5px;
+  width: 47%;
+}
+.profile_img {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.userName_and_position {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.edit_icon_profile {
+  color: #2e3591;
+  font-size: 45px !important;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+.textfield {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  width: 45%;
+  justify-content: space-between;
+}
+.job_role_title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.add_product_button {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.product_buttons > svg {
+  background-color: #ffffff;
+  margin-left: 10px;
+  height: 35px;
+  width: 35px;
+  padding: 5px;
+  border: 1px solid #e5e5e5;
+  border-radius: 50%;
+  color: #2e3591;
+}
+.sidebar_icon_root {
+  width: 20%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 10px;
+}
+.verify_button{
+  padding:2px !important;
+  text-transform: capitalize !important;
+  font-size: 12px !important;
+}
+.search_field {
+  /* width: 109px; */
+  margin: auto 10px auto 0;
+  height: 40px;
+  background-color: #fff !important;
+  text-transform: capitalize !important;
+  color: #2e3591 !important;
+  padding-left: 0px;
+}
+.access_control_box {
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+}
+.access_control {
+  margin-right: 10%;
+}
+.access_checkbox {
+  background-color: #f1f2f6;
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 23%;
+}
+.accessMenus_checkbox {
+  border: 1px solid #f1f2f6;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.attendance_data_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid #e5e5e5;
+  padding: 12px;
+}
+.days_data {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 8px;
+  margin-left: 3px;
+  height: max-content;
+}
+.Late_days_data {
+  display: flex;
+  background-color: #f2eee9;
+  margin-right: 380px;
+}
+.range_days_data {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f1f2f6;
+  height: 45px;
+  margin: 2px;
+  border-radius: 5px;
+}
+.target_section {
+  padding: 0px;
+}
+.left_panel {
+  border-radius: 5px;
+  padding: 7px;
+  display: flex;
+  flex-direction: row;
+  width: 54%;
+}
+.right_panel {
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  width: 44%;
+}
+.team_profile_section {
+  display: flex;
+  background: #ffffff;
+  width: 96% !important;
+  padding: 0px;
+  height: 83vh;
+  margin: 8px !important;
+  border-radius: 5px;
+  flex-direction: row;
+  overflow-y: auto;
+}
+.left_team_profile_section {
+  overflow-y: auto;
+}
+.inner_profile_details {
+  border-radius: 5px;
+  width: 140px;
+}
+
+.first_box {
+  background-color: #e6dff1;
+}
+
+.middle_box {
+  background-color: #e5e6eb;
+}
+
+.last_box {
+  background-color: #f2eee9;
+}
+.team_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.checkbox_background_color {
+  background-color: #f1f2f6;
+  width: 48%;
+  margin-bottom: 12px;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+.expenses_table_height {
+  height: 48vh;
+}
+.graph_section {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 10px 8px auto 5px;
+}
+.task_cards_section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* justify-content:space-evenly; */
+  width: 98%;
+  margin: 0 auto;
+  padding: 10px;
+  height: 73vh;
+}
+.task_card_heading {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.name_chip {
+  background-color: #b4c2e9;
+  padding: 15px 18px 15px 18px;
+  border-radius: 50%;
+  font-size: 15px;
+}
+.attendance_button {
+  text-transform: capitalize !important;
+  padding: 8px !important;
+  height: 30px;
+  width: auto !important;
+  background-color: #f1f2f6 !important;
+  color: #2e3591 !important;
+  font-weight: 600 !important;
+}
+.leave_data_main {
+  border: 1px solid #e5e5e5;
+  height: 44vh;
+  overflow-y: auto;
+  border-top: none;
+  margin: 0;
+  padding: 0;
+}
+.user_profile_color {
+  font-weight: 600;
+}
+.tablecell_height {
+  line-height: 3 !important;
 }

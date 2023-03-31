@@ -31,19 +31,8 @@
 .premium_icon,
 .expense_icon,
 .leave_holiday_icon {
-  /* background: #2e3591; */
-  /* padding: 6px; */
   margin-right: 10px;
   border-radius: 4px;
-}
-
-.Sales_section {
-  width: auto;
-  background: #fff;
-  margin: auto;
-  height: 85vh;
-  /* margin-left: 1.9rem;
-  margin-right: 0.7rem; */
 }
 
 .sales_header_section {
@@ -56,32 +45,6 @@
   height: 80px;
 }
 
-.job_role_title {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.add_product_button {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.setting_section {
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background-color: #ffffff;
-
-  /* margin-left: 1.9rem;
-  margin-right: 1.3rem; */
-}
-
 .product_list_section {
   /* margin-top: 1rem !important; */
   border-radius: 5px;
@@ -91,27 +54,7 @@
   width: 100%;
   overflow-y: auto;
   background-color: #ffffff;
-  /* margin-left: 1.9rem;
-  margin-right: 1.3rem; */
 }
-
-.edit_icon_profile {
-  height: 45px !important;
-  cursor: pointer;
-}
-
-.product_buttons > svg {
-  background-color: #ffffff;
-  margin-left: 10px;
-  height: 35px;
-  width: 35px;
-  padding: 5px;
-  border: 1px solid #e5e5e5;
-  border-radius: 50%;
-  color: #2e3591;
-}
-
-/* kkk */
 
 input[type='radio'] {
   border: 1px solid #fff !important;
@@ -246,20 +189,14 @@ input[type='radio']:focus {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  /* justify-content: space-evenly; */
   width: 98%;
   margin: 0 auto;
-  /* height: fit-content; */
   padding: 10px;
 }
 .product_list_section {
-  display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
-  /* justify-content: space-evenly; */
   width: 98%;
   margin: 0 auto;
-  /* height: fit-content; */
   padding: 10px;
 }
 
@@ -273,7 +210,6 @@ input[type='radio']:focus {
 }
 
 .main_department_button {
-  /* width: 109px; */
   height: 40px;
   margin: auto 0 !important;
   background-color: #fff !important;

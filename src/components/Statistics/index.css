@@ -6,19 +6,11 @@
   padding: 10px;
   border-bottom: 1px solid #c4c4c4;
 }
-
 .graph_detail_section {
   width: 100%;
   display: flex;
   flex-direction: row;
   margin-top: 5px;
-}
-
-.graph_section {
-  display: flex;
-  flex-direction: column;
-  width: 70%;
-  margin: 10px 8px auto 5px;
 }
 
 .detail_section {
@@ -47,7 +39,3 @@
 .team_graph {
   width: 100%;
 }
-
-/* .MuiAutocomplete-hasPopupIcon.css-e39x9u-MuiAutocomplete-root .MuiOutlinedInput-root {
-    background: #F1F2F6 !important;
-} */

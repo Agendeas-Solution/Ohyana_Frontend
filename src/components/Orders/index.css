@@ -70,7 +70,6 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  /* justify-content:space-evenly; */
   width: 98%;
   margin: 0 auto;
   padding: 10px;
@@ -78,7 +77,6 @@
 }
 
 .order_search_field {
-  /* width: 109px; */
   margin: 8px 10px auto auto;
   height: 40px;
   background-color: #fff !important;
@@ -86,11 +84,6 @@
   color: #8e8e8e !important;
   padding-left: 0px;
 }
-
-/* .payment_detail_heading_dialog {
-  font-size: 24px;
-  font-weight: 900;
-} */
 
 .checkbox_button {
   background-color: #f1f2f6;

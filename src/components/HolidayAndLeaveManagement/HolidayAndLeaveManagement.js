@@ -55,7 +55,6 @@ const HolidayAndLeaveManagement = () => {
       {},
       res => {
         setHolidayList(res?.data)
-        
       },
       err => {
         console.log('Printing Error', err)
@@ -65,7 +64,6 @@ const HolidayAndLeaveManagement = () => {
       {},
       res => {
         setLeaveList(res?.data)
-        
       },
       err => {},
     )
@@ -86,7 +84,6 @@ const HolidayAndLeaveManagement = () => {
       addHolidayDetail,
       res => {
         handleCloseDialog()
-        
       },
       err => {},
     )
@@ -97,7 +94,6 @@ const HolidayAndLeaveManagement = () => {
       holidayDetail,
       res => {
         handleCloseDialog()
-        
       },
       err => {},
     )
@@ -105,24 +101,15 @@ const HolidayAndLeaveManagement = () => {
   const DeleteHolidayFunc = id => {
     DeleteHoliday(
       id,
-      res => {
-        
-      },
-      err => {
-        
-      },
+      res => {},
+      err => {},
     )
   }
   const DeleteLeaveFunc = id => {
-    
     DeleteLeaveType(
       id,
-      res => {
-        
-      },
-      err => {
-        
-      },
+      res => {},
+      err => {},
     )
   }
   const AddLeave = () => {
@@ -132,7 +119,6 @@ const HolidayAndLeaveManagement = () => {
         type: addLeaveDialog.type,
       },
       res => {
-        
         handleCloseDialog()
       },
       err => {},
@@ -149,15 +135,12 @@ const HolidayAndLeaveManagement = () => {
           duration: '',
         })
       },
-      err => {
-        
-      },
+      err => {},
     )
   }
   return (
     <>
       <Box className="leave_holiday_section">
-        {/* <Box className="dummy"> */}
         <Box
           sx={{ marginBottom: '10px' }}
           // className="w-100"
@@ -264,7 +247,6 @@ const HolidayAndLeaveManagement = () => {
           // display="flex"
           variant="span"
           sx={{ marginLeft: '0px' }}
-          // className="row mt-2 leave_holiday_row"
           className=" row ms-4 dummy"
         >
           <Box className="leave_management_section">
@@ -351,7 +333,6 @@ const HolidayAndLeaveManagement = () => {
 
           {/* </Box> */}
           <Box sx={{ marginRight: '10px' }} className="regular_holiday_section">
-            {/* <Box className="regular_holiday_section"> */}
             <Box className="regular_holiday_heading mb-3">
               <Typography
                 // sx={{ marginTop: "24px", marginLeft: "25px" }}

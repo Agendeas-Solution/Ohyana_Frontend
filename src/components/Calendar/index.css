@@ -1,17 +1,3 @@
-.appointment_notification {
-  /* border: 1px solid #e5e6eb; */
-}
-.edit_icon {
-  border: 1px solid #e5e6eb;
-  border-radius: 50%;
-  padding: 5px;
-  margin-right: 5px;
-}
-.delete_icon {
-  border: 1px solid #e5e6eb;
-  border-radius: 50%;
-  padding: 5px;
-}
 .calender_section {
   display: flex;
   flex-direction: column;

@@ -146,9 +146,7 @@ const Department = () => {
           },
         })
       },
-      err => {
-        ;
-      },
+      err => {},
     )
   }, [])
   const handleUserPermissions = () => {
@@ -172,7 +170,7 @@ const Department = () => {
       accessSetting: accessControl?.setting.accessSetting,
       clientStageAccess: accessControl?.client?.clientStage,
     }
-    
+
     UpdatePermission(
       userPermission,
       res => {
@@ -181,7 +179,6 @@ const Department = () => {
           status: true,
           message: res.data.message,
         })
-        
       },
       err => {
         setErrorSnackbar({
@@ -282,7 +279,6 @@ const Department = () => {
         <Divider sx={{ width: '95%', margin: '0 auto' }} />
         <Box className="bg-body p-4">
           <Box className="mb-3 row post_detail">
-            {/* <Box className="post_detail mb-3"> */}
             <Box className="post_name">
               <Typography
                 sx={{ color: '#8E8E8E' }}
@@ -310,7 +306,6 @@ const Department = () => {
               </Typography>
             </Box>
           </Box>
-          {/* <Box className="check_in_time"> */}
 
           <Box className="mb-1 row">
             <FormControl

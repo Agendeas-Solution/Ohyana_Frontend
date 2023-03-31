@@ -229,7 +229,10 @@ const SideBar = () => {
             }}
           >
             <Box className="sidebar_icon_root">
-              <img src={path==="/orders"?OrdersBlue:Orders} className="sidebar_img" />
+              <img
+                src={path === '/orders' ? OrdersBlue : Orders}
+                className="sidebar_img"
+              />
             </Box>
             <Typography className="page_name_root" variant="div">
               Orders
@@ -243,7 +246,10 @@ const SideBar = () => {
             }}
           >
             <Box className="sidebar_icon_root">
-              <img src={path==='/report'?ReportBlue:Statistics} className="sidebar_img" />
+              <img
+                src={path === '/report' ? ReportBlue : Statistics}
+                className="sidebar_img"
+              />
             </Box>
             <Typography className="page_name_root" variant="div">
               Report
@@ -273,39 +279,16 @@ const SideBar = () => {
               }}
             >
               <Box className="sidebar_icon_root">
-                <img src={ path === '/settings' ?SettingsBlue:Settings} className="sidebar_img" />
+                <img
+                  src={path === '/settings' ? SettingsBlue : Settings}
+                  className="sidebar_img"
+                />
               </Box>
               <Typography className="page_name_root" variant="div">
                 Settings
               </Typography>
             </Box>
           )}
-          {/* {permissions?.settingMenu && (
-            <Box
-              className={`sidebar_icons ${
-                path === '/profile' && 'selected-link'
-              }`}
-              onClick={() => {
-                handleNavItemClick('/profile', 'Profile')
-              }}
-            >
-              <Box className="sidebar_icon_root">
-                <img src={MyProfile} className="sidebar_img" />
-              </Box>
-              <Typography className="page_name_root" variant="div">
-                My Profile
-              </Typography>
-            </Box>
-          )} */}
-
-          {/* <Box className="sidebar_icons" onClick={clearLoginToken}>
-            <Box className="sidebar_icon_root">
-              <img src={SignOut} className="sidebar_img" />
-            </Box>
-            <Typography className="page_name_root" variant="div">
-              Sign Out
-            </Typography>
-          </Box> */}
         </Box>
         <SuccessSnackbar />
         <ErrorSnackbar />
