@@ -16,8 +16,8 @@ import { GetAdminRole } from '../../services/apiservices/adminprofile'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
 import {  GetExpenseTypeList, CreateExpenseType, DeleteExpenseType,UpdateExpenseType } from '../../services/apiservices/staffDetail'
-import ExpenseType from './ExpenseType'
-import DeleteExpenseTypeDialog from './DeleteExpenseTypeDialog'
+const DeleteExpenseTypeDialog = React.lazy(() => import("./DeleteExpenseTypeDialog"));
+const ExpenseType = React.lazy(() => import("./ExpenseType"));
 
 const ExpenseList = () => {
   let navigate = useNavigate()

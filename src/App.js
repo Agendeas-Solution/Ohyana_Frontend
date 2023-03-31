@@ -7,10 +7,8 @@ import {
   Navigate,
 } from 'react-router-dom'
 import './App.scss'
-
 import { Context as AuthContext } from './context/authContext/authContext'
 import { Box } from '@mui/material'
-
 import Cookie from 'js-cookie'
 import { clearLoginToken } from './services/storage'
 import { io } from 'socket.io-client'

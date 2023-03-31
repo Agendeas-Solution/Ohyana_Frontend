@@ -7,11 +7,8 @@ import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import ProfileImg from '../../assets/img/profile_logo.png'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
-import StaffDetail from './staffDetail'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import ChangeRole from '../../assets/img/changerole.svg'
-import StaffRatingTable from './StaffRatingTable'
-import ChangeRoleDialog from './ChangeRoleDialog'
 import PlaceIcon from '@mui/icons-material/Place'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import {
@@ -19,12 +16,14 @@ import {
   GetAdminStaffRatingDetail,
 } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
-import Attendance from './StaffAttendance'
-import StaffAttendance from './StaffAttendance'
-import PJPDetail from './PJPDetail'
-import StaffTarget from './StaffTarget'
-import StaffPoint from './StaffPoint'
-import StaffExpenses from './StaffExpenses'
+const PJPDetail = React.lazy(() => import("./PJPDetail"));
+const StaffTarget = React.lazy(() => import("./StaffTarget"));
+const StaffAttendance = React.lazy(() => import("./StaffAttendance"));
+const StaffPoint = React.lazy(() => import("./StaffPoint"));
+const StaffExpenses = React.lazy(() => import("./StaffExpenses"));
+const StaffDetail = React.lazy(() => import("./staffDetail"));
+const StaffRatingTable = React.lazy(() => import("./StaffRatingTable"));
+const ChangeRoleDialog = React.lazy(() => import("./ChangeRoleDialog"));
 
 const StaffProfile = () => {
   const [value, setValue] = useState('1')

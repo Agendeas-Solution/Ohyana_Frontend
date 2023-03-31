@@ -2,15 +2,15 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Box, Tabs, Tab, Button, Typography } from '@mui/material'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
-import DeleteProductDialog from './DeleteProductDialog'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
 import SampleProduct from '../../assets/img/sample_product.png'
 import { Context as AuthContext } from '../../context/authContext/authContext'
-import ViewProductDialog from './ViewProductDialog'
 import { useNavigate } from 'react-router-dom'
 import SnacksPhoto from '../../assets/img/SnacksPhoto.png'
+const ViewProductDialog = React.lazy(() => import("./ViewProductDialog"));
+const DeleteProductDialog = React.lazy(() => import("./DeleteProductDialog"));
 
 const ProductList = () => {
   const { flagLoader, permissions } = useContext(AuthContext).state

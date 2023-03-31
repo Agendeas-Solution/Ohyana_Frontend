@@ -17,12 +17,7 @@ import {
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import './index.css'
-import JobRoleDialog from './JobRoleDialog'
-import DeleteJobRoleDialog from './DeleteJobRoleDialog'
-import DeleteDepartmentDialog from './DeleteDepartmentDialog'
-import AddEditDepartmentDialog from './AddEditDepartmentDialog'
 import { GetAdminRole } from '../../services/apiservices/adminprofile'
-import EditJobRoleDialog from './EditJobRoleDialog'
 import {
   UpdatePermission,
   getUserPermissions,
@@ -33,6 +28,14 @@ import ClientIcon from '../../assets/img/Clients.svg'
 import SettingIcon from '../../assets/img/setting.svg'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
+
+
+const JobRoleDialog = React.lazy(() => import("./JobRoleDialog"));
+const DeleteJobRoleDialog = React.lazy(() => import("./DeleteJobRoleDialog"));
+const DeleteDepartmentDialog = React.lazy(() => import("./DeleteDepartmentDialog"));
+const AddEditDepartmentDialog = React.lazy(() => import("./AddEditDepartmentDialog"));
+const EditJobRoleDialog = React.lazy(() => import("./EditJobRoleDialog"));
+
 
 // const useStyles = makeStyles((theme) => ({
 //   // root: {
