@@ -217,6 +217,19 @@ export const CreateExpenseType = async (value, onSuccess, onError) => {
     onError && onError(err)
   }
 }
+export const UpdateExpenseType = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.put(`/expense`,value, {
+      headers: { ...defaultHeaders },
+    })
+    console.log('Printing response of UpdateExpenseType', data)
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log('Got error while calling API - UpdateExpenseType', err)
+    onError && onError(err)
+  }
+}
 export const DeleteExpenseType = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {

@@ -38,7 +38,7 @@ const BusinessCard = ({ clientDetails }) => {
                     })
                   }
                 >
-                  <img src={Image_Link} alt="" />
+                  <img src={CompanyIcon} alt="" />
                   {/* <Box className="business_card_left_section">
                             <img src={UserIcon} />
                         <img src={CompanyIcon} />

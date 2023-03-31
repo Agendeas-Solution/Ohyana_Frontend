@@ -55,3 +55,80 @@
 .tablecell_height {
   line-height: 3 !important;
 }
+.notification_tabs_root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-top: 1rem; */
+  margin-bottom: 1rem;
+  /* margin: 10px 5px 9px 0px; */
+}
+.profile_img {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.userName_and_position {
+  display: flex;
+  flex-direction: row;
+  /* padding-left: 30px; */
+  justify-content: space-between;
+}
+.profile_section {
+  display: flex;
+  background: #ffffff;
+  width: 97% !important;
+  padding: 10px;
+  height: 88vh;
+  /* margin-left: 1rem !important; */
+  border-radius: 5px;
+  margin: 20px auto;
+  overflow-y: auto;
+  /* overflow-y: auto; */
+  /* margin-left: 4rem; */
+  /* height: auto; */
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+.password_field .css-1ptx2yq-MuiInputBase-root-MuiInput-root:before {
+  border-bottom: none;
+}
+.password_field .css-1ptx2yq-MuiInputBase-root-MuiInput-root:after {
+  border-bottom: none;
+}
+.password_field input {
+  text-align: right;
+}
+.edit_icon_profile {
+  color: #2e3591;
+  font-size: 45px !important;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  padding: 5px;
+}
+.profile_detail {
+  /* margin-top: 20px; */
+  width: 50%;
+  padding: 10px 20px;
+}
+.profile_detail_heading {
+  font-weight: 600;
+  font-size: 18px;
+  /* margin-top: 20px !important; */
+  padding-top: 10px;
+  /* border-bottom: 2px solid #2e3591; */
+}
+.userdetail_root {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+.userdetail_field_heading {
+  font-weight: 600;
+}
+.width-main {
+  width: 80%;
+  height: 100vh;
+}
