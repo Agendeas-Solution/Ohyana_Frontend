@@ -1,15 +1,16 @@
-import { React, useState, useEffect, useContext } from 'react'
+import React, { lazy, useState, useEffect, useContext } from 'react'
 import { Box, Tabs, Tab, Button } from '@mui/material'
 import AddRoundedIcon from '@mui/icons-material/AddRounded'
-import AppointmentList from './AppointmentList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
-import ReminderList from './ReminderList'
-import AddRemainderDialog from './AddRemainderDialog'
-import AddAppointmentDialog from './AddAppointmentDialog'
 import { GetAdminAppointmentOrReminder } from '../../services/apiservices/adminprofile'
 import { Context as ContextEditAppointmentDialog } from '../../context/pageContext'
-import Loader from '../Loader/Loader'
+
+const Loader = React.lazy(() => import("./AddRemainderDialog"));
+const ReminderList = React.lazy(() => import("./ReminderList"));
+const AppointmentList = React.lazy(() => import("./AppointmentList"));
+const AddRemainderDialog = React.lazy(() => import("./AddRemainderDialog"));
+const AddAppointmentDialog = React.lazy(() => import("./AddAppointmentDialog"));
 
 const Calendar = () => {
   const [value, setValue] = useState('Appointments')

@@ -20,9 +20,9 @@ import { AddEmployee } from '../../services/apiservices/staffDetail'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import ErrorSnackbar from '../ErrorSnackbar/ErrorSnackbar'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+const ErrorSnackbar = React.lazy(() => import("../ErrorSnackbar/ErrorSnackbar"));
 const AddStaffMember = () => {
   const [userDetail, setUserDetail] = useState({
     employeeName: '',

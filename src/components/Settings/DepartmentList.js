@@ -2,9 +2,10 @@ import React, { useEffect, useState, useContext } from 'react'
 import { Box, Button, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { GetAdminDepartmentList } from '../../services/apiservices/adminprofile'
-import AddEditDepartmentDialog from './AddEditDepartmentDialog'
-import SuccessSnackbar from '../SuccessSnackbar/SuccessSnackbar'
 import { Context as AuthContext } from '../../context/authContext/authContext'
+const SuccessSnackbar = React.lazy(() => import("../SuccessSnackbar/SuccessSnackbar"));
+const AddEditDepartmentDialog = React.lazy(() => import("./AddEditDepartmentDialog"));
+
 const DepartmentList = () => {
   let navigate = useNavigate()
   const { flagLoader, permissions } = useContext(AuthContext).state

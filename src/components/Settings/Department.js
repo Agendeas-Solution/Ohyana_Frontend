@@ -18,12 +18,7 @@ import {
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import './index.css'
-import JobRoleDialog from './JobRoleDialog'
-import DeleteJobRoleDialog from './DeleteJobRoleDialog'
-import DeleteDepartmentDialog from './DeleteDepartmentDialog'
-import AddEditDepartmentDialog from './AddEditDepartmentDialog'
 import { GetAdminRole } from '../../services/apiservices/adminprofile'
-import EditJobRoleDialog from './EditJobRoleDialog'
 import {
   UpdatePermission,
   getUserPermissions,
@@ -43,6 +38,13 @@ import {
 } from '@mui/x-date-pickers'
 import { borderRadius } from '@mui/system'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+const DeleteJobRoleDialog = React.lazy(() => import("./DeleteJobRoleDialog"));
+const DeleteDepartmentDialog = React.lazy(() => import("./DeleteDepartmentDialog"));
+const JobRoleDialog = React.lazy(() => import("./JobRoleDialog"));
+const AddEditDepartmentDialog = React.lazy(() => import("./AddEditDepartmentDialog"));
+const EditJobRoleDialog = React.lazy(() => import("./EditJobRoleDialog"));
+
+
 const Department = () => {
   const { permissions } = useContext(AuthContext).state
   const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false)

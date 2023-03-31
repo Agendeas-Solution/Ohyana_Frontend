@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import { Box, Typography, Autocomplete, TextField, Button } from '@mui/material'
 import './index.css'
 import { UserData } from './Data'
-import LineChart from './LineChart'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
-import ProductGraph from './ProductGraph'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -12,9 +10,11 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import BarChart from './BarChart'
-import TeamGraph from './TeamGraph'
 import moment from 'moment'
+const BarChart = React.lazy(() => import("./BarChart"));
+const TeamGraph = React.lazy(() => import("./TeamGraph"));
+const ProductGraph = React.lazy(() => import("./ProductGraph"));
+const LineChart = React.lazy(() => import("./LineChart"));
 const Statistics = () => {
   const [value, setValue] = React.useState('1')
   const [selectedPeriod, setSelectedPeriod] = useState()

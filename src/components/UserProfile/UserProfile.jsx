@@ -1,28 +1,13 @@
-import React, { useEffect, useState, useContext } from 'react'
-import ProfileImg from '../../assets/img/profile_logo.png'
+import React, { useEffect, useState, useContext,lazy } from 'react'
 import {Typography,Box,TextField,Tabs,Button,Tab,Table,TableCell,TableContainer,Paper,TableRow,TableHead,} from '@mui/material'
 import StaffExpenses from '../Staff/StaffExpenses'
-import TabList from '@mui/lab/TabList'
-import TableBody from '@mui/material/TableBody'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import { useNavigate } from 'react-router-dom'
 import { GetAdminProfile } from '../../services/apiservices/adminprofile'
-import moment from 'moment'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import SuccessSnackbar from '../SuccessSnackbar/SuccessSnackbar'
 import { Context as AuthContext } from '../../context/authContext/authContext'
-import ErrorSnackbar from '../ErrorSnackbar/ErrorSnackbar'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import AttendanceData from './AttendanceData'
-import PresentData from './PresentData'
-import LeaveData from './LeaveData'
-import HolidayData from './HolidayData'
 import {
   GetHolidayList,
   AttendanceStatus,
@@ -34,6 +19,12 @@ import {
 import ApplyLeaveDialog from './ApplyLeaveDialog'
 import { GetAllHoliday } from '../../services/apiservices/holiday'
 
+const ErrorSnackbar = React.lazy(() => import("../ErrorSnackbar/ErrorSnackbar"));
+const SuccessSnackbar = React.lazy(() => import("../SuccessSnackbar/SuccessSnackbar"));
+
+const PresentData = React.lazy(() => import("./PresentData"));
+const LeaveData = React.lazy(() => import("./LeaveData"));
+const HolidayData = React.lazy(() => import("./HolidayData"));
 const UserProfile = () => {
   const navigate = useNavigate()
   const [value, setValue] = useState('Profile')

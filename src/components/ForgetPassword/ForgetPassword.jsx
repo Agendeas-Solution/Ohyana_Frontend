@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext,lazy } from 'react'
 import { Box, Typography, TextField, Button } from '@mui/material';
 import CompanyLogo from '../../assets/img/Ohyana_logo.png';
 import { ResetPassword } from "../../services/apiservices/login";
 import { useSearchParams } from 'react-router-dom';
 import { Context as ContextSnackbar } from "../../context/pageContext";
-import SuccessSnackbar from '../SuccessSnackbar/SuccessSnackbar';
-import ErrorSnackbar from '../ErrorSnackbar/ErrorSnackbar';
+const SuccessSnackbar = React.lazy(() => import("../SuccessSnackbar/SuccessSnackbar"));
+const ErrorSnackbar = React.lazy(() => import("../ErrorSnackbar/ErrorSnackbar"));
 const ForgetPassword = () => {
     const [password, setPassword] = useState({
         newPassword: "",

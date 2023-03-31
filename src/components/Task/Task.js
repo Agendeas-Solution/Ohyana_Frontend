@@ -14,7 +14,6 @@ import {
 } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-
 import InputAdornment from '@mui/material/InputAdornment'
 import FilterIcon from '../../assets/img/Filter.svg'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
@@ -26,8 +25,6 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 // import { useTheme } from '@mui/material/styles'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import './index.css'
-import CreateTaskDialog from './CreateTaskDialog'
-import AssignMemberDialog from './AssignMemberDialog'
 import {
   GetAllMemberList,
   AssignMemberParticularTask,
@@ -38,6 +35,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 const drawerWidth = 400
+const CreateTaskDialog = React.lazy(() => import("./CreateTaskDialog"));
+const AssignMemberDialog = React.lazy(() => import("./AssignMemberDialog"));
 
 const Task = () => {
   const navigate = useNavigate()

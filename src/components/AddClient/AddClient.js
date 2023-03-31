@@ -1,21 +1,11 @@
-import { React, useEffect, useState, useContext } from 'react'
-import {
-  Typography,
-  Box,
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-  Autocomplete,
-} from '@mui/material'
-import {
-  GetAdminProductList,
-  AddClientDetail,
-} from '../../services/apiservices/adminprofile'
+import { React, useEffect, useState, useContext,lazy } from 'react'
+import {Typography,Box,TextField,Button,Select,MenuItem,Autocomplete,} from '@mui/material'
+import {GetAdminProductList,AddClientDetail,} from '../../services/apiservices/adminprofile'
 import { useNavigate } from 'react-router-dom'
 import { GetCountryList } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-import ErrorSnackbar from '../ErrorSnackbar/ErrorSnackbar'
+const ErrorSnackbar =lazy(() => import("../ErrorSnackbar/ErrorSnackbar"));
+
 const AddClient = () => {
   const [userDetail, setUserDetail] = useState({
     clientName: '',

@@ -7,9 +7,11 @@ import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import SampleProduct from '../../assets/img/sample_product.png'
 import { GetOrderDetail, UpdatePaymentStatus } from '../../services/apiservices/orderDetail'
-import PaymentDetailDialog from './PaymentDetailDialog'
 import moment from 'moment'
 const steps = ['Shipping', 'Dispatch', 'Delivered']
+const Loader = React.lazy(() => import("../Loader/Loader"));
+const PaymentDetailDialog = React.lazy(() => import("./PaymentDetailDialog"));
+
 const OrderDetail = () => {
   const [orderDetail, setOrderDetail] = useState([])
   const [orderItems, setOrderItems] = useState([])

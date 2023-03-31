@@ -11,9 +11,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
-  Pagination,
-  Tabs,
   FormControl,
   OutlinedInput,
   InputAdornment,
@@ -31,7 +28,6 @@ import {
 import './index.css'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
-
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import FilterIcon from '../../assets/img/Filter.svg'
 import Tab from '@mui/material/Tab'
@@ -57,12 +53,11 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import SuccessSnackbar from '../SuccessSnackbar/SuccessSnackbar'
-import Loader from '../Loader/Loader'
 import moment from 'moment'
 import { styled, useTheme } from '@mui/material/styles'
 const drawerWidth = 400
-
+const Loader = React.lazy(() => import("../Loader/Loader"));
+const SuccessSnackbar = React.lazy(() => import("../SuccessSnackbar/SuccessSnackbar"));
 const Staff = () => {
   let navigate = useNavigate()
   const theme = useTheme()

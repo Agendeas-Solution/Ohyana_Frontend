@@ -21,14 +21,7 @@ import ProfileImg from '../../assets/img/profile_logo.png'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import PrintRoundedIcon from '@mui/icons-material/PrintRounded'
 import AddRoundedIcon from '@mui/icons-material/AddRounded'
-import RemainderTable from './RemainderTable'
-import AppointmentTable from './AppointmentTable'
-import ProfileTable from './ProfileTable.js'
-import RemainderDialog from './RemainderDialog.js'
-import StatusDialog from './StatusDialog.js'
-import AppointmentDialog from './AppointmentDialog'
 import { useNavigate } from 'react-router-dom'
-import ViewClientStatusDialog from './ViewClientStatusDialog'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import {
   GetAdminClientProfileDetail,
@@ -38,15 +31,25 @@ import {
 } from '../../services/apiservices/clientDetail'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import moment from 'moment'
-import PoorContact from './PoorContact'
-import EditStatusDialog from './EditStatusDialog'
 import Stage0 from '../../assets/img/stage_0.svg'
 import Stage1 from '../../assets/img/stage_1.svg'
 import Stage2 from '../../assets/img/stage_2.svg'
 import CallNotReceived from '../../assets/img/callnotreceived.svg'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import StageDialog from './StageDialog'
-import OrderList from './OrderList'
+
+const EditStatusDialog = React.lazy(() => import("./EditStatusDialog"));
+const StageDialog = React.lazy(() => import("./StageDialog"));
+const OrderList = React.lazy(() => import("./OrderList"));
+const PoorContact = React.lazy(() => import("./PoorContact"));
+const ViewClientStatusDialog = React.lazy(() => import("./ViewClientStatusDialog"));
+const AppointmentDialog = React.lazy(() => import("./AppointmentDialog"));
+const RemainderTable = React.lazy(() => import("./RemainderTable"));
+const AppointmentTable = React.lazy(() => import("./AppointmentTable"));
+const ProfileTable = React.lazy(() => import("./ProfileTable"));
+const RemainderDialog = React.lazy(() => import("./RemainderDialog"));
+const StatusDialog = React.lazy(() => import("./StatusDialog"));
+
+
 const ClientProfile = () => {
   const [value, setValue] = useState('1')
   const { flagLoader, permissions } = useContext(AuthContext).state

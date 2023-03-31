@@ -1,14 +1,13 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext,lazy } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import "./index.css";
 import { login } from "../../services/apiservices/login";
 import { Context as AuthContext } from "../../context/authContext/authContext";
 import { useNavigate } from "react-router-dom";
-import ErrorSnackbar from "../ErrorSnackbar/ErrorSnackbar";
 import { Context as ContextSnackbar } from "../../context/pageContext";
 import Logo from "../../assets/img/Ohyana Logo Blue.svg";
-
 import { socket } from "../../App";
+const ErrorSnackbar = React.lazy(() => import("../ErrorSnackbar/ErrorSnackbar"));
 const Login = () => {
   const { setAuthorize, setFlagLoader } = useContext(AuthContext);
   const [userDetail, setUserDetail] = useState({
