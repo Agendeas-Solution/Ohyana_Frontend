@@ -16,21 +16,24 @@ import {
 import DeleteIcon from '../../assets/img/Delete_Icon.svg'
 import EditIcon from '../../assets/img/Edit_Icon.svg'
 import RoundIcon from '../../assets/img/Round_Icon.svg'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 import { GetAdminRole } from '../../services/apiservices/adminprofile'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
 import {
   GetExpenseList,
-  GetExpenseTypeList,
+  GetExpenseTypeList, CreateExpenseType, DeleteExpenseType
 } from '../../services/apiservices/staffDetail'
 import ExpenseType from './ExpenseType'
+import DeleteExpenseTypeDialog from './DeleteExpenseTypeDialog'
 
 const ExpenseList = () => {
   let navigate = useNavigate()
   const { flagLoader, permissions } = useContext(AuthContext).state
   const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false)
-
-  const [deleteJobRoleDialogControl, setDeleteJobRoleDialogControl] = useState({
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [deletexpenseListDialog, setDeletexpenseListDialog] = useState({
     status: false,
     id: null,
   })
@@ -45,7 +48,7 @@ const ExpenseList = () => {
 
   const [addExpenseType, setAddExpenseType] = useState({
     status: false,
-    type: '',
+    name: '',
     description: '',
   })
 
@@ -69,23 +72,50 @@ const ExpenseList = () => {
         },
       )
     },
-    [
-      // deleteJobRoleDialogControl.status,
-      // jobRoleDialogControl,
-      // editExpenseListDialog.status,
-    ],
+    []
   )
 
   const handleCloseDialog = () => {
-    // setAddHolidayDialog({ ...addHolidayDialog, status: false });
-    // setAddHolidayDetail({
-    //   ...addHolidayDetail,
-    //   date: "",
-    //   description: "",
-    //   occasion: "",
-    //   regular: false,
-    // });
     setAddExpenseType({ ...addExpenseType, status: false })
+    setDeletexpenseListDialog({ ...deletexpenseListDialog, status: false })
+  }
+  const handleDelete = (id) => {
+    DeleteExpenseType(
+      (id),
+      res => {
+        if (res.success) {
+          setSuccessSnackbar({
+            ...successSnackbar,
+            status: true,
+            message: res.data.message,
+          })
+          handleCloseDialog();
+        }
+      },
+      err => {
+        console.log(err)
+      },
+    )
+  }
+
+  const handleAddExpenses = () => {
+    let data = addExpenseType;
+    delete data.status;
+    CreateExpenseType(
+      data,
+      (res) => {
+        if (res?.success) {
+          setSuccessSnackbar({
+            ...successSnackbar,
+            status: true,
+            message: res.data.message,
+          })
+        }
+      },
+      (err) => {
+        console.log(err)
+      },
+    )
   }
 
   return (
@@ -101,7 +131,7 @@ const ExpenseList = () => {
                 setAddExpenseType({
                   ...addExpenseType,
                   status: true,
-                  type: '',
+                  name: '',
                   description: '',
                 })
               }
@@ -116,7 +146,7 @@ const ExpenseList = () => {
           orientation="horizontal"
           // variant="middle"
           width="100%"
-          // flexItem
+        // flexItem
         />
         <Box sx={{ marginTop: '19px', width: 'initial' }}>
           <Box
@@ -171,7 +201,7 @@ const ExpenseList = () => {
                   >
                     <img className="me-3 p-2" src={EditIcon} alt="" />
 
-                    <img className="iconn ms-2" src={DeleteIcon} alt="" />
+                    <img className="iconn ms-2" onClick={() => setDeletexpenseListDialog({ ...deletexpenseListDialog, status: true, id: data.id })} src={DeleteIcon} alt="" />
                   </Grid>
                 </Grid>
               </Box>
@@ -180,7 +210,10 @@ const ExpenseList = () => {
         <ExpenseType
           addExpenseType={addExpenseType}
           handleCloseDialog={handleCloseDialog}
+          setAddExpenseType={setAddExpenseType}
+          handleAddExpenses={handleAddExpenses}
         />
+        <DeleteExpenseTypeDialog deletexpenseListDialog={deletexpenseListDialog} setDeletexpenseListDialog={setDeletexpenseListDialog} handleCloseDialog={handleCloseDialog} handleDelete={handleDelete} />
       </div>
     </>
   )

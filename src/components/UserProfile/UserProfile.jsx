@@ -45,6 +45,7 @@ import {
   GetAdminLeaveList,
 } from '../../services/apiservices/adminprofile'
 import ApplyLeaveDialog from './ApplyLeaveDialog'
+import { GetAllHoliday } from '../../services/apiservices/holiday'
 
 const UserProfile = () => {
   const navigate = useNavigate()
@@ -105,7 +106,19 @@ const UserProfile = () => {
         },
         err => {},
       )
+    activeTab === 'holiday' &&
+      GetAllHoliday(
+        userDetail?.id,
+        res => {
+          console.log({ res })
+          if (res.success) {
+            setHolidayList(res?.data)
+          }
+        },
+        err => {},
+      )
   }, [value, activeTab])
+
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
@@ -194,7 +207,7 @@ const UserProfile = () => {
               )}
 
               {/* FOR STAFF EXPENSES TAB */}
-              {/* {value == 'Expenses' && <StaffExpenses />} */}
+              {/* {value === 'Expenses' && <StaffExpenses />} */}
               <Button className="attendance_button check_InOut_Break_InOut_Btn">
                 <EditRoundedIcon
                   onClick={() => {
@@ -278,7 +291,6 @@ const UserProfile = () => {
                 <Tab value="Profile" label="Profile" />
               </Tabs>
             </Box>
-
             <TabPanel value="Attendance">
               {/* <Box className="attendance_data_row col-md-12 mb-1">
                 <Box className="inner_profile_details first_box m-1 p-2 total_days_data days_data">
@@ -440,6 +452,9 @@ const UserProfile = () => {
               )}
             </TabPanel>
 
+            <TabPanel value="Expenses">
+              <StaffExpenses />
+            </TabPanel>
             <TabPanel value="Profile">
               {/* <Box className="profile_detail">
                 <Box className="userdetail_root">

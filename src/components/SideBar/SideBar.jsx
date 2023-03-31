@@ -9,9 +9,12 @@ import { Context as ContextActivePage } from '../../context/pageContext'
 import SuccessSnackbar from '../SuccessSnackbar/SuccessSnackbar'
 import ErrorSnackbar from '../ErrorSnackbar/ErrorSnackbar'
 import Dashboard from '../../assets/img/Dashicon.svg'
+import DashBoardWhite from '../../assets/img/Dashboard_White.svg'
 import Notification from '../../assets/img/notificationIcon.svg'
-import Customer from '../../assets/img/customers.svg'
+import CustomerBlue from '../../assets/img/customers_blue.svg'
+import CustomerWhite from '../../assets/img/customers_white.svg'
 import Team from '../../assets/img/team.svg'
+import TeamBlue from '../../assets/img/team_blue.svg'
 import Statistics from '../../assets/img/statistics.svg'
 import Settings from '../../assets/img/settings.svg'
 import MyProfile from '../../assets/img/myprofile.svg'
@@ -19,17 +22,18 @@ import SignOut from '../../assets/img/sign_out.svg'
 import Loader from '../Loader/Loader'
 import Support from '../../assets/img/support.svg'
 import Task from '../../assets/img/task.svg'
+import TaskBlue from '../../assets/img/task_blue.svg'
+import OrdersBlue from '../../assets/img/Orders_Blue.svg'
+import ReportBlue from '../../assets/img/statistics_blue.svg'
 import Dealer from '../../assets/img/dealer.svg'
 import NotificationSnackbar from '../NotificationSnackbar/NotificationSnackbar'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import Logo from '../../assets/img/Ohyana Logo Blue.svg'
 import Orders from '../../assets/img/Orders.svg'
 import { TaskSharp } from '@mui/icons-material'
+import SettingsBlue from '../../assets/img/settings_blue.svg'
 const SideBar = () => {
   let navigate = useNavigate()
-  const [customer, setCustomer] = useState(Customer)
-  const [team, setTeam] = useState(Team)
-  const [dashboard, setDashboard] = useState(Dashboard)
   const { authorize, flagLoader, permissions } = useContext(AuthContext).state
   const { setPermissions } = useContext(AuthContext)
   const { setActivePage } = useContext(ContextActivePage)
@@ -110,7 +114,10 @@ const SideBar = () => {
             }}
           >
             <Box className="sidebar_icon_root">
-              <img src={Dashboard} className="sidebar_img" />
+              <img
+                src={path === '/dashboard' ? DashBoardWhite : Dashboard}
+                className="sidebar_img"
+              />
             </Box>
             <Typography className="page_name_root" variant="div">
               Dashboard
@@ -144,11 +151,13 @@ const SideBar = () => {
               }`}
               onClick={() => {
                 handleNavItemClick('/client', 'Clients')
-                setCustomer(Team)
               }}
             >
               <Box className="sidebar_icon_root">
-                <img src={customer} className="sidebar_img" />
+                <img
+                  src={path === '/client' ? CustomerWhite : CustomerBlue}
+                  className="sidebar_img"
+                />
               </Box>
               <Typography className="page_name_root" variant="div">
                 Customer
@@ -163,13 +172,15 @@ const SideBar = () => {
               }`}
               onClick={() => {
                 handleNavItemClick('/staff', 'Staff')
-                setCustomer(Customer)
                 // navigate("/staff");
                 // setActivePage("Staff");
               }}
             >
               <Box className="sidebar_icon_root">
-                <img src={Team} className="sidebar_img" />
+                <img
+                  src={path === '/staff' ? Team : TeamBlue}
+                  className="sidebar_img"
+                />
               </Box>
               <Typography className="page_name_root" variant="div">
                 Team
@@ -181,12 +192,13 @@ const SideBar = () => {
             className={`sidebar_icons ${path === '/task' && 'selected-link'}`}
             onClick={() => {
               handleNavItemClick('/task', 'Task')
-              // navigate("/staff");
-              // setActivePage("Staff");
             }}
           >
             <Box className="sidebar_icon_root">
-              <img src={Task} className="sidebar_img" />
+              <img
+                src={path === '/task' ? TaskBlue : Task}
+                className="sidebar_img"
+              />
             </Box>
             <Typography className="page_name_root" variant="div">
               Task
@@ -217,7 +229,7 @@ const SideBar = () => {
             }}
           >
             <Box className="sidebar_icon_root">
-              <img src={Orders} className="sidebar_img" />
+              <img src={path==="/orders"?OrdersBlue:Orders} className="sidebar_img" />
             </Box>
             <Typography className="page_name_root" variant="div">
               Orders
@@ -231,7 +243,7 @@ const SideBar = () => {
             }}
           >
             <Box className="sidebar_icon_root">
-              <img src={Statistics} className="sidebar_img" />
+              <img src={path==='/report'?ReportBlue:Statistics} className="sidebar_img" />
             </Box>
             <Typography className="page_name_root" variant="div">
               Report
@@ -261,7 +273,7 @@ const SideBar = () => {
               }}
             >
               <Box className="sidebar_icon_root">
-                <img src={Settings} className="sidebar_img" />
+                <img src={ path === '/settings' ?SettingsBlue:Settings} className="sidebar_img" />
               </Box>
               <Typography className="page_name_root" variant="div">
                 Settings

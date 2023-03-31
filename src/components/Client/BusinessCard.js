@@ -10,49 +10,36 @@ import { AxiosInstance } from 'axios'
 import ViewBusinessCardDetail from './ViewBusinessCardDetail'
 import NoResult from '../../assets/img/no_result.svg'
 import NoResultWithText from '../../assets/img/no_result_with_text.svg'
+import NoResultFound from '../ErrorComponent/NoResultFound'
 
-const BusinessCard = () => {
-  const [businessCard, setBusinessCard] = useState([])
+const BusinessCard = ({ clientDetails }) => {
+  debugger
   const [viewBusinessCardDialog, setViewBusinessCardDialog] = useState({
     status: false,
   })
-  useEffect(() => {
-    GetBusinessCard(
-      {},
-      res => {
-        setBusinessCard(res.data?.client)
-      },
-      err => {
-
-      },
-    )
-  }, [])
   const handleDialogClose = () => {
     setViewBusinessCardDialog({ ...viewBusinessCardDialog, status: false })
   }
   return (
     <>
       <Box className="business_card_section">
-        {businessCard ? (
-          <>
-            <img className="no_result" src={NoResultWithText} alt="" />
-          </>
-        ) : (
-          businessCard.map(data => {
-            let Image_Link = `${process.env.REACT_APP_API_CALL_URL}/file/${data?.imageUrl}`
-            return (
-              <Box
-                className="business_card"
-                onClick={() =>
-                  setViewBusinessCardDialog({
-                    ...viewBusinessCardDialog,
-                    status: true,
-                    id: data?.id,
-                  })
-                }
-              >
-                <img src={Image_Link} alt="" />
-                {/* <Box className="business_card_left_section">
+        {clientDetails.length > 0 ?
+          (
+            clientDetails.map(data => {
+              let Image_Link = `${process.env.REACT_APP_API_CALL_URL}/file/${data?.imageUrl}`
+              return (
+                <Box
+                  className="business_card"
+                  onClick={() =>
+                    setViewBusinessCardDialog({
+                      ...viewBusinessCardDialog,
+                      status: true,
+                      id: data?.id,
+                    })
+                  }
+                >
+                  <img src={Image_Link} alt="" />
+                  {/* <Box className="business_card_left_section">
                             <img src={UserIcon} />
                         <img src={CompanyIcon} />
                             <img src={CallIcon} />
@@ -64,10 +51,11 @@ const BusinessCard = () => {
                             <Typography variant="span"> Natasha Kirovska</Typography>
                             <Typography variant="span"> Natasha Kirovska</Typography>
                         </Box> */}
-              </Box>
-            )
-          })
-        )}
+                </Box>
+              )
+            })
+          ) : <NoResultFound />
+        }
       </Box>
       <ViewBusinessCardDetail
         handleDialogClose={handleDialogClose}

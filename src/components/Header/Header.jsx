@@ -137,6 +137,7 @@ const Header = () => {
               Logout
             </MenuItem>
           </Menu>
+          <NotificationsNoneIcon sx={{ marginRight: '10px' }} />
 
           {/* <Box className="mx-3"> */}
           <Stack
@@ -150,7 +151,6 @@ const Header = () => {
             direction="row"
             // spacing={2}
           >
-            <NotificationsNoneIcon sx={{ marginRight: '10px' }} />
             <Avatar
               sx={{ width: 32, height: 32 }}
               alt="Remy Sharp"

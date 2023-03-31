@@ -83,19 +83,19 @@ const PresentData = ({ staffAttendanceList }) => {
                           {moment(attendanceList.date).format('DD-MM-YYYY')}
                         </TableCell>
                         <TableCell align="left">
-                          {attendanceList.checkIn}
+                          {attendanceList.checkIn || '-'}
                         </TableCell>
                         <TableCell align="left">
-                          {attendanceList.checkOut}
+                          {attendanceList.checkOut || '-'}
                         </TableCell>
                         <TableCell align="left">
-                          {attendanceList.breakIn}
+                          {attendanceList.breakIn || '-'}
                         </TableCell>
                         <TableCell align="left">
-                          {attendanceList.breakOut}
+                          {attendanceList.breakOut || '-'}
                         </TableCell>
                         <TableCell align="left">
-                          {attendanceList.totalHours}
+                          {attendanceList.totalHours || '-'}
                         </TableCell>
                       </TableRow>
                     )
