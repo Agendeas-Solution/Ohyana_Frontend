@@ -39,23 +39,27 @@ const StaffProfile = () => {
   const handleCloseRatingDialog = () => {
     setGiveRating(false)
   }
+  // debugger
   useEffect(() => {
     let path = window.location.pathname
     console.log('Printing Path of ', path)
     console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
+
     value === '1' &&
       GetAdminStaffProfileDetail(
         parseInt(path),
         res => {
           if (res.success) {
             setAdminProfileDetail(res?.data)
+            debugger
           }
         },
         err => {
           console.log('Printing ', err)
         },
       )
+
     value === '2' &&
       GetAdminStaffRatingDetail(
         parseInt(path),
@@ -69,6 +73,7 @@ const StaffProfile = () => {
         },
       )
   }, [value, giveRating])
+
   return (
     <>
       <Box className="main_section">
@@ -137,6 +142,7 @@ const StaffProfile = () => {
             </Box>
             <TabPanel value="1">
               <StaffDetail adminProfileDetail={adminProfileDetail} />
+              {/* <StaffDetail /> */}
             </TabPanel>
             <TabPanel value="2">
               <StaffAttendance />

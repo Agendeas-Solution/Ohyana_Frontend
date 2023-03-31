@@ -115,3 +115,19 @@ audio::-internal-media-controls-download-button {
 .set_radio_button_bg {
   background-color: #f1f2f6;
 }
+
+.present_table_heading {
+  /* overflow-x: hidden; */
+  margin-top: 8px;
+  /* box-shadow: none; */
+}
+
+.profile_edit_button {
+  text-transform: capitalize !important;
+  padding: 8px !important;
+  /* height: 40px; */
+  width: auto !important;
+  /* background-color: #f1f2f6 !important; */
+  color: #2e3591 !important;
+  font-weight: 600 !important;
+}

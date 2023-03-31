@@ -36,7 +36,6 @@ import Stage1 from '../../assets/img/stage_1.svg'
 import Stage2 from '../../assets/img/stage_2.svg'
 import CallNotReceived from '../../assets/img/callnotreceived.svg'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-
 const EditStatusDialog = React.lazy(() => import("./EditStatusDialog"));
 const StageDialog = React.lazy(() => import("./StageDialog"));
 const OrderList = React.lazy(() => import("./OrderList"));
@@ -48,6 +47,7 @@ const AppointmentTable = React.lazy(() => import("./AppointmentTable"));
 const ProfileTable = React.lazy(() => import("./ProfileTable"));
 const RemainderDialog = React.lazy(() => import("./RemainderDialog"));
 const StatusDialog = React.lazy(() => import("./StatusDialog"));
+
 
 
 const ClientProfile = () => {
@@ -202,182 +202,186 @@ const ClientProfile = () => {
 
   return (
     <>
-      {/* <Box className="main_section p-4 mt-4"> */}
-      <Box className="main_section">
-        <Box sx={{ marginTop: -2 }}>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexDirection: 'row',
-              width: '100%',
-            }}
-          >
-            <Box className="userName_and_position">
-              {/* <img src={ProfileImg} alt="profile" /> */}
-              <AccountCircleRoundedIcon
-                className="userprofile_dummy_icon"
-                sx={{
-                  paddingTop: 2,
-                }}
-              />
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  marginLeft: 2,
-                }}
-              >
-                <Typography
-                  variant="span"
-                  sx={{ fontWeight: 'bold', fontSize: '26px' }}
+      <div className="w-100 mt-3">
+        {/* <Box className="main_section p-4 mt-4"> */}
+        <Box className="profile_section">
+          <Box className="profile_img">
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Box className="userName_and_position">
+                <AccountCircleRoundedIcon
+                  className="user_profile_icon"
+                  // sx={{
+                  //   paddingTop: 2,
+                  // }}
+                />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    marginLeft: 1,
+                  }}
                 >
-                  {clientProfileDetail?.name}
-
-                  <img
-                    className="ml-1 p-1"
-                    onClick={() => {
-                      setStageDialog(true)
-                    }}
-                    src={
-                      (clientProfileDetail?.stage === 0 && Stage0) ||
-                      (clientProfileDetail?.stage === 1 && Stage1) ||
-                      (clientProfileDetail?.stage === 2 && Stage2)
-                    }
-                    alt=""
-                  />
-                  {clientProfileDetail?.stage === 3 && (
-                    <WarningRoundedIcon
+                  <Typography
+                    variant="span"
+                    sx={{ fontWeight: 'bold', fontSize: '18px' }}
+                  >
+                    {clientProfileDetail?.name || '-'}
+                    <img
+                      className="ml-1 p-1"
                       onClick={() => {
                         setStageDialog(true)
                       }}
+                      src={
+                        (clientProfileDetail?.stage === 0 && Stage0) ||
+                        (clientProfileDetail?.stage === 1 && Stage1) ||
+                        (clientProfileDetail?.stage === 2 && Stage2)
+                      }
+                      alt=""
                     />
-                  )}
-                </Typography>
-                <Typography sx={{ marginTop: '10px' }} variant="span">
-                  {clientProfileDetail?.business}
-                </Typography>
+                    {clientProfileDetail?.stage === 3 && (
+                      <WarningRoundedIcon
+                        onClick={() => {
+                          setStageDialog(true)
+                        }}
+                      />
+                    )}
+                  </Typography>
+                  <Typography sx={{ marginTop: '10px' }} variant="span">
+                    {clientProfileDetail?.business || '-'}
+                  </Typography>
+                </Box>
               </Box>
-            </Box>
-            <Box>
-              {/* <PrintRoundedIcon className="icon" /> */}
-              {permissions?.editClient && (
-                <EditRoundedIcon
-                  onClick={() => {
-                    navigate(`/editclient/${clientProfileDetail.id}`)
-                  }}
-                  className="icon"
-                />
-              )}
+
+              <Button className="common_button">
+                {/* <PrintRoundedIcon className="icon" /> */}
+                {permissions?.editClient && (
+                  <EditRoundedIcon
+                    onClick={() => {
+                      navigate(`/editclient/${clientProfileDetail.id}`)
+                    }}
+                    // className="icon"
+                  />
+                )}
+              </Button>
             </Box>
           </Box>
-        </Box>
-        <Box sx={{ width: '100%', typography: 'body1' }}>
-          <TabContext value={value}>
-            <Box className="tab_row">
-              <TabList
-                className="client_profile_tab mb-2"
-                onChange={handleChange}
-              >
-                <Tab label="Status" value="1" />
-                <Tab label="Reminder" value="2" />
-                <Tab label="Appointment" value="3" />
-                <Tab label="Profile" value="4" />
-                <Tab label="Orders" value="5" />
-              </TabList>
 
-              <Box>
-                {value === '1' ? (
-                  <>
-                    <Button onClick={handleCallOpen} className="common_button">
-                      <img src={CallNotReceived} />
-                    </Button>
-                    <Button
-                      onClick={handleStatusOpen}
-                      className="common_button"
-                    >
-                      <AddRoundedIcon />
-                      Status
-                    </Button>
-                    <Button className="common_button">Close</Button>
+          <Box sx={{ width: '100%', typography: 'body1' }}>
+            <TabContext value={value}>
+              <Box className="tab_row">
+                <TabList
+                  className="client_profile_tab mb-2"
+                  onChange={handleChange}
+                >
+                  <Tab label="Status" value="1" />
+                  <Tab label="Reminder" value="2" />
+                  <Tab label="Appointment" value="3" />
+                  <Tab label="Profile" value="4" />
+                  <Tab label="Orders" value="5" />
+                </TabList>
 
-                    {/* <Button className="status_close_button" variant="contained">
+                <Box>
+                  {value === '1' ? (
+                    <>
+                      <Button
+                        onClick={handleCallOpen}
+                        className="common_button"
+                      >
+                        <img src={CallNotReceived} />
+                      </Button>
+                      <Button
+                        onClick={handleStatusOpen}
+                        className="common_button"
+                      >
+                        <AddRoundedIcon />
+                        Status
+                      </Button>
+                      <Button className="common_button">Close</Button>
+
+                      {/* <Button className="status_close_button" variant="contained">
                       Status Close
                     </Button> */}
-                  </>
-                ) : null}
-                {value === '2' ? (
-                  <>
-                    <Button
-                      onClick={handleClickOpen}
-                      className="common_button"
-                      variant="contained"
-                    >
-                      <AddRoundedIcon />
-                      Reminder
-                    </Button>
-                  </>
-                ) : null}
-                {value === '3' ? (
-                  <>
-                    <Button
-                      className="common_button"
-                      onClick={handleAppointmentOpen}
-                      variant="contained"
-                    >
-                      <AddRoundedIcon />
-                      Appointment
-                    </Button>
-                  </>
-                ) : null}
-                {value === '5' ? (
-                  <>
-                    <Button
-                      className="common_button"
-                      onClick={handleAppointmentOpen}
-                      variant="contained"
-                    >
-                      {/* <AddRoundedIcon /> */}
-                      Create
-                    </Button>
-                  </>
-                ) : null}
+                    </>
+                  ) : null}
+                  {value === '2' ? (
+                    <>
+                      <Button
+                        onClick={handleClickOpen}
+                        className="common_button"
+                        variant="contained"
+                      >
+                        <AddRoundedIcon />
+                        Reminder
+                      </Button>
+                    </>
+                  ) : null}
+                  {value === '3' ? (
+                    <>
+                      <Button
+                        className="common_button"
+                        onClick={handleAppointmentOpen}
+                        variant="contained"
+                      >
+                        <AddRoundedIcon />
+                        Appointment
+                      </Button>
+                    </>
+                  ) : null}
+                  {value === '5' ? (
+                    <>
+                      <Button
+                        className="common_button"
+                        onClick={handleAppointmentOpen}
+                        variant="contained"
+                      >
+                        {/* <AddRoundedIcon /> */}
+                        Create
+                      </Button>
+                    </>
+                  ) : null}
+                </Box>
               </Box>
-            </Box>
-            <Divider sx={{ margin: '0 auto' }} />
-            <TabPanel value="1">
-              <TableContainer sx={{ height: '50vh' }} component={Paper}>
-                {clientStatusList.length > 0 ? (
-                  <Table stickyHeader>
-                    {/* <Table stickyHeader sx={{ minWidth: 650 }}> */}
-                    <TableHead className="client_profile_table_header">
-                      <TableRow>
-                        <TableCell>Sr No.</TableCell>
-                        <TableCell align="left">Status Added By</TableCell>
-                        {/* <TableCell align="left">Job Role</TableCell> */}
-                        {/* <TableCell align="left">Audio</TableCell> */}
-                        <TableCell align="left">Date</TableCell>
-                        <TableCell align="left">Time</TableCell>
-                        <TableCell align="left">Description</TableCell>
-                        <TableCell></TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {clientStatusList.map((row, index) => (
-                        <TableRow
-                          key={index}
-                          sx={{
-                            '&:last-child td, &:last-child th': { border: 0 },
-                          }}
-                        >
-                          <TableCell scope="row">{index + 1}</TableCell>
-                          <TableCell align="left">{row?.team?.name}</TableCell>
-                          {/* <TableCell align="left">
+              <Divider sx={{ margin: '0 auto' }} />
+              <TabPanel value="1">
+                <TableContainer sx={{ height: '50vh' }} component={Paper}>
+                  {clientStatusList.length > 0 ? (
+                    <Table stickyHeader>
+                      {/* <Table stickyHeader sx={{ minWidth: 650 }}> */}
+                      <TableHead className="client_profile_table_header">
+                        <TableRow>
+                          <TableCell>Sr No.</TableCell>
+                          <TableCell align="left">Status Added By</TableCell>
+                          {/* <TableCell align="left">Job Role</TableCell> */}
+                          {/* <TableCell align="left">Audio</TableCell> */}
+                          <TableCell align="left">Date</TableCell>
+                          <TableCell align="left">Time</TableCell>
+                          <TableCell align="left">Description</TableCell>
+                          <TableCell></TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {clientStatusList.map((row, index) => (
+                          <TableRow
+                            key={index}
+                            sx={{
+                              '&:last-child td, &:last-child th': { border: 0 },
+                            }}
+                          >
+                            <TableCell scope="row">{index + 1}</TableCell>
+                            <TableCell align="left">
+                              {row?.team?.name}
+                            </TableCell>
+                            {/* <TableCell align="left">
                           {row?.team?.role?.name}
                         </TableCell> */}
-                          {/* <TableCell align="left">
+                            {/* <TableCell align="left">
                           <audio controls controlsList="nodownload" >
                             <source src={`${process.env.REACT_APP_API_CALL_URL}/status/audio/${row?.audioUrl}`}
                               type="audio/wav">
@@ -387,120 +391,123 @@ const ClientProfile = () => {
                             </source>
                           </audio>
                         </TableCell> */}
-                          <TableCell align="left">
-                            {moment(row?.date).format('LL')}
-                          </TableCell>
-                          <TableCell align="left">
-                            {moment(row.time, 'hh:mm:ss').format('LT')}
-                          </TableCell>
-                          <TableCell
-                            className="status_description"
-                            align="left"
-                          >
-                            {row?.description}
-                          </TableCell>
-                          <TableCell align="left">
-                            <Button
-                              onClick={() => {
-                                handleViewClientStatus(
-                                  row,
-                                  clientProfileDetail.id,
-                                )
-                              }}
-                              className="client_profile_edit_button m-1"
+                            <TableCell align="left">
+                              {moment(row?.date).format('LL')}
+                            </TableCell>
+                            <TableCell align="left">
+                              {moment(row.time, 'hh:mm:ss').format('LT')}
+                            </TableCell>
+                            <TableCell
+                              className="status_description"
+                              align="left"
                             >
-                              View
-                            </Button>
-                            <Button
-                              className="client_profile_edit_button"
-                              onClick={() => {
-                                handleEditClientStatus(
-                                  row,
-                                  clientProfileDetail.id,
-                                )
-                              }}
-                            >
-                              Edit
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                ) : (
-                  <p
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      textAlign: 'center',
-                      width: '100%',
-                      height: '70%',
-                      flexGrow: 'auto',
-                    }}
-                  >
-                    No Data Found
-                  </p>
-                )}
-              </TableContainer>
-            </TabPanel>
-            <TabPanel value="2">
-              <RemainderTable clientReminderList={clientReminderList} />
-            </TabPanel>
-            <TabPanel value="3">
-              <AppointmentTable clientAppointmentList={clientAppointmentList} />
-            </TabPanel>
-            <TabPanel value="4">
-              <ProfileTable clientProfileDetail={clientProfileDetail} />
-            </TabPanel>
-            <TabPanel value="5">
-              <OrderList />
-            </TabPanel>
-          </TabContext>
-          <RemainderDialog
-            remainderDialog={remainderDialog}
-            handleClose={handleClose}
-            clientProfileDetail={clientProfileDetail}
-          />
-          <StatusDialog
-            clientProfileDetail={clientProfileDetail}
-            statusDialog={statusDialog}
-            handleStatusClose={handleStatusClose}
-          />
-          <PoorContact
-            addPoorContact={callDialog}
-            handleCallClose={handleCallClose}
-          />
-          <StageDialog
-            clientProfileDetail={clientProfileDetail}
-            stageDialog={stageDialog}
-            handleClose={handleClose}
-          />
-          {editStatusDialog.status === true ? (
-            <EditStatusDialog
-              handleStatusClose={handleStatusClose}
-              editStatusDialog={editStatusDialog}
+                              {row?.description}
+                            </TableCell>
+                            <TableCell align="left">
+                              <Button
+                                onClick={() => {
+                                  handleViewClientStatus(
+                                    row,
+                                    clientProfileDetail.id,
+                                  )
+                                }}
+                                className="client_profile_edit_button m-1"
+                              >
+                                View
+                              </Button>
+                              <Button
+                                className="client_profile_edit_button"
+                                onClick={() => {
+                                  handleEditClientStatus(
+                                    row,
+                                    clientProfileDetail.id,
+                                  )
+                                }}
+                              >
+                                Edit
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  ) : (
+                    <p
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        textAlign: 'center',
+                        width: '100%',
+                        height: '70%',
+                        flexGrow: 'auto',
+                      }}
+                    >
+                      No Data Found
+                    </p>
+                  )}
+                </TableContainer>
+              </TabPanel>
+              <TabPanel value="2">
+                <RemainderTable clientReminderList={clientReminderList} />
+              </TabPanel>
+              <TabPanel value="3">
+                <AppointmentTable
+                  clientAppointmentList={clientAppointmentList}
+                />
+              </TabPanel>
+              <TabPanel value="4">
+                <ProfileTable clientProfileDetail={clientProfileDetail} />
+              </TabPanel>
+              <TabPanel value="5">
+                <OrderList />
+              </TabPanel>
+            </TabContext>
+            <RemainderDialog
+              remainderDialog={remainderDialog}
+              handleClose={handleClose}
+              clientProfileDetail={clientProfileDetail}
             />
-          ) : null}
-          {/* {addPoorContact.status === true ? (
+            <StatusDialog
+              clientProfileDetail={clientProfileDetail}
+              statusDialog={statusDialog}
+              handleStatusClose={handleStatusClose}
+            />
+            <PoorContact
+              addPoorContact={callDialog}
+              handleCallClose={handleCallClose}
+            />
+            <StageDialog
+              clientProfileDetail={clientProfileDetail}
+              stageDialog={stageDialog}
+              handleClose={handleClose}
+            />
+            {editStatusDialog.status === true ? (
+              <EditStatusDialog
+                handleStatusClose={handleStatusClose}
+                editStatusDialog={editStatusDialog}
+              />
+            ) : null}
+            {/* {addPoorContact.status === true ? (
             <PoorContact
               handleCallClose={handleCallClose}
               addPoorContact={addPoorContact}
             />
           ) : null} */}
-          {viewClientStatus.status === true ? (
-            <ViewClientStatusDialog
-              handleViewStatusDialogClose={handleViewStatusDialogClose}
-              viewClientStatus={viewClientStatus}
+            {viewClientStatus.status === true ? (
+              <ViewClientStatusDialog
+                handleViewStatusDialogClose={handleViewStatusDialogClose}
+                viewClientStatus={viewClientStatus}
+              />
+            ) : null}
+            <AppointmentDialog
+              appointmentDialog={appointmentDialog}
+              handleAppointmentClose={handleAppointmentClose}
+              clientProfileDetail={clientProfileDetail}
             />
-          ) : null}
-          <AppointmentDialog
-            appointmentDialog={appointmentDialog}
-            handleAppointmentClose={handleAppointmentClose}
-            clientProfileDetail={clientProfileDetail}
-          />
+          </Box>
         </Box>
-      </Box>
+      </div>
     </>
   )
 }

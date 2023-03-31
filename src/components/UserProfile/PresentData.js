@@ -20,6 +20,7 @@ import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
 import moment from 'moment'
 import styled from '@emotion/styled'
+import './index.css'
 
 const PresentData = ({ staffAttendanceList }) => {
   const [page, setPage] = React.useState(0)
@@ -47,73 +48,83 @@ const PresentData = ({ staffAttendanceList }) => {
 
   return (
     <>
-      <Box className="common_row align-items-start present_data_main ">
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-          <TableContainer sx={{ maxHeight: 360, overflowX: 'hidden' }}>
-            <Table
-              stickyHeader
-              aria-label="sticky table"
-              className="present_table_heading"
-            >
-              <TableHead className="dummy_class">
-                <TableRow>
-                  <TableCell>Date</TableCell>
-                  <TableCell align="left">Check In</TableCell>
-                  <TableCell align="left">Check Out</TableCell>
-                  <TableCell align="left">Break In</TableCell>
-                  <TableCell align="left">Break Out</TableCell>
-                  <TableCell align="left">Working Hours</TableCell>
-                </TableRow>
-              </TableHead>
+      {/* <Box className="common_row w-100 align-items-start present_data_main "> */}
+      {/* <Paper sx={{ width: '100%', boxShadow: 'none' }}> */}
+      <TableContainer
+        // sx={{
+        //   maxHeight: '48vh',
+        //   overflowX: 'hidden',
+        // }}
+        className="expenses_table_height mt-2"
+        component={Paper}
+        sx={{
+          boxShadow: 'none',
+          border: '1px solid #e5e5e5',
+          borderTop: 'none',
+        }}
+      >
+        <Table
+          // stickyHeader
+          // aria-label="sticky table"
+          // className="present_table_heading"
+          stickyHeader
+          aria-label="sticky table"
+          sx={{ minWidth: 690, marginLeft: '-10px' }}
+          className="table_heading "
+        >
+          <TableHead>
+            <TableRow>
+              <TableCell>Date</TableCell>
+              <TableCell align="left">Check In</TableCell>
+              <TableCell align="left">Check Out</TableCell>
+              <TableCell align="left">Break In</TableCell>
+              <TableCell align="left">Break Out</TableCell>
+              <TableCell align="left">Working Hours</TableCell>
+            </TableRow>
+          </TableHead>
 
-              <TableBody>
-                {staffAttendanceList?.attendancePerUser.length > 0 &&
-                  staffAttendanceList.attendancePerUser.map(attendanceList => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={attendanceList.id}
-                        sx={{
-                          '&:last-child td,th': { border: 0 },
-                        }}
-                      >
-                        <TableCell component="th" scope="row">
-                          {moment(attendanceList.date).format('DD-MM-YYYY')}
-                        </TableCell>
-                        <TableCell align="left">
-                          {attendanceList.checkIn || '-'}
-                        </TableCell>
-                        <TableCell align="left">
-                          {attendanceList.checkOut || '-'}
-                        </TableCell>
-                        <TableCell align="left">
-                          {attendanceList.breakIn || '-'}
-                        </TableCell>
-                        <TableCell align="left">
-                          {attendanceList.breakOut || '-'}
-                        </TableCell>
-                        <TableCell align="left">
-                          {attendanceList.totalHours || '-'}
-                        </TableCell>
-                      </TableRow>
-                    )
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          {/* <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={staffAttendanceList.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          /> */}
-        </Paper>
-      </Box>
+          <TableBody>
+            {staffAttendanceList?.attendancePerUser.length > 0 &&
+              staffAttendanceList.attendancePerUser.map(attendanceList => {
+                return (
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    // key={attendanceList.id}
+                    sx={{
+                      '&:last-child td,th': {
+                        border: 0,
+                      },
+                      // lineHeight: '3',
+                    }}
+                  >
+                    <TableCell className="tablecell_height">
+                      {moment(attendanceList.date).format('DD-MM-YYYY')}
+                    </TableCell>
+                    <TableCell align="left">
+                      {attendanceList.checkIn || '-'}
+                    </TableCell>
+                    <TableCell align="left">
+                      {attendanceList.checkOut || '-'}
+                    </TableCell>
+                    <TableCell align="left">
+                      {attendanceList.breakIn || '-'}
+                    </TableCell>
+                    <TableCell align="left">
+                      {attendanceList.breakOut || '-'}
+                    </TableCell>
+                    <TableCell align="left">
+                      {attendanceList.totalHours || '-'}
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {/* </Paper> */}
+      {/* </Box> */}
     </>
   )
 }
