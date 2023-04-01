@@ -15,6 +15,7 @@
   width: 96% !important;
   margin: 0 auto !important;
   background-color: #fff;
+  overflow-x: hidden;
 }
 
 .delete_client_icon {
