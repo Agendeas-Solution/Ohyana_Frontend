@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import {
   Typography,
   Box,
@@ -22,7 +22,9 @@ import DialogContentText from '@mui/material/DialogContentText'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-const SuccessSnackbar = React.lazy(() => import("../SuccessSnackbar/SuccessSnackbar"));
+const SuccessSnackbar = React.lazy(() =>
+  import('../SuccessSnackbar/SuccessSnackbar'),
+)
 
 const EditClient = () => {
   const [userDetail, setUserDetail] = useState({

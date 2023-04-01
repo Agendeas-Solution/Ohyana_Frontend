@@ -1,16 +1,30 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Table, TableBody, TableCell, TableContainer, Button, Paper, TableHead, TableRow, Typography, } from '@mui/material'
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  Button,
+  Paper,
+  TableHead,
+  TableRow,
+  Typography,
+} from '@mui/material'
 import ReceiptRoundedIcon from '@mui/icons-material/ReceiptRounded'
 import './index.css'
 import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import SampleProduct from '../../assets/img/sample_product.png'
-import { GetOrderDetail, UpdatePaymentStatus } from '../../services/apiservices/orderDetail'
+import {
+  GetOrderDetail,
+  UpdatePaymentStatus,
+} from '../../services/apiservices/orderDetail'
 import moment from 'moment'
 const steps = ['Shipping', 'Dispatch', 'Delivered']
-const Loader = React.lazy(() => import("../Loader/Loader"));
-const PaymentDetailDialog = React.lazy(() => import("./PaymentDetailDialog"));
+const Loader = React.lazy(() => import('../Loader/Loader'))
+const PaymentDetailDialog = React.lazy(() => import('./PaymentDetailDialog'))
 
 const OrderDetail = () => {
   const [orderDetail, setOrderDetail] = useState([])
@@ -67,9 +81,7 @@ const OrderDetail = () => {
         })
         handleClosePaymentDialog()
       },
-      err => {
-
-      }
+      err => {},
     )
   }
 

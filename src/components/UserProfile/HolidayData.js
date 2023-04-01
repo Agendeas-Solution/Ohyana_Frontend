@@ -25,11 +25,17 @@ const HolidayData = ({ holidayList }) => {
     <>
       <Box className="common_row align-items-start leave_data_main">
         <TableContainer
-          sx={{ width: '700px', boxShadow: 'none', margin: '20px' }}
+          className="expenses_table_height"
+          // sx={{ width: '700px', boxShadow: 'none', margin: '20px' }}
+          sx={{ width: '70%', boxShadow: 'none', margin: '6px' }}
           component={Paper}
         >
-          <Table>
-            <TableHead className="team_overview_table_heading">
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            className="table_heading"
+          >
+            <TableHead>
               <TableRow>
                 <TableCell align="left">Date</TableCell>
                 <TableCell align="left">Occasion Name</TableCell>
@@ -39,12 +45,17 @@ const HolidayData = ({ holidayList }) => {
             <TableBody>
               {holidayList.map(row => (
                 <TableRow
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  sx={{
+                    '&:last-child td,th': {
+                      border: 0,
+                    },
+                  }}
                   key={row.date}
-                  sx={{ '&:last-child td,th': { border: 0 } }}
                 >
-                  <TableCell component="th" scope="row">
-                    {row.date}
-                  </TableCell>
+                  <TableCell className="tablecell_height">{row.date}</TableCell>
                   <TableCell align="left">{row.occasion}</TableCell>
                   <TableCell align="left">{row.duration}</TableCell>
                 </TableRow>

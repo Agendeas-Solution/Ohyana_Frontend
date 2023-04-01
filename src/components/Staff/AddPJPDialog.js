@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Typography, Button, TextField, DialogContent, DialogActions, Dialog, Autocomplete, CircularProgress } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Button,
+  TextField,
+  DialogContent,
+  DialogActions,
+  Dialog,
+  Autocomplete,
+  CircularProgress,
+} from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
@@ -13,25 +23,29 @@ const AddPJPDialog = ({
   handleAddPJPDetail,
   getLocation,
 }) => {
-  const [open, setOpen] = React.useState(false);
-  const [options, setOptions] = React.useState([]);
-  const loading = open && options.length === 0;
+  const [open, setOpen] = React.useState(false)
+  const [options, setOptions] = React.useState([])
+  const loading = open && options.length === 0
 
   const onChangeHandle = async value => {
-    // this default api does not support searching but if you use google maps or some other use the value and post to get back you reslut and then set it using setOptions 
-    console.log(value);
-    GetAdminClientDetail({ searchQuery: value }, (res) => {
-      setOptions(res?.data?.client);
-    }, (err) => {
-      console.log(err);
-    })
-  };
+    // this default api does not support searching but if you use google maps or some other use the value and post to get back you reslut and then set it using setOptions
+    console.log(value)
+    GetAdminClientDetail(
+      { searchQuery: value },
+      res => {
+        setOptions(res?.data?.client)
+      },
+      err => {
+        console.log(err)
+      },
+    )
+  }
 
   useEffect(() => {
     if (!open) {
-      setOptions([]);
+      setOptions([])
     }
-  }, [open]);
+  }, [open])
 
   // searchQuery
   return (
@@ -41,7 +55,7 @@ const AddPJPDialog = ({
           <h2>Create PJP</h2>
         </div>
         <DialogContent>
-          <div className='row'>
+          <div className="row">
             <div className="col-md-12">
               <Typography variant="span">Date</Typography>
             </div>
@@ -62,7 +76,6 @@ const AddPJPDialog = ({
                 />
               </LocalizationProvider>
             </div>
-
           </div>
           <div className="row">
             <div className="col-md-12">
@@ -73,18 +86,20 @@ const AddPJPDialog = ({
                 style={{ width: 300 }}
                 open={open}
                 onOpen={() => {
-                  setOpen(true);
+                  setOpen(true)
                 }}
                 onClose={() => {
-                  setOpen(false);
+                  setOpen(false)
                 }}
-                onChange={(event,value) => {
+                onChange={(event, value) => {
                   setAddPJPdetail({
                     ...addPJPDetail,
                     clientId: value.id,
                   })
                 }}
-                getOptionSelected={(option, value) => option.name === value.name}
+                getOptionSelected={(option, value) =>
+                  option.name === value.name
+                }
                 getOptionLabel={option => option.name}
                 options={options}
                 loading={loading}
@@ -94,10 +109,13 @@ const AddPJPDialog = ({
                     // label="Select client"
                     variant="outlined"
                     noOptionsText="No Client"
-                    onChange={(event) => {
+                    onChange={event => {
                       // dont fire API if the user delete or not entered anything
-                      if (event.target.value !== "" || event.target.value !== null) {
-                        onChangeHandle(event.target.value);
+                      if (
+                        event.target.value !== '' ||
+                        event.target.value !== null
+                      ) {
+                        onChangeHandle(event.target.value)
                       }
                     }}
                     InputProps={{
@@ -109,7 +127,7 @@ const AddPJPDialog = ({
                           ) : null}
                           {params.InputProps.endAdornment}
                         </React.Fragment>
-                      )
+                      ),
                     }}
                   />
                 )}
@@ -152,7 +170,7 @@ const AddPJPDialog = ({
                   onChange={e => {
                     setAddPJPdetail({
                       ...addPJPDetail,
-                      latitude: (e.target.value).toString(),
+                      latitude: e.target.value.toString(),
                     })
                   }}
                   type="text"
@@ -172,7 +190,7 @@ const AddPJPDialog = ({
                   onChange={e => {
                     setAddPJPdetail({
                       ...addPJPDetail,
-                      longitude: (e.target.value).toString(),
+                      longitude: e.target.value.toString(),
                     })
                   }}
                   type="text"

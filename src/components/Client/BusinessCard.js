@@ -23,23 +23,22 @@ const BusinessCard = ({ clientDetails }) => {
   return (
     <>
       <Box className="business_card_section">
-        {clientDetails.length > 0 ?
-          (
-            clientDetails.map(data => {
-              let Image_Link = `${process.env.REACT_APP_API_CALL_URL}/file/${data?.imageUrl}`
-              return (
-                <Box
-                  className="business_card"
-                  onClick={() =>
-                    setViewBusinessCardDialog({
-                      ...viewBusinessCardDialog,
-                      status: true,
-                      id: data?.id,
-                    })
-                  }
-                >
-                  <img src={CompanyIcon} alt="" />
-                  {/* <Box className="business_card_left_section">
+        {clientDetails.length > 0 ? (
+          clientDetails.map(data => {
+            let Image_Link = `${process.env.REACT_APP_API_CALL_URL}/file/${data?.imageUrl}`
+            return (
+              <Box
+                className="business_card"
+                onClick={() =>
+                  setViewBusinessCardDialog({
+                    ...viewBusinessCardDialog,
+                    status: true,
+                    id: data?.id,
+                  })
+                }
+              >
+                <img src={CompanyIcon} alt="" />
+                {/* <Box className="business_card_left_section">
                             <img src={UserIcon} />
                         <img src={CompanyIcon} />
                             <img src={CallIcon} />
@@ -51,11 +50,12 @@ const BusinessCard = ({ clientDetails }) => {
                             <Typography variant="span"> Natasha Kirovska</Typography>
                             <Typography variant="span"> Natasha Kirovska</Typography>
                         </Box> */}
-                </Box>
-              )
-            })
-          ) : <NoResultFound />
-        }
+              </Box>
+            )
+          })
+        ) : (
+          <NoResultFound />
+        )}
       </Box>
       <ViewBusinessCardDetail
         handleDialogClose={handleDialogClose}

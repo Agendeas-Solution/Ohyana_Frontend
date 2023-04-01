@@ -6,11 +6,11 @@ import TabContext from '@mui/lab/TabContext'
 import { GetAdminAppointmentOrReminder } from '../../services/apiservices/adminprofile'
 import { Context as ContextEditAppointmentDialog } from '../../context/pageContext'
 
-const Loader = React.lazy(() => import("./AddRemainderDialog"));
-const ReminderList = React.lazy(() => import("./ReminderList"));
-const AppointmentList = React.lazy(() => import("./AppointmentList"));
-const AddRemainderDialog = React.lazy(() => import("./AddRemainderDialog"));
-const AddAppointmentDialog = React.lazy(() => import("./AddAppointmentDialog"));
+const Loader = React.lazy(() => import('./AddRemainderDialog'))
+const ReminderList = React.lazy(() => import('./ReminderList'))
+const AppointmentList = React.lazy(() => import('./AppointmentList'))
+const AddRemainderDialog = React.lazy(() => import('./AddRemainderDialog'))
+const AddAppointmentDialog = React.lazy(() => import('./AddAppointmentDialog'))
 
 const Calendar = () => {
   const [value, setValue] = useState('Appointments')

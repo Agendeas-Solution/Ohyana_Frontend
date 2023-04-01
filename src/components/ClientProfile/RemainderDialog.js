@@ -26,7 +26,7 @@ const RemainderDialog = props => {
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const handleAddReminder = () => {
     console.log('Add Reminder', clientReminderDetail)
-    
+
     if (
       clientReminderDetail.description !== '' &&
       clientReminderDetail.date !== '' &&

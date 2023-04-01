@@ -24,7 +24,6 @@ const OrderList = () => {
       parseInt(path),
       res => {
         setOrderList(res.data.orders)
-        
       },
       err => {
         console.log('Printing OrderList Error', err)

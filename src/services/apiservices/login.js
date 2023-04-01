@@ -32,7 +32,6 @@ export const ForgotPassword = async (value, onSuccess, onError) => {
     })
     console.log('Printing data of ForgotPassword', data)
     onSuccess && onSuccess(data)
-    ;
   } catch (err) {
     console.log('Got error while calling API - ForgotPassword', err)
     onError && onError(err)
@@ -46,7 +45,6 @@ export const ResetPassword = async (token, value, onSuccess, onError) => {
     })
     console.log('Printing data of ResetPassword', data)
     onSuccess && onSuccess(data)
-    ;
   } catch (err) {
     console.log('Got error while calling API - ResetPassword', err)
     onError && onError(err)

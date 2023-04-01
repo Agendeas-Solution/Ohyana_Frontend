@@ -63,7 +63,7 @@ const StaffAttendance = () => {
         res => {
           setStaffAttendanceList(res?.data)
         },
-        err => { },
+        err => {},
       )
     value === '2' &&
       GetStaffLeaveList(
@@ -71,7 +71,7 @@ const StaffAttendance = () => {
         res => {
           setStaffLeaveList(res?.data)
         },
-        err => { },
+        err => {},
       )
   }, [value])
   return (

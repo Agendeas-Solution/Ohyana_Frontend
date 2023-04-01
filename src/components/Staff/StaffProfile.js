@@ -16,14 +16,14 @@ import {
   GetAdminStaffRatingDetail,
 } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
-const PJPDetail = React.lazy(() => import("./PJPDetail"));
-const StaffTarget = React.lazy(() => import("./StaffTarget"));
-const StaffAttendance = React.lazy(() => import("./StaffAttendance"));
-const StaffPoint = React.lazy(() => import("./StaffPoint"));
-const StaffExpenses = React.lazy(() => import("./StaffExpenses"));
-const StaffDetail = React.lazy(() => import("./staffDetail"));
-const StaffRatingTable = React.lazy(() => import("./StaffRatingTable"));
-const ChangeRoleDialog = React.lazy(() => import("./ChangeRoleDialog"));
+const PJPDetail = React.lazy(() => import('./PJPDetail'))
+const StaffTarget = React.lazy(() => import('./StaffTarget'))
+const StaffAttendance = React.lazy(() => import('./StaffAttendance'))
+const StaffPoint = React.lazy(() => import('./StaffPoint'))
+const StaffExpenses = React.lazy(() => import('./StaffExpenses'))
+const StaffDetail = React.lazy(() => import('./staffDetail'))
+const StaffRatingTable = React.lazy(() => import('./StaffRatingTable'))
+const ChangeRoleDialog = React.lazy(() => import('./ChangeRoleDialog'))
 
 const StaffProfile = () => {
   const [value, setValue] = useState('1')

@@ -10,7 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }
 .password_field .css-1ptx2yq-MuiInputBase-root-MuiInput-root:before {
   border-bottom: none;
@@ -43,4 +43,7 @@
 }
 .client_attendance_tab .css-1aquho2-MuiTabs-indicator {
   background-color: transparent !important;
+}
+.leave_table_body_data {
+  overflow-y: auto;
 }

@@ -19,10 +19,7 @@ const ExpenseType = ({
 }) => {
   return (
     <>
-      <Dialog
-        open={addExpenseType.status}
-        onClose={handleCloseDialog}
-      >
+      <Dialog open={addExpenseType.status} onClose={handleCloseDialog}>
         <div className="px-3 pt-3 text-center ms-5 me-5">
           <h3>Expense Type</h3>
         </div>
@@ -35,11 +32,11 @@ const ExpenseType = ({
               <div>
                 <TextField
                   value={addExpenseType.name}
-                  onChange={(e) => {
+                  onChange={e => {
                     setAddExpenseType({
                       ...addExpenseType,
                       name: e.target.value,
-                    });
+                    })
                   }}
                   inputProps={{
                     style: {
@@ -63,11 +60,11 @@ const ExpenseType = ({
                 <TextareaAutosize
                   type="number"
                   value={addExpenseType.description}
-                  onChange={(e) => {
+                  onChange={e => {
                     setAddExpenseType({
                       ...addExpenseType,
                       description: e.target.value,
-                    });
+                    })
                   }}
                   // PaperProps={{ sx: { width: '30%', height: '100%' } }}
                   className="w-100"
@@ -87,7 +84,9 @@ const ExpenseType = ({
             className="ok-btn"
             sx={{ marginLeft: '5rem', backgroundColor: '#2E3591' }}
             // onClick={addExpenseType?.id ? UpdateLeave : AddLeave}Save
-            onClick={addExpenseType?.expenseId ? handleEditExpenses : handleAddExpenses}
+            onClick={
+              addExpenseType?.expenseId ? handleEditExpenses : handleAddExpenses
+            }
           >
             Save
           </Button>

@@ -24,11 +24,18 @@ const LeaveData = ({ leaveList }) => {
     <>
       <Box className="common_row align-items-start leave_data_main">
         <TableContainer
-          sx={{ width: '70%', boxShadow: 'none', margin: '20px' }}
+          className="expenses_table_height"
+          sx={{ width: '70%', boxShadow: 'none', margin: '6px' }}
           component={Paper}
         >
-          <Table>
-            <TableHead className="team_overview_table_heading">
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            className="table_heading"
+            // sx={{ marginLeft: '-10px' }}
+          >
+            {/* <TableHead className="team_overview_table_heading"> */}
+            <TableHead>
               <TableRow>
                 <TableCell align="left">Date</TableCell>
                 <TableCell align="left">Leave Type</TableCell>
@@ -37,13 +44,21 @@ const LeaveData = ({ leaveList }) => {
                 <TableCell align="left">Status</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+
+            <TableBody className="leave_table_body_data">
               {leaveList.map(row => (
                 <TableRow
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  sx={{
+                    '&:last-child td,th': {
+                      border: 0,
+                    },
+                  }}
                   key={row.date}
-                  sx={{ '&:last-child td,th': { border: 0 } }}
                 >
-                  <TableCell component="th" scope="row">
+                  <TableCell className="tablecell_height">
                     {moment(row.date).format('D/MM/YY')}
                   </TableCell>
                   <TableCell align="left">{row?.leave?.type}</TableCell>
@@ -58,11 +73,7 @@ const LeaveData = ({ leaveList }) => {
 
         <Box sx={{ margin: '16px' }}>
           <Box className="m-10 float-right flex-end">
-            <Button
-              // onClick={() => setLeaveDialogControl(true)}
-              className="attendance_button m-2"
-              variant="contained"
-            >
+            <Button className="attendance_button m-2" variant="contained">
               + Apply For Leave
             </Button>
           </Box>

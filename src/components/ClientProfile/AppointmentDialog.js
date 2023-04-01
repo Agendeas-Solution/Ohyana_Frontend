@@ -39,8 +39,7 @@ const AppointmentDialog = props => {
       res => {
         setStaffDetailList(res.data.team)
       },
-      err => {
-      },
+      err => {},
     )
   }, [])
   const handleAddAppointment = () => {

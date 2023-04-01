@@ -36,16 +36,6 @@ const PresentData = ({ staffAttendanceList }) => {
     setPage(0)
   }
 
-  const StyledTableRow = styled(TableHead)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-      backgroundColor: 'red',
-    },
-  }))
-
   return (
     <>
       {/* <Box className="common_row w-100 align-items-start present_data_main "> */}
@@ -55,7 +45,7 @@ const PresentData = ({ staffAttendanceList }) => {
         //   maxHeight: '48vh',
         //   overflowX: 'hidden',
         // }}
-        className="expenses_table_height mt-2"
+        className="expenses_table_height"
         component={Paper}
         sx={{
           boxShadow: 'none',
@@ -69,7 +59,7 @@ const PresentData = ({ staffAttendanceList }) => {
           stickyHeader
           aria-label="sticky table"
           sx={{ minWidth: 690, marginLeft: '-10px' }}
-          className="table_heading "
+          className="table_heading"
         >
           <TableHead>
             <TableRow>

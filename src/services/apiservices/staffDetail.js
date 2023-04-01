@@ -233,7 +233,7 @@ export const CreateExpenseType = async (value, onSuccess, onError) => {
 export const UpdateExpenseType = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.put(`/expense`,value, {
+    const { data } = await axiosInstance.put(`/expense`, value, {
       headers: { ...defaultHeaders },
     })
     console.log('Printing response of UpdateExpenseType', data)

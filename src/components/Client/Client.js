@@ -1,4 +1,4 @@
-import  React,{useEffect, useState, useContext,lazy } from 'react'
+import React, { useEffect, useState, useContext, lazy } from 'react'
 import {
   Tabs,
   Tab,
@@ -40,11 +40,13 @@ import { styled, useTheme } from '@mui/material/styles'
 import NoResultWithText from '../../assets/img/no_result_with_text.svg'
 const drawerWidth = 400
 
-const Loader = React.lazy(() => import("../Loader/Loader"));
-const NoResultFound = React.lazy(() => import("../ErrorComponent/NoResultFound"));
+const Loader = React.lazy(() => import('../Loader/Loader'))
+const NoResultFound = React.lazy(() =>
+  import('../ErrorComponent/NoResultFound'),
+)
 
-const CustomerList = React.lazy(() => import("./CustomerList"));
-const BusinessCard = React.lazy(() => import("./BusinessCard"));
+const CustomerList = React.lazy(() => import('./CustomerList'))
+const BusinessCard = React.lazy(() => import('./BusinessCard'))
 
 const Client = () => {
   const theme = useTheme()
@@ -118,7 +120,7 @@ const Client = () => {
           message: res.data.message,
         })
       },
-      err => { },
+      err => {},
     )
   }
   const handleDialogClose = () => {
@@ -165,7 +167,6 @@ const Client = () => {
         err => {
           console.log(err)
           setClientDetails([])
-
         },
       )
     })
@@ -383,7 +384,6 @@ const Client = () => {
           </div>
         </Box>
         <Box>
-
           {value === 'business_card' ? (
             <BusinessCard clientDetails={clientDetails} />
           ) : (

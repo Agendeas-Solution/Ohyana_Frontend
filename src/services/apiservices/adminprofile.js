@@ -490,13 +490,12 @@ export const GetAdminAttendanceList = async (value, onSuccess, onError) => {
     const { data } = await axiosInstance.get(`/attendance`, {
       headers: { ...defaultHeaders },
     })
-    
+
     console.log('Printing data of GetAdminAttendanceList', data)
     onSuccess && onSuccess(data)
   } catch (err) {
     console.log('Got error while calling API - GetAdminAttendanceList', err)
     onError && onError(err)
-    
   }
 }
 export const GetAdminLeaveList = async (value, onSuccess, onError) => {

@@ -45,7 +45,6 @@ const Complaint = () => {
         if (res.success) {
           setComplaintDetail(res?.data)
           setComplaintProcesses(res?.data?.complaint_processes)
-          
         }
       },
       err => {
@@ -68,7 +67,6 @@ const Complaint = () => {
             status: true,
             message: res.data.message,
           })
-          
         }
       },
       err => {
@@ -83,9 +81,7 @@ const Complaint = () => {
     path = path.split('/').pop()
     CloseTicket(
       path,
-      res => {
-        
-      },
+      res => {},
       err => {},
     )
   }

@@ -31,8 +31,10 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import moment from 'moment'
 import { styled, useTheme } from '@mui/material/styles'
 const drawerWidth = 400
-const Loader = React.lazy(() => import("../Loader/Loader"));
-const SuccessSnackbar = React.lazy(() => import("../SuccessSnackbar/SuccessSnackbar"));
+const Loader = React.lazy(() => import('../Loader/Loader'))
+const SuccessSnackbar = React.lazy(() =>
+  import('../SuccessSnackbar/SuccessSnackbar'),
+)
 const Staff = () => {
   let navigate = useNavigate()
   const theme = useTheme()
