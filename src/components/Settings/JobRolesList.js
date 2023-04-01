@@ -106,21 +106,13 @@ const JobRolesList = () => {
   })
 
   useEffect(() => {
-    console.log('Job role list: ' + { jobRoleList })
-    console.log({ jobRoleList })
-    let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
-    path = path.split('/').pop()
     GetAdminRole(
-      parseInt(path),
+      {},
       res => {
         if (res.success) {
           setJobRoleList({
             ...jobRoleList,
-            departmentId: res.data.department.id,
-            name: res.data.department.name,
-            roles: res.data.roles,
+            roles: res.data,
           })
         }
       },
@@ -164,7 +156,7 @@ const JobRolesList = () => {
           orientation="horizontal"
           // variant="middle"
           width="100%"
-          // flexItem
+        // flexItem
         />
         <Box sx={{ marginTop: '19px', width: 'initial' }}>
           {/* <Grid

@@ -15,10 +15,9 @@ const AssignMemberDialog = ({
   handleCloseMemberDialog,
   openMemberDialog,
   handleAssignMember,
-  memberList,
+  memberList,member,setMember
 }) => {
   console.log(memberList)
-  const [member, setMember] = useState({})
   return (
     <>
       <Dialog open={openMemberDialog} onClose={handleCloseMemberDialog}>
@@ -51,9 +50,10 @@ const AssignMemberDialog = ({
             </div>
           </div>
         </Box>
-        {/* <DialogActions className="m-auto">
+        <DialogActions className="m-auto">
           <Button
             variant="contained"
+            className='ok-btn'
             onClick={() => handleAssignMember(member.id)}
           >
             Ok
@@ -65,7 +65,7 @@ const AssignMemberDialog = ({
           >
             Cancel
           </Button>
-        </DialogActions> */}
+        </DialogActions>
       </Dialog>
     </>
   )

@@ -13,7 +13,6 @@ import NoResultWithText from '../../assets/img/no_result_with_text.svg'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 
 const BusinessCard = ({ clientDetails }) => {
-  debugger
   const [viewBusinessCardDialog, setViewBusinessCardDialog] = useState({
     status: false,
   })

@@ -274,15 +274,7 @@ const Orders = () => {
         <TableContainer sx={{ boxShadow: 'none' }} component={Paper}>
           <Table sx={{ minWidth: 650 }}>
             <TableHead>
-              <TableRow
-                sx={
-                  {
-                    // borderBottomStyle: 'solid',
-                    // borderBottomWidth: 'thin',
-                    // width: '100px',
-                  }
-                }
-              >
+              <TableRow>
                 <TableCell>Order Id.</TableCell>
                 <TableCell align="left">Order By</TableCell>
                 <TableCell align="left">Date</TableCell>

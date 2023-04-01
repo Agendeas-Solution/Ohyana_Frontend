@@ -49,6 +49,8 @@ const Task = () => {
   const [clientStage, setClientStage] = useState()
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const theme = useTheme()
+  const [member, setMember] = useState({})
+
   const [createTask, setCreateTask] = useState({
     title: '',
     description: '',
@@ -132,7 +134,10 @@ const Task = () => {
   const handleAssignMember = memberId => {
     AssignMemberParticularTask(
       { taskid: taskId, memberid: memberId },
-      res => {},
+      res => {
+        setMember();
+        handleCloseMemberDialog();
+      },
       err => {},
     )
   }
@@ -332,9 +337,6 @@ const Task = () => {
                     </Typography>
                     {taskData?.team?.email ? (
                       <Typography
-                        sx={{
-                          height: '30px',
-                        }}
                         className="name_chip "
                         variant="span"
                       >
@@ -365,6 +367,8 @@ const Task = () => {
             openMemberDialog={openMemberDialog}
             handleAssignMember={handleAssignMember}
             memberList={memberList}
+            member={member}
+            setMember={setMember}
           />
         </Box>
       </Box>
