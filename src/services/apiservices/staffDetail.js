@@ -20,6 +20,19 @@ export const GetAdminStaffDetailList = async (value, onSuccess, onError) => {
     onError && onError(err)
   }
 }
+export const GetSingleStaffDetailList = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.get(`/team/leaderboard/${value}`, {
+      headers: { ...defaultHeaders },
+    })
+    console.log('Printing data of GetSingleStaffDetailList', data)
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log('Got error while calling API - GetSingleStaffDetailList', err)
+    onError && onError(err)
+  }
+}
 export const GetAdminStaffProfileDetail = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {

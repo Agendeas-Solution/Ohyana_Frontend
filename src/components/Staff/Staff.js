@@ -1,30 +1,5 @@
-import  React,{ useEffect, useState, useContext } from 'react'
-import {
-  Box,
-  TextField,
-  Button,
-  Autocomplete,
-  MenuItem,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  FormControl,
-  OutlinedInput,
-  InputAdornment,
-  IconButton,
-  Toolbar,
-  Typography,
-  Avatar,
-  Divider,
-  Drawer,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-} from '@mui/material'
+import React, { useEffect, useState, useContext } from 'react'
+import { Box, TextField, Button, Autocomplete, MenuItem, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, FormLabel, RadioGroup, FormControl, OutlinedInput, InputAdornment, IconButton, Toolbar, Typography, Avatar, Divider, Drawer, FormLabelRadioGroup, FormControlLabel, Radio } from '@mui/material'
 import './index.css'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
@@ -41,7 +16,7 @@ import MailIcon from '../../assets/img/mail.svg'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import {
   GetAdminStaffDetailList,
-  GetUsersAttendanceList,
+  GetUsersAttendanceList, GetSingleStaffDetailList
 } from '../../services/apiservices/staffDetail'
 import {
   GetAdminDepartmentList,
@@ -73,6 +48,7 @@ const Staff = () => {
     $y: d.getFullYear(),
   })
   const [staffDetailList, setStaffDetailList] = useState([])
+  const [singleStaffDetails, setSingleStaffDetails] = useState({});
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
@@ -103,17 +79,34 @@ const Staff = () => {
     setOpen(false)
   }
 
+  const teamLeaderDetails = (id) => {
+    GetSingleStaffDetailList(
+      id,
+      (res) => {
+        if (res?.success) {
+          setSingleStaffDetails(res.data);
+          setLoader(false);
+        }
+      },
+      (err) => {
+        setLoader(false)
+      },
+    )
+  }
+  useEffect(() => {
+    singleStaffDetails && teamLeaderDetails(staffDetailList[0]?.id)
+  }, [staffDetailList.length > 0])
   useEffect(() => {
     value === '1' && setLoader(true)
     GetAdminStaffDetailList(
       departmentAndJobRoles,
-      res => {
-        if (res.success) {
+      (res) => {
+        if (res?.success) {
           setStaffDetailList(res?.data)
           setLoader(false)
         }
       },
-      err => {
+      (err) => {
         console.log(err)
         setLoader(false)
       },
@@ -400,7 +393,9 @@ const Staff = () => {
                       // borderCollapse="separate"
                       // borderSpacing="0px 4px"
                       key={row.id}
+                      onClick={() => teamLeaderDetails(row?.id)}
                       // style={{ borderRadius: 5 }}
+                      // onClick={'navigate()'}
                       sx={{
                         // borderCollapse: 'separate',
                         // borderSpacing: '8px 8px',
@@ -481,19 +476,17 @@ const Staff = () => {
               }}
             >
               <Typography
-                // variant="span"
                 sx={{
                   fontWeight: 'bold',
                   fontSize: '26px',
                   paddingRight: '190px',
                 }}
               >
-                Benedict
+                {singleStaffDetails?.memberDetail?.name}
                 <img className="ml-1 p-1" alt="" />
               </Typography>
               <Typography sx={{ marginTop: '10px' }}>
-                {/* {clientProfileDetail?.business} */}
-                Sr. Sales Person
+                {singleStaffDetails?.memberDetail?.role?.name}
               </Typography>
             </Box>
           </Box>
@@ -511,14 +504,14 @@ const Staff = () => {
                 Contact
               </Typography>
               <Typography className="mx-5" variant="span">
-                +91 8549054308
+                {singleStaffDetails?.memberDetail?.contact_number}
               </Typography>
               <Button
                 sx={{
                   backgroundColor: '#F1F2F6',
                   float: 'right',
                 }}
-                // onClick={() => navigate(`/staffprofile/${}`)}
+                onClick={() => navigate(`/staffprofile/${singleStaffDetails?.memberDetail?.id}`)}
               >
                 View Profile
               </Button>
@@ -532,7 +525,7 @@ const Staff = () => {
                 className="mx-5"
                 variant="span"
               >
-                benedictdfkl@gmail.com
+                {singleStaffDetails?.memberDetail?.email}
               </Typography>
             </Box>
             <Box className="m-3  me-5">
@@ -540,13 +533,12 @@ const Staff = () => {
                 Location
               </Typography>
               <Typography className="mx-5" variant="span">
-                Office
+                {singleStaffDetails?.memberDetail?.location}
               </Typography>
             </Box>
           </Box>
 
           <Box
-            // sx={{ display: 'flex', flexDirection: 'row' }}
             className="mt-3"
           >
             <Typography className="px-3">Inquiry Status</Typography>
@@ -560,17 +552,17 @@ const Staff = () => {
             >
               <Box className="inner_profile_details first_box m-1 p-2">
                 <Typography>Total Inquiry</Typography>
-                <Typography>24</Typography>
+                <Typography>{singleStaffDetails?.currentMonthClients?.total}</Typography>
               </Box>
 
               <Box className="inner_profile_details middle_box m-1 p-2">
                 <Typography>Attend</Typography>
-                <Typography>10</Typography>
+                <Typography>{singleStaffDetails?.currentMonthClients?.attend}</Typography>
               </Box>
 
               <Box className="inner_profile_details last_box m-1 p-2">
                 <Typography>Avg. Response</Typography>
-                <Typography>5 Min</Typography>
+                <Typography>{singleStaffDetails?.currentMonthClients?.avgResponseTime} </Typography>
               </Box>
             </Box>
 
@@ -584,18 +576,18 @@ const Staff = () => {
               }}
             >
               <Box className="inner_profile_details first_box m-1 p-2">
-                <Typography>Total Days</Typography>
-                <Typography>24</Typography>
+                <Typography>Total Present</Typography>
+                <Typography>{singleStaffDetails?.currentMonthAttendance?.totalPresent}</Typography>
               </Box>
 
               <Box className="inner_profile_details middle_box m-1 p-2">
                 <Typography>Absent</Typography>
-                <Typography>10</Typography>
+                <Typography>{singleStaffDetails?.currentMonthAttendance?.totalAbsent}</Typography>
               </Box>
 
               <Box className="inner_profile_details  last_box m-1 p-2">
                 <Typography>Late</Typography>
-                <Typography>5d</Typography>
+                <Typography>{singleStaffDetails?.currentMonthAttendance?.totalLate}</Typography>
               </Box>
             </Box>
 
@@ -611,17 +603,17 @@ const Staff = () => {
             >
               <Box className="inner_profile_details first_box m-1 p-2">
                 <Typography>Total Days</Typography>
-                <Typography>24</Typography>
+                <Typography>{singleStaffDetails?.currentMonthTarget?.totalDays}</Typography>
               </Box>
 
               <Box className="inner_profile_details middle_box m-1 p-2">
                 <Typography>Total Order</Typography>
-                <Typography>10</Typography>
+                <Typography>{singleStaffDetails?.currentMonthTarget?.targetOrder}</Typography>
               </Box>
 
               <Box className="inner_profile_details last_box m-1 p-2">
                 <Typography>Achieved</Typography>
-                <Typography>5d</Typography>
+                <Typography>{singleStaffDetails?.currentMonthTarget?.achieved}</Typography>
               </Box>
             </Box>
 
@@ -631,17 +623,17 @@ const Staff = () => {
             >
               <Box className="inner_profile_details first_box  m-1 p-2">
                 <Typography>Approved</Typography>
-                <Typography>24</Typography>
+                <Typography>{singleStaffDetails?.currentMonthExpense?.approvedExpense}</Typography>
               </Box>
 
               <Box className="inner_profile_details middle_box m-1 p-2">
                 <Typography>Pending</Typography>
-                <Typography>10</Typography>
+                <Typography>{singleStaffDetails?.currentMonthExpense?.pendingExpense}</Typography>
               </Box>
 
               <Box className="inner_profile_details last_box m-1 p-2">
                 <Typography>Rejected</Typography>
-                <Typography>5d</Typography>
+                <Typography>{singleStaffDetails?.currentMonthExpense?.rejectedExpense}</Typography>
               </Box>
             </Box>
           </Box>
