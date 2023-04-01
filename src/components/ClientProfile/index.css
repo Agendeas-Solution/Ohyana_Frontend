@@ -9,3 +9,8 @@ audio::-internal-media-controls-download-button {
 .set_reminder_bg {
   background-color: #f1f2f6;
 }
+.userdetail_root {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}

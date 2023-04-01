@@ -74,6 +74,7 @@
   margin: 0 auto;
   padding: 10px;
   height: 77vh;
+  overflow-y: auto;
 }
 
 .order_search_field {
