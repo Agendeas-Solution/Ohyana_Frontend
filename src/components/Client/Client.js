@@ -164,6 +164,8 @@ const Client = () => {
         },
         err => {
           console.log(err)
+          setClientDetails([])
+
         },
       )
     })
@@ -199,7 +201,7 @@ const Client = () => {
       },
       err => {
         console.log(err)
-        debugger;
+        setClientDetails([])
         setClientLoader(false)
       },
     )

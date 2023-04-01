@@ -21,11 +21,7 @@
 .password_field input {
   text-align: right;
 }
-.userdetail_root {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-}
+
 .userdetail_field_heading {
   font-weight: 600;
 }
