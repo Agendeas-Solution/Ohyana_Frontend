@@ -92,7 +92,7 @@ fieldset {
 
 .notification_tabs_root {
   fieldset {
-    height: 40px !important;
+    height: 30px !important;
     margin-top: 2px;
   }
 }
@@ -806,8 +806,8 @@ button {
 }
 .leave_data_main {
   border: 1px solid #e5e5e5;
-  height: 44vh;
-  overflow-y: auto;
+  height: 50vh;
+  // overflow-y: auto;
   border-top: none;
   margin: 0;
   padding: 0;

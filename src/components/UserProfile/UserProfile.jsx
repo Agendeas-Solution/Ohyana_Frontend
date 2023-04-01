@@ -202,7 +202,7 @@ const UserProfile = () => {
               </Tabs>
             </Box>
 
-            <TabPanel value="Attendance">
+            <TabPanel sx={{ padding: '10px' }} value="Attendance">
               <Box className="attendance_data_row col-md-12 mb-1">
                 <Box
                   sx={{
@@ -277,6 +277,7 @@ const UserProfile = () => {
                   </Box>
                 </Box>
               </Box>
+
               {/* <Box className="tab_row">
                 {activeTab === 'leave' && (
                   <Box>
@@ -300,7 +301,7 @@ const UserProfile = () => {
               )}
             </TabPanel>
 
-            <TabPanel value="Expenses">
+            <TabPanel sx={{ padding: '10px' }} value="Expenses">
               <StaffExpenses />
             </TabPanel>
             <TabPanel value="Profile">

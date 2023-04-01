@@ -14,9 +14,16 @@ import EditIcon from '../../assets/img/Edit_Icon.svg'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
-import {  GetExpenseTypeList, CreateExpenseType, DeleteExpenseType,UpdateExpenseType } from '../../services/apiservices/staffDetail'
-const DeleteExpenseTypeDialog = React.lazy(() => import("./DeleteExpenseTypeDialog"));
-const ExpenseType = React.lazy(() => import("./ExpenseType"));
+import {
+  GetExpenseTypeList,
+  CreateExpenseType,
+  DeleteExpenseType,
+  UpdateExpenseType,
+} from '../../services/apiservices/staffDetail'
+const DeleteExpenseTypeDialog = React.lazy(() =>
+  import('./DeleteExpenseTypeDialog'),
+)
+const ExpenseType = React.lazy(() => import('./ExpenseType'))
 
 const ExpenseList = () => {
   let navigate = useNavigate()
@@ -41,12 +48,12 @@ const ExpenseList = () => {
 
   const [expenseList, setExpenseList] = useState([])
 
-  const GetExpenseList=()=>{
+  const GetExpenseList = () => {
     GetExpenseTypeList(
       parseInt(path),
-      (res) => {
+      res => {
         if (res?.success) {
-          setExpenseList(res?.data);
+          setExpenseList(res?.data)
         }
       },
       err => {
@@ -54,21 +61,17 @@ const ExpenseList = () => {
       },
     )
   }
-  useEffect(
-    () => {
-     
-      GetExpenseList();
-    },
-    []
-  )
+  useEffect(() => {
+    GetExpenseList()
+  }, [])
 
   const handleCloseDialog = () => {
     setAddExpenseType({ ...addExpenseType, status: false })
     setDeletexpenseListDialog({ ...deletexpenseListDialog, status: false })
   }
-  const handleDelete = (id) => {
+  const handleDelete = id => {
     DeleteExpenseType(
-      (id),
+      id,
       res => {
         if (res.success) {
           setSuccessSnackbar({
@@ -76,7 +79,7 @@ const ExpenseList = () => {
             status: true,
             message: res.data.message,
           })
-          handleCloseDialog();
+          handleCloseDialog()
         }
       },
       err => {
@@ -86,12 +89,12 @@ const ExpenseList = () => {
   }
 
   const handleAddExpenses = () => {
-    let data = addExpenseType;
-    delete data.status;
-    delete data.expenseId;
+    let data = addExpenseType
+    delete data.status
+    delete data.expenseId
     CreateExpenseType(
       data,
-      (res) => {
+      res => {
         if (res?.success) {
           setSuccessSnackbar({
             ...successSnackbar,
@@ -100,27 +103,27 @@ const ExpenseList = () => {
           })
         }
       },
-      (err) => {
+      err => {
         console.log(err)
       },
     )
   }
   const handleEditExpenses = () => {
-    let data = addExpenseType;
-    delete data.status;
+    let data = addExpenseType
+    delete data.status
     UpdateExpenseType(
       data,
-      (res) => {
+      res => {
         if (res?.success) {
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
             message: res.message,
           })
-          GetExpenseList();
+          GetExpenseList()
         }
       },
-      (err) => {
+      err => {
         console.log(err)
       },
     )
@@ -153,7 +156,7 @@ const ExpenseList = () => {
           orientation="horizontal"
           // variant="middle"
           width="100%"
-        // flexItem
+          // flexItem
         />
         <Box sx={{ marginTop: '19px', width: 'initial' }}>
           <Box
@@ -199,13 +202,33 @@ const ExpenseList = () => {
                   <Grid item xs={3}>
                     <Typography variant="span">{data.description}</Typography>
                   </Grid>
-                  <Grid
-                    display="inline-flex"
-                    item
-                    xs={6}  
-                  >
-                    <img onClick={() => setAddExpenseType({ ...addExpenseType, status: true, expenseId: data.id, name: data.name, description: data.description })} className="me-3 p-2" src={EditIcon} alt="" />
-                    <img className="iconn ms-2" onClick={() => setDeletexpenseListDialog({ ...deletexpenseListDialog, status: true, id: data.id })} src={DeleteIcon} alt="" />
+                  <Grid display="inline-flex" item xs={6}>
+                    <img
+                      onClick={() =>
+                        setAddExpenseType({
+                          ...addExpenseType,
+                          status: true,
+                          expenseId: data.id,
+                          name: data.name,
+                          description: data.description,
+                        })
+                      }
+                      className="me-3 p-2"
+                      src={EditIcon}
+                      alt=""
+                    />
+                    <img
+                      className="iconn ms-2"
+                      onClick={() =>
+                        setDeletexpenseListDialog({
+                          ...deletexpenseListDialog,
+                          status: true,
+                          id: data.id,
+                        })
+                      }
+                      src={DeleteIcon}
+                      alt=""
+                    />
                   </Grid>
                 </Grid>
               </Box>
@@ -218,7 +241,12 @@ const ExpenseList = () => {
           handleAddExpenses={handleAddExpenses}
           handleEditExpenses={handleEditExpenses}
         />
-        <DeleteExpenseTypeDialog deletexpenseListDialog={deletexpenseListDialog} setDeletexpenseListDialog={setDeletexpenseListDialog} handleCloseDialog={handleCloseDialog} handleDelete={handleDelete} />
+        <DeleteExpenseTypeDialog
+          deletexpenseListDialog={deletexpenseListDialog}
+          setDeletexpenseListDialog={setDeletexpenseListDialog}
+          handleCloseDialog={handleCloseDialog}
+          handleDelete={handleDelete}
+        />
       </div>
     </>
   )

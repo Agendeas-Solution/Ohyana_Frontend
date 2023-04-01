@@ -9,8 +9,8 @@ import SampleProduct from '../../assets/img/sample_product.png'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
 import SnacksPhoto from '../../assets/img/SnacksPhoto.png'
-const ViewProductDialog = React.lazy(() => import("./ViewProductDialog"));
-const DeleteProductDialog = React.lazy(() => import("./DeleteProductDialog"));
+const ViewProductDialog = React.lazy(() => import('./ViewProductDialog'))
+const DeleteProductDialog = React.lazy(() => import('./DeleteProductDialog'))
 
 const ProductList = () => {
   const { flagLoader, permissions } = useContext(AuthContext).state

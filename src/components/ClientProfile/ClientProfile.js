@@ -36,19 +36,19 @@ import Stage1 from '../../assets/img/stage_1.svg'
 import Stage2 from '../../assets/img/stage_2.svg'
 import CallNotReceived from '../../assets/img/callnotreceived.svg'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-const EditStatusDialog = React.lazy(() => import("./EditStatusDialog"));
-const StageDialog = React.lazy(() => import("./StageDialog"));
-const OrderList = React.lazy(() => import("./OrderList"));
-const PoorContact = React.lazy(() => import("./PoorContact"));
-const ViewClientStatusDialog = React.lazy(() => import("./ViewClientStatusDialog"));
-const AppointmentDialog = React.lazy(() => import("./AppointmentDialog"));
-const RemainderTable = React.lazy(() => import("./RemainderTable"));
-const AppointmentTable = React.lazy(() => import("./AppointmentTable"));
-const ProfileTable = React.lazy(() => import("./ProfileTable"));
-const RemainderDialog = React.lazy(() => import("./RemainderDialog"));
-const StatusDialog = React.lazy(() => import("./StatusDialog"));
-
-
+const EditStatusDialog = React.lazy(() => import('./EditStatusDialog'))
+const StageDialog = React.lazy(() => import('./StageDialog'))
+const OrderList = React.lazy(() => import('./OrderList'))
+const PoorContact = React.lazy(() => import('./PoorContact'))
+const ViewClientStatusDialog = React.lazy(() =>
+  import('./ViewClientStatusDialog'),
+)
+const AppointmentDialog = React.lazy(() => import('./AppointmentDialog'))
+const RemainderTable = React.lazy(() => import('./RemainderTable'))
+const AppointmentTable = React.lazy(() => import('./AppointmentTable'))
+const ProfileTable = React.lazy(() => import('./ProfileTable'))
+const RemainderDialog = React.lazy(() => import('./RemainderDialog'))
+const StatusDialog = React.lazy(() => import('./StatusDialog'))
 
 const ClientProfile = () => {
   const [value, setValue] = useState('1')

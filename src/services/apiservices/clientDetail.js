@@ -22,7 +22,6 @@ export const GetAdminClientDetail = async (value, onSuccess, onError) => {
   }
 }
 
-
 export const DeleteClientDetail = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {

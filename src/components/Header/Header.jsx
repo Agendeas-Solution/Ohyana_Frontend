@@ -1,4 +1,4 @@
-import { React, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, Button, Avatar, Menu, MenuItem } from '@mui/material'
 import { useLocation, useNavigate } from 'react-router-dom'
 import CompanyLogo from '../../assets/img/Ohyana_logo.png'
@@ -64,7 +64,6 @@ const Header = () => {
                 alt=""
               /> */}
             </Box>
-
 
             {/* <Box>
                 <Button
@@ -165,7 +164,6 @@ const Header = () => {
               /> */}
             <KeyboardArrowDownIcon />
           </Stack>
-
         </Box>
         {/* </Box> */}
       </Box>

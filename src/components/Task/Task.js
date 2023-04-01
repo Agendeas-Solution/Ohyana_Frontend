@@ -35,8 +35,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 const drawerWidth = 400
-const CreateTaskDialog = React.lazy(() => import("./CreateTaskDialog"));
-const AssignMemberDialog = React.lazy(() => import("./AssignMemberDialog"));
+const CreateTaskDialog = React.lazy(() => import('./CreateTaskDialog'))
+const AssignMemberDialog = React.lazy(() => import('./AssignMemberDialog'))
 
 const Task = () => {
   const navigate = useNavigate()

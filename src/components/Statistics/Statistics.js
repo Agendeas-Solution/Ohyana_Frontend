@@ -11,10 +11,10 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import moment from 'moment'
-const BarChart = React.lazy(() => import("./BarChart"));
-const TeamGraph = React.lazy(() => import("./TeamGraph"));
-const ProductGraph = React.lazy(() => import("./ProductGraph"));
-const LineChart = React.lazy(() => import("./LineChart"));
+const BarChart = React.lazy(() => import('./BarChart'))
+const TeamGraph = React.lazy(() => import('./TeamGraph'))
+const ProductGraph = React.lazy(() => import('./ProductGraph'))
+const LineChart = React.lazy(() => import('./LineChart'))
 const Statistics = () => {
   const [value, setValue] = React.useState('1')
   const [selectedPeriod, setSelectedPeriod] = useState()

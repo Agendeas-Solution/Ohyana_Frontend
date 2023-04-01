@@ -24,8 +24,10 @@ import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
-const EditDescriptionDialog = React.lazy(() => import("./EditDescriptionDialog"));
-const EditTitleDialog = React.lazy(() => import("./EditTitleDialog"));
+const EditDescriptionDialog = React.lazy(() =>
+  import('./EditDescriptionDialog'),
+)
+const EditTitleDialog = React.lazy(() => import('./EditTitleDialog'))
 
 const TaskDetail = () => {
   const [taskDetail, setTaskDetail] = useState([])

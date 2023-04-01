@@ -38,12 +38,15 @@ import {
 } from '@mui/x-date-pickers'
 import { borderRadius } from '@mui/system'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-const DeleteJobRoleDialog = React.lazy(() => import("./DeleteJobRoleDialog"));
-const DeleteDepartmentDialog = React.lazy(() => import("./DeleteDepartmentDialog"));
-const JobRoleDialog = React.lazy(() => import("./JobRoleDialog"));
-const AddEditDepartmentDialog = React.lazy(() => import("./AddEditDepartmentDialog"));
-const EditJobRoleDialog = React.lazy(() => import("./EditJobRoleDialog"));
-
+const DeleteJobRoleDialog = React.lazy(() => import('./DeleteJobRoleDialog'))
+const DeleteDepartmentDialog = React.lazy(() =>
+  import('./DeleteDepartmentDialog'),
+)
+const JobRoleDialog = React.lazy(() => import('./JobRoleDialog'))
+const AddEditDepartmentDialog = React.lazy(() =>
+  import('./AddEditDepartmentDialog'),
+)
+const EditJobRoleDialog = React.lazy(() => import('./EditJobRoleDialog'))
 
 const Department = () => {
   const { permissions } = useContext(AuthContext).state

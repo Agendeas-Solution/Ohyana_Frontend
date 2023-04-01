@@ -14,7 +14,6 @@ export const VerifyOTP = async (value, onSuccess, onError) => {
     })
     console.log('Printing data of VerifyOTP', data)
     onSuccess && onSuccess(data)
-    ;
   } catch (err) {
     console.log('Got error while calling API - VerifyOTP', err)
     onError && onError(err)
@@ -27,7 +26,6 @@ export const SentOtp = async (value, onSuccess, onError) => {
     })
     console.log('Printing data of SentOtp', data)
     onSuccess && onSuccess(data)
-    ;
   } catch (err) {
     console.log('Got error while calling API - SentOtp', err)
     onError && onError(err)

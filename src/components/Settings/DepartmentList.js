@@ -3,8 +3,12 @@ import { Box, Button, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { GetAdminDepartmentList } from '../../services/apiservices/adminprofile'
 import { Context as AuthContext } from '../../context/authContext/authContext'
-const SuccessSnackbar = React.lazy(() => import("../SuccessSnackbar/SuccessSnackbar"));
-const AddEditDepartmentDialog = React.lazy(() => import("./AddEditDepartmentDialog"));
+const SuccessSnackbar = React.lazy(() =>
+  import('../SuccessSnackbar/SuccessSnackbar'),
+)
+const AddEditDepartmentDialog = React.lazy(() =>
+  import('./AddEditDepartmentDialog'),
+)
 
 const DepartmentList = () => {
   let navigate = useNavigate()

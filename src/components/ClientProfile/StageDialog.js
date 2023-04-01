@@ -30,9 +30,7 @@ const StageDialog = props => {
           message: res.data.message,
         })
       },
-      err => {
-        
-      },
+      err => {},
     )
   }
   return (

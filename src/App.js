@@ -1,4 +1,4 @@
-import React, { lazy,Suspense, useContext, useEffect, useState } from 'react'
+import React, { lazy, Suspense, useContext, useEffect, useState } from 'react'
 import {
   BrowserRouter,
   Routes,
@@ -15,50 +15,80 @@ import { io } from 'socket.io-client'
 import { Context as ContextSnackbar } from './context/pageContext'
 const socket = io('http://192.168.1.65:8008')
 
-const Login = React.lazy(() => import("./components/Login/Login"));
-const ForgetPassword = React.lazy(() => import("./components/ForgetPassword/ForgetPassword"));
-const Profile = React.lazy(() => import("./components/Profile/profile"));
-const AddClient = React.lazy(() => import("./components/AddClient/AddClient"));
-const Header = React.lazy(() => import("./components/Header/Header"));
-const SideBar = React.lazy(() => import("./components/SideBar/SideBar"));
-const UserProfile = React.lazy(() => import("./components/UserProfile/UserProfile"));
-const EditProfile = React.lazy(() => import("./components/EditProfile/EditProfile"));
-const Dashboard = React.lazy(() => import("./components/Dashboard"));
-const Notification = React.lazy(() => import("./components/Notification/Notification"));  
-const Client = React.lazy(() => import("./components/Client/Client"));
-const ClientProfile = React.lazy(() => import("./components/ClientProfile/ClientProfile"));
-const Department = React.lazy(() => import("./components/Settings/Department"));
-const Staff = React.lazy(() => import("./components/Staff/Staff"));
-const StaffProfile = React.lazy(() => import("./components/Staff/StaffProfile"));
-const AddStaffMember = React.lazy(() => import("./components/Staff/AddStaffMember"));
-const Calendar = React.lazy(() => import("./components/Calendar/Calendar"));
-const Settings = React.lazy(() => import("./components/Settings/Settings"));
-const DepartmentList = React.lazy(() => import("./components/Settings/DepartmentList"));
-const ProductList = React.lazy(() => import("./components/Settings/ProductList"));
-const EditClient = React.lazy(() => import("./components/EditClient/EditClient"));
-const EditStaff = React.lazy(() => import("./components/Staff/EditStaff"));
-const ForgotPasswordEmail = React.lazy(() => import("./components/AddClient/AddClient"));
-const SignUp = React.lazy(() => import("./components/SignUp/SignUp"));
-const Register = React.lazy(() => import("./components/Register/Register"));
-const CompanyProfile = React.lazy(() => import("./components/CompanyProfile/CompanyProfile"));
-const Premium = React.lazy(() => import("./components/Premium/Premium"));
-const HolidayAndLeaveManagement = React.lazy(() => import("./components/HolidayAndLeaveManagement/HolidayAndLeaveManagement"));
-const Statistics = React.lazy(() => import("./components/Statistics/Statistics"));  
-const Support = React.lazy(() => import("./components/Support/Support"));
-const Complaint = React.lazy(() => import("./components/Complaint/Complaint"));
-const Orders = React.lazy(() => import("./components/Orders/Orders"));
-const DashboardEmployee = React.lazy(() => import("./components/DashboardEmployee/DashboardEmployee"));
-const Task = React.lazy(() => import("./components/Task/Task"));
-const TaskDetail = React.lazy(() => import("./components/Task/TaskDetail"));
-const OrderDetail = React.lazy(() => import("./components/Orders/OrderDetail"));
-const Poll = React.lazy(() => import("./components/Settings/Poll"));
-const Dealer = React.lazy(() => import("./components/Dealer/Dealer"));
-const EditCompanyProfile = React.lazy(() => import("./components/CompanyProfile/EditCompanyProfile"));
-const AddProduct = React.lazy(() => import("./components/Settings/AddProduct"));
-const JobRolesList = React.lazy(() => import("./components/Settings/JobRolesList"));
-const ExpenseList = React.lazy(() => import("./components/Expense/ExpenseList"));
-
-
+const Login = React.lazy(() => import('./components/Login/Login'))
+const ForgetPassword = React.lazy(() =>
+  import('./components/ForgetPassword/ForgetPassword'),
+)
+const Profile = React.lazy(() => import('./components/Profile/profile'))
+const AddClient = React.lazy(() => import('./components/AddClient/AddClient'))
+const Header = React.lazy(() => import('./components/Header/Header'))
+const SideBar = React.lazy(() => import('./components/SideBar/SideBar'))
+const UserProfile = React.lazy(() =>
+  import('./components/UserProfile/UserProfile'),
+)
+const EditProfile = React.lazy(() =>
+  import('./components/EditProfile/EditProfile'),
+)
+const Dashboard = React.lazy(() => import('./components/Dashboard'))
+const Notification = React.lazy(() =>
+  import('./components/Notification/Notification'),
+)
+const Client = React.lazy(() => import('./components/Client/Client'))
+const ClientProfile = React.lazy(() =>
+  import('./components/ClientProfile/ClientProfile'),
+)
+const Department = React.lazy(() => import('./components/Settings/Department'))
+const Staff = React.lazy(() => import('./components/Staff/Staff'))
+const StaffProfile = React.lazy(() => import('./components/Staff/StaffProfile'))
+const AddStaffMember = React.lazy(() =>
+  import('./components/Staff/AddStaffMember'),
+)
+const Calendar = React.lazy(() => import('./components/Calendar/Calendar'))
+const Settings = React.lazy(() => import('./components/Settings/Settings'))
+const DepartmentList = React.lazy(() =>
+  import('./components/Settings/DepartmentList'),
+)
+const ProductList = React.lazy(() =>
+  import('./components/Settings/ProductList'),
+)
+const EditClient = React.lazy(() =>
+  import('./components/EditClient/EditClient'),
+)
+const EditStaff = React.lazy(() => import('./components/Staff/EditStaff'))
+const ForgotPasswordEmail = React.lazy(() =>
+  import('./components/AddClient/AddClient'),
+)
+const SignUp = React.lazy(() => import('./components/SignUp/SignUp'))
+const Register = React.lazy(() => import('./components/Register/Register'))
+const CompanyProfile = React.lazy(() =>
+  import('./components/CompanyProfile/CompanyProfile'),
+)
+const Premium = React.lazy(() => import('./components/Premium/Premium'))
+const HolidayAndLeaveManagement = React.lazy(() =>
+  import('./components/HolidayAndLeaveManagement/HolidayAndLeaveManagement'),
+)
+const Statistics = React.lazy(() =>
+  import('./components/Statistics/Statistics'),
+)
+const Support = React.lazy(() => import('./components/Support/Support'))
+const Complaint = React.lazy(() => import('./components/Complaint/Complaint'))
+const Orders = React.lazy(() => import('./components/Orders/Orders'))
+const DashboardEmployee = React.lazy(() =>
+  import('./components/DashboardEmployee/DashboardEmployee'),
+)
+const Task = React.lazy(() => import('./components/Task/Task'))
+const TaskDetail = React.lazy(() => import('./components/Task/TaskDetail'))
+const OrderDetail = React.lazy(() => import('./components/Orders/OrderDetail'))
+const Poll = React.lazy(() => import('./components/Settings/Poll'))
+const Dealer = React.lazy(() => import('./components/Dealer/Dealer'))
+const EditCompanyProfile = React.lazy(() =>
+  import('./components/CompanyProfile/EditCompanyProfile'),
+)
+const AddProduct = React.lazy(() => import('./components/Settings/AddProduct'))
+const JobRolesList = React.lazy(() =>
+  import('./components/Settings/JobRolesList'),
+)
+const ExpenseList = React.lazy(() => import('./components/Expense/ExpenseList'))
 
 const App = () => {
   const { successSnackbar, errorSnackbar, notificationSnackbar } =
@@ -119,7 +149,10 @@ const App = () => {
                     {/* <Route path=" /resetpassword" element={<ForgetPassword />}></Route> */}
                     <Route path="/" element={<UserProfile />}></Route>
                     <Route path="/profile" element={<UserProfile />}></Route>
-                    <Route path="/editprofile" element={<EditProfile />}></Route>
+                    <Route
+                      path="/editprofile"
+                      element={<EditProfile />}
+                    ></Route>
                     <Route path="/dashboard" element={<Dashboard />}></Route>
                     <Route
                       path="/dashboardemployee"
@@ -178,7 +211,10 @@ const App = () => {
                     <Route path="/calendar" element={<Calendar />}></Route>
                     <Route path="/report" element={<Statistics />}></Route>
                     <Route path="/support" element={<Support />}></Route>
-                    <Route path="/complaint/:id" element={<Complaint />}></Route>
+                    <Route
+                      path="/complaint/:id"
+                      element={<Complaint />}
+                    ></Route>
                     <Route path="/premium" element={<Premium />}></Route>
                     <Route path="/orders" element={<Orders />}></Route>
                     <Route path="/poll" element={<Poll />}></Route>
@@ -230,7 +266,10 @@ const App = () => {
                     )}
                   </Route>
                   <Route path="/addproduct" element={<AddProduct />}></Route>
-                  <Route path="/editproduct/:id" element={<AddProduct />}></Route>
+                  <Route
+                    path="/editproduct/:id"
+                    element={<AddProduct />}
+                  ></Route>
                   <Route path="/login" element={<Login />}></Route>
                   <Route path="/signup" element={<SignUp />}></Route>
                   <Route path="/register" element={<Register />}></Route>
