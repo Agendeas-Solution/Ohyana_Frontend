@@ -35,25 +35,12 @@ table {
   width: 59%;
 }
 
-.holiday_inner_class {
-  /* border: 1px solid #6706de; */
-  /* border-radius: 5px; */
-  /* padding: 10px; */
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* width: 120%; */
-  width: 700px;
-  /* height: 500px; */
-}
-
 .dummy {
-  /* border: 1px solid #c51010; */
   border-radius: 5px;
   height: max-content;
   display: flex;
   flex-direction: column;
   width: 39%;
-  /* width: max-content; */
 }
 
 .regular_holiday_heading {
@@ -107,11 +94,4 @@ table {
   text-transform: capitalize !important;
   padding: 5px !important;
   box-shadow: none !important;
-  /* margin: 16px 25px 14px 0px; */
-}
-
-.add_button {
-  margin-top: 16px;
-  margin-bottom: 14px;
-  margin-right: 25px;
 }

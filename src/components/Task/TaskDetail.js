@@ -211,10 +211,8 @@ const TaskDetail = () => {
                   setAddCheckList(e.target.value)
                 }}
                 placeholder="Add an item"
-                // className="add_item_textfield w-100"
                 className="w-100 my-2"
                 variant="outlined"
-                // sx={{ marginBottom: '15px' }}
               />
             </Box>
             <Box className="mx-5 me-3 mb-3">

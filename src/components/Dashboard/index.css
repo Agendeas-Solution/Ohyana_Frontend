@@ -1,12 +1,3 @@
-.attendance_buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 3px;
-}
-
 .inquiry_sales_statistics {
   width: 100%;
   padding: 10px;
@@ -24,20 +15,7 @@
 .dashboard_inner_heading {
   padding: 8px 0 15px 10px;
 }
-.common_row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  /* margin: 5px; */
-  /* margin-right: 1px; */
-  /* margin: 1px; */
-  /* margin-left: 3px; */
-}
-.delete_icon_style {
-  /* margin-left: 10px; */
-}
+
 .platform_data_detail {
   width: 65%;
   display: flex;
@@ -94,22 +72,7 @@
   padding-bottom: 15px;
   margin-bottom: 8px;
 } */
-.common_icon {
-  color: #2e3591;
-}
-.sales_parameter {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
 
-  /* margin-top: 5px; */
-  /* margin-left: 20px; */
-  padding-bottom: 8px;
-  margin-bottom: 6px;
-  font-size: 18px;
-  font-weight: 500;
-}
 .sales_parameter_bottom_border {
   border-bottom: 1px solid #e5e5e5;
 }
@@ -125,26 +88,4 @@
 }
 .view_all_button {
   color: #2e3591;
-}
-.team_overview_table_heading {
-  background: #f1f2f6;
-  /* margin: 6px; */
-
-  /* margin-left: 1px; */
-}
-.team_overview_table_heading tr th {
-  border-bottom: none;
-  /* margin-left: 6px; */
-  padding: 8px;
-}
-
-.present_table {
-  /* overflow-x: hidden;
-  overflow-y: hidden; */
-  margin: 6px;
-}
-
-.main_table_container {
-  max-width: 100%;
-  overflow-x: hidden;
 }

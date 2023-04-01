@@ -66,7 +66,6 @@ const PresentData = ({ staffAttendanceList }) => {
         <Table
           // stickyHeader
           // aria-label="sticky table"
-          // className="present_table_heading"
           stickyHeader
           aria-label="sticky table"
           sx={{ minWidth: 690, marginLeft: '-10px' }}

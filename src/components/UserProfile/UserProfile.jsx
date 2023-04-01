@@ -1,5 +1,18 @@
-import React, { useEffect, useState, useContext,lazy } from 'react'
-import {Typography,Box,TextField,Tabs,Button,Tab,Table,TableCell,TableContainer,Paper,TableRow,TableHead,} from '@mui/material'
+import React, { useEffect, useState, useContext, lazy } from 'react'
+import {
+  Typography,
+  Box,
+  TextField,
+  Tabs,
+  Button,
+  Tab,
+  Table,
+  TableCell,
+  TableContainer,
+  Paper,
+  TableRow,
+  TableHead,
+} from '@mui/material'
 import StaffExpenses from '../Staff/StaffExpenses'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import { useNavigate } from 'react-router-dom'
@@ -7,6 +20,7 @@ import { GetAdminProfile } from '../../services/apiservices/adminprofile'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
+import './index.css'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import {
   GetHolidayList,
@@ -19,12 +33,14 @@ import {
 import ApplyLeaveDialog from './ApplyLeaveDialog'
 import { GetAllHoliday } from '../../services/apiservices/holiday'
 
-const ErrorSnackbar = React.lazy(() => import("../ErrorSnackbar/ErrorSnackbar"));
-const SuccessSnackbar = React.lazy(() => import("../SuccessSnackbar/SuccessSnackbar"));
+const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
+const SuccessSnackbar = React.lazy(() =>
+  import('../SuccessSnackbar/SuccessSnackbar'),
+)
 
-const PresentData = React.lazy(() => import("./PresentData"));
-const LeaveData = React.lazy(() => import("./LeaveData"));
-const HolidayData = React.lazy(() => import("./HolidayData"));
+const PresentData = React.lazy(() => import('./PresentData'))
+const LeaveData = React.lazy(() => import('./LeaveData'))
+const HolidayData = React.lazy(() => import('./HolidayData'))
 const UserProfile = () => {
   const navigate = useNavigate()
   const [value, setValue] = useState('Profile')
@@ -153,34 +169,6 @@ const UserProfile = () => {
                   >
                     + Apply Leave
                   </Button>
-                  {/* <Button
-                    onClick={() => handleCheckIn('checkIn')}
-                    className="attendance_button check_InOut_Break_InOut_Btn m-1"
-                    variant="contained"
-                  >
-                    Check in
-                  </Button>
-                  <Button
-                    onClick={() => handleCheckIn('breakIn')}
-                    className="attendance_button check_InOut_Break_InOut_Btn m-1"
-                    vsariant="contained"
-                  >
-                    Break in
-                  </Button>
-                  <Button
-                    onClick={() => handleCheckIn('breakOut')}
-                    className="attendance_button check_InOut_Break_InOut_Btn m-1"
-                    variant="contained"
-                  >
-                    Break out
-                  </Button>
-                  <Button
-                    onClick={() => handleCheckIn('checkOut')}
-                    className="attendance_button check_InOut_Break_InOut_Btn m-1"
-                    variant="contained"
-                  >
-                    Check out
-                  </Button> */}
                 </>
               )}
 
@@ -196,65 +184,6 @@ const UserProfile = () => {
               </Button>
             </Box>
           </Box>
-
-          {/* <Box
-            sx={{
-              // display: 'flex',
-              // flexDirection: 'column',
-              marginTop: '5px',
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              // padding: '16px',
-            }}
-          >
-            <Box className="profile_data prof_data">
-              <Typography className="profile_heading_name" variant="span">
-                Contact No.
-              </Typography>
-              <Typography className="pt-2" variant="span">
-                +91 98545985443
-              </Typography>
-            </Box>
-
-            <Box className="profile_data prof_data">
-              <Typography className="profile_heading_name" variant="span">
-                Email
-              </Typography>
-              <Typography className="pt-2" variant="span">
-                roberdowneyjr@gmail.com
-              </Typography>
-            </Box>
-
-            <Box className="profile_data prof_data">
-              <Typography className="profile_heading_name" variant="span">
-                Birthdate
-              </Typography>
-              <Typography className="pt-2" variant="span">
-                02 Feb 1990
-              </Typography>
-            </Box>
-
-            <Box className="profile_data prof_data">
-              <Typography className="profile_heading_name" variant="span">
-                Gender
-              </Typography>
-              <Typography className="pt-2" variant="span">
-                Male
-              </Typography>
-            </Box>
-
-            <Box className="profile_data prof_data">
-              <Typography className="profile_heading_name" variant="span">
-                Password
-              </Typography>
-              <Typography className="pt-2" variant="span">
-                rdowneyjr@123
-              </Typography>
-            </Box>
-          </Box> */}
-
-          {/* </Box> */}
 
           <TabContext value={value}>
             <Box
@@ -273,74 +202,6 @@ const UserProfile = () => {
               </Tabs>
             </Box>
             <TabPanel value="Attendance">
-              {/* <Box className="attendance_data_row col-md-12 mb-1">
-                <Box className="inner_profile_details first_box m-1 p-2 total_days_data days_data">
-                  <Typography variant="span">Total Days</Typography>
-                  <Typography className="pt-1" variant="span">
-                    {staffAttendanceList?.totalDays}
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{ marginRight: '20px' }}
-                  className="inner_profile_details first_box m-1 p-2 Absent_days_data days_data"
-                >
-                  <Typography variant="span">Absent Days</Typography>
-                  <Typography className="pt-1" variant="span">
-                    {staffAttendanceList?.absentDays}
-                  </Typography>
-                </Box>
-                <Box className="inner_profile_details first_box m-1 p-2 Late_days_data days_data">
-                  <Typography variant="span">Late Days</Typography>
-                  <Typography className="pt-1" variant="span">
-                    {staffAttendanceList?.lateDays}
-                  </Typography>
-                </Box>
-
-                <Box className="col-md-3">
-                  <Box sx={{ background: '#F1F2F6', borderRadius: '5px' }}>
-                    <Button
-                      className={
-                        activeTab === 'present'
-                          ? 'active_button'
-                          : 'common_button'
-                      }
-                      onClick={() => {
-                        setActiveTab('present')
-                      }}
-                      variant="contained"
-                    >
-                      Present
-                    </Button>
-                    <Button
-                      className={
-                        activeTab === 'leave'
-                          ? 'active_button'
-                          : 'common_button'
-                      }
-                      onClick={() => {
-                        setActiveTab('leave')
-                      }}
-                      variant="contained"
-                    >
-                      Leave
-                    </Button>
-                    <Button
-                      className={
-                        activeTab === 'holiday'
-                          ? 'active_button'
-                          : 'common_button'
-                      }
-                      onClick={() => {
-                        setActiveTab('holiday')
-                      }}
-                      variant="contained"
-                    >
-                      Holiday
-                    </Button>
-                  </Box>
-                </Box>
-              </Box> */}
-
               <Box className="attendance_data_row col-md-12 mb-1">
                 <Box
                   sx={{
@@ -442,78 +303,6 @@ const UserProfile = () => {
               <StaffExpenses />
             </TabPanel>
             <TabPanel value="Profile">
-              {/* <Box className="profile_detail">
-                <Box className="userdetail_root">
-                  <Typography
-                    className="userdetail_field_heading"
-                    variant="span"
-                  >
-                    Contact No:
-                  </Typography>
-                  <Typography variant="span">
-                    {userDetail?.contact_number}
-                  </Typography>
-                </Box>
-                <Box className="userdetail_root">
-                  <Typography
-                    variant="span"
-                    className="userdetail_field_heading"
-                  >
-                    Email:
-                  </Typography>
-                  <Typography variant="span">{userDetail?.email}</Typography>
-                </Box>
-                <Box className="userdetail_root">
-                  <Typography
-                    className="userdetail_field_heading"
-                    variant="span"
-                  >
-                    Password:
-                  </Typography>
-                  <Box>
-                    <TextField
-                      className="password_field"
-                      type={showPassword ? 'text' : 'password'}
-                      value={userDetail?.password}
-                      variant="standard"
-                    />
-                    {showPassword ? (
-                      <Visibility
-                        onClick={() => {
-                          setShowPassword(!showPassword)
-                        }}
-                      />
-                    ) : (
-                      <VisibilityOff
-                        onClick={() => {
-                          setShowPassword(!showPassword)
-                        }}
-                      />
-                    )}
-                  </Box>
-                </Box> 
-                <Box className="userdetail_root">
-                  <Typography
-                    className="userdetail_field_heading"
-                    variant="span"
-                  >
-                    Gender:
-                  </Typography>
-                  <Typography variant="span">{userDetail?.gender}</Typography>
-                </Box>
-                <Box className="userdetail_root">
-                  <Typography
-                    className="userdetail_field_heading"
-                    variant="span"
-                  >
-                    Birthday:
-                  </Typography>
-                  <Typography variant="span">
-                    {moment(userDetail?.birthDay).format('DD-MM-YYYY')}
-                  </Typography>
-                </Box>
-              </Box> */}
-
               <Box className="companyDetail">
                 <Box className="companyDetail_root px-3 pb-3">
                   <Typography

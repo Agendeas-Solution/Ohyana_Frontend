@@ -304,10 +304,6 @@ const ClientProfile = () => {
                         Status
                       </Button>
                       <Button className="common_button">Close</Button>
-
-                      {/* <Button className="status_close_button" variant="contained">
-                      Status Close
-                    </Button> */}
                     </>
                   ) : null}
                   {value === '2' ? (

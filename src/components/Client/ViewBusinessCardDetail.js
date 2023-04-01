@@ -8,6 +8,7 @@ import {
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import moment from 'moment'
 import AddStatusDialog from './AddStatusDialog'
+import './index.css'
 
 const ViewBusinessCardDetail = ({
   viewBusinessCardDialog,

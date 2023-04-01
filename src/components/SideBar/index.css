@@ -4,11 +4,7 @@
 .css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
   border-right: none !important;
 }
-.sidebar_root {
-  background: #fff;
-  height: 100%;
-  position: absolute;
-}
+
 .sidebar_group_icon {
   display: flex;
   justify-content: center;
@@ -18,9 +14,7 @@
   height: 75vh;
   overflow-y: auto;
 }
-/* .sidebar_group_icon a {
-  text-decoration: none;
-} */
+
 .sidebar_icons {
   width: 80%;
   display: flex;
@@ -32,20 +26,12 @@
   padding: 1rem;
   cursor: pointer;
 }
-.sidebar_icon_root {
-  width: 20%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-right: 10px;
-}
+
 .page_name_root {
   width: 80%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  /* margin-top: 10px !important; */
-  /* background-color: #2e3591; */
   font-size: 1rem;
 }
 .sidebar_img {

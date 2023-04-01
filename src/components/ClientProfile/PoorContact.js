@@ -31,11 +31,7 @@ const PoorContact = ({ addPoorContact, handleCallClose }) => {
           </h4>
           <div>
             <FormControl>
-              <RadioGroup
-                row
-                defaultValue="not received"
-                // className="set_radio_button_bg"
-              >
+              <RadioGroup row defaultValue="not received">
                 <FormControlLabel
                   value="not received"
                   control={<Radio />}
