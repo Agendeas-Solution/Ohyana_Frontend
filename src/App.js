@@ -11,18 +11,18 @@ import { Context as AuthContext } from './context/authContext/authContext'
 import { Box } from '@mui/material'
 import Cookie from 'js-cookie'
 import { clearLoginToken } from './services/storage'
+// const SideBar = React.lazy(() => import('./components/SideBar/SideBar'))
+import SideBar from './components/SideBar/SideBar';
+import Header from  './components/Header/Header';
 import { io } from 'socket.io-client'
 import { Context as ContextSnackbar } from './context/pageContext'
-const socket = io('http://192.168.1.65:8008')
-
+const socket = io('http://192.168.1.65:9009')
 const Login = React.lazy(() => import('./components/Login/Login'))
 const ForgetPassword = React.lazy(() =>
   import('./components/ForgetPassword/ForgetPassword'),
 )
 const Profile = React.lazy(() => import('./components/Profile/profile'))
 const AddClient = React.lazy(() => import('./components/AddClient/AddClient'))
-const Header = React.lazy(() => import('./components/Header/Header'))
-const SideBar = React.lazy(() => import('./components/SideBar/SideBar'))
 const UserProfile = React.lazy(() =>
   import('./components/UserProfile/UserProfile'),
 )
@@ -248,7 +248,7 @@ const App = () => {
                     )}
                     {permissions?.viewDepartment && (
                       <Route
-                        path="/jobrolelist/:id"
+                        path="/jobrolelist"
                         element={<JobRolesList />}
                       ></Route>
                     )}

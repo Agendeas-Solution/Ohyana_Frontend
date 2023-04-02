@@ -302,13 +302,12 @@ export const GetAdminRole = async (value, onSuccess, onError) => {
   try {
     const { data } = await axiosInstance.get(`/role`, {
       headers: { ...defaultHeaders },
-      params: { departmentId: value },
     })
-    console.log('Printing data of DeleteReminder', data)
+    console.log('Printing data of GetAdminRole', data)
     onSuccess && onSuccess(data)
     ////
   } catch (err) {
-    console.log('Got error while calling API - DeleteReminder', err)
+    console.log('Got error while calling API - GetAdminRole', err)
     onError && onError(err)
     ////
   }

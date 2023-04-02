@@ -33,8 +33,7 @@ const Settings = () => {
           <Box
             className="setting_cards-list"
             onClick={() => {
-              navigate('/departmentlist/')
-              // navigate("/jobrolelist/1");
+              navigate("/jobrolelist");
             }}
           >
             <img

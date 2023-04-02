@@ -93,7 +93,6 @@ const StaffExpenses = () => {
             <Typography>5000</Typography>
           </Box>
         </Box>
-
         <Box className="_days_data days_data">
           <Box>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -110,7 +109,6 @@ const StaffExpenses = () => {
           </Box>
         </Box>
       </Box>
-
       <TableContainer
         className="expenses_table_height mt-2"
         component={Paper}
@@ -118,6 +116,7 @@ const StaffExpenses = () => {
           boxShadow: 'none',
           border: '1px solid #e5e5e5',
           borderTop: 'none',
+          overflowY:"auto"
         }}
       >
         <Table

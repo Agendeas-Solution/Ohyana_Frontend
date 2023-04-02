@@ -8,6 +8,7 @@ import {
   MenuItem,
   Autocomplete,
 } from '@mui/material'
+import './index.css';
 import {
   GetAdminProductList,
   AddClientDetail,
@@ -16,7 +17,6 @@ import { useNavigate } from 'react-router-dom'
 import { GetCountryList } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const ErrorSnackbar = lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
-
 const AddClient = () => {
   const [userDetail, setUserDetail] = useState({
     clientName: '',

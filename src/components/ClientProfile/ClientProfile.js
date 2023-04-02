@@ -36,6 +36,7 @@ import Stage1 from '../../assets/img/stage_1.svg'
 import Stage2 from '../../assets/img/stage_2.svg'
 import CallNotReceived from '../../assets/img/callnotreceived.svg'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
+import NoResultFound from '../ErrorComponent/NoResultFound'
 const EditStatusDialog = React.lazy(() => import('./EditStatusDialog'))
 const StageDialog = React.lazy(() => import('./StageDialog'))
 const OrderList = React.lazy(() => import('./OrderList'))
@@ -216,9 +217,9 @@ const ClientProfile = () => {
               <Box className="userName_and_position">
                 <AccountCircleRoundedIcon
                   className="user_profile_icon"
-                  // sx={{
-                  //   paddingTop: 2,
-                  // }}
+                // sx={{
+                //   paddingTop: 2,
+                // }}
                 />
                 <Box
                   sx={{
@@ -266,7 +267,7 @@ const ClientProfile = () => {
                     onClick={() => {
                       navigate(`/editclient/${clientProfileDetail.id}`)
                     }}
-                    // className="icon"
+                  // className="icon"
                   />
                 )}
               </Button>
@@ -427,21 +428,7 @@ const ClientProfile = () => {
                         ))}
                       </TableBody>
                     </Table>
-                  ) : (
-                    <p
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        textAlign: 'center',
-                        width: '100%',
-                        height: '70%',
-                        flexGrow: 'auto',
-                      }}
-                    >
-                      No Data Found
-                    </p>
-                  )}
+                  ) : <NoResultFound />}
                 </TableContainer>
               </TabPanel>
               <TabPanel value="2">

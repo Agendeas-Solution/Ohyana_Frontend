@@ -12,6 +12,7 @@ import {
 import './index.css'
 import moment from 'moment'
 import EditAppointmentDialog from './EditAppointmentDialog'
+import NoResultFound from '../ErrorComponent/NoResultFound'
 const AppointmentTable = props => {
   const [editClientAppointmentDetail, setEditClientAppointmentDetail] =
     useState({
@@ -86,21 +87,9 @@ const AppointmentTable = props => {
               ))}
             </TableBody>
           </Table>
-        ) : (
-          <p
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              textAlign: 'center',
-              width: '100%',
-              height: '100%',
-              flexGrow: 'auto',
-            }}
-          >
-            No Data Found
-          </p>
-        )}
+        ) :
+          <NoResultFound />
+        }
       </TableContainer>
       {editClientAppointmentDetail.status === true && (
         <EditAppointmentDialog

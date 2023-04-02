@@ -349,13 +349,13 @@ button {
   display: flex;
   background-color: #fff;
   padding: 10px;
-  height: 87%;
+  height: 86%;
   border-radius: 5px;
   width: 97%;
   flex-direction: column !important;
   margin: 20px auto;
   overflow-y: auto;
-  // align-items: center;
+  overflow-x: hidden;
 }
 
 .table_heading tr th {
@@ -792,9 +792,14 @@ button {
 }
 .name_chip {
   background-color: #b4c2e9;
-  padding: 15px 18px 15px 18px;
   border-radius: 50%;
   font-size: 15px;
+  height: 30px;
+  width: 30px;
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .attendance_button {
   text-transform: capitalize !important;

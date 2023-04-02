@@ -51,9 +51,12 @@
   height: 85vh;
   display: flex;
   flex-direction: column;
-  width: 100%;
   overflow-y: auto;
   background-color: #ffffff;
+  flex-wrap: wrap;
+  width: 98%;
+  margin: 0 auto;
+  padding: 10px;
 }
 
 input[type='radio'] {
@@ -193,12 +196,7 @@ input[type='radio']:focus {
   margin: 0 auto;
   padding: 10px;
 }
-.product_list_section {
-  flex-wrap: wrap;
-  width: 98%;
-  margin: 0 auto;
-  padding: 10px;
-}
+
 
 .main_product_button {
   /* width: 109px; */

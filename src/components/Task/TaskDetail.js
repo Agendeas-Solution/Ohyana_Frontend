@@ -178,7 +178,6 @@ const TaskDetail = () => {
               sx={{ color: '#2E3591' }}
               className="task_slider"
             />
-
             <FormGroup>
               {checkLists &&
                 checkLists.map(checklistData => {
@@ -303,7 +302,7 @@ const TaskDetail = () => {
               Assigned Member
             </Typography>
             {taskDetail?.team?.email ? (
-              <Box className="mx-3 mt-4">
+              <Box className="mx-3 mt-4 d-flex">
                 <Typography className="name_chip" variant="span">
                   {taskDetail?.team?.email &&
                     taskDetail?.team?.email?.charAt(0)}
@@ -318,7 +317,7 @@ const TaskDetail = () => {
             <Typography className="common_sub_heading mx-3 mt-3" variant="span">
               Task Create By
             </Typography>
-            <Box className="mx-3 mt-4 mb-2">
+            <Box className="mx-3 mt-4 mb-2 d-flex">
               <Typography className="created_by_icon name_chip" variant="span">
                 {taskDetail?.createdBy && taskDetail?.createdBy.charAt(0)}
               </Typography>
