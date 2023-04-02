@@ -18,7 +18,7 @@ const PJPScheduleTable = ({ pjpList }) => {
   }
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer sx={{ boxShadow: 'none' }} component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead className="pjp_all_table_header">
             <TableRow>
@@ -51,7 +51,8 @@ const PJPScheduleTable = ({ pjpList }) => {
                           id: pjpData.id,
                         })
                       }
-                      className="common_button"
+                      // className="common_button"
+                      className="pjp_table_btn"
                     >
                       View
                     </Button>

@@ -23,6 +23,7 @@ const StaffExpenses = () => {
     startDate: '',
     endDate: '',
   })
+
   const [value, setValue] = useState('1')
   const [expenseList, setExpenseList] = useState([])
   const [expensesData, setExpensesData] = useState([])
@@ -93,20 +94,18 @@ const StaffExpenses = () => {
             <Typography>5000</Typography>
           </Box>
         </Box>
-        <Box className="_days_data days_data">
-          <Box>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                disablePast
-                inputFormat="dd/MM/yyyy"
-                value={dateRange?.startDate}
-                onChange={e => {
-                  setDateRange({ ...dateRange, startDate: e })
-                }}
-                renderInput={params => <TextField {...params} />}
-              />
-            </LocalizationProvider>
-          </Box>
+        <Box className="days_data">
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              disablePast
+              inputFormat="dd/MM/yyyy"
+              value={dateRange?.startDate}
+              onChange={e => {
+                setDateRange({ ...dateRange, startDate: e })
+              }}
+              renderInput={params => <TextField {...params} />}
+            />
+          </LocalizationProvider>
         </Box>
       </Box>
       <TableContainer
@@ -116,7 +115,7 @@ const StaffExpenses = () => {
           boxShadow: 'none',
           border: '1px solid #e5e5e5',
           borderTop: 'none',
-          overflowY:"auto"
+          overflowY: 'auto',
         }}
       >
         <Table

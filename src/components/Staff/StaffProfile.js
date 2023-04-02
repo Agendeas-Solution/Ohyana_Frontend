@@ -84,7 +84,6 @@ const StaffProfile = () => {
               justifyContent: 'flex-start',
               alignItems: 'center',
               width: '50%',
-              // padding: '15px 0 0 15px',
             }}
           >
             <Box className="userName_and_position">
@@ -109,6 +108,7 @@ const StaffProfile = () => {
               </Box>
             </Box>
           </Box>
+
           <Box>
             <Button className="common_button">
               <PlaceIcon />
@@ -125,6 +125,7 @@ const StaffProfile = () => {
             )}
           </Box>
         </Box>
+
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={value}>
             <Box className="tab_row">
@@ -140,23 +141,22 @@ const StaffProfile = () => {
                 <Tab label="Profile" value="1" />
               </TabList>
             </Box>
-            <TabPanel value="1">
+            <TabPanel className="staff_profile" value="1">
               <StaffDetail adminProfileDetail={adminProfileDetail} />
-              {/* <StaffDetail /> */}
             </TabPanel>
-            <TabPanel value="2">
+            <TabPanel className="staff_profile" value="2">
               <StaffAttendance />
             </TabPanel>
-            <TabPanel value="3">
+            <TabPanel className="staff_profile" value="3">
               <PJPDetail />
             </TabPanel>
-            <TabPanel value="4">
+            <TabPanel className="staff_profile" value="4">
               <StaffTarget />
             </TabPanel>
-            <TabPanel value="5">
+            <TabPanel className="staff_profile" value="5">
               <StaffExpenses />
             </TabPanel>
-            <TabPanel value="6">
+            <TabPanel className="staff_profile" value="6">
               <StaffPoint />
             </TabPanel>
           </TabContext>

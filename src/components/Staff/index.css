@@ -120,3 +120,24 @@
   font-weight: 600;
   background-color: #f1f2f6;
 }
+
+.staff_profile {
+  padding: 0;
+}
+
+.button_and_filter {
+  /* margin: 14px; */
+  margin-top: 14px;
+  margin-right: 14px;
+}
+
+.pjp_table_btn {
+  background-color: white !important;
+  color: #2e3591 !important;
+  margin: 2px !important;
+  height: 35px !important;
+  border-radius: 3px;
+  font-weight: 400;
+  /* padding-top: 2px; */
+  border: 1px solid #e5e5e5;
+}
