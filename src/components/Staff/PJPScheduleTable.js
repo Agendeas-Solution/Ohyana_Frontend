@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import PJPDetailDialog from './PJPDetailDialog'
+import NoResultFound from '../ErrorComponent/NoResultFound'
 const PJPScheduleTable = ({ pjpList }) => {
   const [pjpDetailDialog, setPJPDetailDialog] = useState({
     status: false,
@@ -18,11 +19,12 @@ const PJPScheduleTable = ({ pjpList }) => {
   }
   return (
     <>
+     {pjpList.length>0?
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead className="pjp_all_table_header">
             <TableRow>
-              <TableCell align="left">Sr No.</TableCell>
+              <TableCell align="left">Sr Noss.</TableCell>
               <TableCell align="left">Date</TableCell>
               <TableCell align="left">Customer Name</TableCell>
               <TableCell align="left">Business Name</TableCell>
@@ -61,7 +63,9 @@ const PJPScheduleTable = ({ pjpList }) => {
             })}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer>:
+      <NoResultFound/>
+      }
       {pjpDetailDialog.status && (
         <PJPDetailDialog
           pjpDetailDialog={pjpDetailDialog}

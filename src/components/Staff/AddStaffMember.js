@@ -128,7 +128,7 @@ const AddStaffMember = () => {
   }
   return (
     <>
-      <Box className="add_staff_section mt-3 p-3">
+      <Box className="main_section mt-3 p-3">
         <Box className="input_field_row">
           <Box className="input_fields">
             <Typography className="input_field_label" variant="span">

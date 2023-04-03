@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Box, Tabs, Tab, Button, Typography } from '@mui/material'
-import EditRoundedIcon from '@mui/icons-material/EditRounded'
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'

@@ -16,10 +16,6 @@ import {
   GetAdminClientProfileDetail,
   GetCountryList,
 } from '../../services/apiservices/clientDetail'
-import Dialog from '@mui/material/Dialog'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const SuccessSnackbar = React.lazy(() =>

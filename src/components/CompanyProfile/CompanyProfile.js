@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react'
-import ProfileImg from '../../assets/img/profile_logo.png'
 import { Typography, Box } from '@mui/material'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import { useNavigate } from 'react-router-dom'

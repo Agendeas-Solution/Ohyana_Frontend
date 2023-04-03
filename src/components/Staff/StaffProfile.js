@@ -5,10 +5,8 @@ import Tab from '@mui/material/Tab'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
-import ProfileImg from '../../assets/img/profile_logo.png'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import { Context as AuthContext } from '../../context/authContext/authContext'
-import ChangeRole from '../../assets/img/changerole.svg'
 import PlaceIcon from '@mui/icons-material/Place'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import {
@@ -22,7 +20,6 @@ const StaffAttendance = React.lazy(() => import('./StaffAttendance'))
 const StaffPoint = React.lazy(() => import('./StaffPoint'))
 const StaffExpenses = React.lazy(() => import('./StaffExpenses'))
 const StaffDetail = React.lazy(() => import('./staffDetail'))
-const StaffRatingTable = React.lazy(() => import('./StaffRatingTable'))
 const ChangeRoleDialog = React.lazy(() => import('./ChangeRoleDialog'))
 
 const StaffProfile = () => {

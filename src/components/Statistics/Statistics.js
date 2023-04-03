@@ -1,15 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Typography, Autocomplete, TextField, Button } from '@mui/material'
 import './index.css'
-import { UserData } from './Data'
-import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
 import moment from 'moment'
 const BarChart = React.lazy(() => import('./BarChart'))
 const TeamGraph = React.lazy(() => import('./TeamGraph'))
