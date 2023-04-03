@@ -332,6 +332,17 @@ button {
   // font-size: 38px;
 }
 
+.filter_btn {
+  background-color: #F1F2F6 !important;
+  color: #2E3591 !important;
+  margin-left: 8px !important;
+  margin-right: 10px !important;
+  height: 35px !important;
+  border-radius: 3px;
+  font-weight: 600;
+  padding-top: 2px;
+}
+
 .check_InOut_Break_InOut_Btn {
   background-color: #F1F2F6 !important;
   color: #2E3591 !important;
@@ -356,6 +367,19 @@ button {
   margin: 20px auto;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.main_section_of_team_profile {
+  display: flex;
+  background-color: #fff;
+  padding: 10px;
+  height: 87%;
+  border-radius: 5px;
+  width: 97%;
+  flex-direction: column !important;
+  margin: 20px auto;
+  // overflow-y: auto;
+  // overflow-x: hidden;
 }
 
 .table_heading tr th {
@@ -429,6 +453,7 @@ button {
 }
 .client_profile_tab button {
   text-transform: capitalize;
+  
 }
 .tab_row {
   display: flex;
@@ -681,8 +706,15 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #e5e5e5;  
   padding: 12px;
+}
+.inner_attendance_data_row {
+  display: flex;
+  // flex-direction: row;
+  justify-content: space-between;
+  // border: 1px solid #e5e5e5;  
+  // padding: 12px;
 }
 .days_data {
   display: flex;
@@ -699,10 +731,13 @@ button {
 }
 .range_days_data {
   display: flex;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   background-color: #f1f2f6;
-  height: 45px;
-  margin: 2px;
+  height: 35px;
+  width: 11rem;
+  // margin: 2px;
+  margin-left: 140px;
+  margin-top: 2px;
   border-radius: 5px;
 }
 .target_section {
@@ -766,7 +801,10 @@ button {
   margin-left: 10px;
 }
 .expenses_table_height {
-  height: 48vh;
+  height: 49vh;
+}
+.pjp_table_height {
+  height: 53vh;
 }
 .graph_section {
   display: flex;
@@ -829,4 +867,24 @@ fieldset{
 }
 .staff_tablecell:hover {
   cursor: pointer;
+}
+.present_leave_data {
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0%; 
+  margin: 0%;
+}
+.attendance_date_filter {
+    display: flex;
+    // flex-wrap: wrap;
+    background-color: #f1f2f6;
+    height: 35px;
+    width: 11rem;
+    // margin: 2px;
+    margin-left: 70px;
+    margin-top: 2px;
+    border-radius: 5px;
+  
 }

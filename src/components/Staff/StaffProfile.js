@@ -73,7 +73,7 @@ const StaffProfile = () => {
 
   return (
     <>
-      <Box className="main_section">
+      <Box className="main_section_of_team_profile">
         <Box className="profile_img">
           <Box
             sx={{
@@ -127,6 +127,10 @@ const StaffProfile = () => {
           <TabContext value={value}>
             <Box className="tab_row">
               <TabList
+                sx={{
+                  borderBottom: '1px solid #F1F2F6',
+                  width: '100%',
+                }}
                 className="client_profile_tab mb-2"
                 onChange={handleChange}
               >

@@ -47,16 +47,16 @@ const StaffTarget = () => {
     <>
       <Box className="target_section">
         <Box className="attendance_data_row col-md-12">
-          <Box className="col-md-7 attendance_data_row">
-            <Box className="week_data days_data col-md-3">
+          <Box className="col-md-7 inner_attendance_data_row">
+            <Box className="week_data days_data col-md-3 me-3 p-2">
               <Typography variant="span">This Week</Typography>
               <Typography variant="span">15-07-2022</Typography>
             </Box>
-            <Box className="target_order_data days_data col-md-3">
+            <Box className="target_order_data days_data col-md-3 me-3 p-2">
               <Typography variant="span">Target order</Typography>
               <Typography variant="span">400</Typography>
             </Box>
-            <Box className="target_achieved_data days_data col-md-3">
+            <Box className="target_achieved_data days_data col-md-3 me-3 p-2">
               <Typography variant="span">Achieved</Typography>
               <Typography variant="span">24</Typography>
             </Box>
@@ -65,23 +65,25 @@ const StaffTarget = () => {
               <Typography variant="span">24</Typography>
             </Box>
           </Box>
-          <Box className="range_days_data col-md-3">
-            <Box>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  disablePast
-                  inputFormat="dd/MM/yyyy"
-                  value={dateRange.startDate}
-                  onChange={e => {
-                    setDateRange({ ...dateRange, startDate: e })
-                  }}
-                  renderInput={params => (
-                    <TextField sx={{ border: 'transparent' }} {...params} />
-                  )}
-                />
-              </LocalizationProvider>
-            </Box>
+
+          <Box className="range_days_data">
+            {/* <Box> */}
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                disablePast
+                inputFormat="dd/MM/yyyy"
+                value={dateRange.startDate}
+                onChange={e => {
+                  setDateRange({ ...dateRange, startDate: e })
+                }}
+                renderInput={params => (
+                  <TextField sx={{ border: 'transparent' }} {...params} />
+                )}
+              />
+            </LocalizationProvider>
+            {/* </Box> */}
           </Box>
+
           <Button
             onClick={() => setTargetDetail({ ...targetDetail, status: true })}
             className="common_button"
@@ -89,12 +91,23 @@ const StaffTarget = () => {
             Set Target
           </Button>
         </Box>
+
         <TableContainer
-          className="mt-2"
+          className="expenses_table_height mt-2"
           component={Paper}
-          sx={{ boxShadow: 'none' }}
+          sx={{
+            boxShadow: 'none',
+            border: '1px solid #e5e5e5',
+            borderTop: 'none',
+            overflowY: 'auto',
+          }}
         >
-          <Table sx={{ minWidth: 650 }} className="table_heading">
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            className="table_heading "
+          >
             <TableHead>
               <TableRow>
                 <TableCell>Date</TableCell>
@@ -106,11 +119,20 @@ const StaffTarget = () => {
                 <TableCell align="left">Target</TableCell>
               </TableRow>
             </TableHead>
+
             <TableBody>
               {targetList.map(targetData => {
                 return (
-                  <TableRow>
-                    <TableCell>
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    // key={attendanceList.id}
+                    sx={{
+                      '&:last-child td,th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="tablecell_height">
                       {moment(targetData?.startDate).format('D-M') +
                         ' to ' +
                         moment(targetData?.endDate).format('D-M-YY')}{' '}

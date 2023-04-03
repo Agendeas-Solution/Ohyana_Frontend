@@ -58,8 +58,7 @@ const PJPDetail = () => {
       },
       err => {
         console.log('Printing ', err)
-        setPjpList([]);
-
+        setPjpList([])
       },
     )
   }, [value])
@@ -83,7 +82,7 @@ const PJPDetail = () => {
               onChange={handleChange}
             >
               <Tab label="Today" value="TODAY" />
-              <Tab label="Tomorrow" value="TOMORROW" />
+              {/* <Tab label="Tomorrow" value="TOMORROW" /> */}
               <Tab label="All" value="ALL" />
             </TabList>
 
@@ -92,21 +91,26 @@ const PJPDetail = () => {
                 onClick={() =>
                   setAddPJPdetail({ ...addPJPDetail, dialogStatus: true })
                 }
-                className="common_button p-3"
+                className="common_button p-2"
               >
                 + Create
               </Button>
-              <img style={{ marginLeft: '12px' }} src={Filter} alt="Filter" />
+              <img
+                className="filter_btn"
+                style={{ marginLeft: '12px' }}
+                src={Filter}
+                alt="Filter"
+              />
             </Box>
           </Box>
 
           <TabPanel value="TODAY">
             <PJPScheduleTable pjpList={pjpList} />
           </TabPanel>
-          <TabPanel value="TOMORROW">
+          {/* <TabPanel value="TOMORROW">
             <PJPScheduleTable pjpList={pjpList} />
-          </TabPanel>
-          <TabPanel value="ALL">
+          </TabPanel> */}
+          <TabPanel className="staff_profile" value="ALL">
             <PJPScheduleTable pjpList={pjpList} />
           </TabPanel>
         </TabContext>

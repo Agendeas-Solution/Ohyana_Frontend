@@ -32,7 +32,6 @@ const Statistics = () => {
               sx={{
                 background: '#F1F2F6',
                 borderRadius: '5px',
-
                 // marginRight: '100px',
               }}
             >

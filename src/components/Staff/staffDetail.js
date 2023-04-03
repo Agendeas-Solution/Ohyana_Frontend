@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Box, Typography, Rating } from '@mui/material'
 
 const StaffDetail = props => {
-  console.log({ props })
+  console.log({ MYprops: props })
   return (
     <>
       <Box className="companyDetail">

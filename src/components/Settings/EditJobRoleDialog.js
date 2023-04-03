@@ -33,6 +33,7 @@ const EditJobRoleDialog = props => {
 
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
+
   const handleEditJobRole = () => {
     if (jobRoleDetail.description !== '' && jobRoleDetail.name !== '') {
       EditJobRole(

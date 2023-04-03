@@ -94,6 +94,7 @@ const StaffExpenses = () => {
             <Typography>5000</Typography>
           </Box>
         </Box>
+
         <Box className="days_data">
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
@@ -108,6 +109,7 @@ const StaffExpenses = () => {
           </LocalizationProvider>
         </Box>
       </Box>
+
       <TableContainer
         className="expenses_table_height mt-2"
         component={Paper}
@@ -136,6 +138,7 @@ const StaffExpenses = () => {
               <TableCell align="left">Payment</TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
             {expenseList &&
               expenseList.map(row => {

@@ -14,6 +14,7 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import BarChart from './BarChart'
 import { GetTeamReport } from '../../services/apiservices/productDetail'
+
 const TeamGraph = ({ selectedPeriod }) => {
   const top100Films = [{ label: 'The Shawshank Redemption', year: 1994 }]
   const [graphData, setGraphData] = useState()
