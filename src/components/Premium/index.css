@@ -58,7 +58,7 @@
 
 .premium_plan {
   margin: 5px;
-  width: 47%;
+  width: 99%;
 }
 
 .check_circle_icon {
@@ -80,7 +80,7 @@
 .plan_pricing_name {
   display: flex;
   justify-content: space-between;
-  font-weight: 600;
+  /* font-weight: 600; */
 }
 .main_heading {
   padding-bottom: 13px;

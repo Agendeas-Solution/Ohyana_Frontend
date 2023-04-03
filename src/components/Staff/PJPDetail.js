@@ -72,31 +72,34 @@ const PJPDetail = () => {
       err => {},
     )
   }
+
   return (
     <>
       <Box className="pjp_detail_main_box">
         <TabContext value={value}>
           <Box className="tab_row">
             <TabList
-              className="client_profile_tab mb-2"
+              className="client_profile_tab mx-2 mt-2"
               onChange={handleChange}
             >
               <Tab label="Today" value="TODAY" />
               <Tab label="Tomorrow" value="TOMORROW" />
               <Tab label="All" value="ALL" />
             </TabList>
-            <Box>
+
+            <Box className="button_and_filter">
               <Button
                 onClick={() =>
                   setAddPJPdetail({ ...addPJPDetail, dialogStatus: true })
                 }
-                className="common_button"
+                className="common_button p-3"
               >
                 + Create
               </Button>
-              <img src={Filter} alt="Filter" />
+              <img style={{ marginLeft: '12px' }} src={Filter} alt="Filter" />
             </Box>
           </Box>
+
           <TabPanel value="TODAY">
             <PJPScheduleTable pjpList={pjpList} />
           </TabPanel>

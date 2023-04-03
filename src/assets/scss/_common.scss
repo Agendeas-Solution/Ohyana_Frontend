@@ -582,7 +582,7 @@ button {
 }
 .access_control_box {
   margin: 5px;
-  width: 47%;
+  width: 48%;
 }
 .profile_img {
   display: flex;
@@ -658,7 +658,7 @@ button {
 .access_control_box {
   border: 1px solid #e5e5e5;
   border-radius: 5px;
-  height: max-content;
+  // height: auto;
   display: flex;
   flex-direction: column;
 }
@@ -823,4 +823,10 @@ button {
 }
 .tablecell_height {
   line-height: 3 !important;
+}
+fieldset{
+  border-color: transparent !important;
+}
+.staff_tablecell:hover {
+  cursor: pointer;
 }

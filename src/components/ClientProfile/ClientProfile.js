@@ -215,9 +215,9 @@ const ClientProfile = () => {
               <Box className="userName_and_position">
                 <AccountCircleRoundedIcon
                   className="user_profile_icon"
-                // sx={{
-                //   paddingTop: 2,
-                // }}
+                  // sx={{
+                  //   paddingTop: 2,
+                  // }}
                 />
                 <Box
                   sx={{
@@ -265,7 +265,7 @@ const ClientProfile = () => {
                     onClick={() => {
                       navigate(`/editclient/${clientProfileDetail.id}`)
                     }}
-                  // className="icon"
+                    // className="icon"
                   />
                 )}
               </Button>
@@ -282,8 +282,8 @@ const ClientProfile = () => {
                   <Tab label="Status" value="1" />
                   <Tab label="Reminder" value="2" />
                   <Tab label="Appointment" value="3" />
-                  <Tab label="Profile" value="4" />
                   <Tab label="Orders" value="5" />
+                  <Tab label="Profile" value="4" />
                 </TabList>
 
                 <Box>
@@ -426,7 +426,9 @@ const ClientProfile = () => {
                         ))}
                       </TableBody>
                     </Table>
-                  ) : <NoResultFound />}
+                  ) : (
+                    <NoResultFound />
+                  )}
                 </TableContainer>
               </TabPanel>
               <TabPanel value="2">
