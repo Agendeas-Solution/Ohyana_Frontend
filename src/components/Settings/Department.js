@@ -28,16 +28,7 @@ import StaffIcon from '../../assets/img/staff.svg'
 import StatisticsIcon from '../../assets/img/statistics.svg'
 import ClientIcon from '../../assets/img/Clients.svg'
 import SettingIcon from '../../assets/img/setting.svg'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { Context as AuthContext } from '../../context/authContext/authContext'
-import { CheckBox } from '@mui/icons-material'
-import {
-  DatePicker,
-  LocalizationProvider,
-  StaticTimePicker,
-} from '@mui/x-date-pickers'
-import { borderRadius } from '@mui/system'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 const DeleteJobRoleDialog = React.lazy(() => import('./DeleteJobRoleDialog'))
 const DeleteDepartmentDialog = React.lazy(() =>
   import('./DeleteDepartmentDialog'),
@@ -113,6 +104,14 @@ const Department = () => {
       deleteProduct: false,
     },
   })
+  const [expenseManagement, setExpenseManagement] = useState({
+    travelChecked: false,
+    travelAmount: 0,
+    foodChecked: false,
+    foodAmount: 0,
+    hotelChecked: false,
+    hotelAmount: 0,
+  })
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state
 
@@ -151,7 +150,7 @@ const Department = () => {
           },
         })
       },
-      err => {},
+      err => { },
     )
   }, [])
   const handleUserPermissions = () => {
@@ -322,13 +321,9 @@ const Department = () => {
               </InputLabel>
 
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                // value={age}
                 label="Office Time Management"
                 onChange={() => console.log('Clicking on Drop down options')}
               >
-                {/* <Box> */}
                 <Box sx={{ padding: 1 }}>
                   <MenuItem sx={{ paddingTop: '19px', display: 'inline' }}>
                     Clock In
@@ -369,12 +364,11 @@ const Department = () => {
                     Save
                   </Button>
                 </Box>
-                {/* </Box> */}
               </Select>
             </FormControl>
             <FormControl sx={{ width: '31rem' }} className="mb-3 ">
               <InputLabel id="demo-simple-select-label">
-                Expanse Management
+                Expense Management
               </InputLabel>
               <Select id="demo-multiple-checkbox-label">
                 <FormGroup className="p-2">
@@ -383,8 +377,14 @@ const Department = () => {
                       sx={{ display: 'inline' }}
                       control={
                         <Checkbox
+                          checked={expenseManagement?.travelChecked}
                           className="check_box_color"
-                          onChange={() => console.log('checkbox selected...')}
+                          onChange={e => {
+                            setExpenseManagement({
+                              ...expenseManagement,
+                              travelChecked: e.target.checked
+                            })
+                          }}
                         />
                       }
                       label="Travel"
@@ -392,8 +392,11 @@ const Department = () => {
                     <TextField
                       sx={{ display: 'inline', marginLeft: '17rem' }}
                       placeholder="Max Amount"
+                      type='number'
+                      value={expenseManagement?.travelAmount}
+                      onChange={(e) => setExpenseManagement({ ...expenseManagement, travelAmount: e.target.value })}
                     />
-                    <Button className="p-2 m-1" variant="contained">
+                    <Button disabled={!expenseManagement?.travelChecked} className="p-2 m-1" variant={expenseManagement?.travelChecked ? "contained" : "outlined"}>
                       Save
                     </Button>
                   </Box>
@@ -410,8 +413,11 @@ const Department = () => {
                     <TextField
                       sx={{ display: 'inline', marginLeft: '17rem' }}
                       placeholder="Max Amount"
+                      type='number'
+                      value={expenseManagement?.foodAmount}
+                      onChange={(e) => setExpenseManagement({ ...expenseManagement, foodAmount: e.target.value })}
                     />
-                    <Button className="p-2 m-1" variant="contained">
+                    <Button disabled={!expenseManagement?.foodChecked} className="p-2 m-1" variant={expenseManagement?.foodChecked ? "contained" : "outlined"}>
                       Save
                     </Button>
                   </Box>
@@ -428,8 +434,11 @@ const Department = () => {
                     <TextField
                       sx={{ display: 'inline', marginLeft: '17rem' }}
                       placeholder="Max Amount"
+                      type="number"
+                      value={expenseManagement?.hotelAmount}
+                      onChange={(e) => setExpenseManagement({ ...expenseManagement, hotelAmount: e.target.value })}
                     />
-                    <Button className="p-2 m-1" variant="contained">
+                    <Button disabled={!expenseManagement?.hotelChecked} className="p-2 m-1" variant={expenseManagement?.hotelChecked ? "contained" : "outlined"}>
                       Save
                     </Button>
                   </Box>

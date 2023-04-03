@@ -118,7 +118,6 @@ const JobRolesList = () => {
       },
       err => {
         console.log(err)
-        //
       },
     )
   }, [
@@ -137,9 +136,7 @@ const JobRolesList = () => {
           {permissions?.editDepartment && (
             <Button
               onClick={() => {
-                // setJobRoleDialogControl(true)
                 setAddEditDepartmentDialogControlDummy({
-                  // ...addEditDepartmentDialogControl,
                   ...addEditDepartmentDialogControlDummy,
                   status: true,
                 })

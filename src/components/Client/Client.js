@@ -3,7 +3,6 @@ import {
   Tabs,
   Tab,
   Box,
-  FormControlLabel,
   Autocomplete,
   TextField,
   Pagination,
@@ -11,7 +10,6 @@ import {
   Dialog,
   DialogActions,
   Typography,
-  Checkbox,
   FormControl,
   OutlinedInput,
   InputAdornment,
@@ -28,7 +26,6 @@ import {
 } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as AuthContext } from '../../context/authContext/authContext'
-import moment from 'moment'
 import Drawer from '@mui/material/Drawer'
 import Toolbar from '@mui/material/Toolbar'
 import Divider from '@mui/material/Divider'
@@ -37,7 +34,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import FilterIcon from '../../assets/img/Filter.svg'
 import { styled, useTheme } from '@mui/material/styles'
-import NoResultWithText from '../../assets/img/no_result_with_text.svg'
 const drawerWidth = 400
 
 const Loader = React.lazy(() => import('../Loader/Loader'))

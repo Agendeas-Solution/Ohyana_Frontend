@@ -22,14 +22,12 @@ import { useNavigate } from 'react-router-dom'
 import { GetTaskList, CreateTaskCall } from '../../services/apiservices/task'
 import moment from 'moment'
 import useMediaQuery from '@mui/material/useMediaQuery'
-// import { useTheme } from '@mui/material/styles'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import './index.css'
 import {
   GetAllMemberList,
   AssignMemberParticularTask,
 } from '../../services/apiservices/task'
-// import styled from '@emotion/styled'
 import { styled, useTheme } from '@mui/material/styles'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'

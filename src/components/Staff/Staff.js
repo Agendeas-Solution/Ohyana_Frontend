@@ -31,14 +31,7 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import FilterIcon from '../../assets/img/Filter.svg'
-import Tab from '@mui/material/Tab'
-import TabContext from '@mui/lab/TabContext'
-import TabList from '@mui/lab/TabList'
-import TabPanel from '@mui/lab/TabPanel'
-import AddRoundedIcon from '@mui/icons-material/AddRounded'
 import { useNavigate } from 'react-router-dom'
-import CallIcon from '../../assets/img/call.svg'
-import MailIcon from '../../assets/img/mail.svg'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import {
   GetAdminStaffDetailList,
@@ -49,10 +42,6 @@ import {
   GetAdminDepartmentList,
   GetAdminRole,
 } from '../../services/apiservices/adminprofile'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import dayjs from 'dayjs'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import moment from 'moment'
@@ -216,17 +205,7 @@ const Staff = () => {
               />
             </FormControl>
             <Button
-              // onClick={() => {
-              //   setAddHolidayDetail({ ...addHolidayDetail, regular: true });
-              //   setAddHolidayDialog({ ...addHolidayDialog, status: true });
-              // }}
-              // color="secondary"
-              sx={{
-                float: 'right',
-                // font: '#2E3591',
-                // marginRight: '2px',
-                // backgroundColor: '#FFFFFF',
-              }}
+              onClick={() => navigate('/addstaffmember')}
               className="add_team_buttn search_field"
               variant="span"
             >
@@ -424,6 +403,8 @@ const Staff = () => {
                       className="staff_tablecell"
                       key={row.id}
                       onClick={() => teamLeaderDetails(row?.id)}
+                      // style={{ borderRadius: 5 }}
+
                       sx={{
                         backgroundColor: '#FFFFFF',
                       }}
@@ -480,19 +461,12 @@ const Staff = () => {
                 paddingTop: 2,
               }}
             />
-            {/* <img
-        src={BenedictPhoto}
-        className="userprofile_dummy_icon"
-        sx={{
-          padding: 5,
-        }}
-      /> */}
+
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                // marginLeft: 2,
               }}
             >
               <Typography

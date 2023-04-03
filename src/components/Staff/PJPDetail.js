@@ -58,6 +58,8 @@ const PJPDetail = () => {
       },
       err => {
         console.log('Printing ', err)
+        setPjpList([]);
+
       },
     )
   }, [value])
