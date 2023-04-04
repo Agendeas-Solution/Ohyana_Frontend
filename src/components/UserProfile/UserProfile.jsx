@@ -190,7 +190,7 @@ const UserProfile = () => {
 
           <TabContext value={value}>
             <Box
-              className="notification_tabs_root"
+              className="my_profile_tabs_root"
               sx={{ borderBottom: '1px solid #F1F2F6' }}
             >
               <Tabs

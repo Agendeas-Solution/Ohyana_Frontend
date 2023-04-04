@@ -12,54 +12,55 @@ import { Box } from '@mui/material'
 import Cookie from 'js-cookie'
 import { clearLoginToken } from './services/storage'
 // const SideBar = React.lazy(() => import('./components/SideBar/SideBar'))
-import SideBar from './components/SideBar/SideBar';
-import Header from './components/Header/Header';
+import SideBar from './components/SideBar/SideBar'
+import Header from './components/Header/Header'
 import { io } from 'socket.io-client'
 import { Context as ContextSnackbar } from './context/pageContext'
 const socket = io('http://192.168.1.65:9009')
 const Login = React.lazy(() => import('./components/Login/Login'))
-const DefaultLayout = React.lazy(() => import('./components/layout/DefaultLayout'))
-const ForgetPassword = React.lazy(() => import('./components/ForgetPassword/ForgetPassword'))
-const ForgotPasswordEmail = React.lazy(() => import('./components/ForgotPasswordEmail/ForgotPasswordEmail'))
+const DefaultLayout = React.lazy(() =>
+  import('./components/layout/DefaultLayout'),
+)
+const ForgetPassword = React.lazy(() =>
+  import('./components/ForgetPassword/ForgetPassword'),
+)
+const ForgotPasswordEmail = React.lazy(() =>
+  import('./components/ForgotPasswordEmail/ForgotPasswordEmail'),
+)
 
 const SignUp = React.lazy(() => import('./components/SignUp/SignUp'))
 const Register = React.lazy(() => import('./components/Register/Register'))
+
 const App = () => {
   const { successSnackbar, errorSnackbar, notificationSnackbar } =
-  useContext(ContextSnackbar)?.state
-const { setSuccessSnackbar, setErrorSnackbar, setNotificationSnackbar } =
-  useContext(ContextSnackbar)
-const { setPermissions } = useContext(AuthContext)
-const { authorize, flagLoader, permissions } = useContext(AuthContext).state
-const [pathName, setPathName] = useState('')
-// const socket = io("http://159.89.165.83");
-const ProtectedRoutes = () => {
-  return Cookie.get('userToken') ? <Outlet /> : <Navigate to="/login" />
-}
+    useContext(ContextSnackbar)?.state
+  const { setPermissions } = useContext(AuthContext)
+  const [pathName, setPathName] = useState('')
+  const ProtectedRoutes = () => {
+    return Cookie.get('userToken') ? <Outlet /> : <Navigate to="/login" />
+  }
 
-useEffect(() => {
-  var retrievedObject = JSON.parse(localStorage.getItem('permissions'))
-  setPermissions(retrievedObject)
-  socket.on('reJoin', () => {
-    socket.emit('join', { email: localStorage.getItem('userEmail') })
-  })
-  socket.on('connect', () => {
-    console.log('Successfully connected to server')
-    socket.emit('join', { email: localStorage.getItem('userEmail') })
-  })
-  socket.on('permissionChanged', () => {
-    clearLoginToken()
-  })
-}, [])
+  useEffect(() => {
+    var retrievedObject = JSON.parse(localStorage.getItem('permissions'))
+    setPermissions(retrievedObject)
+    socket.on('reJoin', () => {
+      socket.emit('join', { email: localStorage.getItem('userEmail') })
+    })
+    socket.on('connect', () => {
+      console.log('Successfully connected to server')
+      socket.emit('join', { email: localStorage.getItem('userEmail') })
+    })
+    socket.on('permissionChanged', () => {
+      clearLoginToken()
+    })
+  }, [])
 
   return (
     <>
       <BrowserRouter>
         <Suspense>
           <div className="d-flex">
-            <div
-              className={'w-100'}
-            >
+            <div className={'w-100'}>
               <Routes>
                 <Route
                   exact

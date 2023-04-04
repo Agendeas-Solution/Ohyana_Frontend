@@ -561,14 +561,14 @@ button {
 .login_form_root {
   background: #FFFFFF;
   width: 35%;
-  height: 65%;
+  height: 55%;
   display: flex;
   justify-content:center;
   flex-direction: column;
   align-items: center;
   border-radius: 10px;
   padding: 20px;
-  margin-top: 35px;
+  margin-top: 25px;
 }
 .login_heading_root {
   font-size: 24px;
@@ -885,4 +885,7 @@ button {
     margin-top: 2px;
     border-radius: 5px;
   
+}
+.global_border {
+  border: 1px solid #E5E5E5;
 }

@@ -1,58 +1,57 @@
-import React, { useState, useContext,lazy } from "react";
-import { Box, Typography, TextField, Button } from "@mui/material";
-import "./index.css";
-import { login } from "../../services/apiservices/login";
-import { Context as AuthContext } from "../../context/authContext/authContext";
-import { useNavigate } from "react-router-dom";
-import { Context as ContextSnackbar } from "../../context/pageContext";
-import Logo from "../../assets/img/Ohyana Logo Blue.svg";
-import { socket } from "../../App";
-const ErrorSnackbar = React.lazy(() => import("../ErrorSnackbar/ErrorSnackbar"));
+import React, { useState, useContext, lazy } from 'react'
+import { Box, Typography, TextField, Button } from '@mui/material'
+import './index.css'
+import { login } from '../../services/apiservices/login'
+import { Context as AuthContext } from '../../context/authContext/authContext'
+import { useNavigate } from 'react-router-dom'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+import Logo from '../../assets/img/Ohyana Logo Blue.svg'
+import { socket } from '../../App'
+const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const Login = () => {
-  const { setAuthorize, setFlagLoader } = useContext(AuthContext);
+  const { setAuthorize, setFlagLoader } = useContext(AuthContext)
   const [userDetail, setUserDetail] = useState({
-    email: "",
-    password: "",
-  });
-  const { errorSnackbar } = useContext(ContextSnackbar)?.state;
-  const { setErrorSnackbar } = useContext(ContextSnackbar);
-  const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
+    email: '',
+    password: '',
+  })
+  const { errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setErrorSnackbar } = useContext(ContextSnackbar)
+  const navigate = useNavigate()
+  const [errorMessage, setErrorMessage] = useState('')
   const userlogin = () => {
-    if (userDetail.email !== "" && userDetail.password !== "") {
-      setFlagLoader(true);
+    if (userDetail.email !== '' && userDetail.password !== '') {
+      setFlagLoader(true)
       login(
         { email: userDetail.email, password: userDetail.password },
-        (res) => {
-          ;
+        res => {
           if (res.success) {
-            setAuthorize(true);
-            setFlagLoader(false);
-            navigate("/profile");
-            socket.emit("join", { email: userDetail?.email });
+            setAuthorize(true)
+            setFlagLoader(false)
+            navigate('/profile')
+            socket.emit('join', { email: userDetail?.email })
           } else {
             if (res?.data?.error) {
-              setErrorMessage(res?.data?.error?.message);
+              setErrorMessage(res?.data?.error?.message)
             }
           }
         },
-        (resError) => {
+        resError => {
           setErrorSnackbar({
             ...errorSnackbar,
             status: true,
             message: resError.response.data.error,
-          });
-          setFlagLoader(false);
-        }
-      );
+          })
+          setFlagLoader(false)
+        },
+      )
     } else {
       setErrorSnackbar({
         ...errorSnackbar,
         status: true,
-        message: "Username and password are required",
-      });
+        message: 'Username and password are required',
+      })
     }
-  };
+  }
   return (
     <>
       <Box className="login_page_root">
@@ -64,41 +63,41 @@ const Login = () => {
             Welcome To Ohyana.
           </Typography>
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              userlogin();
+            onSubmit={e => {
+              e.preventDefault()
+              userlogin()
             }}
             className="w-100"
           >
             <Box className="login_email_root">
-              <Typography>Email</Typography>
+              <Typography className="mb-1">Emailll</Typography>
               <TextField
                 type="email"
                 value={userDetail.email}
                 variant="outlined"
                 placeholder="Email"
-                className="form-control"
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, email: e.target.value });
+                className="mb-3 form-control"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, email: e.target.value })
                 }}
               />
             </Box>
             <Box className="login_password_root">
-              <Typography>Password</Typography>
+              <Typography className="mb-2">Password</Typography>
               <TextField
                 variant="outlined"
                 type="password"
                 value={userDetail.password}
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, password: e.target.value });
+                onChange={e => {
+                  setUserDetail({ ...userDetail, password: e.target.value })
                 }}
                 placeholder="Password"
               />
             </Box>
             <Typography className="login_forget_password_root" variant="span">
-              <Button onClick={() => navigate("/forgotpassword")}>
-                {" "}
-                Forgotten password ?{" "}
+              <Button onClick={() => navigate('/forgotpassword')}>
+                {' '}
+                Forgotten password ?{' '}
               </Button>
             </Typography>
             <Box className="login_submit_button_root overflow-hidden">
@@ -114,7 +113,7 @@ const Login = () => {
       </Box>
       <ErrorSnackbar />
     </>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

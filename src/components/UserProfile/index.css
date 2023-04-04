@@ -47,3 +47,9 @@
 .leave_table_body_data {
   overflow-y: auto;
 }
+
+.my_profile_tabs_root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

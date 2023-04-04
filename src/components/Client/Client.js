@@ -186,11 +186,11 @@ const Client = () => {
       data,
       res => {
         if (res?.success) {
-          setTotalresult(res?.data?.total)
+          setTotalresult(res?.data?.totalPage)
           setClientDetails(res?.data.client)
           let pages =
-            res?.data?.total > 0
-              ? Math.ceil(res?.data?.total / rowsPerPage)
+            res?.data?.totalPage > 0
+              ? Math.ceil(res?.data?.totalPage / rowsPerPage)
               : null
           setNumbersToDisplayOnPagination(pages)
           setClientLoader(false)

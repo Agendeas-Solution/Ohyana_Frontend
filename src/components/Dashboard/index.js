@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import DonutChart from 'react-donut-chart'
-import { Box, Typography, Button } from '@mui/material'
+import { Box, Typography, Button, Divider } from '@mui/material'
 import './index.css'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import TrendingDownRoundedIcon from '@mui/icons-material/TrendingDownRounded'
@@ -41,7 +41,7 @@ const Dashboard = () => {
       <Box className="main_section">
         <Box className="attendance_buttons">
           <Box>
-            <Typography sx={{ fontSize: '18px' }} variant="span">
+            <Typography className="dashboard_heading" variant="span">
               Today’s Present
             </Typography>
           </Box>
@@ -72,14 +72,23 @@ const Dashboard = () => {
             </Button>
           </Box>
         </Box>
+
         <Box className="inquiry_sales_statistics">
           <Box className="inquiry_overview">
             <Box className="dashboard_inner_heading">
-              <Typography variant="span">Inquiries Overview</Typography>
+              <Typography className="dashboard_sub_heading" variant="span">
+                Inquiries Overview
+              </Typography>
             </Box>
+
             <Box className="common_row">
               <Box className="platform_data_detail row">
-                <Box className="inquiry_detail_box">
+                <Box
+                  sx={{
+                    marginLeft: '10px',
+                  }}
+                  className="inquiry_detail_box test_using_after"
+                >
                   <Box className="inquiry_from_name">
                     <Box
                       sx={{
@@ -99,16 +108,23 @@ const Dashboard = () => {
                       {inquiryData?.inquiry?.percentageIndiaMart}%
                     </Typography>
                   </Box>
-                  <Typography className="small_sub_heading" variant="span">
+                  <Typography
+                    className="small_sub_heading test_using_dummy"
+                    variant="span"
+                  >
                     Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
                   </Typography>
+                  <Divider className="underline" />
                 </Box>
 
-                <Box className="inquiry_detail_box">
+                <Box
+                  sx={{ borderBottom: '1px solid #E5E5E5', marginLeft: '10px' }}
+                  className="inquiry_detail_box"
+                >
                   <Box className="inquiry_from_name">
                     <Box
                       sx={{
-                        backgroundColor: '#FFAB00',
+                        backgroundColor: '#FD4545',
                         height: '10px',
                         width: '10px',
                         marginRight: '10px',
@@ -125,15 +141,17 @@ const Dashboard = () => {
                   <Typography className="small_sub_heading" variant="span">
                     Last Month :{inquiryData?.inquiry?.lstMonWeb}{' '}
                   </Typography>
+                  <Divider className="underline" />
                 </Box>
 
                 <Box className="inquiry_detail_box">
                   <Box className="inquiry_from_name">
                     <Box
                       sx={{
-                        backgroundColor: '#FFAB00',
+                        backgroundColor: '#B09FFF',
                         height: '10px',
                         width: '10px',
+                        marginLeft: '10px',
                         marginRight: '10px',
                       }}
                     ></Box>
@@ -156,7 +174,7 @@ const Dashboard = () => {
                   <Box className="inquiry_from_name">
                     <Box
                       sx={{
-                        backgroundColor: '#FFAB00',
+                        backgroundColor: '#F985CA',
                         height: '10px',
                         width: '10px',
                         marginRight: '10px',
@@ -211,13 +229,16 @@ const Dashboard = () => {
           </Box>
 
           <Box className="sales_statistics">
-            <Typography className="sales_statistics_heading" variant="span">
+            <Typography
+              className="dashboard_sub_heading sales_statistics_heading"
+              variant="span"
+            >
               Sales Statistics
             </Typography>
             <Box className="sales_statistics_data">
               <Typography variant="span">Total</Typography>
               <Box className="sales_parameter sales_parameter_bottom_border">
-                <Typography variant="span">
+                <Typography className="dashboard_sub_heading" variant="span">
                   {inquiryData?.sales?.crtLead}
                 </Typography>
                 <Typography variant="span">
@@ -228,7 +249,9 @@ const Dashboard = () => {
             <Box className="sales_statistics_data">
               <Typography>Getting lead </Typography>
               <Box className="sales_parameter sales_parameter_bottom_border">
-                <Typography>{inquiryData?.sales?.crtLead}</Typography>
+                <Typography className="dashboard_sub_heading" variant="span">
+                  {inquiryData?.sales?.crtLead}
+                </Typography>
                 <Typography>
                   <TrendingDownRoundedIcon className="common_icon" /> 5%
                 </Typography>
@@ -237,7 +260,9 @@ const Dashboard = () => {
             <Box className="sales_statistics_data">
               <Typography>Get Order </Typography>
               <Box className="sales_parameter sales_parameter_bottom_border">
-                <Typography>{inquiryData?.sales?.crtOrders}</Typography>
+                <Typography className="dashboard_sub_heading" variant="span">
+                  {inquiryData?.sales?.crtOrders}
+                </Typography>
                 <Typography>
                   <TrendingDownRoundedIcon className="common_icon" /> 5%
                 </Typography>
@@ -246,7 +271,9 @@ const Dashboard = () => {
             <Box className="sales_statistics_data">
               <Typography>Pending</Typography>
               <Box className="sales_parameter sales_parameter_bottom_border">
-                <Typography>{inquiryData?.sales?.crtPending}</Typography>
+                <Typography className="dashboard_sub_heading" variant="span">
+                  {inquiryData?.sales?.crtPending}
+                </Typography>
                 <Typography>
                   <TrendingDownRoundedIcon className="common_icon" /> 5%
                 </Typography>
@@ -255,7 +282,9 @@ const Dashboard = () => {
             <Box className="sales_statistics_data">
               <Typography>Irrelevant</Typography>
               <Box className="sales_parameter">
-                <Typography>{inquiryData?.sales?.crtIrrelevant}</Typography>
+                <Typography className="dashboard_sub_heading" variant="span">
+                  {inquiryData?.sales?.crtIrrelevant}
+                </Typography>
                 <Typography>
                   <TrendingDownRoundedIcon className="common_icon" /> 5%
                 </Typography>
@@ -264,7 +293,9 @@ const Dashboard = () => {
             <Box className="sales_statistics_data">
               <Typography>No Response</Typography>
               <Box className="sales_parameter">
-                <Typography>{inquiryData?.sales?.crtNoResponse}</Typography>
+                <Typography className="dashboard_sub_heading" variant="span">
+                  {inquiryData?.sales?.crtNoResponse}
+                </Typography>
                 <Typography>
                   <TrendingDownRoundedIcon className="common_icon" /> 5%
                 </Typography>
@@ -275,7 +306,7 @@ const Dashboard = () => {
 
         <Box className="team_overview">
           <Box className="team_overview_heading">
-            <Typography sx={{ padding: '8px' }} variant="span">
+            <Typography className="team_overview_inner_heading" variant="span">
               Team Overview
             </Typography>
             <Button className="view_all_button"> View All > </Button>
@@ -296,16 +327,23 @@ const Dashboard = () => {
               </TableHead>
               <TableBody>
                 {inquiryData?.teamWithPoints.map(data => {
+                  console.log({ DATA: data })
                   return (
                     <TableRow
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell align="right">{data?.name}</TableCell>
-                      <TableCell align="right"> {data?.role}</TableCell>
-                      <TableCell align="right">{data.attendances}</TableCell>
-                      <TableCell align="right">{data.points}</TableCell>
-                      <TableCell align="right"></TableCell>
-                      <TableCell align="right"> {data?.location}</TableCell>
+                      <TableCell align="right">{data?.name || '-'}</TableCell>
+                      <TableCell align="right">{data?.role || '-'}</TableCell>
+                      <TableCell align="right">
+                        {data.attendances || '-'}
+                      </TableCell>
+                      <TableCell align="right">{data.points || '-'}</TableCell>
+                      <TableCell align="right">
+                        {data.performance || '-'}
+                      </TableCell>
+                      <TableCell align="right">
+                        {data?.location || '-'}
+                      </TableCell>
                       <TableCell align="right">
                         <Button className="common_button">View</Button>
                       </TableCell>
@@ -319,7 +357,7 @@ const Dashboard = () => {
 
         <Box className="team_overview">
           <Box className="team_overview_heading">
-            <Typography sx={{ padding: '8px' }} variant="span">
+            <Typography className="team_overview_inner_heading" variant="span">
               Order Overview
             </Typography>
             <Button className="view_all_button"> View More > </Button>
@@ -343,13 +381,13 @@ const Dashboard = () => {
                   <TableRow
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell align="right">{row.name}</TableCell>
-                    <TableCell align="right">{row.name}</TableCell>
-                    <TableCell align="right">{row.name}</TableCell>
-                    <TableCell align="right">{row.name}</TableCell>
-                    <TableCell align="right">{row.name}</TableCell>
-                    <TableCell align="right">{row.name}</TableCell>
+                    <TableCell>{row.name || '-'}</TableCell>
+                    <TableCell align="right">{row.name || '-'}</TableCell>
+                    <TableCell align="right">{row.name || '-'}</TableCell>
+                    <TableCell align="right">{row.name || '-'}</TableCell>
+                    <TableCell align="right">{row.name || '-'}</TableCell>
+                    <TableCell align="right">{row.name || '-'}</TableCell>
+                    <TableCell align="right">{row.name || '-'}</TableCell>
                     <TableCell align="right">
                       <Button className="common_button">View</Button>
                     </TableCell>
