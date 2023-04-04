@@ -13,17 +13,9 @@ import { EditTaskName } from '../../services/apiservices/task'
 const EditTitleDialog = ({
   editTaskNameDialog,
   setEditTaskNameDialog,
-  handleDialogClose,
+  handleDialogClose,handleEditTaskName
 }) => {
-  const handleEditTaskName = () => {
-    EditTaskName(
-      { title: editTaskNameDialog?.taskName, id: editTaskNameDialog?.id },
-      res => {
-        handleDialogClose()
-      },
-      err => {},
-    )
-  }
+ 
   return (
     <>
       <Dialog open={editTaskNameDialog.status} onClose={handleDialogClose}>

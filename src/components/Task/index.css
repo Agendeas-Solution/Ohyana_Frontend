@@ -5,17 +5,20 @@
   border: 1px solid #e5e5e5;
   justify-content: space-between;
   border-radius: 5px;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   padding: 5px;
   margin: 2px;
   height: 150px;
 }
 .task_description {
   font-size: 13px;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: normal;
   color: #8e8e8e;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 .task_date {
   font-size: 12px;
@@ -38,6 +41,8 @@
   width: 100%;
   margin-top: 5px;
   justify-content: space-between;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .checklist_section {
