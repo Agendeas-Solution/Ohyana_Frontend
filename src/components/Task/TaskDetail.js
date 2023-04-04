@@ -23,6 +23,8 @@ import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import { EditTaskName } from '../../services/apiservices/task'
+
 const EditDescriptionDialog = React.lazy(() =>
   import('./EditDescriptionDialog'),
 )
@@ -100,6 +102,7 @@ const TaskDetail = () => {
       { taskid: path, id: id },
       res => {
         setCheckLists(res?.data)
+        debugger;
       },
       err => {
         console.log(err)
@@ -112,7 +115,20 @@ const TaskDetail = () => {
       res => {
         navigate('/task')
       },
-      err => {},
+      err => { },
+    )
+  }
+  const handleEditTaskName = () => {
+    EditTaskName(
+      { title: editTaskNameDialog?.taskName, id: editTaskNameDialog?.id },
+      (res) => {
+        setTaskDetail({
+          ...taskDetail,
+          title: res?.data?.title,
+        });
+        handleDialogClose();
+      },
+      (err) => { },
     )
   }
   const handleDialogClose = () => {
@@ -133,14 +149,13 @@ const TaskDetail = () => {
   }, [checkLists, countDoneTask])
   return (
     <>
-      <Box className="main_section">
+      <Box className='main_section'>
         <Box className="task_heading pb-2">
           <Typography className="task_card_heading" variant="span">
             {taskDetail?.title}
           </Typography>
           <Box>
             <EditRoundedIcon
-              // sx={{ padding: '0px', margin: '54px' }}
               sx={{ fontSize: '40px', padding: '4px', marginRight: '10px' }}
               onClick={() => {
                 setEditTaskNameDialog({
@@ -222,7 +237,7 @@ const TaskDetail = () => {
               >
                 Add an item
               </Button>
-              <Button onClick={handleAddItem} className="common_button mb-5">
+              <Button onClick={() => setAddCheckList("")} className="common_button mb-5">
                 Cancel
               </Button>
             </Box>
@@ -304,7 +319,7 @@ const TaskDetail = () => {
               <Box className="mx-3 mt-4 d-flex">
                 <Typography className="name_chip" variant="span">
                   {taskDetail?.team?.email &&
-                    taskDetail?.team?.email?.charAt(0)}
+                    taskDetail?.team?.email?.charAt(0).toUpperCase()}
                 </Typography>
                 <Typography className="assigned_user_detail" variant="span">
                   {taskDetail?.team?.email}
@@ -318,7 +333,7 @@ const TaskDetail = () => {
             </Typography>
             <Box className="mx-3 mt-4 mb-2 d-flex">
               <Typography className="created_by_icon name_chip" variant="span">
-                {taskDetail?.createdBy && taskDetail?.createdBy.charAt(0)}
+                {taskDetail?.createdBy && taskDetail?.createdBy.charAt(0).toUpperCase()}
               </Typography>
               <Typography className="assigned_user_detail" variant="span">
                 {taskDetail?.createdBy}
@@ -335,6 +350,7 @@ const TaskDetail = () => {
           editTaskNameDialog={editTaskNameDialog}
           setEditTaskNameDialog={setEditTaskNameDialog}
           handleDialogClose={handleDialogClose}
+          handleEditTaskName={handleEditTaskName}
         />
       </Box>
     </>

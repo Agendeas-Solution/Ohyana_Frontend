@@ -227,7 +227,7 @@ const JobRolesList = () => {
                     <Typography variant="span">{data.name}</Typography>
                   </Grid>
                   <Grid item xs={3}>
-                    <Typography variant="span">{data.description}</Typography>
+                    <Typography className="job_role_description" variant="span">{data.description}</Typography>
                   </Grid>
                   <Grid item xs={2}>
                     <Button

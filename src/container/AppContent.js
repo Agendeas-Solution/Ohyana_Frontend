@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState,Suspense } from 'react'
+import React, { useContext, useEffect, useState, Suspense } from 'react'
 import {
     Routes,
     Route,
@@ -69,11 +69,11 @@ const AppContent = () => {
     }, [])
     const loading = (
         <div className="pt-3 text-center">
-          <div className="sk-spinner sk-spinner-pulse"></div>
+            <div className="sk-spinner sk-spinner-pulse"></div>
         </div>
-      );
+    );
     return (
-        <Box className="home_page_section">
+        <>
             <Suspense fallback={loading}>
                 <Routes>
                     <Route path="/" element={<ProtectedRoutes />}>
@@ -204,7 +204,7 @@ const AppContent = () => {
 
                 </Routes>
             </Suspense>
-        </Box>
+        </>
     );
 };
 
