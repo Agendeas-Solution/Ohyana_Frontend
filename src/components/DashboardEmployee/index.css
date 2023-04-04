@@ -5,7 +5,8 @@
 }
 
 .performance_section {
-  width: 70%;
+  width: 60%;
+  height: 250px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -16,10 +17,15 @@
 }
 
 .attendance_section {
-  width: 30%;
+  width: 38.5%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
+  border: transparent;
+  border-radius: 5px;
+  margin: 5px;
+  background-color: #f1f2f6;
+  height: 250px;
 }
 
 .performance_terms {
@@ -35,10 +41,20 @@
   justify-content: space-between;
   border-bottom: 1px solid#E5E5E5;
   flex-direction: row;
+  padding-top: 12px;
+}
+
+.below_performance_parameter {
+  display: flex;
+  justify-content: space-between;
+  /* border-bottom: 1px solid#E5E5E5; */
+  flex-direction: row;
+  padding-top: 12px;
 }
 
 .performance_statistics_data {
-  width: 32%;
+  width: 27%;
+  margin-bottom: 30px;
 }
 
 /* .attendance_section {
@@ -58,15 +74,17 @@
 .my_task_section {
   padding: 5px;
   margin: 5px;
-  width: 70%;
+  width: 60%;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
+  /* height: 13.5rem; */
+  height: 250px;
 }
 
 .my_task_heading {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #e5e5e5;
+  /* border-bottom: 1px solid #e5e5e5; */
 }
 .my_task_subheading {
   display: flex;
@@ -74,12 +92,155 @@
 }
 .point_table_section {
   border: 1px solid #e5e5e5;
-  width: 29%;
+  width: 38.5%;
   padding: 5px;
   margin: 5px;
+  /* margin-top: 15px;
+  margin-right: 5px;
+  margin-left: 5px; */
   border-radius: 5px;
+  height: 250px;
+
+  /* width: 38.5%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border: transparent;
+  border-radius: 5px;
+  margin: 5px;
+  background-color: #f1f2f6;
+  height: 250px; */
 }
 .point_table_heading {
   display: flex;
   justify-content: space-between;
+}
+.dashboard_emp_main_section {
+  display: flex;
+  background-color: #fff;
+  padding: 10px;
+  height: 83vh;
+  border-radius: 5px;
+  width: 97%;
+  flex-direction: column !important;
+  margin: 20px auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* display: flex;
+  background: #ffffff;
+  width: 96% !important;
+  padding: 0px;
+  height: 83vh;
+  margin: 8px !important;
+  border-radius: 5px;
+  flex-direction: row;
+  overflow-y: auto;
+  overflow-x: hidden; */
+}
+
+.dashboard_emp_attendance_buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 3px;
+  margin-bottom: 8px;
+}
+
+.left_panel_heading {
+  font-weight: 600;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.right_panel_heading {
+  font-weight: 600;
+  font-size: 18px;
+  padding: 10px;
+  /* padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 20px; */
+}
+
+.bottom_left_panel_heading {
+  font-weight: 600;
+  padding-left: 10px;
+  padding-top: 15px;
+  padding-bottom: 20px;
+}
+
+.bottom_right_panel_heading {
+  font-weight: 600;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.right_panel_sub_heading {
+  margin: 10px;
+}
+
+/* start of star performer */
+.a-box {
+  display: inline-block;
+  width: 250px;
+  text-align: center;
+  margin-left: 6px;
+}
+
+.img-container {
+  height: 230px;
+  width: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.img-container img {
+  /* transform: skew(0deg, -13deg); */
+  height: 110px;
+  /* margin: -5px 0px 0px -40px; */
+  object-fit: contain;
+}
+
+/* .inner-skew {
+  display: inline-block;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 0px;
+  font-size: 0px;
+  margin: 30px 0px 0px 0px;
+  background: #c8c2c2;
+  height: 200px;
+  width: 200px;
+} */
+
+.text-container {
+  /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2); */
+  box-shadow: none;
+  border: 1px solid #e5e5e5;
+  padding: 50px 20px 20px 20px;
+  border-radius: 5px;
+  background: #fff;
+  margin: -180px 0px 0px 0px;
+  line-height: 19px;
+  font-size: 14px;
+}
+
+.text-container h3 {
+  margin: 20px 0px 10px 0px;
+  /* color: #04bcff; */
+  font-size: 18px;
+}
+
+.text-container h6 {
+  color: #8e8e8e;
+}
+.text-container h5 {
+  margin: 10px 0px 10px 0px;
+  color: #2e3591;
+  font-size: 18px;
 }

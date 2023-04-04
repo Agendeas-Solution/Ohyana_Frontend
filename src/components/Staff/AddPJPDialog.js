@@ -9,6 +9,8 @@ import {
   Dialog,
   Autocomplete,
   CircularProgress,
+  DialogTitle,
+  TextareaAutosize,
 } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -16,13 +18,31 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import './index.css'
 import { GetAdminClientDetail } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
+
 const AddPJPDialog = ({
   addPJPDetail,
   handleCloseDialog,
   setAddPJPdetail,
   handleAddPJPDetail,
   getLocation,
+  props,
 }) => {
+  const [customerType, setCustomerType] = useState([
+    { stage: 'Jr. Sales Person', id: 0 },
+    { stage: 'Sr. Sales Person', id: 1 },
+    { stage: 'Ass. Sales Person', id: 2 },
+    { stage: 'None', id: 3 },
+  ])
+
+  const [customerStage, setCustomerStage] = useState()
+
+  const [pjpDetail, setPjpDetail] = useState({
+    name: props?.editJobRoleDialogControl?.name,
+    description: props?.editJobRoleDialogControl.description,
+    departmentId: props?.editJobRoleDialogControl?.departmentId,
+    id: props?.editJobRoleDialogControl?.roleId,
+  })
+
   const [open, setOpen] = React.useState(false)
   const [options, setOptions] = React.useState([])
   const loading = open && options.length === 0
@@ -51,88 +71,115 @@ const AddPJPDialog = ({
   return (
     <>
       <Dialog open={addPJPDetail.dialogStatus} onClose={handleCloseDialog}>
-        <div className="px-3 pt-3 text-center">
+        {/* <div className="px-3 pt-3 text-center">
           <h2>Create PJP</h2>
-        </div>
-        <DialogContent>
-          <div className="row">
-            <div className="col-md-12">
-              <Typography variant="span">Date</Typography>
-            </div>
-            <div className="col-md-12">
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  inputFormat="dd/MM/yyyy"
-                  value={addPJPDetail.date}
-                  onChange={e => {
-                    setAddPJPdetail({
-                      ...addPJPDetail,
-                      date: moment(e).format('YYYY-MM-DD'),
-                    })
-                  }}
-                  renderInput={params => (
-                    <TextField className={`w-100`} {...params} />
-                  )}
-                />
-              </LocalizationProvider>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-12">
+        </div> */}
+        <Box>
+          <DialogTitle
+            sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px' }}
+          >
+            Create PJP
+          </DialogTitle>
+          <DialogContent>
+            <div className="col-md-12 pt-4">
               <Typography variant="span">Customer Name</Typography>
             </div>
-            <div className="col-md-12">
-              <Autocomplete
-                style={{ width: 300 }}
-                open={open}
-                onOpen={() => {
-                  setOpen(true)
-                }}
-                onClose={() => {
-                  setOpen(false)
-                }}
-                onChange={(event, value) => {
-                  setAddPJPdetail({
-                    ...addPJPDetail,
-                    clientId: value.id,
-                  })
-                }}
-                getOptionSelected={(option, value) =>
-                  option.name === value.name
-                }
-                getOptionLabel={option => option.name}
-                options={options}
-                loading={loading}
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    // label="Select client"
-                    variant="outlined"
-                    noOptionsText="No Client"
-                    onChange={event => {
-                      // dont fire API if the user delete or not entered anything
-                      if (
-                        event.target.value !== '' ||
-                        event.target.value !== null
-                      ) {
-                        onChangeHandle(event.target.value)
-                      }
-                    }}
-                    InputProps={{
-                      ...params.InputProps,
-                      endAdornment: (
-                        <React.Fragment>
-                          {loading ? (
-                            <CircularProgress color="inherit" size={20} />
-                          ) : null}
-                          {params.InputProps.endAdornment}
-                        </React.Fragment>
-                      ),
+            <Autocomplete
+              className="mt-1 align-items-center d-flex client_type_select justify-content-center w-100"
+              options={customerType}
+              value={
+                customerStage !== null ? customerType[customerStage] : null
+              }
+              sx={{
+                width: '21rem',
+                border: '1px solid #E5E5E5',
+                borderRadius: '5px',
+              }}
+              onChange={(e, value) => {
+                console.log(value)
+                setCustomerStage(value?.id)
+              }}
+              getOptionLabel={option => option.stage}
+              renderInput={params => (
+                <TextField
+                  // className="m-3"
+                  variant="outlined"
+                  // sx={{ width: '24rem' }}
+                  {...params}
+                  placeholder="Customer Name"
+                />
+              )}
+            />
+
+            <Box>
+              <div className="row my-4">
+                <div className="col-md-6">
+                  <Typography variant="span">Date of Visit</Typography>
+                </div>
+                <div className="col-md-12  ">
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                      className={`w-100`}
+                      disablePast
+                      inputFormat="dd/MM/yyyy"
+                      value={pjpDetail.date}
+                      onChange={e => {
+                        setPjpDetail({ ...pjpDetail, date: e })
+                      }}
+                      renderInput={params => (
+                        <TextField className={`w-100`} {...params} />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </div>
+              </div>
+            </Box>
+
+            <Box>
+              <div className="row my-4">
+                <div className="col-md-6">
+                  <Typography variant="span">Detail</Typography>
+                </div>
+                <div className="col-md-12">
+                  <TextareaAutosize
+                    style={{ width: 160, borderRadius: '5px' }}
+                    placeholder="Detail Here..."
+                    className="w-100"
+                    value={pjpDetail.description}
+                    onChange={e => {
+                      setPjpDetail({
+                        ...pjpDetail,
+                        description: e.target.value,
+                      })
                     }}
                   />
-                )}
-              />
-              {/* <Autocomplete
+                </div>
+              </div>
+            </Box>
+          </DialogContent>
+
+          <DialogActions className="m-auto">
+            <Button
+              sx={{ alignContent: 'center', alignItems: 'center' }}
+              variant="contained"
+              // onClick={handleEditJobRole}
+            >
+              Save
+            </Button>
+            {/* <Button className="cancel-btn" onClick={props.handleClose} autoFocus>
+            Cancel
+          </Button> */}
+          </DialogActions>
+        </Box>
+      </Dialog>
+    </>
+  )
+}
+
+export default AddPJPDialog
+
+{
+  /* <Autocomplete
                 filterSelectedOptions
                 options={addPJPDetail}
                 value={addPJPDetail?.clientId}
@@ -155,95 +202,5 @@ const AddPJPDialog = ({
                     }
                   />
                 )}
-              /> */}
-            </div>
-          </div>
-          <div className="row">
-            <Box className="col-md-4">
-              <div className="col-md-12">
-                <Typography variant="span">Latitude</Typography>
-              </div>
-              <div className="col-md-12">
-                <TextField
-                  className="w-100"
-                  value={addPJPDetail.latitude}
-                  onChange={e => {
-                    setAddPJPdetail({
-                      ...addPJPDetail,
-                      latitude: e.target.value.toString(),
-                    })
-                  }}
-                  type="text"
-                  variant="outlined"
-                  placeholder="Latitude"
-                />
-              </div>
-            </Box>
-            <Box className="col-md-4">
-              <div className="col-md-12">
-                <Typography variant="span">Longitude</Typography>
-              </div>
-              <div className="col-md-12">
-                <TextField
-                  className="w-100"
-                  value={addPJPDetail.longitude}
-                  onChange={e => {
-                    setAddPJPdetail({
-                      ...addPJPDetail,
-                      longitude: e.target.value.toString(),
-                    })
-                  }}
-                  type="text"
-                  variant="outlined"
-                  placeholder="Longitude"
-                />
-              </div>
-            </Box>
-            <Box className="col-md-4 align-items-center">
-              <Button className="common_button" onClick={getLocation}>
-                Get Location
-              </Button>
-            </Box>
-          </div>
-          <div className="row">
-            <div className="col-md-12">
-              <Typography variant="span">Description</Typography>
-            </div>
-            <div className="col-md-12">
-              <TextField
-                className="w-100"
-                value={addPJPDetail.description}
-                onChange={e => {
-                  setAddPJPdetail({
-                    ...addPJPDetail,
-                    description: e.target.value,
-                  })
-                }}
-                type="text"
-                variant="outlined"
-                placeholder="Description"
-              />
-            </div>
-          </div>
-        </DialogContent>
-        <DialogActions
-          sx={{ marginLeft: '13px', marginRight: '13px' }}
-          className="mt-1 d-flex justify-content-between"
-        >
-          <Button
-            variant="contained"
-            className="ok-btn"
-            onClick={handleAddPJPDetail}
-          >
-            Ok
-          </Button>
-          <Button onClick={handleCloseDialog} className="cancel-btn" autoFocus>
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
-  )
+              /> */
 }
-
-export default AddPJPDialog

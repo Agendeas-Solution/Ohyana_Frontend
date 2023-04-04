@@ -43,6 +43,7 @@ const CreateTaskDialog = ({
             </div>
             <div className="col-md-12">
               <TextField
+                sx={{ border: '1px solid #e5e5e5', borderRadius: '5px' }}
                 className="w-100"
                 placeholder="Task Name"
                 variant="outlined"

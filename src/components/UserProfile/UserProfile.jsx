@@ -64,12 +64,14 @@ const UserProfile = () => {
   const [leaveList, setLeaveList] = useState([])
   const [holidayList, setHolidayList] = useState([])
   const [leaveDialogControl, setLeaveDialogControl] = useState(false)
+
   useEffect(() => {
     GetAdminProfile(
       {},
       res => {
         if (res.success) {
           setUserDetail(res.data)
+          debugger
         }
       },
       err => {
@@ -123,6 +125,7 @@ const UserProfile = () => {
   const handleCloseDialog = () => {
     setLeaveDialogControl(false)
   }
+
   return (
     <>
       <div className="w-100 mt-3">
@@ -187,7 +190,7 @@ const UserProfile = () => {
 
           <TabContext value={value}>
             <Box
-              className="notification_tabs_root"
+              className="my_profile_tabs_root"
               sx={{ borderBottom: '1px solid #F1F2F6' }}
             >
               <Tabs
@@ -311,54 +314,58 @@ const UserProfile = () => {
                     className="companyDetail_field_heading user_profile_color"
                     variant="span"
                   >
+                    Contact No.:
+                  </Typography>
+                  <Typography variant="span">
+                    {userDetail?.contact_number || '-'}
+                  </Typography>
+                </Box>
+                <Box className="companyDetail_root p-3">
+                  <Typography
+                    variant="span"
+                    className="companyDetail_field_heading user_profile_color"
+                  >
+                    Senior Post:
+                  </Typography>
+                  <Typography variant="span">
+                    {userDetail?.city || '-'}
+                  </Typography>
+                </Box>
+                <Box className="companyDetail_root p-3">
+                  <Typography
+                    variant="span"
+                    className="companyDetail_field_heading user_profile_color"
+                  >
                     Email:
                   </Typography>
-                  <Typography variant="span">chrisowens@email.com</Typography>
-                </Box>
-                <Box className="companyDetail_root p-3">
-                  <Typography
-                    variant="span"
-                    className="companyDetail_field_heading user_profile_color"
-                  >
-                    City:
-                  </Typography>
-                  <Typography variant="span">Rajkot</Typography>
-                </Box>
-                <Box className="companyDetail_root p-3">
-                  <Typography
-                    variant="span"
-                    className="companyDetail_field_heading user_profile_color"
-                  >
-                    State:
-                  </Typography>
-                  <Typography variant="span">Gujarat</Typography>
+                  <Typography variant="span">{userDetail?.email}</Typography>
                 </Box>
                 <Box className="companyDetail_root  p-3">
                   <Typography
                     variant="span"
                     className="companyDetail_field_heading user_profile_color"
                   >
-                    Country:
+                    Password:
                   </Typography>
-                  <Typography variant="span">India</Typography>
+                  <Typography variant="span">{userDetail?.password}</Typography>
                 </Box>
                 <Box className="companyDetail_root  p-3">
                   <Typography
                     className="companyDetail_field_heading user_profile_color"
                     variant="span"
                   >
-                    Business Type
+                    Birthday
                   </Typography>
-                  <Typography variant="span">ABC</Typography>
+                  <Typography variant="span">{userDetail?.birthDay}</Typography>
                 </Box>
                 <Box className="companyDetail_root  p-3">
                   <Typography
                     className="companyDetail_field_heading user_profile_color"
                     variant="span"
                   >
-                    IndiaMart CRM Key:
+                    Gender
                   </Typography>
-                  <Typography variant="span">XYZ</Typography>
+                  <Typography variant="span">{userDetail?.gender}</Typography>
                 </Box>
               </Box>
             </TabPanel>

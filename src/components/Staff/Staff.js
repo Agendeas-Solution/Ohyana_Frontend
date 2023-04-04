@@ -487,7 +487,7 @@ const Staff = () => {
 
           <Box className="mt-3 mb-4 mx-2">
             <Box
-              className="m-3 me-5"
+              className="m-3"
               sx={{
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -501,9 +501,11 @@ const Staff = () => {
                 {singleStaffDetails?.memberDetail?.contact_number}
               </Typography>
               <Button
+                className=""
                 sx={{
                   backgroundColor: '#F1F2F6',
-                  float: 'right',
+                  // float: 'right',
+                  marginLeft: '65px',
                 }}
                 onClick={() =>
                   navigate(
@@ -514,6 +516,7 @@ const Staff = () => {
                 View Profile
               </Button>
             </Box>
+
             <Box className="m-3 me-5">
               <Typography variant="span" sx={{ fontWeight: 'bold' }}>
                 Email
@@ -526,6 +529,7 @@ const Staff = () => {
                 {singleStaffDetails?.memberDetail?.email}
               </Typography>
             </Box>
+
             <Box className="m-3  me-5">
               <Typography variant="span" sx={{ fontWeight: 'bold' }}>
                 Location

@@ -76,24 +76,34 @@ const StaffPoint = () => {
     <>
       <Box className="point_section">
         <Box className="point_left_section">
-          <Typography variant="span">Point Rules</Typography>
+          <Typography className="left_panel_heading p-2" variant="span">
+            Point Rules
+          </Typography>
           {pointRule.length > 0 &&
             pointRule.map(data => {
               return (
-                <Box className="common_row p-1">
+                <Box className="common_row p-2 mt-2">
                   <Typography variant="span">{data?.name}</Typography>
                   <Typography variant="span">{data?.points}</Typography>
                 </Box>
               )
             })}
         </Box>
+
         <Box className="point_right_section">
           <Box className="point_data_heading">
-            <Typography variant="span">Total Points : {totalPoints}</Typography>
+            <Typography className="right_panel_heading" variant="span">
+              Total Points : {totalPoints}
+            </Typography>
             <Box>
-              <Button onClick={handleAppreciation} className="common_button">
+              <Button
+                onClick={handleAppreciation}
+                className="common_button_staff_points"
+              >
                 + Appreciation
               </Button>
+            </Box>
+            <Box className="points_date_filter ">
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   views={['month', 'year']}
@@ -111,13 +121,26 @@ const StaffPoint = () => {
                 />
               </LocalizationProvider>
             </Box>
+            {/* </Box> */}
           </Box>
+
           <TableContainer
-            className="m-2"
+            className="expenses_table_height mt-2"
             component={Paper}
-            sx={{ boxShadow: 'none' }}
+            sx={{
+              boxShadow: 'none',
+              // border: '1px solid #e5e5e5',
+              borderTop: 'none',
+              overflowY: 'auto',
+              overflowX: 'scroll',
+            }}
           >
-            <Table sx={{ minWidth: 650 }} className="table_heading">
+            <Table
+              stickyHeader
+              aria-label="sticky table"
+              sx={{ minWidth: 650 }}
+              className="table_heading"
+            >
               <TableHead>
                 <TableRow>
                   <TableCell>Date</TableCell>
@@ -129,8 +152,15 @@ const StaffPoint = () => {
                 {pointsData.length > 0 &&
                   pointsData.map(data => {
                     return (
-                      <TableRow>
-                        <TableCell>
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        sx={{
+                          '&:last-child td,th': { border: 0 },
+                        }}
+                      >
+                        <TableCell className="tablecell_height">
                           {moment(data?.createdAt).format('l')}{' '}
                         </TableCell>
                         <TableCell align="left">{data?.point?.name}</TableCell>
@@ -143,7 +173,7 @@ const StaffPoint = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          <Pagination
+          {/* <Pagination
             className="mt-3"
             boundaryCount={0}
             siblingCount={1}
@@ -154,7 +184,7 @@ const StaffPoint = () => {
             onChange={(e, value) => {
               setCurrentPage(value)
             }}
-          />
+          /> */}
         </Box>
       </Box>
     </>
