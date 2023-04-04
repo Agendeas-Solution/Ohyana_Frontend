@@ -8,10 +8,7 @@ import {
   MenuItem,
   Autocomplete,
 } from '@mui/material'
-import {
-  GetAdminProductList,
-  EditClientDetail,
-} from '../../services/apiservices/adminprofile'
+import { GetAdminProductList, EditClientDetail } from '../../services/apiservices/adminprofile'
 import {
   GetAdminClientProfileDetail,
   GetCountryList,
@@ -31,7 +28,7 @@ const EditClient = () => {
     clientType: '',
     country: null,
     inquiryfor: '',
-    product: [],
+    // product: [],
     address: '',
     state: '',
     city: '',
@@ -76,7 +73,6 @@ const EditClient = () => {
             clientType: res.data.client_type,
             country: res.data.country,
             state: res.data.state,
-            product: res.data.products,
             address: res.data.address,
             city: res.data.city,
             business: res.data.business,
@@ -90,43 +86,43 @@ const EditClient = () => {
       },
     )
   }, [])
-  useEffect(() => {
-    GetAdminProductList(
-      {},
-      res => {
-        if (res.success) {
-          setAdminProductList(res?.data?.products)
-          const inquiry_type = [
-            ...new Set(userDetail?.product.map(item => item?.type)),
-          ]
-          if (inquiry_type.length > 1) {
-            setUserDetail({ ...userDetail, inquiryfor: 'BOTH' })
-          } else if (inquiry_type.length > 0 && inquiry_type.length < 2) {
-            setUserDetail({ ...userDetail, inquiryfor: inquiry_type[0] })
-          }
-        }
-      },
-      err => {
-        console.log('Printing Error', err)
-      },
-    )
+  // useEffect(() => {
+  //   GetAdminProductList(
+  //     {},
+  //     res => {
+  //       if (res.success) {
+  //         setAdminProductList(res?.data?.products)
+  //         const inquiry_type = [
+  //           ...new Set(userDetail?.product.map(item => item?.type)),
+  //         ]
+  //         if (inquiry_type.length > 1) {
+  //           setUserDetail({ ...userDetail, inquiryfor: 'BOTH' })
+  //         } else if (inquiry_type.length > 0 && inquiry_type.length < 2) {
+  //           setUserDetail({ ...userDetail, inquiryfor: inquiry_type[0] })
+  //         }
+  //       }
+  //     },
+  //     err => {
+  //       console.log('Printing Error', err)
+  //     },
+  //   )
 
-    let productlist = []
-    if (userDetail.inquiryfor === 'BOTH') {
-      productlist = adminProductList.map(value => {
-        return value
-      })
-    } else if (userDetail.inquiryfor === 'PRODUCT') {
-      productlist = adminProductList.map(value => {
-        return value.type === 'PRODUCT' && value
-      })
-    } else if (userDetail.inquiryfor === 'MACHINE') {
-      productlist = adminProductList.map(value => {
-        return value.type === 'MACHINE' && value
-      })
-    }
-    setFilteredProductList(productlist)
-  }, [userDetail?.inquiryfor])
+  //   let productlist = []
+  //   if (userDetail.inquiryfor === 'BOTH') {
+  //     productlist = adminProductList.map(value => {
+  //       return value
+  //     })
+  //   } else if (userDetail.inquiryfor === 'PRODUCT') {
+  //     productlist = adminProductList.map(value => {
+  //       return value.type === 'PRODUCT' && value
+  //     })
+  //   } else if (userDetail.inquiryfor === 'MACHINE') {
+  //     productlist = adminProductList.map(value => {
+  //       return value.type === 'MACHINE' && value
+  //     })
+  //   }
+  //   setFilteredProductList(productlist)
+  // }, [userDetail?.inquiryfor])
   const EditClient = () => {
     if (
       userDetail.clientName !== '' &&
@@ -136,8 +132,8 @@ const EditClient = () => {
       userDetail.state !== '' &&
       userDetail.city !== '' &&
       userDetail.memberId !== '' &&
-      userDetail.product.length > 0 &&
-      userDetail.inquiryfor !== '' &&
+      // userDetail.product.length > 0 &&
+      // userDetail.inquiryfor !== '' &&
       userDetail.country
     ) {
       let clientDetail = {
@@ -150,7 +146,7 @@ const EditClient = () => {
         state: userDetail.state,
         address: userDetail.address,
         countryId: userDetail.country?.id,
-        products: [...new Set(userDetail?.product.map(item => item?.id))],
+        // products: [...new Set(userDetail?.product.map(item => item?.id))],
         memberId: userDetail.clientName,
         city: userDetail.city,
         memberId: 3,
@@ -174,7 +170,7 @@ const EditClient = () => {
             })
           }
         },
-        err => {},
+        err => { },
       )
     }
   }
@@ -295,7 +291,7 @@ const EditClient = () => {
             </Box>
           </Box>
           <Box className="input_field_row">
-            <Box className="input_fields">
+            {/* <Box className="input_fields">
               <Typography className="input_field_label" variant="span">
                 Inquiry for
               </Typography>
@@ -309,7 +305,7 @@ const EditClient = () => {
                 <MenuItem value="MACHINE">Machine</MenuItem>
                 <MenuItem value="PRODUCT">Product</MenuItem>
               </Select>
-            </Box>
+            </Box> */}
             <Box className="input_fields">
               <Typography className="input_field_label" variant="span">
                 State
@@ -325,7 +321,7 @@ const EditClient = () => {
             </Box>
           </Box>
           <Box className="input_field_row">
-            <Box className="input_fields">
+            {/* <Box className="input_fields">
               <Typography className="input_field_label" variant="span">
                 Product
               </Typography>
@@ -349,7 +345,7 @@ const EditClient = () => {
                   />
                 )}
               />
-            </Box>
+            </Box> */}
             <Box className="input_fields">
               <Typography className="input_field_label" variant="span">
                 Address

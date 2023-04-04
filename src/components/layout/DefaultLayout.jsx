@@ -13,9 +13,7 @@ const DefaultLayout = () => {
       <SideBar />
       <div className={'width-main'}>
         <Header />
-        <div className="body flex-grow-1 px-3">
-          <AppContent />
-        </div>
+        <AppContent />
       </div>
     </div>
   )

@@ -26,7 +26,7 @@ const AddClient = () => {
     clientType: '',
     country: null,
     inquiryfor: '',
-    product: [],
+    // product: [],
     address: '',
     state: '',
     city: '',
@@ -44,17 +44,17 @@ const AddClient = () => {
   }
 
   useEffect(() => {
-    GetAdminProductList(
-      {},
-      res => {
-        if (res.success) {
-          setAdminProductList(res?.data?.products)
-        }
-      },
-      err => {
-        console.log('Printing Error', err)
-      },
-    )
+    // GetAdminProductList(
+    //   {},
+    //   res => {
+    //     if (res.success) {
+    //       setAdminProductList(res?.data?.products)
+    //     }
+    //   },
+    //   err => {
+    //     console.log('Printing Error', err)
+    //   },
+    // )
     GetCountryList(
       {},
       res => {
@@ -67,43 +67,43 @@ const AddClient = () => {
       },
     )
   }, [])
-  useEffect(() => {
-    GetAdminProductList(
-      {},
-      res => {
-        if (res.success) {
-          setAdminProductList(res?.data?.products)
-          const inquiry_type = [
-            ...new Set(userDetail?.product.map(item => item?.type)),
-          ]
-          if (inquiry_type.length > 1) {
-            setUserDetail({ ...userDetail, inquiryfor: 'BOTH' })
-          } else if (inquiry_type.length > 0 && inquiry_type.length < 2) {
-            setUserDetail({ ...userDetail, inquiryfor: inquiry_type[0] })
-          }
-        }
-      },
-      err => {
-        console.log('Printing Error', err)
-      },
-    )
+  // useEffect(() => {
+  //   GetAdminProductList(
+  //     {},
+  //     res => {
+  //       if (res.success) {
+  //         setAdminProductList(res?.data?.products)
+  //         const inquiry_type = [
+  //           ...new Set(userDetail?.product.map(item => item?.type)),
+  //         ]
+  //         if (inquiry_type.length > 1) {
+  //           setUserDetail({ ...userDetail, inquiryfor: 'BOTH' })
+  //         } else if (inquiry_type.length > 0 && inquiry_type.length < 2) {
+  //           setUserDetail({ ...userDetail, inquiryfor: inquiry_type[0] })
+  //         }
+  //       }
+  //     },
+  //     err => {
+  //       console.log('Printing Error', err)
+  //     },
+  //   )
 
-    let productlist = []
-    if (userDetail.inquiryfor === 'BOTH') {
-      productlist = adminProductList.map(value => {
-        return value
-      })
-    } else if (userDetail.inquiryfor === 'PRODUCT') {
-      productlist = adminProductList.map(value => {
-        return value.type === 'PRODUCT' && value
-      })
-    } else if (userDetail.inquiryfor === 'MACHINE') {
-      productlist = adminProductList.map(value => {
-        return value.type === 'MACHINE' && value
-      })
-    }
-    setFilteredProductList(productlist)
-  }, [userDetail?.inquiryfor])
+  //   let productlist = []
+  //   if (userDetail.inquiryfor === 'BOTH') {
+  //     productlist = adminProductList.map(value => {
+  //       return value
+  //     })
+  //   } else if (userDetail.inquiryfor === 'PRODUCT') {
+  //     productlist = adminProductList.map(value => {
+  //       return value.type === 'PRODUCT' && value
+  //     })
+  //   } else if (userDetail.inquiryfor === 'MACHINE') {
+  //     productlist = adminProductList.map(value => {
+  //       return value.type === 'MACHINE' && value
+  //     })
+  //   }
+  //   setFilteredProductList(productlist)
+  // }, [userDetail?.inquiryfor])
 
   const handleAddClient = () => {
     if (
@@ -115,7 +115,7 @@ const AddClient = () => {
       userDetail.city !== '' &&
       userDetail.country !== '' &&
       // userDetail.memberId !== "" &&
-      userDetail.product.length > 0 &&
+      // userDetail.product.length > 0 &&
       userDetail.inquiryfor !== ''
     ) {
       let clientDetail = {
@@ -128,7 +128,7 @@ const AddClient = () => {
         state: userDetail.state,
         address: userDetail.address,
         countryId: userDetail.country.id,
-        products: [...new Set(userDetail?.product.map(item => item?.id))],
+        // products: [...new Set(userDetail?.product.map(item => item?.id))],
         // memberId: userDetail.clientName,
         city: userDetail.city,
         memberId: 3,
@@ -282,7 +282,7 @@ const AddClient = () => {
             </Box>
           </Box>
           <Box className="input_field_row">
-            <Box className="input_fields">
+            {/* <Box className="input_fields">
               <Typography className="input_field_label" variant="span">
                 Inquiry for<span className="required_star">*</span>
               </Typography>
@@ -296,7 +296,7 @@ const AddClient = () => {
                 <MenuItem value="MACHINE">Machine</MenuItem>
                 <MenuItem value="PRODUCT">Product</MenuItem>
               </Select>
-            </Box>
+            </Box> */}
             <Box className="input_fields">
               <Typography className="input_field_label" variant="span">
                 State<span className="required_star">*</span>
@@ -309,9 +309,22 @@ const AddClient = () => {
                 value={userDetail.state}
                 variant="outlined"
               />
+            </Box><Box className="input_fields">
+              <Typography className="input_field_label" variant="span">
+                Address
+              </Typography>
+              <TextField
+                autocomplete="off"
+                placeholder="Enter Address"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, address: e.target.value })
+                }}
+                value={userDetail.address}
+                variant="outlined"
+              />
             </Box>
           </Box>
-          <Box className="input_field_row">
+          {/* <Box className="input_field_row">
             <Box className="input_fields">
               <Typography className="input_field_label" variant="span">
                 Product<span className="required_star">*</span>
@@ -338,21 +351,8 @@ const AddClient = () => {
                 )}
               />
             </Box>
-            <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                Address
-              </Typography>
-              <TextField
-                autocomplete="off"
-                placeholder="Enter Address"
-                onChange={e => {
-                  setUserDetail({ ...userDetail, address: e.target.value })
-                }}
-                value={userDetail.address}
-                variant="outlined"
-              />
-            </Box>
-          </Box>
+
+          </Box> */}
           <Box className="input_field_row">
             <Box className="input_fields">
               <Typography className="input_field_label" variant="span">

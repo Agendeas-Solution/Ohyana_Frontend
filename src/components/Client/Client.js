@@ -188,6 +188,7 @@ const Client = () => {
         if (res?.success) {
           setTotalresult(res?.data?.totalPage)
           setClientDetails(res?.data.client)
+          debugger;
           let pages =
             res?.data?.totalPage > 0
               ? Math.ceil(res?.data?.totalPage / rowsPerPage)

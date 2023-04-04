@@ -16,14 +16,14 @@ const ProductGraph = ({ selectedPeriod }) => {
       res => {
         setGraphData(res?.data)
       },
-      err => {},
+      err => { },
     )
     GetAdminProductList(
       {},
       res => {
         setProductList(res?.data?.products)
       },
-      err => {},
+      err => { },
     )
   }, [selectedPeriod])
   const top100Films = [
