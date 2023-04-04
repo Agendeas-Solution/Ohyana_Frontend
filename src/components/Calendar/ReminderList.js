@@ -109,7 +109,7 @@ const ReminderList = props => {
   }
   return (
     <>
-      {loader && <Loader />}
+      {/* {loader && <Loader />} */}
       <div className="bg-body p-4">
         <Box sx={{ height: '83vh' }} className="appointment_notification">
           {ReminderListDetail.map(rowData => {

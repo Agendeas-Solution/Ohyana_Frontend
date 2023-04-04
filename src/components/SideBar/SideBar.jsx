@@ -7,7 +7,6 @@ import { Context as AuthContext } from '../../context/authContext/authContext'
 import { Context as ContextActivePage } from '../../context/pageContext'
 import Dashboard from '../../assets/img/Dashicon.svg'
 import DashBoardWhite from '../../assets/img/Dashboard_White.svg'
-import Notification from '../../assets/img/notificationIcon.svg'
 import CustomerBlue from '../../assets/img/customers_blue.svg'
 import CustomerWhite from '../../assets/img/customers_white.svg'
 import Team from '../../assets/img/team.svg'
@@ -95,7 +94,7 @@ const SideBar = () => {
   return (
     <>
       <div style={{ width: '20%', background: 'white' }}>
-        {flagLoader ? <Loader></Loader> : null}
+        {/* {flagLoader ? <Loader></Loader> : null} */}
         <div className="main-logo">
           <img src={Logo} alt="Company logo" />
         </div>

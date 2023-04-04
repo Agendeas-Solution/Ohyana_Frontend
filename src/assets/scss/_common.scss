@@ -16,7 +16,7 @@
 
 fieldset {
   height: 45px;
-  border-color: rgba(0, 0, 0, 0.23);
+  border-color: rgba(0, 0, 0, 0.23) !important;
 }
 
 .input_fields span {
@@ -94,6 +94,7 @@ fieldset {
   fieldset {
     height: 30px !important;
     margin-top: 2px;
+    border:none;
   }
 }
 
@@ -823,9 +824,6 @@ button {
 }
 .tablecell_height {
   line-height: 3 !important;
-}
-fieldset{
-  border-color: transparent !important;
 }
 .staff_tablecell:hover {
   cursor: pointer;

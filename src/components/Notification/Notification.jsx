@@ -70,9 +70,9 @@ const Notification = () => {
   }
   return (
     <>
-      {
+      {/* {
         loader && <Loader />
-      }
+      } */}
       <Box className="notification_section">
         <Box className="notification_tabs_root">
           <Tabs

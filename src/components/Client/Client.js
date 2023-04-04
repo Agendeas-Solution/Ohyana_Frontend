@@ -211,7 +211,7 @@ const Client = () => {
   ])
   return (
     <>
-      {clientLoader && <Loader />}
+      {/* {clientLoader && <Loader />} */}
       <Box className="client_section">
         <Box className="notification_tabs_root align-items-center d-flex">
           <Tabs
