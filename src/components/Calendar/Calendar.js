@@ -50,7 +50,7 @@ const Calendar = () => {
 
   return (
     <>
-      {loader && <Loader />}
+      {/* {loader && <Loader />} */}
       <Box className="calender_section">
         <TabContext value={value}>
           <Box className="notification_tabs_root">

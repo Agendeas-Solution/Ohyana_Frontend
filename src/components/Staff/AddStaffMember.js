@@ -220,7 +220,6 @@ const AddStaffMember = () => {
             </Typography>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                autoComplete="off"
                 inputFormat="dd/MM/yyyy"
                 value={userDetail.birthDate}
                 onChange={e => {

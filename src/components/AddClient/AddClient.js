@@ -33,7 +33,6 @@ const AddClient = () => {
     business: '',
     referenceName: null,
   })
-
   const [adminProductList, setAdminProductList] = useState([])
   const [countryList, setCountryList] = useState([])
   const navigate = useNavigate()
@@ -60,7 +59,7 @@ const AddClient = () => {
       {},
       res => {
         if (res.success) {
-          setCountryList(res.data.country)
+          setCountryList(res.data)
         }
       },
       err => {
@@ -328,7 +327,6 @@ const AddClient = () => {
                   setUserDetail({ ...userDetail, product: value })
                 }}
                 getOptionLabel={option => option?.name}
-                // freeSolo
                 multiple
                 renderInput={params => (
                   <TextField
