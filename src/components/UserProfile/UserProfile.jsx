@@ -71,7 +71,6 @@ const UserProfile = () => {
       res => {
         if (res.success) {
           setUserDetail(res.data)
-          debugger
         }
       },
       err => {
@@ -177,7 +176,10 @@ const UserProfile = () => {
 
               {/* FOR STAFF EXPENSES TAB */}
               {/* {value === 'Expenses' && <StaffExpenses />} */}
-              <Button className="attendance_button check_InOut_Break_InOut_Btn">
+              <Button
+                // sx={{ width: '10px', height: '5px' }}
+                className="my_profile_edit_btn"
+              >
                 <EditRoundedIcon
                   onClick={() => {
                     console.log('Printing Edit icon')
@@ -240,9 +242,7 @@ const UserProfile = () => {
                   >
                     <Button
                       className={
-                        activeTab === 'present'
-                          ? 'active_button'
-                          : 'common_button'
+                        activeTab === 'present' ? 'active_button' : 'custom_tab'
                       }
                       onClick={() => {
                         setActiveTab('present')
@@ -252,10 +252,9 @@ const UserProfile = () => {
                       Present
                     </Button>
                     <Button
+                      // sx={{ marginLeft: '0px', marginRight: '0' }}
                       className={
-                        activeTab === 'leave'
-                          ? 'active_button'
-                          : 'common_button'
+                        activeTab === 'leave' ? 'active_button' : 'custom_tab'
                       }
                       onClick={() => {
                         setActiveTab('leave')
@@ -266,9 +265,7 @@ const UserProfile = () => {
                     </Button>
                     <Button
                       className={
-                        activeTab === 'holiday'
-                          ? 'active_button'
-                          : 'common_button'
+                        activeTab === 'holiday' ? 'active_button' : 'custom_tab'
                       }
                       onClick={() => {
                         setActiveTab('holiday')
@@ -308,10 +305,10 @@ const UserProfile = () => {
               <StaffExpenses />
             </TabPanel>
             <TabPanel value="Profile">
-              <Box className="companyDetail">
-                <Box className="companyDetail_root px-3 pb-3">
+              <Box className="staff_profile">
+                <Box className="staff_profile_page">
                   <Typography
-                    className="companyDetail_field_heading user_profile_color"
+                    className="user_profile_font_weight"
                     variant="span"
                   >
                     Contact No.:
@@ -320,10 +317,13 @@ const UserProfile = () => {
                     {userDetail?.contact_number || '-'}
                   </Typography>
                 </Box>
-                <Box className="companyDetail_root p-3">
+                <Box
+                  // sx={{ paddingBottom: '5px' }}
+                  className="staff_profile_page"
+                >
                   <Typography
                     variant="span"
-                    className="companyDetail_field_heading user_profile_color"
+                    className=" user_profile_font_weight"
                   >
                     Senior Post:
                   </Typography>
@@ -331,36 +331,36 @@ const UserProfile = () => {
                     {userDetail?.city || '-'}
                   </Typography>
                 </Box>
-                <Box className="companyDetail_root p-3">
+                <Box className="staff_profile_page">
                   <Typography
                     variant="span"
-                    className="companyDetail_field_heading user_profile_color"
+                    className=" user_profile_font_weight"
                   >
                     Email:
                   </Typography>
                   <Typography variant="span">{userDetail?.email}</Typography>
                 </Box>
-                <Box className="companyDetail_root  p-3">
+                <Box className="staff_profile_page">
                   <Typography
                     variant="span"
-                    className="companyDetail_field_heading user_profile_color"
+                    className=" user_profile_font_weight"
                   >
                     Password:
                   </Typography>
                   <Typography variant="span">{userDetail?.password}</Typography>
                 </Box>
-                <Box className="companyDetail_root  p-3">
+                <Box className="staff_profile_page">
                   <Typography
-                    className="companyDetail_field_heading user_profile_color"
+                    className=" user_profile_font_weight"
                     variant="span"
                   >
                     Birthday
                   </Typography>
                   <Typography variant="span">{userDetail?.birthDay}</Typography>
                 </Box>
-                <Box className="companyDetail_root  p-3">
+                <Box className="staff_profile_page">
                   <Typography
-                    className="companyDetail_field_heading user_profile_color"
+                    className=" user_profile_font_weight"
                     variant="span"
                   >
                     Gender

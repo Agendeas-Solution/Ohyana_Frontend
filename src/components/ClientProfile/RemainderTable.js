@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
 import EditReminderDialog from './EditReminderDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+
 const RemainderTable = props => {
   const [editReminderDetail, setEditReminderDetail] = useState({
     description: '',
@@ -37,9 +38,22 @@ const RemainderTable = props => {
   }
   return (
     <>
-      <TableContainer sx={{ height: '50vh' }} component={Paper}>
+      <TableContainer
+        className="client_table_height mt-1"
+        component={Paper}
+        sx={{
+          boxShadow: 'none',
+          border: '1px solid #e5e5e5',
+          overflowY: 'auto',
+        }}
+      >
         {props.clientReminderList.length > 0 ? (
-          <Table stickyHeader sx={{ minWidth: 650 }}>
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            className="table_heading"
+          >
             <TableHead className="client_profile_table_header">
               <TableRow>
                 <TableCell>Sr No.</TableCell>
@@ -55,7 +69,12 @@ const RemainderTable = props => {
               {props.clientReminderList.map((row, index) => (
                 <TableRow
                   key={index}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  sx={{
+                    '&:last-child td,th': { border: 0 },
+                  }}
                 >
                   <TableCell scope="row">{index + 1}</TableCell>
                   <TableCell align="left">{row.team.name}</TableCell>
@@ -82,7 +101,7 @@ const RemainderTable = props => {
             </TableBody>
           </Table>
         ) : (
-          <NoResultFound/>
+          <NoResultFound />
         )}
       </TableContainer>
       {editReminderDetail.status === true && (

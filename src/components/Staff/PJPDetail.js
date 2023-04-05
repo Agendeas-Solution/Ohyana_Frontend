@@ -76,13 +76,9 @@ const PJPDetail = () => {
     <>
       <Box className="pjp_detail_main_box">
         <TabContext value={value}>
-          <Box className="tab_row">
-            <TabList
-              className="client_profile_tab mx-2 mt-2"
-              onChange={handleChange}
-            >
+          <Box className="tab_row client_pjp_tab">
+            <TabList onChange={handleChange}>
               <Tab label="Today" value="TODAY" />
-              {/* <Tab label="Tomorrow" value="TOMORROW" /> */}
               <Tab label="All" value="ALL" />
             </TabList>
 
@@ -91,7 +87,7 @@ const PJPDetail = () => {
                 onClick={() =>
                   setAddPJPdetail({ ...addPJPDetail, dialogStatus: true })
                 }
-                className="common_button p-2"
+                className="tab_btn p-2"
               >
                 + Create
               </Button>
@@ -104,13 +100,17 @@ const PJPDetail = () => {
             </Box>
           </Box>
 
-          <TabPanel value="TODAY">
+          <TabPanel sx={{ padding: '0px' }} value="TODAY">
             <PJPScheduleTable pjpList={pjpList} />
           </TabPanel>
           {/* <TabPanel value="TOMORROW">
             <PJPScheduleTable pjpList={pjpList} />
           </TabPanel> */}
-          <TabPanel className="staff_profile" value="ALL">
+          <TabPanel
+            sx={{ padding: '0px' }}
+            className="staff_profile_pjp"
+            value="ALL"
+          >
             <PJPScheduleTable pjpList={pjpList} />
           </TabPanel>
         </TabContext>

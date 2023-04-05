@@ -295,8 +295,8 @@ table .css-177gid-MuiTableCell-root {
 }
 
 .user_profile_icon {
-  height: 110px !important;
-  width: 110px !important;
+  height: 90px !important;
+  width: 90px !important;
   color: #f1f2f6 !important;
 }
 
@@ -325,19 +325,42 @@ button {
 .common_button {
   background-color: #F1F2F6 !important;
   color: #2E3591 !important;
-  margin: 2px !important;
+  margin: 4px !important;
+  height: 40px !important;
+  border-radius: 3px;
+  font-weight: 600 !important;
+  padding-top: 2px ;
+  padding-left: 6px !important;
+  padding-right: 6px !important; 
+  // font-size: 38px;
+}
+
+.custom_tab {
+  background-color: #F1F2F6 !important;
+  color: #2E3591 !important;
+  height: 40px !important;
+  border-radius: 3px;
+  font-weight: 600 !important;
+  padding-top: 2px ;
+}
+
+.tab_btn {
+  background-color: #F1F2F6 !important;
+  color: #2E3591 !important;
+  margin: 4px !important;
   height: 35px !important;
   border-radius: 3px;
-  font-weight: 600;
-  padding-top: 2px;
-  // font-size: 38px;
+  font-weight: 600 !important;
+  padding-top: 2px ;
+  padding-left: 6px !important;
+  padding-right: 6px !important; 
 }
 
 .filter_btn {
   background-color: #F1F2F6 !important;
   color: #2E3591 !important;
   margin-left: 8px !important;
-  margin-right: 10px !important;
+  // margin-right: 10px !important;
   height: 35px !important;
   border-radius: 3px;
   font-weight: 600;
@@ -401,9 +424,28 @@ button {
   width: 70%;
   flex-direction: column;
 }
+.staff_profile{
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+.staff_profile{
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
 .companyDetail_root{
   display: flex;
   justify-content: space-between;
+}
+.staff_profile_page {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 30px;
 }
 .profile_section {
   display: flex;
@@ -420,7 +462,8 @@ button {
   /* height: auto; */
   flex-direction: column;
   /* justify-content: space-between; */
-}.edit_icon {
+}
+.edit_icon {
   border: 1px solid #e5e6eb;
   border-radius: 50%;
   padding: 5px;
@@ -454,7 +497,11 @@ button {
 }
 .client_profile_tab button {
   text-transform: capitalize;
-  
+}
+.client_pjp_tab {
+    border-bottom: 1px solid #e5e5e5;
+    width: 100%;
+    align-items: center;
 }
 .tab_row {
   display: flex;
@@ -680,6 +727,7 @@ button {
   text-transform: capitalize !important;
   color: #2e3591 !important;
   padding-left: 0px;
+
 }
 .access_control_box {
   border: 1px solid #e5e5e5;
@@ -745,30 +793,43 @@ button {
   padding: 0px;
 }
 .left_panel {
+  border: 2px solid black;
   border-radius: 5px;
-  padding: 7px;
+  // padding: 7px;
   display: flex;
   flex-direction: row;
-  width: 54%;
+  width: 60%;
 }
 .right_panel {
+  border: 3px solid blue;
   border-radius: 5px;
-  padding: 10px;
+  // padding: 10px;
+  height: 100%;
   display: flex;
   flex-direction: row;
-  width: 44%;
+  width: 40%;
+  background-color: #FFFFFF;
 }
 .team_profile_section {
+  border: 1px solid red;
   display: flex;
   background: #ffffff;
-  width: 96% !important;
-  padding: 0px;
-  height: 83vh;
-  margin: 8px !important;
-  border-radius: 5px;
-  flex-direction: row;
-  overflow-y: auto;
-  overflow-x: hidden;
+  width: 97% ;
+  // padding: 10px;
+  height: 86%;
+  // flex-direction: column ;
+justify-content: space-between;
+  margin: 20px auto;
+
+  // border-radius: 5px;
+  // flex-direction: row;
+
+
+}
+.team_right_panel_heading {
+  font-weight: bold;
+                  font-size: 22px;
+                  padding-right: 190px;
 }
 .left_team_profile_section {
   overflow-y: auto;
@@ -802,10 +863,14 @@ button {
   margin-left: 10px;
 }
 .expenses_table_height {
-  height: 49vh;
+  height:55vh;
 }
 .pjp_table_height {
-  height: 53vh;
+  height:60vh;
+  width: 100% !important;
+}
+.client_table_height {
+  height:68vh;
 }
 .graph_section {
   display: flex;
@@ -851,13 +916,13 @@ button {
 }
 .leave_data_main {
   border: 1px solid #e5e5e5;
-  height: 50vh;
+  height: 52vh;
   // overflow-y: auto;
   border-top: none;
   margin: 0;
   padding: 0;
 }
-.user_profile_color {
+.user_profile_font_weight {
   font-weight: 600;
 }
 .tablecell_height {
@@ -884,8 +949,25 @@ button {
     margin-left: 70px;
     margin-top: 2px;
     border-radius: 5px;
-  
 }
 .global_border {
   border: 1px solid #E5E5E5;
+}
+.profile_header_button {
+  background-color: #F1F2F6 !important;
+  color: #2E3591 !important;
+  // margin-left: 20rem !important;
+  float: right;
+  height: 35px !important;
+  border-radius: 3px;
+  min-width: 0 !important;
+  margin-right: 5px !important;
+  // font-size: 38px;
+}
+
+.client_profile_heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }

@@ -106,7 +106,7 @@ const StaffTarget = () => {
             stickyHeader
             aria-label="sticky table"
             sx={{ minWidth: 690, marginLeft: '-10px' }}
-            className="table_heading "
+            className="table_heading"
           >
             <TableHead>
               <TableRow>

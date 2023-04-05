@@ -22,9 +22,6 @@
   text-align: right;
 }
 
-.userdetail_field_heading {
-  font-weight: 600;
-}
 .client_attendance_tab {
   background-color: #f1f2f6;
 }
@@ -49,7 +46,18 @@
 }
 
 .my_profile_tabs_root {
+  margin-left: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.my_profile_edit_btn {
+  text-transform: capitalize;
+  padding: 8px;
+  height: 50px !important;
+  width: 10px;
+  background-color: #f1f2f6 !important;
+  color: #2e3591;
+  font-weight: 600;
 }

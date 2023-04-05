@@ -7,8 +7,10 @@ import {
   Select,
   MenuItem,
   Autocomplete,
+  createTheme,
+  ThemeProvider,
 } from '@mui/material'
-import './index.css';
+import './index.css'
 import {
   GetAdminProductList,
   AddClientDetail,
@@ -16,7 +18,8 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { GetCountryList } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-const ErrorSnackbar = lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
+// const ErrorSnackbar = lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
+
 const AddClient = () => {
   const [userDetail, setUserDetail] = useState({
     clientName: '',
@@ -42,6 +45,14 @@ const AddClient = () => {
   const handleChange = prop => event => {
     setUserDetail({ ...userDetail, [prop]: event.target.value })
   }
+
+  // const theme = createTheme({
+  //   props: {
+  //     MuiTextField: {
+  //       variant: 'outlined',
+  //     },
+  //   },
+  // })
 
   useEffect(() => {
     // GetAdminProductList(
@@ -178,6 +189,7 @@ const AddClient = () => {
                 variant="outlined"
               />
             </Box>
+
             <Box className="input_fields">
               <Typography className="input_field_label" variant="span">
                 Reference<span className="required_star">*</span>
@@ -282,21 +294,6 @@ const AddClient = () => {
             </Box>
           </Box>
           <Box className="input_field_row">
-            {/* <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                Inquiry for<span className="required_star">*</span>
-              </Typography>
-              <Select
-                value={userDetail.inquiryfor}
-                onChange={e => {
-                  setUserDetail({ ...userDetail, inquiryfor: e.target.value })
-                }}
-              >
-                <MenuItem value="BOTH">Both</MenuItem>
-                <MenuItem value="MACHINE">Machine</MenuItem>
-                <MenuItem value="PRODUCT">Product</MenuItem>
-              </Select>
-            </Box> */}
             <Box className="input_fields">
               <Typography className="input_field_label" variant="span">
                 State<span className="required_star">*</span>
@@ -309,7 +306,8 @@ const AddClient = () => {
                 value={userDetail.state}
                 variant="outlined"
               />
-            </Box><Box className="input_fields">
+            </Box>
+            <Box className="input_fields">
               <Typography className="input_field_label" variant="span">
                 Address
               </Typography>
@@ -324,35 +322,7 @@ const AddClient = () => {
               />
             </Box>
           </Box>
-          {/* <Box className="input_field_row">
-            <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                Product<span className="required_star">*</span>
-              </Typography>
-              <Autocomplete
-                sx={{ border: '1px solid #E5E5E5', borderRadius: '5px' }}
-                limitTags={2}
-                filterSelectedOptions
-                options={filteredProductList}
-                value={userDetail?.product}
-                onChange={(e, value) => {
-                  console.log(value)
-                  setUserDetail({ ...userDetail, product: value })
-                }}
-                getOptionLabel={option => option?.name}
-                multiple
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    placeholder={
-                      userDetail?.product.length > 0 ? '' : 'Select Product'
-                    }
-                  />
-                )}
-              />
-            </Box>
 
-          </Box> */}
           <Box className="input_field_row">
             <Box className="input_fields">
               <Typography className="input_field_label" variant="span">
@@ -395,7 +365,8 @@ const AddClient = () => {
           </Box>
         </div>
       </div>
-      <ErrorSnackbar />
+
+      {/* <ErrorSnackbar /> */}
     </>
   )
 }

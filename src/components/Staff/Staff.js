@@ -205,6 +205,7 @@ const Staff = () => {
               />
             </FormControl>
             <Button
+              // sx={{ WebkitLineClamp: ' 1 !important' }}
               onClick={() => navigate('/addstaffmember')}
               className="add_team_buttn search_field"
               variant="span"
@@ -372,13 +373,11 @@ const Staff = () => {
             </Drawer>
           </Box>
           <Box className="left_team_profile_section">
-            {/* <TableContainer className="mt-2"> */}
             <TableContainer>
               <Table
                 style={{
                   borderCollapse: 'separate',
                   borderSpacing: '0 4px',
-                  // borderRadius: '5px',
                 }}
                 className="team_member_table"
               >
@@ -403,8 +402,6 @@ const Staff = () => {
                       className="staff_tablecell"
                       key={row.id}
                       onClick={() => teamLeaderDetails(row?.id)}
-                      // style={{ borderRadius: 5 }}
-
                       sx={{
                         backgroundColor: '#FFFFFF',
                       }}
@@ -418,10 +415,8 @@ const Staff = () => {
                           fontSize: '15px',
                           float: 'left',
                         }}
-                        // className="m-4"
                         align="left"
                       >
-                        {/* <AddRoundedIcon /> */}
                         <Avatar
                           className="me-2"
                           sx={{ width: 40, height: 40 }}
@@ -429,7 +424,6 @@ const Staff = () => {
                         />
                         <Typography>{row.name}</Typography>
                       </TableCell>
-                      {/* <TableCell>{row.name}</TableCell> */}
                       <TableCell align="left">{row.role.name}</TableCell>
                       <TableCell align="left">{row.id}</TableCell>
                     </TableRow>
@@ -443,24 +437,9 @@ const Staff = () => {
 
       {/* starting of SECOND section */}
       <Box className="right_panel">
-        <Box
-          //  sx={{ backgroundColor: '#FFFFFF' }}
-          sx={{
-            // border: '1px solid black',
-            borderRadius: '5px',
-            height: '800px',
-            backgroundColor: '#FFFFFF',
-          }}
-        >
-          <Box className="userName_and_position">
-            {/* <img src={ProfileImg} alt="profile" /> */}
-            <AccountCircleRoundedIcon
-              // src={BenedictPhoto}
-              className="userprofile_dummy_icon"
-              sx={{
-                paddingTop: 2,
-              }}
-            />
+        <Box>
+          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+            <AccountCircleRoundedIcon className="user_profile_icon mx-2 mt-2" />
 
             <Box
               sx={{
@@ -470,16 +449,13 @@ const Staff = () => {
               }}
             >
               <Typography
-                sx={{
-                  fontWeight: 'bold',
-                  fontSize: '26px',
-                  paddingRight: '190px',
-                }}
+                variant="span"
+                sx={{ fontWeight: 'bold', fontSize: '18px' }}
               >
                 {singleStaffDetails?.memberDetail?.name}
                 <img className="ml-1 p-1" alt="" />
               </Typography>
-              <Typography sx={{ marginTop: '10px' }}>
+              <Typography sx={{ marginTop: '10px' }} variant="span">
                 {singleStaffDetails?.memberDetail?.role?.name}
               </Typography>
             </Box>
@@ -489,7 +465,8 @@ const Staff = () => {
             <Box
               className="m-3"
               sx={{
-                justifyContent: 'center',
+                justifyContent: 'space-between',
+                // width: '100%',
                 alignItems: 'center',
                 flexDirection: 'row',
               }}
@@ -505,7 +482,6 @@ const Staff = () => {
                 sx={{
                   backgroundColor: '#F1F2F6',
                   // float: 'right',
-                  marginLeft: '65px',
                 }}
                 onClick={() =>
                   navigate(

@@ -75,37 +75,25 @@ const CompanyProfile = () => {
 
           <Box className="companyDetail">
             <Box className="companyDetail_root p-3">
-              <Typography
-                className="companyDetail_field_heading"
-                variant="span"
-              >
+              <Typography className="" variant="span">
                 Email:
               </Typography>
               <Typography variant="span">{companyDetail?.email}</Typography>
             </Box>
             <Box className="companyDetail_root p-3">
-              <Typography
-                variant="span"
-                className="companyDetail_field_heading"
-              >
+              <Typography variant="span" className="">
                 City:
               </Typography>
               <Typography variant="span">{companyDetail?.city}</Typography>
             </Box>
             <Box className="companyDetail_root p-3">
-              <Typography
-                variant="span"
-                className="companyDetail_field_heading"
-              >
+              <Typography variant="span" className="">
                 State:
               </Typography>
               <Typography variant="span">{companyDetail?.state}</Typography>
             </Box>
             <Box className="companyDetail_root  p-3">
-              <Typography
-                variant="span"
-                className="companyDetail_field_heading"
-              >
+              <Typography variant="span" className="">
                 Country:
               </Typography>
               <Typography variant="span">
@@ -113,19 +101,13 @@ const CompanyProfile = () => {
               </Typography>
             </Box>
             <Box className="companyDetail_root  p-3">
-              <Typography
-                className="companyDetail_field_heading"
-                variant="span"
-              >
+              <Typography className="" variant="span">
                 GSTIN:
               </Typography>
               <Typography variant="span">{companyDetail?.GSTIN}</Typography>
             </Box>
             <Box className="companyDetail_root common_row p-3">
-              <Typography
-                className="companyDetail_field_heading"
-                variant="span"
-              >
+              <Typography className="" variant="span">
                 Business Type:
               </Typography>
               <Typography variant="span">
@@ -133,10 +115,7 @@ const CompanyProfile = () => {
               </Typography>
             </Box>
             <Box className="companyDetail_root  p-3">
-              <Typography
-                className="companyDetail_field_heading"
-                variant="span"
-              >
+              <Typography className="" variant="span">
                 IndiaMart CRM Key:
               </Typography>
               <Typography variant="span">{companyDetail?.crmKey}</Typography>

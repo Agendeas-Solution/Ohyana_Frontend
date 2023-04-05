@@ -7,10 +7,7 @@ const StaffDetail = props => {
     <>
       <Box className="companyDetail">
         <Box className="companyDetail_root p-3">
-          <Typography
-            className="companyDetail_field_heading user_profile_color"
-            variant="span"
-          >
+          <Typography className=" user_profile_font_weight" variant="span">
             Contact No.:
           </Typography>
           <Typography variant="span">
@@ -18,10 +15,7 @@ const StaffDetail = props => {
           </Typography>
         </Box>
         <Box className="companyDetail_root p-3">
-          <Typography
-            variant="span"
-            className="companyDetail_field_heading user_profile_color"
-          >
+          <Typography variant="span" className=" user_profile_font_weight">
             Senior Post:
           </Typography>
           <Typography variant="span">
@@ -29,10 +23,7 @@ const StaffDetail = props => {
           </Typography>
         </Box>
         <Box className="companyDetail_root p-3">
-          <Typography
-            variant="span"
-            className="companyDetail_field_heading user_profile_color"
-          >
+          <Typography variant="span" className=" user_profile_font_weight">
             Email:
           </Typography>
           <Typography variant="span">
@@ -40,10 +31,7 @@ const StaffDetail = props => {
           </Typography>
         </Box>
         <Box className="companyDetail_root  p-3">
-          <Typography
-            variant="span"
-            className="companyDetail_field_heading user_profile_color"
-          >
+          <Typography variant="span" className=" user_profile_font_weight">
             Password:
           </Typography>
           <Typography variant="span">
@@ -51,10 +39,7 @@ const StaffDetail = props => {
           </Typography>
         </Box>
         <Box className="companyDetail_root  p-3">
-          <Typography
-            className="companyDetail_field_heading user_profile_color"
-            variant="span"
-          >
+          <Typography className=" user_profile_font_weight" variant="span">
             Birthdate
           </Typography>
           <Typography variant="span">
@@ -62,10 +47,7 @@ const StaffDetail = props => {
           </Typography>
         </Box>
         <Box className="companyDetail_root  p-3">
-          <Typography
-            className="companyDetail_field_heading user_profile_color"
-            variant="span"
-          >
+          <Typography className=" user_profile_font_weight" variant="span">
             Gender
           </Typography>
           <Typography variant="span">

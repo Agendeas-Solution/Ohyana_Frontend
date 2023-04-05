@@ -11,7 +11,7 @@
   align-items: center;
   /* flex-direction: row; */
   flex-wrap: wrap;
-  height: 75vh;
+  height: 60vh;
   overflow-y: auto;
 }
 
@@ -21,7 +21,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 5px;
   margin: 0 auto;
   padding: 1rem;
   cursor: pointer;

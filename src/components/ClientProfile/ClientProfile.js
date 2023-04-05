@@ -205,13 +205,7 @@ const ClientProfile = () => {
         {/* <Box className="main_section p-4 mt-4"> */}
         <Box className="profile_section">
           <Box className="profile_img">
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
+            <Box className="client_profile_heading">
               <Box className="userName_and_position">
                 <AccountCircleRoundedIcon
                   className="user_profile_icon"
@@ -258,7 +252,7 @@ const ClientProfile = () => {
                 </Box>
               </Box>
 
-              <Button className="common_button">
+              <Button className="profile_header_button">
                 {/* <PrintRoundedIcon className="icon" /> */}
                 {permissions?.editClient && (
                   <EditRoundedIcon
@@ -276,6 +270,7 @@ const ClientProfile = () => {
             <TabContext value={value}>
               <Box className="tab_row">
                 <TabList
+                  sx={{ borderBottom: '1px solid #F1F2F6' }}
                   className="client_profile_tab mb-2"
                   onChange={handleChange}
                 >
@@ -299,8 +294,7 @@ const ClientProfile = () => {
                         onClick={handleStatusOpen}
                         className="common_button"
                       >
-                        <AddRoundedIcon />
-                        Status
+                        {/* <AddRoundedIcon /> */}+ Status
                       </Button>
                       <Button className="common_button">Close</Button>
                     </>
@@ -343,13 +337,29 @@ const ClientProfile = () => {
                   ) : null}
                 </Box>
               </Box>
-              <Divider sx={{ margin: '0 auto' }} />
-              <TabPanel value="1">
-                <TableContainer sx={{ height: '50vh' }} component={Paper}>
+
+              {/* <Divider sx={{ margin: '0 auto' }} /> */}
+              {/* <Divider className="client_profile_underline" /> */}
+
+              <TabPanel sx={{ padding: '0px' }} value="1">
+                <TableContainer
+                  className="client_table_height mt-1"
+                  component={Paper}
+                  sx={{
+                    boxShadow: 'none',
+                    border: '1px solid #e5e5e5',
+                    overflowY: 'auto',
+                  }}
+                >
                   {clientStatusList.length > 0 ? (
-                    <Table stickyHeader>
-                      {/* <Table stickyHeader sx={{ minWidth: 650 }}> */}
-                      <TableHead className="client_profile_table_header">
+                    <Table
+                      stickyHeader
+                      aria-label="sticky table"
+                      sx={{ minWidth: 690, marginLeft: '-10px' }}
+                      className="table_heading "
+                    >
+                      {/* <TableHead className="client_profile_table_header"> */}
+                      <TableHead>
                         <TableRow>
                           <TableCell>Sr No.</TableCell>
                           <TableCell align="left">Status Added By</TableCell>
@@ -365,8 +375,11 @@ const ClientProfile = () => {
                         {clientStatusList.map((row, index) => (
                           <TableRow
                             key={index}
+                            hover
+                            role="checkbox"
+                            tabIndex={-1}
                             sx={{
-                              '&:last-child td, &:last-child th': { border: 0 },
+                              '&:last-child td,th': { border: 0 },
                             }}
                           >
                             <TableCell scope="row">{index + 1}</TableCell>
@@ -431,18 +444,18 @@ const ClientProfile = () => {
                   )}
                 </TableContainer>
               </TabPanel>
-              <TabPanel value="2">
+              <TabPanel sx={{ padding: '0px' }} value="2">
                 <RemainderTable clientReminderList={clientReminderList} />
               </TabPanel>
-              <TabPanel value="3">
+              <TabPanel sx={{ padding: '0px' }} value="3">
                 <AppointmentTable
                   clientAppointmentList={clientAppointmentList}
                 />
               </TabPanel>
-              <TabPanel value="4">
+              <TabPanel sx={{ paddingTop: '15px' }} value="4">
                 <ProfileTable clientProfileDetail={clientProfileDetail} />
               </TabPanel>
-              <TabPanel value="5">
+              <TabPanel sx={{ padding: '0px' }} value="5">
                 <OrderList />
               </TabPanel>
             </TabContext>

@@ -36,8 +36,8 @@ const PJPScheduleTable = ({ pjpList }) => {
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
-            className="table_heading "
+            sx={{ minWidth: 650 }}
+            className="table_heading"
           >
             <TableHead>
               <TableRow>
@@ -58,7 +58,6 @@ const PJPScheduleTable = ({ pjpList }) => {
                     hover
                     role="checkbox"
                     tabIndex={-1}
-                    // key={attendanceList.id}
                     sx={{
                       '&:last-child td,th': { border: 0 },
                     }}
@@ -95,7 +94,7 @@ const PJPScheduleTable = ({ pjpList }) => {
           </Table>
         </TableContainer>
       ) : (
-        <Box className="mt-5">
+        <Box sx={{ height: '60vh' }}>
           <NoResultFound />
         </Box>
       )}

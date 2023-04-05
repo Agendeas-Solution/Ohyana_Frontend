@@ -13,6 +13,7 @@ import './index.css'
 import moment from 'moment'
 import EditAppointmentDialog from './EditAppointmentDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+
 const AppointmentTable = props => {
   const [editClientAppointmentDetail, setEditClientAppointmentDetail] =
     useState({
@@ -43,9 +44,22 @@ const AppointmentTable = props => {
   }
   return (
     <>
-      <TableContainer sx={{ height: '50vh' }} component={Paper}>
+      <TableContainer
+        className="client_table_height mt-1"
+        component={Paper}
+        sx={{
+          boxShadow: 'none',
+          border: '1px solid #e5e5e5',
+          overflowY: 'auto',
+        }}
+      >
         {props.clientAppointmentList.length > 0 ? (
-          <Table stickyHeader sx={{ minWidth: 650 }}>
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            className="table_heading"
+          >
             <TableHead className="client_profile_table_header">
               <TableRow>
                 <TableCell>Sr No.</TableCell>
@@ -61,7 +75,12 @@ const AppointmentTable = props => {
               {props.clientAppointmentList.map((row, index) => (
                 <TableRow
                   key={index}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  sx={{
+                    '&:last-child td,th': { border: 0 },
+                  }}
                 >
                   <TableCell scope="row">{index + 1}</TableCell>
                   <TableCell align="left">{row.memberName}</TableCell>
@@ -87,9 +106,9 @@ const AppointmentTable = props => {
               ))}
             </TableBody>
           </Table>
-        ) :
+        ) : (
           <NoResultFound />
-        }
+        )}
       </TableContainer>
       {editClientAppointmentDetail.status === true && (
         <EditAppointmentDialog

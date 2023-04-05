@@ -339,7 +339,7 @@ const Dashboard = () => {
                       </TableCell>
                       <TableCell align="right">{data.points || '-'}</TableCell>
                       <TableCell align="right">
-                        {data.performance || '-'}
+                        {data.pointPercentage}
                       </TableCell>
                       <TableCell align="right">
                         {data?.location || '-'}
