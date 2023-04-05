@@ -215,7 +215,7 @@ const JobRolesList = () => {
                 <Grid
                   container
                   spacing={2}
-                  className="align-items-center d-flex justify-content-center"
+                  className="d-flex justify-content-center"
                 >
                   <Grid item xs={1}>
                     <Typography variant="span">{index + 1}</Typography>

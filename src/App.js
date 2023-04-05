@@ -32,14 +32,7 @@ const SignUp = React.lazy(() => import('./components/SignUp/SignUp'))
 const Register = React.lazy(() => import('./components/Register/Register'))
 
 const App = () => {
-  const { successSnackbar, errorSnackbar, notificationSnackbar } =
-    useContext(ContextSnackbar)?.state
   const { setPermissions } = useContext(AuthContext)
-  const [pathName, setPathName] = useState('')
-  const ProtectedRoutes = () => {
-    return Cookie.get('userToken') ? <Outlet /> : <Navigate to="/login" />
-  }
-
   useEffect(() => {
     var retrievedObject = JSON.parse(localStorage.getItem('permissions'))
     setPermissions(retrievedObject)
@@ -109,7 +102,6 @@ const App = () => {
                     element={<Page500 />}
                   /> */}
                 {/* <Route exact path="/lock" name="Lock" element={<Lock />} /> */}
-
                 <Route path="*" element={<DefaultLayout />} />
               </Routes>
             </div>

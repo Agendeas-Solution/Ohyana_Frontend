@@ -71,7 +71,6 @@ const UserProfile = () => {
       res => {
         if (res.success) {
           setUserDetail(res.data)
-          debugger
         }
       },
       err => {
@@ -320,17 +319,19 @@ const UserProfile = () => {
                     {userDetail?.contact_number || '-'}
                   </Typography>
                 </Box>
-                <Box className="companyDetail_root p-3">
-                  <Typography
-                    variant="span"
-                    className="companyDetail_field_heading user_profile_color"
-                  >
-                    Senior Post:
-                  </Typography>
-                  <Typography variant="span">
-                    {userDetail?.city || '-'}
-                  </Typography>
-                </Box>
+                {userDetail?.senior && (
+                  <Box className="companyDetail_root p-3">
+                    <Typography
+                      variant="span"
+                      className="companyDetail_field_heading user_profile_color"
+                    >
+                      Senior Post:
+                    </Typography>
+                    <Typography variant="span">
+                      {userDetail?.senior?.name}
+                    </Typography>
+                  </Box>
+                )}
                 <Box className="companyDetail_root p-3">
                   <Typography
                     variant="span"
@@ -367,6 +368,17 @@ const UserProfile = () => {
                   </Typography>
                   <Typography variant="span">{userDetail?.gender}</Typography>
                 </Box>
+                {userDetail?.city && (
+                  <Box className="companyDetail_root p-3">
+                    <Typography
+                      variant="span"
+                      className="companyDetail_field_heading user_profile_color"
+                    >
+                      City:
+                    </Typography>
+                    <Typography variant="span">{userDetail?.city}</Typography>
+                  </Box>
+                )}
               </Box>
             </TabPanel>
           </TabContext>
