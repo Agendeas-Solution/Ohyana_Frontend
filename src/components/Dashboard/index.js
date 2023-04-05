@@ -15,7 +15,9 @@ import {
   AttendanceStatus,
   GetInquiryAnalytics,
 } from '../../services/apiservices/staffDetail'
+import { useNavigate } from 'react-router-dom'
 const Dashboard = () => {
+  const navigate = useNavigate()
   const [inquiryData, setInquiryData] = useState()
 
   useEffect(() => {
@@ -309,7 +311,9 @@ const Dashboard = () => {
             <Typography className="team_overview_inner_heading" variant="span">
               Team Overview
             </Typography>
-            <Button className="view_all_button"> View All > </Button>
+            <Button className="view_all_button"
+            onClick={()=>navigate('/staff')}
+            > View All > </Button>
           </Box>
           <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
             <Table sx={{ minWidth: 650 }}>

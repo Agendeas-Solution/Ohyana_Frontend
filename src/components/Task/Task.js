@@ -122,6 +122,7 @@ const Task = () => {
             status: true,
             message: res.message,
           })
+          handleClose();
         }
       },
       err => {
@@ -283,7 +284,7 @@ const Task = () => {
                     </div>
 
                     <Autocomplete
-                      className="mt-1 mx-2 align-items-center d-flex client_type_select justify-content-center "
+                      className="mt-1 mx-2 align-items-center d-flex client_type_select justify-content-center"
                       options={clientType}
                       value={
                         clientStage !== null ? clientType[clientStage] : null
@@ -315,7 +316,7 @@ const Task = () => {
           {taskList.length > 0 &&
             taskList.map(taskData => {
               return (
-                <Box className="task_card me-3 mx-2 mt-2 p-2">
+                <Box className="task_card m-2 p-2">
                   <Box
                     className="d-flex row task_card_hover"
                     onClick={() => {

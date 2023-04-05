@@ -18,7 +18,7 @@ import {
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import './index.css'
-import { GetAdminRole } from '../../services/apiservices/adminprofile'
+import { GetSingleRole } from '../../services/apiservices/adminprofile'
 import {
   UpdatePermission,
   getUserPermissions,
@@ -68,7 +68,7 @@ const Department = () => {
     })
   const [jobRoleList, setJobRoleList] = useState({
     name: '',
-    roles: [],
+    senior: [],
     departmentId: null,
   })
   const [clientType, setClientType] = useState([
@@ -114,7 +114,7 @@ const Department = () => {
   })
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state
-
+  const [expensePolicy, setExpensePolicy] = useState();
   useEffect(() => {
     getUserPermissions(
       parseInt(window.location.pathname.split('/').pop()),
@@ -149,6 +149,7 @@ const Department = () => {
             accessSetting: staffPermission?.accessSetting,
           },
         })
+        setExpensePolicy(res?.data?.expensePolicies);
       },
       err => { },
     )
@@ -211,15 +212,15 @@ const Department = () => {
     console.log('Printing Path of ', path)
     console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
-    GetAdminRole(
+    GetSingleRole(
       parseInt(path),
       res => {
         if (res.success) {
           setJobRoleList({
             ...jobRoleList,
-            departmentId: res.data.department.id,
-            name: res.data.department.name,
-            roles: res.data.roles,
+            departmentId: res.data.departmentId,
+            name: res.data.name,
+            senior: res.data.senior,
           })
         }
       },
@@ -249,8 +250,7 @@ const Department = () => {
     <>
       <Box className="main_section mt-3">
         <Box className="sales_header_section">
-          {/* <Typography variant="h5">{jobRoleList.name}</Typography> */}
-          <Typography variant="h5">Jr. Sales Person</Typography>
+          <Typography variant="h5">{jobRoleList.name}</Typography>
           <Box>
             {permissions?.editDepartment && (
               <EditRoundedIcon
@@ -292,7 +292,7 @@ const Department = () => {
                 Senior Post
               </Typography>
               <Typography className="p-1" variant="span">
-                Sr. Sales Person
+                {jobRoleList?.senior?.name}
               </Typography>
             </Box>
             <Box className="post_description">
@@ -304,9 +304,8 @@ const Department = () => {
                 Post Description
               </Typography>
               <Typography className="p-1" variant="span">
-                Lorem ipsum is a placeholder text commonly used to demonstrate
-                the visual form of a document or a typefacewithout relying on
-                meaningful content.
+              {jobRoleList?.senior?.description}
+
               </Typography>
             </Box>
           </Box>
@@ -372,89 +371,49 @@ const Department = () => {
               </InputLabel>
               <Select id="demo-multiple-checkbox-label">
                 <FormGroup className="p-2">
-                  <Box sx={{ margin: '5px' }}>
-                    <FormControlLabel
-                      sx={{ display: 'inline' }}
-                      control={
-                        <Checkbox
-                          checked={expenseManagement?.travelChecked}
-                          className="check_box_color"
-                          onChange={e => {
-                            setExpenseManagement({
-                              ...expenseManagement,
-                              travelChecked: e.target.checked
-                            })
-                          }}
-                        />
-                      }
-                      label="Travel"
-                    />
-                    <TextField
-                      sx={{ display: 'inline', marginLeft: '17rem' }}
-                      placeholder="Max Amount"
-                      type='number'
-                      value={expenseManagement?.travelAmount}
-                      onChange={(e) => setExpenseManagement({ ...expenseManagement, travelAmount: e.target.value })}
-                    />
-                    <Button disabled={!expenseManagement?.travelChecked} className="p-2 m-1" variant={expenseManagement?.travelChecked ? "contained" : "outlined"}>
-                      Save
-                    </Button>
-                  </Box>
-                  <Box sx={{ margin: '5px' }}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          className="check_box_color"
-                          onChange={() => console.log('checkbox selected...')}
-                        />
-                      }
-                      label="Food"
-                    />
-                    <TextField
-                      sx={{ display: 'inline', marginLeft: '17rem' }}
-                      placeholder="Max Amount"
-                      type='number'
-                      value={expenseManagement?.foodAmount}
-                      onChange={(e) => setExpenseManagement({ ...expenseManagement, foodAmount: e.target.value })}
-                    />
-                    <Button disabled={!expenseManagement?.foodChecked} className="p-2 m-1" variant={expenseManagement?.foodChecked ? "contained" : "outlined"}>
-                      Save
-                    </Button>
-                  </Box>
-                  <Box sx={{ margin: '5px' }}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          className="check_box_color"
-                          onChange={() => console.log('checkbox selected...')}
-                        />
-                      }
-                      label="Hotel"
-                    />
-                    <TextField
-                      sx={{ display: 'inline', marginLeft: '17rem' }}
-                      placeholder="Max Amount"
-                      type="number"
-                      value={expenseManagement?.hotelAmount}
-                      onChange={(e) => setExpenseManagement({ ...expenseManagement, hotelAmount: e.target.value })}
-                    />
-                    <Button disabled={!expenseManagement?.hotelChecked} className="p-2 m-1" variant={expenseManagement?.hotelChecked ? "contained" : "outlined"}>
-                      Save
-                    </Button>
-                  </Box>
+
+                  {expensePolicy && expensePolicy.map((data) =>
+                    <Box sx={{ margin: '5px' }}>
+                      <FormControlLabel
+                        sx={{ display: 'inline' }}
+                        control={
+                          <Checkbox
+                            checked={expenseManagement?.travelChecked}
+                            className="check_box_color"
+                            onChange={e => {
+                              setExpenseManagement({
+                                ...expenseManagement,
+                                travelChecked: e.target.checked
+                              })
+                            }}
+                          />
+                        }
+                        label={data?.name}
+                      />
+                      <TextField
+                        sx={{ display: 'inline', marginLeft: '17rem' }}
+                        placeholder="Max Amount"
+                        type='number'
+                        value={expenseManagement?.travelAmount}
+                        onChange={(e) => setExpenseManagement({ ...expenseManagement, travelAmount: e.target.value })}
+                      />
+                    </Box>
+                  )
+
+                  }
+                 
+                  <Button disabled={!expenseManagement?.hotelChecked} className="p-2 m-1" variant={expenseManagement?.hotelChecked ? "contained" : "outlined"}>
+                    Save
+                  </Button>
                 </FormGroup>
               </Select>
             </FormControl>
           </Box>
 
           <Box className="mb-3 row accessMenus_checkbox">
-            {/* <Box className="col-md-12 pb-3"> */}
-            {/* <Box> */}
             <Typography variant="span">
               Select the menu you want to give access to.
             </Typography>
-            {/* </Box> */}
-
             {permissions.accessClient && (
               <Box
                 sx={{ marginRight: '30px' }}

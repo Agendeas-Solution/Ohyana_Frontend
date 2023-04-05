@@ -302,12 +302,30 @@ export const GetAdminRole = async (value, onSuccess, onError) => {
   try {
     const { data } = await axiosInstance.get(`/role`, {
       headers: { ...defaultHeaders },
+      
     })
     console.log('Printing data of GetAdminRole', data)
     onSuccess && onSuccess(data)
     ////
   } catch (err) {
     console.log('Got error while calling API - GetAdminRole', err)
+    onError && onError(err)
+    ////
+  }
+}
+export const GetSingleRole = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.get(`/role/detail`, {
+      headers: { ...defaultHeaders },
+      params:{roleId:value}
+      
+    })
+    console.log('Printing data of GetSingleRole', data)
+    onSuccess && onSuccess(data)
+    ////
+  } catch (err) {
+    console.log('Got error while calling API - GetSingleRole', err)
     onError && onError(err)
     ////
   }
