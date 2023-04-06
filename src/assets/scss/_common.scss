@@ -6,6 +6,10 @@
   background-color: #f1f2f6 !important;
 }
 
+.k_color_primary {
+  color: #2E3591;
+}
+
 .input_fields input:focus {
   border: red;
 }
@@ -388,6 +392,47 @@ button {
   border-radius: 5px;
   width: 97%;
   flex-direction: column !important;
+  margin: 15px auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.orders_main_section {
+  display: flex;
+  background-color: #fff;
+  padding: 10px;
+  height: 88%;
+  border-radius: 5px;
+  width: 97%;
+  flex-direction: column !important;
+  margin: 15px auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.below_main_tab_section {
+  // display: flex;
+  background-color: #fff;
+  padding: 10px;
+  margin-top: 5px;
+  width: 100%;
+  height: 79%;
+  border-radius: 5px;
+  // width: 97%;
+  // flex-direction: row !important;
+  // margin: 15px auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.tab_main_section {
+  display: flex;
+  background-color: #fff;
+  padding: 10px;
+  height: 80%;
+  border-radius: 5px;
+  width: 97%;
+  flex-direction: column !important;
   margin: 20px auto;
   overflow-y: auto;
   overflow-x: hidden;
@@ -593,7 +638,7 @@ button {
   padding: 7px !important;
 }
 .holiday_inner_class {
-  width: 700px;
+  width: 100%;
 }
 .login_page_root {
   display: flex;
@@ -726,7 +771,15 @@ button {
   text-transform: capitalize !important;
   color: #2e3591 !important;
   padding-left: 0px;
-
+}
+.main_tab_button {
+  /* width: 109px; */
+  margin: auto 10px auto 0;
+  height: 40px;
+  background-color: #fff !important;
+  text-transform: capitalize !important;
+  color: #2e3591 !important;
+  padding-left: 0px;
 }
 .access_control_box {
   border: 1px solid #e5e5e5;
@@ -792,15 +845,14 @@ button {
   padding: 0px;
 }
 .left_panel {
-  border: 2px solid black;
   border-radius: 5px;
   // padding: 7px;
   display: flex;
   flex-direction: row;
-  width: 60%;
+  height: 100%;
+  width: 58.5%;
 }
 .right_panel {
-  border: 3px solid blue;
   border-radius: 5px;
   // padding: 10px;
   height: 100%;
@@ -808,9 +860,10 @@ button {
   flex-direction: row;
   width: 40%;
   background-color: #FFFFFF;
+
+  overflow: hidden;
 }
 .team_profile_section {
-  border: 1px solid red;
   display: flex;
   background: #ffffff;
   width: 97% ;
@@ -818,12 +871,12 @@ button {
   height: 86%;
   // flex-direction: column ;
 justify-content: space-between;
-  margin: 20px auto;
-
-  // border-radius: 5px;
-  // flex-direction: row;
-
-
+  margin: 15px auto;
+}
+.main_tab_section {
+  display: flex;
+  width: 97% ;
+  margin: 6px auto;
 }
 .team_right_panel_heading {
   font-weight: bold;
@@ -835,7 +888,11 @@ justify-content: space-between;
 }
 .inner_profile_details {
   border-radius: 5px;
-  width: 140px;
+  // width: 132px;
+  width: 125px;
+}
+.bottom_right_part {
+  // overflow-x: scroll;
 }
 
 .first_box {
@@ -851,7 +908,16 @@ justify-content: space-between;
 }
 .team_header {
   display: flex;
+  width: 100%;
   justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+.tab_header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-content: center;
   align-items: center;
 }
 .checkbox_background_color {
@@ -863,6 +929,9 @@ justify-content: space-between;
 }
 .expenses_table_height {
   height:55vh;
+}
+.orders_table_height {
+  height: 76vh;
 }
 .pjp_table_height {
   height:60vh;
@@ -969,4 +1038,17 @@ justify-content: space-between;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+
+.typos_dummy {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+.header_profile_drop_down {
+  margin-right: 6px;
+  color: #2E3591;
 }

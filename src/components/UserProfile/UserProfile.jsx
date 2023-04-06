@@ -318,10 +318,10 @@ const UserProfile = () => {
                   </Typography>
                 </Box>
                 {userDetail?.senior && (
-                  <Box className="companyDetail_root p-3">
+                  <Box className="staff_profile_page">
                     <Typography
                       variant="span"
-                      className="companyDetail_field_heading user_profile_color"
+                      className="user_profile_font_weight"
                     >
                       Senior Post:
                     </Typography>
@@ -330,7 +330,7 @@ const UserProfile = () => {
                     </Typography>
                   </Box>
                 )}
-                <Box className="companyDetail_root p-3">
+                <Box className="staff_profile_page">
                   <Typography
                     variant="span"
                     className=" user_profile_font_weight"

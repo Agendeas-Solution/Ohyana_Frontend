@@ -18,24 +18,27 @@
   height: 60px;
 }
 .user_profile_photo_root {
-  height: 100%;
-  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-content: center;
   align-items: center;
 }
 .user_profile_photo_root img {
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  margin-right: 20px;
+  width: 34px;
+  height: 34px;
+  margin-right: 12px;
 }
 .header-info {
-  width: 100%;
   display: flex;
+  justify-content: space-between;
+  width: 100%;
   border-bottom: 1px solid #c4c4c4;
   flex-direction: row;
   align-items: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  /* margin: 20px auto; */
 }
 .notification_class {
   margin-left: 810px;

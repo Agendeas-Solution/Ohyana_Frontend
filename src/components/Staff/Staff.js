@@ -182,46 +182,52 @@ const Staff = () => {
     <Box sx={{ backgroundColor: '#f1f2f6' }} className="team_profile_section">
       <Box sx={{ marginBottom: '10px' }} className="left_panel">
         <Box className="holiday_inner_class">
-          <Box sx={{ justifyContent: 'space-between' }} className="team_header">
-            <Typography
-              sx={{ marginRight: '58px', color: '#8E8E8E' }}
-              variant="span"
-              pl={1}
+          <Box className="team_header">
+            <Box>
+              <Typography sx={{ color: '#8E8E8E' }} variant="span">
+                Detail
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
             >
-              Detail
-            </Typography>
-            <FormControl variant="outlined">
-              <OutlinedInput
-                sx={{ marginLeft: '6px' }}
-                className="search_field"
-                placeholder="Search Here..."
-                startAdornment={
-                  <InputAdornment position="start">
-                    <IconButton>
-                      <SearchRoundedIcon />
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-            <Button
-              // sx={{ WebkitLineClamp: ' 1 !important' }}
-              onClick={() => navigate('/addstaffmember')}
-              className="add_team_buttn search_field"
-              variant="span"
-            >
-              + Add Team
-            </Button>
-            {/* <Toolbar> */}
-            <IconButton
-              // sx={{ marginLeft: '9px' }}
-              edge="end"
-              onClick={handleDrawerOpen}
-              sx={{ ...(open && { display: 'none' }) }}
-            >
-              <img src={FilterIcon} alt="" />
-            </IconButton>
-            {/* </Toolbar> */}
+              <FormControl variant="outlined">
+                <OutlinedInput
+                  className="search_field"
+                  placeholder="Search Here..."
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <IconButton>
+                        <SearchRoundedIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+
+              <Button
+                // sx={{ WebkitLineClamp: ' 1 !important' }}
+                onClick={() => navigate('/addstaffmember')}
+                className="main_tab_button"
+                variant="span"
+              >
+                + Add Team
+              </Button>
+
+              {/* <Toolbar> */}
+              <IconButton
+                edge="end"
+                onClick={handleDrawerOpen}
+                sx={{ ...(open && { display: 'flex' }) }}
+              >
+                <img src={FilterIcon} alt="" />
+              </IconButton>
+              {/* </Toolbar> */}
+            </Box>
 
             <Drawer
               sx={{
@@ -231,7 +237,7 @@ const Staff = () => {
                   width: drawerWidth,
                 },
               }}
-              variant="persistent"
+              // variant="persistent"
               anchor="right"
               open={open}
             >
@@ -239,9 +245,6 @@ const Staff = () => {
                 <Box className="d-flex justify-content-between column w-100 align-items-center">
                   <Box className="d-flex column justify-content-between w-50 align-items-center">
                     <IconButton
-                      // sx={{ paddingRight: '10px' }}
-                      // sx={{ paddingRight: '12rem' }}
-                      // className="pe-5"
                       disableRipple={true}
                       onClick={handleDrawerClose}
                     >
@@ -257,7 +260,6 @@ const Staff = () => {
                     </Typography>
                   </Box>
                   <Box className=" d-flex justify-content-end row w-50">
-                    {/* <Typography sx={{ textAlign: 'end' }}>Clear All</Typography> */}
                     <Typography sx={{ paddingLeft: '80px' }}>
                       Clear All
                     </Typography>
@@ -283,14 +285,9 @@ const Staff = () => {
                       name="row-radio-buttons-group"
                     >
                       <FormControlLabel
-                        // sx={{ backgroundColor: '#F1F2F6' }}
                         className="checkbox_background_color"
                         value="office"
-                        control={
-                          <Radio
-                          // sx={{ color: '#2E3591', backgroundColor: '2E3591' }}
-                          />
-                        }
+                        control={<Radio />}
                         label="Office"
                       />
                       <FormControlLabel
@@ -372,13 +369,14 @@ const Staff = () => {
               </Box>
             </Drawer>
           </Box>
+
           <Box className="left_team_profile_section">
             <TableContainer>
               <Table
-                style={{
-                  borderCollapse: 'separate',
-                  borderSpacing: '0 4px',
-                }}
+                // style={{
+                //   borderCollapse: 'separate',
+                //   borderSpacing: '0 4px',
+                // }}
                 className="team_member_table"
               >
                 <TableHead>
@@ -396,37 +394,45 @@ const Staff = () => {
                   flexItem
                 />
 
-                <TableBody>
+                <TableBody
+                  style={{
+                    borderCollapse: 'separate',
+                    borderSpacing: '0 4px',
+                  }}
+                >
                   {staffDetailList.map((row, index) => (
-                    <TableRow
-                      className="staff_tablecell"
-                      key={row.id}
-                      onClick={() => teamLeaderDetails(row?.id)}
-                      sx={{
-                        backgroundColor: '#FFFFFF',
-                      }}
-                    >
-                      <TableCell
+                    <React.Fragment key={index}>
+                      <TableRow
+                        className="staff_tablecell"
+                        key={row.id}
+                        onClick={() => teamLeaderDetails(row?.id)}
                         sx={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          flexDirection: 'row',
-                          fontSize: '15px',
-                          float: 'left',
+                          backgroundColor: '#FFFFFF',
+                          borderBottom: '2px solid black',
                         }}
-                        align="left"
                       >
-                        <Avatar
-                          className="me-2"
-                          sx={{ width: 40, height: 40 }}
-                          src="/static/images/avatar/1.jpg"
-                        />
-                        <Typography>{row.name}</Typography>
-                      </TableCell>
-                      <TableCell align="left">{row.role.name}</TableCell>
-                      <TableCell align="left">{row.id}</TableCell>
-                    </TableRow>
+                        <TableCell
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            fontSize: '15px',
+                            float: 'left',
+                          }}
+                        >
+                          <Avatar
+                            className="me-2"
+                            sx={{ width: 40, height: 40 }}
+                            src="/static/images/avatar/1.jpg"
+                          />
+                          <Typography>{row.name}</Typography>
+                        </TableCell>
+                        <TableCell align="left">{row.role.name}</TableCell>
+                        <TableCell align="left">{row.id}</TableCell>
+                      </TableRow>
+                      {index < staffDetailList.length - 1 && <Box my={2} />}
+                    </React.Fragment>
                   ))}
                 </TableBody>
               </Table>
@@ -516,32 +522,34 @@ const Staff = () => {
             </Box>
           </Box>
 
-          <Box className="mt-3">
+          <Box className="bottom_right_part mt-3">
             <Typography className="px-3">Inquiry Status</Typography>
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
+                width: '100%',
+                justifyContent: 'space-around',
                 marginBottom: '14px',
-                marginLeft: '16px',
+                marginLeft: '6px',
               }}
             >
-              <Box className="inner_profile_details first_box m-1 p-2">
+              <Box className="inner_profile_details first_box p-2">
                 <Typography>Total Inquiry</Typography>
                 <Typography>
                   {singleStaffDetails?.currentMonthClients?.total}
                 </Typography>
               </Box>
 
-              <Box className="inner_profile_details middle_box m-1 p-2">
+              <Box className="inner_profile_details middle_box p-2">
                 <Typography>Attend</Typography>
                 <Typography>
                   {singleStaffDetails?.currentMonthClients?.attend}
                 </Typography>
               </Box>
 
-              <Box className="inner_profile_details last_box m-1 p-2">
-                <Typography>Avg. Response</Typography>
+              <Box className="inner_profile_details last_box  p-2">
+                <Typography className="typos_dummy">Avg. Response</Typography>
                 <Typography>
                   {singleStaffDetails?.currentMonthClients?.avgResponseTime}{' '}
                 </Typography>
@@ -553,8 +561,10 @@ const Staff = () => {
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
+                width: '100%',
+                justifyContent: 'space-around',
                 marginBottom: '14px',
-                marginLeft: '16px',
+                marginLeft: '6px',
               }}
             >
               <Box className="inner_profile_details first_box m-1 p-2">
@@ -584,9 +594,10 @@ const Staff = () => {
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
+                width: '100%',
+                justifyContent: 'space-around',
                 marginBottom: '14px',
-                marginLeft: '16px',
-                marginRight: '16px',
+                marginLeft: '6px',
               }}
             >
               <Box className="inner_profile_details first_box m-1 p-2">
@@ -613,7 +624,14 @@ const Staff = () => {
 
             <Typography className="px-3">Expense</Typography>
             <Box
-              sx={{ display: 'flex', flexDirection: 'row', marginLeft: '16px' }}
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                justifyContent: 'space-around',
+                marginBottom: '14px',
+                marginLeft: '6px',
+              }}
             >
               <Box className="inner_profile_details first_box  m-1 p-2">
                 <Typography>Approved</Typography>

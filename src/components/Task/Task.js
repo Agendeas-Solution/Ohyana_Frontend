@@ -122,7 +122,7 @@ const Task = () => {
             status: true,
             message: res.message,
           })
-          handleClose();
+          handleClose()
         }
       },
       err => {
@@ -134,81 +134,61 @@ const Task = () => {
     AssignMemberParticularTask(
       { taskid: taskId, memberid: memberId },
       res => {
-        setMember();
-        handleCloseMemberDialog();
+        setMember()
+        handleCloseMemberDialog()
       },
       err => {},
     )
   }
 
   return (
-    // <Box className="d-flex flex-row justify-content-between align-items-center mx-2 px-2">
-    //     <Typography variant="span">Overview</Typography>
-    //     <Box>
-    //       <FormControl variant="outlined">
-    //         <OutlinedInput
-    //           sx={{ background: '#fff' }}
-    //           className="mx-2"
-    //           placeholder="Search Here..."
-    //           startAdornment={
-    //             <InputAdornment position="start" sx={{ background: '#fff' }}>
-    //               <IconButton>
-    //                 <SearchRoundedIcon />
-    //               </IconButton>
-    //             </InputAdornment>
-    //           }
-    //           label="Password"
-    //         />
-    //       </FormControl>
-    //       <IconButton edge="end">
-    //         <img src={FilterIcon} alt="" />
-    //       </IconButton>
-    //     </Box>
-    //   </Box>
-    <>
-      <Box className="task_section">
-        <Box className=" mt-2 mb-2 mx-2 px-2 common_row d-flex flex-row justify-content-between align-items-center">
-          <Typography variant="span">Overview</Typography>
-          <Box>
-            <div className="d-flex">
-              <FormControl variant="outlined">
-                <OutlinedInput
-                  sx={{ background: '#fff' }}
-                  className="search_bar mx-2"
-                  placeholder="Search Here..."
-                  startAdornment={
-                    <InputAdornment
-                      position="start"
-                      sx={{ background: '#fff' }}
-                    >
-                      <IconButton>
-                        <SearchRoundedIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Password"
-                />
-              </FormControl>
-              <Button
-                // className="mx-2 p-3"
-                className="main_button"
-                onClick={handleClickOpen}
-                sx={{ background: '#fff' }}
-                variant="filled"
-              >
-                + Task
-              </Button>
+    <Box sx={{ backgroundColor: '#f1f2f6' }} className="main_tab_section">
+      <Box sx={{ marginBottom: '10px' }}>
+        <Box>
+          <Box className="tab_header">
+            <Box>
+              <Typography sx={{ color: '#8E8E8E' }} variant="span">
+                Overview
+              </Typography>
+            </Box>
 
-              {/* <div className="d-flex"> */}
-              <Toolbar>
+            <Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <FormControl variant="outlined">
+                  <OutlinedInput
+                    className="search_field"
+                    placeholder="Search Here..."
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <IconButton>
+                          <SearchRoundedIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+
+                <Button
+                  onClick={handleClickOpen}
+                  className="main_tab_button"
+                  variant="span"
+                >
+                  + Task
+                </Button>
+
                 <IconButton
                   edge="end"
                   onClick={handleDrawerOpen}
-                  sx={{ ...(openDrawer && { display: 'none' }) }}
+                  sx={{ ...(openDrawer && { display: 'flex' }) }}
                 >
                   <img src={FilterIcon} alt="" />
                 </IconButton>
-              </Toolbar>
+              </Box>
 
               <Drawer
                 sx={{
@@ -218,7 +198,7 @@ const Task = () => {
                     width: drawerWidth,
                   },
                 }}
-                variant="persistent"
+                // variant="persistent"
                 anchor="right"
                 open={openDrawer}
               >
@@ -308,47 +288,51 @@ const Task = () => {
                   </div>
                 </Box>
               </Drawer>
-              {/* </div> */}
-            </div>
+            </Box>
           </Box>
         </Box>
-        <Box className="task_cards_section" component={Paper}>
+
+        <Box className="below_main_tab_section">
           {taskList.length > 0 &&
             taskList.map(taskData => {
               return (
-                <Box className="task_card m-2 p-2">
-                  <Box
-                    className="d-flex row task_card_hover"
-                    onClick={() => {
-                      navigate(`/taskdetail/${taskData?.id}`)
-                    }}
-                  >
-                    <Typography className="task_card_heading" variant="span">
-                      {taskData.title}
-                    </Typography>
-                    <Typography className="task_description" variant="span">
-                      {taskData.description}
-                    </Typography>
-                  </Box>
-                  <Box className="common_row">
-                    <Typography className="task_date" variant="span">
-                      {moment(taskData.createdAt).format('Do MMM YY')}
-                    </Typography>
-                    {taskData?.team?.email ? (
-                      <Typography
-                        className="name_chip "
-                        variant="span"
-                      >
-                        {taskData?.team?.email.toUpperCase().charAt(0)}
+                <Box
+                // sx={{
+                //   display: 'flex',
+                //   flexDirection: 'row',
+                // }}
+                >
+                  <Box className="task_card">
+                    <Box
+                      className="row task_card_hover"
+                      onClick={() => {
+                        navigate(`/taskdetail/${taskData?.id}`)
+                      }}
+                    >
+                      <Typography className="task_card_heading" variant="span">
+                        {taskData.title}
                       </Typography>
-                    ) : (
-                      <Button
-                        onClick={() => handleOpenMemberDialog(taskData.id)}
-                        className="common_button"
-                      >
-                        + Member
-                      </Button>
-                    )}
+                      <Typography className="task_description" variant="span">
+                        {taskData.description}
+                      </Typography>
+                    </Box>
+                    <Box className="common_row">
+                      <Typography className="task_date" variant="span">
+                        {moment(taskData.createdAt).format('Do MMM YY')}
+                      </Typography>
+                      {taskData?.team?.email ? (
+                        <Typography className="name_chip " variant="span">
+                          {taskData?.team?.email.toUpperCase().charAt(0)}
+                        </Typography>
+                      ) : (
+                        <Button
+                          onClick={() => handleOpenMemberDialog(taskData.id)}
+                          className="common_button"
+                        >
+                          + Member
+                        </Button>
+                      )}
+                    </Box>
                   </Box>
                 </Box>
               )
@@ -371,7 +355,7 @@ const Task = () => {
           />
         </Box>
       </Box>
-    </>
+    </Box>
   )
 }
 

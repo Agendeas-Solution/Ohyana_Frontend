@@ -17,10 +17,10 @@
 }
 
 .platform_data_detail {
-  width: 65%;
+  /* width: 65%; */
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
+  /* justify-content: space-between; */
+  /* margin-bottom: 6px; */
 }
 .inquiry_from_name {
   display: flex;
@@ -31,16 +31,17 @@
 .inquiry_row {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0 0 30px;
+  padding: 8px 0;
 }
 .small_sub_heading {
-  padding: 10px 0 0 30px;
+  /* padding: 10px 0 0 30px; */
   font-size: 12px;
   color: #8e8e8e;
+  margin-bottom: 10px !important;
   /* border-bottom: 1px solid black; */
 }
 .inquiry_detail_box {
-  width: 40%;
+  width: 50%;
   margin-bottom: 8px;
 }
 .doughnut_chart_inquiry {

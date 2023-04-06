@@ -128,7 +128,7 @@ const JobRolesList = () => {
 
   return (
     <>
-      <div className="main_section p-4">
+      <div className="main_section">
         <Box className="job_role_title mb-3">
           <Typography variant="span" className="ms-2">
             Job Roles
@@ -153,7 +153,7 @@ const JobRolesList = () => {
           orientation="horizontal"
           // variant="middle"
           width="100%"
-        // flexItem
+          // flexItem
         />
         <Box sx={{ marginTop: '19px', width: 'initial' }}>
           {/* <Grid
@@ -227,7 +227,9 @@ const JobRolesList = () => {
                     <Typography variant="span">{data.name}</Typography>
                   </Grid>
                   <Grid item xs={3}>
-                    <Typography className="job_role_description" variant="span">{data.description}</Typography>
+                    <Typography className="job_role_description" variant="span">
+                      {data.description}
+                    </Typography>
                   </Grid>
                   <Grid item xs={2}>
                     <Button

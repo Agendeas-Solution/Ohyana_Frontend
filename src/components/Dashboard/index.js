@@ -84,117 +84,193 @@ const Dashboard = () => {
             </Box>
 
             <Box className="common_row">
-              <Box className="platform_data_detail row">
+              <Box
+                className="platform_data_detail"
+                sx={{
+                  justifyContent: 'center',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  marginRight: '8px',
+                  marginLeft: '8px',
+                }}
+              >
+                <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                  <Box
+                    className="inquiry_detail_box"
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'start',
+                      marginRight: '40px',
+                    }}
+                  >
+                    <Box className="inquiry_from_name">
+                      <Box
+                        sx={{
+                          backgroundColor: '#FFAB00',
+                          height: '10px',
+                          width: '10px',
+                          marginRight: '10px',
+                        }}
+                      ></Box>
+                    </Box>
+
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        marginTop: '3px',
+                        width: '100%',
+                      }}
+                    >
+                      <Typography>IndiaMart</Typography>
+                      <Box className="inquiry_row">
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.crtMonIndiaMart}
+                        </Typography>
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.percentageIndiaMart}%
+                        </Typography>
+                      </Box>
+                      <Typography className="small_sub_heading" variant="span">
+                        Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
+                      </Typography>
+                      <Divider className="underline" />
+                    </Box>
+                  </Box>
+
+                  <Box
+                    className="inquiry_detail_box"
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'start',
+                    }}
+                  >
+                    <Box className="inquiry_from_name">
+                      <Box
+                        sx={{
+                          backgroundColor: '#FFAB00',
+                          height: '10px',
+                          width: '10px',
+                          marginRight: '10px',
+                        }}
+                      ></Box>
+                    </Box>
+
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        marginTop: '3px',
+                        width: '100%',
+                      }}
+                    >
+                      <Typography>Website</Typography>
+                      <Box className="inquiry_row">
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.crtMonIndiaMart}
+                        </Typography>
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.percentageIndiaMart}%
+                        </Typography>
+                      </Box>
+                      <Typography className="small_sub_heading" variant="span">
+                        Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
+                      </Typography>
+                      <Divider className="underline" />
+                    </Box>
+                  </Box>
+                </Box>
+
                 <Box
                   sx={{
-                    marginLeft: '10px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    marginTop: '12px',
                   }}
-                  className="inquiry_detail_box test_using_after"
                 >
-                  <Box className="inquiry_from_name">
-                    <Box
-                      sx={{
-                        backgroundColor: '#FFAB00',
-                        height: '10px',
-                        width: '10px',
-                        marginRight: '10px',
-                      }}
-                    ></Box>
-                    <Typography variant="span">IndiaMart</Typography>
-                  </Box>
-                  <Box className="inquiry_row">
-                    <Typography variant="span">
-                      {inquiryData?.inquiry?.crtMonIndiaMart}
-                    </Typography>
-                    <Typography variant="span">
-                      {inquiryData?.inquiry?.percentageIndiaMart}%
-                    </Typography>
-                  </Box>
-                  <Typography
-                    className="small_sub_heading test_using_dummy"
-                    variant="span"
+                  <Box
+                    className="inquiry_detail_box"
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'start',
+                      marginRight: '40px',
+                    }}
                   >
-                    Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
-                  </Typography>
-                  <Divider className="underline" />
-                </Box>
+                    <Box className="inquiry_from_name">
+                      <Box
+                        sx={{
+                          backgroundColor: '#FFAB00',
+                          height: '10px',
+                          width: '10px',
+                          marginRight: '10px',
+                        }}
+                      ></Box>
+                    </Box>
 
-                <Box
-                  sx={{ borderBottom: '1px solid #E5E5E5', marginLeft: '10px' }}
-                  className="inquiry_detail_box"
-                >
-                  <Box className="inquiry_from_name">
                     <Box
                       sx={{
-                        backgroundColor: '#FD4545',
-                        height: '10px',
-                        width: '10px',
-                        marginRight: '10px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        marginTop: '3px',
+                        width: '100%',
                       }}
-                    ></Box>
-                    <Typography variant="span">Website</Typography>
+                    >
+                      <Typography>From PJP</Typography>
+                      <Box className="inquiry_row">
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.crtMonIndiaMart}
+                        </Typography>
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.percentageIndiaMart}%
+                        </Typography>
+                      </Box>
+                      <Typography className="small_sub_heading" variant="span">
+                        Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Box className="inquiry_row">
-                    <Typography variant="span">
-                      {inquiryData?.inquiry?.crtMonWeb}
-                    </Typography>
-                    <Typography variant="span">100%</Typography>
-                  </Box>
-                  <Typography className="small_sub_heading" variant="span">
-                    Last Month :{inquiryData?.inquiry?.lstMonWeb}{' '}
-                  </Typography>
-                  <Divider className="underline" />
-                </Box>
 
-                <Box className="inquiry_detail_box">
-                  <Box className="inquiry_from_name">
+                  <Box
+                    className="inquiry_detail_box"
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'start',
+                    }}
+                  >
+                    <Box className="inquiry_from_name">
+                      <Box
+                        sx={{
+                          backgroundColor: '#FFAB00',
+                          height: '10px',
+                          width: '10px',
+                          marginRight: '10px',
+                        }}
+                      ></Box>
+                    </Box>
+
                     <Box
                       sx={{
-                        backgroundColor: '#B09FFF',
-                        height: '10px',
-                        width: '10px',
-                        marginLeft: '10px',
-                        marginRight: '10px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        marginTop: '3px',
+                        width: '100%',
                       }}
-                    ></Box>
-                    <Typography variant="span">From PJP</Typography>
+                    >
+                      <Typography>Others</Typography>
+                      <Box className="inquiry_row">
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.crtMonIndiaMart}
+                        </Typography>
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.percentageIndiaMart}%
+                        </Typography>
+                      </Box>
+                      <Typography className="small_sub_heading" variant="span">
+                        Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Box className="inquiry_row">
-                    <Typography variant="span">
-                      {inquiryData?.inquiry?.lstMonWeb}
-                    </Typography>
-                    <Typography variant="span">
-                      {inquiryData?.inquiry?.lstMonWeb}%
-                    </Typography>
-                  </Box>
-                  <Typography className="small_sub_heading" variant="span">
-                    Last Month : 85
-                  </Typography>
-                </Box>
-
-                <Box className="inquiry_detail_box">
-                  <Box className="inquiry_from_name">
-                    <Box
-                      sx={{
-                        backgroundColor: '#F985CA',
-                        height: '10px',
-                        width: '10px',
-                        marginRight: '10px',
-                      }}
-                    ></Box>
-                    <Typography variant="span">Other</Typography>
-                  </Box>
-                  <Box className="inquiry_row">
-                    <Typography variant="span">
-                      {inquiryData?.inquiry?.crtMonOther}
-                    </Typography>
-                    <Typography variant="span">
-                      {inquiryData?.inquiry?.lstMonWeb}%
-                    </Typography>
-                  </Box>
-                  <Typography className="small_sub_heading" variant="span">
-                    Last Month : {inquiryData?.inquiry?.lstMonOther}
-                  </Typography>
                 </Box>
               </Box>
 
@@ -227,7 +303,6 @@ const Dashboard = () => {
                 />
               </Box>
             </Box>
-            <Box></Box>
           </Box>
 
           <Box className="sales_statistics">
@@ -311,9 +386,13 @@ const Dashboard = () => {
             <Typography className="team_overview_inner_heading" variant="span">
               Team Overview
             </Typography>
-            <Button className="view_all_button"
-            onClick={()=>navigate('/staff')}
-            > View All > </Button>
+            <Button
+              className="view_all_button"
+              onClick={() => navigate('/staff')}
+            >
+              {' '}
+              View All >{' '}
+            </Button>
           </Box>
           <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
             <Table sx={{ minWidth: 650 }}>

@@ -271,8 +271,22 @@ const Orders = () => {
         </Box>
       </Box>
       <Box className="order_section">
-        <TableContainer sx={{ boxShadow: 'none' }} component={Paper}>
-          <Table sx={{ minWidth: 650 }}>
+        <TableContainer
+          className="orders_table_height mt-2"
+          component={Paper}
+          sx={{
+            boxShadow: 'none',
+            // border: '1px solid #e5e5e5',
+            borderTop: 'none',
+            overflowY: 'auto',
+          }}
+        >
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            sx={{ minWidth: 650 }}
+            className="table_heading"
+          >
             <TableHead>
               <TableRow>
                 <TableCell>Order Id.</TableCell>
@@ -291,11 +305,16 @@ const Orders = () => {
                   return (
                     <TableRow
                       key={index + 1}
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
                       sx={{
-                        '&:last-child td, &:last-child th': { border: 0 },
+                        '&:last-child td,th': { border: 0 },
                       }}
                     >
-                      <TableCell scope="row">{orderData?.id}</TableCell>
+                      <TableCell className="tablecell_height" scope="row">
+                        {orderData?.id}
+                      </TableCell>
                       <TableCell align="left">
                         {orderData?.team?.name}
                       </TableCell>

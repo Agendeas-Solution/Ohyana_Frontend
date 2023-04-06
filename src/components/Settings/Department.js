@@ -114,7 +114,7 @@ const Department = () => {
   })
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state
-  const [expensePolicy, setExpensePolicy] = useState();
+  const [expensePolicy, setExpensePolicy] = useState()
   useEffect(() => {
     getUserPermissions(
       parseInt(window.location.pathname.split('/').pop()),
@@ -149,9 +149,9 @@ const Department = () => {
             accessSetting: staffPermission?.accessSetting,
           },
         })
-        setExpensePolicy(res?.data?.expensePolicies);
+        setExpensePolicy(res?.data?.expensePolicies)
       },
-      err => { },
+      err => {},
     )
   }, [])
   const handleUserPermissions = () => {
@@ -248,7 +248,7 @@ const Department = () => {
 
   return (
     <>
-      <Box className="main_section mt-3">
+      <Box className="main_section">
         <Box className="sales_header_section">
           <Typography variant="h5">{jobRoleList.name}</Typography>
           <Box>
@@ -304,8 +304,7 @@ const Department = () => {
                 Post Description
               </Typography>
               <Typography className="p-1" variant="span">
-              {jobRoleList?.senior?.description}
-
+                {jobRoleList?.senior?.description}
               </Typography>
             </Box>
           </Box>
@@ -371,38 +370,47 @@ const Department = () => {
               </InputLabel>
               <Select id="demo-multiple-checkbox-label">
                 <FormGroup className="p-2">
+                  {expensePolicy &&
+                    expensePolicy.map(data => (
+                      <Box sx={{ margin: '5px' }}>
+                        <FormControlLabel
+                          sx={{ display: 'inline' }}
+                          control={
+                            <Checkbox
+                              checked={expenseManagement?.travelChecked}
+                              className="check_box_color"
+                              onChange={e => {
+                                setExpenseManagement({
+                                  ...expenseManagement,
+                                  travelChecked: e.target.checked,
+                                })
+                              }}
+                            />
+                          }
+                          label={data?.name}
+                        />
+                        <TextField
+                          sx={{ display: 'inline', marginLeft: '17rem' }}
+                          placeholder="Max Amount"
+                          type="number"
+                          value={expenseManagement?.travelAmount}
+                          onChange={e =>
+                            setExpenseManagement({
+                              ...expenseManagement,
+                              travelAmount: e.target.value,
+                            })
+                          }
+                        />
+                      </Box>
+                    ))}
 
-                  {expensePolicy && expensePolicy.map((data) =>
-                    <Box sx={{ margin: '5px' }}>
-                      <FormControlLabel
-                        sx={{ display: 'inline' }}
-                        control={
-                          <Checkbox
-                            checked={expenseManagement?.travelChecked}
-                            className="check_box_color"
-                            onChange={e => {
-                              setExpenseManagement({
-                                ...expenseManagement,
-                                travelChecked: e.target.checked
-                              })
-                            }}
-                          />
-                        }
-                        label={data?.name}
-                      />
-                      <TextField
-                        sx={{ display: 'inline', marginLeft: '17rem' }}
-                        placeholder="Max Amount"
-                        type='number'
-                        value={expenseManagement?.travelAmount}
-                        onChange={(e) => setExpenseManagement({ ...expenseManagement, travelAmount: e.target.value })}
-                      />
-                    </Box>
-                  )
-
-                  }
-                 
-                  <Button disabled={!expenseManagement?.hotelChecked} className="p-2 m-1" variant={expenseManagement?.hotelChecked ? "contained" : "outlined"}>
+                  <Button
+                    disabled={!expenseManagement?.hotelChecked}
+                    className="p-2 m-1"
+                    variant={
+                      expenseManagement?.hotelChecked ? 'contained' : 'outlined'
+                    }
+                  >
                     Save
                   </Button>
                 </FormGroup>
