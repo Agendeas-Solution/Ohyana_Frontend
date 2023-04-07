@@ -272,20 +272,19 @@ const Orders = () => {
       </Box>
       <Box className="order_section">
         <TableContainer
-          className="orders_table_height mt-2"
+          className="orders_table_height "
           component={Paper}
           sx={{
             boxShadow: 'none',
-            // border: '1px solid #e5e5e5',
-            borderTop: 'none',
+            border: '1px solid #e5e5e5',
             overflowY: 'auto',
           }}
         >
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 650 }}
-            className="table_heading"
+            // sx={{ minWidth: 690, marginLeft: '-10px' }}
+            // className="table_heading "
           >
             <TableHead>
               <TableRow>
