@@ -123,15 +123,14 @@ const StaffAttendance = () => {
 
           <Box
             sx={{
-              // background: '#F1F2F6',
+              background: '#F1F2F6',
               borderRadius: '5px',
-
-              // marginTop: '10px',
+              height: '35px',
             }}
           >
             <Button
               className={
-                activeTab === 'present' ? 'active_button' : 'common_button'
+                activeTab === 'present' ? 'active_button' : 'custom_tab'
               }
               onClick={() => {
                 setActiveTab('present')
@@ -141,9 +140,7 @@ const StaffAttendance = () => {
               Present
             </Button>
             <Button
-              className={
-                activeTab === 'leave' ? 'active_button' : 'common_button'
-              }
+              className={activeTab === 'leave' ? 'active_button' : 'custom_tab'}
               onClick={() => {
                 setActiveTab('leave')
               }}

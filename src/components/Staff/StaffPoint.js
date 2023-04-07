@@ -76,18 +76,20 @@ const StaffPoint = () => {
     <>
       <Box className="point_section">
         <Box className="point_left_section">
-          <Typography className="left_panel_heading p-2" variant="span">
-            Point Rules
-          </Typography>
-          {pointRule.length > 0 &&
-            pointRule.map(data => {
-              return (
-                <Box className="common_row p-2 mt-2">
-                  <Typography variant="span">{data?.name}</Typography>
-                  <Typography variant="span">{data?.points}</Typography>
-                </Box>
-              )
-            })}
+          <Box className="inner_point_left_section p-2">
+            <Typography className="left_panel_heading p-2" variant="span">
+              Point Rules
+            </Typography>
+            {pointRule.length > 0 &&
+              pointRule.map(data => {
+                return (
+                  <Box className="common_row p-2 mt-1">
+                    <Typography variant="span">{data?.name}</Typography>
+                    <Typography variant="span">{data?.points}</Typography>
+                  </Box>
+                )
+              })}
+          </Box>
         </Box>
 
         <Box className="point_right_section">
@@ -96,10 +98,7 @@ const StaffPoint = () => {
               Total Points : {totalPoints}
             </Typography>
             <Box>
-              <Button
-                onClick={handleAppreciation}
-                className="common_button_staff_points"
-              >
+              <Button onClick={handleAppreciation} className="appreciation_btn">
                 + Appreciation
               </Button>
             </Box>

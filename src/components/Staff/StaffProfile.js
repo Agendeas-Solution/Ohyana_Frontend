@@ -49,7 +49,6 @@ const StaffProfile = () => {
         res => {
           if (res.success) {
             setAdminProfileDetail(res?.data)
-            debugger
           }
         },
         err => {
@@ -107,12 +106,15 @@ const StaffProfile = () => {
           </Box>
 
           <Box>
-            <Button className="common_button">
+            <Button className="view_on_map_btn">
               <PlaceIcon />
               View On Map
             </Button>
             {permissions?.editStaff && (
-              <Button className="common_button">
+              <Button
+                variant="contained"
+                className="common_button_staff_points"
+              >
                 <EditRoundedIcon
                   onClick={() => {
                     navigate(`/editstaff/${adminProfileDetail.id}`)
@@ -142,22 +144,22 @@ const StaffProfile = () => {
                 <Tab label="Profile" value="1" />
               </TabList>
             </Box>
-            <TabPanel className="staff_profile" value="1">
+            <TabPanel sx={{ padding: '0' }} value="1">
               <StaffDetail adminProfileDetail={adminProfileDetail} />
             </TabPanel>
-            <TabPanel className="staff_profile" value="2">
+            <TabPanel sx={{ padding: '0' }} value="2">
               <StaffAttendance />
             </TabPanel>
-            <TabPanel className="staff_profile" value="3">
+            <TabPanel sx={{ padding: '0' }} value="3">
               <PJPDetail />
             </TabPanel>
-            <TabPanel className="staff_profile" value="4">
+            <TabPanel sx={{ padding: '0' }} value="4">
               <StaffTarget />
             </TabPanel>
-            <TabPanel className="staff_profile" value="5">
+            <TabPanel sx={{ padding: '0' }} value="5">
               <StaffExpenses />
             </TabPanel>
-            <TabPanel className="staff_profile" value="6">
+            <TabPanel sx={{ padding: '0' }} value="6">
               <StaffPoint />
             </TabPanel>
           </TabContext>

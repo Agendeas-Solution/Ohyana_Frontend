@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState,lazy } from 'react'
+import React, { useContext, useEffect, useState, lazy } from 'react'
 import { Alert, Box, Typography } from '@mui/material'
 import './index.css'
 import { useNavigate } from 'react-router-dom'
@@ -23,8 +23,10 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 import Logo from '../../assets/img/Ohyana Logo Blue.svg'
 import Orders from '../../assets/img/Orders.svg'
 import SettingsBlue from '../../assets/img/settings_blue.svg'
-const ErrorSnackbar = React.lazy(() => import("../ErrorSnackbar/ErrorSnackbar"));
-const SuccessSnackbar = React.lazy(() => import("../SuccessSnackbar/SuccessSnackbar"));
+const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
+const SuccessSnackbar = React.lazy(() =>
+  import('../SuccessSnackbar/SuccessSnackbar'),
+)
 
 const SideBar = () => {
   let navigate = useNavigate()

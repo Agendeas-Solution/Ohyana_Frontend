@@ -94,8 +94,15 @@
 }
 .point_left_section {
   width: 40%;
+  /* background: #f1f2f6; */
+  /* padding: 15px; */
+  height: 34.5rem;
+}
+.inner_point_left_section {
+  /* width: 40%; */
   background: #f1f2f6;
-  padding: 15px;
+  /* padding: 15px; */
+  height: 34.5rem;
 }
 .point_right_section {
   width: 60%;
@@ -116,7 +123,7 @@
   border-radius: 5px;
   box-shadow: none;
   /* width: 53px; */
-  height: 29rem;
+  height: 34.5rem;
 }
 
 .pjp_all_table_header tr th {
@@ -124,14 +131,12 @@
   background-color: #f1f2f6;
 }
 
-.staff_profile {
-  padding: 0;
-}
-
 .button_and_filter {
   /* margin: 14px; */
-  margin-top: 14px;
+  /* margin-top: 14px; */
   margin-right: 14px;
+  /* align-items: center;
+  align-content: center; */
 }
 
 .pjp_table_btn {
@@ -156,14 +161,42 @@
   padding-left: 6px;
 }
 
+.view_on_map_btn {
+  background-color: #f1f2f6 !important;
+  color: #2e3591 !important;
+  margin: 2px !important;
+  height: 40px !important;
+  border-radius: 3px;
+  font-weight: 600;
+  padding-top: 2px;
+}
+
 .common_button_staff_points {
   background-color: #f1f2f6 !important;
   color: #2e3591 !important;
   /* margin: 2px !important; */
   /* margin-right: 14px; */
-  margin-left: 6.5rem;
+  margin-left: 0.5rem !important  ;
   margin-top: 4px;
+  min-width: 0 !important;
+  height: 40px !important;
+  width: 43px !important;
+  border-radius: 3px;
+  font-weight: 500;
+  padding-top: 2px;
+  /* font-size: 38px; */
+}
+
+.appreciation_btn {
+  background-color: #f1f2f6 !important;
+  color: #2e3591 !important;
+  /* margin: 2px !important; */
+  /* margin-right: 14px; */
+  margin-left: 11rem !important  ;
+  margin-top: 5px !important;
+  /* min-width: 0 !important; */
   height: 35px !important;
+  /* width: 43px !important; */
   border-radius: 3px;
   font-weight: 500;
   padding-top: 2px;

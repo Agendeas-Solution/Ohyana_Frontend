@@ -15,7 +15,7 @@ const Settings = () => {
   const navigate = useNavigate()
   return (
     <>
-      <Box className="main_section mt-4">
+      <Box className="main_section">
         <Box
           className="setting_cards-list"
           onClick={() => {
@@ -33,7 +33,7 @@ const Settings = () => {
           <Box
             className="setting_cards-list"
             onClick={() => {
-              navigate("/jobrolelist");
+              navigate('/jobrolelist')
             }}
           >
             <img
