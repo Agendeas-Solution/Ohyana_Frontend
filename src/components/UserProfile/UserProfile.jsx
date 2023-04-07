@@ -1,288 +1,393 @@
-import React, { useEffect, useState, useContext } from "react";
-import ProfileImg from "../../assets/img/profile_logo.png";
-import { Typography, Box, TextField, Tabs, Button, Tab, Table, TableCell, TableContainer, Paper, TableRow, TableHead } from "@mui/material";
-import TabList from "@mui/lab/TabList";
-import TableBody from '@mui/material/TableBody';
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import { useNavigate } from "react-router-dom";
-import { GetAdminProfile } from "../../services/apiservices/adminprofile";
-import moment from "moment";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import SuccessSnackbar from "../SuccessSnackbar/SuccessSnackbar";
-import { Context as AuthContext } from "../../context/authContext/authContext";
-import ErrorSnackbar from "../ErrorSnackbar/ErrorSnackbar";
-import TabPanel from "@mui/lab/TabPanel";
-import TabContext from "@mui/lab/TabContext";
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import AttendanceData from "./AttendanceData";
-import PresentData from "./PresentData";
-import LeaveData from "./LeaveData";
-import HolidayData from "./HolidayData";
-import { GetHolidayList, AttendanceStatus } from "../../services/apiservices/staffDetail";
-import { GetAdminAttendanceList, GetAdminLeaveList } from '../../services/apiservices/adminprofile';
-import ApplyLeaveDialog from "./ApplyLeaveDialog";
+import React, { useEffect, useState, useContext, lazy } from 'react'
+import {
+  Typography,
+  Box,
+  TextField,
+  Tabs,
+  Button,
+  Tab,
+  Table,
+  TableCell,
+  TableContainer,
+  Paper,
+  TableRow,
+  TableHead,
+} from '@mui/material'
+import StaffExpenses from '../Staff/StaffExpenses'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
+import { useNavigate } from 'react-router-dom'
+import { GetAdminProfile } from '../../services/apiservices/adminprofile'
+import { Context as AuthContext } from '../../context/authContext/authContext'
+import TabPanel from '@mui/lab/TabPanel'
+import TabContext from '@mui/lab/TabContext'
+import './index.css'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
+import {
+  GetHolidayList,
+  AttendanceStatus,
+} from '../../services/apiservices/staffDetail'
+import {
+  GetAdminAttendanceList,
+  GetAdminLeaveList,
+} from '../../services/apiservices/adminprofile'
+import ApplyLeaveDialog from './ApplyLeaveDialog'
+import { GetAllHoliday } from '../../services/apiservices/holiday'
+
+const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
+const SuccessSnackbar = React.lazy(() =>
+  import('../SuccessSnackbar/SuccessSnackbar'),
+)
+
+const PresentData = React.lazy(() => import('./PresentData'))
+const LeaveData = React.lazy(() => import('./LeaveData'))
+const HolidayData = React.lazy(() => import('./HolidayData'))
 const UserProfile = () => {
-  const navigate = useNavigate();
-  const [value, setValue] = useState("Profile");
+  const navigate = useNavigate()
+  const [value, setValue] = useState('Profile')
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
   const [dateRange, setDateRange] = useState({
     startDate: '',
     endDate: '',
-  });
-  const [attendanceTab, setAttendanceTab] = useState("1");
+  })
+  const [attendanceTab, setAttendanceTab] = useState('1')
   const handleTabChange = (event, newValue) => {
-    setAttendanceTab(newValue);
-  };
-  const [userDetail, setUserDetail] = useState({});
-  const [showPassword, setShowPassword] = useState(false);
-  const { flagLoader } = useContext(AuthContext).state;
-  const { setFlagLoader } = useContext(AuthContext);
-  const [activeTab, setActiveTab] = useState("present");
+    setAttendanceTab(newValue)
+  }
+  const [userDetail, setUserDetail] = useState({})
+  const [showPassword, setShowPassword] = useState(false)
+  const { flagLoader } = useContext(AuthContext).state
+  const { setFlagLoader } = useContext(AuthContext)
+  const [activeTab, setActiveTab] = useState('present')
   const [staffAttendanceList, setStaffAttendanceList] = useState([])
-  const [leaveList, setLeaveList] = useState([]);
-  const [holidayList, setHolidayList] = useState([]);
+  const [leaveList, setLeaveList] = useState([])
+  const [holidayList, setHolidayList] = useState([])
   const [leaveDialogControl, setLeaveDialogControl] = useState(false)
+
   useEffect(() => {
     GetAdminProfile(
       {},
-      (res) => {
-        if (res.status === 200) {
-          setUserDetail(res.data);
+      res => {
+        if (res.success) {
+          setUserDetail(res.data)
         }
       },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }, []);
-  localStorage.setItem("userEmail", userDetail?.email)
+      err => {
+        console.log(err)
+      },
+    )
+  }, [])
+  localStorage.setItem('userEmail', userDetail?.email)
 
   useEffect(() => {
-    activeTab === "present" && GetAdminAttendanceList(userDetail?.id, (res) => {
-      setStaffAttendanceList(res?.data);
-    }, (err) => {
-
-    })
-    activeTab === "leave" && GetAdminLeaveList(userDetail?.id, (res) => {
-      debugger;
-      setLeaveList(res?.data)
-    }, (err) => {
-      debugger
-    })
+    activeTab === 'present' &&
+      GetAdminAttendanceList(
+        userDetail?.id,
+        res => {
+          if (res.success) {
+            setStaffAttendanceList(res?.data)
+          }
+        },
+        err => {},
+      )
+    activeTab === 'leave' &&
+      GetAdminLeaveList(
+        userDetail?.id,
+        res => {
+          if (res.success) {
+            setLeaveList(res?.data)
+          }
+        },
+        err => {},
+      )
+    activeTab === 'holiday' &&
+      GetAllHoliday(
+        userDetail?.id,
+        res => {
+          console.log({ res })
+          if (res.success) {
+            setHolidayList(res?.data)
+          }
+        },
+        err => {},
+      )
   }, [value, activeTab])
-  const handleCheckIn = (type) => {
-    AttendanceStatus(type, (res) => {
-      debugger;
-    }, (err) => {
 
-    })
+  const handleCheckIn = type => {
+    AttendanceStatus(
+      type,
+      res => {},
+      err => {},
+    )
   }
   const handleCloseDialog = () => {
-    setLeaveDialogControl(false);
+    setLeaveDialogControl(false)
   }
+
   return (
     <>
-      <div className="w-100 mt-4">
+      <div className="w-100 mt-3">
         <Box className="profile_section">
           <Box className="profile_img">
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
               <Box className="userName_and_position">
-                <AccountCircleRoundedIcon className="userprofile_dummy_icon" />
-                <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", marginLeft: 2 }}>
+                <AccountCircleRoundedIcon className="user_profile_icon" />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    marginLeft: 1,
+                  }}
+                >
                   <Typography
                     variant="span"
-                    sx={{ fontWeight: "bold", fontSize: "18px" }}
+                    sx={{ fontWeight: 'bold', fontSize: '18px' }}
                   >
-                    {userDetail?.name}
+                    {userDetail?.name || '-'}
                   </Typography>
-                  <Typography sx={{ marginTop: "10px" }} variant="span">
-                    {userDetail?.role?.name}
+                  <Typography sx={{ marginTop: '10px' }} variant="span">
+                    {userDetail?.role?.name || '-'}
                   </Typography>
                 </Box>
               </Box>
             </Box>
-            <Box className="row">
 
-              {value === "Attendance" && <> <Button onClick={() => handleCheckIn("checkIn")} className="attendance_button m-1" variant="contained">Check in</Button>
-                <Button onClick={() => handleCheckIn("breakIn")} className="attendance_button m-1" vsariant="contained">Break in</Button>
-                <Button onClick={() => handleCheckIn("breakOut")} className="attendance_button m-1" variant="contained">Break out</Button>
-                <Button onClick={() => handleCheckIn("checkOut")} className="attendance_button m-1" variant="contained">Check out</Button></>}
-              <Button className="attendance_button"><EditRoundedIcon
-                onClick={() => {
-                  console.log("Printing Edit icon");
-                  navigate("/editprofile");
-                }}
-              /></Button>
+            <Box>
+              {/* FOR ATTENDANCE TAB */}
+              {value === 'Attendance' && (
+                <>
+                  <Button
+                    onClick={() => handleCheckIn('checkIn')}
+                    className="attendance_button check_InOut_Break_InOut_Btn m-1"
+                    variant="contained"
+                  >
+                    + Apply Leave
+                  </Button>
+                </>
+              )}
 
+              {/* FOR STAFF EXPENSES TAB */}
+              {/* {value === 'Expenses' && <StaffExpenses />} */}
+              <Button
+                // sx={{ width: '10px', height: '5px' }}
+                className="my_profile_edit_btn"
+              >
+                <EditRoundedIcon
+                  onClick={() => {
+                    console.log('Printing Edit icon')
+                    navigate('/editprofile')
+                  }}
+                />
+              </Button>
             </Box>
           </Box>
+
           <TabContext value={value}>
-            <Box className="notification_tabs_root">
+            <Box
+              className="my_profile_tabs_root"
+              sx={{ borderBottom: '1px solid #F1F2F6' }}
+            >
               <Tabs
                 value={value}
                 onChange={handleChange}
                 textColor="secondary"
                 indicatorColor="secondary"
               >
-                <Tab value="Profile" label="Profile" />
                 <Tab value="Attendance" label="Attendance" />
+                <Tab value="Expenses" label="Expenses" />
+                <Tab value="Profile" label="Profile" />
               </Tabs>
             </Box>
-            <TabPanel value="Profile">
-              <Box className="profile_detail">
-                <Typography variant="span" className="profile_detail_heading">
-                  Profile Detail
-                </Typography>
-                <Box className="userdetail_root">
-                  <Typography className="userdetail_field_heading" variant="span">
-                    Contact No:
-                  </Typography>
-                  <Typography variant="span">
-                    {userDetail?.contact_number}
-                  </Typography>
-                </Box>
-                <Box className="userdetail_root">
-                  <Typography variant="span" className="userdetail_field_heading">
-                    Email:
-                  </Typography>
-                  <Typography variant="span">
-                    {userDetail?.email}
-                  </Typography>
-                </Box>
-                <Box className="userdetail_root">
-                  <Typography className="userdetail_field_heading" variant="span">
-                    Password:
-                  </Typography>
-                  <Box>
-                    <TextField
-                      className="password_field"
-                      type={showPassword ? "text" : "password"}
-                      value={userDetail?.password}
-                      variant="standard"
-                    />
-                    {showPassword ? (
-                      <Visibility
-                        onClick={() => {
-                          setShowPassword(!showPassword);
-                        }}
-                      />
-                    ) : (
-                      <VisibilityOff
-                        onClick={() => {
-                          setShowPassword(!showPassword);
-                        }}
-                      />
-                    )}
+
+            <TabPanel sx={{ padding: '10px' }} value="Attendance">
+              <Box className="attendance_data_row col-md-12 mb-1">
+                <Box
+                  sx={{
+                    // background: '#F1F2F6',
+                    borderRadius: '5px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <Box className="inner_profile_details first_box me-3 p-2">
+                    <Typography>Total Days</Typography>
+                    <Typography>24</Typography>
+                  </Box>
+
+                  <Box className="inner_profile_details middle_box  me-3 p-2">
+                    <Typography>Absent Days</Typography>
+                    <Typography>10</Typography>
+                  </Box>
+
+                  <Box className="inner_profile_details last_box p-2">
+                    <Typography>Late Days</Typography>
+                    <Typography>5d</Typography>
                   </Box>
                 </Box>
-                <Box className="userdetail_root">
-                  <Typography className="userdetail_field_heading" variant="span">
-                    Gender:
-                  </Typography>
-                  <Typography variant="span">
-                    {userDetail?.gender}
-                  </Typography>
-                </Box>
-                <Box className="userdetail_root">
-                  <Typography className="userdetail_field_heading" variant="span">
-                    Birthday:
-                  </Typography>
-                  <Typography variant="span">
-                    {moment(userDetail?.birthDay).format('DD-MM-YYYY')}
-                  </Typography>
-                </Box>
-              </Box>
-            </TabPanel>
-            <TabPanel value="Attendance">
-              <Box className="attendance_data_row col-md-12 mb-1">
-                <Box className="total_days_data days_data col-md-2">
-                  <Typography variant="span">Total Days</Typography>
-                  <Typography variant="span">{staffAttendanceList?.totalDays}</Typography>
-                </Box>
-                <Box className="Absent_days_data days_data col-md-2">
-                  <Typography variant="span">Absent Days</Typography>
-                  <Typography variant="span">{staffAttendanceList?.absentDays}</Typography>
-                </Box>
-                <Box className="Late_days_data days_data col-md-2">
-                  <Typography variant="span">Late Days</Typography>
-                  <Typography variant="span">{staffAttendanceList?.lateDays}</Typography>
-                </Box>
-                <Box className="col-md-4">
-                  <Box sx={{ background: "#F1F2F6", borderRadius: "5px" }}>
-                    <Button className={activeTab === "present" ? "active_button" : "common_button"} onClick={() => {
-                      setActiveTab("present")
-                    }} variant="contained">
+
+                <Box>
+                  <Box
+                    sx={{
+                      background: '#F1F2F6',
+                      borderRadius: '5px',
+                    }}
+                  >
+                    <Button
+                      className={
+                        activeTab === 'present' ? 'active_button' : 'custom_tab'
+                      }
+                      onClick={() => {
+                        setActiveTab('present')
+                      }}
+                      variant="contained"
+                    >
                       Present
                     </Button>
-                    <Button className={activeTab === "leave" ? "active_button" : "common_button"}
+                    <Button
+                      // sx={{ marginLeft: '0px', marginRight: '0' }}
+                      className={
+                        activeTab === 'leave' ? 'active_button' : 'custom_tab'
+                      }
                       onClick={() => {
-                        setActiveTab("leave")
-                      }} variant="contained">Leave</Button>
-
+                        setActiveTab('leave')
+                      }}
+                      variant="contained"
+                    >
+                      Leave
+                    </Button>
+                    <Button
+                      className={
+                        activeTab === 'holiday' ? 'active_button' : 'custom_tab'
+                      }
+                      onClick={() => {
+                        setActiveTab('holiday')
+                      }}
+                      variant="contained"
+                    >
+                      Holiday
+                    </Button>
                   </Box>
-                  {/* <Typography variant="span">Select Date Range</Typography>
-                  <Box>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <DatePicker
-                        disablePast
-                        inputFormat="dd/MM/yyyy"
-                        // value={dateRange.startDate}
-                        // onChange={(e) => {
-                        //   setDateRange({ ...dateRange, startDate: e });
-                        // }}
-                        renderInput={(params) => <TextField className='w-50' {...params} />}
-                      />
-                      <DatePicker
-                        disablePast
-                        inputFormat="dd/MM/yyyy"
-                        // minDate={dateRange.startDate}
-                        // value={dateRange.endDate}
-                        // onChange={(e) => {
-                        //   setDateRange({ ...dateRange, endDate: e });
-                        // }}
-                        renderInput={(params) => <TextField className='w-50' {...params} />}
-                      />
-                    </LocalizationProvider> */}
-                  {/* </Box> */}
                 </Box>
               </Box>
-              {/* <AttendanceData /> */}
-              <Box className="tab_row">
-                {/* <TabList
-                    className="client_attendance_tab mb-2"
-                    onChange={handleTabChange}
-                  >
-                    <Tab label="Present" value="1" />
-                    <Tab label="Leave" value="2" />
-                    <Tab label="Holiday" value="3" />
-                  </TabList> */}
 
-                {activeTab === "leave" && <Box>
-                  <Button onClick={() => setLeaveDialogControl(true)} className="attendance_button m-2" variant="contained">Apply For Leave</Button>
-                </Box>}
+              {/* <Box className="tab_row">
+                {activeTab === 'leave' && (
+                  <Box>
+                    <Button
+                      onClick={() => setLeaveDialogControl(true)}
+                      className="attendance_button m-2"
+                      variant="contained"
+                    >
+                      Apply For Leave
+                    </Button>
+                  </Box>
+                )}
+              </Box> */}
+
+              {activeTab === 'present' && (
+                <PresentData staffAttendanceList={staffAttendanceList} />
+              )}
+              {activeTab === 'leave' && <LeaveData leaveList={leaveList} />}
+              {activeTab === 'holiday' && (
+                <HolidayData holidayList={holidayList} />
+              )}
+            </TabPanel>
+
+            <TabPanel sx={{ padding: '10px' }} value="Expenses">
+              <StaffExpenses />
+            </TabPanel>
+            <TabPanel value="Profile">
+              <Box className="staff_profile">
+                <Box className="staff_profile_page">
+                  <Typography
+                    className="user_profile_font_weight"
+                    variant="span"
+                  >
+                    Contact No.:
+                  </Typography>
+                  <Typography variant="span">
+                    {userDetail?.contact_number || '-'}
+                  </Typography>
+                </Box>
+                {userDetail?.senior && (
+                  <Box className="staff_profile_page">
+                    <Typography
+                      variant="span"
+                      className="user_profile_font_weight"
+                    >
+                      Senior Post:
+                    </Typography>
+                    <Typography variant="span">
+                      {userDetail?.senior?.name}
+                    </Typography>
+                  </Box>
+                )}
+                <Box className="staff_profile_page">
+                  <Typography
+                    variant="span"
+                    className=" user_profile_font_weight"
+                  >
+                    Email:
+                  </Typography>
+                  <Typography variant="span">{userDetail?.email}</Typography>
+                </Box>
+                <Box className="staff_profile_page">
+                  <Typography
+                    variant="span"
+                    className=" user_profile_font_weight"
+                  >
+                    Password:
+                  </Typography>
+                  <Typography variant="span">{userDetail?.password}</Typography>
+                </Box>
+                <Box className="staff_profile_page">
+                  <Typography
+                    className=" user_profile_font_weight"
+                    variant="span"
+                  >
+                    Birthday
+                  </Typography>
+                  <Typography variant="span">{userDetail?.birthDay}</Typography>
+                </Box>
+                <Box className="staff_profile_page">
+                  <Typography
+                    className=" user_profile_font_weight"
+                    variant="span"
+                  >
+                    Gender
+                  </Typography>
+                  <Typography variant="span">{userDetail?.gender}</Typography>
+                </Box>
+                {userDetail?.city && (
+                  <Box className="companyDetail_root p-3">
+                    <Typography
+                      variant="span"
+                      className="companyDetail_field_heading user_profile_color"
+                    >
+                      City:
+                    </Typography>
+                    <Typography variant="span">{userDetail?.city}</Typography>
+                  </Box>
+                )}
               </Box>
-              {activeTab === "present" && <PresentData staffAttendanceList={staffAttendanceList} />}
-              {activeTab === "leave" && <LeaveData leaveList={leaveList} />}
-              {activeTab === "holiday" && <HolidayData holidayList={holidayList} />}
             </TabPanel>
           </TabContext>
-          <ApplyLeaveDialog leaveDialogControl={leaveDialogControl} handleCloseDialog={handleCloseDialog} />
+          <ApplyLeaveDialog
+            leaveDialogControl={leaveDialogControl}
+            handleCloseDialog={handleCloseDialog}
+          />
         </Box>
-      </div >
+      </div>
     </>
-  );
-};
+  )
+}
 
-export default UserProfile;
+export default UserProfile

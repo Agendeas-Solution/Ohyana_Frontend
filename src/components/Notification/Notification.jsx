@@ -2,16 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { Tabs, Tab, Box, Button, Grid, Typography } from "@mui/material";
 import "./index.css";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import ClientStatusCloseDialog from "../ClientStatusCloseDialog/ClientStatusCloseDialog";
-import {
-  GetNotification, GetSentNotification
-} from "../../services/apiservices/adminprofile";
+import {GetNotification, GetSentNotification} from "../../services/apiservices/adminprofile";
 import { Context as ContextSnackbar } from "../../context/pageContext";
-// import NOTICE from '../../assets/img/Notice.svg';
-// import { socket } from "../../App"
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import Loader from "../Loader/Loader";
+const ClientStatusCloseDialog = React.lazy(() => import("../ClientStatusCloseDialog/ClientStatusCloseDialog"));
+const Loader = React.lazy(() => import("../Loader/Loader"));
 
 const Notification = () => {
   const navigate = useNavigate();
@@ -44,7 +40,7 @@ const Notification = () => {
   // socket.on("notification", function (result) {
   //   console.log(result.data.heading)
   //   setNotificationSnackbar({ ...notificationSnackbar, status: true, heading: result?.data?.heading, description: result?.data?.description });
-  //   //debugger;
+  //   ;
   // })
 
   useEffect(() => {
@@ -52,7 +48,6 @@ const Notification = () => {
     GetNotification({}, (res) => {
       setNotificationDetail(res?.data?.notifications)
       setLoader(false)
-
     }, (err) => {
       setLoader(false)
 
@@ -66,7 +61,6 @@ const Notification = () => {
       setLoader(false)
     }, (err) => {
       setLoader(false)
-
     })
   }, [deleteRemainderDialog])
 
@@ -76,9 +70,9 @@ const Notification = () => {
   }
   return (
     <>
-      {
+      {/* {
         loader && <Loader />
-      }
+      } */}
       <Box className="notification_section">
         <Box className="notification_tabs_root">
           <Tabs

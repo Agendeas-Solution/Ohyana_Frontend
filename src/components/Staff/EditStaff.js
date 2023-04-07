@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import {
   Typography,
   Box,
@@ -6,73 +6,69 @@ import {
   Button,
   Select,
   MenuItem,
-} from "@mui/material";
+} from '@mui/material'
 import {
   GetAdminDepartmentList,
   GetAdminRole,
-} from "../../services/apiservices/adminprofile";
-import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputAdornment from "@mui/material/InputAdornment";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+} from '../../services/apiservices/adminprofile'
+import IconButton from '@mui/material/IconButton'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputAdornment from '@mui/material/InputAdornment'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import Dialog from '@mui/material/Dialog'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import {
   EditEmployee,
   GetAdminStaffProfileDetail,
-} from "../../services/apiservices/staffDetail";
-import { useNavigate } from "react-router-dom";
+} from '../../services/apiservices/staffDetail'
+import { useNavigate } from 'react-router-dom'
 const EditStaff = () => {
   const [userDetail, setUserDetail] = useState({
-    employeeName: "",
+    employeeName: '',
     departmentId: null,
-    email: "",
-    jobRole: "",
-    contactNo: "",
-    password: "",
-    gender: "",
-    confirmpassword: "",
-    birthDate: "",
+    email: '',
+    jobRole: '',
+    contactNo: '',
+    password: '',
+    gender: '',
+    confirmpassword: '',
+    birthDate: '',
     showPassword: false,
-  });
-  const [departmentList, setDepartmentList] = useState([]);
-  const [employeeJobRole, setEmployeeJobRole] = useState([]);
-  const [successDialog, setSuccessDialog] = useState(false);
-  const navigate = useNavigate();
-  const handleChange = (prop) => (event) => {
-    setUserDetail({ ...userDetail, [prop]: event.target.value });
-  };
+  })
+  const [departmentList, setDepartmentList] = useState([])
+  const [employeeJobRole, setEmployeeJobRole] = useState([])
+  const [successDialog, setSuccessDialog] = useState(false)
+  const navigate = useNavigate()
+  const handleChange = prop => event => {
+    setUserDetail({ ...userDetail, [prop]: event.target.value })
+  }
   useEffect(() => {
     GetAdminDepartmentList(
       {},
-      (res) => {
-        if (res?.status === 200) {
-          setDepartmentList(res?.data?.department);
+      res => {
+        if (res?.success) {
+          setDepartmentList(res?.data?.department)
         }
       },
-      (err) => {
-        //
-      }
-    );
-  }, []);
+      err => {},
+    )
+  }, [])
 
   useEffect(() => {
-    let path = window.location.pathname;
-
-    console.log("Printing Path of ", path);
-    console.log("Printing ", path.split("/").pop());
-    path = path.split("/").pop();
-
+    let path = window.location.pathname
+    console.log('Printing Path of ', path)
+    console.log('Printing ', path.split('/').pop())
+    path = path.split('/').pop()
     GetAdminStaffProfileDetail(
       parseInt(path),
-      (res) => {
-        if (res.status === 200) {
+      res => {
+        if (res.success) {
           setUserDetail({
             ...userDetail,
             employeeName: res.data.member.name,
@@ -84,54 +80,53 @@ const EditStaff = () => {
             password: res.data.member.password,
             confirmpassword: res.data.member.password,
             gender: res.data.member.gender,
-          });
+          })
         }
       },
-      (err) => {
-        console.log("Printing ", err);
-      }
-    );
-  }, []);
+      err => {
+        console.log('Printing ', err)
+      },
+    )
+  }, [])
   useEffect(() => {
     {
       userDetail?.departmentId &&
         GetAdminRole(
           parseInt(userDetail?.departmentId),
-          (res) => {
-            if (res.status === 200) {
-              setEmployeeJobRole(res.data?.roles);
-              //
+          res => {
+            if (res.success) {
+              setEmployeeJobRole(res.data?.roles)
             }
           },
-          (err) => {
-            console.log("Printing Error of GetAdminRole", err);
-          }
-        );
+          err => {
+            console.log('Printing Error of GetAdminRole', err)
+          },
+        )
     }
-  }, [userDetail?.departmentId]);
+  }, [userDetail?.departmentId])
 
   const handleClickShowPassword = () => {
     setUserDetail({
       ...userDetail,
       showPassword: !userDetail.showPassword,
-    });
-  };
+    })
+  }
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  const handleMouseDownPassword = event => {
+    event.preventDefault()
+  }
 
   const handleAddEmployee = () => {
     if (
-      userDetail.employeeName !== "" &&
+      userDetail.employeeName !== '' &&
       userDetail.departmentId !== null &&
-      userDetail.email !== "" &&
-      userDetail.jobRole !== "" &&
-      userDetail.contactNo !== "" &&
+      userDetail.email !== '' &&
+      userDetail.jobRole !== '' &&
+      userDetail.contactNo !== '' &&
       userDetail.password === userDetail.confirmpassword &&
-      userDetail.confirmpassword !== "" &&
-      userDetail.password !== "" &&
-      userDetail.gender !== ""
+      userDetail.confirmpassword !== '' &&
+      userDetail.password !== '' &&
+      userDetail.gender !== ''
     ) {
       let employeeDetail = {
         name: userDetail.employeeName,
@@ -142,29 +137,26 @@ const EditStaff = () => {
         contact_number: userDetail.contactNo,
         gender: userDetail.gender,
         birthDay: userDetail.birthDate,
-      };
-      let path = window.location.pathname;
+      }
+      let path = window.location.pathname
 
-      console.log("Printing Path of ", path);
-      console.log("Printing ", path.split("/").pop());
-      path = path.split("/").pop();
-
+      console.log('Printing Path of ', path)
+      console.log('Printing ', path.split('/').pop())
+      path = path.split('/').pop()
       EditEmployee(
         parseInt(path),
         employeeDetail,
-        (res) => {
-          if (res.status === 200) {
-            setSuccessDialog(true);
+        res => {
+          if (res.success) {
+            setSuccessDialog(true)
           }
         },
-        (err) => {
-          //
-        }
-      );
+        err => {},
+      )
     } else {
-      console.log(userDetail);
+      console.log(userDetail)
     }
-  };
+  }
   return (
     <>
       <Box className="edit_profile_section">
@@ -176,8 +168,8 @@ const EditStaff = () => {
             <TextField
               autoComplete="off"
               placeholder="Employee Name"
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, employeeName: e.target.value });
+              onChange={e => {
+                setUserDetail({ ...userDetail, employeeName: e.target.value })
               }}
               value={userDetail.employeeName}
               variant="outlined"
@@ -189,13 +181,13 @@ const EditStaff = () => {
             </Typography>
             <Select
               value={userDetail?.departmentId}
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, departmentId: e.target.value });
+              onChange={e => {
+                setUserDetail({ ...userDetail, departmentId: e.target.value })
               }}
             >
               {departmentList &&
-                departmentList.map((data) => {
-                  return <MenuItem value={data?.id}>{data?.name}</MenuItem>;
+                departmentList.map(data => {
+                  return <MenuItem value={data?.id}>{data?.name}</MenuItem>
                 })}
             </Select>
           </Box>
@@ -207,8 +199,8 @@ const EditStaff = () => {
             </Typography>
             <TextField
               placeholder="Contact No"
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, contactNo: e.target.value });
+              onChange={e => {
+                setUserDetail({ ...userDetail, contactNo: e.target.value })
               }}
               value={userDetail.contactNo}
               variant="outlined"
@@ -220,13 +212,13 @@ const EditStaff = () => {
             </Typography>
             <Select
               value={userDetail?.jobRole}
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, jobRole: e.target.value });
+              onChange={e => {
+                setUserDetail({ ...userDetail, jobRole: e.target.value })
               }}
             >
               {employeeJobRole &&
-                employeeJobRole.map((data) => {
-                  return <MenuItem value={data?.id}>{data?.name}</MenuItem>;
+                employeeJobRole.map(data => {
+                  return <MenuItem value={data?.id}>{data?.name}</MenuItem>
                 })}
             </Select>
           </Box>
@@ -239,8 +231,8 @@ const EditStaff = () => {
             <TextField
               autoComplete="off"
               placeholder="Enter Email"
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, email: e.target.value });
+              onChange={e => {
+                setUserDetail({ ...userDetail, email: e.target.value })
               }}
               value={userDetail.email}
               variant="outlined"
@@ -254,10 +246,10 @@ const EditStaff = () => {
               <DatePicker
                 inputFormat="dd/MM/yyyy"
                 value={userDetail.birthDate}
-                onChange={(e) => {
-                  setUserDetail({ ...userDetail, birthDate: e });
+                onChange={e => {
+                  setUserDetail({ ...userDetail, birthDate: e })
                 }}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={params => <TextField {...params} />}
               />
             </LocalizationProvider>
           </Box>
@@ -268,9 +260,9 @@ const EditStaff = () => {
               Password<span className="required_star">*</span>
             </Typography>
             <OutlinedInput
-              type={userDetail.showPassword ? "text" : "password"}
+              type={userDetail.showPassword ? 'text' : 'password'}
               value={userDetail.password}
-              onChange={handleChange("password")}
+              onChange={handleChange('password')}
               autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
@@ -294,9 +286,9 @@ const EditStaff = () => {
               Confirm Password<span className="required_star">*</span>
             </Typography>
             <OutlinedInput
-              type={userDetail.showPassword ? "text" : "password"}
+              type={userDetail.showPassword ? 'text' : 'password'}
               value={userDetail.confirmpassword}
-              onChange={handleChange("confirmpassword")}
+              onChange={handleChange('confirmpassword')}
               autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
@@ -323,8 +315,8 @@ const EditStaff = () => {
             </Typography>
             <Select
               value={userDetail?.gender}
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, gender: e.target.value });
+              onChange={e => {
+                setUserDetail({ ...userDetail, gender: e.target.value })
               }}
             >
               <MenuItem value="Male">Male</MenuItem>
@@ -338,8 +330,8 @@ const EditStaff = () => {
             <TextField
               autoComplete="off"
               placeholder="Enter City"
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, city: e.target.value });
+              onChange={e => {
+                setUserDetail({ ...userDetail, city: e.target.value })
               }}
               value={userDetail?.city}
               variant="outlined"
@@ -347,20 +339,6 @@ const EditStaff = () => {
           </Box>
         </Box>
         <Box className="input_field_row">
-          {/* <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Gender<span className="required_star">*</span>
-            </Typography>
-            <Select
-              value={userDetail?.gender}
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, gender: e.target.value });
-              }}
-            >
-              <MenuItem value="Male">Male</MenuItem>
-              <MenuItem value="Female">Female</MenuItem>
-            </Select>
-          </Box> */}
           <Box className="input_fields">
             <Typography className="input_field_label" variant="span">
               State<span className="required_star">*</span>
@@ -368,8 +346,8 @@ const EditStaff = () => {
             <TextField
               autoComplete="off"
               placeholder="Enter State"
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, state: e.target.value });
+              onChange={e => {
+                setUserDetail({ ...userDetail, state: e.target.value })
               }}
               value={userDetail?.state}
               variant="outlined"
@@ -382,15 +360,15 @@ const EditStaff = () => {
             <TextField
               autoComplete="off"
               placeholder="Enter PinCode"
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, pincode: e.target.value });
+              onChange={e => {
+                setUserDetail({ ...userDetail, pincode: e.target.value })
               }}
               value={userDetail.pincode}
               variant="outlined"
             />
           </Box>
         </Box>
-        <Box sx={{ justifyContent: "flex-start" }} className="input_field_row">
+        <Box sx={{ justifyContent: 'flex-start' }} className="input_field_row">
           <Button
             onClick={handleAddEmployee}
             variant="contained"
@@ -411,7 +389,7 @@ const EditStaff = () => {
                 Staff Edited Successful.
               </DialogContentText>
               <DialogContentText className="successfulmessage">
-                <Button onClick={() => navigate("/staff")} variant="outlined">
+                <Button onClick={() => navigate('/staff')} variant="outlined">
                   Ok
                 </Button>
               </DialogContentText>
@@ -420,7 +398,7 @@ const EditStaff = () => {
         </Dialog>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default EditStaff;
+export default EditStaff

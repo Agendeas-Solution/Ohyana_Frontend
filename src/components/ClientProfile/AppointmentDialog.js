@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from 'react'
 import {
   Box,
   Button,
@@ -6,57 +6,77 @@ import {
   DialogActions,
   DialogContent,
   TextField,
-  Typography, Autocomplete
-} from "@mui/material";
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { AddAdminClientAppointmentDetail } from '../../services/apiservices/clientDetail';
-import moment from "moment";
-import { Context as ContextSnackbar } from "../../context/pageContext";
-import './index.css';
-import { GetAllStaffList } from '../../services/apiservices/staffDetail.js';
-const AppointmentDialog = (props) => {
+  Typography,
+  Autocomplete,
+} from '@mui/material'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { AddAdminClientAppointmentDetail } from '../../services/apiservices/clientDetail'
+import moment from 'moment'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+import './index.css'
+import { GetAllStaffList } from '../../services/apiservices/staffDetail.js'
+const AppointmentDialog = props => {
   const [clientAppointmentDetail, setClientAppointmentDetail] = useState({
-    date: "",
-    time: "",
-    description: "",
+    date: '',
+    time: '',
+    description: '',
     appointed_member: [],
     clientId: props?.clientProfileDetail?.id,
-    appointment_unit: "",
-  });
-  const { successSnackbar } = useContext(ContextSnackbar)?.state;
-  const { setSuccessSnackbar } = useContext(ContextSnackbar);
+    appointment_unit: '',
+  })
+  const { successSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const [staffDetailList, setStaffDetailList] = useState([])
-  const [appointmentPlaceList, setAppointmentPlaceList] = useState(["Factory", "Office"])
+  const [appointmentPlaceList, setAppointmentPlaceList] = useState([
+    'Factory',
+    'Office',
+  ])
   useEffect(() => {
-    GetAllStaffList({}, (res) => {
-      setStaffDetailList(res.data.team);
-      //debugger
-    }, (err) => {
-      //debugger;
-
-    })
+    GetAllStaffList(
+      {},
+      res => {
+        setStaffDetailList(res.data.team)
+      },
+      err => {},
+    )
   }, [])
   const handleAddAppointment = () => {
-    console.log("Add Reminder", clientAppointmentDetail);
-    if (clientAppointmentDetail.description !== "" && clientAppointmentDetail.date !== "" && clientAppointmentDetail.time !== "") {
-      clientAppointmentDetail["appointed_member"] = [...new Set(clientAppointmentDetail?.appointed_member.map((item) => item?.id))]
-      console.log(clientAppointmentDetail);
-      debugger;
-      AddAdminClientAppointmentDetail(clientAppointmentDetail, (res) => {
-        props.handleAppointmentClose();
-        setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
-        setClientAppointmentDetail({
-          ...clientAppointmentDetail, date: "",
-          time: "",
-          description: "",
-          appointed_member: [],
-          appointment_unit: "",
-        })
-      }, (err) => {
-        console.log("Error :", err);
-      })
+    console.log('Add Reminder', clientAppointmentDetail)
+    if (
+      clientAppointmentDetail.description !== '' &&
+      clientAppointmentDetail.date !== '' &&
+      clientAppointmentDetail.time !== ''
+    ) {
+      clientAppointmentDetail['appointed_member'] = [
+        ...new Set(
+          clientAppointmentDetail?.appointed_member.map(item => item?.id),
+        ),
+      ]
+      console.log(clientAppointmentDetail)
+      AddAdminClientAppointmentDetail(
+        clientAppointmentDetail,
+        res => {
+          props.handleAppointmentClose()
+          setSuccessSnackbar({
+            ...successSnackbar,
+            status: true,
+            message: res.data.message,
+          })
+          setClientAppointmentDetail({
+            ...clientAppointmentDetail,
+            date: '',
+            time: '',
+            description: '',
+            appointed_member: [],
+            appointment_unit: '',
+          })
+        },
+        err => {
+          console.log('Error :', err)
+        },
+      )
     }
   }
   return (
@@ -80,10 +100,15 @@ const AppointmentDialog = (props) => {
                     disablePast
                     inputFormat="dd/MM/yyyy"
                     value={clientAppointmentDetail.date}
-                    onChange={(e) => {
-                      setClientAppointmentDetail({ ...clientAppointmentDetail, date: moment(e).format('YYYY-MM-DD') });
+                    onChange={e => {
+                      setClientAppointmentDetail({
+                        ...clientAppointmentDetail,
+                        date: moment(e).format('YYYY-MM-DD'),
+                      })
                     }}
-                    renderInput={(params) => <TextField className="w-100"  {...params} />}
+                    renderInput={params => (
+                      <TextField className="w-100" {...params} />
+                    )}
                   />
                 </LocalizationProvider>
               </div>
@@ -95,10 +120,17 @@ const AppointmentDialog = (props) => {
                 <Typography variant="span">Time</Typography>
               </div>
               <div className="col-md-12">
-                <TextField onChange={(e) => {
-                  setClientAppointmentDetail({ ...clientAppointmentDetail, time: e.target.value });
-                }}
-                  value={clientAppointmentDetail.time} className="w-100" type="time" />
+                <TextField
+                  onChange={e => {
+                    setClientAppointmentDetail({
+                      ...clientAppointmentDetail,
+                      time: e.target.value,
+                    })
+                  }}
+                  value={clientAppointmentDetail.time}
+                  className="w-100"
+                  type="time"
+                />
               </div>
             </div>
           </Box>
@@ -108,10 +140,18 @@ const AppointmentDialog = (props) => {
                 <Typography variant="span">Description</Typography>
               </div>
               <div className="col-md-12">
-                <TextField onChange={(e) => {
-                  setClientAppointmentDetail({ ...clientAppointmentDetail, description: e.target.value, clientId: props?.clientProfileDetail?.id });
-                }}
-                  value={clientAppointmentDetail.description} className="w-100" placeholder="Description..." />
+                <TextField
+                  onChange={e => {
+                    setClientAppointmentDetail({
+                      ...clientAppointmentDetail,
+                      description: e.target.value,
+                      clientId: props?.clientProfileDetail?.id,
+                    })
+                  }}
+                  value={clientAppointmentDetail.description}
+                  className="w-100"
+                  placeholder="Description..."
+                />
               </div>
             </div>
           </Box>
@@ -126,16 +166,21 @@ const AppointmentDialog = (props) => {
                   options={appointmentPlaceList}
                   value={clientAppointmentDetail?.appointment_unit}
                   onChange={(e, value) => {
-                    console.log(value);
-                    setClientAppointmentDetail({ ...clientAppointmentDetail, appointment_unit: value });
+                    console.log(value)
+                    setClientAppointmentDetail({
+                      ...clientAppointmentDetail,
+                      appointment_unit: value,
+                    })
                   }}
-                  getOptionLabel={(option) => option}
-                  renderInput={(params) => (
+                  getOptionLabel={option => option}
+                  renderInput={params => (
                     <TextField
                       {...params}
                       className="w-100"
                       placeholder={
-                        clientAppointmentDetail?.appointed_member.length > 0 ? "" : "Add Member"
+                        clientAppointmentDetail?.appointed_member.length > 0
+                          ? ''
+                          : 'Add Member'
                       }
                     />
                   )}
@@ -154,18 +199,23 @@ const AppointmentDialog = (props) => {
                   options={staffDetailList}
                   value={clientAppointmentDetail?.appointed_member}
                   onChange={(e, value) => {
-                    console.log(value);
-                    setClientAppointmentDetail({ ...clientAppointmentDetail, appointed_member: value });
+                    console.log(value)
+                    setClientAppointmentDetail({
+                      ...clientAppointmentDetail,
+                      appointed_member: value,
+                    })
                   }}
-                  getOptionLabel={(option) => option?.name}
+                  getOptionLabel={option => option?.name}
                   // freeSolo
                   multiple
-                  renderInput={(params) => (
+                  renderInput={params => (
                     <TextField
                       {...params}
                       className="w-100"
                       placeholder={
-                        clientAppointmentDetail?.appointed_member.length > 0 ? "" : "Add Member"
+                        clientAppointmentDetail?.appointed_member.length > 0
+                          ? ''
+                          : 'Add Member'
                       }
                     />
                   )}
@@ -184,7 +234,7 @@ const AppointmentDialog = (props) => {
         </DialogActions>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default AppointmentDialog;
+export default AppointmentDialog

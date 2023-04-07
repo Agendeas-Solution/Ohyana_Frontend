@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   Dialog,
   Box,
@@ -8,30 +8,27 @@ import {
   DialogActions,
   Button,
   Typography,
-  TextField,TextareaAutosize
-} from "@mui/material";
-import Department from "./Department";
-import { CreateJobRole } from "../../services/apiservices/adminprofile";
-const JobRoleDialog = (props) => {
-  console.log(props?.jobRoleList?.departmentId);
-
+  TextField,
+  TextareaAutosize,
+} from '@mui/material'
+import Department from './Department'
+import { CreateJobRole } from '../../services/apiservices/adminprofile'
+const JobRoleDialog = props => {
   const [jobRoleDetail, setJobRoleDetail] = useState({
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     departmentId: props?.jobRoleList?.departmentId,
-  });
-  const [flagJobRole, setFlagJobRole] = useState(true);
+  })
+  const [flagJobRole, setFlagJobRole] = useState(true)
   const addJobRole = () => {
     CreateJobRole(
       jobRoleDetail,
-      (res) => {
-        props.handleClose();
+      res => {
+        props.handleClose()
       },
-      (err) => {
-        //
-      }
-    );
-  };
+      err => {},
+    )
+  }
   return (
     <>
       <Dialog open={props.jobRoleDialogControl} onClose={props.handleClose}>
@@ -40,22 +37,24 @@ const JobRoleDialog = (props) => {
           <Box>
             <div className="row">
               <div className="col-md-12">
-                <Typography variant="span">Job Role<span className="required_star">*</span></Typography>
+                <Typography variant="span">
+                  Job Role<span className="required_star">*</span>
+                </Typography>
               </div>
               <div className="col-md-12">
                 <TextField
                   className="w-100"
                   value={jobRoleDetail.name}
-                  onChange={(e) => {
-                    if (e.target.value !== "") {
+                  onChange={e => {
+                    if (e.target.value !== '') {
                       setJobRoleDetail({
                         ...jobRoleDetail,
                         name: e.target.value,
                         departmentId: props?.jobRoleList?.departmentId,
-                      });
-                      setFlagJobRole(false);
+                      })
+                      setFlagJobRole(false)
                     } else {
-                      setFlagJobRole(true);
+                      setFlagJobRole(true)
                     }
                   }}
                   type="text"
@@ -68,25 +67,26 @@ const JobRoleDialog = (props) => {
           <Box>
             <div className="row my-4">
               <div className="col-md-6">
-                <Typography variant="span">Description<span className="required_star">*</span></Typography>
+                <Typography variant="span">
+                  Description<span className="required_star">*</span>
+                </Typography>
               </div>
               <div className="col-md-12">
-               
                 <TextareaAutosize
                   style={{ width: 150 }}
                   placeholder="Description Here..."
                   className="w-100"
                   value={jobRoleDetail.description}
-                  onChange={(e) => {
-                    if (e.target.value !== "") {
+                  onChange={e => {
+                    if (e.target.value !== '') {
                       setJobRoleDetail({
                         ...jobRoleDetail,
                         description: e.target.value,
                         departmentId: props?.jobRoleList?.departmentId,
-                      });
-                      setFlagJobRole(false);
+                      })
+                      setFlagJobRole(false)
                     } else {
-                      setFlagJobRole(true);
+                      setFlagJobRole(true)
                     }
                   }}
                 />
@@ -98,9 +98,7 @@ const JobRoleDialog = (props) => {
           <Button
             disabled={flagJobRole}
             variant="contained"
-            onClick={
-              addJobRole
-            }
+            onClick={addJobRole}
           >
             Ok
           </Button>
@@ -110,7 +108,7 @@ const JobRoleDialog = (props) => {
         </DialogActions>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default JobRoleDialog;
+export default JobRoleDialog

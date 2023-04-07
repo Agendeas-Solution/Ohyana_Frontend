@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from 'react'
 import {
   Box,
   TextField,
@@ -11,264 +11,634 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
-  Pagination,
-} from "@mui/material";
-import "./index.css";
-import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import { useNavigate } from "react-router-dom";
-import CallIcon from "../../assets/img/call.svg"
-import MailIcon from "../../assets/img/mail.svg";
-import { Context as AuthContext } from "../../context/authContext/authContext";
-import { GetAdminStaffDetailList, GetUsersAttendanceList } from "../../services/apiservices/staffDetail";
+  FormLabel,
+  RadioGroup,
+  FormControl,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+  Toolbar,
+  Typography,
+  Avatar,
+  Divider,
+  Drawer,
+  FormLabelRadioGroup,
+  FormControlLabel,
+  Radio,
+} from '@mui/material'
+import './index.css'
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
+import FilterIcon from '../../assets/img/Filter.svg'
+import { useNavigate } from 'react-router-dom'
+import { Context as AuthContext } from '../../context/authContext/authContext'
+import {
+  GetAdminStaffDetailList,
+  GetUsersAttendanceList,
+  GetSingleStaffDetailList,
+} from '../../services/apiservices/staffDetail'
 import {
   GetAdminDepartmentList,
   GetAdminRole,
-} from "../../services/apiservices/adminprofile";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
-import SuccessSnackbar from "../SuccessSnackbar/SuccessSnackbar";
-import Loader from "../Loader/Loader";
-import moment from 'moment';
+} from '../../services/apiservices/adminprofile'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import moment from 'moment'
+import { styled, useTheme } from '@mui/material/styles'
+const drawerWidth = 400
+const Loader = React.lazy(() => import('../Loader/Loader'))
+const SuccessSnackbar = React.lazy(() =>
+  import('../SuccessSnackbar/SuccessSnackbar'),
+)
 const Staff = () => {
-  let navigate = useNavigate();
-  const { flagLoader, permissions } = useContext(AuthContext).state;
-  const { setFlagLoader } = useContext(AuthContext);
-  const [value, setValue] = useState("1");
-  const [loader, setLoader] = useState(false);
-  const d = new Date();
-  const [datePicker, setDatePicker] = useState({ $M: d.getMonth() + 1, $y: d.getFullYear() });
-  const [staffDetailList, setStaffDetailList] = useState([]);
+  let navigate = useNavigate()
+  const theme = useTheme()
+  const { flagLoader, permissions } = useContext(AuthContext).state
+  const { setFlagLoader } = useContext(AuthContext)
+  const [value, setValue] = useState('1')
+  const [open, setOpen] = useState(false)
+  const [loader, setLoader] = useState(false)
+  const [clientStage, setClientStage] = useState()
+  const d = new Date()
+  const [datePicker, setDatePicker] = useState({
+    $M: d.getMonth() + 1,
+    $y: d.getFullYear(),
+  })
+  const [staffDetailList, setStaffDetailList] = useState([])
+  const [singleStaffDetails, setSingleStaffDetails] = useState({})
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  const [departmentList, setDepartmentList] = useState([]);
-  const [jobRoleList, setJobRoleList] = useState([]);
-  const [usersAttendanceList, setUserAttendanceList] = useState([]);
+    setValue(newValue)
+  }
+  const [departmentList, setDepartmentList] = useState([])
+  const [jobRoleList, setJobRoleList] = useState([])
+  const [usersAttendanceList, setUserAttendanceList] = useState([])
   const [departmentAndJobRoles, setDepartmentAndJobRoles] = useState({
     departmentId: null,
     roleId: null,
-  });
-  useEffect(() => {
-    value === "1" &&
-      setLoader(true)
-    GetAdminStaffDetailList(
-      departmentAndJobRoles,
-      (res) => {
-        if (res.status === 200) {
-          setStaffDetailList(res?.data?.team);
+  })
+  const [clientType, setClientType] = useState([
+    { stage: 'Jr. Sales Person', id: 0 },
+    { stage: 'Sr. Sales Person', id: 1 },
+    { stage: 'Ass. Sales Person', id: 2 },
+  ])
+  const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  }))
+
+  const handleDrawerOpen = () => {
+    setOpen(true)
+  }
+  const handleDrawerClose = () => {
+    setOpen(false)
+  }
+
+  const teamLeaderDetails = id => {
+    GetSingleStaffDetailList(
+      id,
+      res => {
+        if (res?.success) {
+          setSingleStaffDetails(res.data)
           setLoader(false)
         }
       },
-      (err) => {
-        console.log("Printing ", err);
+      err => {
         setLoader(false)
+      },
+    )
+  }
+  useEffect(() => {
+    singleStaffDetails && teamLeaderDetails(staffDetailList[0]?.id)
+  }, [staffDetailList.length > 0])
+  useEffect(() => {
+    value === '1' && setLoader(true)
+    GetAdminStaffDetailList(
+      departmentAndJobRoles,
+      res => {
+        if (res?.success) {
+          setStaffDetailList(res?.data)
+          setLoader(false)
+        }
+      },
+      err => {
+        console.log(err)
+        setLoader(false)
+      },
+    )
+  }, [value, departmentAndJobRoles])
 
-      }
-    );
-  }, [value, departmentAndJobRoles]);
   useEffect(() => {
     GetAdminDepartmentList(
       {},
-      (res) => {
-        setDepartmentList(res?.data?.department);
+      res => {
+        setDepartmentList(res?.data)
       },
-      (err) => {
-        console.log("Printing Error", err);
-      }
-    );
-  }, []);
+      err => {
+        console.log('Printing Error', err)
+      },
+    )
+  }, [])
+
   useEffect(() => {
     GetAdminRole(
       departmentAndJobRoles?.departmentId,
-      (res) => {
-        setJobRoleList(res.data.roles);
+      res => {
+        setJobRoleList(res.data)
       },
-      (err) => {
-        console.log("Printing Error", err);
-      }
-    );
-  }, [departmentAndJobRoles?.departmentId]);
+      err => {
+        console.log('Printing Error', err)
+      },
+    )
+  }, [departmentAndJobRoles?.departmentId])
+
   useEffect(() => {
-    console.log("datePicker", datePicker.$M);
-    value === "2" && GetUsersAttendanceList({ month: datePicker.$M, year: datePicker.$y }, (res) => {
-      setUserAttendanceList(res?.data);
-      debugger
-    }, (err) => {
-      debugger
-    })
+    value === '2' &&
+      GetUsersAttendanceList(
+        { month: datePicker.$M, year: datePicker.$y },
+        res => {
+          setUserAttendanceList(res?.data)
+        },
+        err => {
+          console.log('Printing Error', err)
+        },
+      )
   }, [value, datePicker])
+
+  useEffect(() => {
+    console.log(clientType)
+    let value = clientType.filter(data => {
+      if (data.id <= permissions?.clientStageAccess) {
+        return data
+      }
+    })
+    setClientType(value)
+  }, [])
+
   return (
-    <>
-      {loader && <Loader />}
-      <Box className="client_section">
-        <Box sx={{ width: "100%", typography: "body1" }}>
-          <TabContext value={value}>
-            <Box className="align-items-center d-flex notification_tabs_root">
-              <TabList
-                className="client_profile_tab"
-                onChange={handleChange}
-                textColor="secondary"
-                indicatorColor="secondary"
-              >
-                <Tab label="Detail" value="1" />
-                <Tab label="Attendance" value="2" />
-              </TabList>
-              <div className="d-flex justify-content-end w-50">
-                {value === "2" &&
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                      views={['year', 'month']}
-                      disableFuture
-                      value={datePicker}
-                      onChange={(newValue) => {
-                        setDatePicker(newValue);
-
-                      }}
-                      renderInput={(params) => <TextField placeholder="Year and Month" {...params} helperText={null} />}
-                    />
-                  </LocalizationProvider>}
-                {value === "1" ?
-                  <>
-                    <Autocomplete
-                      className="align-items-center d-flex justify-content-center"
-                      options={jobRoleList}
-                      onChange={(e, value) => {
-                        console.log(value);
-                        setDepartmentAndJobRoles({
-                          ...departmentAndJobRoles,
-                          roleId: value?.id,
-                        });
-                      }}
-                      getOptionLabel={(option) => option.name}
-                      sx={{ width: 300 }}
-                      renderInput={(params) => (
-                        <TextField {...params} placeholder="Select Job Role" />
-                      )}
-                    />
-                    <Autocomplete
-                      className="align-items-center d-flex justify-content-center mx-2"
-                      options={departmentList}
-                      onChange={(e, value) => {
-                        console.log(value);
-                        setDepartmentAndJobRoles({
-                          ...departmentAndJobRoles,
-                          departmentId: value?.id,
-                        });
-                      }}
-                      sx={{ width: 300 }}
-                      getOptionLabel={(option) => option.name}
-                      renderInput={(params) => (
-                        <TextField {...params} placeholder="Select Department" />
-                      )}
-                    />
-                  </> : null}
-                <Box>
-                  {value === "1" ? (
-                    <>
-                      {permissions?.editStaff && <Button
-                        onClick={() => {
-                          navigate("/addstaffmember");
-                        }}
-                        className="main_button"
-                      // variant="contained"
-                      >
-                        <AddRoundedIcon />
-                        Add Staff
-                      </Button>}
-                    </>
-                  ) : null}
-                </Box>
-              </div>
+    <Box sx={{ backgroundColor: '#f1f2f6' }} className="team_profile_section">
+      <Box sx={{ marginBottom: '10px' }} className="left_panel">
+        <Box className="holiday_inner_class">
+          <Box className="team_header">
+            <Box>
+              <Typography sx={{ color: '#8E8E8E' }} variant="span">
+                Detail
+              </Typography>
             </Box>
-            <TabPanel value="1">
-              <TableContainer sx={{ height: "70vh" }} component={Paper}>
-                {staffDetailList.length > 0 ? <Table stickyHeader sx={{ minWidth: 650 }}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Sr No.</TableCell>
-                      <TableCell align="right">Name</TableCell>
-                      <TableCell align="right">Job Role</TableCell>
-                      <TableCell align="right">Location</TableCell>
-                      {/* <TableCell align="right">Contact No.</TableCell> */}
-                      <TableCell></TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {staffDetailList.map((row, index) => (
+
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <FormControl variant="outlined">
+                <OutlinedInput
+                  className="search_field"
+                  placeholder="Search Here..."
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <IconButton>
+                        <SearchRoundedIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+
+              <Button
+                // sx={{ WebkitLineClamp: ' 1 !important' }}
+                onClick={() => navigate('/addstaffmember')}
+                className="main_tab_button"
+                variant="span"
+              >
+                + Add Team
+              </Button>
+
+              {/* <Toolbar> */}
+              <IconButton
+                edge="end"
+                onClick={handleDrawerOpen}
+                sx={{ ...(open && { display: 'flex' }) }}
+              >
+                <img src={FilterIcon} alt="" />
+              </IconButton>
+              {/* </Toolbar> */}
+            </Box>
+
+            <Drawer
+              sx={{
+                width: 2,
+                flexShrink: 0,
+                '& .MuiDrawer-paper': {
+                  width: drawerWidth,
+                },
+              }}
+              // variant="persistent"
+              anchor="right"
+              open={open}
+            >
+              <DrawerHeader>
+                <Box className="d-flex justify-content-between column w-100 align-items-center">
+                  <Box className="d-flex column justify-content-between w-50 align-items-center">
+                    <IconButton
+                      disableRipple={true}
+                      onClick={handleDrawerClose}
+                    >
+                      {theme.direction === 'rtl' ? (
+                        <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                      ) : (
+                        <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                      )}
+                    </IconButton>
+
+                    <Typography sx={{ fontSize: '22px', paddingRight: '60px' }}>
+                      Filter By
+                    </Typography>
+                  </Box>
+                  <Box className=" d-flex justify-content-end row w-50">
+                    <Typography sx={{ paddingLeft: '80px' }}>
+                      Clear All
+                    </Typography>
+                  </Box>
+                </Box>
+              </DrawerHeader>
+
+              <Divider />
+
+              <Box className="py-3">
+                <div className="row px-3">
+                  <FormControl className="px-3">
+                    <FormLabel
+                      sx={{ color: '#000000' }}
+                      className="mb-2"
+                      id="demo-row-radio-buttons-group-label"
+                    >
+                      Team Type
+                    </FormLabel>
+                    <RadioGroup
+                      row
+                      aria-labelledby="demo-row-radio-buttons-group-label"
+                      name="row-radio-buttons-group"
+                    >
+                      <FormControlLabel
+                        className="checkbox_background_color"
+                        value="office"
+                        control={<Radio />}
+                        label="Office"
+                      />
+                      <FormControlLabel
+                        className="checkbox_background_color"
+                        value="onfields"
+                        control={<Radio />}
+                        label="On Field"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+
+                  <FormControl className="px-3 pt-3">
+                    <FormLabel
+                      sx={{ color: '#000000' }}
+                      className="mb-2"
+                      id="demo-row-radio-buttons-group-label"
+                    >
+                      Result for
+                    </FormLabel>
+                    <RadioGroup
+                      row
+                      aria-labelledby="demo-row-radio-buttons-group-label"
+                      name="row-radio-buttons-group"
+                    >
+                      <FormControlLabel
+                        className="checkbox_background_color"
+                        value="present"
+                        control={<Radio />}
+                        label="Present"
+                      />
+                      <FormControlLabel
+                        className="checkbox_background_color"
+                        value="absent"
+                        control={<Radio />}
+                        label="Absent"
+                      />
+                      <FormControlLabel
+                        className="checkbox_background_color"
+                        value="late"
+                        control={<Radio />}
+                        label="Late"
+                      />
+                      <FormControlLabel
+                        className="checkbox_background_color"
+                        value="onleave"
+                        control={<Radio />}
+                        label="On Leave"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+
+                  <div className="col-md-12 pt-3 px-3">
+                    <Typography variant="span">Job Role</Typography>
+                  </div>
+
+                  <Autocomplete
+                    className="mt-1 mx-3 align-items-center d-flex client_type_select justify-content-center "
+                    options={clientType}
+                    value={
+                      clientStage !== null ? clientType[clientStage] : null
+                    }
+                    sx={{ width: '21rem' }}
+                    onChange={(e, value) => {
+                      console.log(value)
+                      setClientStage(value?.id)
+                    }}
+                    getOptionLabel={option => option.stage}
+                    renderInput={params => (
+                      <TextField
+                        // className="m-3"
+                        variant="outlined"
+                        // sx={{ width: '24rem' }}
+                        {...params}
+                        placeholder="Job Role"
+                      />
+                    )}
+                  />
+                </div>
+              </Box>
+            </Drawer>
+          </Box>
+
+          <Box className="left_team_profile_section">
+            <TableContainer>
+              <Table
+                // style={{
+                //   borderCollapse: 'separate',
+                //   borderSpacing: '0 4px',
+                // }}
+                className="team_member_table"
+              >
+                <TableHead>
+                  <TableRow sx={{ backgroundColor: '#f1f2f6' }}>
+                    <TableCell align="left">Name</TableCell>
+                    <TableCell align="left">Attendance</TableCell>
+                    <TableCell align="left">Points</TableCell>
+                  </TableRow>
+                </TableHead>
+
+                <Divider
+                  sx={{ borderColor: '#C4C4C4' }}
+                  orientation="vertical"
+                  variant="middle"
+                  flexItem
+                />
+
+                <TableBody
+                  style={{
+                    borderCollapse: 'separate',
+                    borderSpacing: '0 4px',
+                  }}
+                >
+                  {staffDetailList.map((row, index) => (
+                    <React.Fragment key={index}>
                       <TableRow
+                        className="staff_tablecell"
                         key={row.id}
+                        onClick={() => teamLeaderDetails(row?.id)}
                         sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
+                          backgroundColor: '#FFFFFF',
+                          borderBottom: '2px solid black',
                         }}
                       >
-                        <TableCell scope="row">
-                          {row.id}
+                        <TableCell
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            fontSize: '15px',
+                            float: 'left',
+                          }}
+                        >
+                          <Avatar
+                            className="me-2"
+                            sx={{ width: 40, height: 40 }}
+                            src="/static/images/avatar/1.jpg"
+                          />
+                          <Typography>{row.name}</Typography>
                         </TableCell>
-                        <TableCell align="right">{row.name}</TableCell>
-                        <TableCell align="right">{row.role.name}</TableCell>
-                        <TableCell align="right">{row?.location}</TableCell>
-                        {/* <TableCell align="right">
-                          {row.contact_number}
-                        </TableCell> */}
-                        <TableCell align="right">
-                          <Button
-                            onClick={() => {
-                              navigate(`/staffprofile/${row.id}`);
-                            }}
-                            className="common_button"
-                          >
-                            View
-                          </Button>
-                          <a href={`tel:${row.contact_number}`} > <Button className="common_button"><img src={CallIcon} /></Button></a>
-                          <a href={`mailto:${row.email}`} > <Button className="common_button"><img src={MailIcon} /></Button></a>
-                        </TableCell>
-                      </TableRow>))}
-                  </TableBody>
-                </Table> : <p style={{ display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", width: "100%", height: "100%" }}>No Data Found</p>
-                }
-              </TableContainer>
-            </TabPanel>
-            <TabPanel value="2">
-              <TableContainer sx={{ height: "70vh" }} component={Paper}>
-                {usersAttendanceList.length > 0 ? <Table stickyHeader sx={{ minWidth: 650 }}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell align="right">Name</TableCell>
-                      {usersAttendanceList[0].attendances.map((days) => {
-
-                        return <TableCell align="right">{moment(days?.date).format("D")}</TableCell>
-                      })}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {usersAttendanceList.map((nameData) => {
-                      return <TableRow sx={{
-                        "&:last-child td, &:last-child th": { border: 0 }
-                      }}>
-                        <TableCell align="right">{nameData?.name}</TableCell>
-                        {nameData?.attendances.map((status) => {
-                          return <TableCell className={status?.attendanceType === "LT" ? "late_status_color" : status?.attendanceType === "A" ? "absent_status_color" : status?.attendanceType === "L" ? "leave_status_color" : "present_status_color"} align="right" > {status?.attendanceType}</TableCell>
-                        })}
+                        <TableCell align="left">{row.role.name}</TableCell>
+                        <TableCell align="left">{row.id}</TableCell>
                       </TableRow>
-                    })}
-                  </TableBody>
-                </Table> : <p style={{ display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", width: "100%", height: "100%" }}>No Data Found</p>
-                }
-              </TableContainer>
-            </TabPanel>
-          </TabContext>
+                      <Divider sx={{ height: "12px", borderColor: "transparent" }} />
+                      {/* {index < staffDetailList.length - 1 && <Box my={2} />} */}
+                    </React.Fragment>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Box>
         </Box>
-        <Pagination className="mt-1" />
       </Box>
-    </>
-  );
-};
 
-export default Staff;
+      {/* starting of SECOND section */}
+      <Box className="right_panel">
+        <Box>
+          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+            <AccountCircleRoundedIcon className="user_profile_icon mx-2 mt-2" />
+
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+              }}
+            >
+              <Typography
+                variant="span"
+                sx={{ fontWeight: 'bold', fontSize: '18px' }}
+              >
+                {singleStaffDetails?.memberDetail?.name}
+                <img className="ml-1 p-1" alt="" />
+              </Typography>
+              <Typography sx={{ marginTop: '10px' }} variant="span">
+                {singleStaffDetails?.memberDetail?.role?.name}
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box className="mt-3 mb-4 mx-2">
+            <Box
+              className="m-3"
+              sx={{
+                justifyContent: 'space-between',
+                // width: '100%',
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}
+            >
+              <Typography variant="span" sx={{ fontWeight: 'bold' }}>
+                Contact
+              </Typography>
+              <Typography className="mx-5" variant="span">
+                {singleStaffDetails?.memberDetail?.contact_number}
+              </Typography>
+              <Button
+                className=""
+                sx={{
+                  backgroundColor: '#F1F2F6',
+                  // float: 'right',
+                }}
+                onClick={() =>
+                  navigate(
+                    `/staffprofile/${singleStaffDetails?.memberDetail?.id}`,
+                  )
+                }
+              >
+                View Profile
+              </Button>
+            </Box>
+
+            <Box className="m-3 me-5">
+              <Typography variant="span" sx={{ fontWeight: 'bold' }}>
+                Email
+              </Typography>
+              <Typography
+                sx={{ paddingLeft: '25px' }}
+                className="mx-5"
+                variant="span"
+              >
+                {singleStaffDetails?.memberDetail?.email}
+              </Typography>
+            </Box>
+
+            <Box className="m-3  me-5">
+              <Typography variant="span" sx={{ fontWeight: 'bold' }}>
+                Location
+              </Typography>
+              <Typography className="mx-5" variant="span">
+                {singleStaffDetails?.memberDetail?.location}
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box className="bottom_right_part mt-3">
+            <Typography className="px-3">Inquiry Status</Typography>
+            <Box
+              className="staff_statistics_data"
+            >
+              <Box className="inner_profile_details first_box p-2">
+                <Typography>Total Inquiry</Typography>
+                <Typography>
+                  {singleStaffDetails?.currentMonthClients?.total}
+                </Typography>
+              </Box>
+
+              <Box className="inner_profile_details middle_box p-2">
+                <Typography>Attend</Typography>
+                <Typography>
+                  {singleStaffDetails?.currentMonthClients?.attend}
+                </Typography>
+              </Box>
+
+              <Box className="inner_profile_details last_box  p-2">
+                <Typography className="typos_dummy">Avg. Response</Typography>
+                <Typography>
+                  {singleStaffDetails?.currentMonthClients?.avgResponseTime}{' '}
+                </Typography>
+              </Box>
+            </Box>
+
+            <Typography className="px-3">Attendance</Typography>
+            <Box
+              className="staff_statistics_data"
+            >
+              <Box className="inner_profile_details first_box m-1 p-2">
+                <Typography>Total Present</Typography>
+                <Typography>
+                  {singleStaffDetails?.currentMonthAttendance?.totalPresent}
+                </Typography>
+              </Box>
+
+              <Box className="inner_profile_details middle_box m-1 p-2">
+                <Typography>Absent</Typography>
+                <Typography>
+                  {singleStaffDetails?.currentMonthAttendance?.totalAbsent}
+                </Typography>
+              </Box>
+
+              <Box className="inner_profile_details  last_box m-1 p-2">
+                <Typography>Late</Typography>
+                <Typography>
+                  {singleStaffDetails?.currentMonthAttendance?.totalLate}
+                </Typography>
+              </Box>
+            </Box>
+
+            <Typography className="px-3">Target</Typography>
+            <Box
+              className="staff_statistics_data"
+            >
+              <Box className="inner_profile_details first_box m-1 p-2">
+                <Typography>Total Days</Typography>
+                <Typography>
+                  {singleStaffDetails?.currentMonthTarget?.totalDays}
+                </Typography>
+              </Box>
+
+              <Box className="inner_profile_details middle_box m-1 p-2">
+                <Typography>Total Order</Typography>
+                <Typography>
+                  {singleStaffDetails?.currentMonthTarget?.targetOrder}
+                </Typography>
+              </Box>
+
+              <Box className="inner_profile_details last_box m-1 p-2">
+                <Typography>Achieved</Typography>
+                <Typography>
+                  {singleStaffDetails?.currentMonthTarget?.achieved}
+                </Typography>
+              </Box>
+            </Box>
+
+            <Typography className="px-3">Expense</Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                justifyContent: 'space-around',
+                marginBottom: '14px',
+                marginLeft: '6px',
+              }}
+            >
+              <Box className="inner_profile_details first_box  m-1 p-2">
+                <Typography>Approved</Typography>
+                <Typography>
+                  {singleStaffDetails?.currentMonthExpense?.approvedExpense}
+                </Typography>
+              </Box>
+
+              <Box className="inner_profile_details middle_box m-1 p-2">
+                <Typography>Pending</Typography>
+                <Typography>
+                  {singleStaffDetails?.currentMonthExpense?.pendingExpense}
+                </Typography>
+              </Box>
+
+              <Box className="inner_profile_details last_box m-1 p-2">
+                <Typography>Rejected</Typography>
+                <Typography>
+                  {singleStaffDetails?.currentMonthExpense?.rejectedExpense}
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
+  )
+}
+
+export default Staff

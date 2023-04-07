@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   Table,
   TableBody,
@@ -8,31 +8,52 @@ import {
   TableRow,
   Paper,
   Button,
-} from "@mui/material";
-import "./index.css";
-import { useNavigate } from "react-router-dom";
-import moment from "moment";
-import EditReminderDialog from './EditReminderDialog';
-const RemainderTable = (props) => {
-  let navigate = useNavigate();
+} from '@mui/material'
+import './index.css'
+import { useNavigate } from 'react-router-dom'
+import moment from 'moment'
+import EditReminderDialog from './EditReminderDialog'
+import NoResultFound from '../ErrorComponent/NoResultFound'
+
+const RemainderTable = props => {
   const [editReminderDetail, setEditReminderDetail] = useState({
-    description: "",
-    date: "",
-    time: "",
+    description: '',
+    date: '',
+    time: '',
     status: false,
-    id: null
+    id: null,
   })
-  const handleEditReminder = (row) => {
-    setEditReminderDetail({ ...editReminderDetail, description: row.description, date: row.date, time: row.time, id: row.id, status: true })
+  const handleEditReminder = row => {
+    setEditReminderDetail({
+      ...editReminderDetail,
+      description: row.description,
+      date: row.date,
+      time: row.time,
+      id: row.id,
+      status: true,
+    })
   }
   const handleClose = () => {
     setEditReminderDetail({ ...editReminderDetail, status: false })
   }
   return (
     <>
-      <TableContainer sx={{ height: "50vh" }} component={Paper}>
-        {props.clientReminderList.length > 0 ?
-          <Table stickyHeader sx={{ minWidth: 650 }}>
+      <TableContainer
+        className="client_table_height mt-1"
+        component={Paper}
+        sx={{
+          boxShadow: 'none',
+          border: '1px solid #e5e5e5',
+          overflowY: 'auto',
+        }}
+      >
+        {props.clientReminderList.length > 0 ? (
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            className="table_heading"
+          >
             <TableHead className="client_profile_table_header">
               <TableRow>
                 <TableCell>Sr No.</TableCell>
@@ -48,15 +69,22 @@ const RemainderTable = (props) => {
               {props.clientReminderList.map((row, index) => (
                 <TableRow
                   key={index}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  sx={{
+                    '&:last-child td,th': { border: 0 },
+                  }}
                 >
-                  <TableCell scope="row">
-                    {index + 1}
-                  </TableCell>
+                  <TableCell scope="row">{index + 1}</TableCell>
                   <TableCell align="left">{row.team.name}</TableCell>
                   <TableCell align="left">{row.team.role.name}</TableCell>
-                  <TableCell align="left">{moment(row?.date).format("DD-MM-YYYY")}</TableCell>
-                  <TableCell align="left">{moment(row.time, 'hh:mm:ss').format('LT')}</TableCell>
+                  <TableCell align="left">
+                    {moment(row?.date).format('DD-MM-YYYY')}
+                  </TableCell>
+                  <TableCell align="left">
+                    {moment(row.time, 'hh:mm:ss').format('LT')}
+                  </TableCell>
                   <TableCell align="left">{row.description}</TableCell>
                   <TableCell align="left">
                     <Button
@@ -71,12 +99,19 @@ const RemainderTable = (props) => {
                 </TableRow>
               ))}
             </TableBody>
-          </Table> : <p style={{ display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", width: "100%", height: "100%", flexGrow: "auto" }}>No Data Found</p>
-        }
+          </Table>
+        ) : (
+          <NoResultFound />
+        )}
       </TableContainer>
-      {editReminderDetail.status === true && <EditReminderDialog handleClose={handleClose} editReminderDetail={editReminderDetail} />}
+      {editReminderDetail.status === true && (
+        <EditReminderDialog
+          handleClose={handleClose}
+          editReminderDetail={editReminderDetail}
+        />
+      )}
     </>
-  );
-};
+  )
+}
 
-export default RemainderTable;
+export default RemainderTable

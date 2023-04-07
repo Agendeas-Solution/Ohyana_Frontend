@@ -70,3 +70,17 @@ body {
 .login_page_section {
   display: none !important;
 }
+.width-main {
+  width: 80%;
+  height: 100vh;
+}
+.home_page_section {
+  /* display: flex; */
+  /* height: 30vh; */
+  background-color: #f1f2f6;
+  /* align-items: center; */
+  /* justify-content: center;   */
+  flex-direction: row;
+  width: auto;
+  height: 100%;
+}

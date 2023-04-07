@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Dialog,
   DialogTitle,
@@ -6,9 +6,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  Autocomplete,
-} from "@mui/material";
-const ChangeRoleDialog = (props) => {
+} from '@mui/material'
+const ChangeRoleDialog = props => {
   return (
     <>
       <Dialog
@@ -37,7 +36,7 @@ const ChangeRoleDialog = (props) => {
         </DialogActions>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default ChangeRoleDialog;
+export default ChangeRoleDialog

@@ -1,153 +1,165 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Box, Typography, Button } from "@mui/material";
-import "./index.css";
-import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
-import ProfileImg from "../../assets/img/profile_logo.png";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import StaffDetail from "./staffDetail";
-import { Context as AuthContext } from "../../context/authContext/authContext";
-import ChangeRole from "../../assets/img/changerole.svg";
-import StaffRatingTable from "./StaffRatingTable";
-import ChangeRoleDialog from "./ChangeRoleDialog";
-import PlaceIcon from '@mui/icons-material/Place';
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import React, { useState, useEffect, useContext } from 'react'
+import { Box, Typography, Button } from '@mui/material'
+import './index.css'
+import Tab from '@mui/material/Tab'
+import TabContext from '@mui/lab/TabContext'
+import TabList from '@mui/lab/TabList'
+import TabPanel from '@mui/lab/TabPanel'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
+import { Context as AuthContext } from '../../context/authContext/authContext'
+import PlaceIcon from '@mui/icons-material/Place'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import {
   GetAdminStaffProfileDetail,
   GetAdminStaffRatingDetail,
-} from "../../services/apiservices/staffDetail";
-import { useNavigate } from "react-router-dom";
-import Attendance from "./StaffAttendance";
-import StaffAttendance from "./StaffAttendance";
-import PJPDetail from './PJPDetail';
-import StaffTarget from "./StaffTarget";
-import StaffPoint from "./StaffPoint";
-import StaffExpenses from "./StaffExpenses";
+} from '../../services/apiservices/staffDetail'
+import { useNavigate } from 'react-router-dom'
+const PJPDetail = React.lazy(() => import('./PJPDetail'))
+const StaffTarget = React.lazy(() => import('./StaffTarget'))
+const StaffAttendance = React.lazy(() => import('./StaffAttendance'))
+const StaffPoint = React.lazy(() => import('./StaffPoint'))
+const StaffExpenses = React.lazy(() => import('./StaffExpenses'))
+const StaffDetail = React.lazy(() => import('./staffDetail'))
+const ChangeRoleDialog = React.lazy(() => import('./ChangeRoleDialog'))
+
 const StaffProfile = () => {
-  const [value, setValue] = useState("1");
-  const { flagLoader, permissions } = useContext(AuthContext).state;
-  const [changeRoleDialogControl, setChangeRoleDialogControl] = useState(false);
-  const [giveRating, setGiveRating] = useState(false);
-  const [adminProfileDetail, setAdminProfileDetail] = useState({});
-  const [adminRatingList, setAdminRatingList] = useState([]);
-  const navigate = useNavigate();
+  const [value, setValue] = useState('1')
+  const { flagLoader, permissions } = useContext(AuthContext).state
+  const [changeRoleDialogControl, setChangeRoleDialogControl] = useState(false)
+  const [giveRating, setGiveRating] = useState(false)
+  const [adminProfileDetail, setAdminProfileDetail] = useState({})
+  const [adminRatingList, setAdminRatingList] = useState([])
+  const navigate = useNavigate()
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
   const handleCloseRatingDialog = () => {
-    setGiveRating(false);
-  };
+    setGiveRating(false)
+  }
+  // debugger
   useEffect(() => {
-    let path = window.location.pathname;
-    console.log("Printing Path of ", path);
-    console.log("Printing ", path.split("/").pop());
-    path = path.split("/").pop();
-    value === "1" &&
+    let path = window.location.pathname
+    console.log('Printing Path of ', path)
+    console.log('Printing ', path.split('/').pop())
+    path = path.split('/').pop()
+
+    value === '1' &&
       GetAdminStaffProfileDetail(
         parseInt(path),
-        (res) => {
-          if (res.status === 200) {
-            setAdminProfileDetail(res?.data?.member);
+        res => {
+          if (res.success) {
+            setAdminProfileDetail(res?.data)
           }
         },
-        (err) => {
-          console.log("Printing ", err);
-        }
-      );
-    value === "2" &&
+        err => {
+          console.log('Printing ', err)
+        },
+      )
+
+    value === '2' &&
       GetAdminStaffRatingDetail(
         parseInt(path),
-        (res) => {
-          if (res.status === 200) {
-            setAdminRatingList(res?.data?.teamFeedbacks);
+        res => {
+          if (res.success) {
+            setAdminRatingList(res?.data?.teamFeedbacks)
           }
         },
-        (err) => {
-          console.log("Printing ", err);
-        }
-      );
-  }, [value, giveRating]);
-  useEffect(() => {
-    console.log("Printing", permissions);
-    //debugger;
-  }, [])
+        err => {
+          console.log('Printing ', err)
+        },
+      )
+  }, [value, giveRating])
+
   return (
     <>
-      <Box className="main_section">
+      <Box className="main_section_of_team_profile">
         <Box className="profile_img">
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "flex-start",
-              alignItems: "center",
-              width: "50%",
-              padding: "15px 0 0 15px",
+              display: 'flex',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+              width: '50%',
             }}
           >
             <Box className="userName_and_position">
-              {/* <img src={ProfileImg} alt="profile" /> */}
-              <AccountCircleRoundedIcon className="userprofile_dummy_icon" />
-              <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", marginLeft: 2 }}>
+              <AccountCircleRoundedIcon className="user_profile_icon" />
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  marginLeft: 1,
+                }}
+              >
                 <Typography
                   variant="span"
-                  sx={{ fontWeight: "bold", fontSize: "18px" }}
+                  sx={{ fontWeight: 'bold', fontSize: '18px' }}
                 >
                   {adminProfileDetail?.name}
                 </Typography>
-                <Typography sx={{ marginTop: "10px" }} variant="span">
+                <Typography sx={{ marginTop: '10px' }} variant="span">
                   {adminProfileDetail?.role?.name}
                 </Typography>
               </Box>
             </Box>
           </Box>
+
           <Box>
-            {/* <img
-              src={ChangeRole}
-              // onClick={() => setChangeRoleDialogControl(true)}
-              className="icon"
-              alt="changeroleicon"
-            /> */}
-            <Button className="common_button"><PlaceIcon />View On Map</Button>
-            {permissions?.editStaff && <Button className="common_button"><EditRoundedIcon
-              onClick={() => {
-                navigate(`/editstaff/${adminProfileDetail.id}`);
-              }}
-            /></Button>}
+            <Button className="view_on_map_btn">
+              <PlaceIcon />
+              View On Map
+            </Button>
+            {permissions?.editStaff && (
+              <Button
+                variant="contained"
+                className="common_button_staff_points"
+              >
+                <EditRoundedIcon
+                  onClick={() => {
+                    navigate(`/editstaff/${adminProfileDetail.id}`)
+                  }}
+                />
+              </Button>
+            )}
           </Box>
         </Box>
-        <Box sx={{ width: "100%", typography: "body1" }}>
+
+        <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={value}>
             <Box className="tab_row">
               <TabList
+                sx={{
+                  borderBottom: '1px solid #F1F2F6',
+                  width: '100%',
+                }}
                 className="client_profile_tab mb-2"
                 onChange={handleChange}
               >
                 <Tab label="PJP" value="3" />
-                <Tab label="Profile" value="1" />
-                <Tab label="Attendance" value="2" />
                 <Tab label="Target" value="4" />
                 <Tab label="Expenses" value="5" />
+                <Tab label="Attendance" value="2" />
                 <Tab label="Points" value="6" />
+                <Tab label="Profile" value="1" />
               </TabList>
             </Box>
-            <TabPanel value="1">
+            <TabPanel sx={{ padding: '0' }} value="1">
               <StaffDetail adminProfileDetail={adminProfileDetail} />
             </TabPanel>
-            <TabPanel value="2">
+            <TabPanel sx={{ padding: '0' }} value="2">
               <StaffAttendance />
             </TabPanel>
-            <TabPanel value="3">
+            <TabPanel sx={{ padding: '0' }} value="3">
               <PJPDetail />
             </TabPanel>
-            <TabPanel value="4">
+            <TabPanel sx={{ padding: '0' }} value="4">
               <StaffTarget />
             </TabPanel>
-            <TabPanel value="5">
+            <TabPanel sx={{ padding: '0' }} value="5">
               <StaffExpenses />
             </TabPanel>
-            <TabPanel value="6">
+            <TabPanel sx={{ padding: '0' }} value="6">
               <StaffPoint />
             </TabPanel>
           </TabContext>
@@ -155,7 +167,7 @@ const StaffProfile = () => {
         </Box>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default StaffProfile;
+export default StaffProfile

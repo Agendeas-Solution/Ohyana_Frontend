@@ -1,54 +1,41 @@
-import React, { useEffect, useState } from "react";
-import DonutChart from 'react-donut-chart';
-import { Tabs, Tab, Box, Typography, Button } from "@mui/material";
-import "./index.css";
-import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
-import TrendingDownRoundedIcon from '@mui/icons-material/TrendingDownRounded';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { AttendanceStatus, GetInquiryAnalytics } from "../../services/apiservices/staffDetail";
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-];
-
+import React, { useEffect, useState } from 'react'
+import DonutChart from 'react-donut-chart'
+import { Box, Typography, Button, Divider } from '@mui/material'
+import './index.css'
+import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
+import TrendingDownRoundedIcon from '@mui/icons-material/TrendingDownRounded'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
+import {
+  AttendanceStatus,
+  GetInquiryAnalytics,
+} from '../../services/apiservices/staffDetail'
+import { useNavigate } from 'react-router-dom'
 const Dashboard = () => {
-  const [value, setValue] = useState("All");
-  const [inquiryData, setInquiryData] = useState();
+  const navigate = useNavigate()
+  const [inquiryData, setInquiryData] = useState()
+
   useEffect(() => {
-    GetInquiryAnalytics({}, (res) => {
-      setInquiryData(res.data.data);
-      debugger;
-    }, (err) => {
-      debugger;
-    })
+    GetInquiryAnalytics(
+      {},
+      res => {
+        setInquiryData(res.data.data)
+      },
+      err => {},
+    )
   }, [])
 
-  const data = {
-    labels: ["I", "II", "III", "IIII"],
-    datasets: [
-      {
-        data: [500, 500, 500, 500],
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-        borderWidth: 1
-      }
-    ]
-  };
-  const handleCheckIn = (type) => {
-    AttendanceStatus(type, (res) => {
-      debugger;
-    }, (err) => {
-
-    })
+  const handleCheckIn = type => {
+    AttendanceStatus(
+      type,
+      res => {},
+      err => {},
+    )
   }
 
   return (
@@ -56,82 +43,237 @@ const Dashboard = () => {
       <Box className="main_section">
         <Box className="attendance_buttons">
           <Box>
-            <Typography variant="span">Today’s Present</Typography>
+            <Typography className="dashboard_heading" variant="span">
+              Today’s Present
+            </Typography>
           </Box>
           <Box>
-            <Button onClick={() => handleCheckIn("checkIn")} className="common_button">
+            <Button
+              onClick={() => handleCheckIn('checkIn')}
+              className="check_InOut_Break_InOut_Btn"
+            >
               Check In
             </Button>
-            <Button onClick={() => handleCheckIn("breakIn")} className="common_button">
+            <Button
+              onClick={() => handleCheckIn('breakIn')}
+              className="check_InOut_Break_InOut_Btn"
+            >
               Break In
             </Button>
-            <Button onClick={() => handleCheckIn("breakOut")} className="common_button">
+            <Button
+              onClick={() => handleCheckIn('breakOut')}
+              className="check_InOut_Break_InOut_Btn"
+            >
               Break Out
             </Button>
-            <Button onClick={() => handleCheckIn("checkOut")} className="common_button">
+            <Button
+              onClick={() => handleCheckIn('checkOut')}
+              className="check_InOut_Break_InOut_Btn"
+            >
               Check Out
             </Button>
           </Box>
         </Box>
+
         <Box className="inquiry_sales_statistics">
           <Box className="inquiry_overview">
-            <Box>
-              <Typography variant="span">Inquiries Overview</Typography>
+            <Box className="dashboard_inner_heading">
+              <Typography className="dashboard_sub_heading" variant="span">
+                Inquiries Overview
+              </Typography>
             </Box>
+
             <Box className="common_row">
-              <Box className="platform_data_detail row">
-                <Box className="inquiry_detail_box">
-                  <Box className="inquiry_from_name">
-                    <Box sx={{ backgroundColor: "#FFAB00", height: "10px", width: "10px", marginRight: "10px" }}></Box>
-                    <Typography variant="span">
-                      IndiaMart
-                    </Typography>
+              <Box
+                className="platform_data_detail"
+                sx={{
+                  justifyContent: 'center',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  marginRight: '8px',
+                  marginLeft: '8px',
+                }}
+              >
+                <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                  <Box
+                    className="inquiry_detail_box"
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'start',
+                      marginRight: '40px',
+                    }}
+                  >
+                    <Box className="inquiry_from_name">
+                      <Box
+                        sx={{
+                          backgroundColor: '#FFAB00',
+                          height: '10px',
+                          width: '10px',
+                          marginRight: '10px',
+                        }}
+                      ></Box>
+                    </Box>
+
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        marginTop: '3px',
+                        width: '100%',
+                      }}
+                    >
+                      <Typography>IndiaMart</Typography>
+                      <Box className="inquiry_row">
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.crtMonIndiaMart}
+                        </Typography>
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.percentageIndiaMart}%
+                        </Typography>
+                      </Box>
+                      <Typography className="small_sub_heading" variant="span">
+                        Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
+                      </Typography>
+                      <Divider className="underline" />
+                    </Box>
                   </Box>
-                  <Box className="inquiry_row">
-                    <Typography variant="span">{inquiryData?.inquiry?.crtMonIndiaMart}</Typography>
-                    <Typography variant="span">{inquiryData?.inquiry?.percentageIndiaMart}</Typography>
+
+                  <Box
+                    className="inquiry_detail_box"
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'start',
+                    }}
+                  >
+                    <Box className="inquiry_from_name">
+                      <Box
+                        sx={{
+                          backgroundColor: '#FFAB00',
+                          height: '10px',
+                          width: '10px',
+                          marginRight: '10px',
+                        }}
+                      ></Box>
+                    </Box>
+
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        marginTop: '3px',
+                        width: '100%',
+                      }}
+                    >
+                      <Typography>Website</Typography>
+                      <Box className="inquiry_row">
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.crtMonIndiaMart}
+                        </Typography>
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.percentageIndiaMart}%
+                        </Typography>
+                      </Box>
+                      <Typography className="small_sub_heading" variant="span">
+                        Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
+                      </Typography>
+                      <Divider className="underline" />
+                    </Box>
                   </Box>
-                  <Typography variant="span">Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}</Typography>
                 </Box>
-                <Box className="inquiry_detail_box">
-                  <Box className="inquiry_from_name">
-                    <Box sx={{ backgroundColor: "#FFAB00", height: "10px", width: "10px", marginRight: "10px" }}></Box>
-                    <Typography variant="span">
-                      Website
-                    </Typography>
+
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    marginTop: '12px',
+                  }}
+                >
+                  <Box
+                    className="inquiry_detail_box"
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'start',
+                      marginRight: '40px',
+                    }}
+                  >
+                    <Box className="inquiry_from_name">
+                      <Box
+                        sx={{
+                          backgroundColor: '#FFAB00',
+                          height: '10px',
+                          width: '10px',
+                          marginRight: '10px',
+                        }}
+                      ></Box>
+                    </Box>
+
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        marginTop: '3px',
+                        width: '100%',
+                      }}
+                    >
+                      <Typography>From PJP</Typography>
+                      <Box className="inquiry_row">
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.crtMonIndiaMart}
+                        </Typography>
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.percentageIndiaMart}%
+                        </Typography>
+                      </Box>
+                      <Typography className="small_sub_heading" variant="span">
+                        Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Box className="inquiry_row">
-                    <Typography variant="span">{inquiryData?.inquiry?.crtMonWeb}</Typography>
-                    <Typography variant="span">100</Typography>
+
+                  <Box
+                    className="inquiry_detail_box"
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'start',
+                    }}
+                  >
+                    <Box className="inquiry_from_name">
+                      <Box
+                        sx={{
+                          backgroundColor: '#FFAB00',
+                          height: '10px',
+                          width: '10px',
+                          marginRight: '10px',
+                        }}
+                      ></Box>
+                    </Box>
+
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        marginTop: '3px',
+                        width: '100%',
+                      }}
+                    >
+                      <Typography>Others</Typography>
+                      <Box className="inquiry_row">
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.crtMonIndiaMart}
+                        </Typography>
+                        <Typography variant="span">
+                          {inquiryData?.inquiry?.percentageIndiaMart}%
+                        </Typography>
+                      </Box>
+                      <Typography className="small_sub_heading" variant="span">
+                        Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Typography variant="span">Last Month :{inquiryData?.inquiry?.lstMonWeb} </Typography>
                 </Box>
-                <Box className="inquiry_detail_box">
-                  <Box className="inquiry_from_name">
-                    <Box sx={{ backgroundColor: "#FFAB00", height: "10px", width: "10px", marginRight: "10px" }}></Box>
-                    <Typography variant="span">
-                      From PJP
-                    </Typography>
-                  </Box>
-                  <Box className="inquiry_row">
-                    <Typography variant="span">{inquiryData?.inquiry?.lstMonWeb}</Typography>
-                    <Typography variant="span">{inquiryData?.inquiry?.lstMonWeb}</Typography>
-                  </Box>
-                  <Typography variant="span">Last Month : 85</Typography>
-                </Box>
-                <Box className="inquiry_detail_box">
-                  <Box className="inquiry_from_name">
-                    <Box sx={{ backgroundColor: "#FFAB00", height: "10px", width: "10px", marginRight: "10px" }}></Box>
-                    <Typography variant="span">
-                      Other
-                    </Typography>
-                  </Box>
-                  <Box className="inquiry_row">
-                    <Typography variant="span">{inquiryData?.inquiry?.crtMonOther}</Typography>
-                    <Typography variant="span">{inquiryData?.inquiry?.lstMonWeb}</Typography>
-                  </Box>
-                  <Typography variant="span">Last Month : {inquiryData?.inquiry?.lstMonOther}</Typography>
-                </Box></Box>
+              </Box>
+
               <Box className="doughnut_chart_inquiry">
                 <DonutChart
                   height={200}
@@ -142,80 +284,118 @@ const Dashboard = () => {
                   toggledOffset={false}
                   data={[
                     {
-                      label: "hello",
+                      label: 'hello',
                       value: 20,
                     },
                     {
-                      label: "hello1",
+                      label: 'hello1',
                       value: 20,
-                    }, {
-                      label: "hello",
+                    },
+                    {
+                      label: 'hello',
                       value: 25,
-                    }, {
-                      label: "hello",
+                    },
+                    {
+                      label: 'hello',
                       value: 35,
                     },
                   ]}
                 />
-
               </Box>
             </Box>
-            <Box>
-
-            </Box>
           </Box>
+
           <Box className="sales_statistics">
-            <Typography className="sales_statistics_heading" variant="span">Sales Statistics</Typography>
+            <Typography
+              className="dashboard_sub_heading sales_statistics_heading"
+              variant="span"
+            >
+              Sales Statistics
+            </Typography>
             <Box className="sales_statistics_data">
               <Typography variant="span">Total</Typography>
-              <Box className="sales_parameter">
-                <Typography variant="span">{inquiryData?.sales?.crtLead}</Typography>
-                <Typography variant="span"><TrendingUpRoundedIcon className="common_icon" /> 5%</Typography>
+              <Box className="sales_parameter sales_parameter_bottom_border">
+                <Typography className="dashboard_sub_heading" variant="span">
+                  {inquiryData?.sales?.crtLead}
+                </Typography>
+                <Typography variant="span">
+                  <TrendingUpRoundedIcon className="common_icon" /> 5%
+                </Typography>
               </Box>
             </Box>
             <Box className="sales_statistics_data">
               <Typography>Getting lead </Typography>
-              <Box className="sales_parameter">
-                <Typography >{inquiryData?.sales?.crtLead}</Typography>
-                <Typography ><TrendingDownRoundedIcon className="common_icon" /> 5%</Typography>
+              <Box className="sales_parameter sales_parameter_bottom_border">
+                <Typography className="dashboard_sub_heading" variant="span">
+                  {inquiryData?.sales?.crtLead}
+                </Typography>
+                <Typography>
+                  <TrendingDownRoundedIcon className="common_icon" /> 5%
+                </Typography>
               </Box>
             </Box>
             <Box className="sales_statistics_data">
               <Typography>Get Order </Typography>
-              <Box className="sales_parameter">
-                <Typography >{inquiryData?.sales?.crtOrders}</Typography>
-                <Typography ><TrendingDownRoundedIcon className="common_icon" /> 5%</Typography>
+              <Box className="sales_parameter sales_parameter_bottom_border">
+                <Typography className="dashboard_sub_heading" variant="span">
+                  {inquiryData?.sales?.crtOrders}
+                </Typography>
+                <Typography>
+                  <TrendingDownRoundedIcon className="common_icon" /> 5%
+                </Typography>
               </Box>
             </Box>
             <Box className="sales_statistics_data">
               <Typography>Pending</Typography>
-              <Box className="sales_parameter">
-                <Typography >{inquiryData?.sales?.crtPending}</Typography>
-                <Typography ><TrendingDownRoundedIcon className="common_icon" /> 5%</Typography>
+              <Box className="sales_parameter sales_parameter_bottom_border">
+                <Typography className="dashboard_sub_heading" variant="span">
+                  {inquiryData?.sales?.crtPending}
+                </Typography>
+                <Typography>
+                  <TrendingDownRoundedIcon className="common_icon" /> 5%
+                </Typography>
               </Box>
             </Box>
             <Box className="sales_statistics_data">
               <Typography>Irrelevant</Typography>
               <Box className="sales_parameter">
-                <Typography >{inquiryData?.sales?.crtIrrelevant}</Typography>
-                <Typography ><TrendingDownRoundedIcon className="common_icon" /> 5%</Typography>
+                <Typography className="dashboard_sub_heading" variant="span">
+                  {inquiryData?.sales?.crtIrrelevant}
+                </Typography>
+                <Typography>
+                  <TrendingDownRoundedIcon className="common_icon" /> 5%
+                </Typography>
               </Box>
-            </Box> <Box className="sales_statistics_data">
+            </Box>{' '}
+            <Box className="sales_statistics_data">
               <Typography>No Response</Typography>
               <Box className="sales_parameter">
-                <Typography >{inquiryData?.sales?.crtNoResponse}</Typography>
-                <Typography ><TrendingDownRoundedIcon className="common_icon" /> 5%</Typography>
+                <Typography className="dashboard_sub_heading" variant="span">
+                  {inquiryData?.sales?.crtNoResponse}
+                </Typography>
+                <Typography>
+                  <TrendingDownRoundedIcon className="common_icon" /> 5%
+                </Typography>
               </Box>
             </Box>
           </Box>
         </Box>
+
         <Box className="team_overview">
           <Box className="team_overview_heading">
-            <Typography variant="span">Team Overview</Typography>
-            <Button className="view_all_button"> View All > </Button>
+            <Typography className="team_overview_inner_heading" variant="span">
+              Team Overview
+            </Typography>
+            <Button
+              className="view_all_button"
+              onClick={() => navigate('/staff')}
+            >
+              {' '}
+              View All >{' '}
+            </Button>
           </Box>
-          <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
-            <Table sx={{ minWidth: 650 }} >
+          <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+            <Table sx={{ minWidth: 650 }}>
               <TableHead className="team_overview_table_heading">
                 <TableRow>
                   <TableCell>Team Member</TableCell>
@@ -229,33 +409,44 @@ const Dashboard = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {inquiryData?.teams.map((data) => {
-                  return <TableRow
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell align="right">{data?.name}</TableCell>
-                    <TableCell align="right"> {data?.role?.name}</TableCell>
-                    <TableCell align="right">{data.attendances[0]?.attendanceType}</TableCell>
-                    <TableCell align="right">{data.points}</TableCell>
-                    <TableCell align="right"></TableCell>
-                    <TableCell align="right"> {data?.location}</TableCell>
-                    <TableCell align="right">
-                      <Button className="common_button">View</Button>
-                    </TableCell>
-                  </TableRow>
-                })
-                }
+                {inquiryData?.teamWithPoints.map(data => {
+                  console.log({ DATA: data })
+                  return (
+                    <TableRow
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell align="right">{data?.name || '-'}</TableCell>
+                      <TableCell align="right">{data?.role || '-'}</TableCell>
+                      <TableCell align="right">
+                        {data.attendances || '-'}
+                      </TableCell>
+                      <TableCell align="right">{data.points || '-'}</TableCell>
+                      <TableCell align="right">
+                        {data.pointPercentage}
+                      </TableCell>
+                      <TableCell align="right">
+                        {data?.location || '-'}
+                      </TableCell>
+                      <TableCell align="right">
+                        <Button className="common_button">View</Button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
               </TableBody>
             </Table>
           </TableContainer>
         </Box>
+
         <Box className="team_overview">
           <Box className="team_overview_heading">
-            <Typography variant="span">Order Overview</Typography>
+            <Typography className="team_overview_inner_heading" variant="span">
+              Order Overview
+            </Typography>
             <Button className="view_all_button"> View More > </Button>
           </Box>
-          <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
-            <Table sx={{ minWidth: 650 }} >
+          <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+            <Table sx={{ minWidth: 650 }}>
               <TableHead className="team_overview_table_heading">
                 <TableRow>
                   <TableCell>Order Id</TableCell>
@@ -269,30 +460,29 @@ const Dashboard = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {inquiryData?.orderData.map((row) => (
+                {inquiryData?.orderData.map(row => (
                   <TableRow
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell>
-                      row.name
+                    <TableCell>{row.name || '-'}</TableCell>
+                    <TableCell align="right">{row.name || '-'}</TableCell>
+                    <TableCell align="right">{row.name || '-'}</TableCell>
+                    <TableCell align="right">{row.name || '-'}</TableCell>
+                    <TableCell align="right">{row.name || '-'}</TableCell>
+                    <TableCell align="right">{row.name || '-'}</TableCell>
+                    <TableCell align="right">{row.name || '-'}</TableCell>
+                    <TableCell align="right">
+                      <Button className="common_button">View</Button>
                     </TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"> row.name</TableCell>
-                    <TableCell align="right"><Button className="common_button">View</Button></TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
-
         </Box>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

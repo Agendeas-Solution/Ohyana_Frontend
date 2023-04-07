@@ -1,95 +1,115 @@
-.task_cards_section {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    /* justify-content:space-evenly; */
-    width: 98%;
-    margin: 0 auto;
-    padding: 10px;
-    height: 73vh;
-}
-
 .task_card {
-    display: flex;
-    flex-direction: column;
-    width: 23%;
-    border: 1px solid #E5E5E5;
-    justify-content: space-between;
-    border-radius: 5px;
-    flex-wrap: wrap;
-    text-overflow: ellipsis !important;
-    padding: 5px;
-    margin: 2px;
-    height: 150px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid #e5e5e5;
+  justify-content: space-between;
+  border-radius: 5px;
+  /* white-space: nowrap; */
+  padding: 5px;
+  margin: 2px;
+  height: inherit;
 }
-
-.task_card_heading {
-    font-weight: 600;
-}
-
 .task_description {
-    font-size: 13px;
-    color: #8E8E8E;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  color: #8e8e8e;
 }
-
 .task_date {
-    font-size: 12px;
-    color: #8E8E8E;
+  font-size: 12px;
+  color: #8e8e8e;
 }
 
 .task_heading {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    padding: 5px;
-    flex-wrap: wrap;
-    border-bottom: 1px solid #C4C4C4;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 5px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #c4c4c4;
 }
-
 .checklist_duedate_section {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin-top: 5px;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 5px;
+  justify-content: space-between;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .checklist_section {
-    width: 55%;
-    border: 1px solid #E5E5E5;
-    padding: 5px;
-    border-radius: 5px;
+  width: 55%;
+  border: 1px solid #e5e5e5;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 12px;
+}
+
+.task_slider {
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.main_heading {
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.add_item_textfield {
+  margin-left: 6px;
+  margin-right: 6px;
 }
 
 .task_details_section {
-    width: 43%;
-    background: #F1F2F6;
-    padding: 5px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
+  width: 43%;
+  background: #f1f2f6;
+  padding: 5px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  height: 100%;
 }
 
 .task_list .css-ahj2mt-MuiTypography-root {
-    font-size: 12px !important;
-}
-
-.name_chip {
-    background-color: #B4C2E9;
-    padding: 6px;
-    border-radius: 50%;
-    font-size: 10px;
+  font-size: 15px !important;
 }
 
 .assigned_user_detail {
-    font-size: 13px;
-    margin-left: 10px !important;
+  font-size: 15px;
+  margin-left: 10px !important;
 }
 
 .completed_task_list label span:nth-child(2) {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
-.task_card_hover:hover{
-    cursor: pointer;
+.task_card_hover:hover {
+  cursor: pointer;
+}
+.search_bar {
+  height: 40px;
+  margin: auto 1rem auto auto !important;
+  background-color: #fff !important;
+  text-transform: capitalize !important;
+}
+
+.main_button {
+  height: 40px;
+  margin: auto 0 !important;
+  background-color: #fff !important;
+  text-transform: capitalize !important;
+  color: #2e3591 !important;
+}
+
+.completed_heading {
+  color: #8e8e8e;
 }

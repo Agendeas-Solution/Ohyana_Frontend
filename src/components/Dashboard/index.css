@@ -1,98 +1,107 @@
-.attendance_buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px;
-}
-
 .inquiry_sales_statistics {
-    width: 100%;
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .inquiry_overview {
-    border: 1px solid #E5E5E5;
-    width: 70%;
-    border-radius: 5px;
-    padding: 5px;
+  border: 1px solid #e5e5e5;
+  width: 70%;
+  border-radius: 5px;
+  padding: 5px;
 }
-.common_row{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items:center;
-    width: 100%;
+.dashboard_inner_heading {
+  padding: 8px 0 15px 10px;
 }
-.platform_data_detail{
-    width:65%;
-    display: flex;
-    justify-content: space-between;
+
+.platform_data_detail {
+  /* width: 65%; */
+  display: flex;
+  /* justify-content: space-between; */
+  /* margin-bottom: 6px; */
 }
 .inquiry_from_name {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0 0 0px;
 }
-.inquiry_row{
-    display: flex;
-    justify-content: space-between;
+.inquiry_row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
 }
-.inquiry_detail_box{
-    width: 40%;
+.small_sub_heading {
+  /* padding: 10px 0 0 30px; */
+  font-size: 12px;
+  color: #8e8e8e;
+  margin-bottom: 10px !important;
+  /* border-bottom: 1px solid black; */
+}
+.inquiry_detail_box {
+  width: 50%;
+  margin-bottom: 8px;
 }
 .doughnut_chart_inquiry {
-    width: 35%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.sales_statistics{
-    width: 29%;
-    background-color: #F1F2F6;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 5px;
+.sales_statistics {
+  width: 29%;
+  background-color: #f1f2f6;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 15px;
 }
-.sales_statistics_data{
-    width: 45%;
+.sales_statistics_data {
+  width: 45%;
+  margin-bottom: 15px;
 }
-.sales_statistics_heading{
-    font-weight: 500;
-    width: 100%;
+.sales_statistics_heading {
+  font-weight: 500;
+  width: 100%;
+  padding-bottom: 12px;
 }
-.common_icon{
-    color:#2E3591;
+/* .sales_subheading {
+  padding-bottom: 15px;
+  margin-bottom: 8px;
+} */
+
+.sales_parameter_bottom_border {
+  border-bottom: 1px solid #e5e5e5;
 }
-.sales_parameter{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
-    border-bottom:1px solid #E5E5E5;
+.team_overview {
+  border: 1px solid #e5e5e5;
+  margin: 10px;
+  border-radius: 5px;
+  padding: 5px;
 }
-.team_overview{
-    border:1px solid #E5E5E5;
-    margin: 10px;
-    border-radius: 5px;
-    padding:5px;
+.team_overview_heading {
+  display: flex;
+  justify-content: space-between;
 }
-.team_overview_heading{
-    display: flex;
-    justify-content: space-between;
+.view_all_button {
+  color: #2e3591;
 }
-.view_all_button{
-    color:#2E3591;
+.dashboard_heading {
+  font-weight: 600;
+  font-size: '18px';
 }
-.team_overview_table_heading{
-    background:#F1F2F6;
+.dashboard_sub_heading {
+  font-weight: 600;
 }
-.team_overview_table_heading tr th{
-    border-bottom:none;
+.team_overview_inner_heading {
+  padding: 8px;
+  font-weight: 600;
+}
+.underline {
+  margin-left: 30px;
+  background-color: #e5e5e5;
 }
