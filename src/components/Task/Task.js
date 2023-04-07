@@ -293,50 +293,57 @@ const Task = () => {
         </Box>
 
         <Box className="below_main_tab_section">
-          {taskList.length > 0 &&
-            taskList.map(taskData => {
-              return (
-                <Box
-                // sx={{
-                //   display: 'flex',
-                //   flexDirection: 'row',
-                // }}
-                >
-                  <Box className="task_card">
-                    <Box
-                      className="row task_card_hover"
-                      onClick={() => {
-                        navigate(`/taskdetail/${taskData?.id}`)
-                      }}
-                    >
-                      <Typography className="task_card_heading" variant="span">
-                        {taskData.title}
-                      </Typography>
-                      <Typography className="task_description" variant="span">
-                        {taskData.description}
-                      </Typography>
-                    </Box>
-                    <Box className="common_row">
-                      <Typography className="task_date" variant="span">
-                        {moment(taskData.createdAt).format('Do MMM YY')}
-                      </Typography>
-                      {taskData?.team?.email ? (
-                        <Typography className="name_chip " variant="span">
-                          {taskData?.team?.email.toUpperCase().charAt(0)}
-                        </Typography>
-                      ) : (
-                        <Button
-                          onClick={() => handleOpenMemberDialog(taskData.id)}
-                          className="common_button"
+          <div className="inner_container">
+            {taskList.length > 0 &&
+              taskList.map(taskData => {
+                return (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      width: 'calc(100% / 4 - 1rem)',
+                      height: '150px',
+                    }}
+                  >
+                    <Box className="task_card">
+                      <Box
+                        className="row task_card_hover"
+                        onClick={() => {
+                          navigate(`/taskdetail/${taskData?.id}`)
+                        }}
+                      >
+                        <Typography
+                          className="task_card_heading"
+                          variant="span"
                         >
-                          + Member
-                        </Button>
-                      )}
+                          {taskData.title}
+                        </Typography>
+                        <Typography className="task_description" variant="span">
+                          {taskData.description}
+                        </Typography>
+                      </Box>
+                      <Box className="common_row">
+                        <Typography className="task_date" variant="span">
+                          {moment(taskData.createdAt).format('Do MMM YY')}
+                        </Typography>
+                        {taskData?.team?.email ? (
+                          <Typography className="name_chip " variant="span">
+                            {taskData?.team?.email.toUpperCase().charAt(0)}
+                          </Typography>
+                        ) : (
+                          <Button
+                            onClick={() => handleOpenMemberDialog(taskData.id)}
+                            className="common_button"
+                          >
+                            + Member
+                          </Button>
+                        )}
+                      </Box>
                     </Box>
                   </Box>
-                </Box>
-              )
-            })}
+                )
+              })}
+          </div>
           <CreateTaskDialog
             handleClose={handleClose}
             fullScreen={fullScreen}
