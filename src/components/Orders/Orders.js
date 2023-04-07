@@ -82,9 +82,11 @@ const Orders = () => {
   }
 
   return (
-    <>
+    <Box>
       <Box className="d-flex flex-row justify-content-between align-items-center mx-2 px-2 mt-2">
-        <Typography variant="span">Overview</Typography>
+        <Box>
+          <Typography variant="span">Overview</Typography>
+        </Box>
         <Box>
           <FormControl variant="outlined">
             <OutlinedInput
@@ -270,6 +272,7 @@ const Orders = () => {
           </Drawer>
         </Box>
       </Box>
+
       <Box className="order_section">
         <TableContainer
           className="orders_table_height "
@@ -283,7 +286,7 @@ const Orders = () => {
           <Table
             stickyHeader
             aria-label="sticky table"
-            // sx={{ minWidth: 690, marginLeft: '-10px' }}
+            sx={{ minWidth: 690, marginLeft: '-10px' }}
             // className="table_heading "
           >
             <TableHead>
@@ -349,7 +352,7 @@ const Orders = () => {
           </Table>
         </TableContainer>
       </Box>
-    </>
+    </Box>
   )
 }
 

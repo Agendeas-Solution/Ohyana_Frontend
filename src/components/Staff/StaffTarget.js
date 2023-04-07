@@ -141,7 +141,7 @@ const StaffTarget = () => {
                       {targetData?.period} days
                     </TableCell>
                     <TableCell align="left">{targetData?.type}</TableCell>
-                    <TableCell align="left">500Given</TableCell>
+                    <TableCell align="left">{targetData?.target}</TableCell>
                     <TableCell align="left">{targetData?.achieve}</TableCell>
                     <TableCell align="left">{targetData?.target}</TableCell>
                     <TableCell align="left">{targetData?.state}</TableCell>
