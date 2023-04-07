@@ -1,9 +1,9 @@
 .task_card {
-  /* display: flex; */
-  /* flex-direction: column; */
+  display: flex;
+  flex-direction: column;
   width: 100%;
   border: 1px solid #e5e5e5;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   border-radius: 5px;
   /* white-space: nowrap; */
   padding: 5px;

@@ -7,7 +7,7 @@
 }
 
 .k_color_primary {
-  color: #2E3591;
+  color: #2e3591;
 }
 
 .input_fields input:focus {
@@ -25,11 +25,6 @@
 
 .input_fields span {
   font-size: 15px;
-}
-
-.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
-  height: 12px !important;
-  // margin-top: -5px !important;
 }
 
 .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
@@ -55,8 +50,8 @@
 
 /* width */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 3px;
+  height: 3px;
 }
 
 /* Track */
@@ -66,9 +61,8 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 5px;
-
+  background: #2e3591;
+  border-radius: 3px;
 }
 
 /* Handle on hover */
@@ -98,7 +92,7 @@
   fieldset {
     height: 30px !important;
     margin-top: 2px;
-    border:none;
+    border: none;
   }
 }
 
@@ -136,7 +130,7 @@
 
 .selected-link {
   // background-color: #f1f2f6;
-  background-color: #2E3591;
+  background-color: #2e3591;
   color: #fff;
   border: none !important;
 
@@ -146,7 +140,6 @@
       color: #f1f1f1;
     }
   }
-
 }
 
 .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
@@ -305,11 +298,11 @@ table .css-177gid-MuiTableCell-root {
 }
 
 .check_box_color {
-  color: #2E3591 !important;
+  color: #2e3591 !important;
 }
 
 .css-96yce9 .SnackbarItem-variantInfo {
-  background-color: #2E3591 !important;
+  background-color: #2e3591 !important;
 }
 
 input::-webkit-outer-spin-button,
@@ -319,7 +312,7 @@ input::-webkit-inner-spin-button {
 }
 
 .heading_access_box {
-  color: #8E8E8E;
+  color: #8e8e8e;
 }
 
 button {
@@ -327,42 +320,42 @@ button {
 }
 
 .common_button {
-  background-color: #F1F2F6 !important;
-  color: #2E3591 !important;
+  background-color: #f1f2f6 !important;
+  color: #2e3591 !important;
   margin: 4px !important;
   height: 40px !important;
   border-radius: 3px;
-  font-weight: 600 !important;
-  padding-top: 2px ;
+  // font-weight: 600 !important;
+  padding-top: 2px;
   padding-left: 6px !important;
-  padding-right: 6px !important; 
+  padding-right: 6px !important;
   // font-size: 38px;
 }
 
 .custom_tab {
-  background-color: #F1F2F6 !important;
-  color: #2E3591 !important;
+  background-color: #f1f2f6 !important;
+  color: #2e3591 !important;
   height: 40px !important;
   border-radius: 3px;
   font-weight: 600 !important;
-  padding-top: 2px ;
+  padding-top: 2px;
 }
 
 .tab_btn {
-  background-color: #F1F2F6 !important;
-  color: #2E3591 !important;
+  background-color: #f1f2f6 !important;
+  color: #2e3591 !important;
   margin: 4px !important;
   height: 35px !important;
   border-radius: 3px;
   font-weight: 600 !important;
-  padding-top: 2px ;
+  padding-top: 2px;
   padding-left: 6px !important;
-  padding-right: 6px !important; 
+  padding-right: 6px !important;
 }
 
 .filter_btn {
-  background-color: #F1F2F6 !important;
-  color: #2E3591 !important;
+  background-color: #f1f2f6 !important;
+  color: #2e3591 !important;
   margin-left: 8px !important;
   // margin-right: 10px !important;
   height: 35px !important;
@@ -372,16 +365,16 @@ button {
 }
 
 .check_InOut_Break_InOut_Btn {
-  background-color: #F1F2F6 !important;
-  color: #2E3591 !important;
+  background-color: #f1f2f6 !important;
+  color: #2e3591 !important;
   margin: 2px 14px 2px 2px !important;
   height: 50px !important;
   border-radius: 3px;
   padding-top: 2px;
-  font-weight: "600";
+  font-weight: '600';
 }
 .common_sub_heading {
-  color: #8E8E8E;
+  color: #8e8e8e;
 }
 
 .main_section {
@@ -417,13 +410,14 @@ button {
   margin-top: 5px;
   width: 100%;
   border-radius: 5px;
-  height: calc(100vh - 121px - 25px);
-  // width: 97%;
+  // height: calc(100vh - 121px - 25px);
+  height: 78vh;
+  width: 78vw;
   // flex-direction: row !important;
   // margin: 15px auto;
   overflow-y: auto;
   overflow-x: hidden;
-  .inner_container{
+  .inner_container {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
@@ -459,37 +453,37 @@ button {
 
 .table_heading tr th {
   border-bottom: none;
-  background: #F1F2F6;
+  background: #f1f2f6;
 }
 .common_dropdown {
   display: flex;
-  background-color: #F1F2F6;
-  border-radius:5px;
+  background-color: #f1f2f6;
+  border-radius: 5px;
 }
-.common_heading{
+.common_heading {
   font-weight: 600 !important;
 }
-.companyDetail{
+.companyDetail {
   display: flex;
   justify-content: center;
   width: 70%;
   flex-direction: column;
 }
-.staff_profile{
-  display: flex;
-  justify-content: center;
-  width: 70%;
-  flex-direction: column;
-  margin-bottom: 25px;
-}
-.staff_profile{
+.staff_profile {
   display: flex;
   justify-content: center;
   width: 70%;
   flex-direction: column;
   margin-bottom: 25px;
 }
-.companyDetail_root{
+.staff_profile {
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+.companyDetail_root {
   display: flex;
   justify-content: space-between;
 }
@@ -524,7 +518,7 @@ button {
   border-radius: 50%;
   padding: 5px;
 }
-.client_appointment_content{
+.client_appointment_content {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -533,8 +527,8 @@ button {
   margin-right: 25px;
   text-align: center;
 }
-.client_appointment_dialog{
-  padding:10px;
+.client_appointment_dialog {
+  padding: 10px;
   width: 350px;
 }
 .icon {
@@ -549,9 +543,9 @@ button {
   text-transform: capitalize;
 }
 .client_pjp_tab {
-    border-bottom: 1px solid #e5e5e5;
-    width: 100%;
-    align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+  width: 100%;
+  align-items: center;
 }
 .tab_row {
   display: flex;
@@ -653,14 +647,14 @@ button {
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  background: #F1F2F6;
+  background: #f1f2f6;
 }
 .login_form_root {
-  background: #FFFFFF;
+  background: #ffffff;
   width: 35%;
   height: 55%;
   display: flex;
-  justify-content:center;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   border-radius: 10px;
@@ -764,8 +758,8 @@ button {
   align-items: center;
   margin-right: 10px;
 }
-.verify_button{
-  padding:2px !important;
+.verify_button {
+  padding: 2px !important;
   text-transform: capitalize !important;
   font-size: 12px !important;
 }
@@ -813,14 +807,14 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1px solid #e5e5e5;  
+  border: 1px solid #e5e5e5;
   padding: 12px;
 }
 .inner_attendance_data_row {
   display: flex;
   // flex-direction: row;
   justify-content: space-between;
-  // border: 1px solid #e5e5e5;  
+  // border: 1px solid #e5e5e5;
   // padding: 12px;
 }
 .days_data {
@@ -865,29 +859,29 @@ button {
   display: flex;
   flex-direction: row;
   width: 40%;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 
   overflow: hidden;
 }
 .team_profile_section {
   display: flex;
   background: #ffffff;
-  width: 97% ;
+  width: 97%;
   // padding: 10px;
   height: 86%;
   // flex-direction: column ;
-justify-content: space-between;
+  justify-content: space-between;
   margin: 15px auto;
 }
 .main_tab_section {
   display: flex;
-  width: 97% ;
+  width: 97%;
   margin: 6px auto;
 }
 .team_right_panel_heading {
   font-weight: bold;
-                  font-size: 22px;
-                  padding-right: 190px;
+  font-size: 22px;
+  padding-right: 190px;
 }
 .left_team_profile_section {
   overflow-y: auto;
@@ -895,10 +889,12 @@ justify-content: space-between;
 .inner_profile_details {
   border-radius: 5px;
   // width: 132px;
-  width: 125px;
+  width: 30%;
 }
 .bottom_right_part {
-  // overflow-x: scroll;
+  overflow: auto;
+  width: 90%;
+  height: 50%;
 }
 
 .first_box {
@@ -934,17 +930,17 @@ justify-content: space-between;
   margin-left: 10px;
 }
 .expenses_table_height {
-  height:55vh;
+  height: 55vh;
 }
 .orders_table_height {
   height: 81vh;
 }
 .pjp_table_height {
-  height:60vh;
+  height: 60vh;
   width: 100% !important;
 }
 .client_table_height {
-  height:68vh;
+  height: 68vh;
 }
 .graph_section {
   display: flex;
@@ -1010,26 +1006,26 @@ justify-content: space-between;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0%; 
+  padding: 0%;
   margin: 0%;
 }
 .attendance_date_filter {
-    display: flex;
-    // flex-wrap: wrap;
-    background-color: #f1f2f6;
-    height: 35px;
-    width: 11rem;
-    // margin: 2px;
-    margin-left: 70px;
-    margin-top: 2px;
-    border-radius: 5px;
+  display: flex;
+  // flex-wrap: wrap;
+  background-color: #f1f2f6;
+  height: 35px;
+  width: 11rem;
+  // margin: 2px;
+  margin-left: 70px;
+  margin-top: 2px;
+  border-radius: 5px;
 }
 .global_border {
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
 }
 .profile_header_button {
-  background-color: #F1F2F6 !important;
-  color: #2E3591 !important;
+  background-color: #f1f2f6 !important;
+  color: #2e3591 !important;
   // margin-left: 20rem !important;
   float: right;
   height: 35px !important;
@@ -1056,5 +1052,5 @@ justify-content: space-between;
 }
 .header_profile_drop_down {
   margin-right: 6px;
-  color: #2E3591;
+  color: #2e3591;
 }

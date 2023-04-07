@@ -431,7 +431,8 @@ const Staff = () => {
                         <TableCell align="left">{row.role.name}</TableCell>
                         <TableCell align="left">{row.id}</TableCell>
                       </TableRow>
-                      {index < staffDetailList.length - 1 && <Box my={2} />}
+                      <Divider sx={{ height: "12px", borderColor: "transparent" }} />
+                      {/* {index < staffDetailList.length - 1 && <Box my={2} />} */}
                     </React.Fragment>
                   ))}
                 </TableBody>
@@ -525,14 +526,7 @@ const Staff = () => {
           <Box className="bottom_right_part mt-3">
             <Typography className="px-3">Inquiry Status</Typography>
             <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                width: '100%',
-                justifyContent: 'space-around',
-                marginBottom: '14px',
-                marginLeft: '6px',
-              }}
+              className="staff_statistics_data"
             >
               <Box className="inner_profile_details first_box p-2">
                 <Typography>Total Inquiry</Typography>
@@ -558,14 +552,7 @@ const Staff = () => {
 
             <Typography className="px-3">Attendance</Typography>
             <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                width: '100%',
-                justifyContent: 'space-around',
-                marginBottom: '14px',
-                marginLeft: '6px',
-              }}
+              className="staff_statistics_data"
             >
               <Box className="inner_profile_details first_box m-1 p-2">
                 <Typography>Total Present</Typography>
@@ -591,14 +578,7 @@ const Staff = () => {
 
             <Typography className="px-3">Target</Typography>
             <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                width: '100%',
-                justifyContent: 'space-around',
-                marginBottom: '14px',
-                marginLeft: '6px',
-              }}
+              className="staff_statistics_data"
             >
               <Box className="inner_profile_details first_box m-1 p-2">
                 <Typography>Total Days</Typography>

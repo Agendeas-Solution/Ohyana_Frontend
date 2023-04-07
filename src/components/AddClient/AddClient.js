@@ -177,11 +177,11 @@ const AddClient = () => {
         <div className="p-3">
           <Box className="input_field_row">
             <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
+              {/* <Typography className="input_field_label" variant="span">
                 Client Name<span className="required_star">*</span>
-              </Typography>
+              </Typography> */}
               <TextField
-                placeholder="Client Name"
+              label="Client Name" 
                 onChange={e => {
                   setUserDetail({ ...userDetail, clientName: e.target.value })
                 }}
