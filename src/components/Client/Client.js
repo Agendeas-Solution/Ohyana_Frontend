@@ -188,7 +188,6 @@ const Client = () => {
         if (res?.success) {
           setTotalresult(res?.data?.totalPage)
           setClientDetails(res?.data.client)
-          debugger
           let pages =
             res?.data?.totalPage > 0
               ? Math.ceil(res?.data?.totalPage / rowsPerPage)
@@ -211,50 +210,61 @@ const Client = () => {
     deleteClientDialogControl.status,
   ])
   return (
-    <>
-      {/* {clientLoader && <Loader />} */}
-      <Box className="client_section">
-        <Box className="notification_tabs_root align-items-center d-flex">
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            textColor="secondary"
-            indicatorColor="secondary"
-            variant="scrollable"
-            scrollButtons="auto"
-          >
-            <Tab value="digital" label="Digital" />
-            <Tab value="business_card" label="Business Card" />
-            <Tab value="prospective" label="Prospective" />
-            <Tab value="existing" label="Existing" />
-            <Tab value="other" label="Other" />
-          </Tabs>
-          <div className="d-flex">
-            <FormControl variant="outlined">
-              <OutlinedInput
-                className="search_field"
-                placeholder="Search Here..."
-                startAdornment={
-                  <InputAdornment position="start">
-                    <IconButton>
-                      <SearchRoundedIcon />
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-            {permissions?.editClient && (
-              <Button
-                className="main_button"
-                onClick={() => {
-                  navigate('/addclient')
-                }}
-              >
-                <AddRoundedIcon />
-                New Clients
-              </Button>
-            )}
-            <Toolbar>
+    <Box sx={{ backgroundColor: '#f1f2f6' }} className="main_tab_section">
+      <Box sx={{ marginBottom: '10px' }}>
+        {/* {clientLoader && <Loader />} */}
+        {/* <Box> */}
+        {/* <Box className="notification_tabs_root align-items-center d-flex"> */}
+        <Box className="tab_header">
+          <Box>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              textColor="secondary"
+              indicatorColor="secondary"
+              variant="scrollable"
+              scrollButtons="auto"
+            >
+              <Tab value="digital" label="Digital" />
+              <Tab value="business_card" label="Business Card" />
+              <Tab value="prospective" label="Prospective" />
+              <Tab value="existing" label="Existing" />
+              <Tab value="other" label="Other" />
+            </Tabs>
+          </Box>
+
+          <Box>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <FormControl variant="outlined">
+                <OutlinedInput
+                  className="search_field"
+                  placeholder="Search Here..."
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <IconButton>
+                        <SearchRoundedIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+
+              {permissions?.editClient && (
+                <Button
+                  className="main_tab_button"
+                  onClick={() => {
+                    navigate('/addclient')
+                  }}
+                >
+                  + New Clients
+                </Button>
+              )}
+
               <IconButton
                 edge="end"
                 onClick={handleDrawerOpen}
@@ -262,7 +272,7 @@ const Client = () => {
               >
                 <img src={FilterIcon} alt="" />
               </IconButton>
-            </Toolbar>
+            </Box>
 
             <Drawer
               sx={{
@@ -329,30 +339,6 @@ const Client = () => {
                     <Typography variant="span">Customer Stage</Typography>
                   </div>
 
-                  {/* <FormControlLabel
-                checked={isInternational === false ? !isInternational : null}
-                onChange={e => {
-                  if (e.target.checked === true) {
-                    setIsInternational(false)
-                  } else {
-                    setIsInternational(null)
-                  }
-                }}
-                control={<Checkbox className="check_box_color" />}
-                label="Domesticcc"
-              />
-              <FormControlLabel
-                checked={isInternational === true ? isInternational : null}
-                onChange={e => {
-                  if (e.target.checked === true) {
-                    setIsInternational(true)
-                  } else {
-                    setIsInternational(null)
-                  }
-                }}
-                control={<Checkbox className="check_box_color" />}
-                label="International"
-              /> */}
                   <Autocomplete
                     className="mt-1 mx-2 align-items-center d-flex client_type_select justify-content-center "
                     options={clientType}
@@ -378,8 +364,9 @@ const Client = () => {
                 </div>
               </Box>
             </Drawer>
-          </div>
+          </Box>
         </Box>
+
         <Box>
           {value === 'business_card' ? (
             <BusinessCard clientDetails={clientDetails} />
@@ -402,43 +389,49 @@ const Client = () => {
             }}
           />
         </Box>
-      </Box>
-      <Dialog
-        open={deleteClientDialogControl.status}
-        onClose={handleDialogClose}
-      >
-        <Box className="client_appointment_dialog">
-          <Box className="client_appointment_content">
-            <img
-              style={{ width: '60px', height: '60px' }}
-              src={DeleteIcon}
-              alt=""
-            />
-            <Typography variant="h5" sx={{ fontWeight: '500' }}>
-              Delete Client
-            </Typography>
-            <Typography
-              sx={{ marginTop: '10px', marginBottom: '10px' }}
-              variant="span"
-            >
-              Are You Sure you want to Delete this Client ?
-            </Typography>
+        {/* </Box> */}
+
+        <Dialog
+          open={deleteClientDialogControl.status}
+          onClose={handleDialogClose}
+        >
+          <Box className="client_appointment_dialog">
+            <Box className="client_appointment_content">
+              <img
+                style={{ width: '60px', height: '60px' }}
+                src={DeleteIcon}
+                alt=""
+              />
+              <Typography variant="h5" sx={{ fontWeight: '500' }}>
+                Delete Client
+              </Typography>
+              <Typography
+                sx={{ marginTop: '10px', marginBottom: '10px' }}
+                variant="span"
+              >
+                Are You Sure you want to Delete this Client ?
+              </Typography>
+            </Box>
+            <DialogActions>
+              <Button
+                variant="contained"
+                onClick={handleClientDelete}
+                autoFocus
+              >
+                Ok
+              </Button>
+              <Button
+                className="cancel-btn"
+                onClick={handleDialogClose}
+                autoFocus
+              >
+                Cancel
+              </Button>
+            </DialogActions>
           </Box>
-          <DialogActions>
-            <Button variant="contained" onClick={handleClientDelete} autoFocus>
-              Ok
-            </Button>
-            <Button
-              className="cancel-btn"
-              onClick={handleDialogClose}
-              autoFocus
-            >
-              Cancel
-            </Button>
-          </DialogActions>
-        </Box>
-      </Dialog>
-    </>
+        </Dialog>
+      </Box>
+    </Box>
   )
 }
 

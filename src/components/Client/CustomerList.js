@@ -15,6 +15,7 @@ import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { CustomerTake } from '../../services/apiservices/clientDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+
 const CustomerList = ({ clientDetails, ViewClientDetail }) => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -40,12 +41,25 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
       },
     )
   }
+
   return (
     <>
-      <TableContainer sx={{ height: '70vh' }} component={Paper}>
+      <TableContainer
+        className="orders_table_height m-1"
+        component={Paper}
+        sx={{
+          boxShadow: 'none',
+          border: '1px solid #e5e5e5',
+          overflowY: 'auto',
+        }}
+      >
         {clientDetails.length > 0 ? (
-          <Table sx={{ minWidth: 650 }}>
-            <TableHead stickyHeader>
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            sx={{ minWidth: 690, marginLeft: '-10px' }}
+          >
+            <TableHead>
               <TableRow>
                 <TableCell align="right">Id</TableCell>
                 <TableCell align="right">Name</TableCell>
@@ -61,9 +75,16 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
               {clientDetails.map((row, index) => (
                 <TableRow
                   key={row.id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  sx={{
+                    '&:last-child td,th': { border: 0 },
+                  }}
                 >
-                  <TableCell scope="row">{row.id}</TableCell>
+                  <TableCell className="tablecell_height" scope="row">
+                    {row.id}
+                  </TableCell>
                   <TableCell align="right">{row.name}</TableCell>
                   <TableCell align="right" sx={{ maxWidth: '150px' }}>
                     {row.business}

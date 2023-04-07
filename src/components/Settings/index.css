@@ -170,7 +170,6 @@ input[type='radio']:focus {
   width: 40%;
   display: flex;
   flex-direction: column;
-  /* background:red !important; */
 }
 
 .dialog_product_image {
@@ -197,7 +196,6 @@ input[type='radio']:focus {
   padding: 10px;
 }
 
-
 .main_product_button {
   /* width: 109px; */
   height: 40px;
@@ -214,10 +212,10 @@ input[type='radio']:focus {
   text-transform: capitalize !important;
   color: #2e3591 !important;
 }
-.job_role_description{
+.job_role_description {
   /* font-size: 13px; */
-  text-overflow:ellipsis;
-  overflow:hidden;
+  text-overflow: ellipsis;
+  overflow: hidden;
   display: -webkit-box !important;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
