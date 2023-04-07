@@ -27,11 +27,7 @@
   font-size: 15px;
 }
 
-.css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
-  // height: 12px !important;
-  // margin-top: -5px !important;
-  padding: 0 !important;
-}
+
 
 .MuiSelect-outlined {
   height: 45px !important;
@@ -332,13 +328,19 @@ button {
   // font-size: 38px;
 }
 
+.active_button {
+  background-color: #2e3591 !important;
+  color: #ffffff !important;
+  height: 40px !important;
+  border-radius: 3px;
+}
+
 .custom_tab {
   background-color: #f1f2f6 !important;
   color: #2e3591 !important;
   height: 40px !important;
   border-radius: 3px;
-  font-weight: 600 !important;
-  padding-top: 2px;
+  // padding-top: 2px;
 }
 
 .tab_btn {
@@ -457,8 +459,8 @@ button {
 }
 .common_dropdown {
   display: flex;
-  background-color: #f1f2f6;
-  border-radius: 5px;
+  // background-color: #f1f2f6;
+  // border-radius: 5px;
 }
 .common_heading {
   font-weight: 600 !important;
@@ -889,6 +891,7 @@ button {
 .inner_profile_details {
   border-radius: 5px;
   // width: 132px;
+  padding: 10px;
   width: 30%;
 }
 .bottom_right_part {
@@ -1042,7 +1045,7 @@ button {
   width: 100%;
 }
 
-.typos_dummy {
+.text_ellipsis {
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box !important;

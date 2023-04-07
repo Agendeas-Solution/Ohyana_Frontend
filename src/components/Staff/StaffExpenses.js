@@ -77,20 +77,20 @@ const StaffExpenses = () => {
             flexDirection: 'row',
           }}
         >
-          <Box className="inner_profile_details first_box me-3 p-2">
+          <Box className="inner_profile_details first_box me-3">
             <Typography>Approved</Typography>
             <Typography>24000</Typography>
           </Box>
-          <Box className="inner_profile_details middle_box  me-3 p-2">
+          <Box className="inner_profile_details middle_box  me-3">
             <Typography>Rejected</Typography>
             <Typography>1000</Typography>
           </Box>
-          <Box className="inner_profile_details last_box me-3 p-2">
+          <Box className="inner_profile_details last_box me-3">
             <Typography>Pending</Typography>
             <Typography>5000</Typography>
           </Box>
-          <Box className="inner_profile_details last_box p-2">
-            <Typography>Payment Done</Typography>
+          <Box className="inner_profile_details last_box">
+            <Typography className='' sx={{whiteSpace : "nowrap"}}>Payment Done</Typography>
             <Typography>5000</Typography>
           </Box>
         </Box>

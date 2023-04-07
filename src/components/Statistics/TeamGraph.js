@@ -65,23 +65,38 @@ const TeamGraph = ({ selectedPeriod }) => {
     <>
       <Box>
         <Box className=" graph_section team_graph">
-          <Box className="common_row">
+          <Box className="common_row mb-3">
+            <box>
             <Typography
               variant="span"
-              sx={{ color: '#2E3591', fontSize: '20px', float: 'center' }}
+              sx={{ color: '#2E3591', fontSize: '20px', fontWeight:'600',}}
             >
               Overall
             </Typography>
-            <Box className="row me-1 mx-1 mt-1 mb-3">
+            </box>
+          
+            <Box sx={{display:'flex'}}>
               <Autocomplete
                 disablePortal
                 options={top100Films}
-                sx={{ width: '200px' }}
+                sx={{ width: '200px',marginRight:'10px'}}
                 renderInput={params => (
                   <TextField
                     className="common_dropdown"
                     {...params}
-                    placeholder="Performance"
+                    label="Performance"
+                  />
+                )}
+              />
+              <Autocomplete
+                disablePortal
+                options={top100Films}
+                sx={{ width: '200px',marginRight:'10px'}}
+                renderInput={params => (
+                  <TextField
+                    className="common_dropdown"
+                    {...params}
+                    label="Jr. Sales Person"
                   />
                 )}
               />
@@ -93,19 +108,7 @@ const TeamGraph = ({ selectedPeriod }) => {
                   <TextField
                     className="common_dropdown"
                     {...params}
-                    placeholder="Jr. Sales Person"
-                  />
-                )}
-              />
-              <Autocomplete
-                disablePortal
-                options={top100Films}
-                sx={{ width: '200px' }}
-                renderInput={params => (
-                  <TextField
-                    className="common_dropdown"
-                    {...params}
-                    placeholder="Benedict Cumberbatch"
+                    label="Benedict Cumberbatch"
                   />
                 )}
               />
