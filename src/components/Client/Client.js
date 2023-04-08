@@ -12,7 +12,7 @@ import {
   Typography,
   FormControl,
   OutlinedInput,
-  InputAdornment,
+  InputAdornment, Select, MenuItem, InputLabel
 } from '@mui/material'
 import './index.css'
 import { socket } from '../../App'
@@ -34,7 +34,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import FilterIcon from '../../assets/img/Filter.svg'
 import { styled, useTheme } from '@mui/material/styles'
-const drawerWidth = 400
+const drawerWidth = 300
 
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const NoResultFound = React.lazy(() =>
@@ -78,9 +78,10 @@ const Client = () => {
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
+    overflowX: 'hidden',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    // justifyContent: 'flex-end',
   }))
 
   const handleDrawerOpen = () => {
@@ -116,7 +117,7 @@ const Client = () => {
           message: res.data.message,
         })
       },
-      err => {},
+      err => { },
     )
   }
   const handleDialogClose = () => {
@@ -245,7 +246,7 @@ const Client = () => {
                   className="search_field"
                   placeholder="Search Here..."
                   startAdornment={
-                    <InputAdornment position="start">
+                    <InputAdornment position="start" sx={{ margin: '0' }}>
                       <IconButton>
                         <SearchRoundedIcon />
                       </IconButton>
@@ -286,82 +287,92 @@ const Client = () => {
               anchor="right"
               open={open}
             >
-              <DrawerHeader>
-                <Box className="d-flex justify-content-between column w-100 align-items-center">
-                  <Box className="d-flex column justify-content-between w-50 align-items-center">
-                    <IconButton
-                      // sx={{ paddingRight: '10px' }}
-                      // sx={{ paddingRight: '12rem' }}
-                      // className="pe-5"
-                      disableRipple={true}
-                      onClick={handleDrawerClose}
-                    >
-                      {theme.direction === 'rtl' ? (
-                        <ChevronLeftIcon sx={{ fontSize: '30px' }} />
-                      ) : (
-                        <ChevronRightIcon sx={{ fontSize: '30px' }} />
-                      )}
-                    </IconButton>
+              <DrawerHeader sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
 
-                    <Typography sx={{ fontSize: '22px', paddingRight: '60px' }}>
-                      Filter By
-                    </Typography>
-                  </Box>
-                  <Box className=" d-flex justify-content-end row w-50">
-                    <Typography sx={{ textAlign: 'end' }}>Clear All</Typography>
-                  </Box>
+                  <IconButton
+                    sx={{ color: '#2e3591' }}
+                    disableRipple={true}
+                    onClick={handleDrawerClose}
+                  >
+                    {theme.direction === 'rtl' ? (
+                      <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                    ) : (
+                      <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                    )}
+                  </IconButton>
+
+                  <Typography sx={{ fontSize: '20px', }}>
+                    Filter By
+                  </Typography>
+
                 </Box>
-                {/* <Box> */}
-
-                {/* </Box> */}
+                <Box >
+                  <Typography>Clear All</Typography>
+                </Box>
               </DrawerHeader>
 
               <Divider />
 
-              <Box className="py-3">
-                <div className="row px-3">
-                  <div className="col-md-12 mb-1">
-                    <Typography variant="span">Location</Typography>
-                  </div>
-                  <div className="mb-4">
-                    <TextField
-                      inputProps={{
-                        style: {
-                          height: '50px',
-                        },
-                      }}
-                      className="w-100 h-500"
-                      placeholder="Enter Location"
-                      variant="outlined"
-                    />
-                  </div>
-                  <div className="col-md-12">
-                    <Typography variant="span">Customer Stage</Typography>
-                  </div>
+              <Box sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
 
-                  <Autocomplete
-                    className="mt-1 mx-2 align-items-center d-flex client_type_select justify-content-center "
-                    options={clientType}
+                <FormControl sx={{ margin: '10px' }}>
+                  <InputLabel>Client Type</InputLabel>
+                  <Select
+                    label="Client Stage"
                     value={
                       clientStage !== null ? clientType[clientStage] : null
                     }
-                    // sx={{ width: '30rem' }}
                     onChange={(e, value) => {
                       console.log(value)
                       setClientStage(value?.id)
                     }}
-                    getOptionLabel={option => option.stage}
-                    renderInput={params => (
-                      <TextField
-                        // className="m-3"
-                        variant="outlined"
-                        // sx={{ width: '24rem' }}
-                        {...params}
-                        placeholder="Confirm"
-                      />
-                    )}
-                  />
-                </div>
+                  >
+                    {
+                      clientType.map((data) => {
+                        return <MenuItem value={data.id}>{data.stage}</MenuItem>
+                      })
+                    }
+
+                  </Select>
+                </FormControl>
+
+                <FormControl sx={{ margin: '10px' }}>
+                  <InputLabel>Select City</InputLabel>
+                  <Select
+                    label="Select City"
+                    // value=
+                    //   {userDetail.city}
+                    onChange={(e, value) => {
+                      // console.log(value)
+                      // setClientCity(value?.id)
+                    }}
+                  >
+                    <MenuItem value="INDIAMART">Ahmedabad</MenuItem>
+                    <MenuItem value="WEBSITE">Baroda</MenuItem>
+                    <MenuItem value="WEBSITE">Rajkot</MenuItem>
+                    <MenuItem value="OFFICE">Surat</MenuItem>
+                  </Select>
+                </FormControl>
+
+                <FormControl sx={{ margin: '10px' }}>
+                  <InputLabel>Select State</InputLabel>
+                  <Select
+                    label="Select State"
+                    // value=
+                    //   {userDetail.state}
+                    onChange={(e, value) => {
+                      // console.log(value)
+                      // setClientState(value?.id)
+                    }}
+                  >
+                    <MenuItem value="WEBSITE">Chhattisgarh</MenuItem>
+                    <MenuItem value="INDIAMART">Gujarat</MenuItem>
+                    <MenuItem value="OFFICE">Maharashtra</MenuItem>
+                    <MenuItem value="WEBSITE">Uttar Pradesh</MenuItem>
+                  </Select>
+                </FormControl>
+
               </Box>
             </Drawer>
           </Box>
@@ -431,7 +442,7 @@ const Client = () => {
           </Box>
         </Dialog>
       </Box>
-    </Box>
+    </Box >
   )
 }
 
