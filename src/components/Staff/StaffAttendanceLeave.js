@@ -15,6 +15,7 @@ import {
   GrantLeave,
 } from '../../services/apiservices/staffDetail'
 import moment from 'moment'
+import NoResultFound from '../ErrorComponent/NoResultFound'
 
 const StaffAttendanceLeave = () => {
   const [staffAttendanceList, setStaffAttendanceList] = useState([])
@@ -46,7 +47,7 @@ const StaffAttendanceLeave = () => {
           setStaffLeaveList(res?.data)
           //   setStaffAttendanceList(res?.data)
         },
-        err => {},
+        err => { },
       )
   }, [value])
 
@@ -93,60 +94,63 @@ const StaffAttendanceLeave = () => {
           overflowY: 'auto',
         }}
       >
-        <Table
-          stickyHeader
-          aria-label="sticky table"
-          sx={{ minWidth: 690, marginLeft: '-10px' }}
-          className="table_heading "
-        >
-          <TableHead>
-            <TableRow>
-              <TableCell align="left">Date</TableCell>
-              <TableCell align="left">Leave Type</TableCell>
-              <TableCell align="left">Taken</TableCell>
-              <TableCell align="left">Remain</TableCell>
-              <TableCell align="left">Status</TableCell>
-              <TableCell align="left"></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {staffLeaveList &&
-              staffLeaveList.map(leaveList => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    sx={{
-                      '&:last-child td,th': { border: 0 },
-                    }}
-                  >
-                    <TableCell className="tablecell_height" align="left">
-                      {moment(leaveList?.date).format('DD/MM/YY')}
-                    </TableCell>
-                    <TableCell align="left">{leaveList?.leave?.type}</TableCell>
-                    <TableCell align="left">{leaveList?.takenDays}</TableCell>
-                    <TableCell align="left">{leaveList?.remainDays}</TableCell>
-                    <TableCell align="left">{leaveList?.status}</TableCell>
-                    <TableCell align="left">
-                      <Button
-                        className="common_button"
-                        onClick={() => {
-                          setApproveLeave({
-                            ...approveLeave,
-                            status: true,
-                            id: leaveList?.id,
-                          })
-                        }}
-                      >
-                        Approve
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                )
-              })}
-          </TableBody>
-        </Table>
+        {staffLeaveList.length > 0 ?
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            className="table_heading "
+          >
+            <TableHead>
+              <TableRow>
+                <TableCell align="left">Date</TableCell>
+                <TableCell align="left">Leave Type</TableCell>
+                <TableCell align="left">Taken</TableCell>
+                <TableCell align="left">Remain</TableCell>
+                <TableCell align="left">Status</TableCell>
+                <TableCell align="left"></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {staffLeaveList &&
+                staffLeaveList.map(leaveList => {
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      sx={{
+                        '&:last-child td,th': { border: 0 },
+                      }}
+                    >
+                      <TableCell className="tablecell_height" align="left">
+                        {moment(leaveList?.date).format('DD/MM/YY')}
+                      </TableCell>
+                      <TableCell align="left">{leaveList?.leave?.type}</TableCell>
+                      <TableCell align="left">{leaveList?.takenDays}</TableCell>
+                      <TableCell align="left">{leaveList?.remainDays}</TableCell>
+                      <TableCell align="left">{leaveList?.status}</TableCell>
+                      <TableCell align="left">
+                        <Button
+                          className="common_button"
+                          onClick={() => {
+                            setApproveLeave({
+                              ...approveLeave,
+                              status: true,
+                              id: leaveList?.id,
+                            })
+                          }}
+                        >
+                          Approve
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+            </TableBody>
+          </Table> :
+          <NoResultFound />
+        }
       </TableContainer>
     </>
   )

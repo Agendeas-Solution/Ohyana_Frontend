@@ -13,6 +13,7 @@ import {
   FormControl,
   OutlinedInput,
   InputAdornment, Select, MenuItem, InputLabel
+
 } from '@mui/material'
 import './index.css'
 import { socket } from '../../App'
@@ -74,6 +75,7 @@ const Client = () => {
     { stage: 'inter-mediate', id: 3 },
     { stage: 'confirm', id: 4 },
   ])
+  const [searchQuery, setSearchQuery] = useState("");
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -103,6 +105,7 @@ const Client = () => {
   }, [])
 
   const [clientStage, setClientStage] = useState()
+  const [location, setLocation] = useState()
   const handleClientDelete = () => {
     DeleteClientDetail(
       deleteClientDialogControl.clientId,
@@ -125,6 +128,12 @@ const Client = () => {
       ...deleteClientDialogControl,
       status: false,
     })
+  }
+  const handleClearAll = () => {
+    setClientStage(null);
+    setLocation();
+    debugger;
+
   }
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -171,8 +180,7 @@ const Client = () => {
       socket.disconnect()
     }
   }, [])
-
-  useEffect(() => {
+  const getClientDetails = () => {
     let data = { page: currentPage, size: rowsPerPage }
     data['tabType'] = value
     if (isInternational !== null) {
@@ -181,7 +189,10 @@ const Client = () => {
     if (value === 'PJP') {
       data['pjp'] = true
     }
-    data['stage'] = 0
+    if (searchQuery) {
+      data['searchQuery'] = searchQuery
+    }
+    data['stage'] = clientStage
     setClientLoader(true)
     GetAdminClientDetail(
       data,
@@ -203,11 +214,14 @@ const Client = () => {
         setClientLoader(false)
       },
     )
+  }
+  useEffect(() => {
+    getClientDetails();
   }, [
     currentPage,
     isInternational,
     value,
-    clientStage,
+    searchQuery,
     deleteClientDialogControl.status,
   ])
   return (
@@ -245,6 +259,8 @@ const Client = () => {
                 <OutlinedInput
                   className="search_field"
                   placeholder="Search Here..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   startAdornment={
                     <InputAdornment position="start" sx={{ margin: '0' }}>
                       <IconButton>
@@ -309,9 +325,9 @@ const Client = () => {
                 </Box>
                 <Box >
                   <Typography>Clear All</Typography>
+
                 </Box>
               </DrawerHeader>
-
               <Divider />
 
               <Box sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
@@ -377,7 +393,6 @@ const Client = () => {
             </Drawer>
           </Box>
         </Box>
-
         <Box>
           {value === 'business_card' ? (
             <BusinessCard clientDetails={clientDetails} />
