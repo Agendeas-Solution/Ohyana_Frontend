@@ -523,7 +523,7 @@ const Staff = () => {
                 </Typography>
               </Box>
               <Box className="inner_profile_details last_box  p-2">
-                <Typography className="typos_dummy">Avg. Response</Typography>
+                <Typography className="text_ellipsis">Avg. Response</Typography>
                 <Typography>
                   {singleStaffDetails?.currentMonthClients?.avgResponseTime}{' '}
                 </Typography>
@@ -534,7 +534,7 @@ const Staff = () => {
               className="staff_statistics_data"
             >
               <Box className="inner_profile_details first_box m-1 p-2">
-                <Typography>Total Present</Typography>
+                <Typography className="text_ellipsis">Total Present</Typography>
                 <Typography>
                   {singleStaffDetails?.currentMonthAttendance?.totalPresent}
                 </Typography>
@@ -558,13 +558,13 @@ const Staff = () => {
               className="staff_statistics_data"
             >
               <Box className="inner_profile_details first_box m-1 p-2">
-                <Typography>Total Days</Typography>
+                <Typography className="text_ellipsis">Total Days</Typography>
                 <Typography>
                   {singleStaffDetails?.currentMonthTarget?.totalDays}
                 </Typography>
               </Box>
               <Box className="inner_profile_details middle_box m-1 p-2">
-                <Typography>Total Order</Typography>
+                <Typography className="text_ellipsis">Total Order</Typography>
                 <Typography>
                   {singleStaffDetails?.currentMonthTarget?.targetOrder}
                 </Typography>

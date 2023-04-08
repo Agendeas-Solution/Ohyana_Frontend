@@ -4,6 +4,8 @@ import {
   Box,
   TextField,
   Button,
+  InputLabel,
+  FormControl,
   Select,
   MenuItem,
   Autocomplete,
@@ -29,6 +31,7 @@ const AddClient = () => {
     clientType: '',
     country: null,
     inquiryfor: '',
+    max_invesment_amoun: '',
     // product: [],
     address: '',
     state: '',
@@ -173,15 +176,13 @@ const AddClient = () => {
   }
   return (
     <>
-      <div className="overflow-auto product_list_section css-0 mt-3">
-        <div className="p-3">
+      <div className="main_section">
+        <div>
+          {/* Client Name &&  Business  */}
           <Box className="input_field_row">
             <Box className="input_fields">
-              {/* <Typography className="input_field_label" variant="span">
-                Client Name<span className="required_star">*</span>
-              </Typography> */}
               <TextField
-              label="Client Name" 
+                label="Client Name"
                 onChange={e => {
                   setUserDetail({ ...userDetail, clientName: e.target.value })
                 }}
@@ -191,53 +192,24 @@ const AddClient = () => {
             </Box>
 
             <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                Reference<span className="required_star">*</span>
-              </Typography>
-              <Select
-                value={userDetail.reference}
+              <TextField
+                label="Business Name"
                 onChange={e => {
-                  setUserDetail({
-                    ...userDetail,
-                    reference: e.target.value,
-                    referenceName: null,
-                  })
+                  setUserDetail({ ...userDetail, business: e.target.value })
                 }}
-              >
-                <MenuItem value="INDIAMART">Indiamart</MenuItem>
-                <MenuItem value="WEBSITE">Website</MenuItem>
-                <MenuItem value="OFFICE">Office</MenuItem>
-                <MenuItem value="OTHER">Other</MenuItem>
-              </Select>
+                value={userDetail.business}
+                variant="outlined"
+              />
             </Box>
+
           </Box>
-          {userDetail.reference === 'OTHER' && (
-            <Box className="input_field_row">
-              <Box className="input_fields">
-                <Typography className="input_field_label" variant="span">
-                  Reference Name:<span className="required_star">*</span>
-                </Typography>
-                <TextField
-                  placeholder="Reference Name"
-                  value={userDetail.referenceName}
-                  onChange={e => {
-                    setUserDetail({
-                      ...userDetail,
-                      referenceName: e.target.value,
-                    })
-                  }}
-                  variant="outlined"
-                />
-              </Box>
-            </Box>
-          )}
+
+          {/* Contact No. &&  Investment Scale*/}
           <Box className="input_field_row">
             <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                Contact No:<span className="required_star">*</span>
-              </Typography>
+
               <TextField
-                placeholder="Contact No"
+                label="Contact No"
                 onChange={e => {
                   setUserDetail({ ...userDetail, contactNo: e.target.value })
                 }}
@@ -245,28 +217,24 @@ const AddClient = () => {
                 variant="outlined"
               />
             </Box>
+
             <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                Client Type<span className="required_star">*</span>
-              </Typography>
-              <Select
-                value={userDetail.clientType}
+              <TextField
+                label="Investment Scale "
                 onChange={e => {
-                  setUserDetail({ ...userDetail, clientType: e.target.value })
+                  setUserDetail({ ...userDetail, max_invesment_amoun: e.target.value })
                 }}
-              >
-                <MenuItem value="true">Domestic</MenuItem>
-                <MenuItem value="false">International</MenuItem>
-              </Select>
+                value={userDetail.email}
+                variant="outlined"
+              />
             </Box>
           </Box>
+
+          {/* Email && Address*/}
           <Box className="input_field_row">
             <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                Email<span className="required_star">*</span>
-              </Typography>
               <TextField
-                placeholder="Enter Email"
+                label="Email"
                 onChange={e => {
                   setUserDetail({ ...userDetail, email: e.target.value })
                 }}
@@ -275,45 +243,9 @@ const AddClient = () => {
               />
             </Box>
             <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                Country<span className="required_star">*</span>
-              </Typography>
-              <Autocomplete
-                sx={{ border: '1px solid #E5E5E5', borderRadius: '5px' }}
-                options={countryList}
-                value={userDetail?.country}
-                onChange={(e, value) => {
-                  console.log(value)
-                  setUserDetail({ ...userDetail, country: value })
-                }}
-                getOptionLabel={option => option?.name}
-                renderInput={params => (
-                  <TextField {...params} placeholder="Select Country" />
-                )}
-              />
-            </Box>
-          </Box>
-          <Box className="input_field_row">
-            <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                State<span className="required_star">*</span>
-              </Typography>
-              <TextField
-                placeholder="Enter State"
-                onChange={e => {
-                  setUserDetail({ ...userDetail, state: e.target.value })
-                }}
-                value={userDetail.state}
-                variant="outlined"
-              />
-            </Box>
-            <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                Address
-              </Typography>
               <TextField
                 autocomplete="off"
-                placeholder="Enter Address"
+                label="Address"
                 onChange={e => {
                   setUserDetail({ ...userDetail, address: e.target.value })
                 }}
@@ -323,13 +255,28 @@ const AddClient = () => {
             </Box>
           </Box>
 
+          {/* Client Type & City*/}
           <Box className="input_field_row">
+
             <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                City<span className="required_star">*</span>
-              </Typography>
+              <FormControl>
+                <InputLabel>Client Type</InputLabel>
+                <Select
+                  label="Client Type"
+                  value={userDetail.clientType}
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, clientType: e.target.value })
+                  }}
+                >
+                  <MenuItem value="true">Domestic</MenuItem>
+                  <MenuItem value="false">International</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+
+            <Box className="input_fields">
               <TextField
-                placeholder="Enter City"
+                label="City"
                 onChange={e => {
                   setUserDetail({ ...userDetail, city: e.target.value })
                 }}
@@ -337,22 +284,82 @@ const AddClient = () => {
                 variant="outlined"
               />
             </Box>
+
+          </Box>
+          {/* Country & State*/}
+          <Box className="input_field_row">
             <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                Business
-              </Typography>
-              <TextField
-                placeholder="Enter Business"
-                onChange={e => {
-                  setUserDetail({ ...userDetail, business: e.target.value })
+              <Autocomplete
+                disablePortal
+                options={countryList}
+                value={userDetail?.country}
+                onChange={(e, value) => {
+                  setUserDetail({ ...userDetail, country: value })
                 }}
-                value={userDetail.business}
+                getOptionLabel={option => option?.name}
+                renderInput={params => (
+                  <TextField {...params} label="Select Country" />
+                )}
+              />
+            </Box>
+
+            <Box className="input_fields">
+              <TextField
+                label="State"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, state: e.target.value })
+                }}
+                value={userDetail.state}
                 variant="outlined"
               />
             </Box>
+
           </Box>
+
+
+          {/* Reference Name*/}
+          <Box className="input_field_row">
+
+            <Box className="input_fields">
+              <FormControl>
+                <InputLabel>Reference</InputLabel>
+                <Select
+                  label="Reference"
+                  value={userDetail.reference}
+                  onChange={e => {
+                    setUserDetail({
+                      ...userDetail,
+                      reference: e.target.value,
+                      referenceName: null,
+                    })
+                  }}
+                >
+                  <MenuItem value="INDIAMART">Indiamart</MenuItem>
+                  <MenuItem value="WEBSITE">Website</MenuItem>
+                  <MenuItem value="OFFICE">Office</MenuItem>
+                  <MenuItem value="OTHER">Other</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            {userDetail.reference === 'OTHER' && (
+              <Box className="input_fields">
+                <TextField
+                  label="Reference Name"
+                  onChange={e => {
+                    setUserDetail({
+                      ...userDetail,
+                      referenceName: e.target.value,
+                    })
+                  }}
+                  value={userDetail.referenceName}
+                  variant="outlined"
+                />
+              </Box>
+            )}
+          </Box>
+          {/* Save Button */}
           <Box
-            sx={{ justifyContent: 'flex-start' }}
+            sx={{ display: 'flex', justifyContent: 'flex-end' }}
             className="input_field_row"
           >
             <Button
@@ -363,6 +370,7 @@ const AddClient = () => {
               Save
             </Button>
           </Box>
+
         </div>
       </div>
 

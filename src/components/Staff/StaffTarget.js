@@ -49,15 +49,15 @@ const StaffTarget = () => {
       <Box className="target_section">
         <Box className="attendance_data_row col-md-12">
           <Box className="col-md-7 inner_attendance_data_row">
-            <Box className="week_data days_data col-md-3 me-3 p-2">
+            <Box className="week_data days_data col-md-3 me-3">
               <Typography variant="span">This Week</Typography>
               <Typography variant="span">15-07-2022</Typography>
             </Box>
-            <Box className="target_order_data days_data col-md-3 me-3 p-2">
+            <Box className="target_order_data days_data col-md-3 me-3">
               <Typography variant="span">Target order</Typography>
               <Typography variant="span">400</Typography>
             </Box>
-            <Box className="target_achieved_data days_data col-md-3 me-3 p-2">
+            <Box className="target_achieved_data days_data col-md-3 me-3">
               <Typography variant="span">Achieved</Typography>
               <Typography variant="span">24</Typography>
             </Box>

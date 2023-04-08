@@ -36,6 +36,7 @@
 ::placeholder {
   color: #8e8e8e !important;
 }
+
 /* @keyframes blinker {
   50% {
     opacity: 0 !important;
@@ -60,15 +61,6 @@
   /* border-radius: 5px; */
   border: 1px solid #000;
   margin: 5px;
-}
-.search_field {
-  /* width: 109px; */
-  margin: auto 10px auto 0;
-  height: 40px;
-  background-color: #fff !important;
-  text-transform: capitalize !important;
-  color: #8e8e8e !important;
-  padding-left: 0px;
 }
 
 .business_card_left_section {
@@ -105,6 +97,7 @@
   font-weight: 600 !important;
   font-size: 16px !important;
 }
+
 .client_type_select {
   border: 1px solid #e5e5e5;
 }
