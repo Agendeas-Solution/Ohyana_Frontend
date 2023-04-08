@@ -13,6 +13,7 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { GetTargetList } from '../../services/apiservices/teamcall'
 import SetTargetDialog from './SetTargetDialog'
+import NoResultFound from '../ErrorComponent/NoResultFound'
 const StaffTarget = () => {
   const [dateRange, setDateRange] = useState({
     startDate: '',
@@ -102,54 +103,57 @@ const StaffTarget = () => {
             overflowY: 'auto',
           }}
         >
-          <Table
-            stickyHeader
-            aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
-            className="table_heading"
-          >
-            <TableHead>
-              <TableRow>
-                <TableCell>Date</TableCell>
-                <TableCell align="left">Period</TableCell>
-                <TableCell align="left">Type</TableCell>
-                <TableCell align="left">Given</TableCell>
-                <TableCell align="left">Achieve</TableCell>
-                <TableCell align="left">Extra/Left</TableCell>
-                <TableCell align="left">Target</TableCell>
-              </TableRow>
-            </TableHead>
+          {targetList.length < 0 ?
+            <Table
+              stickyHeader
+              aria-label="sticky table"
+              sx={{ minWidth: 690, marginLeft: '-10px' }}
+              className="table_heading"
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell>Date</TableCell>
+                  <TableCell align="left">Period</TableCell>
+                  <TableCell align="left">Type</TableCell>
+                  <TableCell align="left">Given</TableCell>
+                  <TableCell align="left">Achieve</TableCell>
+                  <TableCell align="left">Extra/Left</TableCell>
+                  <TableCell align="left">Target</TableCell>
+                </TableRow>
+              </TableHead>
 
-            <TableBody>
-              {targetList.map(targetData => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    // key={attendanceList.id}
-                    sx={{
-                      '&:last-child td,th': { border: 0 },
-                    }}
-                  >
-                    <TableCell className="tablecell_height">
-                      {moment(targetData?.startDate).format('D-M') +
-                        ' to ' +
-                        moment(targetData?.endDate).format('D-M-YY')}{' '}
-                    </TableCell>
-                    <TableCell align="left">
-                      {targetData?.period} days
-                    </TableCell>
-                    <TableCell align="left">{targetData?.type}</TableCell>
-                    <TableCell align="left">{targetData?.target}</TableCell>
-                    <TableCell align="left">{targetData?.achieve}</TableCell>
-                    <TableCell align="left">{targetData?.target}</TableCell>
-                    <TableCell align="left">{targetData?.state}</TableCell>
-                  </TableRow>
-                )
-              })}
-            </TableBody>
-          </Table>
+              <TableBody>
+                {targetList.map(targetData => {
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      // key={attendanceList.id}
+                      sx={{
+                        '&:last-child td,th': { border: 0 },
+                      }}
+                    >
+                      <TableCell className="tablecell_height">
+                        {moment(targetData?.startDate).format('D-M') +
+                          ' to ' +
+                          moment(targetData?.endDate).format('D-M-YY')}{' '}
+                      </TableCell>
+                      <TableCell align="left">
+                        {targetData?.period} days
+                      </TableCell>
+                      <TableCell align="left">{targetData?.type === 0 ? "Generate Lead" : "Take Order"}</TableCell>
+                      <TableCell align="left">{targetData?.target}</TableCell>
+                      <TableCell align="left">{targetData?.achieve}</TableCell>
+                      <TableCell align="left">{targetData?.target}</TableCell>
+                      <TableCell align="left">{targetData?.state}</TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table> :
+            <NoResultFound />
+          }
         </TableContainer>
         {targetDetail.status && <SetTargetDialog targetDetail={targetDetail} />}
       </Box>

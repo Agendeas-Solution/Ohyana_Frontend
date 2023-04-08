@@ -17,6 +17,7 @@ import {
   PaymentStatusUpdate,
   StatusUpdate,
 } from '../../services/apiservices/staffDetail'
+import NoResultFound from '../ErrorComponent/NoResultFound'
 
 const StaffExpenses = () => {
   const [dateRange, setDateRange] = useState({
@@ -42,13 +43,13 @@ const StaffExpenses = () => {
         setExpenseList(res.data.expenses)
         setExpensesData(res.data)
       },
-      err => {},
+      err => { },
     )
   }, [])
   const handlePaymentStatusUpdate = id => {
     PaymentStatusUpdate(
       id,
-      res => {},
+      res => { },
       err => {
         console.log('Printing Error Payment Status Update', err)
       },
@@ -58,8 +59,8 @@ const StaffExpenses = () => {
     StatusUpdate(
       id,
       status,
-      res => {},
-      err => {},
+      res => { },
+      err => { },
     )
   }
 
@@ -120,91 +121,92 @@ const StaffExpenses = () => {
           overflowY: 'auto',
         }}
       >
-        <Table
-          stickyHeader
-          aria-label="sticky table"
-          sx={{ minWidth: 690, marginLeft: '-10px' }}
-          className="table_heading "
-        >
-          <TableHead>
-            <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell align="left">Type</TableCell>
-              <TableCell align="left">Apply</TableCell>
-              <TableCell align="left">Approval</TableCell>
-              <TableCell align="left">Payment</TableCell>
-              <TableCell align="left">Document</TableCell>
-              <TableCell align="left">Approval</TableCell>
-              <TableCell align="left">Payment</TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {expenseList &&
-              expenseList.map(row => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    // key={attendanceList.id}
-                    sx={{
-                      '&:last-child td,th': { border: 0 },
-                    }}
-                  >
-                    <TableCell className="tablecell_height">
-                      {moment(row?.date).format('D/MM/YY')}
-                    </TableCell>
-                    <TableCell align="left">{row?.name}</TableCell>
-                    <TableCell align="left">{row?.amount}</TableCell>
-                    <TableCell align="left">
-                      {row?.status === 'APPROVED'
-                        ? row?.aprrovalAmount
-                        : row?.status}
-                    </TableCell>
-                    <TableCell align="left">{row?.payment_status}</TableCell>
-                    <TableCell align="left">{row?.file}</TableCell>
-                    <TableCell align="left" className="d-flex flex-row">
-                      {row?.status === 'APPROVED' || 'REJECTED' ? (
-                        row?.status
-                      ) : (
-                        <>
+        {expenseList.length > 0 ?
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            className="table_heading "
+          >
+            <TableHead>
+              <TableRow>
+                <TableCell>Date</TableCell>
+                <TableCell align="left">Type</TableCell>
+                <TableCell align="left">Apply</TableCell>
+                <TableCell align="left">Approval</TableCell>
+                <TableCell align="left">Payment</TableCell>
+                <TableCell align="left">Document</TableCell>
+                <TableCell align="left">Approval</TableCell>
+                <TableCell align="left">Payment</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {expenseList &&
+                expenseList.map(row => {
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      // key={attendanceList.id}
+                      sx={{
+                        '&:last-child td,th': { border: 0 },
+                      }}
+                    >
+                      <TableCell className="tablecell_height">
+                        {moment(row?.date).format('D/MM/YY')}
+                      </TableCell>
+                      <TableCell align="left">{row?.name}</TableCell>
+                      <TableCell align="left">{row?.amount}</TableCell>
+                      <TableCell align="left">
+                        {row?.status === 'APPROVED'
+                          ? row?.aprrovalAmount
+                          : row?.status}
+                      </TableCell>
+                      <TableCell align="left">{row?.payment_status}</TableCell>
+                      <TableCell align="left">{row?.file}</TableCell>
+                      <TableCell align="left" className="d-flex flex-row">
+                        {row?.status === 'APPROVED' || 'REJECTED' ? (
+                          row?.status
+                        ) : (
+                          <>
+                            <Button
+                              onClick={() =>
+                                handleStatusUpdate(row?.id, 'APPROVED')
+                              }
+                              className="common_button"
+                            >
+                              Approve
+                            </Button>
+                            <Button
+                              onClick={() =>
+                                handleStatusUpdate(row?.id, 'REJECTED')
+                              }
+                              className="common_button"
+                            >
+                              Reject
+                            </Button>
+                          </>
+                        )}
+                      </TableCell>
+                      <TableCell align="right">
+                        {row?.payment_status === 'DONE' ? (
+                          <Typography>-</Typography>
+                        ) : (
                           <Button
-                            onClick={() =>
-                              handleStatusUpdate(row?.id, 'APPROVED')
-                            }
+                            onClick={() => handlePaymentStatusUpdate(row?.id)}
                             className="common_button"
                           >
-                            Approve
+                            Update
                           </Button>
-                          <Button
-                            onClick={() =>
-                              handleStatusUpdate(row?.id, 'REJECTED')
-                            }
-                            className="common_button"
-                          >
-                            Reject
-                          </Button>
-                        </>
-                      )}
-                    </TableCell>
-                    <TableCell align="right">
-                      {row?.payment_status === 'DONE' ? (
-                        <Typography>-</Typography>
-                      ) : (
-                        <Button
-                          onClick={() => handlePaymentStatusUpdate(row?.id)}
-                          className="common_button"
-                        >
-                          Update
-                        </Button>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                )
-              })}
-          </TableBody>
-        </Table>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+            </TableBody>
+          </Table>
+          : <NoResultFound />}
       </TableContainer>
     </>
   )

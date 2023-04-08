@@ -147,13 +147,10 @@ const JobRolesList = () => {
             </Button>
           )}
         </Box>
-        {/* <Divider sx={{ width: "95%", margin: "0 auto" }} /> */}
         <Divider
           sx={{ borderColor: '#8E8E8E' }}
           orientation="horizontal"
-          // variant="middle"
           width="100%"
-          // flexItem
         />
         <Box sx={{ marginTop: '19px', width: 'initial' }}>
           {/* <Grid
@@ -246,9 +243,7 @@ const JobRolesList = () => {
           })}
       </div>
       <EditJobRoleDialog
-        // editJobRoleDialogControl={addEditDepartmentDialogControl}
         editJobRoleDialogControl={addEditDepartmentDialogControlDummy}
-        // addEditDepartmentDialogControl={addEditDepartmentDialogControl}
         handleClose={handleClose}
       />
     </>

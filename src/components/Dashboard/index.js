@@ -11,30 +11,34 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 import {
   AttendanceStatus,
   GetInquiryAnalytics,
 } from '../../services/apiservices/staffDetail'
+import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 const Dashboard = () => {
   const navigate = useNavigate()
-  const [inquiryData, setInquiryData] = useState()
-
+  const [inquiryData, setInquiryData] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
     GetInquiryAnalytics(
       {},
       res => {
         setInquiryData(res.data.data)
       },
-      err => {},
+      (err) => {
+      },
     )
   }, [])
 
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
-      res => {},
-      err => {},
+      res => { },
+      err => { },
     )
   }
 
@@ -319,7 +323,7 @@ const Dashboard = () => {
                   {inquiryData?.sales?.crtLead}
                 </Typography>
                 <Typography variant="span">
-                  <TrendingUpRoundedIcon className="common_icon" /> 5%
+                  <TrendingUpRoundedIcon className="common_icon" /> {inquiryData?.sales?.totalPercentage || 0}%
                 </Typography>
               </Box>
             </Box>
@@ -330,7 +334,7 @@ const Dashboard = () => {
                   {inquiryData?.sales?.crtLead}
                 </Typography>
                 <Typography>
-                  <TrendingDownRoundedIcon className="common_icon" /> 5%
+                  <TrendingDownRoundedIcon className="common_icon" /> {inquiryData?.sales?.leadPercentage || 0}%
                 </Typography>
               </Box>
             </Box>
@@ -341,7 +345,7 @@ const Dashboard = () => {
                   {inquiryData?.sales?.crtOrders}
                 </Typography>
                 <Typography>
-                  <TrendingDownRoundedIcon className="common_icon" /> 5%
+                  <TrendingDownRoundedIcon className="common_icon" /> {inquiryData?.sales?.orderPercentage || 0}%
                 </Typography>
               </Box>
             </Box>
@@ -352,7 +356,7 @@ const Dashboard = () => {
                   {inquiryData?.sales?.crtPending}
                 </Typography>
                 <Typography>
-                  <TrendingDownRoundedIcon className="common_icon" /> 5%
+                  <TrendingDownRoundedIcon className="common_icon" /> {inquiryData?.sales?.pendingInquiryPercentage || 0}%
                 </Typography>
               </Box>
             </Box>
@@ -363,7 +367,7 @@ const Dashboard = () => {
                   {inquiryData?.sales?.crtIrrelevant}
                 </Typography>
                 <Typography>
-                  <TrendingDownRoundedIcon className="common_icon" /> 5%
+                  <TrendingDownRoundedIcon className="common_icon" /> {inquiryData?.sales?.irrelevantInquiryPercentage || 0}%
                 </Typography>
               </Box>
             </Box>{' '}
@@ -374,7 +378,7 @@ const Dashboard = () => {
                   {inquiryData?.sales?.crtNoResponse}
                 </Typography>
                 <Typography>
-                  <TrendingDownRoundedIcon className="common_icon" /> 5%
+                  <TrendingDownRoundedIcon className="common_icon" /> {inquiryData?.sales?.noRepsoneInquiryPercentage || 0}%
                 </Typography>
               </Box>
             </Box>
@@ -390,8 +394,7 @@ const Dashboard = () => {
               className="view_all_button"
               onClick={() => navigate('/staff')}
             >
-              {' '}
-              View All >{' '}
+              View All >
             </Button>
           </Box>
           <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
@@ -409,12 +412,21 @@ const Dashboard = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {inquiryData?.teamWithPoints.map(data => {
+                {inquiryData?.teamWithPoints && inquiryData?.teamWithPoints.map(data => {
                   console.log({ DATA: data })
                   return (
                     <TableRow
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
+                      <TableCell align='right'>
+                        <Stack direction="row" spacing={2}>
+                          <Avatar
+                            className="me-2"
+                            sx={{ width: 40, height: 40 }}
+                            src={data?.imageUrl ? data?.imageUrl : "/static/images/avatar/1.jpg"}
+                          />
+                        </Stack>
+                      </TableCell>
                       <TableCell align="right">{data?.name || '-'}</TableCell>
                       <TableCell align="right">{data?.role || '-'}</TableCell>
                       <TableCell align="right">
@@ -422,13 +434,17 @@ const Dashboard = () => {
                       </TableCell>
                       <TableCell align="right">{data.points || '-'}</TableCell>
                       <TableCell align="right">
-                        {data.pointPercentage}
+                        {data.pointPercentage}%
                       </TableCell>
                       <TableCell align="right">
                         {data?.location || '-'}
                       </TableCell>
                       <TableCell align="right">
-                        <Button className="common_button">View</Button>
+                        <Button className="common_button" onClick={() =>
+                          navigate(
+                            `/staffprofile/${data?.id}`,
+                          )
+                        }>View</Button>
                       </TableCell>
                     </TableRow>
                   )
@@ -437,13 +453,12 @@ const Dashboard = () => {
             </Table>
           </TableContainer>
         </Box>
-
         <Box className="team_overview">
           <Box className="team_overview_heading">
             <Typography className="team_overview_inner_heading" variant="span">
               Order Overview
             </Typography>
-            <Button className="view_all_button"> View More > </Button>
+            <Button className="view_all_button" onClick={() => navigate('/orders')}> View More > </Button>
           </Box>
           <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
             <Table sx={{ minWidth: 650 }}>
@@ -451,28 +466,28 @@ const Dashboard = () => {
                 <TableRow>
                   <TableCell>Order Id</TableCell>
                   <TableCell align="right">Order Of</TableCell>
-                  <TableCell align="right">Type</TableCell>
                   <TableCell align="right">Date</TableCell>
                   <TableCell align="right">Total</TableCell>
                   <TableCell align="right">Delivery</TableCell>
-                  <TableCell align="right">Payment</TableCell>
+                  <TableCell align="right">Payment Method</TableCell>
+                  <TableCell align="right">Payment Status</TableCell>
                   <TableCell align="right"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {inquiryData?.orderData.map(row => (
+                {inquiryData?.orderData && inquiryData?.orderData.map(row => (
                   <TableRow
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell>{row.name || '-'}</TableCell>
-                    <TableCell align="right">{row.name || '-'}</TableCell>
-                    <TableCell align="right">{row.name || '-'}</TableCell>
-                    <TableCell align="right">{row.name || '-'}</TableCell>
-                    <TableCell align="right">{row.name || '-'}</TableCell>
-                    <TableCell align="right">{row.name || '-'}</TableCell>
-                    <TableCell align="right">{row.name || '-'}</TableCell>
+                    <TableCell>{row?.id || '-'}</TableCell>
+                    <TableCell align="right">{row?.client?.name || '-'}</TableCell>
+                    <TableCell align="right">{moment(row?.date).format('L') || '-'}</TableCell>
+                    <TableCell align="right">{row?.order_total || '-'}</TableCell>
+                    <TableCell align="right">{row?.orderTrackingStatus || '-'}</TableCell>
+                    <TableCell align="right">{row?.paymentMethod || '-'}</TableCell>
+                    <TableCell align="right">{row?.paymentStatus || '-'}</TableCell>
                     <TableCell align="right">
-                      <Button className="common_button">View</Button>
+                      <Button className="common_button" onClick={() => navigate(`/orderDetail/${row?.id}`)}>View</Button>
                     </TableCell>
                   </TableRow>
                 ))}

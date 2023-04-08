@@ -115,6 +115,7 @@ const Department = () => {
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state
   const [expensePolicy, setExpensePolicy] = useState()
+  const [expensePermissions, setExpensePermissions] = useState();
   useEffect(() => {
     getUserPermissions(
       parseInt(window.location.pathname.split('/').pop()),
@@ -150,8 +151,9 @@ const Department = () => {
           },
         })
         setExpensePolicy(res?.data?.expensePolicies)
+        setExpensePermissions(res?.data?.expensePermissions)
       },
-      err => {},
+      err => { },
     )
   }, [])
   const handleUserPermissions = () => {
@@ -370,7 +372,9 @@ const Department = () => {
               </InputLabel>
               <Select id="demo-multiple-checkbox-label">
                 <FormGroup className="p-2">
-                  {expensePolicy &&
+                  {
+// expensePermissions.map(()=>)
+                    expensePolicy &&
                     expensePolicy.map(data => (
                       <Box sx={{ margin: '5px' }}>
                         <FormControlLabel

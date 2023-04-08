@@ -188,7 +188,6 @@ const Staff = () => {
                 Detail
               </Typography>
             </Box>
-
             <Box
               sx={{
                 display: 'flex',
@@ -228,7 +227,6 @@ const Staff = () => {
               </IconButton>
               {/* </Toolbar> */}
             </Box>
-
             <Drawer
               sx={{
                 width: 2,
@@ -266,9 +264,7 @@ const Staff = () => {
                   </Box>
                 </Box>
               </DrawerHeader>
-
               <Divider />
-
               <Box className="py-3">
                 <div className="row px-3">
                   <FormControl className="px-3">
@@ -281,8 +277,6 @@ const Staff = () => {
                     </FormLabel>
                     <RadioGroup
                       row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
                     >
                       <FormControlLabel
                         className="checkbox_background_color"
@@ -298,12 +292,10 @@ const Staff = () => {
                       />
                     </RadioGroup>
                   </FormControl>
-
                   <FormControl className="px-3 pt-3">
                     <FormLabel
                       sx={{ color: '#000000' }}
                       className="mb-2"
-                      id="demo-row-radio-buttons-group-label"
                     >
                       Result for
                     </FormLabel>
@@ -338,11 +330,9 @@ const Staff = () => {
                       />
                     </RadioGroup>
                   </FormControl>
-
                   <div className="col-md-12 pt-3 px-3">
                     <Typography variant="span">Job Role</Typography>
                   </div>
-
                   <Autocomplete
                     className="mt-1 mx-3 align-items-center d-flex client_type_select justify-content-center "
                     options={clientType}
@@ -369,7 +359,6 @@ const Staff = () => {
               </Box>
             </Drawer>
           </Box>
-
           <Box className="left_team_profile_section">
             <TableContainer>
               <Table
@@ -393,7 +382,6 @@ const Staff = () => {
                   variant="middle"
                   flexItem
                 />
-
                 <TableBody
                   style={{
                     borderCollapse: 'separate',
@@ -441,13 +429,11 @@ const Staff = () => {
           </Box>
         </Box>
       </Box>
-
       {/* starting of SECOND section */}
       <Box className="right_panel">
         <Box>
           <Box sx={{ display: 'flex', flexDirection: 'row' }}>
             <AccountCircleRoundedIcon className="user_profile_icon mx-2 mt-2" />
-
             <Box
               sx={{
                 display: 'flex',
@@ -467,7 +453,6 @@ const Staff = () => {
               </Typography>
             </Box>
           </Box>
-
           <Box className="mt-3 mb-4 mx-2">
             <Box
               className="m-3"
@@ -499,7 +484,6 @@ const Staff = () => {
                 View Profile
               </Button>
             </Box>
-
             <Box className="m-3 me-5">
               <Typography variant="span" sx={{ fontWeight: 'bold' }}>
                 Email
@@ -512,7 +496,6 @@ const Staff = () => {
                 {singleStaffDetails?.memberDetail?.email}
               </Typography>
             </Box>
-
             <Box className="m-3  me-5">
               <Typography variant="span" sx={{ fontWeight: 'bold' }}>
                 Location
@@ -522,7 +505,6 @@ const Staff = () => {
               </Typography>
             </Box>
           </Box>
-
           <Box className="bottom_right_part mt-3">
             <Typography className="px-3">Inquiry Status</Typography>
             <Box
@@ -534,14 +516,12 @@ const Staff = () => {
                   {singleStaffDetails?.currentMonthClients?.total}
                 </Typography>
               </Box>
-
               <Box className="inner_profile_details middle_box p-2">
                 <Typography>Attend</Typography>
                 <Typography>
                   {singleStaffDetails?.currentMonthClients?.attend}
                 </Typography>
               </Box>
-
               <Box className="inner_profile_details last_box  p-2">
                 <Typography className="typos_dummy">Avg. Response</Typography>
                 <Typography>
@@ -549,7 +529,6 @@ const Staff = () => {
                 </Typography>
               </Box>
             </Box>
-
             <Typography className="px-3">Attendance</Typography>
             <Box
               className="staff_statistics_data"
@@ -560,7 +539,6 @@ const Staff = () => {
                   {singleStaffDetails?.currentMonthAttendance?.totalPresent}
                 </Typography>
               </Box>
-
               <Box className="inner_profile_details middle_box m-1 p-2">
                 <Typography>Absent</Typography>
                 <Typography>
@@ -575,7 +553,6 @@ const Staff = () => {
                 </Typography>
               </Box>
             </Box>
-
             <Typography className="px-3">Target</Typography>
             <Box
               className="staff_statistics_data"
@@ -586,14 +563,12 @@ const Staff = () => {
                   {singleStaffDetails?.currentMonthTarget?.totalDays}
                 </Typography>
               </Box>
-
               <Box className="inner_profile_details middle_box m-1 p-2">
                 <Typography>Total Order</Typography>
                 <Typography>
                   {singleStaffDetails?.currentMonthTarget?.targetOrder}
                 </Typography>
               </Box>
-
               <Box className="inner_profile_details last_box m-1 p-2">
                 <Typography>Achieved</Typography>
                 <Typography>
@@ -601,7 +576,6 @@ const Staff = () => {
                 </Typography>
               </Box>
             </Box>
-
             <Typography className="px-3">Expense</Typography>
             <Box
               sx={{
@@ -619,14 +593,12 @@ const Staff = () => {
                   {singleStaffDetails?.currentMonthExpense?.approvedExpense}
                 </Typography>
               </Box>
-
               <Box className="inner_profile_details middle_box m-1 p-2">
                 <Typography>Pending</Typography>
                 <Typography>
                   {singleStaffDetails?.currentMonthExpense?.pendingExpense}
                 </Typography>
               </Box>
-
               <Box className="inner_profile_details last_box m-1 p-2">
                 <Typography>Rejected</Typography>
                 <Typography>

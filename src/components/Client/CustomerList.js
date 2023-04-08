@@ -129,9 +129,6 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
                         </a>
                       </>
                     ) : null}
-                    {/* {permissions?.deleteClient && <DeleteRoundedIcon className="delete_client_icon" onClick={() => {
-                          setDeleteClientDialogControl({ ...deleteClientDialogControl, status: true, clientId: row.id })
-                        }} />} */}
                   </TableCell>
                 </TableRow>
               ))}
