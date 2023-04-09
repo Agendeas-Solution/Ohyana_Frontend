@@ -362,26 +362,6 @@ table {
   overflow-x: hidden;
 }
 
-.below_main_tab_section {
-  background-color: #fff;
-  margin-top: 5px;
-  width: 100%;
-  border-radius: 5px;
-  // height: calc(100vh - 121px - 25px);
-  height: 79vh;
-  width: 78vw;
-  padding: 10px !important;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  .inner_container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-  }
-}
-
 .client_body_section {
   background-color: #fff;
   margin-top: 5px;
@@ -1114,8 +1094,8 @@ button {
   background-color: #b4c2e9;
   border-radius: 50%;
   font-size: 15px;
-  height: 30px;
-  width: 30px;
+  height: 32px;
+  width: 32px;
   flex-direction: row;
   display: flex;
   justify-content: center;

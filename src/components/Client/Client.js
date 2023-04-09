@@ -36,7 +36,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import FilterIcon from '../../assets/img/Filter.svg'
 import { styled, useTheme } from '@mui/material/styles'
 import { CLIENT } from '../../constants'
-const drawerWidth = 300
+const drawerWidth = 350
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const NoResultFound = React.lazy(() =>
   import('../ErrorComponent/NoResultFound'),
@@ -272,13 +272,14 @@ const Client = () => {
           <IconButton
             edge="end"
             onClick={handleDrawerOpen}
-            sx={{ ...(open && { display: 'none' }) }}
           >
             <img src={FilterIcon} alt="" />
           </IconButton>
 
         </Box>
+
         <Drawer
+          onClose={handleDrawerClose}
           sx={{
             '& .MuiDrawer-paper': {
               width: drawerWidth,
@@ -315,7 +316,6 @@ const Client = () => {
           <Divider />
 
           <Box sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
-
 
             <FormControl sx={{ margin: '10px' }}>
               <InputLabel>Client Type</InputLabel>
@@ -403,7 +403,7 @@ const Client = () => {
         />
       </Box>
 
-      <Dialog
+      {/* <Dialog
         open={deleteClientDialogControl.status}
         onClose={handleDialogClose}
       >
@@ -441,7 +441,7 @@ const Client = () => {
             </Button>
           </DialogActions>
         </Box>
-      </Dialog>
+      </Dialog> */}
     </Box >
   )
 }

@@ -19,22 +19,11 @@ const CreateTaskDialog = ({
   open,
   createTask,
   handleCreateTask,
-  setCreateTask,
+  setCreateTask, handleClose
 }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
-
-  const handleOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   return (
     <>
       <Dialog

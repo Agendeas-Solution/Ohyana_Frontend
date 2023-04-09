@@ -32,7 +32,7 @@ import { styled, useTheme } from '@mui/material/styles'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
-const drawerWidth = 400
+const drawerWidth = 350
 const CreateTaskDialog = React.lazy(() => import('./CreateTaskDialog'))
 const AssignMemberDialog = React.lazy(() => import('./AssignMemberDialog'))
 
@@ -98,6 +98,13 @@ const Task = () => {
   }
   const handleCloseMemberDialog = () => {
     setOpenMemberDialog(false)
+  }
+  const handleApplyFilter = () => {
+
+  }
+  const handleClearAllFilter = () => {
+
+
   }
   useEffect(() => {
     GetTaskList(
@@ -190,158 +197,146 @@ const Task = () => {
           </Box>
 
           <Drawer
+
+            onClose={handleDrawerClose}
             sx={{
-              width: 2,
-              flexShrink: 0,
               '& .MuiDrawer-paper': {
                 width: drawerWidth,
               },
             }}
-            // variant="persistent"
             anchor="right"
             open={openDrawer}
           >
-            <DrawerHeader>
-              <Box className="d-flex justify-content-between column w-100 align-items-center">
-                <Box className="d-flex column justify-content-between w-50 align-items-center">
-                  <IconButton
-                    // sx={{ paddingRight: '10px' }}
-                    // sx={{ paddingRight: '12rem' }}
-                    // className="pe-5"
-                    disableRipple={true}
-                    onClick={handleDrawerClose}
-                  >
-                    {theme.direction === 'rtl' ? (
-                      <ChevronLeftIcon sx={{ fontSize: '30px' }} />
-                    ) : (
-                      <ChevronRightIcon sx={{ fontSize: '30px' }} />
-                    )}
-                  </IconButton>
+            <DrawerHeader sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
 
-                  <Typography
-                    sx={{ fontSize: '22px', paddingRight: '60px' }}
-                  >
-                    Filter By
-                  </Typography>
-                </Box>
-                <Box className=" d-flex justify-content-end row w-50">
-                  <Typography sx={{ textAlign: 'end', color: '#2E3591' }}>
-                    Clear All
-                  </Typography>
-                </Box>
+                <IconButton
+                  sx={{ color: '#2e3591' }}
+                  disableRipple={true}
+                  onClick={handleDrawerClose}
+                >
+                  {theme.direction === 'rtl' ? (
+                    <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                  ) : (
+                    <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                  )}
+                </IconButton>
+
+                <Typography sx={{ fontSize: '20px', }}>
+                  Filter By
+                </Typography>
               </Box>
+              <Box >
+                <Button onClick={handleApplyFilter} variant="contained">Apply</Button>
+                <Button onClick={handleClearAllFilter}>Clear All</Button>
+              </Box>
+
             </DrawerHeader>
 
             <Divider />
 
-            <Box className="py-3">
-              <div className="row px-3">
-                <div className="col-md-12 mb-1">
-                  <Typography variant="span">Task Starting Date</Typography>
-                </div>
-                <div className="mb-4">
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DatePicker
-                      disablePast
-                      className="w-100"
-                      value={createTask.due_date}
-                      inputFormat="dd/MM/yyyy"
-                      onChange={e => {
-                        setCreateTask({
-                          ...createTask,
-                          due_date: moment(e).format('YYYY-MM-DD'),
-                        })
-                      }}
-                      renderInput={params => (
-                        <TextField className="w-100" {...params} />
-                      )}
-                    />
-                  </LocalizationProvider>
-                </div>
-                <div className="col-md-12">
-                  <Typography variant="span">Member</Typography>
-                </div>
+            <Box sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
+              <LocalizationProvider dateAdapter={AdapterDateFns}  >
+                <DatePicker
 
-                <Autocomplete
-                  className="mt-1 mx-2 align-items-center d-flex client_type_select justify-content-center"
-                  options={clientType}
-                  value={
-                    clientStage !== null ? clientType[clientStage] : null
-                  }
-                  // sx={{ width: '30rem' }}
-                  onChange={(e, value) => {
-                    console.log(value)
-                    setClientStage(value?.id)
+                  inputFormat="dd/MM/yyyy"
+                  value={createTask.due_date}
+                  onChange={e => {
+                    setCreateTask({
+                      ...createTask,
+                      due_date: moment(e).format('YYYY-MM-DD'),
+                    })
                   }}
-                  getOptionLabel={option => option.stage}
                   renderInput={params => (
-                    <TextField
-                      // className="m-3"
-                      variant="outlined"
-                      // sx={{ width: '24rem' }}
+                    <TextField variant="outlined"
                       {...params}
-                      placeholder="Member Name"
-                    />
+                      label="Date" sx={{ margin: '10px' }} />
                   )}
+                  PopperProps={{
+                    placement: 'bottom-start', // Set placement to 'bottom-start'
+                  }}
                 />
-              </div>
+              </LocalizationProvider>
+
+              <Autocomplete
+                sx={{ margin: '10px' }}
+                disablePortal
+                options={clientType}
+                value={
+                  clientStage !== null ? clientType[clientStage] : null
+                }
+                onChange={(e, value) => {
+                  console.log(value)
+                  setClientStage(value?.id)
+                }}
+                getOptionLabel={option => option.stage}
+                renderInput={params => (
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    label="Member Name"
+                  />
+                )}
+              />
+
             </Box>
           </Drawer>
         </Box>
       </Box>
 
       <Box className="below_main_tab_section">
-        <div className="inner_container">
+        <Box className="inner_container">
           {taskList.length > 0 &&
             taskList.map(taskData => {
               return (
                 <Box
-                  sx={{
+                  className='task_card'
+                >
+                  <Box
+                    className="task_card_hover"
+                    onClick={() => {
+                      navigate(`/taskdetail/${taskData?.id}`)
+                    }}
+                  >
+                    <Typography
+                      className="task_card_heading"
+                      variant="span"
+                    >
+                      {taskData.title}
+                    </Typography>
+
+                    <Typography className="task_description" variant="span">
+                      {taskData.description}
+                    </Typography>
+                  </Box>
+
+                  <Box sx={{
                     display: 'flex',
                     flexDirection: 'row',
-                    width: 'calc(100% / 4 - 1rem)',
-                    height: '150px',
-                  }}
-                >
-                  <Box className="task_card">
-                    <Box
-                      className="row task_card_hover"
-                      onClick={() => {
-                        navigate(`/taskdetail/${taskData?.id}`)
-                      }}
-                    >
-                      <Typography
-                        className="task_card_heading"
-                        variant="span"
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}>
+                    <Typography className="task_date" variant="span">
+                      {moment(taskData.createdAt).format('Do MMM YY')}
+                    </Typography>
+                    {taskData?.team?.email ? (
+                      <Typography className="name_chip " variant="span">
+                        {taskData?.team?.email.toUpperCase().charAt(0)}
+                      </Typography>
+                    ) : (
+                      <Button
+                        onClick={() => handleOpenMemberDialog(taskData.id)}
+                        className="task_button"
                       >
-                        {taskData.title}
-                      </Typography>
-                      <Typography className="task_description" variant="span">
-                        {taskData.description}
-                      </Typography>
-                    </Box>
-                    <Box className="common_row">
-                      <Typography className="task_date" variant="span">
-                        {moment(taskData.createdAt).format('Do MMM YY')}
-                      </Typography>
-                      {taskData?.team?.email ? (
-                        <Typography className="name_chip " variant="span">
-                          {taskData?.team?.email.toUpperCase().charAt(0)}
-                        </Typography>
-                      ) : (
-                        <Button
-                          onClick={() => handleOpenMemberDialog(taskData.id)}
-                          className="common_button"
-                        >
-                          + Member
-                        </Button>
-                      )}
-                    </Box>
+                        + Member
+                      </Button>
+                    )}
                   </Box>
+
                 </Box>
               )
             })}
-        </div>
+        </Box>
         <CreateTaskDialog
           handleClose={handleClose}
           fullScreen={fullScreen}
