@@ -11,7 +11,12 @@ export const GetAdminStaffDetailList = async (value, onSuccess, onError) => {
   try {
     const { data } = await axiosInstance.get('/member', {
       headers: { ...defaultHeaders },
-      params: value,
+      params:
+        value
+          ? {
+            searchQuery: value,
+          }
+          : {},
     })
     console.log('Printing data of GetAdminProfile', data)
     onSuccess && onSuccess(data)
@@ -46,7 +51,6 @@ export const GetAdminStaffProfileDetail = async (value, onSuccess, onError) => {
     onError && onError(err)
   }
 }
-
 export const GetAdminStaffRatingDetail = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
@@ -102,10 +106,10 @@ export const AddEmployee = async (value, onSuccess, onError) => {
   }
 }
 
-export const EditEmployee = async (id, value, onSuccess, onError) => {
+export const EditEmployee = async ( value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.put(`/member/${id}`, value, {
+    const { data } = await axiosInstance.put(`/member`, value, {
       headers: { ...defaultHeaders },
     })
     console.log('Printing data of GiveFeedBack', data)
@@ -193,8 +197,8 @@ export const GetExpenseList = async (value, onSuccess, onError) => {
       params:
         Object.keys(value).length > 0
           ? {
-              teamId: value,
-            }
+            teamId: value,
+          }
           : {},
     })
     console.log('Printing data of GetExpenseList', data)

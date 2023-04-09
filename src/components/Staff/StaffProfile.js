@@ -136,15 +136,15 @@ const StaffProfile = () => {
                 className="client_profile_tab mb-2"
                 onChange={handleChange}
               >
+                <Tab label="Target" value="1" />
                 <Tab label="PJP" value="3" />
-                <Tab label="Target" value="4" />
                 <Tab label="Expenses" value="5" />
                 <Tab label="Attendance" value="2" />
                 <Tab label="Points" value="6" />
-                <Tab label="Profile" value="1" />
+                <Tab label="Profile" value="4" />
               </TabList>
             </Box>
-            <TabPanel sx={{ padding: '0' }} value="1">
+            <TabPanel sx={{ padding: '0' }} value="4">
               <StaffDetail adminProfileDetail={adminProfileDetail} />
             </TabPanel>
             <TabPanel sx={{ padding: '0' }} value="2">
@@ -153,7 +153,7 @@ const StaffProfile = () => {
             <TabPanel sx={{ padding: '0' }} value="3">
               <PJPDetail />
             </TabPanel>
-            <TabPanel sx={{ padding: '0' }} value="4">
+            <TabPanel sx={{ padding: '0' }} value="1">
               <StaffTarget />
             </TabPanel>
             <TabPanel sx={{ padding: '0' }} value="5">

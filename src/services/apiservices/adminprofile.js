@@ -302,7 +302,6 @@ export const GetAdminRole = async (value, onSuccess, onError) => {
   try {
     const { data } = await axiosInstance.get(`/role`, {
       headers: { ...defaultHeaders },
-      
     })
     console.log('Printing data of GetAdminRole', data)
     onSuccess && onSuccess(data)

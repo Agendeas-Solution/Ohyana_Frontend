@@ -18,23 +18,33 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import './index.css'
 import { GetAdminClientDetail } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
-
 const AddPJPDialog = ({
   addPJPDetail,
   handleCloseDialog,
   setAddPJPdetail,
   handleAddPJPDetail,
-  getLocation,
   props,
 }) => {
-  const [customerType, setCustomerType] = useState([
-    { stage: 'Jr. Sales Person', id: 0 },
-    { stage: 'Sr. Sales Person', id: 1 },
-    { stage: 'Ass. Sales Person', id: 2 },
-    { stage: 'None', id: 3 },
-  ])
-
+  const [customerType, setCustomerType] = useState([])
+  const [searchQuery,setSearchQuery]=useState('');
+  const [open, setOpen] = React.useState(false)
+  const [options, setOptions] = React.useState([])
   const [customerStage, setCustomerStage] = useState()
+  const loading = open && options.length === 0
+useEffect(()=>{
+  GetAdminClientDetail(
+  {size:10,searchQuery:searchQuery},
+    res => {
+      if (res?.success) {
+        setOptions(res?.data?.client)
+       
+      }
+    },
+    err => {
+      console.log(err)
+    },
+  )
+},[searchQuery])
 
   const [pjpDetail, setPjpDetail] = useState({
     name: props?.editJobRoleDialogControl?.name,
@@ -43,12 +53,9 @@ const AddPJPDialog = ({
     id: props?.editJobRoleDialogControl?.roleId,
   })
 
-  const [open, setOpen] = React.useState(false)
-  const [options, setOptions] = React.useState([])
-  const loading = open && options.length === 0
+ 
 
   const onChangeHandle = async value => {
-    // this default api does not support searching but if you use google maps or some other use the value and post to get back you reslut and then set it using setOptions
     console.log(value)
     GetAdminClientDetail(
       { searchQuery: value },
@@ -60,7 +67,6 @@ const AddPJPDialog = ({
       },
     )
   }
-
   useEffect(() => {
     if (!open) {
       setOptions([])
@@ -94,6 +100,10 @@ const AddPJPDialog = ({
                 width: '21rem',
                 border: '1px solid #E5E5E5',
                 borderRadius: '5px',
+              }}
+              onInputChange={(event, newInputValue) => {
+                setSearchQuery(newInputValue);
+                debugger;
               }}
               onChange={(e, value) => {
                 console.log(value)
@@ -162,7 +172,7 @@ const AddPJPDialog = ({
             <Button
               sx={{ alignContent: 'center', alignItems: 'center' }}
               variant="contained"
-              // onClick={handleEditJobRole}
+            // onClick={handleEditJobRole}
             >
               Save
             </Button>

@@ -11,7 +11,7 @@ const ProfileTable = ({ clientProfileDetail }) => {
           <Box className="userdetail_root">
             <Typography variant="span">Inquiry Date</Typography>
             <Typography variant="span">
-              {moment(clientProfileDetail?.arrivalDate).format()}
+              {moment(clientProfileDetail?.arrivalDate).format('DD-MM-YYYY')}
             </Typography>
           </Box>
           {/* <Box className="userdetail_root">
@@ -31,24 +31,24 @@ const ProfileTable = ({ clientProfileDetail }) => {
           </Box>
           <Box className="userdetail_root">
             <Typography variant="span">Investment Capacity</Typography>
-            <Box sx={{ maxWidth: '50%' }}>{clientProfileDetail?.max_invesment_amount}</Box>
+            <Box sx={{ maxWidth: '50%' }}>{clientProfileDetail?.max_invesment_amount||"-"}</Box>
           </Box>
           <Box className="userdetail_root">
             <Typography variant="span">Reference</Typography>
             <Typography variant="span">
-              {clientProfileDetail?.reference}
+              {clientProfileDetail?.reference||"-"}
             </Typography>
           </Box>
           <Box className="userdetail_root">
             <Typography variant="span">Contact</Typography>
             <Typography variant="span">
-              {clientProfileDetail?.contact_number}
+              {clientProfileDetail?.contact_number||"-"}
             </Typography>
           </Box>
           <Box className="userdetail_root">
             <Typography variant="span">Email</Typography>
             <Typography variant="span">
-              {clientProfileDetail?.email}
+              {clientProfileDetail?.email||"-"}
             </Typography>
           </Box>
           <Box className="userdetail_root">
@@ -57,25 +57,25 @@ const ProfileTable = ({ clientProfileDetail }) => {
               sx={{ maxWidth: '250px', textAlign: 'right' }}
               variant="span"
             >
-              {clientProfileDetail?.address}
+              {clientProfileDetail?.address||"-"}
             </Typography>
           </Box>
           <Box className="userdetail_root">
             <Typography variant="span">City</Typography>
             <Typography variant="span">
-              {clientProfileDetail?.country?.name}
+              {clientProfileDetail?.country?.name||"-"}
             </Typography>
           </Box>
           <Box className="userdetail_root">
             <Typography variant="span">State:</Typography>
             <Typography variant="span">
-              {clientProfileDetail?.state}
+              {clientProfileDetail?.state||"-"}
             </Typography>
           </Box>
           <Box className="userdetail_root">
             <Typography variant="span">Country</Typography>
             <Typography variant="span">
-              {clientProfileDetail?.country?.name}
+              {clientProfileDetail?.country?.name||"-"}
             </Typography>
           </Box>
 
@@ -86,7 +86,7 @@ const ProfileTable = ({ clientProfileDetail }) => {
                 sx={{ maxWidth: '250px', textAlign: 'right' }}
                 variant="span"
               >
-                {clientProfileDetail?.indiaMartProductName}
+                {clientProfileDetail?.indiaMartProductName||"-"}
               </Typography>
             </Box>
           )}
@@ -97,7 +97,7 @@ const ProfileTable = ({ clientProfileDetail }) => {
                 sx={{ maxWidth: '250px', textAlign: 'right' }}
                 variant="span"
               >
-                {clientProfileDetail?.indiaMartMessage}
+                {clientProfileDetail?.indiaMartMessage||"-"}
               </Typography>
             </Box>
           )}

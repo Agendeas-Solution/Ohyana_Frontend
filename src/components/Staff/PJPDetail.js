@@ -21,8 +21,6 @@ const PJPDetail = () => {
     date: '',
     clientId: 0,
     description: '',
-    latitude: '',
-    longitude: '',
   })
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -30,21 +28,21 @@ const PJPDetail = () => {
   const handleCloseDialog = () => {
     setAddPJPdetail({ ...addPJPDetail, dialogStatus: false })
   }
-  const getLocation = () => {
-    if (!window.navigator.geolocation) {
-    } else {
-      window.navigator.geolocation.getCurrentPosition(
-        position => {
-          setAddPJPdetail({
-            ...addPJPDetail,
-            latitude: position.coords.latitude.toString(),
-            longitude: position.coords.longitude.toString(),
-          })
-        },
-        () => {},
-      )
-    }
-  }
+  // const getLocation = () => {
+  //   if (!window.navigator.geolocation) {
+  //   } else {
+  //     window.navigator.geolocation.getCurrentPosition(
+  //       position => {
+  //         setAddPJPdetail({
+  //           ...addPJPDetail,
+  //           latitude: position.coords.latitude.toString(),
+  //           longitude: position.coords.longitude.toString(),
+  //         })
+  //       },
+  //       () => {},
+  //     )
+  //   }
+  // }
   useEffect(() => {
     GetPJPList(
       {
@@ -54,6 +52,7 @@ const PJPDetail = () => {
       res => {
         if (res.success) {
           setPjpList(res?.data?.pjps)
+          debugger;
         }
       },
       err => {
@@ -120,7 +119,6 @@ const PJPDetail = () => {
         setAddPJPdetail={setAddPJPdetail}
         handleCloseDialog={handleCloseDialog}
         handleAddPJPDetail={handleAddPJPDetail}
-        getLocation={getLocation}
       />
     </>
   )
