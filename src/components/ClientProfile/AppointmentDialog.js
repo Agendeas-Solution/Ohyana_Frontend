@@ -37,7 +37,7 @@ const AppointmentDialog = ({ clientProfileDetail, handleAppointmentClose,appoint
     GetAllStaffList(
       {},
       res => {
-        setStaffDetailList(res.data.team)
+        setStaffDetailList(res.data)
       },
       err => { },
     )

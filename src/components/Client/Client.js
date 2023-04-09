@@ -316,6 +316,7 @@ const Client = () => {
 
           <Box sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
 
+
             <FormControl sx={{ margin: '10px' }}>
               <InputLabel>Client Type</InputLabel>
               <Select
@@ -354,6 +355,7 @@ const Client = () => {
                 <MenuItem value="OFFICE">Surat</MenuItem>
               </Select>
             </FormControl>
+
 
             <FormControl sx={{ margin: '10px' }}>
               <InputLabel>Select State</InputLabel>
