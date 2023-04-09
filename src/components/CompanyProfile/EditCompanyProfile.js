@@ -183,18 +183,6 @@ const EditCompanyProfile = () => {
         {/* CRM Key*/}
         <Box className="input_field_row">
           <Box className="input_fields">
-            {/* <TextField
-              multiline
-              autoComplete="off"
-              lable="CRM Key"
-              placeholder="Placeholder"
-              minRows={3}
-              onChange={e => {
-                setCompanyDetail({ ...companyDetail, crmKey: e.target.value })
-              }}
-              value={companyDetail.crmKey}
-              variant="outlined"
-            /> */}
             <TextField
               id="outlined-textarea"
               multiline

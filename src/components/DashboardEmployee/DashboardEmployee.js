@@ -29,7 +29,7 @@ const DashboardEmployee = () => {
       res => {
         setSalesInquiry(res?.data)
       },
-      err => {},
+      err => { },
     )
   }, [])
   return (
@@ -42,16 +42,16 @@ const DashboardEmployee = () => {
             </Typography>
           </Box>
           <Box>
-            <Button className="check_InOut_Break_InOut_Btn common_button">
+            <Button className="custom_text_button">
               Check In
             </Button>
-            <Button className="check_InOut_Break_InOut_Btn common_button">
+            <Button className="custom_text_button">
               Break In
             </Button>
-            <Button className="check_InOut_Break_InOut_Btn common_button">
+            <Button className="custom_text_button">
               Break Out
             </Button>
-            <Button className="check_InOut_Break_InOut_Btn common_button">
+            <Button className="custom_text_button">
               Check Out
             </Button>
           </Box>
