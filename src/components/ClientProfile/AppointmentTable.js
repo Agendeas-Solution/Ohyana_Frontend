@@ -14,7 +14,7 @@ import moment from 'moment'
 import EditAppointmentDialog from './EditAppointmentDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 
-const AppointmentTable = props => {
+const AppointmentTable = ({ clientAppointmentList }) => {
   const [editClientAppointmentDetail, setEditClientAppointmentDetail] =
     useState({
       date: '',
@@ -53,7 +53,7 @@ const AppointmentTable = props => {
           overflowY: 'auto',
         }}
       >
-        {props.clientAppointmentList.length > 0 ? (
+        {clientAppointmentList.length>0 ? (
           <Table
             stickyHeader
             aria-label="sticky table"
@@ -72,7 +72,7 @@ const AppointmentTable = props => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.clientAppointmentList.map((row, index) => (
+              {clientAppointmentList && clientAppointmentList.map((row, index) => (
                 <TableRow
                   key={index}
                   hover

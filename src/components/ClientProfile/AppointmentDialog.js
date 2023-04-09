@@ -17,13 +17,13 @@ import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import './index.css'
 import { GetAllStaffList } from '../../services/apiservices/staffDetail.js'
-const AppointmentDialog = props => {
+const AppointmentDialog = ({ clientProfileDetail, handleAppointmentClose,appointmentDialog }) => {
   const [clientAppointmentDetail, setClientAppointmentDetail] = useState({
     date: '',
     time: '',
     description: '',
     appointed_member: [],
-    clientId: props?.clientProfileDetail?.id,
+    clientId: clientProfileDetail?.id,
     appointment_unit: '',
   })
   const { successSnackbar } = useContext(ContextSnackbar)?.state
@@ -39,7 +39,7 @@ const AppointmentDialog = props => {
       res => {
         setStaffDetailList(res.data.team)
       },
-      err => {},
+      err => { },
     )
   }, [])
   const handleAddAppointment = () => {
@@ -58,7 +58,7 @@ const AppointmentDialog = props => {
       AddAdminClientAppointmentDetail(
         clientAppointmentDetail,
         res => {
-          props.handleAppointmentClose()
+          handleAppointmentClose()
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
@@ -82,8 +82,8 @@ const AppointmentDialog = props => {
   return (
     <>
       <Dialog
-        open={props.appointmentDialog}
-        onClose={props.handleAppointmentClose}
+        open={appointmentDialog}
+        onClose={handleAppointmentClose}
       >
         <div className="px-3  my-3">
           <h3>Appointment</h3>
@@ -145,7 +145,7 @@ const AppointmentDialog = props => {
                     setClientAppointmentDetail({
                       ...clientAppointmentDetail,
                       description: e.target.value,
-                      clientId: props?.clientProfileDetail?.id,
+                      clientId:clientProfileDetail?.id,
                     })
                   }}
                   value={clientAppointmentDetail.description}
@@ -228,7 +228,7 @@ const AppointmentDialog = props => {
           <Button variant="contained" onClick={handleAddAppointment}>
             Ok
           </Button>
-          <Button variant="contained" onClick={props.handleAppointmentClose}>
+          <Button variant="contained" onClick={handleAppointmentClose}>
             Cancel
           </Button>
         </DialogActions>

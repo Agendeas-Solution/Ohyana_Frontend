@@ -413,7 +413,6 @@ const Dashboard = () => {
               </TableHead>
               <TableBody>
                 {inquiryData?.teamWithPoints && inquiryData?.teamWithPoints.map(data => {
-                  console.log({ DATA: data })
                   return (
                     <TableRow
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -423,7 +422,7 @@ const Dashboard = () => {
                           <Avatar
                             className="me-2"
                             sx={{ width: 40, height: 40 }}
-                            src={data?.imageUrl ? data?.imageUrl : "/static/images/avatar/1.jpg"}
+                            src={data?.imgUrl ? data?.imgUrl : "/static/images/avatar/1.jpg"}
                           />
                         </Stack>
                       </TableCell>

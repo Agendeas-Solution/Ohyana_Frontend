@@ -151,10 +151,9 @@ const ClientProfile = () => {
   }
 
   const handleCallOpen = () => {
-    setCallDialog(true)
+    setAddPoorContact({ ...addPoorContact, status: true })
   }
   const handleCallClose = () => {
-    setCallDialog(false)
     setAddPoorContact({
       ...addPoorContact,
       status: false,
@@ -468,7 +467,7 @@ const ClientProfile = () => {
               handleStatusClose={handleStatusClose}
             />
             <PoorContact
-              addPoorContact={callDialog}
+              addPoorContact={addPoorContact}
               handleCallClose={handleCallClose}
             />
             <StageDialog

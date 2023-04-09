@@ -17,15 +17,10 @@ import { Context as AuthContext } from '../../context/authContext/authContext'
 import StaffIcon from '../../assets/img/staff.svg'
 import ClientIcon from '../../assets/img/Clients.svg'
 import SettingIcon from '../../assets/img/setting.svg'
+import { CLIENT } from '../../constants/clientConstant'
 const AccessPanel = () => {
   const { permissions } = useContext(AuthContext).state
-  const [clientType, setClientType] = useState([
-    { stage: 'intiate', id: 0 },
-    { stage: 'no response', id: 1 },
-    { stage: 'irrelevant', id: 2 },
-    { stage: 'inter-mediate', id: 3 },
-    { stage: 'confirm', id: 4 },
-  ])
+  const [clientType, setClientType] = useState(CLIENT.STAGE)
   const [accessControl, setAccessControl] = useState({
     clientControl: false,
     client: {
