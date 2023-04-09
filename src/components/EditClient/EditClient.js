@@ -6,7 +6,7 @@ import {
   Button,
   Select,
   MenuItem,
-  Autocomplete,
+  Autocomplete, FormControl, InputLabel
 } from '@mui/material'
 import { GetAdminProductList, EditClientDetail } from '../../services/apiservices/adminprofile'
 import {
@@ -53,7 +53,7 @@ const EditClient = () => {
       {},
       res => {
         if (res.success) {
-          setCountryList(res.data.country)
+          setCountryList(res.data)
         }
       },
       err => {
@@ -64,17 +64,18 @@ const EditClient = () => {
       parseInt(path),
       res => {
         if (res.success) {
+          debugger;
           setUserDetail({
             ...userDetail,
             clientName: res.data.name,
             reference: res.data.reference,
             email: res.data.email,
+            max_invesment_amount:res.data.max_invesment_amount,
             contactNo: res.data.contact_number,
-            clientType: res.data.client_type,
             country: res.data.country,
-            state: res.data.state,
+            state: res.data.stateId,
             address: res.data.address,
-            city: res.data.city,
+            city: res.data.cityId,
             business: res.data.business,
             clientType: res.data.isInternational.toString(),
             referenceName: res.data.reference_name,
@@ -124,6 +125,8 @@ const EditClient = () => {
   //   setFilteredProductList(productlist)
   // }, [userDetail?.inquiryfor])
   const EditClient = () => {
+    console.log('userDetail',userDetail);
+    debugger;
     if (
       userDetail.clientName !== '' &&
       (userDetail.email || userDetail.contactNo) &&
@@ -146,10 +149,7 @@ const EditClient = () => {
         state: userDetail.state,
         address: userDetail.address,
         countryId: userDetail.country?.id,
-        // products: [...new Set(userDetail?.product.map(item => item?.id))],
-        memberId: userDetail.clientName,
         city: userDetail.city,
-        memberId: 3,
         reference_name: userDetail?.referenceName,
       }
       let path = window.location.pathname
@@ -162,7 +162,6 @@ const EditClient = () => {
         res => {
           if (res.success) {
             navigate(`/clientprofile/${path}`)
-
             setSuccessSnackbar({
               ...successSnackbar,
               status: true,
@@ -176,7 +175,220 @@ const EditClient = () => {
   }
   return (
     <>
-      <div>
+      <div className="main_section">
+        <div>
+          <Box className="input_field_row">
+            <Box className="input_fields">
+              <TextField
+                label="Client Name"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, clientName: e.target.value })
+                }}
+                value={userDetail.clientName}
+                variant="outlined"
+              />
+            </Box>
+
+            <Box className="input_fields">
+              <TextField
+                label="Business Name"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, business: e.target.value })
+                }}
+                value={userDetail.business}
+                variant="outlined"
+              />
+            </Box>
+
+          </Box>
+
+          {/* Contact No. &&  Investment Scale*/}
+          <Box className="input_field_row">
+            <Box className="input_fields">
+
+              <TextField
+                label="Contact No"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, contactNo: e.target.value })
+                }}
+                value={userDetail.contactNo}
+                variant="outlined"
+              />
+            </Box>
+
+            <Box className="input_fields">
+              <TextField
+                label="Investment Scale "
+                onChange={e => {
+                  setUserDetail({ ...userDetail, max_invesment_amount: e.target.value })
+                }}
+                value={userDetail.max_invesment_amount}
+                variant="outlined"
+              />
+            </Box>
+          </Box>
+
+          {/* Email && Address*/}
+          <Box className="input_field_row">
+            <Box className="input_fields">
+              <TextField
+                label="Email"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, email: e.target.value })
+                }}
+                value={userDetail.email}
+                variant="outlined"
+              />
+            </Box>
+            <Box className="input_fields">
+              <TextField
+                autocomplete="off"
+                label="Address"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, address: e.target.value })
+                }}
+                value={userDetail.address}
+                variant="outlined"
+              />
+            </Box>
+          </Box>
+
+          {/* Client Type & City*/}
+          <Box className="input_field_row">
+
+            <Box className="input_fields">
+              <FormControl>
+                <InputLabel>Client Type</InputLabel>
+                <Select
+                  label="Client Type"
+                  value={userDetail.clientType}
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, clientType: e.target.value })
+                  }}
+                >
+                  <MenuItem value="true">Domestic</MenuItem>
+                  <MenuItem value="false">International</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+
+            <Box className="input_fields">
+              <TextField
+                label="City"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, city: e.target.value })
+                }}
+                value={userDetail.city}
+                variant="outlined"
+              />
+            </Box>
+
+          </Box>
+          {/* Country & State*/}
+          <Box className="input_field_row">
+            <Box className="input_fields">
+              <Autocomplete
+                disablePortal
+                options={countryList}
+                value={userDetail?.country}
+                onChange={(e, value) => {
+                  setUserDetail({ ...userDetail, country: value })
+                }}
+                getOptionLabel={option => option?.name}
+                renderInput={params => (
+                  <TextField {...params} label="Select Country" />
+                )}
+              />
+            </Box>
+
+            <Box className="input_fields">
+              <TextField
+                label="State"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, state: e.target.value })
+                }}
+                value={userDetail.state}
+                variant="outlined"
+              />
+            </Box>
+
+          </Box>
+
+
+          {/* Reference Name*/}
+          <Box className="input_field_row">
+
+            <Box className="input_fields">
+              <FormControl>
+                <InputLabel>Reference</InputLabel>
+                <Select
+                  label="Reference"
+                  value={userDetail.reference}
+                  onChange={e => {
+                    setUserDetail({
+                      ...userDetail,
+                      reference: e.target.value,
+                      referenceName: "",
+                    })
+                  }}
+                >
+                  <MenuItem value="DIGITAL">Digital</MenuItem>
+                  <MenuItem value="OFFICE">Office</MenuItem>
+                  <MenuItem value="OTHER">Other</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            {userDetail.reference === 'OTHER' && (
+              <Box className="input_fields">
+                <TextField
+                  label="Reference Name"
+                  onChange={e => {
+                    setUserDetail({
+                      ...userDetail,
+                      referenceName: e.target.value,
+                    })
+                  }}
+                  value={userDetail.referenceName}
+                  variant="outlined"
+                />
+              </Box>
+            )}
+            {userDetail.reference === 'DIGITAL' && <Box className="input_fields">
+              <FormControl>
+                <InputLabel>Reference Name</InputLabel>
+                <Select
+                  label="Reference"
+                  value={userDetail.referenceName}
+                  onChange={e => {
+                    setUserDetail({
+                      ...userDetail,
+                      referenceName: e.target.value
+                    })
+                  }}
+                >
+                  <MenuItem value="INDIAMART">IndiaMart</MenuItem>
+                  <MenuItem value="WEBSITE">Website</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>}
+          </Box>
+          {/* Save Button */}
+          <Box
+            sx={{ display: 'flex', justifyContent: 'flex-end' }}
+            className="input_field_row"
+          >
+            <Button
+              onClick={EditClient}
+              variant="contained"
+              className="edit_page_save_button"
+            >
+              Save
+            </Button>
+          </Box>
+
+        </div>
+      </div>
+      {/* <div>
         <Box className="bg-body mt-4 p-3">
           <Box className="input_field_row">
             <Box className="input_fields">
@@ -291,21 +503,6 @@ const EditClient = () => {
             </Box>
           </Box>
           <Box className="input_field_row">
-            {/* <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                Inquiry for
-              </Typography>
-              <Select
-                value={userDetail.inquiryfor}
-                onChange={e => {
-                  setUserDetail({ ...userDetail, inquiryfor: e.target.value })
-                }}
-              >
-                <MenuItem value="BOTH">Both</MenuItem>
-                <MenuItem value="MACHINE">Machine</MenuItem>
-                <MenuItem value="PRODUCT">Product</MenuItem>
-              </Select>
-            </Box> */}
             <Box className="input_fields">
               <Typography className="input_field_label" variant="span">
                 State
@@ -321,31 +518,6 @@ const EditClient = () => {
             </Box>
           </Box>
           <Box className="input_field_row">
-            {/* <Box className="input_fields">
-              <Typography className="input_field_label" variant="span">
-                Product
-              </Typography>
-              <Autocomplete
-                limitTags={2}
-                filterSelectedOptions
-                options={filteredProductList}
-                value={userDetail?.product}
-                onChange={(e, value) => {
-                  console.log(value)
-                  setUserDetail({ ...userDetail, product: value })
-                }}
-                getOptionLabel={option => option?.name}
-                multiple
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    placeholder={
-                      userDetail?.product.length > 0 ? '' : 'Select Product'
-                    }
-                  />
-                )}
-              />
-            </Box> */}
             <Box className="input_fields">
               <Typography className="input_field_label" variant="span">
                 Address
@@ -402,7 +574,7 @@ const EditClient = () => {
             </Button>
           </Box>
         </Box>
-      </div>
+      </div> */}
     </>
   )
 }

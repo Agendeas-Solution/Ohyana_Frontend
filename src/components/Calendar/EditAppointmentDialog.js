@@ -14,17 +14,17 @@ import { Context as ContextEditAppointmentDialog } from '../../context/pageConte
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-const EditAppointmentDialog = props => {
+const EditAppointmentDialog = ({ AppointmentDetails,handleAppointmentDialogClose }) => {
   const { editAppointmentDialogFlag } = useContext(
     ContextEditAppointmentDialog,
   )?.state
   const [editAppointment, setEditAppointment] = useState({
-    heading: props?.AppointmentDetails?.heading,
-    description: props?.AppointmentDetails?.description,
-    date: props?.AppointmentDetails?.date,
-    time: props?.AppointmentDetails?.time,
+    heading: AppointmentDetails?.heading,
+    description: AppointmentDetails?.description,
+    date: AppointmentDetails?.date,
+    time: AppointmentDetails?.time,
     type: 'APPOINTMENT',
-    id: props?.AppointmentDetails?.id,
+    id: AppointmentDetails?.id,
   })
   const handleEditAppointment = () => {
     console.log('Printing addAppointment', editAppointment)
@@ -44,7 +44,7 @@ const EditAppointmentDialog = props => {
         },
         res => {
           if (res.success) {
-            props.handleAppointmentDialogClose()
+            handleAppointmentDialogClose()
             setEditAppointment({
               ...editAppointment,
               heading: '',
@@ -54,7 +54,7 @@ const EditAppointmentDialog = props => {
             })
           }
         },
-        err => {},
+        err => { },
       )
     }
   }
@@ -62,7 +62,7 @@ const EditAppointmentDialog = props => {
     <>
       <Dialog
         open={editAppointmentDialogFlag}
-        onClose={props.handleAppointmentDialogClose}
+        onClose={handleAppointmentDialogClose}
       >
         <div className="px-3 py-3">
           <h3>Appointment</h3>
@@ -167,7 +167,7 @@ const EditAppointmentDialog = props => {
           </Button>
           <Button
             className="cancel-btn"
-            onClick={props.handleAppointmentDialogClose}
+            onClick={handleAppointmentDialogClose}
           >
             Cancel
           </Button>

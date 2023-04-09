@@ -319,11 +319,9 @@ const Client = () => {
                 <Box >
                   <Button onClick={handleApplyFilter} variant="contained">Apply</Button>
                   <Button onClick={handleClearAllFilter}>Clear All</Button>
-
                 </Box>
               </DrawerHeader>
               <Divider />
-
               <Box sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
 
                 <FormControl sx={{ margin: '10px' }}>
