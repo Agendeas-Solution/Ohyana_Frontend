@@ -87,8 +87,8 @@ const AppointmentList = props => {
 
   return (
     <>
-      <div className="bg-body p-4">
-        <Box sx={{ height: '83vh' }} className="appointment_notification">
+      <div>
+        <Box className="appointment_notification">
           {props.AppointmentListDetail.map(rowData => {
             return (
               <>
