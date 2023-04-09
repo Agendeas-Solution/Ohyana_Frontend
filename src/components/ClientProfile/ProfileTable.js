@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
 import moment from 'moment'
+import { CLIENT } from '../../constants'
 
 const ProfileTable = props => {
   return (
@@ -28,11 +29,11 @@ const ProfileTable = props => {
           </Box> */}
           <Box className="userdetail_root">
             <Typography variant="span">Client stage</Typography>
-            <Box sx={{ maxWidth: '50%' }}></Box>
+            <Box sx={{ maxWidth: '50%' }}>      {CLIENT.STAGE.find(e=> e.id == props?.clientProfileDetail?.stage).stage}</Box>
           </Box>
           <Box className="userdetail_root">
             <Typography variant="span">Investment Capacity</Typography>
-            <Box sx={{ maxWidth: '50%' }}></Box>
+            <Box sx={{ maxWidth: '50%' }}>{props?.clientProfileDetail?.max_invesment_amount}</Box>
           </Box>
           <Box className="userdetail_root">
             <Typography variant="span">Reference</Typography>

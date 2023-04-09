@@ -151,10 +151,9 @@ const ClientProfile = () => {
   }
 
   const handleCallOpen = () => {
-    setCallDialog(true)
+    setAddPoorContact({ ...addPoorContact, status: true })
   }
   const handleCallClose = () => {
-    setCallDialog(false)
     setAddPoorContact({
       ...addPoorContact,
       status: false,
@@ -209,9 +208,9 @@ const ClientProfile = () => {
               <Box className="userName_and_position">
                 <AccountCircleRoundedIcon
                   className="user_profile_icon"
-                  // sx={{
-                  //   paddingTop: 2,
-                  // }}
+                // sx={{
+                //   paddingTop: 2,
+                // }}
                 />
                 <Box
                   sx={{
@@ -259,7 +258,7 @@ const ClientProfile = () => {
                     onClick={() => {
                       navigate(`/editclient/${clientProfileDetail.id}`)
                     }}
-                    // className="icon"
+                  // className="icon"
                   />
                 )}
               </Button>
@@ -470,7 +469,7 @@ const ClientProfile = () => {
               handleStatusClose={handleStatusClose}
             />
             <PoorContact
-              addPoorContact={callDialog}
+              addPoorContact={addPoorContact}
               handleCallClose={handleCallClose}
             />
             <StageDialog

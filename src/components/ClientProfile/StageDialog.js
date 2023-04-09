@@ -12,6 +12,7 @@ import {
 } from '@mui/material'
 import { EditClientStage } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+import { CLIENT } from '../../constants'
 const StageDialog = props => {
   const [stageStatus, setStageStatus] = useState(
     props?.clientProfileDetail?.stage,
@@ -30,7 +31,7 @@ const StageDialog = props => {
           message: res.data.message,
         })
       },
-      err => {},
+      err => { },
     )
   }
   return (
@@ -52,31 +53,15 @@ const StageDialog = props => {
                     defaultValue={props?.clientProfileDetail?.stage}
                     column
                   >
-                    <FormControlLabel
-                      value={0}
-                      control={<Radio />}
-                      label="Initiate"
-                    />
-                    <FormControlLabel
-                      value={1}
-                      control={<Radio />}
-                      label="No Response"
-                    />
-                    <FormControlLabel
-                      value={2}
-                      control={<Radio />}
-                      label="Irrelevant"
-                    />
-                    <FormControlLabel
-                      value={3}
-                      control={<Radio />}
-                      label="Intermediate"
-                    />
-                    <FormControlLabel
-                      value={4}
-                      control={<Radio />}
-                      label="Confirm"
-                    />
+                    {
+                      CLIENT.STAGE.map((stage) => {
+                        return <FormControlLabel
+                          value={stage.id}
+                          control={<Radio />}
+                          label={stage.stage}
+                        />
+                      })
+                    }
                   </RadioGroup>
                 </FormControl>
               </div>

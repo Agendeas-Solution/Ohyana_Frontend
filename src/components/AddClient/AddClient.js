@@ -31,13 +31,12 @@ const AddClient = () => {
     clientType: '',
     country: null,
     inquiryfor: '',
-    max_invesment_amoun: '',
-    // product: [],
+    max_invesment_amount: null,
     address: '',
     state: '',
     city: '',
     business: '',
-    referenceName: null,
+    referenceName: "",
   })
   const [adminProductList, setAdminProductList] = useState([])
   const [countryList, setCountryList] = useState([])
@@ -127,27 +126,25 @@ const AddClient = () => {
       userDetail.clientType !== '' &&
       userDetail.state !== '' &&
       userDetail.city !== '' &&
-      userDetail.country !== '' &&
-      // userDetail.memberId !== "" &&
-      // userDetail.product.length > 0 &&
-      userDetail.inquiryfor !== ''
+      userDetail.country !== ''
     ) {
+
+
       let clientDetail = {
         name: userDetail.clientName,
         email: userDetail?.email,
         reference: userDetail.reference,
         business: userDetail.business,
         contact_number: userDetail.contactNo,
-        client_type: userDetail.clientType,
+        isInternational: userDetail.clientType,
         state: userDetail.state,
         address: userDetail.address,
         countryId: userDetail.country.id,
-        // products: [...new Set(userDetail?.product.map(item => item?.id))],
-        // memberId: userDetail.clientName,
+        max_invesment_amount: userDetail.max_invesment_amount,
         city: userDetail.city,
-        memberId: 3,
         reference_name: userDetail?.referenceName,
       }
+      debugger;
       AddClientDetail(
         clientDetail,
         res => {
@@ -178,7 +175,6 @@ const AddClient = () => {
     <>
       <div className="main_section">
         <div>
-          {/* Client Name &&  Business  */}
           <Box className="input_field_row">
             <Box className="input_fields">
               <TextField
@@ -222,9 +218,9 @@ const AddClient = () => {
               <TextField
                 label="Investment Scale "
                 onChange={e => {
-                  setUserDetail({ ...userDetail, max_invesment_amoun: e.target.value })
+                  setUserDetail({ ...userDetail, max_invesment_amount: e.target.value })
                 }}
-                value={userDetail.email}
+                value={userDetail.max_invesment_amount}
                 variant="outlined"
               />
             </Box>
@@ -330,12 +326,11 @@ const AddClient = () => {
                     setUserDetail({
                       ...userDetail,
                       reference: e.target.value,
-                      referenceName: null,
+                      referenceName: "",
                     })
                   }}
                 >
-                  <MenuItem value="INDIAMART">Indiamart</MenuItem>
-                  <MenuItem value="WEBSITE">Website</MenuItem>
+                  <MenuItem value="DIGITAL">Digital</MenuItem>
                   <MenuItem value="OFFICE">Office</MenuItem>
                   <MenuItem value="OTHER">Other</MenuItem>
                 </Select>
@@ -356,6 +351,24 @@ const AddClient = () => {
                 />
               </Box>
             )}
+            {userDetail.reference === 'DIGITAL' && <Box className="input_fields">
+              <FormControl>
+                <InputLabel>Reference Name</InputLabel>
+                <Select
+                  label="Reference"
+                  value={userDetail.referenceName}
+                  onChange={e => {
+                    setUserDetail({
+                      ...userDetail,
+                      referenceName: e.target.value
+                    })
+                  }}
+                >
+                  <MenuItem value="INDIAMART">IndiaMart</MenuItem>
+                  <MenuItem value="WEBSITE">Website</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>}
           </Box>
           {/* Save Button */}
           <Box
