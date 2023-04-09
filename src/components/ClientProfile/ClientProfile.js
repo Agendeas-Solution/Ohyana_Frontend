@@ -209,9 +209,9 @@ const ClientProfile = () => {
               <Box className="userName_and_position">
                 <AccountCircleRoundedIcon
                   className="user_profile_icon"
-                  // sx={{
-                  //   paddingTop: 2,
-                  // }}
+                // sx={{
+                //   paddingTop: 2,
+                // }}
                 />
                 <Box
                   sx={{
@@ -259,7 +259,7 @@ const ClientProfile = () => {
                     onClick={() => {
                       navigate(`/editclient/${clientProfileDetail.id}`)
                     }}
-                    // className="icon"
+                  // className="icon"
                   />
                 )}
               </Button>
@@ -294,7 +294,7 @@ const ClientProfile = () => {
                         onClick={handleStatusOpen}
                         className="common_button"
                       >
-                        {/* <AddRoundedIcon /> */}+ Status
+                        + Status
                       </Button>
                       <Button className="common_button">Close</Button>
                     </>
@@ -306,8 +306,7 @@ const ClientProfile = () => {
                         className="common_button"
                         variant="contained"
                       >
-                        <AddRoundedIcon />
-                        Reminder
+                        + Reminder
                       </Button>
                     </>
                   ) : null}
@@ -318,8 +317,7 @@ const ClientProfile = () => {
                         onClick={handleAppointmentOpen}
                         variant="contained"
                       >
-                        <AddRoundedIcon />
-                        Appointment
+                        + Appointment
                       </Button>
                     </>
                   ) : null}
@@ -331,7 +329,7 @@ const ClientProfile = () => {
                         variant="contained"
                       >
                         {/* <AddRoundedIcon /> */}
-                        Create
+                        + Create
                       </Button>
                     </>
                   ) : null}

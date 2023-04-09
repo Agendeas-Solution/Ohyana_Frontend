@@ -225,238 +225,228 @@ const Client = () => {
     deleteClientDialogControl.status,
   ])
   return (
-    <Box sx={{ backgroundColor: '#f1f2f6' }} className="main_tab_section">
-      <Box sx={{ marginBottom: '10px' }}>
-        {/* {clientLoader && <Loader />} */}
-        {/* <Box> */}
-        {/* <Box className="notification_tabs_root align-items-center d-flex"> */}
-        <Box className="tab_header">
-          <Box>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              textColor="secondary"
-              indicatorColor="secondary"
-              variant="scrollable"
-              scrollButtons="auto"
-            >
-              <Tab value="digital" label="Digital" />
-              <Tab value="business_card" label="Business Card" />
-              <Tab value="prospective" label="Prospective" />
-              <Tab value="existing" label="Existing" />
-              <Tab value="other" label="Other" />
-            </Tabs>
-          </Box>
+    <Box className="main_tab_section">
 
-          <Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
+      <Box className="tab_header">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          textColor="secondary"
+          indicatorColor="secondary"
+          variant="scrollable"
+          scrollButtons="auto"
+        >
+          <Tab value="digital" label="Digital" />
+          <Tab value="business_card" label="Business Card" />
+          <Tab value="prospective" label="Prospective" />
+          <Tab value="existing" label="Existing" />
+          <Tab value="other" label="Other" />
+        </Tabs>
+
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <FormControl variant="outlined">
+            <OutlinedInput
+              className="search_field"
+              placeholder="Search Here..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              startAdornment={
+                <InputAdornment position="start" sx={{ margin: '0' }}>
+                  <IconButton>
+                    <SearchRoundedIcon />
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+
+          {permissions?.editClient && (
+            <Button
+              className="main_tab_button"
+              onClick={() => {
+                navigate('/addclient')
               }}
             >
-              <FormControl variant="outlined">
-                <OutlinedInput
-                  className="search_field"
-                  placeholder="Search Here..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  startAdornment={
-                    <InputAdornment position="start" sx={{ margin: '0' }}>
-                      <IconButton>
-                        <SearchRoundedIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
+              + New Clients
+            </Button>
+          )}
 
-              {permissions?.editClient && (
-                <Button
-                  className="main_tab_button"
-                  onClick={() => {
-                    navigate('/addclient')
-                  }}
-                >
-                  + New Clients
-                </Button>
-              )}
+          <IconButton
+            edge="end"
+            onClick={handleDrawerOpen}
+            sx={{ ...(open && { display: 'none' }) }}
+          >
+            <img src={FilterIcon} alt="" />
+          </IconButton>
+
+        </Box>
+        <Drawer
+          sx={{
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+            },
+          }}
+          anchor="right"
+          open={open}
+        >
+          <DrawerHeader sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
 
               <IconButton
-                edge="end"
-                onClick={handleDrawerOpen}
-                sx={{ ...(open && { display: 'none' }) }}
+                sx={{ color: '#2e3591' }}
+                disableRipple={true}
+                onClick={handleDrawerClose}
               >
-                <img src={FilterIcon} alt="" />
+                {theme.direction === 'rtl' ? (
+                  <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                ) : (
+                  <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                )}
               </IconButton>
-            </Box>
 
-            <Drawer
-              sx={{
-                width: 2,
-                flexShrink: 0,
-                '& .MuiDrawer-paper': {
-                  width: drawerWidth,
-                },
-              }}
-              variant="persistent"
-              anchor="right"
-              open={open}
-            >
-              <DrawerHeader sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-
-                  <IconButton
-                    sx={{ color: '#2e3591' }}
-                    disableRipple={true}
-                    onClick={handleDrawerClose}
-                  >
-                    {theme.direction === 'rtl' ? (
-                      <ChevronLeftIcon sx={{ fontSize: '30px' }} />
-                    ) : (
-                      <ChevronRightIcon sx={{ fontSize: '30px' }} />
-                    )}
-                  </IconButton>
-
-                  <Typography sx={{ fontSize: '20px', }}>
-                    Filter By
-                  </Typography>
-
-                </Box>
-                <Box >
-                  <Typography>Clear All</Typography>
-
-                </Box>
-              </DrawerHeader>
-              <Divider />
-
-              <Box sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
-
-                <FormControl sx={{ margin: '10px' }}>
-                  <InputLabel>Client Type</InputLabel>
-                  <Select
-                    label="Client Stage"
-                    value={
-                      clientStage !== null ? clientType[clientStage] : null
-                    }
-                    onChange={(e, value) => {
-                      console.log(value)
-                      setClientStage(value?.id)
-                    }}
-                  >
-                    {
-                      clientType.map((data) => {
-                        return <MenuItem value={data.id}>{data.stage}</MenuItem>
-                      })
-                    }
-
-                  </Select>
-                </FormControl>
-
-                <FormControl sx={{ margin: '10px' }}>
-                  <InputLabel>Select City</InputLabel>
-                  <Select
-                    label="Select City"
-                    // value=
-                    //   {userDetail.city}
-                    onChange={(e, value) => {
-                      // console.log(value)
-                      // setClientCity(value?.id)
-                    }}
-                  >
-                    <MenuItem value="INDIAMART">Ahmedabad</MenuItem>
-                    <MenuItem value="WEBSITE">Baroda</MenuItem>
-                    <MenuItem value="WEBSITE">Rajkot</MenuItem>
-                    <MenuItem value="OFFICE">Surat</MenuItem>
-                  </Select>
-                </FormControl>
-
-                <FormControl sx={{ margin: '10px' }}>
-                  <InputLabel>Select State</InputLabel>
-                  <Select
-                    label="Select State"
-                    // value=
-                    //   {userDetail.state}
-                    onChange={(e, value) => {
-                      // console.log(value)
-                      // setClientState(value?.id)
-                    }}
-                  >
-                    <MenuItem value="WEBSITE">Chhattisgarh</MenuItem>
-                    <MenuItem value="INDIAMART">Gujarat</MenuItem>
-                    <MenuItem value="OFFICE">Maharashtra</MenuItem>
-                    <MenuItem value="WEBSITE">Uttar Pradesh</MenuItem>
-                  </Select>
-                </FormControl>
-
-              </Box>
-            </Drawer>
-          </Box>
-        </Box>
-        <Box>
-          {value === 'business_card' ? (
-            <BusinessCard clientDetails={clientDetails} />
-          ) : (
-            <CustomerList
-              clientDetails={clientDetails}
-              ViewClientDetail={ViewClientDetail}
-            />
-          )}
-          <Pagination
-            className="mt-3"
-            boundaryCount={0}
-            siblingCount={0}
-            size="small"
-            shape="rounded"
-            count={numbersToDisplayOnPagination}
-            page={currentPage}
-            onChange={(e, value) => {
-              setCurrentPage(value)
-            }}
-          />
-        </Box>
-        {/* </Box> */}
-
-        <Dialog
-          open={deleteClientDialogControl.status}
-          onClose={handleDialogClose}
-        >
-          <Box className="client_appointment_dialog">
-            <Box className="client_appointment_content">
-              <img
-                style={{ width: '60px', height: '60px' }}
-                src={DeleteIcon}
-                alt=""
-              />
-              <Typography variant="h5" sx={{ fontWeight: '500' }}>
-                Delete Client
+              <Typography sx={{ fontSize: '20px', }}>
+                Filter By
               </Typography>
-              <Typography
-                sx={{ marginTop: '10px', marginBottom: '10px' }}
-                variant="span"
-              >
-                Are You Sure you want to Delete this Client ?
-              </Typography>
+
             </Box>
-            <DialogActions>
-              <Button
-                variant="contained"
-                onClick={handleClientDelete}
-                autoFocus
+            <Box >
+              <Typography>Clear All</Typography>
+
+            </Box>
+          </DrawerHeader>
+          <Divider />
+
+          <Box sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
+
+            <FormControl sx={{ margin: '10px' }}>
+              <InputLabel>Client Type</InputLabel>
+              <Select
+                label="Client Stage"
+                value={
+                  clientStage !== null ? clientType[clientStage] : null
+                }
+                onChange={(e, value) => {
+                  console.log(value)
+                  setClientStage(value?.id)
+                }}
               >
-                Ok
-              </Button>
-              <Button
-                className="cancel-btn"
-                onClick={handleDialogClose}
-                autoFocus
+                {
+                  clientType.map((data) => {
+                    return <MenuItem value={data.id}>{data.stage}</MenuItem>
+                  })
+                }
+
+              </Select>
+            </FormControl>
+
+            <FormControl sx={{ margin: '10px' }}>
+              <InputLabel>Select City</InputLabel>
+              <Select
+                label="Select City"
+                // value=
+                //   {userDetail.city}
+                onChange={(e, value) => {
+                  // console.log(value)
+                  // setClientCity(value?.id)
+                }}
               >
-                Cancel
-              </Button>
-            </DialogActions>
+                <MenuItem value="INDIAMART">Ahmedabad</MenuItem>
+                <MenuItem value="WEBSITE">Baroda</MenuItem>
+                <MenuItem value="WEBSITE">Rajkot</MenuItem>
+                <MenuItem value="OFFICE">Surat</MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl sx={{ margin: '10px' }}>
+              <InputLabel>Select State</InputLabel>
+              <Select
+                label="Select State"
+                // value=
+                //   {userDetail.state}
+                onChange={(e, value) => {
+                  // console.log(value)
+                  // setClientState(value?.id)
+                }}
+              >
+                <MenuItem value="WEBSITE">Chhattisgarh</MenuItem>
+                <MenuItem value="INDIAMART">Gujarat</MenuItem>
+                <MenuItem value="OFFICE">Maharashtra</MenuItem>
+                <MenuItem value="WEBSITE">Uttar Pradesh</MenuItem>
+              </Select>
+            </FormControl>
+
           </Box>
-        </Dialog>
+        </Drawer>
+
       </Box>
+
+      <Box sx={{ overflowY: "hidden" }} className="client_body_section">
+        {value === 'business_card' ? (
+          <BusinessCard clientDetails={clientDetails} />
+        ) : (
+          <CustomerList
+            clientDetails={clientDetails}
+            ViewClientDetail={ViewClientDetail}
+          />
+        )}
+        <Pagination
+          className="mt-3"
+          boundaryCount={0}
+          siblingCount={0}
+          size="small"
+          shape="rounded"
+          count={numbersToDisplayOnPagination}
+          page={currentPage}
+          onChange={(e, value) => {
+            setCurrentPage(value)
+          }}
+        />
+      </Box>
+
+      <Dialog
+        open={deleteClientDialogControl.status}
+        onClose={handleDialogClose}
+      >
+        <Box className="client_appointment_dialog">
+          <Box className="client_appointment_content">
+            <img
+              style={{ width: '60px', height: '60px' }}
+              src={DeleteIcon}
+              alt=""
+            />
+            <Typography variant="h5" sx={{ fontWeight: '500' }}>
+              Delete Client
+            </Typography>
+            <Typography
+              sx={{ marginTop: '10px', marginBottom: '10px' }}
+              variant="span"
+            >
+              Are You Sure you want to Delete this Client ?
+            </Typography>
+          </Box>
+          <DialogActions>
+            <Button
+              variant="contained"
+              onClick={handleClientDelete}
+              autoFocus
+            >
+              Ok
+            </Button>
+            <Button
+              className="cancel-btn"
+              onClick={handleDialogClose}
+              autoFocus
+            >
+              Cancel
+            </Button>
+          </DialogActions>
+        </Box>
+      </Dialog>
     </Box >
   )
 }

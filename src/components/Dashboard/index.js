@@ -54,25 +54,25 @@ const Dashboard = () => {
           <Box>
             <Button
               onClick={() => handleCheckIn('checkIn')}
-              className="check_InOut_Break_InOut_Btn"
+              className="custom_text_button"
             >
               Check In
             </Button>
             <Button
               onClick={() => handleCheckIn('breakIn')}
-              className="check_InOut_Break_InOut_Btn"
+              className="custom_text_button"
             >
               Break In
             </Button>
             <Button
               onClick={() => handleCheckIn('breakOut')}
-              className="check_InOut_Break_InOut_Btn"
+              className="custom_text_button"
             >
               Break Out
             </Button>
             <Button
               onClick={() => handleCheckIn('checkOut')}
-              className="check_InOut_Break_InOut_Btn"
+              className="custom_text_button"
             >
               Check Out
             </Button>
@@ -458,7 +458,7 @@ const Dashboard = () => {
             <Typography className="team_overview_inner_heading" variant="span">
               Order Overview
             </Typography>
-            <Button className="view_all_button" onClick={() => navigate('/orders')}> View More > </Button>
+            <Button className="view_all_button" onClick={() => navigate('/orders')}>  View All > </Button>
           </Box>
           <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
             <Table sx={{ minWidth: 650 }}>
