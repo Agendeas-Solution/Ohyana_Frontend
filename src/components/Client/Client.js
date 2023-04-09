@@ -35,13 +35,12 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import FilterIcon from '../../assets/img/Filter.svg'
 import { styled, useTheme } from '@mui/material/styles'
+import { CLIENT } from '../../constants'
 const drawerWidth = 300
-
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const NoResultFound = React.lazy(() =>
   import('../ErrorComponent/NoResultFound'),
 )
-
 const CustomerList = React.lazy(() => import('./CustomerList'))
 const BusinessCard = React.lazy(() => import('./BusinessCard'))
 
@@ -68,13 +67,7 @@ const Client = () => {
   const [numbersToDisplayOnPagination, setNumbersToDisplayOnPagination] =
     useState(0)
   const [clientLoader, setClientLoader] = useState(false)
-  const [clientType, setClientType] = useState([
-    { stage: 'intiate', id: 0 },
-    { stage: 'no response', id: 1 },
-    { stage: 'irrelevant', id: 2 },
-    { stage: 'inter-mediate', id: 3 },
-    { stage: 'confirm', id: 4 },
-  ])
+  const [clientType, setClientType] = useState(CLIENT.STAGE)
   const [searchQuery, setSearchQuery] = useState("");
 
   const DrawerHeader = styled('div')(({ theme }) => ({
@@ -83,7 +76,6 @@ const Client = () => {
     overflowX: 'hidden',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    // justifyContent: 'flex-end',
   }))
 
   const handleDrawerOpen = () => {
@@ -93,7 +85,14 @@ const Client = () => {
   const handleDrawerClose = () => {
     setOpen(false)
   }
+  const handleClearAllFilter = () => {
+    setClientStage(null);
+    getClientDetails();
 
+  }
+  const handleApplyFilter = () => {
+    getClientDetails();
+  }
   useEffect(() => {
     console.log(clientType)
     let value = clientType.filter(data => {
@@ -128,12 +127,6 @@ const Client = () => {
       ...deleteClientDialogControl,
       status: false,
     })
-  }
-  const handleClearAll = () => {
-    setClientStage(null);
-    setLocation();
-    debugger;
-
   }
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -324,7 +317,8 @@ const Client = () => {
 
                 </Box>
                 <Box >
-                  <Typography>Clear All</Typography>
+                  <Button onClick={handleApplyFilter} variant="contained">Apply</Button>
+                  <Button onClick={handleClearAllFilter}>Clear All</Button>
 
                 </Box>
               </DrawerHeader>
@@ -339,9 +333,8 @@ const Client = () => {
                     value={
                       clientStage !== null ? clientType[clientStage] : null
                     }
-                    onChange={(e, value) => {
-                      console.log(value)
-                      setClientStage(value?.id)
+                    onChange={(e) => {
+                      setClientStage(e.target.value)
                     }}
                   >
                     {
@@ -349,7 +342,6 @@ const Client = () => {
                         return <MenuItem value={data.id}>{data.stage}</MenuItem>
                       })
                     }
-
                   </Select>
                 </FormControl>
 
