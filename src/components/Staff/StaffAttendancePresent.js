@@ -15,37 +15,9 @@ import {
 } from '../../services/apiservices/staffDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 
-const StaffAttendancePresent = () => {
-  const [staffAttendanceList, setStaffAttendanceList] = useState([])
-  const [value, setValue] = useState('1')
-  const [staffLeaveList, setStaffLeaveList] = useState([])
-
-  useEffect(() => {
-    let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
-    path = path.split('/').pop()
-    value === '1' &&
-      GetStaffAttendanceList(
-        path,
-        res => {
-          setStaffAttendanceList(res?.data)
-        },
-        err => { },
-      )
-    value === '2' &&
-      GetStaffLeaveList(
-        path,
-        res => {
-          setStaffLeaveList(res?.data)
-        },
-        err => { },
-      )
-  }, [value])
-
+const StaffAttendancePresent = ({ staffAttendanceList }) => {
   return (
     <>
-      {/* <h1>Hellow</h1> */}
       <TableContainer
         className="expenses_table_height mt-2"
         component={Paper}

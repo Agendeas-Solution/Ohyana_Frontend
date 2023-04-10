@@ -3,33 +3,34 @@ import {
   Dialog,
   DialogTitle,
   TextField,
-  DialogContent,
   DialogActions,
-  Rating,
   Typography,
   Button,
   Autocomplete,
 } from '@mui/material'
-import { GiveFeedBack } from '../../services/apiservices/staffDetail'
+import { SetTarget } from '../../services/apiservices/staffDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-
-const SetTargetDialog = ({ targetDetail }) => {
+import { TEAM } from '../../constants'
+const SetTargetDialog = ({ targetDetail, handleCloseTargetDetailDialog }) => {
   const [feedbackDetail, setFeedBackDetail] = useState({
-    feedback: '',
-    rating: 0,
-    memberId: '',
+    type: '',
+    period: 0,
+    target: '',
   })
+  const [typeOptions, setTypeOptions] = useState(TEAM.TARGETTYPE)
+  const [periodOptions, setPeriodOptions] = useState(TEAM.PERIOD)
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
-  const addFeedback = () => {
-    GiveFeedBack(
-      feedbackDetail,
+  const handleSetTarget = () => {
+    SetTarget(
+      targetDetail.id, feedbackDetail,
       res => {
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
+        handleCloseTargetDetailDialog();
       },
       err => {
         console.log('Printing Feedback Error', err)
@@ -38,17 +39,21 @@ const SetTargetDialog = ({ targetDetail }) => {
   }
   return (
     <>
-      <Dialog open={targetDetail.status}>
+      <Dialog open={targetDetail.status} onClose={handleCloseTargetDetailDialog}>
         <DialogTitle>Set Target</DialogTitle>
         <div className="row">
           <div className="col-md-12">
             <Typography variant="span">To Achieve</Typography>
           </div>
-          <div className="col-md-12 ">
+          <div className="col-md-12">
             <Autocomplete
               disablePortal
               variant="outlined"
-              options={['Take Order', 'Generate leads']}
+              options={typeOptions}
+              getOptionLabel={option => option.type}
+              onChange={(e, value) => {
+                setFeedBackDetail({ ...feedbackDetail, type: value.id })
+              }}
               renderInput={params => (
                 <TextField {...params} placeholder="Take Order" />
               )}
@@ -62,9 +67,13 @@ const SetTargetDialog = ({ targetDetail }) => {
               <Autocomplete
                 variant="outlined"
                 disablePortal
-                options={['7 Days', '15 days', '1 Month']}
+                options={periodOptions}
+                getOptionLabel={option => option.period}
+                onChange={(e, value) => {
+                  setFeedBackDetail({ ...feedbackDetail, period: value.days })
+                }}
                 renderInput={params => (
-                  <TextField {...params} placeholder="Take Order" />
+                  <TextField {...params} placeholder="Select Period" />
                 )}
               />
             </div>
@@ -74,12 +83,16 @@ const SetTargetDialog = ({ targetDetail }) => {
               <Typography variant="span">Value</Typography>
             </div>
             <div className="col-md-12">
-              <TextField placeholder="Target Value" variant="outlined" />
+              <TextField
+                onChange={(e) => {
+                  setFeedBackDetail({ ...feedbackDetail, target: e.target.value })
+                }}
+                placeholder="Target Value" variant="outlined" />
             </div>
           </div>
         </div>
         <DialogActions>
-          <Button variant="contained" onClick={addFeedback}>
+          <Button variant="contained" onClick={handleSetTarget}>
             Ok
           </Button>
           {/* <Button onClick={handleCloseRatingDialog} autoFocus>

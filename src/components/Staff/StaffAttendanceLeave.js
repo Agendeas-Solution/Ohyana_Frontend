@@ -17,39 +17,31 @@ import {
 import moment from 'moment'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 
-const StaffAttendanceLeave = () => {
-  const [staffAttendanceList, setStaffAttendanceList] = useState([])
+const StaffAttendanceLeave = ({ staffLeaveList, approveLeave, setApproveLeave }) => {
   const [value, setValue] = useState('1')
-  const [approveLeave, setApproveLeave] = useState({
-    status: false,
-    id: null,
-    leaveStatus: true,
-  })
-  const [staffLeaveList, setStaffLeaveList] = useState([])
-
-  useEffect(() => {
-    let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
-    path = path.split('/').pop()
-    // value === '1' &&
-    //   GetStaffAttendanceList(
-    //     path,
-    //     res => {
-    //       setStaffAttendanceList(res?.data)
-    //     },
-    //     err => {},
-    //   )
-    value === '1' &&
-      GetStaffLeaveList(
-        path,
-        res => {
-          setStaffLeaveList(res?.data)
-          //   setStaffAttendanceList(res?.data)
-        },
-        err => { },
-      )
-  }, [value])
+  // useEffect(() => {
+  //   let path = window.location.pathname
+  //   console.log('Printing Path of ', path)
+  //   console.log('Printing ', path.split('/').pop())
+  //   path = path.split('/').pop()
+  //   // value === '1' &&
+  //   //   GetStaffAttendanceList(
+  //   //     path,
+  //   //     res => {
+  //   //       setStaffAttendanceList(res?.data)
+  //   //     },
+  //   //     err => {},
+  //   //   )
+  //   value === '1' &&
+  //     GetStaffLeaveList(
+  //       path,
+  //       res => {
+  //         setStaffLeaveList(res?.data)
+  //         //   setStaffAttendanceList(res?.data)
+  //       },
+  //       err => { },
+  //     )
+  // }, [value])
 
   return (
     <>
@@ -134,6 +126,8 @@ const StaffAttendanceLeave = () => {
                         <Button
                           className="common_button"
                           onClick={() => {
+                            console.log(leaveList);
+                            debugger;
                             setApproveLeave({
                               ...approveLeave,
                               status: true,
