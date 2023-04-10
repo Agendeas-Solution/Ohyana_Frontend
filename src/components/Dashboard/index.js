@@ -19,6 +19,7 @@ import {
 } from '../../services/apiservices/staffDetail'
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
+import { TEAM } from '../../constants'
 const Dashboard = () => {
   const navigate = useNavigate()
   const [inquiryData, setInquiryData] = useState([])
@@ -417,16 +418,14 @@ const Dashboard = () => {
                     <TableRow
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell align='right'>
+                      <TableCell align='right' className='d-flex flex-row-reverse'>
                         <Stack direction="row" spacing={2}>
                           <Avatar
                             className="me-2"
                             sx={{ width: 40, height: 40 }}
                             src={data?.imgUrl ? data?.imgUrl : "/static/images/avatar/1.jpg"}
                           />
-                        </Stack>
-                      </TableCell>
-                      <TableCell align="right">{data?.name || '-'}</TableCell>
+                        </Stack><Typography>{data?.name || '-'}</Typography></TableCell>
                       <TableCell align="right">{data?.role || '-'}</TableCell>
                       <TableCell align="right">
                         {data.attendances || '-'}
@@ -436,7 +435,8 @@ const Dashboard = () => {
                         {data.pointPercentage}%
                       </TableCell>
                       <TableCell align="right">
-                        {data?.location || '-'}
+                        {TEAM.JOBTYPE.find(e => e.id == data?.jobType)?.type
+                          || '-'}
                       </TableCell>
                       <TableCell align="right">
                         <Button className="common_button" onClick={() =>

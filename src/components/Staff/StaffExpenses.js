@@ -67,12 +67,10 @@ const StaffExpenses = () => {
   return (
     <>
       <Box
-        // sx={{ padding: '10px' }}
         className="expenses_data_row col-md-12 mb-1"
       >
         <Box
           sx={{
-            // background: '#F1F2F6',
             borderRadius: '5px',
             display: 'flex',
             flexDirection: 'row',
@@ -80,19 +78,19 @@ const StaffExpenses = () => {
         >
           <Box className="inner_profile_details first_box me-3">
             <Typography>Approved</Typography>
-            <Typography>24000</Typography>
+            <Typography>{expensesData?.approved}</Typography>
           </Box>
           <Box className="inner_profile_details middle_box  me-3">
             <Typography>Rejected</Typography>
-            <Typography>1000</Typography>
+            <Typography>{expensesData?.rejected}</Typography>
           </Box>
           <Box className="inner_profile_details last_box me-3">
             <Typography>Pending</Typography>
-            <Typography>5000</Typography>
+            <Typography>{expensesData?.pending}</Typography>
           </Box>
           <Box className="inner_profile_details last_box">
-            <Typography className='' sx={{whiteSpace : "nowrap"}}>Payment Done</Typography>
-            <Typography>5000</Typography>
+            <Typography className='' sx={{ whiteSpace: "nowrap" }}>Payment Done</Typography>
+            <Typography>{expensesData?.paymentDone}</Typography>
           </Box>
         </Box>
 

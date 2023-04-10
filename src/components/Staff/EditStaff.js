@@ -28,6 +28,7 @@ import {
   GetAdminStaffProfileDetail,
 } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
+import { TEAM } from '../../constants' 
 const EditStaff = () => {
   const [userDetail, setUserDetail] = useState({
     name: "",
@@ -122,7 +123,7 @@ const EditStaff = () => {
       userDetail.jobType !== '' &&
       userDetail.id !== ''
     ) {
-      
+
 
       EditEmployee(
         userDetail,
@@ -384,8 +385,9 @@ const EditStaff = () => {
                   setUserDetail({ ...userDetail, jobType: e.target.value })
                 }}
               >
-                <MenuItem value="0">Office</MenuItem>
-                <MenuItem value="1">On Field</MenuItem>
+                {TEAM.JOBTYPE.map((data) => {
+                  return <MenuItem value={data?.id}>{data?.type}</MenuItem>
+                })}
               </Select>
             </FormControl>
           </Box>

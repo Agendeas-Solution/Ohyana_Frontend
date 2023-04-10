@@ -52,7 +52,22 @@ export const GetAdminClientProfileDetail = async (id, onSuccess, onError) => {
     onError && onError(err)
   }
 }
-
+export const UpdatePJPDetail = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.put(`/pjp`, value, {
+      headers: { ...defaultHeaders },
+    })
+    console.log('Printing data of UpdatePJPDetail', data)
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log(
+      'Got error while calling API - UpdatePJPDetail',
+      err,
+    )
+    onError && onError(err)
+  }
+}
 export const GetAdminClientStatusDetail = async (id, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {

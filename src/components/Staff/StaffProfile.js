@@ -11,7 +11,6 @@ import PlaceIcon from '@mui/icons-material/Place'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import {
   GetAdminStaffProfileDetail,
-  GetAdminStaffRatingDetail,
 } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
 const PJPDetail = React.lazy(() => import('./PJPDetail'))
@@ -26,17 +25,11 @@ const StaffProfile = () => {
   const [value, setValue] = useState('1')
   const { flagLoader, permissions } = useContext(AuthContext).state
   const [changeRoleDialogControl, setChangeRoleDialogControl] = useState(false)
-  const [giveRating, setGiveRating] = useState(false)
   const [adminProfileDetail, setAdminProfileDetail] = useState({})
-  const [adminRatingList, setAdminRatingList] = useState([])
   const navigate = useNavigate()
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-  const handleCloseRatingDialog = () => {
-    setGiveRating(false)
-  }
-  // debugger
   useEffect(() => {
     let path = window.location.pathname
     console.log('Printing Path of ', path)
@@ -56,19 +49,8 @@ const StaffProfile = () => {
         },
       )
 
-    value === '2' &&
-      GetAdminStaffRatingDetail(
-        parseInt(path),
-        res => {
-          if (res.success) {
-            setAdminRatingList(res?.data?.teamFeedbacks)
-          }
-        },
-        err => {
-          console.log('Printing ', err)
-        },
-      )
-  }, [value, giveRating])
+    
+  }, [value])
 
   return (
     <>

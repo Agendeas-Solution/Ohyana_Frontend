@@ -18,19 +18,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import './index.css'
 import { GetAdminClientDetail } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
-import { CreatePJP } from '../../services/apiservices/teamcall'
-const AddPJPDialog = ({
-  addPJPDetail,
-  handleCloseDialog,
-  setAddPJPDetail,
-  handleAddPJPDetail,
-}) => {
-  const [customerType, setCustomerType] = useState([])
+const AddPJPDialog = ({ addPJPDetail, handleCloseDialog, setAddPJPDetail, handleAddPJPDetail }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [open, setOpen] = React.useState(false)
-  const [options, setOptions] = React.useState([])
-  const [customerStage, setCustomerStage] = useState()
-  const loading = open && options.length === 0
+  const [options, setOptions] = useState([]);
   useEffect(() => {
     let data = {
       size: 10
@@ -50,12 +40,6 @@ const AddPJPDialog = ({
       },
     )
   }, [searchQuery])
-  useEffect(() => {
-    if (!open) {
-      setOptions([])
-    }
-  }, [open])
-
   return (
     <>
       <Dialog open={addPJPDetail.dialogStatus} onClose={handleCloseDialog}>
@@ -66,16 +50,12 @@ const AddPJPDialog = ({
             Create PJP
           </DialogTitle>
           <DialogContent>
-            <div className="col-md-12 pt-4">
+            <Box className="col-md-12 pt-4">
               <Typography variant="span">Customer Name</Typography>
-            </div>
+            </Box>
             <Autocomplete
               className="mt-1 align-items-center d-flex client_type_select justify-content-center w-100"
               options={options}
-              value={
-                // customerStage !== null ? customerType[customerStage] : null
-                options.find(e => e.id == addPJPDetail?.clientId)?.name
-              }
               sx={{
                 width: '21rem',
                 border: '1px solid #E5E5E5',
@@ -84,7 +64,10 @@ const AddPJPDialog = ({
               onInputChange={(event, newInputValue) => {
                 setSearchQuery(newInputValue);
               }}
-              onChange={(e, value) => setAddPJPDetail({ ...addPJPDetail, clientId: value?.id })}
+              // value={addPJPDetail?.clientId}
+              onChange={(e, value) => {
+                setAddPJPDetail({ ...addPJPDetail, clientId: value?.id })
+              }}
               getOptionLabel={option => option?.name}
               renderInput={params => (
                 <TextField
@@ -107,7 +90,7 @@ const AddPJPDialog = ({
                       disablePast
                       inputFormat="dd/MM/yyyy"
                       value={addPJPDetail.date}
-                      onChange={e => {
+                      onChange={(e) => {
                         setAddPJPDetail({ ...addPJPDetail, date: e })
                       }}
                       renderInput={params => (
@@ -130,7 +113,7 @@ const AddPJPDialog = ({
                     placeholder="Detail Here..."
                     className="w-100"
                     value={addPJPDetail.description}
-                    onChange={e => {
+                    onChange={(e) => {
                       setAddPJPDetail({
                         ...addPJPDetail,
                         description: e.target.value,
@@ -161,30 +144,3 @@ const AddPJPDialog = ({
 }
 
 export default AddPJPDialog
-
-{
-  /* <Autocomplete
-                filterSelectedOptions
-                options={addPJPDetail}
-                value={addPJPDetail?.clientId}
-                onChange={(e, value) => {
-                  console.log(value)
-                  setAddPJPdetail({
-                    ...addPJPDetail,
-                    clientId: value,
-                  })
-                }}
-                getOptionLabel={option => option}
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    className="w-100"
-                    placeholder={
-                      addPJPDetail.clientId
-                        ? ''
-                        : 'Add Member'
-                    }
-                  />
-                )}
-              /> */
-}
