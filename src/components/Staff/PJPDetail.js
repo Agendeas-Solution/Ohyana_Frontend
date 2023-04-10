@@ -66,8 +66,11 @@ const PJPDetail = () => {
     delete pjpDetail.dialogStatus
     CreatePJP(
       pjpDetail,
-      res => {},
-      err => {},
+      res => {
+        debugger;
+
+      },
+      err => { },
     )
   }
 

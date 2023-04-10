@@ -369,13 +369,26 @@ export const AddClientStatus = async (value, onSuccess, onError) => {
     })
     console.log('Printing data of AddClientStatus', data)
     onSuccess && onSuccess(data)
-    ////
   } catch (err) {
     console.log('Got error while calling API - AddClientStatus', err)
     onError && onError(err)
-    ////
   }
 }
+
+export const AddCloseStatusApiCall = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.patch(`/client/status/closed`, value, {
+      headers: { ...defaultHeaders },
+    })
+    console.log('Printing data of AddCloseStatusApiCall', data)
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log('Got error while calling API - AddCloseStatusApiCall', err)
+    onError && onError(err)
+  }
+}
+
 
 export const EditClientStatus = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`

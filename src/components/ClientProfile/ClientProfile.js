@@ -35,6 +35,7 @@ import Stage2 from '../../assets/img/stage_2.svg'
 import CallNotReceived from '../../assets/img/callnotreceived.svg'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import CloseStatusDialog from './CloseStatusDialog'
 const EditStatusDialog = React.lazy(() => import('./EditStatusDialog'))
 const StageDialog = React.lazy(() => import('./StageDialog'))
 const OrderList = React.lazy(() => import('./OrderList'))
@@ -48,7 +49,6 @@ const AppointmentTable = React.lazy(() => import('./AppointmentTable'))
 const ProfileTable = React.lazy(() => import('./ProfileTable'))
 const RemainderDialog = React.lazy(() => import('./RemainderDialog'))
 const StatusDialog = React.lazy(() => import('./StatusDialog'))
-
 const ClientProfile = () => {
   const [value, setValue] = useState('1')
   const { flagLoader, permissions } = useContext(AuthContext).state
@@ -76,6 +76,9 @@ const ClientProfile = () => {
     clientId: null,
     statusDetail: {},
     status: false,
+  })
+  const [closeStatusDialogControl, setCloseStatusDialogControl] = useState({
+    status: false, clientId: null, description: ""
   })
   let navigate = useNavigate()
   useEffect(() => {
@@ -162,6 +165,13 @@ const ClientProfile = () => {
 
   const handleStatusOpen = () => {
     setStatusDialog(true)
+  }
+  const handleCloseStatusDialogOpen = (id) => {
+    setCloseStatusDialogControl({ ...closeStatusDialogControl, status: true, clientId: id })
+  }
+  const handleCloseStatusDialogClose = () => {
+    setCloseStatusDialogControl({ ...closeStatusDialogControl, status: false })
+
   }
   const handleStatusClose = () => {
     setStatusDialog(false)
@@ -295,7 +305,7 @@ const ClientProfile = () => {
                       >
                         + Status
                       </Button>
-                      <Button className="common_button">Close</Button>
+                      <Button onClick={() => handleCloseStatusDialogOpen(clientProfileDetail.id)} className="common_button">Close</Button>
                     </>
                   ) : null}
                   {value === '2' ? (
@@ -469,6 +479,11 @@ const ClientProfile = () => {
             <PoorContact
               addPoorContact={addPoorContact}
               handleCallClose={handleCallClose}
+            />
+            <CloseStatusDialog
+              handleCloseStatusDialogClose={handleCloseStatusDialogClose}
+              closeStatusDialogControl={closeStatusDialogControl}
+              setCloseStatusDialogControl={setCloseStatusDialogControl}
             />
             <StageDialog
               clientProfileDetail={clientProfileDetail}
