@@ -24,6 +24,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+import { TEAM } from '../../constants'
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const AddStaffMember = () => {
   const [userDetail, setUserDetail] = useState({
@@ -142,8 +143,10 @@ const AddStaffMember = () => {
                   setUserDetail({ ...userDetail, jobType: e.target.value })
                 }}
               >
-                <MenuItem value="0">Office</MenuItem>
-                <MenuItem value="1">On Field</MenuItem>
+                {TEAM.JOBTYPE.map((data) => {
+                  return <MenuItem value={data?.id}>{data?.type}</MenuItem>
+                })}
+
               </Select>
             </FormControl>
           </Box>
@@ -263,7 +266,7 @@ const AddStaffMember = () => {
             Save
           </Button>
         </Box>
-      </Box>
+      </Box >
       <ErrorSnackbar />
     </>
   )

@@ -61,7 +61,11 @@ const StaffPoint = () => {
             : null
         setTotalPage(pages)
       },
-      err => { },
+      err => { 
+        setPointsData([])
+        setTotalPoints([])
+
+      },
     )
   }, [selectMonth, currentPage])
 

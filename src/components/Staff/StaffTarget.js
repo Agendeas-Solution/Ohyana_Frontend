@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Box, Typography, Button, TextField } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import moment from 'moment'
@@ -14,26 +15,33 @@ import Paper from '@mui/material/Paper'
 import { GetTargetList } from '../../services/apiservices/teamcall'
 import SetTargetDialog from './SetTargetDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+let path = window.location.pathname
+console.log('Printing Path of ', path)
+console.log('Printing ', path.split('/').pop())
+path = path.split('/').pop()
 const StaffTarget = () => {
   const [dateRange, setDateRange] = useState({
     startDate: '',
     endDate: '',
   })
+  const [selectMonth, setSelectMonth] = useState({
+    $M: moment().month(),
+    $y: moment().year(),
+  })
   const [targetDetail, setTargetDetail] = useState({
     status: false,
-    period: '',
-    value: '',
-    toAchieve: '',
+    id: path
   })
   const [targetList, setTargetList] = useState([])
 
   useEffect(() => {
-    let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
-    path = path.split('/').pop()
     GetTargetList(
-      path,
+      {
+        month: selectMonth?.$M + 1,
+        year: selectMonth?.$y,
+        teamId: parseInt(path),
+      }
+      ,
       res => {
         if (res.success) {
           setTargetList(res?.data)
@@ -41,9 +49,14 @@ const StaffTarget = () => {
       },
       err => {
         console.log('Printing ', err)
+        setTargetList([])
+
       },
     )
-  }, [])
+  }, [selectMonth])
+  const handleCloseTargetDetailDialog = () => {
+    setTargetDetail({ ...targetDetail, status: false })
+  }
   return (
     <>
       <Box className="target_section">
@@ -68,21 +81,22 @@ const StaffTarget = () => {
           </Box>
 
           <Box className="range_days_data">
-            {/* <Box> */}
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                disablePast
-                inputFormat="dd/MM/yyyy"
-                value={dateRange.startDate}
-                onChange={e => {
-                  setDateRange({ ...dateRange, startDate: e })
+                views={['month', 'year']}
+                value={selectMonth}
+                onChange={newValue => {
+                  setSelectMonth(newValue)
                 }}
                 renderInput={params => (
-                  <TextField sx={{ border: 'transparent' }} {...params} />
+                  <TextField
+                    placeholder="Year and Month"
+                    {...params}
+                    helperText={null}
+                  />
                 )}
               />
             </LocalizationProvider>
-            {/* </Box> */}
           </Box>
 
           <Button
@@ -103,7 +117,7 @@ const StaffTarget = () => {
             overflowY: 'auto',
           }}
         >
-          {targetList.length < 0 ?
+          {targetList.length > 0 ?
             <Table
               stickyHeader
               aria-label="sticky table"
@@ -155,7 +169,9 @@ const StaffTarget = () => {
             <NoResultFound />
           }
         </TableContainer>
-        {targetDetail.status && <SetTargetDialog targetDetail={targetDetail} />}
+        {targetDetail.status && <SetTargetDialog targetDetail={targetDetail}
+          handleCloseTargetDetailDialog={handleCloseTargetDetailDialog}
+        />}
       </Box>
     </>
   )

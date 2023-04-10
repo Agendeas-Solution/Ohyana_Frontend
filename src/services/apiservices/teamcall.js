@@ -24,8 +24,12 @@ export const GetPJPList = async (value, onSuccess, onError) => {
 export const GetTargetList = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.get(`/targets/${value}`, {
+    const { data } = await axiosInstance.get(`/targets/${value.teamId}`, {
       headers: { ...defaultHeaders },
+      params: {
+        month: value.month,
+        year: value.year,
+      }
     })
     console.log('Printing data of GetTargetList', data)
     onSuccess && onSuccess(data)
@@ -44,6 +48,19 @@ export const CreatePJP = async (value, onSuccess, onError) => {
     onSuccess && onSuccess(data)
   } catch (err) {
     console.log('Got error while calling API - CreatePJP', err)
+    onError && onError(err)
+  }
+}
+export const CompletePJPStatus = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.post(`/complete/pjp`, value, {
+      headers: { ...defaultHeaders },
+    })
+    console.log('Printing data of CompletePJPStatus', data)
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log('Got error while calling API - CompletePJPStatus', err)
     onError && onError(err)
   }
 }

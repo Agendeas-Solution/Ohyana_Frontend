@@ -37,7 +37,7 @@ const TaskDetail = () => {
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const [countDoneTask, setCountDoneTask] = useState(null)
-  const [taskRatio, setTaskRatio] = useState()
+  const [taskRatio, setTaskRatio] = useState(0)
   const [editDescriptionDialog, setEditDescriptionDialog] = useState({
     status: false,
     description: '',
@@ -144,7 +144,9 @@ const TaskDetail = () => {
         }
         return count
       })
-      setTaskRatio(((countDone.length / checkLists.length) * 100).toFixed(2))
+      setTaskRatio(
+        checkLists.length > 0 ? ((countDone.length / checkLists.length) * 100).toFixed(2) : 0
+      )
     }
   }, [checkLists, countDoneTask])
   return (
@@ -186,8 +188,10 @@ const TaskDetail = () => {
             </Typography>
 
             <Slider
-              value={taskRatio ? taskRatio : 0}
+              value={taskRatio || 0}
               step={1}
+              getAriaValueText={() => (taskRatio + "%")}
+              valueLabelFormat={() => (taskRatio + "%")}
               valueLabelDisplay="on"
               sx={{ color: '#2E3591' }}
               className="task_slider"
