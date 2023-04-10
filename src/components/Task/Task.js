@@ -32,6 +32,8 @@ import { styled, useTheme } from '@mui/material/styles'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import NoResultFound from '../ErrorComponent/NoResultFound'
+
 const drawerWidth = 350
 const CreateTaskDialog = React.lazy(() => import('./CreateTaskDialog'))
 const AssignMemberDialog = React.lazy(() => import('./AssignMemberDialog'))
@@ -104,9 +106,8 @@ const Task = () => {
   }
   const handleClearAllFilter = () => {
 
-
   }
-  useEffect(() => {
+  const handleTaskList = () => {
     GetTaskList(
       {},
       res => {
@@ -118,6 +119,11 @@ const Task = () => {
         console.log(err)
       },
     )
+
+  }
+
+  useEffect(() => {
+    handleTaskList()
   }, [])
   const handleCreateTask = () => {
     CreateTaskCall(
@@ -129,6 +135,7 @@ const Task = () => {
             status: true,
             message: res.message,
           })
+          handleTaskList()
           handleClose()
         }
       },
@@ -227,8 +234,8 @@ const Task = () => {
                 </Typography>
               </Box>
               <Box >
-                <Button onClick={handleApplyFilter} variant="contained">Apply</Button>
-                <Button onClick={handleClearAllFilter}>Clear All</Button>
+                <Button onClick={handleClearAllFilter} className='text_button'>Reset</Button>
+                <Button onClick={handleApplyFilter} className='common_button' variant="contained">Apply</Button>
               </Box>
 
             </DrawerHeader>
@@ -286,7 +293,7 @@ const Task = () => {
 
       <Box className="below_main_tab_section">
         <Box className="inner_container">
-          {taskList.length > 0 &&
+          {taskList.length > 0 ?
             taskList.map(taskData => {
               return (
                 <Box
@@ -335,7 +342,9 @@ const Task = () => {
 
                 </Box>
               )
-            })}
+            }) :
+            <NoResultFound />
+          }
         </Box>
         <CreateTaskDialog
           handleClose={handleClose}

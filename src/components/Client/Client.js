@@ -257,7 +257,6 @@ const Client = () => {
               }
             />
           </FormControl>
-
           {permissions?.editClient && (
             <Button
               className="main_tab_button"
@@ -316,7 +315,6 @@ const Client = () => {
           <Divider />
 
           <Box sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
-
             <FormControl sx={{ margin: '10px' }}>
               <InputLabel>Client Type</InputLabel>
               <Select
@@ -334,10 +332,8 @@ const Client = () => {
                     return <MenuItem value={data.id}>{data.stage}</MenuItem>
                   })
                 }
-
               </Select>
             </FormControl>
-
             <FormControl sx={{ margin: '10px' }}>
               <InputLabel>Select City</InputLabel>
               <Select
@@ -345,7 +341,6 @@ const Client = () => {
                 // value=
                 //   {userDetail.city}
                 onChange={(e, value) => {
-                  // console.log(value)
                   // setClientCity(value?.id)
                 }}
               >
@@ -355,14 +350,10 @@ const Client = () => {
                 <MenuItem value="OFFICE">Surat</MenuItem>
               </Select>
             </FormControl>
-
-
             <FormControl sx={{ margin: '10px' }}>
               <InputLabel>Select State</InputLabel>
               <Select
                 label="Select State"
-                // value=
-                //   {userDetail.state}
                 onChange={(e, value) => {
                   // console.log(value)
                   // setClientState(value?.id)

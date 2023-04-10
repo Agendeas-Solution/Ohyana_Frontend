@@ -10,6 +10,7 @@
 }
 
 .inner_container {
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -27,8 +28,14 @@
   overflow-x: hidden;
 }
 
+.task_header {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
 .task_card_heading {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: 0.08em;
   white-space: nowrap;
@@ -56,32 +63,43 @@
 
 .task_heading {
   display: flex;
-  align-items: center;
-  text-align: center;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 5px;
-  flex-wrap: wrap;
+  padding-bottom: 10px;
   border-bottom: 1px solid #c4c4c4;
 }
 
 .checklist_duedate_section {
+  height: 100%;
   display: flex;
   flex-direction: row;
   width: 100%;
   margin-top: 5px;
   justify-content: space-between;
-  overflow-y: auto;
   overflow-x: hidden;
 }
 
 .checklist_section {
-  width: 55%;
+  width: 65%;
   border: 1px solid #e5e5e5;
-  padding: 5px;
+  padding: 10px 0px;
   border-radius: 5px;
-  margin-top: 12px;
+  margin-top: 10px;
+  margin-right: 10px;
+  overflow-y: hidden;
+}
+
+.task_details_section {
+  width: 35%;
+  background: #f1f2f6;
+  padding: 10px 15px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  height: 100%;
 }
 
 .task_slider {
@@ -99,27 +117,20 @@
   margin-right: 6px;
 }
 
-.task_details_section {
-  width: 43%;
-  background: #f1f2f6;
-  padding: 5px;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  margin-top: 12px;
-  height: 100%;
-}
-
-.task_list .css-ahj2mt-MuiTypography-root {
-  font-size: 15px !important;
-}
-
 .assigned_user_detail {
   font-size: 15px;
   margin-left: 10px !important;
 }
 
+.task_list {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
+}
+
 .completed_task_list label span:nth-child(2) {
+  margin: 5px;
+  font-size: 15px;
   text-decoration: line-through;
 }
 

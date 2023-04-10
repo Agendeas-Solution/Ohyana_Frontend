@@ -92,7 +92,7 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
                   </TableCell>
                   <TableCell align="right" sx={{ maxWidth: '150px' }}>{row.contact_number ?? '-'}</TableCell>
                   <TableCell align="right" sx={{ maxWidth: '150px' }}>
-                    {row.state ?? '-'}
+                    {row.state?.name ?? '-'}
                   </TableCell>
                   <TableCell align="right" sx={{ maxWidth: '150px' }}>
                     {moment(row.createdAt).format('DD-MM-YYYY')}
