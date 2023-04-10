@@ -59,6 +59,7 @@ const Staff = () => {
   const [value, setValue] = useState('1')
   const [open, setOpen] = useState(false)
   const [loader, setLoader] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
   const [clientStage, setClientStage] = useState()
   const d = new Date()
   const [datePicker, setDatePicker] = useState({
@@ -117,11 +118,12 @@ const Staff = () => {
   useEffect(() => {
     value === '1' && setLoader(true)
     GetAdminStaffDetailList(
-      departmentAndJobRoles,
+      searchQuery,
       res => {
         if (res?.success) {
           setStaffDetailList(res?.data)
           setLoader(false)
+          debugger;
         }
       },
       err => {
@@ -129,19 +131,19 @@ const Staff = () => {
         setLoader(false)
       },
     )
-  }, [value, departmentAndJobRoles])
+  }, [value, departmentAndJobRoles, searchQuery])
 
-  useEffect(() => {
-    GetAdminDepartmentList(
-      {},
-      res => {
-        setDepartmentList(res?.data)
-      },
-      err => {
-        console.log('Printing Error', err)
-      },
-    )
-  }, [])
+  // useEffect(() => {
+  //   GetAdminDepartmentList(
+  //     {},
+  //     res => {
+  //       setDepartmentList(res?.data)
+  //     },
+  //     err => {
+  //       console.log('Printing Error', err)
+  //     },
+  //   )
+  // }, [])
 
   useEffect(() => {
     GetAdminRole(
@@ -198,6 +200,10 @@ const Staff = () => {
                 <OutlinedInput
                   className="search_field"
                   placeholder="Search Here..."
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                  }}
                   startAdornment={
                     <InputAdornment position="start">
                       <IconButton>
@@ -416,8 +422,8 @@ const Staff = () => {
                           />
                           <Typography>{row.name}</Typography>
                         </TableCell>
-                        <TableCell align="left">{row.role.name}</TableCell>
-                        <TableCell align="left">{row.id}</TableCell>
+                        <TableCell align="left">{row?.attendance ? row?.attendance[0] : '-'}</TableCell>
+                        <TableCell align="left">{row.points}</TableCell>
                       </TableRow>
                       <Divider sx={{ height: "12px", borderColor: "transparent" }} />
                       {/* {index < staffDetailList.length - 1 && <Box my={2} />} */}

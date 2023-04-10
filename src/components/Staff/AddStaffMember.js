@@ -28,14 +28,13 @@ const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const AddStaffMember = () => {
   const [userDetail, setUserDetail] = useState({
     employeeName: '',
-    departmentId: null,
     email: '',
     jobRole: '',
     contactNo: '',
-    password: '',
     gender: '',
     birthDate: '',
-    showPassword: false,
+    state: '',
+    jobType: '', password: ""
   })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -58,54 +57,42 @@ const AddStaffMember = () => {
   }, [])
   useEffect(() => {
     {
-      userDetail?.departmentId &&
-        GetAdminRole(
-          parseInt(userDetail?.departmentId),
-          res => {
-            if (res.success) {
-              setEmployeeJobRole(res.data?.roles)
-            }
-          },
-          err => {
-            console.log('Printing Error of GetAdminRole', err)
-          },
-        )
+      GetAdminRole(
+        {},
+        res => {
+          if (res.success) {
+            setEmployeeJobRole(res.data)
+          }
+        },
+        err => {
+          console.log('Printing Error of GetAdminRole', err)
+        },
+      )
     }
-  }, [userDetail?.departmentId])
-
-  const handleClickShowPassword = () => {
-    setUserDetail({
-      ...userDetail,
-      showPassword: !userDetail.showPassword,
-    })
-  }
-
-  const handleMouseDownPassword = event => {
-    event.preventDefault()
-  }
-
+  }, [])
   const handleAddEmployee = () => {
     if (
       userDetail.employeeName !== '' &&
-      userDetail.departmentId !== null &&
       userDetail.email !== '' &&
       userDetail.jobRole !== '' &&
       userDetail.contactNo &&
       userDetail.password !== '' &&
       userDetail.birthDate !== '' &&
-      userDetail.showPassword !== '' &&
-      userDetail.gender !== ''
+      userDetail.gender !== '' &&
+      userDetail.jobType !== ''
     ) {
       let employeeDetail = {
         name: userDetail.employeeName,
         email: userDetail.email,
-        password: userDetail.password,
         roleId: userDetail.jobRole,
-        departmentId: userDetail.departmentId,
         contact_number: userDetail.contactNo,
         gender: userDetail.gender,
         birthDay: userDetail.birthDate,
+        state: userDetail.state,
+        jobType: userDetail.jobType,
+        password: userDetail.password
       }
+      debugger;
       AddEmployee(
         employeeDetail,
         res => {
@@ -125,18 +112,15 @@ const AddStaffMember = () => {
         },
       )
     } else {
-      console.log(userDetail)
+      console.log(userDetail);
     }
   }
   return (
     <>
       <Box className="main_section">
-
-        {/* Employee Name &&  Job Type  */}
         <Box className="input_field_row">
           <Box className="input_fields">
             <TextField
-              autoComplete="off"
               label="Employee Name"
               onChange={e => {
                 setUserDetail({
@@ -153,13 +137,13 @@ const AddStaffMember = () => {
               <InputLabel>Select Job Type</InputLabel>
               <Select
                 label="Select Job Type"
-                value={userDetail?.gender}
+                value={userDetail?.jobType}
                 onChange={e => {
-                  setUserDetail({ ...userDetail, Job_Type: e.target.value })
+                  setUserDetail({ ...userDetail, jobType: e.target.value })
                 }}
               >
-                <MenuItem value="Office">Office</MenuItem>
-                <MenuItem value="On Field">On Field</MenuItem>
+                <MenuItem value="0">Office</MenuItem>
+                <MenuItem value="1">On Field</MenuItem>
               </Select>
             </FormControl>
           </Box>
@@ -184,7 +168,7 @@ const AddStaffMember = () => {
             <FormControl>
               <InputLabel>Select jobRole</InputLabel>
               <Select
-                label='Select jobRole'
+                label='Select Job Role'
                 value={userDetail?.jobRole}
                 onChange={e => {
                   setUserDetail({ ...userDetail, jobRole: e.target.value })
@@ -199,7 +183,6 @@ const AddStaffMember = () => {
           </Box>
         </Box>
 
-        {/* Contact No. &&  State  */}
         <Box className="input_field_row">
           <Box className="input_fields">
             <TextField
@@ -218,9 +201,9 @@ const AddStaffMember = () => {
               autoComplete="off"
               label="State"
               onChange={e => {
-                setUserDetail({ ...userDetail, State: e.target.value })
+                setUserDetail({ ...userDetail, state: e.target.value })
               }}
-              value={userDetail.contactNo}
+              value={userDetail.state}
               variant="outlined"
             />
           </Box>
@@ -244,10 +227,6 @@ const AddStaffMember = () => {
               </Select>
             </FormControl>
           </Box>
-        </Box>
-
-        {/* Birth Date*/}
-        <Box className="input_field_row">
           <Box className="input_fields">
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
@@ -261,8 +240,19 @@ const AddStaffMember = () => {
             </LocalizationProvider>
           </Box>
         </Box>
-
-        {/* Save Button*/}
+        <Box className="input_field_row">
+          <Box className="input_fields">
+            <TextField
+              autoComplete="off"
+              label="Password"
+              onChange={e => {
+                setUserDetail({ ...userDetail, password: e.target.value })
+              }}
+              value={userDetail.password}
+              variant="outlined"
+            />
+          </Box>
+        </Box>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}
           className="input_field_row">
           <Button
