@@ -31,7 +31,7 @@ const StageDialog = props => {
           message: res.data.message,
         })
       },
-      err => { },
+      err => {},
     )
   }
   return (
@@ -53,15 +53,15 @@ const StageDialog = props => {
                     defaultValue={props?.clientProfileDetail?.stage}
                     column
                   >
-                    {
-                      CLIENT.STAGE.map((stage) => {
-                        return <FormControlLabel
+                    {CLIENT.STAGE.map(stage => {
+                      return (
+                        <FormControlLabel
                           value={stage.id}
                           control={<Radio />}
                           label={stage.stage}
                         />
-                      })
-                    }
+                      )
+                    })}
                   </RadioGroup>
                 </FormControl>
               </div>

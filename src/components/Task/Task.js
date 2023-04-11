@@ -94,19 +94,15 @@ const Task = () => {
       res => {
         setMemberList(res.data)
       },
-      err => { },
+      err => {},
     )
     setOpenMemberDialog(true)
   }
   const handleCloseMemberDialog = () => {
     setOpenMemberDialog(false)
   }
-  const handleApplyFilter = () => {
-
-  }
-  const handleClearAllFilter = () => {
-
-  }
+  const handleApplyFilter = () => {}
+  const handleClearAllFilter = () => {}
   const handleTaskList = () => {
     GetTaskList(
       {},
@@ -119,7 +115,6 @@ const Task = () => {
         console.log(err)
       },
     )
-
   }
 
   useEffect(() => {
@@ -151,7 +146,7 @@ const Task = () => {
         setMember()
         handleCloseMemberDialog()
       },
-      err => { },
+      err => {},
     )
   }
 
@@ -208,9 +203,14 @@ const Task = () => {
             anchor="right"
             open={openDrawer}
           >
-            <DrawerHeader sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <DrawerHeader
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-
                 <IconButton
                   sx={{ color: '#2e3591' }}
                   disableRipple={true}
@@ -223,18 +223,26 @@ const Task = () => {
                   )}
                 </IconButton>
 
-                <Typography sx={{ fontSize: '20px', }}>
-                  Filter By
-                </Typography>
+                <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
               </Box>
-              <Box >
-                <Button onClick={handleClearAllFilter} className='text_button'>Reset</Button>
-                <Button onClick={handleApplyFilter} className='common_button' variant="contained">Apply</Button>
+              <Box>
+                <Button onClick={handleClearAllFilter} className="text_button">
+                  Reset
+                </Button>
+                <Button
+                  onClick={handleApplyFilter}
+                  className="common_button"
+                  variant="contained"
+                >
+                  Apply
+                </Button>
               </Box>
             </DrawerHeader>
             <Divider />
-            <Box sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}  >
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}
+            >
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   inputFormat="dd/MM/yyyy"
                   value={createTask.due_date}
@@ -245,9 +253,12 @@ const Task = () => {
                     })
                   }}
                   renderInput={params => (
-                    <TextField variant="outlined"
+                    <TextField
+                      variant="outlined"
                       {...params}
-                      label="Date" sx={{ margin: '10px' }} />
+                      label="Date"
+                      sx={{ margin: '10px' }}
+                    />
                   )}
                   PopperProps={{
                     placement: 'bottom-start', // Set placement to 'bottom-start'
@@ -258,9 +269,7 @@ const Task = () => {
                 sx={{ margin: '10px' }}
                 disablePortal
                 options={clientType}
-                value={
-                  clientStage !== null ? clientType[clientStage] : null
-                }
+                value={clientStage !== null ? clientType[clientStage] : null}
                 onChange={(e, value) => {
                   console.log(value)
                   setClientStage(value?.id)
@@ -280,22 +289,17 @@ const Task = () => {
       </Box>
       <Box className="below_main_tab_section">
         <Box className="inner_container">
-          {taskList.length > 0 ?
+          {taskList.length > 0 ? (
             taskList.map(taskData => {
               return (
-                <Box
-                  className='task_card'
-                >
+                <Box className="task_card">
                   <Box
                     className="task_card_hover"
                     onClick={() => {
                       navigate(`/taskdetail/${taskData?.id}`)
                     }}
                   >
-                    <Typography
-                      className="task_card_heading"
-                      variant="span"
-                    >
+                    <Typography className="task_card_heading" variant="span">
                       {taskData.title}
                     </Typography>
 
@@ -303,12 +307,14 @@ const Task = () => {
                       {taskData.description}
                     </Typography>
                   </Box>
-                  <Box sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                    }}
+                  >
                     <Typography className="task_date" variant="span">
                       {moment(taskData.createdAt).format('Do MMM YY')}
                     </Typography>
@@ -327,9 +333,10 @@ const Task = () => {
                   </Box>
                 </Box>
               )
-            }) :
+            })
+          ) : (
             <NoResultFound />
-          }
+          )}
         </Box>
         <CreateTaskDialog
           handleClose={handleClose}
@@ -348,7 +355,6 @@ const Task = () => {
           setMember={setMember}
         />
       </Box>
-
     </Box>
   )
 }

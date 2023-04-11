@@ -67,19 +67,19 @@ const TeamGraph = ({ selectedPeriod }) => {
         <Box className=" graph_section team_graph">
           <Box className="common_row mb-3">
             <box>
-            <Typography
-              variant="span"
-              sx={{ color: '#2E3591', fontSize: '20px', fontWeight:'600',}}
-            >
-              Overall
-            </Typography>
+              <Typography
+                variant="span"
+                sx={{ color: '#2E3591', fontSize: '20px', fontWeight: '600' }}
+              >
+                Overall
+              </Typography>
             </box>
-          
-            <Box sx={{display:'flex'}}>
+
+            <Box sx={{ display: 'flex' }}>
               <Autocomplete
                 disablePortal
                 options={top100Films}
-                sx={{ width: '200px',marginRight:'10px'}}
+                sx={{ width: '200px', marginRight: '10px' }}
                 renderInput={params => (
                   <TextField
                     className="common_dropdown"
@@ -91,7 +91,7 @@ const TeamGraph = ({ selectedPeriod }) => {
               <Autocomplete
                 disablePortal
                 options={top100Films}
-                sx={{ width: '200px',marginRight:'10px'}}
+                sx={{ width: '200px', marginRight: '10px' }}
                 renderInput={params => (
                   <TextField
                     className="common_dropdown"

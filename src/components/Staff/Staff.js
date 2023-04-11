@@ -59,7 +59,7 @@ const Staff = () => {
   const [value, setValue] = useState('1')
   const [open, setOpen] = useState(false)
   const [loader, setLoader] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
+  const [searchQuery, setSearchQuery] = useState('')
   const [clientStage, setClientStage] = useState()
   const d = new Date()
   const [datePicker, setDatePicker] = useState({
@@ -123,7 +123,7 @@ const Staff = () => {
         if (res?.success) {
           setStaffDetailList(res?.data)
           setLoader(false)
-          debugger;
+          debugger
         }
       },
       err => {
@@ -201,8 +201,8 @@ const Staff = () => {
                   className="search_field"
                   placeholder="Search Here..."
                   value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
+                  onChange={e => {
+                    setSearchQuery(e.target.value)
                   }}
                   startAdornment={
                     <InputAdornment position="start">
@@ -281,9 +281,7 @@ const Staff = () => {
                     >
                       Team Type
                     </FormLabel>
-                    <RadioGroup
-                      row
-                    >
+                    <RadioGroup row>
                       <FormControlLabel
                         className="checkbox_background_color"
                         value="office"
@@ -299,10 +297,7 @@ const Staff = () => {
                     </RadioGroup>
                   </FormControl>
                   <FormControl className="px-3 pt-3">
-                    <FormLabel
-                      sx={{ color: '#000000' }}
-                      className="mb-2"
-                    >
+                    <FormLabel sx={{ color: '#000000' }} className="mb-2">
                       Result for
                     </FormLabel>
                     <RadioGroup
@@ -422,10 +417,14 @@ const Staff = () => {
                           />
                           <Typography>{row.name}</Typography>
                         </TableCell>
-                        <TableCell align="left">{row?.attendance ? row?.attendance[0] : '-'}</TableCell>
+                        <TableCell align="left">
+                          {row?.attendance ? row?.attendance[0] : '-'}
+                        </TableCell>
                         <TableCell align="left">{row.points}</TableCell>
                       </TableRow>
-                      <Divider sx={{ height: "12px", borderColor: "transparent" }} />
+                      <Divider
+                        sx={{ height: '12px', borderColor: 'transparent' }}
+                      />
                       {/* {index < staffDetailList.length - 1 && <Box my={2} />} */}
                     </React.Fragment>
                   ))}
@@ -513,9 +512,7 @@ const Staff = () => {
           </Box>
           <Box className="bottom_right_part mt-3">
             <Typography className="px-3">Inquiry Status</Typography>
-            <Box
-              className="staff_statistics_data"
-            >
+            <Box className="staff_statistics_data">
               <Box className="inner_profile_details first_box p-2">
                 <Typography>Total Inquiry</Typography>
                 <Typography>
@@ -536,9 +533,7 @@ const Staff = () => {
               </Box>
             </Box>
             <Typography className="px-3">Attendance</Typography>
-            <Box
-              className="staff_statistics_data"
-            >
+            <Box className="staff_statistics_data">
               <Box className="inner_profile_details first_box m-1 p-2">
                 <Typography className="text_ellipsis">Total Present</Typography>
                 <Typography>
@@ -560,9 +555,7 @@ const Staff = () => {
               </Box>
             </Box>
             <Typography className="px-3">Target</Typography>
-            <Box
-              className="staff_statistics_data"
-            >
+            <Box className="staff_statistics_data">
               <Box className="inner_profile_details first_box m-1 p-2">
                 <Typography className="text_ellipsis">Total Days</Typography>
                 <Typography>

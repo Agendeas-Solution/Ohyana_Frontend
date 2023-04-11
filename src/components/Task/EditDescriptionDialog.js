@@ -20,12 +20,10 @@ const EditDescriptionDialog = ({
         description: editDescriptionDialog?.description,
         id: editDescriptionDialog?.id,
       },
-      (res) => {
+      res => {
         handleDialogClose()
       },
-      (err) => {
-
-      },
+      err => {},
     )
   }
   return (
@@ -61,7 +59,11 @@ const EditDescriptionDialog = ({
           sx={{ marginLeft: '13px', marginRight: '13px' }}
           className="mt-1 d-flex justify-content-between"
         >
-          <Button className="ok-btn" variant="contained" onClick={handleEditDescription}>
+          <Button
+            className="ok-btn"
+            variant="contained"
+            onClick={handleEditDescription}
+          >
             Ok
           </Button>
           <Button onClick={handleDialogClose} className="cancel-btn" autoFocus>

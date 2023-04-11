@@ -30,7 +30,7 @@ const StaffTarget = () => {
   })
   const [targetDetail, setTargetDetail] = useState({
     status: false,
-    id: path
+    id: path,
   })
   const [targetList, setTargetList] = useState([])
 
@@ -40,8 +40,7 @@ const StaffTarget = () => {
         month: selectMonth?.$M + 1,
         year: selectMonth?.$y,
         teamId: parseInt(path),
-      }
-      ,
+      },
       res => {
         if (res.success) {
           setTargetList(res?.data)
@@ -50,7 +49,6 @@ const StaffTarget = () => {
       err => {
         console.log('Printing ', err)
         setTargetList([])
-
       },
     )
   }, [selectMonth])
@@ -117,7 +115,7 @@ const StaffTarget = () => {
             overflowY: 'auto',
           }}
         >
-          {targetList.length > 0 ?
+          {targetList.length > 0 ? (
             <Table
               stickyHeader
               aria-label="sticky table"
@@ -156,7 +154,11 @@ const StaffTarget = () => {
                       <TableCell align="left">
                         {targetData?.period} days
                       </TableCell>
-                      <TableCell align="left">{targetData?.type === 0 ? "Generate Lead" : "Take Order"}</TableCell>
+                      <TableCell align="left">
+                        {targetData?.type === 0
+                          ? 'Generate Lead'
+                          : 'Take Order'}
+                      </TableCell>
                       <TableCell align="left">{targetData?.target}</TableCell>
                       <TableCell align="left">{targetData?.achieve}</TableCell>
                       <TableCell align="left">{targetData?.target}</TableCell>
@@ -165,13 +167,17 @@ const StaffTarget = () => {
                   )
                 })}
               </TableBody>
-            </Table> :
+            </Table>
+          ) : (
             <NoResultFound />
-          }
+          )}
         </TableContainer>
-        {targetDetail.status && <SetTargetDialog targetDetail={targetDetail}
-          handleCloseTargetDetailDialog={handleCloseTargetDetailDialog}
-        />}
+        {targetDetail.status && (
+          <SetTargetDialog
+            targetDetail={targetDetail}
+            handleCloseTargetDetailDialog={handleCloseTargetDetailDialog}
+          />
+        )}
       </Box>
     </>
   )

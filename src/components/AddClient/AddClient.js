@@ -36,7 +36,7 @@ const AddClient = () => {
     state: '',
     city: '',
     business: '',
-    referenceName: "",
+    referenceName: '',
   })
   const [adminProductList, setAdminProductList] = useState([])
   const [countryList, setCountryList] = useState([])
@@ -128,8 +128,6 @@ const AddClient = () => {
       userDetail.city !== '' &&
       userDetail.country !== ''
     ) {
-
-
       let clientDetail = {
         name: userDetail.clientName,
         email: userDetail?.email,
@@ -144,7 +142,7 @@ const AddClient = () => {
         city: userDetail.city,
         reference_name: userDetail?.referenceName,
       }
-      debugger;
+      debugger
       AddClientDetail(
         clientDetail,
         res => {
@@ -197,13 +195,11 @@ const AddClient = () => {
                 variant="outlined"
               />
             </Box>
-
           </Box>
 
           {/* Contact No. &&  Investment Scale*/}
           <Box className="input_field_row">
             <Box className="input_fields">
-
               <TextField
                 label="Contact No"
                 onChange={e => {
@@ -218,7 +214,10 @@ const AddClient = () => {
               <TextField
                 label="Investment Scale "
                 onChange={e => {
-                  setUserDetail({ ...userDetail, max_invesment_amount: e.target.value })
+                  setUserDetail({
+                    ...userDetail,
+                    max_invesment_amount: e.target.value,
+                  })
                 }}
                 value={userDetail.max_invesment_amount}
                 variant="outlined"
@@ -253,7 +252,6 @@ const AddClient = () => {
 
           {/* Client Type & City*/}
           <Box className="input_field_row">
-
             <Box className="input_fields">
               <FormControl>
                 <InputLabel>Client Type</InputLabel>
@@ -280,7 +278,6 @@ const AddClient = () => {
                 variant="outlined"
               />
             </Box>
-
           </Box>
           {/* Country & State*/}
           <Box className="input_field_row">
@@ -309,13 +306,10 @@ const AddClient = () => {
                 variant="outlined"
               />
             </Box>
-
           </Box>
-
 
           {/* Reference Name*/}
           <Box className="input_field_row">
-
             <Box className="input_fields">
               <FormControl>
                 <InputLabel>Reference</InputLabel>
@@ -326,7 +320,7 @@ const AddClient = () => {
                     setUserDetail({
                       ...userDetail,
                       reference: e.target.value,
-                      referenceName: "",
+                      referenceName: '',
                     })
                   }}
                 >
@@ -351,24 +345,26 @@ const AddClient = () => {
                 />
               </Box>
             )}
-            {userDetail.reference === 'DIGITAL' && <Box className="input_fields">
-              <FormControl>
-                <InputLabel>Reference Name</InputLabel>
-                <Select
-                  label="Reference"
-                  value={userDetail.referenceName}
-                  onChange={e => {
-                    setUserDetail({
-                      ...userDetail,
-                      referenceName: e.target.value
-                    })
-                  }}
-                >
-                  <MenuItem value="INDIAMART">IndiaMart</MenuItem>
-                  <MenuItem value="WEBSITE">Website</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>}
+            {userDetail.reference === 'DIGITAL' && (
+              <Box className="input_fields">
+                <FormControl>
+                  <InputLabel>Reference Name</InputLabel>
+                  <Select
+                    label="Reference"
+                    value={userDetail.referenceName}
+                    onChange={e => {
+                      setUserDetail({
+                        ...userDetail,
+                        referenceName: e.target.value,
+                      })
+                    }}
+                  >
+                    <MenuItem value="INDIAMART">IndiaMart</MenuItem>
+                    <MenuItem value="WEBSITE">Website</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            )}
           </Box>
           {/* Save Button */}
           <Box
@@ -383,7 +379,6 @@ const AddClient = () => {
               Save
             </Button>
           </Box>
-
         </div>
       </div>
 

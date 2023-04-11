@@ -35,7 +35,8 @@ const AddStaffMember = () => {
     gender: '',
     birthDate: '',
     state: '',
-    jobType: '', password: ""
+    jobType: '',
+    password: '',
   })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -53,7 +54,7 @@ const AddStaffMember = () => {
           setDepartmentList(res?.data?.department)
         }
       },
-      err => { },
+      err => {},
     )
   }, [])
   useEffect(() => {
@@ -91,9 +92,9 @@ const AddStaffMember = () => {
         birthDay: userDetail.birthDate,
         state: userDetail.state,
         jobType: userDetail.jobType,
-        password: userDetail.password
+        password: userDetail.password,
       }
-      debugger;
+      debugger
       AddEmployee(
         employeeDetail,
         res => {
@@ -113,7 +114,7 @@ const AddStaffMember = () => {
         },
       )
     } else {
-      console.log(userDetail);
+      console.log(userDetail)
     }
   }
   return (
@@ -143,14 +144,12 @@ const AddStaffMember = () => {
                   setUserDetail({ ...userDetail, jobType: e.target.value })
                 }}
               >
-                {TEAM.JOBTYPE.map((data) => {
+                {TEAM.JOBTYPE.map(data => {
                   return <MenuItem value={data?.id}>{data?.type}</MenuItem>
                 })}
-
               </Select>
             </FormControl>
           </Box>
-
         </Box>
 
         {/* Email &&  Job Role  */}
@@ -171,7 +170,7 @@ const AddStaffMember = () => {
             <FormControl>
               <InputLabel>Select jobRole</InputLabel>
               <Select
-                label='Select Job Role'
+                label="Select Job Role"
                 value={userDetail?.jobRole}
                 onChange={e => {
                   setUserDetail({ ...userDetail, jobRole: e.target.value })
@@ -256,8 +255,10 @@ const AddStaffMember = () => {
             />
           </Box>
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}
-          className="input_field_row">
+        <Box
+          sx={{ display: 'flex', justifyContent: 'flex-end' }}
+          className="input_field_row"
+        >
           <Button
             onClick={handleAddEmployee}
             variant="contained"
@@ -266,7 +267,7 @@ const AddStaffMember = () => {
             Save
           </Button>
         </Box>
-      </Box >
+      </Box>
       <ErrorSnackbar />
     </>
   )

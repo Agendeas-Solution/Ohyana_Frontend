@@ -317,8 +317,7 @@ export const GetSingleRole = async (value, onSuccess, onError) => {
   try {
     const { data } = await axiosInstance.get(`/role/detail`, {
       headers: { ...defaultHeaders },
-      params:{roleId:value}
-      
+      params: { roleId: value },
     })
     console.log('Printing data of GetSingleRole', data)
     onSuccess && onSuccess(data)
@@ -388,7 +387,6 @@ export const AddCloseStatusApiCall = async (value, onSuccess, onError) => {
     onError && onError(err)
   }
 }
-
 
 export const EditClientStatus = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`

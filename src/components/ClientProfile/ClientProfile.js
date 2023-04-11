@@ -78,7 +78,9 @@ const ClientProfile = () => {
     status: false,
   })
   const [closeStatusDialogControl, setCloseStatusDialogControl] = useState({
-    status: false, clientId: null, description: ""
+    status: false,
+    clientId: null,
+    description: '',
   })
   let navigate = useNavigate()
   useEffect(() => {
@@ -166,12 +168,15 @@ const ClientProfile = () => {
   const handleStatusOpen = () => {
     setStatusDialog(true)
   }
-  const handleCloseStatusDialogOpen = (id) => {
-    setCloseStatusDialogControl({ ...closeStatusDialogControl, status: true, clientId: id })
+  const handleCloseStatusDialogOpen = id => {
+    setCloseStatusDialogControl({
+      ...closeStatusDialogControl,
+      status: true,
+      clientId: id,
+    })
   }
   const handleCloseStatusDialogClose = () => {
     setCloseStatusDialogControl({ ...closeStatusDialogControl, status: false })
-
   }
   const handleStatusClose = () => {
     setStatusDialog(false)
@@ -218,9 +223,9 @@ const ClientProfile = () => {
               <Box className="userName_and_position">
                 <AccountCircleRoundedIcon
                   className="user_profile_icon"
-                // sx={{
-                //   paddingTop: 2,
-                // }}
+                  // sx={{
+                  //   paddingTop: 2,
+                  // }}
                 />
                 <Box
                   sx={{
@@ -268,7 +273,6 @@ const ClientProfile = () => {
                     onClick={() => {
                       navigate(`/editclient/${clientProfileDetail.id}`)
                     }}
-
                   />
                 )}
               </Button>
@@ -305,7 +309,14 @@ const ClientProfile = () => {
                       >
                         + Status
                       </Button>
-                      <Button onClick={() => handleCloseStatusDialogOpen(clientProfileDetail.id)} className="common_button">Close</Button>
+                      <Button
+                        onClick={() =>
+                          handleCloseStatusDialogOpen(clientProfileDetail.id)
+                        }
+                        className="common_button"
+                      >
+                        Close
+                      </Button>
                     </>
                   ) : null}
                   {value === '2' ? (
@@ -337,8 +348,7 @@ const ClientProfile = () => {
                         onClick={handleAppointmentOpen}
                         variant="contained"
                       >
-                        {/* <AddRoundedIcon /> */}
-                        + Create
+                        {/* <AddRoundedIcon /> */}+ Create
                       </Button>
                     </>
                   ) : null}

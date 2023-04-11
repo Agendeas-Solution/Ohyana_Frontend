@@ -29,7 +29,7 @@ export const GetTargetList = async (value, onSuccess, onError) => {
       params: {
         month: value.month,
         year: value.year,
-      }
+      },
     })
     console.log('Printing data of GetTargetList', data)
     onSuccess && onSuccess(data)

@@ -109,7 +109,6 @@ const JobRolesList = () => {
             roles: res.data,
           })
         }
-        
       },
       err => {
         console.log(err)

@@ -5,7 +5,9 @@ import {
   TextField,
   Button,
   Select,
-  MenuItem, FormControl, InputLabel
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from '@mui/material'
 import {
   GetAdminDepartmentList,
@@ -28,18 +30,18 @@ import {
   GetAdminStaffProfileDetail,
 } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
-import { TEAM } from '../../constants' 
+import { TEAM } from '../../constants'
 const EditStaff = () => {
   const [userDetail, setUserDetail] = useState({
-    name: "",
-    contact_number: "",
-    roleId: "",
+    name: '',
+    contact_number: '',
+    roleId: '',
     email: '',
     birthDay: '',
-    gender: "",
+    gender: '',
     state: '',
     jobType: '',
-    id: ''
+    id: '',
   })
   const [departmentList, setDepartmentList] = useState([])
   const [employeeJobRole, setEmployeeJobRole] = useState([])
@@ -56,7 +58,7 @@ const EditStaff = () => {
           setDepartmentList(res?.data?.department)
         }
       },
-      err => { },
+      err => {},
     )
   }, [])
 
@@ -77,7 +79,7 @@ const EditStaff = () => {
             gender: res.data.gender,
             state: res.data.state,
             jobType: res.data.jobType,
-            id: res.data.id
+            id: res.data.id,
           })
         }
       },
@@ -123,8 +125,6 @@ const EditStaff = () => {
       userDetail.jobType !== '' &&
       userDetail.id !== ''
     ) {
-
-
       EditEmployee(
         userDetail,
         res => {
@@ -132,7 +132,7 @@ const EditStaff = () => {
             setSuccessDialog(true)
           }
         },
-        err => { },
+        err => {},
       )
     } else {
       console.log(userDetail)
@@ -385,13 +385,12 @@ const EditStaff = () => {
                   setUserDetail({ ...userDetail, jobType: e.target.value })
                 }}
               >
-                {TEAM.JOBTYPE.map((data) => {
+                {TEAM.JOBTYPE.map(data => {
                   return <MenuItem value={data?.id}>{data?.type}</MenuItem>
                 })}
               </Select>
             </FormControl>
           </Box>
-
         </Box>
 
         {/* Email &&  Job Role  */}
@@ -412,7 +411,7 @@ const EditStaff = () => {
             <FormControl>
               <InputLabel>Select jobRole</InputLabel>
               <Select
-                label='Select Job Role'
+                label="Select Job Role"
                 value={userDetail?.roleId}
                 onChange={e => {
                   setUserDetail({ ...userDetail, roleId: e.target.value })
@@ -485,8 +484,10 @@ const EditStaff = () => {
           </Box>
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}
-          className="input_field_row">
+        <Box
+          sx={{ display: 'flex', justifyContent: 'flex-end' }}
+          className="input_field_row"
+        >
           <Button
             onClick={handleAddEmployee}
             variant="contained"

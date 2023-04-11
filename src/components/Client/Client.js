@@ -12,8 +12,10 @@ import {
   Typography,
   FormControl,
   OutlinedInput,
-  InputAdornment, Select, MenuItem, InputLabel
-
+  InputAdornment,
+  Select,
+  MenuItem,
+  InputLabel,
 } from '@mui/material'
 import './index.css'
 import { socket } from '../../App'
@@ -68,7 +70,7 @@ const Client = () => {
     useState(0)
   const [clientLoader, setClientLoader] = useState(false)
   const [clientType, setClientType] = useState(CLIENT.STAGE)
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('')
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -86,12 +88,11 @@ const Client = () => {
     setOpen(false)
   }
   const handleClearAllFilter = () => {
-    setClientStage(null);
-    getClientDetails();
-
+    setClientStage(null)
+    getClientDetails()
   }
   const handleApplyFilter = () => {
-    getClientDetails();
+    getClientDetails()
   }
   useEffect(() => {
     console.log(clientType)
@@ -119,7 +120,7 @@ const Client = () => {
           message: res.data.message,
         })
       },
-      err => { },
+      err => {},
     )
   }
   const handleDialogClose = () => {
@@ -209,7 +210,7 @@ const Client = () => {
     )
   }
   useEffect(() => {
-    getClientDetails();
+    getClientDetails()
   }, [
     currentPage,
     isInternational,
@@ -219,7 +220,6 @@ const Client = () => {
   ])
   return (
     <Box className="main_tab_section">
-
       <Box className="tab_header">
         <Tabs
           value={value}
@@ -247,7 +247,7 @@ const Client = () => {
               className="search_field"
               placeholder="Search Here..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={e => setSearchQuery(e.target.value)}
               startAdornment={
                 <InputAdornment position="start" sx={{ margin: '0' }}>
                   <IconButton>
@@ -268,13 +268,9 @@ const Client = () => {
             </Button>
           )}
 
-          <IconButton
-            edge="end"
-            onClick={handleDrawerOpen}
-          >
+          <IconButton edge="end" onClick={handleDrawerOpen}>
             <img src={FilterIcon} alt="" />
           </IconButton>
-
         </Box>
 
         <Drawer
@@ -287,9 +283,14 @@ const Client = () => {
           anchor="right"
           open={open}
         >
-          <DrawerHeader sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <DrawerHeader
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-
               <IconButton
                 sx={{ color: '#2e3591' }}
                 disableRipple={true}
@@ -302,36 +303,33 @@ const Client = () => {
                 )}
               </IconButton>
 
-              <Typography sx={{ fontSize: '20px', }}>
-                Filter By
-              </Typography>
-
+              <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
             </Box>
-            <Box >
-              <Button onClick={handleApplyFilter} variant="contained">Apply</Button>
+            <Box>
+              <Button onClick={handleApplyFilter} variant="contained">
+                Apply
+              </Button>
               <Button onClick={handleClearAllFilter}>Clear All</Button>
             </Box>
           </DrawerHeader>
           <Divider />
 
-          <Box sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
+          <Box
+            sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}
+          >
             <FormControl sx={{ margin: '10px' }}>
               <InputLabel>Client Type</InputLabel>
               <Select
                 label="Client Stage"
-                value={
-                  clientStage !== null ? clientType[clientStage] : null
-                }
+                value={clientStage !== null ? clientType[clientStage] : null}
                 onChange={(e, value) => {
                   console.log(value)
                   setClientStage(e.target.value)
                 }}
               >
-                {
-                  clientType.map((data) => {
-                    return <MenuItem value={data.id}>{data.stage}</MenuItem>
-                  })
-                }
+                {clientType.map(data => {
+                  return <MenuItem value={data.id}>{data.stage}</MenuItem>
+                })}
               </Select>
             </FormControl>
             <FormControl sx={{ margin: '10px' }}>
@@ -365,13 +363,11 @@ const Client = () => {
                 <MenuItem value="WEBSITE">Uttar Pradesh</MenuItem>
               </Select>
             </FormControl>
+          </Box>
+        </Drawer>
+      </Box>
 
-          </Box >
-        </Drawer >
-
-      </Box >
-
-      <Box sx={{ overflowY: "hidden" }} className="client_body_section">
+      <Box sx={{ overflowY: 'hidden' }} className="client_body_section">
         {value === 'business_card' ? (
           <BusinessCard clientDetails={clientDetails} />
         ) : (
@@ -433,7 +429,7 @@ const Client = () => {
           </DialogActions>
         </Box>
       </Dialog> */}
-    </Box >
+    </Box>
   )
 }
 

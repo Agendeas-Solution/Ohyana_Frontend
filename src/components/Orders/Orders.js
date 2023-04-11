@@ -81,23 +81,23 @@ const Orders = () => {
     setOpen(false)
   }
 
-  const handleApplyFilter = () => {
-
-  }
-  const handleClearAllFilter = () => {
-
-  }
+  const handleApplyFilter = () => {}
+  const handleClearAllFilter = () => {}
 
   return (
     <Box className="main_tab_section">
       <Box className="tab_header">
         <Box>
-          <Typography sx={{ color: '#8E8E8E' }} variant="span">Overview</Typography>
+          <Typography sx={{ color: '#8E8E8E' }} variant="span">
+            Overview
+          </Typography>
         </Box>
-        <Box sx={{
-          display: 'flex',
-          alignItems: 'center',
-        }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
           <FormControl variant="outlined">
             <OutlinedInput
               className="search_field"
@@ -130,9 +130,14 @@ const Orders = () => {
             anchor="right"
             open={openDrawer}
           >
-            <DrawerHeader sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <DrawerHeader
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-
                 <IconButton
                   sx={{ color: '#2e3591' }}
                   disableRipple={true}
@@ -145,21 +150,27 @@ const Orders = () => {
                   )}
                 </IconButton>
 
-                <Typography sx={{ fontSize: '20px', }}>
-                  Filter By
-                </Typography>
+                <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
               </Box>
-              <Box >
-                <Button onClick={handleClearAllFilter} className='text_button'>Reset</Button>
-                <Button onClick={handleApplyFilter} className='common_button' variant="contained">Apply</Button>
+              <Box>
+                <Button onClick={handleClearAllFilter} className="text_button">
+                  Reset
+                </Button>
+                <Button
+                  onClick={handleApplyFilter}
+                  className="common_button"
+                  variant="contained"
+                >
+                  Apply
+                </Button>
               </Box>
-
             </DrawerHeader>
 
             <Divider />
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
-
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}
+            >
               <FormControl>
                 <FormLabel
                   sx={{ color: '#000000' }}
@@ -215,9 +226,8 @@ const Orders = () => {
                 </RadioGroup>
               </FormControl>
 
-              <LocalizationProvider dateAdapter={AdapterDateFns}  >
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
-
                   inputFormat="dd/MM/yyyy"
                   value={createTask.due_date}
                   onChange={e => {
@@ -227,9 +237,12 @@ const Orders = () => {
                     })
                   }}
                   renderInput={params => (
-                    <TextField variant="outlined"
+                    <TextField
+                      variant="outlined"
                       {...params}
-                      label="Date" sx={{ margin: '10px' }} />
+                      label="Date"
+                      sx={{ margin: '10px' }}
+                    />
                   )}
                   PopperProps={{
                     placement: 'bottom-start', // Set placement to 'bottom-start'
@@ -255,7 +268,7 @@ const Orders = () => {
             stickyHeader
             aria-label="sticky table"
             sx={{ minWidth: 690, marginLeft: '-10px' }}
-          // className="table_heading "
+            // className="table_heading "
           >
             <TableHead>
               <TableRow>
@@ -320,7 +333,6 @@ const Orders = () => {
           </Table>
         </TableContainer>
       </Box>
-
     </Box>
   )
 }

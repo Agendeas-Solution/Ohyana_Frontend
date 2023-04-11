@@ -69,7 +69,6 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
                 <TableCell align="right">Date</TableCell>
                 <TableCell align="right"></TableCell>
                 <TableCell align="right"></TableCell>
-
               </TableRow>
             </TableHead>
             <TableBody>
@@ -83,14 +82,22 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
                     '&:last-child td,th': { border: 0 },
                   }}
                 >
-                  <TableCell className="tablecell_height" scope="row" sx={{ maxWidth: '150px' }}>
+                  <TableCell
+                    className="tablecell_height"
+                    scope="row"
+                    sx={{ maxWidth: '150px' }}
+                  >
                     {row.id}
                   </TableCell>
-                  <TableCell align="right" sx={{ maxWidth: '150px' }}>{row.name ?? '-'}</TableCell>
+                  <TableCell align="right" sx={{ maxWidth: '150px' }}>
+                    {row.name ?? '-'}
+                  </TableCell>
                   <TableCell align="right" sx={{ maxWidth: '150px' }}>
                     {row.business ?? '-'}
                   </TableCell>
-                  <TableCell align="right" sx={{ maxWidth: '150px' }}>{row.contact_number ?? '-'}</TableCell>
+                  <TableCell align="right" sx={{ maxWidth: '150px' }}>
+                    {row.contact_number ?? '-'}
+                  </TableCell>
                   <TableCell align="right" sx={{ maxWidth: '150px' }}>
                     {row.state?.name ?? '-'}
                   </TableCell>

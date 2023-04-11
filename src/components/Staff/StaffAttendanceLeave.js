@@ -17,7 +17,11 @@ import {
 import moment from 'moment'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 
-const StaffAttendanceLeave = ({ staffLeaveList, approveLeave, setApproveLeave }) => {
+const StaffAttendanceLeave = ({
+  staffLeaveList,
+  approveLeave,
+  setApproveLeave,
+}) => {
   const [value, setValue] = useState('1')
   // useEffect(() => {
   //   let path = window.location.pathname
@@ -86,7 +90,7 @@ const StaffAttendanceLeave = ({ staffLeaveList, approveLeave, setApproveLeave })
           overflowY: 'auto',
         }}
       >
-        {staffLeaveList.length > 0 ?
+        {staffLeaveList.length > 0 ? (
           <Table
             stickyHeader
             aria-label="sticky table"
@@ -118,16 +122,20 @@ const StaffAttendanceLeave = ({ staffLeaveList, approveLeave, setApproveLeave })
                       <TableCell className="tablecell_height" align="left">
                         {moment(leaveList?.date).format('DD/MM/YY')}
                       </TableCell>
-                      <TableCell align="left">{leaveList?.leave?.type}</TableCell>
+                      <TableCell align="left">
+                        {leaveList?.leave?.type}
+                      </TableCell>
                       <TableCell align="left">{leaveList?.takenDays}</TableCell>
-                      <TableCell align="left">{leaveList?.remainDays}</TableCell>
+                      <TableCell align="left">
+                        {leaveList?.remainDays}
+                      </TableCell>
                       <TableCell align="left">{leaveList?.status}</TableCell>
                       <TableCell align="left">
                         <Button
                           className="common_button"
                           onClick={() => {
-                            console.log(leaveList);
-                            debugger;
+                            console.log(leaveList)
+                            debugger
                             setApproveLeave({
                               ...approveLeave,
                               status: true,
@@ -142,9 +150,10 @@ const StaffAttendanceLeave = ({ staffLeaveList, approveLeave, setApproveLeave })
                   )
                 })}
             </TableBody>
-          </Table> :
+          </Table>
+        ) : (
           <NoResultFound />
-        }
+        )}
       </TableContainer>
     </>
   )
