@@ -177,8 +177,8 @@ const Task = () => {
                 className="search_field"
                 placeholder="Search Here..."
                 startAdornment={
-                  <InputAdornment position="start">
-                    <IconButton>
+                  <InputAdornment position="start" sx={{ margin: '0px' }}>
+                    <IconButton sx={{ margin: '0px' }}>
                       <SearchRoundedIcon />
                     </IconButton>
                   </InputAdornment>
@@ -245,7 +245,6 @@ const Task = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
               <LocalizationProvider dateAdapter={AdapterDateFns}  >
                 <DatePicker
-
                   inputFormat="dd/MM/yyyy"
                   value={createTask.due_date}
                   onChange={e => {
