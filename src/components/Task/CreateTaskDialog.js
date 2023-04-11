@@ -30,11 +30,11 @@ const CreateTaskDialog = ({
         open={open}
         onClose={handleClose}
       >
-        <Box className="popup_section">
+        <Box className="dialogue_main_section">
 
-          <DialogTitle className="popup_heading">
+          <Typography className='dialogue_heading'>
             Create Task
-          </DialogTitle>
+          </Typography>
 
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
@@ -46,7 +46,7 @@ const CreateTaskDialog = ({
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  className="popup_section_input_fields"
+                  className="dialogue_input_fields"
                 />
               )}
               PopperProps={{
@@ -56,7 +56,7 @@ const CreateTaskDialog = ({
           </LocalizationProvider>
 
           <TextField
-            className="popup_section_input_fields"
+            className="dialogue_input_fields"
             label="Task Name"
             variant="outlined"
             value={createTask.title}
@@ -66,7 +66,7 @@ const CreateTaskDialog = ({
           />
 
           <TextField
-            className="popup_section_input_fields"
+            className="dialogue_input_fields"
             multiline
             placeholder="Description"
             autoComplete="off"
@@ -80,13 +80,14 @@ const CreateTaskDialog = ({
               })
             }}
           />
+          <DialogActions>
+            <Button
+              className='dialogue_bottom_button'
+              variant="contained"
+              onClick={handleCreateTask}
+            >Create
+            </Button></DialogActions>
 
-          <Button
-            className='popup_section_bottom_button'
-            variant="contained"
-            onClick={handleCreateTask}
-          >Create
-          </Button>
         </Box>
 
 

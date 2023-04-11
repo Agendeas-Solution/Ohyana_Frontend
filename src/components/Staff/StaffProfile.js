@@ -49,7 +49,7 @@ const StaffProfile = () => {
         },
       )
 
-    
+
   }, [value])
 
   return (
@@ -95,7 +95,7 @@ const StaffProfile = () => {
             {permissions?.editStaff && (
               <Button
                 variant="contained"
-                className="common_button_staff_points"
+                className="profile_header_button"
               >
                 <EditRoundedIcon
                   onClick={() => {
