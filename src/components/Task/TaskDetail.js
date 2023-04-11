@@ -23,8 +23,9 @@ import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
-import { EditTaskName } from '../../services/apiservices/task'
+import { EditTaskName, EditDueDate } from '../../services/apiservices/task'
 import DeleteTaskDialog from './DeleteTaskDialog'
+import DueDateDialog from './DueDateDialog'
 
 const EditDescriptionDialog = React.lazy(() =>
   import('./EditDescriptionDialog'),
@@ -55,6 +56,14 @@ const TaskDetail = () => {
     status: false,
     id: ''
   })
+  const [dueDateDialogControl, setDueDateDialogControl] = useState({
+    status: false,
+    due_date: "",
+    id: ""
+  })
+  const handleDueDateDialogClose = () => {
+    setDueDateDialogControl({ ...dueDateDialogControl, status: false })
+  }
   const handleDeleteDialogClose = () => {
     setDeleteTaskDialog({ ...deleteTaskDialog, status: false })
   }
@@ -99,7 +108,7 @@ const TaskDetail = () => {
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
       },
       err => {
@@ -140,6 +149,22 @@ const TaskDetail = () => {
         handleDialogClose();
       },
       (err) => { },
+    )
+  }
+  const handleEditDueDate = () => {
+    EditDueDate(
+      dueDateDialogControl,
+      (res) => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+        handleDueDateDialogClose();
+      },
+      (err) => {
+
+      },
     )
   }
   const handleDialogClose = () => {
@@ -330,20 +355,19 @@ const TaskDetail = () => {
                 >Due Date
                 </Typography>
                 <Button variant="filled" className='white_button'>
-                  <CalendarMonthRoundedIcon sx={{ color: '#2E3591' }} />
+                  <CalendarMonthRoundedIcon onClick={() => {
+                    setDueDateDialogControl({ ...dueDateDialogControl, status: true, id: taskDetail.id })
+                  }} sx={{ color: '#2E3591' }} />
                 </Button>
               </Box>
-
               <Typography variant="span" className='common_description_text'>
                 {moment(taskDetail?.due_date).format('MMMM Do YYYY, h:mm:ss a')}
               </Typography>
             </Box>
-
             <Box sx={{ margin: '10px 0px' }}>
               <Typography className="common_sub_heading" variant="span">
                 Description
               </Typography>
-
               <Typography variant="span" className='common_description_text' >
                 {taskDetail?.description}
               </Typography>
@@ -407,6 +431,12 @@ const TaskDetail = () => {
           setDeleteTaskDialog={setDeleteTaskDialog}
           deleteTaskDialog={deleteTaskDialog}
           handleDeleteDialogClose={handleDeleteDialogClose}
+        />
+        <DueDateDialog
+          dueDateDialogControl={dueDateDialogControl}
+          handleDueDateDialogClose={handleDueDateDialogClose}
+          setDueDateDialogControl={setDueDateDialogControl}
+          handleEditDueDate={handleEditDueDate}
         />
       </Box >
     </>

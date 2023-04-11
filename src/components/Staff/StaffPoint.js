@@ -43,7 +43,7 @@ const StaffPoint = () => {
       },
     )
   }, [])
-  useEffect(() => {
+  const handleGetPointTeamMember = () => {
     GetPointTeamMember(
       {
         month: selectMonth?.$M + 1,
@@ -61,18 +61,23 @@ const StaffPoint = () => {
             : null
         setTotalPage(pages)
       },
-      err => { 
+      err => {
         setPointsData([])
         setTotalPoints([])
 
       },
     )
+  }
+  useEffect(() => {
+    handleGetPointTeamMember();
   }, [selectMonth, currentPage])
 
   const handleAppreciation = () => {
     GiveAppreciation(
       parseInt(path),
-      res => { },
+      res => {
+        handleGetPointTeamMember();
+      },
       err => { },
     )
   }
