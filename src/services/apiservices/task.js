@@ -163,9 +163,8 @@ export const EditTaskDescription = async (value, onSuccess, onError) => {
 export const EditTaskName = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.patch(
-      `/title/task/${value.id}`,
-      { title: value.title },
+    const { data } = await axiosInstance.put(
+      `/task`, value,
       {
         headers: { ...defaultHeaders },
       },

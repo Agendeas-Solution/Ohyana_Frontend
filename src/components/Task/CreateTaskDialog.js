@@ -19,22 +19,11 @@ const CreateTaskDialog = ({
   open,
   createTask,
   handleCreateTask,
-  setCreateTask,
+  setCreateTask, handleClose
 }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
-
-  const handleOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   return (
     <>
       <Dialog
@@ -47,13 +36,12 @@ const CreateTaskDialog = ({
             Create Task
           </DialogTitle>
 
-
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               inputFormat="dd/MM/yyyy"
-              value={createTask.birthDate}
+              value={createTask.due_date}
               onChange={e => {
-                // setUserDetail({ ...createTask, dueDate: e })
+                setCreateTask({ ...createTask, due_date: e })
               }}
               renderInput={(params) => (
                 <TextField
@@ -66,7 +54,6 @@ const CreateTaskDialog = ({
               }}
             />
           </LocalizationProvider>
-
 
           <TextField
             className="popup_section_input_fields"
@@ -98,8 +85,7 @@ const CreateTaskDialog = ({
             className='popup_section_bottom_button'
             variant="contained"
             onClick={handleCreateTask}
-          >
-            Create
+          >Create
           </Button>
         </Box>
 
