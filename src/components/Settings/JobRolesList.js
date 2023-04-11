@@ -62,22 +62,17 @@ const EditJobRoleDialog = React.lazy(() => import('./EditJobRoleDialog'))
 
 const JobRolesList = () => {
   // const classes = useStyles();
-
   let navigate = useNavigate()
   const { flagLoader, permissions } = useContext(AuthContext).state
   const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false)
-  const [
-    addEditDepartmentDialogControlDummy,
-    setAddEditDepartmentDialogControlDummy,
-  ] = useState(false)
+
   const [deleteJobRoleDialogControl, setDeleteJobRoleDialogControl] = useState({
     status: false,
     id: null,
   })
-
   const handleClose = () => {
-    // setJobRoleDialogControl(false)
-    setAddEditDepartmentDialogControlDummy(false)
+    setJobRoleDialogControl(false)
+    // setAddEditDepartmentDialogControlDummy(false)
   }
   const [deleteDepartmentDialogControl, setDeleteDepartmentControl] = useState({
     status: false,
@@ -98,7 +93,6 @@ const JobRolesList = () => {
       id: null,
       departmentName: '',
     })
-
   const [jobRoleList, setJobRoleList] = useState({
     name: '',
     roles: [],
@@ -115,6 +109,7 @@ const JobRolesList = () => {
             roles: res.data,
           })
         }
+        
       },
       err => {
         console.log(err)
@@ -136,10 +131,7 @@ const JobRolesList = () => {
           {permissions?.editDepartment && (
             <Button
               onClick={() => {
-                setAddEditDepartmentDialogControlDummy({
-                  ...addEditDepartmentDialogControlDummy,
-                  status: true,
-                })
+                setJobRoleDialogControl(true)
               }}
               variant="contained"
             >
@@ -205,7 +197,7 @@ const JobRolesList = () => {
             </TableHead>
           </Box>
         </Box>
-        {jobRoleList.roles.length > 0 &&
+        {jobRoleList?.roles &&
           jobRoleList?.roles.map((data, index) => {
             return (
               <Box className="appointment_notification">
@@ -242,8 +234,9 @@ const JobRolesList = () => {
             )
           })}
       </div>
-      <EditJobRoleDialog
-        editJobRoleDialogControl={addEditDepartmentDialogControlDummy}
+      <JobRoleDialog
+        jobRoleList={jobRoleList}
+        jobRoleDialogControl={jobRoleDialogControl}
         handleClose={handleClose}
       />
     </>

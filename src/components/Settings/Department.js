@@ -939,11 +939,11 @@ const Department = () => {
           </Box>
           {/* </div> */}
         </Box>
-        <JobRoleDialog
+        {/* <JobRoleDialog
           jobRoleList={jobRoleList}
           jobRoleDialogControl={jobRoleDialogControl}
           handleClose={handleClose}
-        />
+        /> */}
         {editJobRoleDialogControl.status === true && (
           <EditJobRoleDialog
             editJobRoleDialogControl={editJobRoleDialogControl}

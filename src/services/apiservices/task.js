@@ -176,3 +176,20 @@ export const EditTaskName = async (value, onSuccess, onError) => {
     onError && onError(err)
   }
 }
+
+export const EditDueDate = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.patch(
+      `/due-date/task/${value.id}`, { due_date: value.due_date },
+      {
+        headers: { ...defaultHeaders },
+      },
+    )
+    console.log('Printing data of EditDueDate', data)
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log('Got error while calling API - EditDueDate', err)
+    onError && onError(err)
+  }
+}
