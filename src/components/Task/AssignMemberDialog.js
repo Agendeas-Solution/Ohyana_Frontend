@@ -15,57 +15,46 @@ const AssignMemberDialog = ({
   handleCloseMemberDialog,
   openMemberDialog,
   handleAssignMember,
-  memberList,member,setMember
+  memberList, member, setMember
 }) => {
   console.log(memberList)
   return (
     <>
       <Dialog open={openMemberDialog} onClose={handleCloseMemberDialog}>
-        <DialogTitle
-          sx={{ fontWeight: '800' }}
-          className="row justify-content-left font-weight-bold"
-        >
-          Members
-        </DialogTitle>
-        <Box className="my-3 mx-3 p-2">
-          <div className="row">
-            <div className="col-md-12">
-              <Autocomplete
-                options={memberList}
-                getOptionLabel={memberList => memberList?.email}
-                value={member?.email}
-                onChange={(e, value) => {
-                  console.log(value)
-                  setMember(value)
-                }}
-                sx={{
-                  width: 300,
-                  border: '1px solid #E5E5E5',
-                  borderRadius: '5px',
-                }}
-                renderInput={params => (
-                  <TextField {...params} placeholder="Search Members" />
-                )}
-              />
-            </div>
-          </div>
+        <Box className="dialogue_main_section">
+
+          <Typography className='dialogue_heading'>
+            Assign Mmber
+          </Typography>
+          <Autocomplete
+            disablePortal
+            options={memberList}
+            value={member?.email}
+            onChange={(e, value) => {
+              console.log(value)
+              setMember(value)
+            }}
+            getOptionLabel={memberList => memberList?.email}
+            renderInput={params => (
+              <TextField {...params} className="dialogue_input_fields" label="Select Members" placeholder="Search Members" />
+            )}
+          />
+          <DialogActions sx={{ marginTop: '15px' }}>
+            <Button
+              className='dialogue_button_positive'
+              variant="contained"
+              onClick={() => handleAssignMember(member.id)}
+            >Ok
+            </Button>
+            <Button
+              className='dialogue_button_nagative'
+              variant="contained"
+              onClick={handleCloseMemberDialog}
+            >
+              Cancel
+            </Button>
+          </DialogActions>
         </Box>
-        <DialogActions className="m-auto">
-          <Button
-            variant="contained"
-            className='ok-btn'
-            onClick={() => handleAssignMember(member.id)}
-          >
-            Ok
-          </Button>
-          <Button
-            className="cancel-btn"
-            autoFocus
-            onClick={handleCloseMemberDialog}
-          >
-            Cancel
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   )

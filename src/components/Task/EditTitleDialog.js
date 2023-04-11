@@ -24,12 +24,12 @@ const EditTitleDialog = ({
         open={editTaskNameDialog.status}
         onClose={handleDialogClose}>
 
-        <Box className="popup_section">
+        <Box className="dialogue_main_section">
 
-          <DialogTitle className="popup_heading">Edit Task</DialogTitle>
+          <Typography className='dialogue_heading'>Edit Task</Typography>
 
           <TextField
-            className="popup_section_input_fields"
+            className="dialogue_input_fields"
             label="Task Name"
             variant="outlined"
             value={editTaskNameDialog.taskName}
@@ -41,7 +41,7 @@ const EditTitleDialog = ({
             }}
           />
           <TextField
-            className="popup_section_input_fields"
+            className="dialogue_input_fields"
             multiline
             placeholder="Description"
             autoComplete="off"
@@ -56,9 +56,9 @@ const EditTitleDialog = ({
             }}
           />
 
-          <DialogActions sx={{ padding: '0px', margin: '0px' }}>
+          <DialogActions>
             <Button
-              className='popup_section_bottom_button'
+              className='dialogue_bottom_button'
               variant="contained"
               onClick={handleEditTaskName}
             >Save

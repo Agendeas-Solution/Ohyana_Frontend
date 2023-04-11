@@ -175,8 +175,8 @@ const Task = () => {
                 className="search_field"
                 placeholder="Search Here..."
                 startAdornment={
-                  <InputAdornment position="start">
-                    <IconButton>
+                  <InputAdornment position="start" sx={{ margin: '0px' }}>
+                    <IconButton sx={{ margin: '0px' }}>
                       <SearchRoundedIcon />
                     </IconButton>
                   </InputAdornment>
