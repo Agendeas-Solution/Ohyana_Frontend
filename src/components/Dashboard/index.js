@@ -11,8 +11,8 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
+import Avatar from '@mui/material/Avatar'
+import Stack from '@mui/material/Stack'
 import {
   AttendanceStatus,
   GetInquiryAnalytics,
@@ -30,16 +30,15 @@ const Dashboard = () => {
       res => {
         setInquiryData(res.data.data)
       },
-      (err) => {
-      },
+      err => {},
     )
   }, [])
 
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
-      res => { },
-      err => { },
+      res => {},
+      err => {},
     )
   }
 
@@ -324,7 +323,8 @@ const Dashboard = () => {
                   {inquiryData?.sales?.crtLead}
                 </Typography>
                 <Typography variant="span">
-                  <TrendingUpRoundedIcon className="common_icon" /> {inquiryData?.sales?.totalPercentage || 0}%
+                  <TrendingUpRoundedIcon className="common_icon" />{' '}
+                  {inquiryData?.sales?.totalPercentage || 0}%
                 </Typography>
               </Box>
             </Box>
@@ -335,7 +335,8 @@ const Dashboard = () => {
                   {inquiryData?.sales?.crtLead}
                 </Typography>
                 <Typography>
-                  <TrendingDownRoundedIcon className="common_icon" /> {inquiryData?.sales?.leadPercentage || 0}%
+                  <TrendingDownRoundedIcon className="common_icon" />{' '}
+                  {inquiryData?.sales?.leadPercentage || 0}%
                 </Typography>
               </Box>
             </Box>
@@ -346,7 +347,8 @@ const Dashboard = () => {
                   {inquiryData?.sales?.crtOrders}
                 </Typography>
                 <Typography>
-                  <TrendingDownRoundedIcon className="common_icon" /> {inquiryData?.sales?.orderPercentage || 0}%
+                  <TrendingDownRoundedIcon className="common_icon" />{' '}
+                  {inquiryData?.sales?.orderPercentage || 0}%
                 </Typography>
               </Box>
             </Box>
@@ -357,7 +359,8 @@ const Dashboard = () => {
                   {inquiryData?.sales?.crtPending}
                 </Typography>
                 <Typography>
-                  <TrendingDownRoundedIcon className="common_icon" /> {inquiryData?.sales?.pendingInquiryPercentage || 0}%
+                  <TrendingDownRoundedIcon className="common_icon" />{' '}
+                  {inquiryData?.sales?.pendingInquiryPercentage || 0}%
                 </Typography>
               </Box>
             </Box>
@@ -368,7 +371,8 @@ const Dashboard = () => {
                   {inquiryData?.sales?.crtIrrelevant}
                 </Typography>
                 <Typography>
-                  <TrendingDownRoundedIcon className="common_icon" /> {inquiryData?.sales?.irrelevantInquiryPercentage || 0}%
+                  <TrendingDownRoundedIcon className="common_icon" />{' '}
+                  {inquiryData?.sales?.irrelevantInquiryPercentage || 0}%
                 </Typography>
               </Box>
             </Box>{' '}
@@ -379,7 +383,8 @@ const Dashboard = () => {
                   {inquiryData?.sales?.crtNoResponse}
                 </Typography>
                 <Typography>
-                  <TrendingDownRoundedIcon className="common_icon" /> {inquiryData?.sales?.noRepsoneInquiryPercentage || 0}%
+                  <TrendingDownRoundedIcon className="common_icon" />{' '}
+                  {inquiryData?.sales?.noRepsoneInquiryPercentage || 0}%
                 </Typography>
               </Box>
             </Box>
@@ -413,41 +418,58 @@ const Dashboard = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {inquiryData?.teamWithPoints && inquiryData?.teamWithPoints.map(data => {
-                  return (
-                    <TableRow
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell align='right' className='d-flex flex-row-reverse'>
-                        <Stack direction="row" spacing={2}>
-                          <Avatar
-                            className="me-2"
-                            sx={{ width: 40, height: 40 }}
-                            src={data?.imgUrl ? data?.imgUrl : "/static/images/avatar/1.jpg"}
-                          />
-                        </Stack><Typography>{data?.name || '-'}</Typography></TableCell>
-                      <TableCell align="right">{data?.role || '-'}</TableCell>
-                      <TableCell align="right">
-                        {data.attendances || '-'}
-                      </TableCell>
-                      <TableCell align="right">{data.points || '-'}</TableCell>
-                      <TableCell align="right">
-                        {data.pointPercentage}%
-                      </TableCell>
-                      <TableCell align="right">
-                        {TEAM.JOBTYPE.find(e => e.id == data?.jobType)?.type
-                          || '-'}
-                      </TableCell>
-                      <TableCell align="right">
-                        <Button className="common_button" onClick={() =>
-                          navigate(
-                            `/staffprofile/${data?.id}`,
-                          )
-                        }>View</Button>
-                      </TableCell>
-                    </TableRow>
-                  )
-                })}
+                {inquiryData?.teamWithPoints &&
+                  inquiryData?.teamWithPoints.map(data => {
+                    return (
+                      <TableRow
+                        sx={{
+                          '&:last-child td, &:last-child th': { border: 0 },
+                        }}
+                      >
+                        <TableCell
+                          align="right"
+                          className="d-flex flex-row-reverse"
+                        >
+                          <Stack direction="row" spacing={2}>
+                            <Avatar
+                              className="me-2"
+                              sx={{ width: 40, height: 40 }}
+                              src={
+                                data?.imgUrl
+                                  ? data?.imgUrl
+                                  : '/static/images/avatar/1.jpg'
+                              }
+                            />
+                          </Stack>
+                          <Typography>{data?.name || '-'}</Typography>
+                        </TableCell>
+                        <TableCell align="right">{data?.role || '-'}</TableCell>
+                        <TableCell align="right">
+                          {data.attendances || '-'}
+                        </TableCell>
+                        <TableCell align="right">
+                          {data.points || '-'}
+                        </TableCell>
+                        <TableCell align="right">
+                          {data.pointPercentage}%
+                        </TableCell>
+                        <TableCell align="right">
+                          {TEAM.JOBTYPE.find(e => e.id == data?.jobType)
+                            ?.type || '-'}
+                        </TableCell>
+                        <TableCell align="right">
+                          <Button
+                            className="common_button"
+                            onClick={() =>
+                              navigate(`/staffprofile/${data?.id}`)
+                            }
+                          >
+                            View
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    )
+                  })}
               </TableBody>
             </Table>
           </TableContainer>
@@ -457,7 +479,13 @@ const Dashboard = () => {
             <Typography className="team_overview_inner_heading" variant="span">
               Order Overview
             </Typography>
-            <Button className="view_all_button" onClick={() => navigate('/orders')}>  View All > </Button>
+            <Button
+              className="view_all_button"
+              onClick={() => navigate('/orders')}
+            >
+              {' '}
+              View All >{' '}
+            </Button>
           </Box>
           <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
             <Table sx={{ minWidth: 650 }}>
@@ -474,22 +502,40 @@ const Dashboard = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {inquiryData?.orderData && inquiryData?.orderData.map(row => (
-                  <TableRow
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell>{row?.id || '-'}</TableCell>
-                    <TableCell align="right">{row?.client?.name || '-'}</TableCell>
-                    <TableCell align="right">{moment(row?.date).format('L') || '-'}</TableCell>
-                    <TableCell align="right">{row?.order_total || '-'}</TableCell>
-                    <TableCell align="right">{row?.orderTrackingStatus || '-'}</TableCell>
-                    <TableCell align="right">{row?.paymentMethod || '-'}</TableCell>
-                    <TableCell align="right">{row?.paymentStatus || '-'}</TableCell>
-                    <TableCell align="right">
-                      <Button className="common_button" onClick={() => navigate(`/orderDetail/${row?.id}`)}>View</Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {inquiryData?.orderData &&
+                  inquiryData?.orderData.map(row => (
+                    <TableRow
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell>{row?.id || '-'}</TableCell>
+                      <TableCell align="right">
+                        {row?.client?.name || '-'}
+                      </TableCell>
+                      <TableCell align="right">
+                        {moment(row?.date).format('L') || '-'}
+                      </TableCell>
+                      <TableCell align="right">
+                        {row?.order_total || '-'}
+                      </TableCell>
+                      <TableCell align="right">
+                        {row?.orderTrackingStatus || '-'}
+                      </TableCell>
+                      <TableCell align="right">
+                        {row?.paymentMethod || '-'}
+                      </TableCell>
+                      <TableCell align="right">
+                        {row?.paymentStatus || '-'}
+                      </TableCell>
+                      <TableCell align="right">
+                        <Button
+                          className="common_button"
+                          onClick={() => navigate(`/orderDetail/${row?.id}`)}
+                        >
+                          View
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>

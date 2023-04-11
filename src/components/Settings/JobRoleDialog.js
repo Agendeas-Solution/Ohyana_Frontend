@@ -12,31 +12,36 @@ import {
   TextareaAutosize,
   Autocomplete,
 } from '@mui/material'
-import Stack from '@mui/material/Stack';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
-import { DesktopTimePicker } from '@mui/x-date-pickers/DesktopTimePicker';
-import dayjs from 'dayjs';
+import Stack from '@mui/material/Stack'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { TimePicker } from '@mui/x-date-pickers/TimePicker'
+import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker'
+import { DesktopTimePicker } from '@mui/x-date-pickers/DesktopTimePicker'
+import dayjs from 'dayjs'
 import { CreateJobRole } from '../../services/apiservices/adminprofile'
-import moment from 'moment';
+import moment from 'moment'
 const JobRoleDialog = props => {
   const [jobRoleDetail, setJobRoleDetail] = useState({
     name: '',
     description: '',
     parentId: '',
-    clockIn: dayjs("")
+    clockIn: dayjs(''),
   })
   const addJobRole = () => {
-    if (jobRoleDetail.name !== "" && jobRoleDetail.description !== "" && jobRoleDetail.parentId !== "" && jobRoleDetail.clockIn !== "") {
-      debugger;
+    if (
+      jobRoleDetail.name !== '' &&
+      jobRoleDetail.description !== '' &&
+      jobRoleDetail.parentId !== '' &&
+      jobRoleDetail.clockIn !== ''
+    ) {
+      debugger
       CreateJobRole(
         jobRoleDetail,
         res => {
           props.handleClose()
         },
-        err => { },
+        err => {},
       )
     }
   }
@@ -81,7 +86,7 @@ const JobRoleDialog = props => {
               onChange={(e, value) => {
                 console.log(value)
                 setJobRoleDetail({ ...jobRoleDetail, parentId: value.id })
-                debugger;
+                debugger
               }}
               getOptionLabel={option => option?.name}
               renderInput={params => (
@@ -124,30 +129,27 @@ const JobRoleDialog = props => {
                 <DesktopTimePicker
                   label="Clock In"
                   value={jobRoleDetail?.clockIn}
-                  onChange={(newValue) => {
+                  onChange={newValue => {
                     setJobRoleDetail({
                       ...jobRoleDetail,
-                      clockIn: moment(newValue).format('LT')
+                      clockIn: moment(newValue).format('LT'),
                     })
                   }}
-                  renderInput={(params) => <TextField {...params} />}
+                  renderInput={params => <TextField {...params} />}
                 />
               </LocalizationProvider>
             </div>
           </Box>
         </DialogContent>
         <DialogActions className="m-auto">
-          <Button
-            variant="contained"
-            onClick={addJobRole}
-          >
+          <Button variant="contained" onClick={addJobRole}>
             Ok
           </Button>
           <Button className="cancel-btn" onClick={props.handleClose} autoFocus>
             Cancel
           </Button>
         </DialogActions>
-      </Dialog >
+      </Dialog>
     </>
   )
 }

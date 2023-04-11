@@ -10,11 +10,16 @@ import {
   TextareaAutosize,
   Autocomplete,
   TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import { GetBusinessDetail } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
 import { AddClientStatus } from '../../services/apiservices/adminprofile'
+import { CLIENT } from '../../constants/clientConstant'
 const AddStatusDialog = ({
   setAddStatus,
   addStatus,
@@ -27,6 +32,7 @@ const AddStatusDialog = ({
     clientId: businessDetail?.clientId,
     callNotReceived: true,
   })
+  const [followUpType, setFollowUpType] = useState(CLIENT.FOLLOWUP)
   const AddStatus = e => {
     AddClientStatus(
       {
@@ -50,51 +56,44 @@ const AddStatusDialog = ({
         open={addStatus.status}
         onClose={() => setAddStatus({ ...addStatus, status: false })}
       >
-        <Box className="popup_section">
-          <DialogTitle className="popup_heading">
-            Add Status
-          </DialogTitle>
-          <div className="row">
-            <div className="col-md-12">
-              <Typography variant="span">Conversion Medium</Typography>
-            </div>
-            <div className="col-md-12">
-              <Autocomplete
-                disablePortal
-                value={addStatusDetail.followUpType}
-                onChange={(event, newValue) => {
-                  setAddStatusDetail({
-                    ...addStatusDetail,
-                    followUpType: newValue,
-                    clientId: businessDetail?.id,
-                  })
-                }}
-                options={['FIELD', 'CALL', 'WHATSAPP']}
-                renderInput={params => (
-                  <TextField {...params} placeholder="Select Medium" />
-                )}
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-12">
-              <Typography variant="span">Description</Typography>
-            </div>
-            <div className="col-md-12">
-              <TextareaAutosize
-                value={addStatusDetail.description}
-                sx={{ borderRadius: '10px' }}
-                className="w-100"
-                onChange={e => {
-                  setAddStatusDetail({
-                    ...addStatusDetail,
-                    description: e.target.value,
-                  })
-                }}
-                placeholder="Description Here..."
-              />
-            </div>
-          </div>
+        <Box className="dialogue_main_section">
+          <Typography className="dialogue_heading">Add Status</Typography>
+
+          <FormControl className="dialogue_input_fields">
+            <InputLabel>Conversation Type</InputLabel>
+            <Select
+              label="Conversation Type"
+              value={addStatusDetail.followUpType}
+              onChange={(event, newValue) => {
+                setAddStatusDetail({
+                  ...addStatusDetail,
+                  followUpType: event.target.value,
+                  clientId: businessDetail?.id,
+                })
+              }}
+            >
+              {followUpType.map(data => {
+                return <MenuItem value={data.type}>{data.fieldName}</MenuItem>
+              })}
+            </Select>
+          </FormControl>
+
+          <TextField
+            className="dialogue_input_fields"
+            multiline
+            label="Description"
+            autoComplete="off"
+            placeholder="Description Here..."
+            minRows={3}
+            value={addStatusDetail.description}
+            onChange={e => {
+              setAddStatusDetail({
+                ...addStatusDetail,
+                description: e.target.value,
+              })
+            }}
+          />
+
           <DialogActions>
             <Button variant="contained" onClick={AddStatus}>
               Add

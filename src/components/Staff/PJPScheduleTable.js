@@ -50,7 +50,6 @@ const PJPScheduleTable = ({ pjpList, completedDialog, setCompletedDialog }) => {
                 <TableCell align="left">Status</TableCell>
                 <TableCell align="left"></TableCell>
                 <TableCell align="left"></TableCell>
-
               </TableRow>
             </TableHead>
             <TableBody>
@@ -69,19 +68,29 @@ const PJPScheduleTable = ({ pjpList, completedDialog, setCompletedDialog }) => {
                     </TableCell>
                     <TableCell align="left">{pjpData?.date}</TableCell>
                     <TableCell align="left">{pjpData?.client?.name}</TableCell>
-                    <TableCell align="left">{pjpData?.client?.business}</TableCell>
+                    <TableCell align="left">
+                      {pjpData?.client?.business}
+                    </TableCell>
                     <TableCell align="left">
                       {pjpData?.client?.contact_number}
                     </TableCell>
                     <TableCell align="left">{pjpData?.client?.city}</TableCell>
                     <TableCell align="left">{pjpData?.status}</TableCell>
                     <TableCell align="left">
-                      {!pjpData?.is_completed && <Button
-                        onClick={() => setCompletedDialog({ ...completedDialog, status: true, pjpId: pjpData?.id })}
-                        className="pjp_table_btn"
-                      >
-                        Completed
-                      </Button>}
+                      {!pjpData?.is_completed && (
+                        <Button
+                          onClick={() =>
+                            setCompletedDialog({
+                              ...completedDialog,
+                              status: true,
+                              pjpId: pjpData?.id,
+                            })
+                          }
+                          className="pjp_table_btn"
+                        >
+                          Completed
+                        </Button>
+                      )}
                     </TableCell>
                     <TableCell align="left">
                       <Button
@@ -102,21 +111,19 @@ const PJPScheduleTable = ({ pjpList, completedDialog, setCompletedDialog }) => {
               })}
             </TableBody>
           </Table>
-        </TableContainer >
+        </TableContainer>
       ) : (
         <Box sx={{ height: '60vh' }}>
           <NoResultFound />
         </Box>
       )}
-      {
-        pjpDetailDialog.status && (
-          <PJPDetailDialog
-            pjpDetailDialog={pjpDetailDialog}
-            handleCloseDialog={handleCloseDialog}
-            setPJPDetailDialog={setPJPDetailDialog}
-          />
-        )
-      }
+      {pjpDetailDialog.status && (
+        <PJPDetailDialog
+          pjpDetailDialog={pjpDetailDialog}
+          handleCloseDialog={handleCloseDialog}
+          setPJPDetailDialog={setPJPDetailDialog}
+        />
+      )}
     </>
   )
 }

@@ -17,13 +17,17 @@ import { GetAllStaffList } from '../../services/apiservices/staffDetail.js'
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 
-const EditAppointmentDialog = ({ handleAppointmentClose, editClientAppointmentDetail,clientProfileDetail }) => {
+const EditAppointmentDialog = ({
+  handleAppointmentClose,
+  editClientAppointmentDetail,
+  clientProfileDetail,
+}) => {
   const [clientAppointmentDetail, setClientAppointmentDetail] = useState({
-    date:editClientAppointmentDetail?.date,
+    date: editClientAppointmentDetail?.date,
     time: editClientAppointmentDetail?.time,
     description: editClientAppointmentDetail?.description,
     appointed_member: editClientAppointmentDetail?.appointed_member,
-    appointment_unit:editClientAppointmentDetail?.appointment_unit,
+    appointment_unit: editClientAppointmentDetail?.appointment_unit,
     appointmentId: editClientAppointmentDetail?.appointmentId,
   })
   const { successSnackbar } = useContext(ContextSnackbar)?.state
@@ -39,7 +43,7 @@ const EditAppointmentDialog = ({ handleAppointmentClose, editClientAppointmentDe
       res => {
         setStaffDetailList(res.data)
       },
-      err => { },
+      err => {},
     )
   }, [])
   const handleAddAppointment = () => {

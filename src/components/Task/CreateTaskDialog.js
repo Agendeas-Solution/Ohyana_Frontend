@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   Box,
   Typography,
@@ -19,22 +19,17 @@ const CreateTaskDialog = ({
   open,
   createTask,
   handleCreateTask,
-  setCreateTask, handleClose
+  setCreateTask,
+  handleClose,
 }) => {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null)
+  const [anchorEl, setAnchorEl] = useState(null)
 
   return (
     <>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-      >
+      <Dialog open={open} onClose={handleClose}>
         <Box className="dialogue_main_section">
-
-          <Typography className='dialogue_heading'>
-            Create Task
-          </Typography>
+          <Typography className="dialogue_heading">Create Task</Typography>
 
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
@@ -43,11 +38,8 @@ const CreateTaskDialog = ({
               onChange={e => {
                 setCreateTask({ ...createTask, due_date: e })
               }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  className="dialogue_input_fields"
-                />
+              renderInput={params => (
+                <TextField {...params} className="dialogue_input_fields" />
               )}
               PopperProps={{
                 placement: 'bottom-start', // Set placement to 'bottom-start'
@@ -82,16 +74,15 @@ const CreateTaskDialog = ({
           />
           <DialogActions>
             <Button
-              className='dialogue_bottom_button'
+              className="dialogue_bottom_button"
               variant="contained"
               onClick={handleCreateTask}
-            >Create
-            </Button></DialogActions>
-
+            >
+              Create
+            </Button>
+          </DialogActions>
         </Box>
-
-
-      </Dialog >
+      </Dialog>
     </>
   )
 }

@@ -111,7 +111,7 @@ const Department = () => {
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state
   const [expensePolicy, setExpensePolicy] = useState()
-  const [expensePermissions, setExpensePermissions] = useState();
+  const [expensePermissions, setExpensePermissions] = useState()
   useEffect(() => {
     getUserPermissions(
       parseInt(window.location.pathname.split('/').pop()),
@@ -149,7 +149,7 @@ const Department = () => {
         setExpensePolicy(res?.data?.expensePolicies)
         setExpensePermissions(res?.data?.expensePermissions)
       },
-      err => { },
+      err => {},
     )
   }, [])
   const handleUserPermissions = () => {
@@ -369,40 +369,41 @@ const Department = () => {
               <Select id="demo-multiple-checkbox-label">
                 <FormGroup className="p-2">
                   {
-// expensePermissions.map(()=>)
+                    // expensePermissions.map(()=>)
                     expensePolicy &&
-                    expensePolicy.map(data => (
-                      <Box sx={{ margin: '5px' }}>
-                        <FormControlLabel
-                          sx={{ display: 'inline' }}
-                          control={
-                            <Checkbox
-                              checked={expenseManagement?.travelChecked}
-                              className="check_box_color"
-                              onChange={e => {
-                                setExpenseManagement({
-                                  ...expenseManagement,
-                                  travelChecked: e.target.checked,
-                                })
-                              }}
-                            />
-                          }
-                          label={data?.name}
-                        />
-                        <TextField
-                          sx={{ display: 'inline', marginLeft: '17rem' }}
-                          placeholder="Max Amount"
-                          type="number"
-                          value={expenseManagement?.travelAmount}
-                          onChange={e =>
-                            setExpenseManagement({
-                              ...expenseManagement,
-                              travelAmount: e.target.value,
-                            })
-                          }
-                        />
-                      </Box>
-                    ))}
+                      expensePolicy.map(data => (
+                        <Box sx={{ margin: '5px' }}>
+                          <FormControlLabel
+                            sx={{ display: 'inline' }}
+                            control={
+                              <Checkbox
+                                checked={expenseManagement?.travelChecked}
+                                className="check_box_color"
+                                onChange={e => {
+                                  setExpenseManagement({
+                                    ...expenseManagement,
+                                    travelChecked: e.target.checked,
+                                  })
+                                }}
+                              />
+                            }
+                            label={data?.name}
+                          />
+                          <TextField
+                            sx={{ display: 'inline', marginLeft: '17rem' }}
+                            placeholder="Max Amount"
+                            type="number"
+                            value={expenseManagement?.travelAmount}
+                            onChange={e =>
+                              setExpenseManagement({
+                                ...expenseManagement,
+                                travelAmount: e.target.value,
+                              })
+                            }
+                          />
+                        </Box>
+                      ))
+                  }
 
                   <Button
                     disabled={!expenseManagement?.hotelChecked}

@@ -16,14 +16,14 @@ const ProductGraph = ({ selectedPeriod }) => {
       res => {
         setGraphData(res?.data)
       },
-      err => { },
+      err => {},
     )
     GetAdminProductList(
       {},
       res => {
         setProductList(res?.data?.products)
       },
-      err => { },
+      err => {},
     )
   }, [selectedPeriod])
   const top100Films = [
@@ -71,16 +71,17 @@ const ProductGraph = ({ selectedPeriod }) => {
         <Box className="graph_section">
           <Box className="common_row mb-3">
             <Typography
-              sx={{ color: '#2E3591', fontSize: '20px', fontWeight:'600',}}
-              variant="span" >
+              sx={{ color: '#2E3591', fontSize: '20px', fontWeight: '600' }}
+              variant="span"
+            >
               Overall
             </Typography>
-            <Box sx={{display:'flex'}}>
+            <Box sx={{ display: 'flex' }}>
               <Autocomplete
                 disablePortal
                 options={productList}
                 getOptionLabel={option => option.name}
-                sx={{ width: '200px', marginRight:'10px'}}
+                sx={{ width: '200px', marginRight: '10px' }}
                 renderInput={params => (
                   <TextField
                     className="common_dropdown"
@@ -89,12 +90,12 @@ const ProductGraph = ({ selectedPeriod }) => {
                   />
                 )}
               />
-              
+
               <Autocomplete
                 disablePortal
                 options={productList}
                 getOptionLabel={option => option.name}
-                sx={{ width: '200px',marginRight:'10px'}}
+                sx={{ width: '200px', marginRight: '10px' }}
                 renderInput={params => (
                   <TextField
                     // className="common_dropdown"
@@ -106,7 +107,7 @@ const ProductGraph = ({ selectedPeriod }) => {
               <Autocomplete
                 disablePortal
                 options={top100Films}
-                sx={{ width: '200px'}}
+                sx={{ width: '200px' }}
                 renderInput={params => (
                   <TextField
                     className="common_dropdown"

@@ -6,7 +6,11 @@ import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import Filter from '../../assets/img/Filter.svg'
 import PJPScheduleTable from './PJPScheduleTable'
-import { GetPJPList, CreatePJP, CompletePJPStatus } from '../../services/apiservices/teamcall'
+import {
+  GetPJPList,
+  CreatePJP,
+  CompletePJPStatus,
+} from '../../services/apiservices/teamcall'
 import AddPJPDialog from './AddPJPDialog'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import CompletedPJPDialog from './CompletedPJPDialog'
@@ -25,8 +29,8 @@ const PJPDetail = () => {
   const [completedDialog, setCompletedDialog] = useState({
     status: false,
     description: '',
-    pjpId: ""
-  });
+    pjpId: '',
+  })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleChange = (event, newValue) => {
@@ -40,12 +44,16 @@ const PJPDetail = () => {
   }
   const handleAddCompletePJPStatus = () => {
     let data = completedDialog
-    delete data.status;
+    delete data.status
     CompletePJPStatus(
       data,
       res => {
         if (res.success) {
-          setSuccessSnackbar({ ...successSnackbar, message: res.message, status: true });
+          setSuccessSnackbar({
+            ...successSnackbar,
+            message: res.message,
+            status: true,
+          })
         }
       },
       err => {
@@ -77,7 +85,7 @@ const PJPDetail = () => {
       res => {
         if (res.success) {
           setPjpList(res?.data?.pjps)
-          debugger;
+          debugger
         }
       },
       err => {
@@ -89,14 +97,14 @@ const PJPDetail = () => {
   const handleAddPJPDetail = () => {
     let pjpDetail = addPJPDetail
     delete pjpDetail.dialogStatus
-    debugger;
+    debugger
     CreatePJP(
       pjpDetail,
       res => {
-        handleCloseDialog();
-        setSuccessSnackbar({ ...successSnackbar, message: res?.message });
+        handleCloseDialog()
+        setSuccessSnackbar({ ...successSnackbar, message: res?.message })
       },
-      err => { },
+      err => {},
     )
   }
 
@@ -138,7 +146,11 @@ const PJPDetail = () => {
             className="staff_profile_pjp"
             value="ALL"
           >
-            <PJPScheduleTable pjpList={pjpList} completedDialog={completedDialog} setCompletedDialog={setCompletedDialog} />
+            <PJPScheduleTable
+              pjpList={pjpList}
+              completedDialog={completedDialog}
+              setCompletedDialog={setCompletedDialog}
+            />
           </TabPanel>
         </TabContext>
       </Box>

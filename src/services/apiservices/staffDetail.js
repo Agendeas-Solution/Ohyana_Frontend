@@ -11,12 +11,11 @@ export const GetAdminStaffDetailList = async (value, onSuccess, onError) => {
   try {
     const { data } = await axiosInstance.get('/member', {
       headers: { ...defaultHeaders },
-      params:
-        value
-          ? {
+      params: value
+        ? {
             searchQuery: value,
           }
-          : {},
+        : {},
     })
     console.log('Printing data of GetAdminProfile', data)
     onSuccess && onSuccess(data)
@@ -142,7 +141,7 @@ export const GetStaffAttendanceList = async (value, onSuccess, onError) => {
         params: {
           month: value.month,
           year: value.year,
-        }
+        },
       },
     )
     console.log('Printing data of GetStaffAttendanceList', data)
@@ -155,13 +154,16 @@ export const GetStaffAttendanceList = async (value, onSuccess, onError) => {
 export const GetStaffLeaveList = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.get(`user/leave?teamId=${value.teamId}`, {
-      headers: { ...defaultHeaders },
-      params: {
-        month: value.month,
-        year: value.year,
-      }
-    })
+    const { data } = await axiosInstance.get(
+      `user/leave?teamId=${value.teamId}`,
+      {
+        headers: { ...defaultHeaders },
+        params: {
+          month: value.month,
+          year: value.year,
+        },
+      },
+    )
     console.log('Printing data of GetStaffLeaveList', data)
     onSuccess && onSuccess(data)
   } catch (err) {
@@ -191,8 +193,8 @@ export const GetExpenseList = async (value, onSuccess, onError) => {
       params:
         Object.keys(value).length > 0
           ? {
-            teamId: value,
-          }
+              teamId: value,
+            }
           : {},
     })
     console.log('Printing data of GetExpenseList', data)

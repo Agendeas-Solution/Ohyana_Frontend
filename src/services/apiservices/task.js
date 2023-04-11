@@ -163,12 +163,9 @@ export const EditTaskDescription = async (value, onSuccess, onError) => {
 export const EditTaskName = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.put(
-      `/task`, value,
-      {
-        headers: { ...defaultHeaders },
-      },
-    )
+    const { data } = await axiosInstance.put(`/task`, value, {
+      headers: { ...defaultHeaders },
+    })
     console.log('Printing data of EditTaskName', data)
     onSuccess && onSuccess(data)
   } catch (err) {
@@ -181,7 +178,8 @@ export const EditDueDate = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
     const { data } = await axiosInstance.patch(
-      `/due-date/task/${value.id}`, { due_date: value.due_date },
+      `/due-date/task/${value.id}`,
+      { due_date: value.due_date },
       {
         headers: { ...defaultHeaders },
       },

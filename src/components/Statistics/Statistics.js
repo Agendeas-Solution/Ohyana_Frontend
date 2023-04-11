@@ -27,21 +27,27 @@ const Statistics = () => {
       <Box className="main_section">
         <Box className="statistics_title">
           <Box>
-          <Typography sx={{ fontSize: '22px',fontWeight:'500',}}variant="span">Product</Typography>
+            <Typography
+              sx={{ fontSize: '22px', fontWeight: '500' }}
+              variant="span"
+            >
+              Product
+            </Typography>
           </Box>
-          <Box sx={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: '10px',
-               
-              }}>
-            <Box
-             sx={{
-              background: '#F1F2F6',
-              borderRadius: '5px',
-              height: '35px',
-              marginRight: '10px',
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '10px',
             }}
+          >
+            <Box
+              sx={{
+                background: '#F1F2F6',
+                borderRadius: '5px',
+                height: '35px',
+                marginRight: '10px',
+              }}
             >
               <Button
                 className={
@@ -68,7 +74,7 @@ const Statistics = () => {
             </Box>
 
             <Autocomplete
-            sx= {{width:'150px'}}
+              sx={{ width: '150px' }}
               disablePortal
               options={daterange}
               value={selectedPeriod}
@@ -83,7 +89,6 @@ const Statistics = () => {
                   label="1 Mon"
                 />
               )}
-
             />
           </Box>
         </Box>
