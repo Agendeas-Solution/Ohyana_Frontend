@@ -64,21 +64,20 @@ const StaffPoint = () => {
       err => {
         setPointsData([])
         setTotalPoints([])
-
       },
     )
   }
   useEffect(() => {
-    handleGetPointTeamMember();
+    handleGetPointTeamMember()
   }, [selectMonth, currentPage])
 
   const handleAppreciation = () => {
     GiveAppreciation(
       parseInt(path),
       res => {
-        handleGetPointTeamMember();
+        handleGetPointTeamMember()
       },
-      err => { },
+      err => {},
     )
   }
 
@@ -144,7 +143,7 @@ const StaffPoint = () => {
               overflowX: 'scroll',
             }}
           >
-            {pointsData.length > 0 ?
+            {pointsData.length > 0 ? (
               <Table
                 stickyHeader
                 aria-label="sticky table"
@@ -173,7 +172,9 @@ const StaffPoint = () => {
                           <TableCell className="tablecell_height">
                             {moment(data?.createdAt).format('l')}{' '}
                           </TableCell>
-                          <TableCell align="left">{data?.point?.name}</TableCell>
+                          <TableCell align="left">
+                            {data?.point?.name}
+                          </TableCell>
                           <TableCell align="left">
                             {data?.point?.points}
                           </TableCell>
@@ -181,8 +182,10 @@ const StaffPoint = () => {
                       )
                     })}
                 </TableBody>
-              </Table> : <NoResultFound />
-            }
+              </Table>
+            ) : (
+              <NoResultFound />
+            )}
           </TableContainer>
           {/* <Pagination
             className="mt-3"

@@ -15,17 +15,16 @@ const AssignMemberDialog = ({
   handleCloseMemberDialog,
   openMemberDialog,
   handleAssignMember,
-  memberList, member, setMember
+  memberList,
+  member,
+  setMember,
 }) => {
   console.log(memberList)
   return (
     <>
       <Dialog open={openMemberDialog} onClose={handleCloseMemberDialog}>
         <Box className="dialogue_main_section">
-
-          <Typography className='dialogue_heading'>
-            Assign Mmber
-          </Typography>
+          <Typography className="dialogue_heading">Assign Mmber</Typography>
           <Autocomplete
             disablePortal
             options={memberList}
@@ -36,18 +35,24 @@ const AssignMemberDialog = ({
             }}
             getOptionLabel={memberList => memberList?.email}
             renderInput={params => (
-              <TextField {...params} className="dialogue_input_fields" label="Select Members" placeholder="Search Members" />
+              <TextField
+                {...params}
+                className="dialogue_input_fields"
+                label="Select Members"
+                placeholder="Search Members"
+              />
             )}
           />
           <DialogActions sx={{ marginTop: '15px' }}>
             <Button
-              className='dialogue_button_positive'
+              className="dialogue_button_positive"
               variant="contained"
               onClick={() => handleAssignMember(member.id)}
-            >Ok
+            >
+              Ok
             </Button>
             <Button
-              className='dialogue_button_nagative'
+              className="dialogue_button_nagative"
               variant="contained"
               onClick={handleCloseMemberDialog}
             >

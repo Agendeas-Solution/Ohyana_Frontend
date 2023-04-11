@@ -129,7 +129,7 @@ const EditCompanyProfile = () => {
           <Box className="input_fields">
             <TextField
               label="Email"
-              autoComplete='false'
+              autoComplete="false"
               onChange={e => {
                 setCompanyDetail({ ...companyDetail, email: e.target.value })
               }}
@@ -140,7 +140,7 @@ const EditCompanyProfile = () => {
           <Box className="input_fields">
             <TextField
               label="State"
-              autoComplete='false'
+              autoComplete="false"
               onChange={e => {
                 setCompanyDetail({ ...companyDetail, state: e.target.value })
               }}
@@ -197,8 +197,10 @@ const EditCompanyProfile = () => {
             />
           </Box>
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}
-          className="input_field_row">
+        <Box
+          sx={{ display: 'flex', justifyContent: 'flex-end' }}
+          className="input_field_row"
+        >
           <Button
             onClick={SaveProfile}
             variant="contained"

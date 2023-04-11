@@ -18,15 +18,20 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import './index.css'
 import { GetAdminClientDetail } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
-const AddPJPDialog = ({ addPJPDetail, handleCloseDialog, setAddPJPDetail, handleAddPJPDetail }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [options, setOptions] = useState([]);
+const AddPJPDialog = ({
+  addPJPDetail,
+  handleCloseDialog,
+  setAddPJPDetail,
+  handleAddPJPDetail,
+}) => {
+  const [searchQuery, setSearchQuery] = useState('')
+  const [options, setOptions] = useState([])
   useEffect(() => {
     let data = {
-      size: 10
+      size: 10,
     }
-    if (searchQuery !== "") {
-      data["searchQuery"] = searchQuery
+    if (searchQuery !== '') {
+      data['searchQuery'] = searchQuery
     }
     GetAdminClientDetail(
       data,
@@ -42,14 +47,9 @@ const AddPJPDialog = ({ addPJPDetail, handleCloseDialog, setAddPJPDetail, handle
   }, [searchQuery])
   return (
     <>
-      <Dialog
-        open={addPJPDetail.dialogStatus}
-        onClose={handleCloseDialog}>
+      <Dialog open={addPJPDetail.dialogStatus} onClose={handleCloseDialog}>
         <Box className="dialogue_main_section">
-
-          <Typography className='dialogue_heading'>
-            Add PJP
-          </Typography>
+          <Typography className="dialogue_heading">Add PJP</Typography>
 
           <Autocomplete
             disablePortal
@@ -63,7 +63,7 @@ const AddPJPDialog = ({ addPJPDetail, handleCloseDialog, setAddPJPDetail, handle
               <TextField
                 {...params}
                 label="Select Client"
-                placeholder='Select Client'
+                placeholder="Select Client"
                 className="dialogue_input_fields"
               />
             )}
@@ -73,13 +73,11 @@ const AddPJPDialog = ({ addPJPDetail, handleCloseDialog, setAddPJPDetail, handle
             <DatePicker
               inputFormat="dd/MM/yyyy"
               value={addPJPDetail.date}
-              onChange={(e) => {
+              onChange={e => {
                 setAddPJPDetail({ ...addPJPDetail, date: e })
               }}
               renderInput={params => (
-                <TextField
-                  {...params}
-                  className="dialogue_input_fields" />
+                <TextField {...params} className="dialogue_input_fields" />
               )}
               PopperProps={{
                 placement: 'bottom-start', // Set placement to 'bottom-start'
@@ -95,7 +93,7 @@ const AddPJPDialog = ({ addPJPDetail, handleCloseDialog, setAddPJPDetail, handle
             minRows={3}
             placeholder="Detail Here..."
             value={addPJPDetail.description}
-            onChange={(e) => {
+            onChange={e => {
               setAddPJPDetail({
                 ...addPJPDetail,
                 description: e.target.value,
@@ -105,10 +103,11 @@ const AddPJPDialog = ({ addPJPDetail, handleCloseDialog, setAddPJPDetail, handle
 
           <DialogActions>
             <Button
-              className='dialogue_bottom_button'
+              className="dialogue_bottom_button"
               variant="contained"
               onClick={handleAddPJPDetail}
-            >Save
+            >
+              Save
             </Button>
           </DialogActions>
         </Box>

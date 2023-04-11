@@ -6,9 +6,14 @@ import {
   Button,
   Select,
   MenuItem,
-  Autocomplete, FormControl, InputLabel
+  Autocomplete,
+  FormControl,
+  InputLabel,
 } from '@mui/material'
-import { GetAdminProductList, EditClientDetail } from '../../services/apiservices/adminprofile'
+import {
+  GetAdminProductList,
+  EditClientDetail,
+} from '../../services/apiservices/adminprofile'
 import {
   GetAdminClientProfileDetail,
   GetCountryList,
@@ -64,13 +69,13 @@ const EditClient = () => {
       parseInt(path),
       res => {
         if (res.success) {
-          debugger;
+          debugger
           setUserDetail({
             ...userDetail,
             clientName: res.data.name,
             reference: res.data.reference,
             email: res.data.email,
-            max_invesment_amount:res.data.max_invesment_amount,
+            max_invesment_amount: res.data.max_invesment_amount,
             contactNo: res.data.contact_number,
             country: res.data.country,
             state: res.data.state,
@@ -125,8 +130,8 @@ const EditClient = () => {
   //   setFilteredProductList(productlist)
   // }, [userDetail?.inquiryfor])
   const EditClient = () => {
-    console.log('userDetail',userDetail);
-    debugger;
+    console.log('userDetail', userDetail)
+    debugger
     if (
       userDetail.clientName !== '' &&
       (userDetail.email || userDetail.contactNo) &&
@@ -169,7 +174,7 @@ const EditClient = () => {
             })
           }
         },
-        err => { },
+        err => {},
       )
     }
   }
@@ -199,13 +204,11 @@ const EditClient = () => {
                 variant="outlined"
               />
             </Box>
-
           </Box>
 
           {/* Contact No. &&  Investment Scale*/}
           <Box className="input_field_row">
             <Box className="input_fields">
-
               <TextField
                 label="Contact No"
                 onChange={e => {
@@ -220,7 +223,10 @@ const EditClient = () => {
               <TextField
                 label="Investment Scale "
                 onChange={e => {
-                  setUserDetail({ ...userDetail, max_invesment_amount: e.target.value })
+                  setUserDetail({
+                    ...userDetail,
+                    max_invesment_amount: e.target.value,
+                  })
                 }}
                 value={userDetail.max_invesment_amount}
                 variant="outlined"
@@ -255,7 +261,6 @@ const EditClient = () => {
 
           {/* Client Type & City*/}
           <Box className="input_field_row">
-
             <Box className="input_fields">
               <FormControl>
                 <InputLabel>Client Type</InputLabel>
@@ -282,7 +287,6 @@ const EditClient = () => {
                 variant="outlined"
               />
             </Box>
-
           </Box>
           {/* Country & State*/}
           <Box className="input_field_row">
@@ -311,13 +315,10 @@ const EditClient = () => {
                 variant="outlined"
               />
             </Box>
-
           </Box>
-
 
           {/* Reference Name*/}
           <Box className="input_field_row">
-
             <Box className="input_fields">
               <FormControl>
                 <InputLabel>Reference</InputLabel>
@@ -328,7 +329,7 @@ const EditClient = () => {
                     setUserDetail({
                       ...userDetail,
                       reference: e.target.value,
-                      referenceName: "",
+                      referenceName: '',
                     })
                   }}
                 >
@@ -353,24 +354,26 @@ const EditClient = () => {
                 />
               </Box>
             )}
-            {userDetail.reference === 'DIGITAL' && <Box className="input_fields">
-              <FormControl>
-                <InputLabel>Reference Name</InputLabel>
-                <Select
-                  label="Reference"
-                  value={userDetail.referenceName}
-                  onChange={e => {
-                    setUserDetail({
-                      ...userDetail,
-                      referenceName: e.target.value
-                    })
-                  }}
-                >
-                  <MenuItem value="INDIAMART">IndiaMart</MenuItem>
-                  <MenuItem value="WEBSITE">Website</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>}
+            {userDetail.reference === 'DIGITAL' && (
+              <Box className="input_fields">
+                <FormControl>
+                  <InputLabel>Reference Name</InputLabel>
+                  <Select
+                    label="Reference"
+                    value={userDetail.referenceName}
+                    onChange={e => {
+                      setUserDetail({
+                        ...userDetail,
+                        referenceName: e.target.value,
+                      })
+                    }}
+                  >
+                    <MenuItem value="INDIAMART">IndiaMart</MenuItem>
+                    <MenuItem value="WEBSITE">Website</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            )}
           </Box>
           {/* Save Button */}
           <Box
@@ -385,7 +388,6 @@ const EditClient = () => {
               Save
             </Button>
           </Box>
-
         </div>
       </div>
       {/* <div>

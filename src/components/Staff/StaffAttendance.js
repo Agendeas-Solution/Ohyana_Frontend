@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './index.css'
 import { Box, Typography, Button, TextField } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
@@ -43,12 +43,19 @@ const StaffAttendance = () => {
       { id: approveLeave.id, leaveStatus: approveLeave?.leaveStatus },
       res => {
         handleCloseDialog()
-        setSuccessSnackbar({ ...successSnackbar, message: res.message, status: true })
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res.message,
+          status: true,
+        })
       },
       err => {
         console.log(err)
-        setErrorSnackbar({ ...errorSnackbar, message: err.message, status: true })
-
+        setErrorSnackbar({
+          ...errorSnackbar,
+          message: err.message,
+          status: true,
+        })
       },
     )
   }
@@ -71,7 +78,7 @@ const StaffAttendance = () => {
         res => {
           setStaffAttendanceList(res?.data)
         },
-        err => { },
+        err => {},
       )
     activeTab === 'leave' &&
       GetStaffLeaveList(
@@ -83,7 +90,7 @@ const StaffAttendance = () => {
         res => {
           setStaffLeaveList(res?.data)
         },
-        err => { },
+        err => {},
       )
   }, [activeTab, selectMonth])
   return (
@@ -93,15 +100,21 @@ const StaffAttendance = () => {
           <Box className="col-md-7 inner_attendance_data_row">
             <Box className="week_data inner_profile_details days_data col-md-2 me-3 p-2">
               <Typography variant="span">Total Days</Typography>
-              <Typography variant="span">{staffAttendanceList?.totalDays}</Typography>
+              <Typography variant="span">
+                {staffAttendanceList?.totalDays}
+              </Typography>
             </Box>
             <Box className="Absent_days_data inner_profile_details days_data col-md-2 me-3 p-2">
               <Typography variant="span">Absent Days</Typography>
-              <Typography variant="span">{staffAttendanceList?.absentDays}</Typography>
+              <Typography variant="span">
+                {staffAttendanceList?.absentDays}
+              </Typography>
             </Box>
             <Box className="Late_days_data inner_profile_details days_data col-md-2">
               <Typography variant="span">Late Days</Typography>
-              <Typography variant="span">{staffAttendanceList?.lateDays}</Typography>
+              <Typography variant="span">
+                {staffAttendanceList?.lateDays}
+              </Typography>
             </Box>
           </Box>
           <Box className="attendance_date_filter ">
@@ -247,8 +260,16 @@ const StaffAttendance = () => {
         </TableContainer> */}
         {/* </TabPanel> */}
         {/* </TabContext> */}
-        {activeTab === 'present' && <StaffAttendancePresent staffAttendanceList={staffAttendanceList} />}
-        {activeTab === 'leave' && <StaffAttendanceLeave approveLeave={approveLeave} setApproveLeave={setApproveLeave} staffLeaveList={staffLeaveList} />}
+        {activeTab === 'present' && (
+          <StaffAttendancePresent staffAttendanceList={staffAttendanceList} />
+        )}
+        {activeTab === 'leave' && (
+          <StaffAttendanceLeave
+            approveLeave={approveLeave}
+            setApproveLeave={setApproveLeave}
+            staffLeaveList={staffLeaveList}
+          />
+        )}
       </Box>
       <ApproveLeaveDialog
         approveLeave={approveLeave}

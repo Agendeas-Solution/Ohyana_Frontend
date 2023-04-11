@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import {
-  Box,
-  Typography,
-  Button,
-  TextField,
-  Checkbox,
-} from '@mui/material'
+import { Box, Typography, Button, TextField, Checkbox } from '@mui/material'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded'
 import Slider from '@mui/material/Slider'
@@ -50,16 +44,16 @@ const TaskDetail = () => {
     status: false,
     taskName: '',
     id: null,
-    description: ""
+    description: '',
   })
   const [deleteTaskDialog, setDeleteTaskDialog] = useState({
     status: false,
-    id: ''
+    id: '',
   })
   const [dueDateDialogControl, setDueDateDialogControl] = useState({
     status: false,
-    due_date: "",
-    id: ""
+    due_date: '',
+    id: '',
   })
   const handleDueDateDialogClose = () => {
     setDueDateDialogControl({ ...dueDateDialogControl, status: false })
@@ -121,7 +115,7 @@ const TaskDetail = () => {
       { taskid: path, id: id },
       res => {
         setCheckLists(res?.data)
-        debugger;
+        debugger
       },
       err => {
         console.log(err)
@@ -134,48 +128,52 @@ const TaskDetail = () => {
       res => {
         navigate('/task')
       },
-      err => { },
+      err => {},
     )
   }
   const handleEditTaskName = () => {
     EditTaskName(
-      { description: editTaskNameDialog?.description, title: editTaskNameDialog?.taskName, taskId: editTaskNameDialog?.id },
-      (res) => {
+      {
+        description: editTaskNameDialog?.description,
+        title: editTaskNameDialog?.taskName,
+        taskId: editTaskNameDialog?.id,
+      },
+      res => {
         setTaskDetail({
           ...taskDetail,
           title: res?.data?.title,
-        });
-        handleSingleTaskDetail();
-        handleDialogClose();
+        })
+        handleSingleTaskDetail()
+        handleDialogClose()
       },
-      (err) => { },
+      err => {},
     )
   }
   const handleEditDueDate = () => {
     EditDueDate(
       dueDateDialogControl,
-      (res) => {
+      res => {
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
           message: res.message,
         })
-        handleDueDateDialogClose();
+        handleDueDateDialogClose()
       },
-      (err) => {
-
-      },
+      err => {},
     )
   }
   const handleDialogClose = () => {
     setEditDescriptionDialog({ ...editDescriptionDialog, status: false })
     setEditTaskNameDialog({ ...editTaskNameDialog, status: false })
   }
-  let completedTask = checkLists && checkLists.filter((taskDone) => {
-    if (taskDone.done === true) {
-      return taskDone;
-    }
-  })
+  let completedTask =
+    checkLists &&
+    checkLists.filter(taskDone => {
+      if (taskDone.done === true) {
+        return taskDone
+      }
+    })
   useEffect(() => {
     if (checkLists) {
       let countDone = checkLists.filter(data => {
@@ -186,14 +184,15 @@ const TaskDetail = () => {
         return count
       })
       setTaskRatio(
-        checkLists.length > 0 ? ((countDone.length / checkLists.length) * 100).toFixed(2) : 0
+        checkLists.length > 0
+          ? ((countDone.length / checkLists.length) * 100).toFixed(2)
+          : 0,
       )
     }
   }, [checkLists, countDoneTask])
   return (
     <>
-      <Box className='main_section'>
-
+      <Box className="main_section">
         <Box className="task_heading">
           <Typography className="task_card_heading" variant="span">
             {taskDetail?.title}
@@ -214,35 +213,43 @@ const TaskDetail = () => {
             <Button className="profile_header_button">
               <DeleteOutlineRoundedIcon
                 onClick={() =>
-                  setDeleteTaskDialog({ ...deleteTaskDialog, status: true, id: taskDetail.id })
+                  setDeleteTaskDialog({
+                    ...deleteTaskDialog,
+                    status: true,
+                    id: taskDetail.id,
+                  })
                 }
               />
             </Button>
           </Box>
         </Box>
 
-        <Box className="checklist_duedate_section" sx={{ overflowY: "hidden" }}>
-
+        <Box className="checklist_duedate_section" sx={{ overflowY: 'hidden' }}>
           <Box className="checklist_section">
             <Box sx={{ padding: '0px 15px' }}>
-              <Typography
-                sx={{ color: '#8E8E8E' }}
-                variant="span"
-              >Checklist
+              <Typography sx={{ color: '#8E8E8E' }} variant="span">
+                Checklist
               </Typography>
 
               <Slider
                 value={taskRatio || 0}
                 step={1}
-                getAriaValueText={() => (taskRatio + "%")}
-                valueLabelFormat={() => (taskRatio + "%")}
+                getAriaValueText={() => taskRatio + '%'}
+                valueLabelFormat={() => taskRatio + '%'}
                 valueLabelDisplay="on"
                 sx={{ color: '#2E3591' }}
                 className="task_slider"
               />
             </Box>
 
-            <Box sx={{ overflowY: 'auto', height: '100%', paddingBottom: '80px', paddingLeft: '15px' }}>
+            <Box
+              sx={{
+                overflowY: 'auto',
+                height: '100%',
+                paddingBottom: '80px',
+                paddingLeft: '15px',
+              }}
+            >
               <FormGroup>
                 {checkLists &&
                   checkLists.map(checklistData => {
@@ -292,22 +299,25 @@ const TaskDetail = () => {
                     setAddCheckList(e.target.value)
                   }}
                 />
-                <Box >
-                  <Button
-                    onClick={handleAddItem}
-                    className="common_button"
-                  >Add item
+                <Box>
+                  <Button onClick={handleAddItem} className="common_button">
+                    Add item
                   </Button>
 
-                  <Button onClick={() => setAddCheckList("")} className="common_button">
+                  <Button
+                    onClick={() => setAddCheckList('')}
+                    className="common_button"
+                  >
                     Cancel
                   </Button>
                 </Box>
               </Box>
 
-              {completedTask.length > 0 && <Typography className="completed_heading" variant="span">
-                Completed
-              </Typography>}
+              {completedTask.length > 0 && (
+                <Typography className="completed_heading" variant="span">
+                  Completed
+                </Typography>
+              )}
 
               <Box sx={{ marginLeft: '15px' }}>
                 <FormGroup className="completed_task_list">
@@ -340,27 +350,29 @@ const TaskDetail = () => {
                     })}
                 </FormGroup>
               </Box>
-
             </Box>
           </Box>
 
           <Box className="task_details_section">
-
             <Box sx={{ marginBottom: '10px' }}>
-
               <Box className="common_row">
-                <Typography
-                  className="common_sub_heading"
-                  variant="span"
-                >Due Date
+                <Typography className="common_sub_heading" variant="span">
+                  Due Date
                 </Typography>
-                <Button variant="filled" className='white_button'>
-                  <CalendarMonthRoundedIcon onClick={() => {
-                    setDueDateDialogControl({ ...dueDateDialogControl, status: true, id: taskDetail.id })
-                  }} sx={{ color: '#2E3591' }} />
+                <Button variant="filled" className="white_button">
+                  <CalendarMonthRoundedIcon
+                    onClick={() => {
+                      setDueDateDialogControl({
+                        ...dueDateDialogControl,
+                        status: true,
+                        id: taskDetail.id,
+                      })
+                    }}
+                    sx={{ color: '#2E3591' }}
+                  />
                 </Button>
               </Box>
-              <Typography variant="span" className='common_description_text'>
+              <Typography variant="span" className="common_description_text">
                 {moment(taskDetail?.due_date).format('MMMM Do YYYY, h:mm:ss a')}
               </Typography>
             </Box>
@@ -368,7 +380,7 @@ const TaskDetail = () => {
               <Typography className="common_sub_heading" variant="span">
                 Description
               </Typography>
-              <Typography variant="span" className='common_description_text' >
+              <Typography variant="span" className="common_description_text">
                 {taskDetail?.description}
               </Typography>
             </Box>
@@ -389,9 +401,10 @@ const TaskDetail = () => {
                   </Typography>
                 </Box>
               ) : (
-                <Typography className='common_description_text'>Not Assigned</Typography>
+                <Typography className="common_description_text">
+                  Not Assigned
+                </Typography>
               )}
-
             </Box>
 
             <Box sx={{ margin: '10px 0px' }}>
@@ -399,20 +412,25 @@ const TaskDetail = () => {
                 Task Create By
               </Typography>
 
-              <Box className="d-flex" sx={{
-                marginTop: '5px'
-              }} >
-                <Typography className="created_by_icon name_chip" variant="span">
-                  {taskDetail?.createdBy && taskDetail?.createdBy.charAt(0).toUpperCase()}
+              <Box
+                className="d-flex"
+                sx={{
+                  marginTop: '5px',
+                }}
+              >
+                <Typography
+                  className="created_by_icon name_chip"
+                  variant="span"
+                >
+                  {taskDetail?.createdBy &&
+                    taskDetail?.createdBy.charAt(0).toUpperCase()}
                 </Typography>
                 <Typography className="assigned_user_detail" variant="span">
                   {taskDetail?.createdBy}
                 </Typography>
               </Box>
             </Box>
-
           </Box>
-
         </Box>
 
         <EditDescriptionDialog
@@ -438,7 +456,7 @@ const TaskDetail = () => {
           setDueDateDialogControl={setDueDateDialogControl}
           handleEditDueDate={handleEditDueDate}
         />
-      </Box >
+      </Box>
     </>
   )
 }

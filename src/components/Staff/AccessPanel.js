@@ -84,7 +84,7 @@ const AccessPanel = () => {
           },
         })
       },
-      err => { },
+      err => {},
     )
   }, [])
   const handleUserPermissions = () => {

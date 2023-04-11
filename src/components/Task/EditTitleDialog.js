@@ -15,18 +15,14 @@ import { EditTaskName } from '../../services/apiservices/task'
 const EditTitleDialog = ({
   editTaskNameDialog,
   setEditTaskNameDialog,
-  handleDialogClose, handleEditTaskName
+  handleDialogClose,
+  handleEditTaskName,
 }) => {
-
   return (
     <>
-      <Dialog
-        open={editTaskNameDialog.status}
-        onClose={handleDialogClose}>
-
+      <Dialog open={editTaskNameDialog.status} onClose={handleDialogClose}>
         <Box className="dialogue_main_section">
-
-          <Typography className='dialogue_heading'>Edit Task</Typography>
+          <Typography className="dialogue_heading">Edit Task</Typography>
 
           <TextField
             className="dialogue_input_fields"
@@ -58,14 +54,15 @@ const EditTitleDialog = ({
 
           <DialogActions>
             <Button
-              className='dialogue_bottom_button'
+              className="dialogue_bottom_button"
               variant="contained"
               onClick={handleEditTaskName}
-            >Save
+            >
+              Save
             </Button>
           </DialogActions>
         </Box>
-      </Dialog >
+      </Dialog>
     </>
   )
 }

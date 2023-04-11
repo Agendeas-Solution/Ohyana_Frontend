@@ -14,7 +14,10 @@ import { Context as ContextEditAppointmentDialog } from '../../context/pageConte
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-const EditAppointmentDialog = ({ AppointmentDetails,handleAppointmentDialogClose }) => {
+const EditAppointmentDialog = ({
+  AppointmentDetails,
+  handleAppointmentDialogClose,
+}) => {
   const { editAppointmentDialogFlag } = useContext(
     ContextEditAppointmentDialog,
   )?.state
@@ -54,7 +57,7 @@ const EditAppointmentDialog = ({ AppointmentDetails,handleAppointmentDialogClose
             })
           }
         },
-        err => { },
+        err => {},
       )
     }
   }
@@ -165,10 +168,7 @@ const EditAppointmentDialog = ({ AppointmentDetails,handleAppointmentDialogClose
           <Button onClick={handleEditAppointment} variant="contained">
             Add
           </Button>
-          <Button
-            className="cancel-btn"
-            onClick={handleAppointmentDialogClose}
-          >
+          <Button className="cancel-btn" onClick={handleAppointmentDialogClose}>
             Cancel
           </Button>
         </DialogActions>

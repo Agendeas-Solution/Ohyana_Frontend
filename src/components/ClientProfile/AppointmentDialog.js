@@ -17,7 +17,11 @@ import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import './index.css'
 import { GetAllStaffList } from '../../services/apiservices/staffDetail.js'
-const AppointmentDialog = ({ clientProfileDetail, handleAppointmentClose,appointmentDialog }) => {
+const AppointmentDialog = ({
+  clientProfileDetail,
+  handleAppointmentClose,
+  appointmentDialog,
+}) => {
   const [clientAppointmentDetail, setClientAppointmentDetail] = useState({
     date: '',
     time: '',
@@ -39,7 +43,7 @@ const AppointmentDialog = ({ clientProfileDetail, handleAppointmentClose,appoint
       res => {
         setStaffDetailList(res.data)
       },
-      err => { },
+      err => {},
     )
   }, [])
   const handleAddAppointment = () => {
@@ -81,10 +85,7 @@ const AppointmentDialog = ({ clientProfileDetail, handleAppointmentClose,appoint
   }
   return (
     <>
-      <Dialog
-        open={appointmentDialog}
-        onClose={handleAppointmentClose}
-      >
+      <Dialog open={appointmentDialog} onClose={handleAppointmentClose}>
         <div className="px-3  my-3">
           <h3>Appointment</h3>
         </div>
@@ -145,7 +146,7 @@ const AppointmentDialog = ({ clientProfileDetail, handleAppointmentClose,appoint
                     setClientAppointmentDetail({
                       ...clientAppointmentDetail,
                       description: e.target.value,
-                      clientId:clientProfileDetail?.id,
+                      clientId: clientProfileDetail?.id,
                     })
                   }}
                   value={clientAppointmentDetail.description}

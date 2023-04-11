@@ -28,7 +28,7 @@ const StaffAttendancePresent = ({ staffAttendanceList }) => {
           overflowY: 'auto',
         }}
       >
-        {staffAttendanceList?.attendancePerUser ?
+        {staffAttendanceList?.attendancePerUser ? (
           <Table
             stickyHeader
             aria-label="sticky table"
@@ -64,14 +64,17 @@ const StaffAttendancePresent = ({ staffAttendanceList }) => {
                       <TableCell align="left">{staffList?.checkOut}</TableCell>
                       <TableCell align="left">{staffList?.breakIn}</TableCell>
                       <TableCell align="left">{staffList?.breakOut}</TableCell>
-                      <TableCell align="left">{staffList?.totalHours}</TableCell>
+                      <TableCell align="left">
+                        {staffList?.totalHours}
+                      </TableCell>
                     </TableRow>
                   )
                 })}
             </TableBody>
-          </Table> :
+          </Table>
+        ) : (
           <NoResultFound />
-        }
+        )}
       </TableContainer>
     </>
   )

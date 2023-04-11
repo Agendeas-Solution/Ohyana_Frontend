@@ -9,9 +9,7 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import PlaceIcon from '@mui/icons-material/Place'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
-import {
-  GetAdminStaffProfileDetail,
-} from '../../services/apiservices/staffDetail'
+import { GetAdminStaffProfileDetail } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
 const PJPDetail = React.lazy(() => import('./PJPDetail'))
 const StaffTarget = React.lazy(() => import('./StaffTarget'))
@@ -48,8 +46,6 @@ const StaffProfile = () => {
           console.log('Printing ', err)
         },
       )
-
-
   }, [value])
 
   return (
@@ -93,10 +89,7 @@ const StaffProfile = () => {
               View On Map
             </Button>
             {permissions?.editStaff && (
-              <Button
-                variant="contained"
-                className="profile_header_button"
-              >
+              <Button variant="contained" className="profile_header_button">
                 <EditRoundedIcon
                   onClick={() => {
                     navigate(`/editstaff/${adminProfileDetail.id}`)

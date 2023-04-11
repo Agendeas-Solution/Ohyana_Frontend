@@ -51,9 +51,7 @@ const AddStatusDialog = ({
         onClose={() => setAddStatus({ ...addStatus, status: false })}
       >
         <Box className="popup_section">
-          <DialogTitle className="popup_heading">
-            Add Status
-          </DialogTitle>
+          <DialogTitle className="popup_heading">Add Status</DialogTitle>
           <div className="row">
             <div className="col-md-12">
               <Typography variant="span">Conversion Medium</Typography>

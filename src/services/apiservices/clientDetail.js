@@ -61,10 +61,7 @@ export const UpdatePJPDetail = async (value, onSuccess, onError) => {
     console.log('Printing data of UpdatePJPDetail', data)
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log(
-      'Got error while calling API - UpdatePJPDetail',
-      err,
-    )
+    console.log('Got error while calling API - UpdatePJPDetail', err)
     onError && onError(err)
   }
 }
