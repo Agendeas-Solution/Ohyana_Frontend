@@ -205,6 +205,14 @@ textarea:focus {
   }
 }
 
+.delete_Icon {
+  border-radius: 50%;
+  color: white;
+  font-size: 70px !important;
+  background-color: red !important;
+  padding: 8px;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -331,16 +339,25 @@ table {
   // padding-top: 2px;
 }
 
-
 .common_sub_heading {
+  display: flex;
   color: #8e8e8e;
+  letter-spacing: 0.05rem;
+  font-weight: 500;
+}
+
+.common_description_text {
+  font-Size: 15px;
+  margin-top: 5px;
+  display: flex;
+  letter-spacing: 0.04rem;
 }
 
 .main_section {
   display: flex;
   background-color: #fff;
   padding: 10px;
-  height: 86%;
+  height: 87%;
   border-radius: 5px;
   width: 97%;
   flex-direction: column !important;
@@ -362,26 +379,6 @@ table {
   overflow-x: hidden;
 }
 
-.below_main_tab_section {
-  background-color: #fff;
-  margin-top: 5px;
-  width: 100%;
-  border-radius: 5px;
-  // height: calc(100vh - 121px - 25px);
-  height: 79vh;
-  width: 78vw;
-  padding: 10px !important;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  .inner_container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-  }
-}
-
 .client_body_section {
   background-color: #fff;
   margin-top: 5px;
@@ -393,6 +390,7 @@ table {
   overflow-x: hidden;
 
   .inner_container {
+    height: 100%;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
@@ -558,14 +556,11 @@ table {
   background-color: white;
 }
 
-
-
 .common_row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
 }
 
 .common_icon {
@@ -723,6 +718,12 @@ button {
   padding-top: 2px;
 }
 
+.white_button {
+  background-color: #fff !important;
+  min-width: 0px !important;
+  padding: 5px 10px !important;
+}
+
 .custom_text_button {
   background-color: #f1f2f6 !important;
   color: #2e3591 !important;
@@ -730,6 +731,15 @@ button {
   height: 40px !important;
   border-radius: 3px;
   font-weight: '600';
+}
+
+.text_button {
+  color: #2e3591 !important;
+  height: 40px !important;
+  font-size: 16px !important;
+  margin: 4px !important;
+  padding-left: 6px !important;
+  padding-right: 6px !important;
 }
 
 .common_button {
@@ -743,6 +753,7 @@ button {
   padding-left: 6px !important;
   padding-right: 6px !important;
 }
+
 
 .active_button {
   background-color: #2e3591 !important;
@@ -788,8 +799,8 @@ button {
 }
 
 .popup_section_bottom_button {
-  margin-top: 10px !important;
-  width: 300px;
+  // margin-top: 10px !important;
+  width: 300px !important;
   height: 45px !important;
   background-color: #2E3591 !important;
   align-items: center !important;
@@ -1114,8 +1125,8 @@ button {
   background-color: #b4c2e9;
   border-radius: 50%;
   font-size: 15px;
-  height: 30px;
-  width: 30px;
+  height: 32px;
+  width: 32px;
   flex-direction: row;
   display: flex;
   justify-content: center;
@@ -1154,11 +1165,9 @@ button {
 
 .attendance_date_filter {
   display: flex;
-  // flex-wrap: wrap;
   background-color: #f1f2f6;
   height: 35px;
   width: 11rem;
-  // margin: 2px;
   margin-left: 70px;
   margin-top: 2px;
   border-radius: 5px;
@@ -1171,13 +1180,10 @@ button {
 .profile_header_button {
   background-color: #f1f2f6 !important;
   color: #2e3591 !important;
-  // margin-left: 20rem !important;
-  float: right;
   height: 35px !important;
   border-radius: 3px;
   min-width: 0 !important;
-  margin-right: 5px !important;
-  // font-size: 38px;
+  margin-left: 10px !important;
 }
 
 .client_profile_heading {

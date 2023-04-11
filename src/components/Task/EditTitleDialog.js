@@ -5,58 +5,67 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  TextField,
   Typography,
   TextareaAutosize,
+  DialogTitle,
 } from '@mui/material'
 import { EditTaskName } from '../../services/apiservices/task'
 
 const EditTitleDialog = ({
   editTaskNameDialog,
   setEditTaskNameDialog,
-  handleDialogClose,handleEditTaskName
+  handleDialogClose, handleEditTaskName
 }) => {
- 
+
   return (
     <>
-      <Dialog open={editTaskNameDialog.status} onClose={handleDialogClose}>
-        <div className="px-3 pt-3">
-          <h3>Task</h3>
-        </div>
-        <DialogContent>
-          <Box className="py-3">
-            <div className="row">
-              <div className="col-md-6">
-                <Typography variant="span">Task Name</Typography>
-              </div>
-              <div className="col-md-12">
-                <TextareaAutosize
-                  style={{ width: 150 }}
-                  placeholder="Description Here..."
-                  className="w-100"
-                  value={editTaskNameDialog.taskName}
-                  onChange={e => {
-                    setEditTaskNameDialog({
-                      ...editTaskNameDialog,
-                      taskName: e.target.value,
-                    })
-                  }}
-                />
-              </div>
-            </div>
-          </Box>
-        </DialogContent>
-        <DialogActions
-          sx={{ marginLeft: '13px', marginRight: '13px' }}
-          className="mt-1 d-flex justify-content-between"
-        >
-          <Button variant="contained" onClick={handleEditTaskName}>
-            Ok
-          </Button>
-          <Button onClick={handleDialogClose} className="cancel-btn" autoFocus>
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <Dialog
+        open={editTaskNameDialog.status}
+        onClose={handleDialogClose}>
+
+        <Box className="popup_section">
+
+          <DialogTitle className="popup_heading">Edit Task</DialogTitle>
+
+          <TextField
+            className="popup_section_input_fields"
+            label="Task Name"
+            variant="outlined"
+            value={editTaskNameDialog.taskName}
+            onChange={e => {
+              setEditTaskNameDialog({
+                ...editTaskNameDialog,
+                taskName: e.target.value,
+              })
+            }}
+          />
+          <TextField
+            className="popup_section_input_fields"
+            multiline
+            placeholder="Description"
+            autoComplete="off"
+            label="Description"
+            minRows={3}
+            value={editTaskNameDialog.description}
+            onChange={e => {
+              setEditTaskNameDialog({
+                ...editTaskNameDialog,
+                description: e.target.value,
+              })
+            }}
+          />
+
+          <DialogActions sx={{ padding: '0px', margin: '0px' }}>
+            <Button
+              className='popup_section_bottom_button'
+              variant="contained"
+              onClick={handleEditTaskName}
+            >Save
+            </Button>
+          </DialogActions>
+        </Box>
+      </Dialog >
     </>
   )
 }

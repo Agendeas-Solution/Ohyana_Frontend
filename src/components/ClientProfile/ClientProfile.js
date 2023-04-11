@@ -268,7 +268,7 @@ const ClientProfile = () => {
                     onClick={() => {
                       navigate(`/editclient/${clientProfileDetail.id}`)
                     }}
-                  // className="icon"
+
                   />
                 )}
               </Button>
