@@ -7,6 +7,7 @@ export const CLIENT = {
     { stage: 'Confirm', id: 4 },
     { stage: 'Closed', id: 5 },
   ],
+
   FOLLOWUP: [
     { type: 'FIELD', fieldName: 'Field' },
     { type: 'CALL', fieldName: 'Call' },
@@ -14,4 +15,5 @@ export const CLIENT = {
     { type: 'EMAIL', fieldName: 'Email' },
     { type: 'OTHER', fieldName: 'Other' },
   ],
+
 }

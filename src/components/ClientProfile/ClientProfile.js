@@ -229,6 +229,7 @@ const ClientProfile = () => {
                   className="ml-1 p-1"
                   onClick={() => {
                     setStageDialog(true)
+
                   }}
                   src={
                     (clientProfileDetail?.stage === 0 && Stage0) ||
@@ -261,7 +262,81 @@ const ClientProfile = () => {
             )}
           </Button>
         </Box>
+          <Box sx={{ width: '100%', typography: 'body1' }}>
+            <TabContext value={value}>
+              <Box className="tab_row">
+                <TabList
+                  sx={{ borderBottom: '1px solid #F1F2F6' }}
+                  className="client_profile_tab mb-2"
+                  onChange={handleChange}
+                >
+                  <Tab label="Status" value="1" />
+                  <Tab label="Reminder" value="2" />
+                  <Tab label="Appointment" value="3" />
+                  <Tab label="Orders" value="5" />
+                  <Tab label="Profile" value="4" />
+                </TabList>
 
+                <Box>
+                  {value === '1' ? (
+                    <>
+                      <Button
+                        onClick={handleCallOpen}
+                        className="common_button"
+                      >
+                        <img src={CallNotReceived} />
+                      </Button>
+                      <Button
+                        onClick={handleStatusOpen}
+                        className="common_button"
+                      >
+                        + Status
+                      </Button>
+                      <Button
+                        onClick={() =>
+                          handleCloseStatusDialogOpen(clientProfileDetail.id)
+                        }
+                        className="common_button"
+                      >
+                        Close
+                      </Button>
+                    </>
+                  ) : null}
+                  {value === '2' ? (
+                    <>
+                      <Button
+                        onClick={handleClickOpen}
+                        className="common_button"
+                        variant="contained"
+                      >
+                        + Reminder
+                      </Button>
+                    </>
+                  ) : null}
+                  {value === '3' ? (
+                    <>
+                      <Button
+                        className="common_button"
+                        onClick={handleAppointmentOpen}
+                        variant="contained"
+                      >
+                        + Appointment
+                      </Button>
+                    </>
+                  ) : null}
+                  {value === '5' ? (
+                    <>
+                      <Button
+                        className="common_button"
+                        onClick={handleAppointmentOpen}
+                        variant="contained"
+                      >
+                        {/* <AddRoundedIcon /> */}+ Create
+                      </Button>
+                    </>
+                  ) : null}
+                </Box>
+              </Box>
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={value}>
             <Box className="tab_row">

@@ -21,16 +21,13 @@ const EditJobRoleDialog = props => {
     { stage: 'Ass. Sales Person', id: 2 },
     { stage: 'None', id: 3 },
   ])
-
   const [clientStage, setClientStage] = useState()
-
   const [jobRoleDetail, setJobRoleDetail] = useState({
     name: props?.editJobRoleDialogControl?.name,
     description: props?.editJobRoleDialogControl.description,
     departmentId: props?.editJobRoleDialogControl?.departmentId,
     id: props?.editJobRoleDialogControl?.roleId,
   })
-
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
 
@@ -91,11 +88,9 @@ const EditJobRoleDialog = props => {
                 </div>
               </div>
             </Box>
-
             <div className="col-md-12 pt-4">
               <Typography variant="span">Who is the senior ?</Typography>
             </div>
-
             <Autocomplete
               className="mt-1 align-items-center d-flex client_type_select justify-content-center "
               options={clientType}

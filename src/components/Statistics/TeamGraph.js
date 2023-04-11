@@ -63,6 +63,7 @@ const TeamGraph = ({ selectedPeriod }) => {
   }, [graphData])
   return (
     <>
+
       <Box className=" graph_section team_graph">
         <Box className="common_row mb-3">
           <box>
@@ -111,6 +112,7 @@ const TeamGraph = ({ selectedPeriod }) => {
                 />
               )}
             />
+
           </Box>
         </Box>
         <Box

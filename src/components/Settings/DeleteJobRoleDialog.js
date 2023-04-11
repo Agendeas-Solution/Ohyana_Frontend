@@ -10,29 +10,36 @@ import {
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import { DeleteJobRole } from '../../services/apiservices/staffDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-const DeleteJobRoleDialog = props => {
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
+import { useNavigate } from 'react-router-dom'
+const DeleteJobRoleDialog = ({ deleteJobRoleDialogControl, handleClose }) => {
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const navigate = useNavigate()
   const handleJobRoleDelete = () => {
     DeleteJobRole(
-      props.deleteJobRoleDialogControl.id,
+      deleteJobRoleDialogControl.id,
       res => {
+        handleClose()
+        debugger
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
-        props.handleClose()
+        navigate('/jobrolelist')
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err.response.data.message,
+        })
+      },
     )
   }
   return (
     <>
-      <Dialog
-        open={props.deleteJobRoleDialogControl.status}
-        onClose={props.handleClose}
-      >
+      <Dialog open={deleteJobRoleDialogControl.status} onClose={handleClose}>
         <DialogTitle>
           <DeleteRoundedIcon className="edit_icon_profile" />
         </DialogTitle>
@@ -45,7 +52,7 @@ const DeleteJobRoleDialog = props => {
           <Button variant="contained" onClick={handleJobRoleDelete}>
             Ok
           </Button>
-          <Button className="cancel-btn" onClick={props.handleClose} autoFocus>
+          <Button className="cancel-btn" onClick={handleClose} autoFocus>
             Cancel
           </Button>
         </DialogActions>

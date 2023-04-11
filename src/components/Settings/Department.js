@@ -57,7 +57,6 @@ const Department = () => {
   })
   const [editJobRoleDialogControl, setEditJobRoleDialogControl] = useState({
     status: false,
-    departmentId: null,
     name: '',
     description: '',
     roleId: null,
@@ -68,11 +67,7 @@ const Department = () => {
       id: null,
       departmentName: '',
     })
-  const [jobRoleList, setJobRoleList] = useState({
-    name: '',
-    senior: [],
-    departmentId: null,
-  })
+  const [jobRoleList, setJobRoleList] = useState({})
   const [clientType, setClientType] = useState(CLIENT.STAGE)
 
   const [accessControl, setAccessControl] = useState({
@@ -214,12 +209,7 @@ const Department = () => {
       parseInt(path),
       res => {
         if (res.success) {
-          setJobRoleList({
-            ...jobRoleList,
-            departmentId: res.data.departmentId,
-            name: res.data.name,
-            senior: res.data.senior,
-          })
+          setJobRoleList(res.data)
         }
       },
       err => {
@@ -256,7 +246,6 @@ const Department = () => {
                 onClick={() => {
                   setAddEditDepartmentDialogControl({
                     ...addEditDepartmentDialogControl,
-                    id: jobRoleList.departmentId,
                     status: true,
                     departmentName: jobRoleList.name,
                   })
@@ -267,10 +256,10 @@ const Department = () => {
             {permissions?.deleteDepartment && (
               <DeleteRoundedIcon
                 onClick={() => {
-                  setDeleteDepartmentControl({
-                    ...deleteDepartmentDialogControl,
+                  setDeleteJobRoleDialogControl({
+                    ...deleteJobRoleDialogControl,
                     status: true,
-                    id: jobRoleList.departmentId,
+                    id: jobRoleList.id,
                   })
                 }}
                 className="edit_icon_profile"
@@ -328,6 +317,10 @@ const Department = () => {
                     sx={{ display: 'inline', marginLeft: '18rem' }}
                     className="set_date_time_bg"
                     type="time"
+                    onChange={e => {
+                      console.log(e.target.value)
+                      debugger
+                    }}
                   />
                   <Button className="p-2 m-1" variant="contained">
                     Save
@@ -355,6 +348,10 @@ const Department = () => {
                     sx={{ display: 'inline', marginLeft: '17rem' }}
                     className="set_date_time_bg"
                     type="time"
+                    onChange={e => {
+                      console.log(e.target.value)
+                      debugger
+                    }}
                   />
                   <Button className="p-2 m-1" variant="contained">
                     Save
