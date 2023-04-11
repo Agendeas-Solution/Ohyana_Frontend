@@ -315,6 +315,8 @@ table {
   color: #f1f2f6 !important;
 }
 
+
+
 .check_box_color {
   color: #2e3591 !important;
 }
@@ -412,9 +414,7 @@ table {
   border-radius: 5px;
   width: 97%;
   flex-direction: column !important;
-  margin: 20px auto;
-  // overflow-y: auto;
-  // overflow-x: hidden;
+  margin: 15px auto;
 }
 
 .table_heading tr th {
@@ -885,7 +885,7 @@ button {
   width: 48%;
 }
 
-.profile_img {
+.user_profile_header_Section {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -893,10 +893,22 @@ button {
   width: 100%;
 }
 
-.userName_and_position {
-  display: flex;
+.username_profile_Section {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
-  justify-content: space-between;
+}
+
+.username_and_position {
+  display: flex !important;
+  flex-direction: column !important;
+  margin-left: 8px;
+}
+
+.username_text {
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .edit_icon_profile {

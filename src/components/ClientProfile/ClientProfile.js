@@ -215,70 +215,53 @@ const ClientProfile = () => {
 
   return (
     <>
-      <div className="w-100 mt-3">
-        {/* <Box className="main_section p-4 mt-4"> */}
-        <Box className="profile_section">
-          <Box className="profile_img">
-            <Box className="client_profile_heading">
-              <Box className="userName_and_position">
-                <AccountCircleRoundedIcon
-                  className="user_profile_icon"
-                  // sx={{
-                  //   paddingTop: 2,
-                  // }}
-                />
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    marginLeft: 1,
-                  }}
-                >
-                  <Typography
-                    variant="span"
-                    sx={{ fontWeight: 'bold', fontSize: '18px' }}
-                  >
-                    {clientProfileDetail?.name || '-'}
-                    <img
-                      className="ml-1 p-1"
-                      onClick={() => {
-                        setStageDialog(true)
-                      }}
-                      src={
-                        (clientProfileDetail?.stage === 0 && Stage0) ||
-                        (clientProfileDetail?.stage === 1 && Stage1) ||
-                        (clientProfileDetail?.stage === 2 && Stage2)
-                      }
-                      alt=""
-                    />
-                    {clientProfileDetail?.stage === 3 && (
-                      <WarningRoundedIcon
-                        onClick={() => {
-                          setStageDialog(true)
-                        }}
-                      />
-                    )}
-                  </Typography>
-                  <Typography sx={{ marginTop: '10px' }} variant="span">
-                    {clientProfileDetail?.business || '-'}
-                  </Typography>
-                </Box>
-              </Box>
+      <Box className="main_section_of_team_profile">
+        <Box className="user_profile_header_Section">
+          <Box className="username_profile_Section">
+            <AccountCircleRoundedIcon className="user_profile_icon" />
+            <Box className="username_and_position">
+              <Typography
+                variant="span"
+                sx={{ fontWeight: 'bold', fontSize: '18px' }}
+              >
+                {clientProfileDetail?.name || '-'}
+                <img
+                  className="ml-1 p-1"
+                  onClick={() => {
+                    setStageDialog(true)
 
-              <Button className="profile_header_button">
-                {/* <PrintRoundedIcon className="icon" /> */}
-                {permissions?.editClient && (
-                  <EditRoundedIcon
+                  }}
+                  src={
+                    (clientProfileDetail?.stage === 0 && Stage0) ||
+                    (clientProfileDetail?.stage === 1 && Stage1) ||
+                    (clientProfileDetail?.stage === 2 && Stage2)
+                  }
+                  alt=""
+                />
+                {clientProfileDetail?.stage === 3 && (
+                  <WarningRoundedIcon
                     onClick={() => {
-                      navigate(`/editclient/${clientProfileDetail.id}`)
+                      setStageDialog(true)
                     }}
                   />
                 )}
-              </Button>
+              </Typography>
+              <Typography sx={{ marginTop: '10px' }} variant="span">
+                {clientProfileDetail?.business || '-'}
+              </Typography>
             </Box>
           </Box>
 
+          <Button className="profile_header_button">
+            {permissions?.editClient && (
+              <EditRoundedIcon
+                onClick={() => {
+                  navigate(`/editclient/${clientProfileDetail.id}`)
+                }}
+              />
+            )}
+          </Button>
+        </Box>
           <Box sx={{ width: '100%', typography: 'body1' }}>
             <TabContext value={value}>
               <Box className="tab_row">
@@ -354,178 +337,228 @@ const ClientProfile = () => {
                   ) : null}
                 </Box>
               </Box>
+        <Box sx={{ width: '100%', typography: 'body1' }}>
+          <TabContext value={value}>
+            <Box className="tab_row">
+              <TabList
+                sx={{ borderBottom: '1px solid #F1F2F6' }}
+                className="client_profile_tab mb-2"
+                onChange={handleChange}
+              >
+                <Tab label="Status" value="1" />
+                <Tab label="Reminder" value="2" />
+                <Tab label="Appointment" value="3" />
+                <Tab label="Orders" value="5" />
+                <Tab label="Profile" value="4" />
+              </TabList>
 
-              {/* <Divider sx={{ margin: '0 auto' }} /> */}
-              {/* <Divider className="client_profile_underline" /> */}
-
-              <TabPanel sx={{ padding: '0px' }} value="1">
-                <TableContainer
-                  className="client_table_height mt-1"
-                  component={Paper}
-                  sx={{
-                    boxShadow: 'none',
-                    border: '1px solid #e5e5e5',
-                    overflowY: 'auto',
-                  }}
-                >
-                  {clientStatusList.length > 0 ? (
-                    <Table
-                      stickyHeader
-                      aria-label="sticky table"
-                      sx={{ minWidth: 690, marginLeft: '-10px' }}
-                      className="table_heading "
+              <Box>
+                {value === '1' ? (
+                  <>
+                    <Button onClick={handleCallOpen} className="common_button">
+                      <img src={CallNotReceived} />
+                    </Button>
+                    <Button
+                      onClick={handleStatusOpen}
+                      className="common_button"
                     >
-                      {/* <TableHead className="client_profile_table_header"> */}
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Sr No.</TableCell>
-                          <TableCell align="left">Status Added By</TableCell>
-                          {/* <TableCell align="left">Job Role</TableCell> */}
-                          {/* <TableCell align="left">Audio</TableCell> */}
-                          <TableCell align="left">Date</TableCell>
-                          <TableCell align="left">Time</TableCell>
-                          <TableCell align="left">Description</TableCell>
-                          <TableCell></TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {clientStatusList.map((row, index) => (
-                          <TableRow
-                            key={index}
-                            hover
-                            role="checkbox"
-                            tabIndex={-1}
-                            sx={{
-                              '&:last-child td,th': { border: 0 },
-                            }}
+                      + Status
+                    </Button>
+                    <Button
+                      onClick={() =>
+                        handleCloseStatusDialogOpen(clientProfileDetail.id)
+                      }
+                      className="common_button"
+                    >
+                      Close
+                    </Button>
+                  </>
+                ) : null}
+                {value === '2' ? (
+                  <>
+                    <Button
+                      onClick={handleClickOpen}
+                      className="common_button"
+                      variant="contained"
+                    >
+                      + Reminder
+                    </Button>
+                  </>
+                ) : null}
+                {value === '3' ? (
+                  <>
+                    <Button
+                      className="common_button"
+                      onClick={handleAppointmentOpen}
+                      variant="contained"
+                    >
+                      + Appointment
+                    </Button>
+                  </>
+                ) : null}
+                {value === '5' ? (
+                  <>
+                    <Button
+                      className="common_button"
+                      onClick={handleAppointmentOpen}
+                      variant="contained"
+                    >
+                      {/* <AddRoundedIcon /> */}+ Create
+                    </Button>
+                  </>
+                ) : null}
+              </Box>
+            </Box>
+            <TabPanel sx={{ padding: '0px' }} value="1">
+              <TableContainer
+                className="client_table_height mt-1"
+                component={Paper}
+                sx={{
+                  boxShadow: 'none',
+                  border: '1px solid #e5e5e5',
+                  overflowY: 'auto',
+                }}
+              >
+                {clientStatusList.length > 0 ? (
+                  <Table
+                    stickyHeader
+                    aria-label="sticky table"
+                    sx={{ minWidth: 690, marginLeft: '-10px' }}
+                    className="table_heading "
+                  >
+                    {/* <TableHead className="client_profile_table_header"> */}
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Sr No.</TableCell>
+                        <TableCell align="left">Status Added By</TableCell>
+                        {/* <TableCell align="left">Job Role</TableCell> */}
+                        {/* <TableCell align="left">Audio</TableCell> */}
+                        <TableCell align="left">Date</TableCell>
+                        <TableCell align="left">Time</TableCell>
+                        <TableCell align="left">Description</TableCell>
+                        <TableCell></TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {clientStatusList.map((row, index) => (
+                        <TableRow
+                          key={index}
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          sx={{
+                            '&:last-child td,th': { border: 0 },
+                          }}
+                        >
+                          <TableCell scope="row">{index + 1}</TableCell>
+                          <TableCell align="left">{row?.team?.name}</TableCell>
+                          <TableCell align="left">
+                            {moment(row?.date).format('LL')}
+                          </TableCell>
+                          <TableCell align="left">
+                            {moment(row.time, 'hh:mm:ss').format('LT')}
+                          </TableCell>
+                          <TableCell
+                            className="status_description"
+                            align="left"
                           >
-                            <TableCell scope="row">{index + 1}</TableCell>
-                            <TableCell align="left">
-                              {row?.team?.name}
-                            </TableCell>
-                            {/* <TableCell align="left">
-                          {row?.team?.role?.name}
-                        </TableCell> */}
-                            {/* <TableCell align="left">
-                          <audio controls controlsList="nodownload" >
-                            <source src={`${process.env.REACT_APP_API_CALL_URL}/status/audio/${row?.audioUrl}`}
-                              type="audio/wav">
-                            </source>
-                            <source src={`${process.env.REACT_APP_API_CALL_URL}/status/audio/${row?.audioUrl}`}
-                              type="audio/amr">
-                            </source>
-                          </audio>
-                        </TableCell> */}
-                            <TableCell align="left">
-                              {moment(row?.date).format('LL')}
-                            </TableCell>
-                            <TableCell align="left">
-                              {moment(row.time, 'hh:mm:ss').format('LT')}
-                            </TableCell>
-                            <TableCell
-                              className="status_description"
-                              align="left"
+                            {row?.description}
+                          </TableCell>
+                          <TableCell align="left">
+                            <Button
+                              onClick={() => {
+                                handleViewClientStatus(
+                                  row,
+                                  clientProfileDetail.id,
+                                )
+                              }}
+                              className="client_profile_edit_button m-1"
                             >
-                              {row?.description}
-                            </TableCell>
-                            <TableCell align="left">
-                              <Button
-                                onClick={() => {
-                                  handleViewClientStatus(
-                                    row,
-                                    clientProfileDetail.id,
-                                  )
-                                }}
-                                className="client_profile_edit_button m-1"
-                              >
-                                View
-                              </Button>
-                              <Button
-                                className="client_profile_edit_button"
-                                onClick={() => {
-                                  handleEditClientStatus(
-                                    row,
-                                    clientProfileDetail.id,
-                                  )
-                                }}
-                              >
-                                Edit
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  ) : (
-                    <NoResultFound />
-                  )}
-                </TableContainer>
-              </TabPanel>
-              <TabPanel sx={{ padding: '0px' }} value="2">
-                <RemainderTable clientReminderList={clientReminderList} />
-              </TabPanel>
-              <TabPanel sx={{ padding: '0px' }} value="3">
-                <AppointmentTable
-                  clientAppointmentList={clientAppointmentList}
-                />
-              </TabPanel>
-              <TabPanel sx={{ paddingTop: '15px' }} value="4">
-                <ProfileTable clientProfileDetail={clientProfileDetail} />
-              </TabPanel>
-              <TabPanel sx={{ padding: '0px' }} value="5">
-                <OrderList />
-              </TabPanel>
-            </TabContext>
-            <RemainderDialog
-              remainderDialog={remainderDialog}
-              handleClose={handleClose}
-              clientProfileDetail={clientProfileDetail}
-            />
-            <StatusDialog
-              clientProfileDetail={clientProfileDetail}
-              statusDialog={statusDialog}
+                              View
+                            </Button>
+                            <Button
+                              className="client_profile_edit_button"
+                              onClick={() => {
+                                handleEditClientStatus(
+                                  row,
+                                  clientProfileDetail.id,
+                                )
+                              }}
+                            >
+                              Edit
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                ) : (
+                  <NoResultFound />
+                )}
+              </TableContainer>
+            </TabPanel>
+            <TabPanel sx={{ padding: '0px' }} value="2">
+              <RemainderTable clientReminderList={clientReminderList} />
+            </TabPanel>
+            <TabPanel sx={{ padding: '0px' }} value="3">
+              <AppointmentTable clientAppointmentList={clientAppointmentList} />
+            </TabPanel>
+            <TabPanel sx={{ paddingTop: '15px' }} value="4">
+              <ProfileTable clientProfileDetail={clientProfileDetail} />
+            </TabPanel>
+            <TabPanel sx={{ padding: '0px' }} value="5">
+              <OrderList />
+            </TabPanel>
+          </TabContext>
+          <RemainderDialog
+            remainderDialog={remainderDialog}
+            handleClose={handleClose}
+            clientProfileDetail={clientProfileDetail}
+          />
+          <StatusDialog
+            clientProfileDetail={clientProfileDetail}
+            statusDialog={statusDialog}
+            handleStatusClose={handleStatusClose}
+          />
+          <PoorContact
+            addPoorContact={addPoorContact}
+            handleCallClose={handleCallClose}
+          />
+          <CloseStatusDialog
+            handleCloseStatusDialogClose={handleCloseStatusDialogClose}
+            closeStatusDialogControl={closeStatusDialogControl}
+            setCloseStatusDialogControl={setCloseStatusDialogControl}
+          />
+          <StageDialog
+            clientProfileDetail={clientProfileDetail}
+            stageDialog={stageDialog}
+            handleClose={handleClose}
+          />
+          {editStatusDialog.status === true ? (
+            <EditStatusDialog
               handleStatusClose={handleStatusClose}
+              editStatusDialog={editStatusDialog}
             />
-            <PoorContact
-              addPoorContact={addPoorContact}
-              handleCallClose={handleCallClose}
-            />
-            <CloseStatusDialog
-              handleCloseStatusDialogClose={handleCloseStatusDialogClose}
-              closeStatusDialogControl={closeStatusDialogControl}
-              setCloseStatusDialogControl={setCloseStatusDialogControl}
-            />
-            <StageDialog
-              clientProfileDetail={clientProfileDetail}
-              stageDialog={stageDialog}
-              handleClose={handleClose}
-            />
-            {editStatusDialog.status === true ? (
-              <EditStatusDialog
-                handleStatusClose={handleStatusClose}
-                editStatusDialog={editStatusDialog}
-              />
-            ) : null}
-            {/* {addPoorContact.status === true ? (
+          ) : null}
+          {/* {addPoorContact.status === true ? (
             <PoorContact
               handleCallClose={handleCallClose}
               addPoorContact={addPoorContact}
             />
           ) : null} */}
-            {viewClientStatus.status === true ? (
-              <ViewClientStatusDialog
-                handleViewStatusDialogClose={handleViewStatusDialogClose}
-                viewClientStatus={viewClientStatus}
-              />
-            ) : null}
-            <AppointmentDialog
-              appointmentDialog={appointmentDialog}
-              handleAppointmentClose={handleAppointmentClose}
-              clientProfileDetail={clientProfileDetail}
+          {viewClientStatus.status === true ? (
+            <ViewClientStatusDialog
+              handleViewStatusDialogClose={handleViewStatusDialogClose}
+              viewClientStatus={viewClientStatus}
             />
-          </Box>
+          ) : null}
+          <AppointmentDialog
+            appointmentDialog={appointmentDialog}
+            handleAppointmentClose={handleAppointmentClose}
+            clientProfileDetail={clientProfileDetail}
+          />
         </Box>
-      </div>
+      </Box>
     </>
   )
 }

@@ -51,40 +51,21 @@ const StaffProfile = () => {
   return (
     <>
       <Box className="main_section_of_team_profile">
-        <Box className="profile_img">
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              width: '50%',
-            }}
-          >
-            <Box className="userName_and_position">
-              <AccountCircleRoundedIcon className="user_profile_icon" />
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  marginLeft: 1,
-                }}
-              >
-                <Typography
-                  variant="span"
-                  sx={{ fontWeight: 'bold', fontSize: '18px' }}
-                >
-                  {adminProfileDetail?.name}
-                </Typography>
-                <Typography sx={{ marginTop: '10px' }} variant="span">
-                  {adminProfileDetail?.role?.name}
-                </Typography>
-              </Box>
+        <Box className="user_profile_header_Section">
+          <Box className="username_profile_Section">
+            <AccountCircleRoundedIcon className="user_profile_icon" />
+            <Box className="username_and_position">
+              <Typography className="username_text" variant="span">
+                {adminProfileDetail?.name}
+              </Typography>
+              <Typography variant="span" sx={{ marginTop: '5px' }}>
+                {adminProfileDetail?.role?.name}
+              </Typography>
             </Box>
           </Box>
 
           <Box>
-            <Button className="view_on_map_btn">
+            <Button className="custom_text_button">
               <PlaceIcon />
               View On Map
             </Button>

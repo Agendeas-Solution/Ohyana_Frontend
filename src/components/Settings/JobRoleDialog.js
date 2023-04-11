@@ -21,6 +21,7 @@ import { DesktopTimePicker } from '@mui/x-date-pickers/DesktopTimePicker'
 import dayjs from 'dayjs'
 import { CreateJobRole } from '../../services/apiservices/adminprofile'
 import moment from 'moment'
+
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
   const [jobRoleDetail, setJobRoleDetail] = useState({
@@ -33,11 +34,13 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const addJobRole = () => {
     if (
-      jobRoleDetail.clockIn.name !== '' &&
+      jobRoleDetail.name !== '' &&
+
       jobRoleDetail.description !== '' &&
       jobRoleDetail.parentId !== '' &&
       jobRoleDetail.clockIn !== ''
     ) {
+
       CreateJobRole(
         jobRoleDetail,
         res => {
@@ -132,6 +135,7 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
           </Box>
           <Box>
             <div className="row my-4">
+
               <TextField
                 sx={{ display: 'inline', marginLeft: '18rem' }}
                 className="set_date_time_bg"
