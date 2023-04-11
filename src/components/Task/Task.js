@@ -157,14 +157,12 @@ const Task = () => {
 
   return (
     <Box className="main_tab_section">
-
       <Box className="tab_header">
         <Box>
           <Typography sx={{ color: '#8E8E8E' }} variant="span">
             Overview
           </Typography>
         </Box>
-
         <Box>
           <Box
             sx={{
@@ -185,7 +183,6 @@ const Task = () => {
                 }
               />
             </FormControl>
-
             <Button
               onClick={handleClickOpen}
               className="main_tab_button"
@@ -193,7 +190,6 @@ const Task = () => {
             >
               + Task
             </Button>
-
             <IconButton
               edge="end"
               onClick={handleDrawerOpen}
@@ -202,9 +198,7 @@ const Task = () => {
               <img src={FilterIcon} alt="" />
             </IconButton>
           </Box>
-
           <Drawer
-
             onClose={handleDrawerClose}
             sx={{
               '& .MuiDrawer-paper': {
@@ -237,15 +231,11 @@ const Task = () => {
                 <Button onClick={handleClearAllFilter} className='text_button'>Reset</Button>
                 <Button onClick={handleApplyFilter} className='common_button' variant="contained">Apply</Button>
               </Box>
-
             </DrawerHeader>
-
             <Divider />
-
             <Box sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
               <LocalizationProvider dateAdapter={AdapterDateFns}  >
                 <DatePicker
-
                   inputFormat="dd/MM/yyyy"
                   value={createTask.due_date}
                   onChange={e => {
@@ -264,7 +254,6 @@ const Task = () => {
                   }}
                 />
               </LocalizationProvider>
-
               <Autocomplete
                 sx={{ margin: '10px' }}
                 disablePortal
@@ -285,12 +274,10 @@ const Task = () => {
                   />
                 )}
               />
-
             </Box>
           </Drawer>
         </Box>
       </Box>
-
       <Box className="below_main_tab_section">
         <Box className="inner_container">
           {taskList.length > 0 ?
@@ -316,7 +303,6 @@ const Task = () => {
                       {taskData.description}
                     </Typography>
                   </Box>
-
                   <Box sx={{
                     display: 'flex',
                     flexDirection: 'row',
@@ -339,7 +325,6 @@ const Task = () => {
                       </Button>
                     )}
                   </Box>
-
                 </Box>
               )
             }) :
