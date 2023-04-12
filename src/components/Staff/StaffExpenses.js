@@ -43,13 +43,13 @@ const StaffExpenses = () => {
         setExpenseList(res.data.expenses)
         setExpensesData(res.data)
       },
-      err => {},
+      err => { },
     )
   }, [])
   const handlePaymentStatusUpdate = id => {
     PaymentStatusUpdate(
       id,
-      res => {},
+      res => { },
       err => {
         console.log('Printing Error Payment Status Update', err)
       },
@@ -59,8 +59,8 @@ const StaffExpenses = () => {
     StatusUpdate(
       id,
       status,
-      res => {},
-      err => {},
+      res => { },
+      err => { },
     )
   }
 
@@ -163,7 +163,7 @@ const StaffExpenses = () => {
                       </TableCell>
                       <TableCell align="left">{row?.payment_status}</TableCell>
                       <TableCell align="left">{row?.file}</TableCell>
-                      <TableCell align="left" className="d-flex flex-row">
+                      <TableCell align="left">
                         {row?.status === 'APPROVED' || 'REJECTED' ? (
                           row?.status
                         ) : (

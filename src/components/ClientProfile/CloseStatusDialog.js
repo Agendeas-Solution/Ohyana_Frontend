@@ -7,6 +7,7 @@ import {
   DialogContent,
   Typography,
   TextareaAutosize,
+  TextField,
 } from '@mui/material'
 import { AddCloseStatusApiCall } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
@@ -47,46 +48,41 @@ const CloseStatusDialog = ({
         open={closeStatusDialogControl.status}
         onClose={handleCloseStatusDialogClose}
       >
-        <Box style={{ textAlign: 'center' }} className="px-3 pt-3">
-          <h4 style={{ fontWeight: '600' }}>Close Status </h4>
+        <Box className="dialogue_main_section">
+          <Typography className="dialogue_heading">Close Status</Typography>
+
+          <TextField
+            className="dialogue_input_fields"
+            multiline
+            label="Description"
+            autoComplete="off"
+            placeholder="Reason Here..."
+            minRows={3}
+            value={closeStatusDialogControl.description}
+            onChange={e =>
+              setCloseStatusDialogControl({
+                ...closeStatusDialogControl,
+                description: e.target.value,
+              })
+            }
+          />
+
+          <DialogActions>
+            <Button
+              className="dialogue_button_positive"
+              variant="contained"
+              onClick={addCloseStatus}
+            >
+              Ok
+            </Button>
+            <Button
+              className="dialogue_button_nagative"
+              variant="contained"
+              onClick={handleCloseStatusDialogClose}>
+              Cancel
+            </Button>
+          </DialogActions>
         </Box>
-        <DialogContent>
-          <Box>
-            <Box className="row">
-              <Box className="col-md-12">
-                <Typography variant="span">
-                  Reason<span className="required_star">*</span>
-                </Typography>
-              </Box>
-              <Box className="col-md-12">
-                <TextareaAutosize
-                  value={closeStatusDialogControl.description}
-                  className="w-100"
-                  sx={{ borderRadius: '10px' }}
-                  onChange={e =>
-                    setCloseStatusDialogControl({
-                      ...closeStatusDialogControl,
-                      description: e.target.value,
-                    })
-                  }
-                  placeholder="Reason Here..."
-                />
-              </Box>
-            </Box>
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="contained"
-            className="ok-btn"
-            onClick={addCloseStatus}
-          >
-            Ok
-          </Button>
-          <Button className="cancel-btn" onClick={handleCloseStatusDialogClose}>
-            Cancel
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   )

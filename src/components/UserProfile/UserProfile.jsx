@@ -89,7 +89,7 @@ const UserProfile = () => {
             setStaffAttendanceList(res?.data)
           }
         },
-        err => {},
+        err => { },
       )
     activeTab === 'leave' &&
       GetAdminLeaveList(
@@ -99,7 +99,7 @@ const UserProfile = () => {
             setLeaveList(res?.data)
           }
         },
-        err => {},
+        err => { },
       )
     activeTab === 'holiday' &&
       GetAllHoliday(
@@ -110,15 +110,15 @@ const UserProfile = () => {
             setHolidayList(res?.data)
           }
         },
-        err => {},
+        err => { },
       )
   }, [value, activeTab])
 
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
-      res => {},
-      err => {},
+      res => { },
+      err => { },
     )
   }
   const handleCloseDialog = () => {
@@ -127,265 +127,230 @@ const UserProfile = () => {
 
   return (
     <>
-      <div className="w-100 mt-3">
-        <Box className="profile_section">
-          <Box className="profile_img">
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <Box className="userName_and_position">
-                <AccountCircleRoundedIcon className="user_profile_icon" />
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    marginLeft: 1,
-                  }}
-                >
-                  <Typography
-                    variant="span"
-                    sx={{ fontWeight: 'bold', fontSize: '18px' }}
-                  >
-                    {userDetail?.name || '-'}
-                  </Typography>
-                  <Typography sx={{ marginTop: '10px' }} variant="span">
-                    {userDetail?.role?.name || '-'}
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-
-            <Box>
-              {/* FOR ATTENDANCE TAB */}
-              {value === 'Attendance' && (
-                <>
-                  <Button
-                    onClick={() => handleCheckIn('checkIn')}
-                    className="attendance_button check_InOut_Break_InOut_Btn m-1"
-                    variant="contained"
-                  >
-                    + Apply Leave
-                  </Button>
-                </>
-              )}
-
-              {/* FOR STAFF EXPENSES TAB */}
-              {/* {value === 'Expenses' && <StaffExpenses />} */}
-              <Button
-                // sx={{ width: '10px', height: '5px' }}
-                className="my_profile_edit_btn"
+      <Box className="main_section_of_team_profile">
+        <Box className="user_profile_header_Section">
+          <Box className="username_profile_Section">
+            <AccountCircleRoundedIcon className="user_profile_icon" />
+            <Box className="username_and_position">
+              <Typography className="username_text"
+                variant="span"
               >
-                <EditRoundedIcon
-                  onClick={() => {
-                    console.log('Printing Edit icon')
-                    navigate('/editprofile')
-                  }}
-                />
-              </Button>
+                {userDetail?.name || '-'}
+              </Typography>
+              <Typography variant="span" sx={{ marginTop: '5px' }}>
+                {userDetail?.role?.name || '-'}
+              </Typography>
             </Box>
           </Box>
 
-          <TabContext value={value}>
-            <Box
-              className="my_profile_tabs_root"
-              sx={{ borderBottom: '1px solid #F1F2F6' }}
-            >
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                textColor="secondary"
-                indicatorColor="secondary"
-              >
-                <Tab value="Attendance" label="Attendance" />
-                <Tab value="Expenses" label="Expenses" />
-                <Tab value="Profile" label="Profile" />
-              </Tabs>
-            </Box>
+          <Box>
+            {value === 'Attendance' && (
+              <>
+                <Button
+                  onClick={() => setLeaveDialogControl(true)}
+                  className="profile_header_button"
+                  variant="contained"
+                >
+                  + Apply Leave
+                </Button>
+              </>
+            )}
 
-            <TabPanel sx={{ padding: '10px' }} value="Attendance">
-              <Box className="attendance_data_row col-md-12 mb-1">
+            <Button
+              className="profile_header_button"
+            >
+              <EditRoundedIcon
+                onClick={() => {
+                  console.log('Printing Edit icon')
+                  navigate('/editprofile')
+                }}
+              />
+            </Button>
+          </Box>
+        </Box>
+
+        <TabContext value={value}>
+          <Box
+            className="my_profile_tabs_root"
+            sx={{ borderBottom: '1px solid #F1F2F6' }}
+          >
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              textColor="secondary"
+              indicatorColor="secondary"
+            >
+              <Tab value="Attendance" label="Attendance" />
+              <Tab value="Expenses" label="Expenses" />
+              <Tab value="Profile" label="Profile" />
+            </Tabs>
+          </Box>
+
+          <TabPanel sx={{ padding: '10px' }} value="Attendance">
+            <Box className="attendance_data_row col-md-12 mb-1">
+              <Box
+                sx={{
+                  // background: '#F1F2F6',
+                  borderRadius: '5px',
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}
+              >
+                <Box className="inner_profile_details first_box me-3 p-2">
+                  <Typography>Total Days</Typography>
+                  <Typography>24</Typography>
+                </Box>
+
+                <Box className="inner_profile_details middle_box  me-3 p-2">
+                  <Typography>Absent Days</Typography>
+                  <Typography>10</Typography>
+                </Box>
+
+                <Box className="inner_profile_details last_box p-2">
+                  <Typography>Late Days</Typography>
+                  <Typography>5d</Typography>
+                </Box>
+              </Box>
+
+              <Box>
                 <Box
                   sx={{
-                    // background: '#F1F2F6',
+                    background: '#F1F2F6',
                     borderRadius: '5px',
-                    display: 'flex',
-                    flexDirection: 'row',
                   }}
                 >
-                  <Box className="inner_profile_details first_box me-3 p-2">
-                    <Typography>Total Days</Typography>
-                    <Typography>24</Typography>
-                  </Box>
-
-                  <Box className="inner_profile_details middle_box  me-3 p-2">
-                    <Typography>Absent Days</Typography>
-                    <Typography>10</Typography>
-                  </Box>
-
-                  <Box className="inner_profile_details last_box p-2">
-                    <Typography>Late Days</Typography>
-                    <Typography>5d</Typography>
-                  </Box>
-                </Box>
-
-                <Box>
-                  <Box
-                    sx={{
-                      background: '#F1F2F6',
-                      borderRadius: '5px',
+                  <Button
+                    className={
+                      activeTab === 'present' ? 'active_button' : 'custom_tab_background'
+                    }
+                    onClick={() => {
+                      setActiveTab('present')
                     }}
+                    variant="contained"
                   >
-                    <Button
-                      className={
-                        activeTab === 'present' ? 'active_button' : 'custom_tab'
-                      }
-                      onClick={() => {
-                        setActiveTab('present')
-                      }}
-                      variant="contained"
-                    >
-                      Present
-                    </Button>
-                    <Button
-                      // sx={{ marginLeft: '0px', marginRight: '0' }}
-                      className={
-                        activeTab === 'leave' ? 'active_button' : 'custom_tab'
-                      }
-                      onClick={() => {
-                        setActiveTab('leave')
-                      }}
-                      variant="contained"
-                    >
-                      Leave
-                    </Button>
-                    <Button
-                      className={
-                        activeTab === 'holiday' ? 'active_button' : 'custom_tab'
-                      }
-                      onClick={() => {
-                        setActiveTab('holiday')
-                      }}
-                      variant="contained"
-                    >
-                      Holiday
-                    </Button>
-                  </Box>
+                    Present
+                  </Button>
+                  <Button
+                    // sx={{ marginLeft: '0px', marginRight: '0' }}
+                    className={
+                      activeTab === 'leave' ? 'active_button' : 'custom_tab_background'
+                    }
+                    onClick={() => {
+                      setActiveTab('leave')
+                    }}
+                    variant="contained"
+                  >
+                    Leave
+                  </Button>
+                  <Button
+                    className={
+                      activeTab === 'holiday' ? 'active_button' : 'custom_tab_background'
+                    }
+                    onClick={() => {
+                      setActiveTab('holiday')
+                    }}
+                    variant="contained"
+                  >
+                    Holiday
+                  </Button>
                 </Box>
               </Box>
+            </Box>
 
-              {/* <Box className="tab_row">
-                {activeTab === 'leave' && (
-                  <Box>
-                    <Button
-                      onClick={() => setLeaveDialogControl(true)}
-                      className="attendance_button m-2"
-                      variant="contained"
-                    >
-                      Apply For Leave
-                    </Button>
-                  </Box>
-                )}
-              </Box> */}
 
-              {activeTab === 'present' && (
-                <PresentData staffAttendanceList={staffAttendanceList} />
-              )}
-              {activeTab === 'leave' && <LeaveData leaveList={leaveList} />}
-              {activeTab === 'holiday' && (
-                <HolidayData holidayList={holidayList} />
-              )}
-            </TabPanel>
+            {activeTab === 'present' && (
+              <PresentData staffAttendanceList={staffAttendanceList} />
+            )}
+            {activeTab === 'leave' && <LeaveData leaveList={leaveList} />}
+            {activeTab === 'holiday' && (
+              <HolidayData holidayList={holidayList} />
+            )}
+          </TabPanel>
 
-            <TabPanel sx={{ padding: '10px' }} value="Expenses">
-              <StaffExpenses />
-            </TabPanel>
-            <TabPanel value="Profile">
-              <Box className="staff_profile">
+          <TabPanel sx={{ padding: '10px' }} value="Expenses">
+            <StaffExpenses />
+          </TabPanel>
+          <TabPanel value="Profile">
+            <Box className="staff_profile">
+              <Box className="staff_profile_page">
+                <Typography
+                  className="user_profile_font_weight"
+                  variant="span"
+                >
+                  Contact No.:
+                </Typography>
+                <Typography variant="span">
+                  {userDetail?.contact_number || '-'}
+                </Typography>
+              </Box>
+              {userDetail?.senior && (
                 <Box className="staff_profile_page">
                   <Typography
-                    className="user_profile_font_weight"
                     variant="span"
+                    className="user_profile_font_weight"
                   >
-                    Contact No.:
+                    Senior Post:
                   </Typography>
                   <Typography variant="span">
-                    {userDetail?.contact_number || '-'}
+                    {userDetail?.senior?.name}
                   </Typography>
                 </Box>
-                {userDetail?.senior && (
-                  <Box className="staff_profile_page">
-                    <Typography
-                      variant="span"
-                      className="user_profile_font_weight"
-                    >
-                      Senior Post:
-                    </Typography>
-                    <Typography variant="span">
-                      {userDetail?.senior?.name}
-                    </Typography>
-                  </Box>
-                )}
-                <Box className="staff_profile_page">
-                  <Typography
-                    variant="span"
-                    className=" user_profile_font_weight"
-                  >
-                    Email:
-                  </Typography>
-                  <Typography variant="span">{userDetail?.email}</Typography>
-                </Box>
-                <Box className="staff_profile_page">
-                  <Typography
-                    variant="span"
-                    className=" user_profile_font_weight"
-                  >
-                    Password:
-                  </Typography>
-                  <Typography variant="span">{userDetail?.password}</Typography>
-                </Box>
-                <Box className="staff_profile_page">
-                  <Typography
-                    className=" user_profile_font_weight"
-                    variant="span"
-                  >
-                    Birthday
-                  </Typography>
-                  <Typography variant="span">{userDetail?.birthDay}</Typography>
-                </Box>
-                <Box className="staff_profile_page">
-                  <Typography
-                    className=" user_profile_font_weight"
-                    variant="span"
-                  >
-                    Gender
-                  </Typography>
-                  <Typography variant="span">{userDetail?.gender}</Typography>
-                </Box>
-                {userDetail?.city && (
-                  <Box className="companyDetail_root p-3">
-                    <Typography
-                      variant="span"
-                      className="companyDetail_field_heading user_profile_color"
-                    >
-                      City:
-                    </Typography>
-                    <Typography variant="span">{userDetail?.city}</Typography>
-                  </Box>
-                )}
+              )}
+              <Box className="staff_profile_page">
+                <Typography
+                  variant="span"
+                  className=" user_profile_font_weight"
+                >
+                  Email:
+                </Typography>
+                <Typography variant="span">{userDetail?.email}</Typography>
               </Box>
-            </TabPanel>
-          </TabContext>
-          <ApplyLeaveDialog
-            leaveDialogControl={leaveDialogControl}
-            handleCloseDialog={handleCloseDialog}
-          />
-        </Box>
-      </div>
+              <Box className="staff_profile_page">
+                <Typography
+                  variant="span"
+                  className=" user_profile_font_weight"
+                >
+                  Password:
+                </Typography>
+                <Typography variant="span">{userDetail?.password}</Typography>
+              </Box>
+              <Box className="staff_profile_page">
+                <Typography
+                  className=" user_profile_font_weight"
+                  variant="span"
+                >
+                  Birthday
+                </Typography>
+                <Typography variant="span">{userDetail?.birthDay}</Typography>
+              </Box>
+              <Box className="staff_profile_page">
+                <Typography
+                  className=" user_profile_font_weight"
+                  variant="span"
+                >
+                  Gender
+                </Typography>
+                <Typography variant="span">{userDetail?.gender}</Typography>
+              </Box>
+              {userDetail?.city && (
+                <Box className="companyDetail_root p-3">
+                  <Typography
+                    variant="span"
+                    className="companyDetail_field_heading user_profile_color"
+                  >
+                    City:
+                  </Typography>
+                  <Typography variant="span">{userDetail?.city}</Typography>
+                </Box>
+              )}
+            </Box>
+          </TabPanel>
+        </TabContext>
+        <ApplyLeaveDialog
+          leaveDialogControl={leaveDialogControl}
+          handleCloseDialog={handleCloseDialog}
+        />
+      </Box>
     </>
   )
 }
