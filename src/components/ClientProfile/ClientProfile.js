@@ -220,10 +220,7 @@ const ClientProfile = () => {
           <Box className="username_profile_Section">
             <AccountCircleRoundedIcon className="user_profile_icon" />
             <Box className="username_and_position">
-              <Typography
-                variant="span"
-                sx={{ fontWeight: 'bold', fontSize: '18px' }}
-              >
+              <Typography className="username_text" variant="span">
                 {clientProfileDetail?.name || '-'}
                 <img
                   className="ml-1 p-1"
@@ -236,7 +233,6 @@ const ClientProfile = () => {
                     (clientProfileDetail?.stage === 1 && Stage1) ||
                     (clientProfileDetail?.stage === 2 && Stage2)
                   }
-                  alt=""
                 />
                 {clientProfileDetail?.stage === 3 && (
                   <WarningRoundedIcon
@@ -246,7 +242,7 @@ const ClientProfile = () => {
                   />
                 )}
               </Typography>
-              <Typography sx={{ marginTop: '10px' }} variant="span">
+              <Typography variant="span" sx={{ marginTop: '5px' }}>
                 {clientProfileDetail?.business || '-'}
               </Typography>
             </Box>
@@ -262,81 +258,7 @@ const ClientProfile = () => {
             )}
           </Button>
         </Box>
-          <Box sx={{ width: '100%', typography: 'body1' }}>
-            <TabContext value={value}>
-              <Box className="tab_row">
-                <TabList
-                  sx={{ borderBottom: '1px solid #F1F2F6' }}
-                  className="client_profile_tab mb-2"
-                  onChange={handleChange}
-                >
-                  <Tab label="Status" value="1" />
-                  <Tab label="Reminder" value="2" />
-                  <Tab label="Appointment" value="3" />
-                  <Tab label="Orders" value="5" />
-                  <Tab label="Profile" value="4" />
-                </TabList>
 
-                <Box>
-                  {value === '1' ? (
-                    <>
-                      <Button
-                        onClick={handleCallOpen}
-                        className="common_button"
-                      >
-                        <img src={CallNotReceived} />
-                      </Button>
-                      <Button
-                        onClick={handleStatusOpen}
-                        className="common_button"
-                      >
-                        + Status
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          handleCloseStatusDialogOpen(clientProfileDetail.id)
-                        }
-                        className="common_button"
-                      >
-                        Close
-                      </Button>
-                    </>
-                  ) : null}
-                  {value === '2' ? (
-                    <>
-                      <Button
-                        onClick={handleClickOpen}
-                        className="common_button"
-                        variant="contained"
-                      >
-                        + Reminder
-                      </Button>
-                    </>
-                  ) : null}
-                  {value === '3' ? (
-                    <>
-                      <Button
-                        className="common_button"
-                        onClick={handleAppointmentOpen}
-                        variant="contained"
-                      >
-                        + Appointment
-                      </Button>
-                    </>
-                  ) : null}
-                  {value === '5' ? (
-                    <>
-                      <Button
-                        className="common_button"
-                        onClick={handleAppointmentOpen}
-                        variant="contained"
-                      >
-                        {/* <AddRoundedIcon /> */}+ Create
-                      </Button>
-                    </>
-                  ) : null}
-                </Box>
-              </Box>
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={value}>
             <Box className="tab_row">

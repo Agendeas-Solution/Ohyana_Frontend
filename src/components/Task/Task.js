@@ -94,15 +94,15 @@ const Task = () => {
       res => {
         setMemberList(res.data)
       },
-      err => {},
+      err => { },
     )
     setOpenMemberDialog(true)
   }
   const handleCloseMemberDialog = () => {
     setOpenMemberDialog(false)
   }
-  const handleApplyFilter = () => {}
-  const handleClearAllFilter = () => {}
+  const handleApplyFilter = () => { }
+  const handleClearAllFilter = () => { }
   const handleTaskList = () => {
     GetTaskList(
       {},
@@ -146,7 +146,7 @@ const Task = () => {
         setMember()
         handleCloseMemberDialog()
       },
-      err => {},
+      err => { },
     )
   }
 

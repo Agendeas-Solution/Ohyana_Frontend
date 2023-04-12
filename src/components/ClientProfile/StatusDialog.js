@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import {
   Box,
   Button,
@@ -10,17 +10,29 @@ import {
   Checkbox,
   Typography,
   TextareaAutosize,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  InputAdornment,
 } from '@mui/material'
+import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import { AddClientStatus } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+import { CLIENT } from '../../constants/clientConstant'
+import { Folder } from '@mui/icons-material';
 var a
 const StatusDialog = props => {
+  const [audioFile, setAudioFile] = useState(null);
+  const inputRef = useRef(null);
   const [addStatusDetail, setAddStatusDetail] = useState({
     clientId: props.clientProfileDetail.id,
     description: '',
     audio: {},
     callNotReceived: false,
   })
+  const [followUpType, setFollowUpType] = useState(CLIENT.FOLLOWUP)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [buttonName, setButtonName] = useState('Play')
@@ -87,78 +99,114 @@ const StatusDialog = props => {
       setButtonName('Play')
     }
   }
+
+  const handleAudioFileChange = (event) => {
+    setAudioFile(event.target.files[0]);
+  };
+
+  const handleUpload = () => {
+    // TODO: handle the upload logic here
+    console.log('Uploading file:', audioFile.name);
+  };
+
+  const handleSelectFile = () => {
+    inputRef.current.click();
+  };
+
   return (
     <>
-      <Dialog open={props.statusDialog} onClose={props.handleStatusClose}>
-        <div style={{ textAlign: 'center' }} className="px-3 pt-3">
-          <h4 style={{ fontWeight: '600' }}>Add Status</h4>
-        </div>
-        <DialogContent>
-          <Box>
-            <div className="row">
-              <div className="col-md-12">
-                <Typography variant="span">
-                  Description<span className="required_star">*</span>
-                </Typography>
-              </div>
-              <div className="col-md-12">
-                <TextareaAutosize
-                  value={addStatusDetail.description}
-                  className="w-100"
-                  sx={{ borderRadius: '10px' }}
-                  onChange={e =>
-                    setAddStatusDetail({
-                      ...addStatusDetail,
-                      description: e.target.value,
-                      clientId: props.clientProfileDetail.id,
-                    })
-                  }
-                  placeholder="Description Here..."
-                />
-                <Box className="col-md-12">
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          onChange={() =>
-                            setAddStatusDetail({
-                              ...addStatusDetail,
-                              callNotReceived: !addStatusDetail.callNotReceived,
-                            })
-                          }
-                        />
-                      }
-                      label="Call not received"
-                    />
-                  </FormGroup>
-                </Box>
-                {addStatusDetail.callNotReceived === false && (
-                  <>
-                    {' '}
-                    <p>
-                      {' '}
-                      Upload Audio File<span className="required_star">*</span>
-                      (Mp3 Only)
-                    </p>
-                    <div>
-                      <button onClick={handleClick}>{buttonName}</button>
-                      <input type="file" onChange={addFile} />
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
+      <Dialog
+        open={props.statusDialog}
+        onClose={props.handleStatusClose}>
+        <Box className="dialogue_main_section">
+          <Typography className="dialogue_heading">Add Status</Typography>
+
+          <FormControl className="dialogue_input_fields">
+            <InputLabel>Conversation Type</InputLabel>
+            <Select
+              label="Conversation Type"
+              value={addStatusDetail.followUpType}
+              onChange={e =>
+                setAddStatusDetail({
+                  ...addStatusDetail,
+                  followUpType: e.target.value,
+                  clientId: props.clientProfileDetail.id,
+                })}
+            >
+              {
+                followUpType.map(data => {
+                  return <MenuItem value={data.type}>{data.fieldName}</MenuItem>
+                })
+              }
+            </Select>
+          </FormControl>
+
+          <TextField
+            className="dialogue_input_fields"
+            multiline
+            label="Description"
+            autoComplete="off"
+            placeholder="Description Here..."
+            minRows={3}
+            value={addStatusDetail.description}
+            onChange={e =>
+              setAddStatusDetail({
+                ...addStatusDetail,
+                description: e.target.value,
+                clientId: props.clientProfileDetail.id,
+              })
+            }
+          />
+          <Box className="dialogue_input_fields" sx={{ flexDirection: 'row' }}>
+            <TextField
+              sx={{ marginRight: '5px' }}
+              label="Select Audio"
+              type="text"
+              value={audioFile ? audioFile.name : ''}
+              InputProps={{
+                readOnly: true,
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Button sx={{ margin: '0px', backgroundColor: '#2E3591', boxShadow: 'none' }} variant="contained" onClick={handleSelectFile}>
+                      Select
+                    </Button>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <input
+              type="file"
+              accept="audio/*"
+              onChange={handleAudioFileChange}
+              style={{ display: 'none' }}
+              ref={inputRef}
+            />
+            {/* <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Typography>
+                Call Recording
+              </Typography>
+              <PlayArrowRoundedIcon cononClick={handleClick} sx={{ color: '#2E3591' }}></PlayArrowRoundedIcon>
+            </Box> */}
           </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button variant="contained" onClick={AddStatus}>
-            Add
-          </Button>
-          <Button variant="contained" onClick={props.handleStatusClose}>
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
+
+
+          <DialogActions>
+            <Button
+              className="dialogue_button_positive"
+              variant="contained"
+              onClick={AddStatus}>
+              Add
+            </Button>
+            <Button
+              className="dialogue_button_nagative"
+              variant="contained"
+              onClick={props.handleStatusClose}>
+              Cancel
+            </Button>
+          </DialogActions>
+
+        </Box>
+      </Dialog >
     </>
   )
 }

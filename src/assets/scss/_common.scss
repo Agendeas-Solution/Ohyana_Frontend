@@ -326,7 +326,8 @@ table {
   color: #8e8e8e;
 }
 
-.custom_tab {
+.custom_tab_background {
+  box-shadow: none !important;
   background-color: #f1f2f6 !important;
   color: #2e3591 !important;
   height: 40px !important;
@@ -788,6 +789,7 @@ button {
 
 
 .active_button {
+  box-shadow: none !important;
   background-color: #2e3591 !important;
   color: #ffffff !important;
   height: 40px !important;
