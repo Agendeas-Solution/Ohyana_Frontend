@@ -15,5 +15,10 @@ export const CLIENT = {
     { type: 'EMAIL', fieldName: 'Email' },
     { type: 'OTHER', fieldName: 'Other' },
   ],
+  CLIENTTYPE: [
+    { type: true, fieldName: 'Domestic' },
+    { type: false, fieldName: 'International' },
+
+  ],
 
 }

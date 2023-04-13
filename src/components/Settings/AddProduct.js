@@ -214,107 +214,95 @@ const AddProduct = props => {
 
         <Box className="input_field_row">
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Product Name
-            </Typography>
             <TextField
+              label=" Product Name"
               placeholder="Enter Product Name"
+              variant="outlined"
+              value={productDetail.name}
               onChange={e => {
                 setProductDetail({ ...productDetail, name: e.target.value })
               }}
-              value={productDetail.name}
-              className="form-control"
-              variant="outlined"
-              label=""
             />
           </Box>
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Product Id
-            </Typography>
             <TextField
-              placeholder="Enter Product Id"
+              label="SKU Id"
+              placeholder="Enter SKU Id"
+              variant="outlined"
+              value={productDetail.skuId}
               onChange={e => {
                 setProductDetail({ ...productDetail, skuId: e.target.value })
               }}
-              value={productDetail.skuId}
-              variant="outlined"
             />
           </Box>
         </Box>
+        {/* Price &&  Enter Quantity */}
 
         <Box className="input_field_row">
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Price (1 pc)
-            </Typography>
             <TextField
+              label="Price (1 pc)"
               placeholder="Enter Price"
               autoComplete={false}
+              variant="outlined"
+              value={productDetail.price}
               onChange={e => {
                 setProductDetail({ ...productDetail, price: e.target.value })
               }}
-              value={productDetail.price}
-              variant="outlined"
             />
           </Box>
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Available Quantity
-            </Typography>
             <TextField
+              label="Available Quantity"
               placeholder="Enter Quantity"
+              variant="outlined"
+              value={productDetail.quantity}
               onChange={e => {
                 setProductDetail({
                   ...productDetail,
                   quantity: e.target.value,
                 })
               }}
-              value={productDetail.quantity}
-              variant="outlined"
             />
           </Box>
         </Box>
-
         <Box className="input_field_row">
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Material Type
-            </Typography>
             <TextField
+              label="Weight"
+              placeholder="Enter Weight"
+              variant="outlined"
+              value={productDetail.weight}
+              onChange={e => {
+                setProductDetail({ ...productDetail, weight: e.target.value })
+              }}
+            />
+          </Box>
+
+          <Box className="input_fields">
+            <TextField
+              label="Material Type"
               placeholder="Enter Material Type"
+              variant="outlined"
+              value={productDetail.materialType}
               onChange={e => {
                 setProductDetail({
                   ...productDetail,
                   materialType: e.target.value,
                 })
               }}
-              value={productDetail.materialType}
-            />
-          </Box>
-          <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Weight
-            </Typography>
-            <TextField
-              placeholder="Enter Weight"
-              onChange={e => {
-                setProductDetail({ ...productDetail, weight: e.target.value })
-              }}
-              value={productDetail.weight}
             />
           </Box>
         </Box>
-
         <Box className="input_field_row">
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Description
-            </Typography>
-            <TextareaAutosize
+            <TextField
+              multiline
+              label="Description"
               placeholder="Description Here..."
-              className="w-100"
               minRows={3}
+              autoComplete="off"
+              variant="outlined"
               value={productDetail.description}
               onChange={e => {
                 setProductDetail({
@@ -325,17 +313,17 @@ const AddProduct = props => {
             />
           </Box>
         </Box>
-
         <Box sx={{ justifyContent: 'flex-start' }} className="input_field_row">
+
           <Button
             onClick={handleAddProduct}
             variant="contained"
             className="edit_page_save_button"
-          >
-            Save
+          >Save
           </Button>
         </Box>
       </Box>
+
     </>
   )
 }

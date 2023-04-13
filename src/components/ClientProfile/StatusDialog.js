@@ -157,37 +157,38 @@ const StatusDialog = props => {
               })
             }
           />
-          <Box className="dialogue_input_fields" sx={{ flexDirection: 'row' }}>
-            <TextField
-              sx={{ marginRight: '5px' }}
-              label="Select Audio"
-              type="text"
-              value={audioFile ? audioFile.name : ''}
-              InputProps={{
-                readOnly: true,
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Button sx={{ margin: '0px', backgroundColor: '#2E3591', boxShadow: 'none' }} variant="contained" onClick={handleSelectFile}>
-                      Select
-                    </Button>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <input
-              type="file"
-              accept="audio/*"
-              onChange={handleAudioFileChange}
-              style={{ display: 'none' }}
-              ref={inputRef}
-            />
-            {/* <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          {/* <Box className="dialogue_input_fields" sx={{ flexDirection: 'column' }}> */}
+          <TextField
+            className="dialogue_input_fields"
+            sx={{ marginRight: '5px' }}
+            label="Select Audio"
+            type="text"
+            value={audioFile ? audioFile.name : ''}
+            InputProps={{
+              readOnly: true,
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Button sx={{ margin: '0px', backgroundColor: '#2E3591', boxShadow: 'none' }} variant="contained" onClick={handleSelectFile}>
+                    Select
+                  </Button>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <input
+            type="file"
+            accept="audio/*"
+            onChange={handleAudioFileChange}
+            style={{ display: 'none' }}
+            ref={inputRef}
+          />
+          {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px' }}>
               <Typography>
                 Call Recording
               </Typography>
               <PlayArrowRoundedIcon cononClick={handleClick} sx={{ color: '#2E3591' }}></PlayArrowRoundedIcon>
             </Box> */}
-          </Box>
+          {/* </Box> */}
 
 
           <DialogActions>

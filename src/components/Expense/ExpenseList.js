@@ -28,7 +28,6 @@ const ExpenseType = React.lazy(() => import('./ExpenseType'))
 const ExpenseList = () => {
   let navigate = useNavigate()
   const { flagLoader, permissions } = useContext(AuthContext).state
-  const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [deletexpenseListDialog, setDeletexpenseListDialog] = useState({

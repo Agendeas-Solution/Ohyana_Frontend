@@ -2,7 +2,6 @@ import React from 'react'
 import {
   Dialog,
   Button,
-  TextareaAutosize,
   FormControlLabel,
   Typography,
   TextField,
@@ -11,17 +10,13 @@ import {
   FormControl,
   DialogActions,
 } from '@mui/material'
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { Box } from '@mui/system'
-
-const PoorContact = ({ addPoorContact, handleCallClose }) => {
+const PoorContact = ({ addPoorContact, handleCallClose, setAddPoorContact, handleAddPoorContact }) => {
   return (
     <>
       <Dialog
         open={addPoorContact.status}
         onClose={handleCallClose}>
-
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Poor Contact</Typography>
           <FormControl
@@ -30,43 +25,49 @@ const PoorContact = ({ addPoorContact, handleCallClose }) => {
               justifyContent: 'space-between',
               marginTop: '8px',
             }} >
-            <RadioGroup defaultValue="not received"
+            <RadioGroup value={addPoorContact.flag}
+              onChange={e => {
+                setAddPoorContact({
+                  ...addPoorContact,
+                  flag: e.target.value,
+                })
+                debugger;
+              }}
               sx={{
                 padding: '0px'
               }} row>
               <FormControlLabel
-                value="not received"
+                value={true}
                 control={<Radio />}
                 label="Call not received"
               />
-              <FormControlLabel
-                value="other reason"
-                control={<Radio />}
+              < FormControlLabel
+                value={false}
+                control={< Radio />}
                 label="Left Inquiry"
               />
             </RadioGroup>
           </FormControl>
-
-          <TextField
+          {addPoorContact.flag !== "true" && <TextField
             className="dialogue_input_fields"
             multiline
             label="Description"
             autoComplete="off"
             minRows={3}
             placeholder="reason of late inquiry"
-          // value={closeStatusDialogControl.description}
-          // onChange={e =>
-          //   setCloseStatusDialogControl({
-          //     ...closeStatusDialogControl,
-          //     description: e.target.value,
-          //   })
-          // }
-          />
+            value={addPoorContact.description}
+            onChange={e =>
+              setAddPoorContact({
+                ...addPoorContact,
+                description: e.target.value,
+              })
+            }
+          />}
           <DialogActions>
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={() => console.log('Save button clicked!!!')}
+              onClick={handleAddPoorContact}
             >
               Save
             </Button>

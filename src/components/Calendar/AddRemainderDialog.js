@@ -115,7 +115,7 @@ const AddRemainderDialog = props => {
             }
           />
 
-          <DialogActions className="m-auto">
+          <DialogActions>
             <Button
               className="dialogue_button_positive"
               variant="contained"
