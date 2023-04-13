@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import {
-  Box,
-  Typography,
-  Button,
-  TextField,
-  Checkbox,
-} from '@mui/material'
+import { Box, Typography, Button, TextField, Checkbox } from '@mui/material'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded'
 import Slider from '@mui/material/Slider'
@@ -23,11 +17,14 @@ import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
-import { EditTaskName } from '../../services/apiservices/task'
+import { EditTaskName, EditDueDate } from '../../services/apiservices/task'
+import DeleteTaskDialog from './DeleteTaskDialog'
+import DueDateDialog from './DueDateDialog'
 
 const EditDescriptionDialog = React.lazy(() =>
   import('./EditDescriptionDialog'),
 )
+
 const EditTitleDialog = React.lazy(() => import('./EditTitleDialog'))
 
 const TaskDetail = () => {
@@ -37,7 +34,7 @@ const TaskDetail = () => {
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const [countDoneTask, setCountDoneTask] = useState(null)
-  const [taskRatio, setTaskRatio] = useState()
+  const [taskRatio, setTaskRatio] = useState(0)
   const [editDescriptionDialog, setEditDescriptionDialog] = useState({
     status: false,
     description: '',
@@ -47,13 +44,29 @@ const TaskDetail = () => {
     status: false,
     taskName: '',
     id: null,
+    description: '',
   })
+  const [deleteTaskDialog, setDeleteTaskDialog] = useState({
+    status: false,
+    id: '',
+  })
+  const [dueDateDialogControl, setDueDateDialogControl] = useState({
+    status: false,
+    due_date: '',
+    id: '',
+  })
+  const handleDueDateDialogClose = () => {
+    setDueDateDialogControl({ ...dueDateDialogControl, status: false })
+  }
+  const handleDeleteDialogClose = () => {
+    setDeleteTaskDialog({ ...deleteTaskDialog, status: false })
+  }
   const navigate = useNavigate()
-  useEffect(() => {
-    let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
-    path = path.split('/').pop()
+  let path = window.location.pathname
+  console.log('Printing Path of ', path)
+  console.log('Printing ', path.split('/').pop())
+  path = path.split('/').pop()
+  const handleSingleTaskDetail = () => {
     GetSingleTaskDetail(
       path,
       res => {
@@ -64,11 +77,11 @@ const TaskDetail = () => {
         console.log(err)
       },
     )
+  }
+
+  useEffect(() => {
+    handleSingleTaskDetail()
   }, [])
-  let path = window.location.pathname
-  console.log('Printing Path of ', path)
-  console.log('Printing ', path.split('/').pop())
-  path = path.split('/').pop()
   const updateCheckListStatus = id => {
     UpdateCheckListItemStatus(
       [id, path],
@@ -89,7 +102,7 @@ const TaskDetail = () => {
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
       },
       err => {
@@ -102,39 +115,65 @@ const TaskDetail = () => {
       { taskid: path, id: id },
       res => {
         setCheckLists(res?.data)
-        debugger;
+        debugger
       },
       err => {
         console.log(err)
       },
     )
   }
-  const DeleteTask = id => {
+  const DeleteTask = () => {
     DeleteSingleTask(
-      id,
+      deleteTaskDialog.id,
       res => {
         navigate('/task')
       },
-      err => { },
+      err => {},
     )
   }
   const handleEditTaskName = () => {
     EditTaskName(
-      { title: editTaskNameDialog?.taskName, id: editTaskNameDialog?.id },
-      (res) => {
+      {
+        description: editTaskNameDialog?.description,
+        title: editTaskNameDialog?.taskName,
+        taskId: editTaskNameDialog?.id,
+      },
+      res => {
         setTaskDetail({
           ...taskDetail,
           title: res?.data?.title,
-        });
-        handleDialogClose();
+        })
+        handleSingleTaskDetail()
+        handleDialogClose()
       },
-      (err) => { },
+      err => {},
+    )
+  }
+  const handleEditDueDate = () => {
+    EditDueDate(
+      dueDateDialogControl,
+      res => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+        handleDueDateDialogClose()
+      },
+      err => {},
     )
   }
   const handleDialogClose = () => {
     setEditDescriptionDialog({ ...editDescriptionDialog, status: false })
     setEditTaskNameDialog({ ...editTaskNameDialog, status: false })
   }
+  let completedTask =
+    checkLists &&
+    checkLists.filter(taskDone => {
+      if (taskDone.done === true) {
+        return taskDone
+      }
+    })
   useEffect(() => {
     if (checkLists) {
       let countDone = checkLists.filter(data => {
@@ -144,203 +183,256 @@ const TaskDetail = () => {
         }
         return count
       })
-      setTaskRatio(((countDone.length / checkLists.length) * 100).toFixed(2))
+      setTaskRatio(
+        checkLists.length > 0
+          ? ((countDone.length / checkLists.length) * 100).toFixed(2)
+          : 0,
+      )
     }
   }, [checkLists, countDoneTask])
   return (
     <>
-      <Box className='main_section'>
-        <Box className="task_heading pb-2">
+      <Box className="main_section">
+        <Box className="task_heading">
           <Typography className="task_card_heading" variant="span">
             {taskDetail?.title}
           </Typography>
           <Box>
-            <EditRoundedIcon
-              sx={{ fontSize: '40px', padding: '4px', marginRight: '10px' }}
-              onClick={() => {
-                setEditTaskNameDialog({
-                  ...editTaskNameDialog,
-                  status: true,
-                  id: taskDetail?.id,
-                  taskName: taskDetail?.title,
-                })
-              }}
-              className="common_button"
-            />
-            <DeleteOutlineRoundedIcon
-              sx={{ fontSize: '40px', marginLeft: '12px', padding: '4px' }}
-              onClick={() => DeleteTask(taskDetail.id)}
-              className="common_button"
-            />
+            <Button className="profile_header_button">
+              <EditRoundedIcon
+                onClick={() => {
+                  setEditTaskNameDialog({
+                    ...editTaskNameDialog,
+                    status: true,
+                    id: taskDetail?.id,
+                    taskName: taskDetail?.title,
+                  })
+                }}
+              />
+            </Button>
+            <Button className="profile_header_button">
+              <DeleteOutlineRoundedIcon
+                onClick={() =>
+                  setDeleteTaskDialog({
+                    ...deleteTaskDialog,
+                    status: true,
+                    id: taskDetail.id,
+                  })
+                }
+              />
+            </Button>
           </Box>
         </Box>
 
-        <Box className="checklist_duedate_section">
-          <Box className="checklist_section pt-3 px-2">
-            <Typography
-              sx={{ color: '#8E8E8E' }}
-              className="mx-2"
-              variant="span"
-            >
-              Checklist
-            </Typography>
+        <Box className="checklist_duedate_section" sx={{ overflowY: 'hidden' }}>
+          <Box className="checklist_section">
+            <Box sx={{ padding: '0px 15px' }}>
+              <Typography sx={{ color: '#8E8E8E' }} variant="span">
+                Checklist
+              </Typography>
 
-            <Slider
-              value={taskRatio ? taskRatio : 0}
-              step={1}
-              valueLabelDisplay="on"
-              sx={{ color: '#2E3591' }}
-              className="task_slider"
-            />
-            <FormGroup>
-              {checkLists &&
-                checkLists.map(checklistData => {
-                  if (checklistData.done === false) {
-                    return (
-                      <Box className="d-flex justify-content-between">
-                        <FormControlLabel
-                          className="task_list mx-1"
-                          control={
-                            <Checkbox
-                              onChange={() => {
-                                updateCheckListStatus(checklistData?.id)
-                              }}
-                              value={checklistData.done}
-                            />
-                          }
-                          label={checklistData?.task}
-                        />
-                        <DeleteRoundedIcon
-                          onClick={() => handleDeleteTask(checklistData?.id)}
-                          className="common_icon"
-                        />
-                      </Box>
-                    )
-                  }
-                })}
-            </FormGroup>
-            <Box className="mx-5 me-3">
-              <TextField
-                value={addCheckList}
-                onChange={e => {
-                  setAddCheckList(e.target.value)
-                }}
-                placeholder="Add an item"
-                className="w-100 my-2"
-                variant="outlined"
+              <Slider
+                value={taskRatio || 0}
+                step={1}
+                getAriaValueText={() => taskRatio + '%'}
+                valueLabelFormat={() => taskRatio + '%'}
+                valueLabelDisplay="on"
+                sx={{ color: '#2E3591' }}
+                className="task_slider"
               />
             </Box>
-            <Box className="mx-5 me-3 mb-3">
-              <Button
-                onClick={handleAddItem}
-                className="common_button mb-8 mt-5"
-              >
-                Add an item
-              </Button>
-              <Button onClick={() => setAddCheckList("")} className="common_button mb-5">
-                Cancel
-              </Button>
-            </Box>
-            <Typography className="completed_heading p-2" variant="span">
-              Completed
-            </Typography>
-            <FormGroup className="completed_task_list mt-2">
-              {checkLists &&
-                checkLists.map(checklistData => {
-                  if (checklistData.done === true) {
-                    return (
-                      <FormControlLabel
-                        className="task_list mx-1"
-                        control={
-                          <Checkbox
-                            onChange={() => {
-                              updateCheckListStatus(checklistData?.id)
+
+            <Box
+              sx={{
+                overflowY: 'auto',
+                height: '100%',
+                paddingBottom: '80px',
+                paddingLeft: '15px',
+              }}
+            >
+              <FormGroup>
+                {checkLists &&
+                  checkLists.map(checklistData => {
+                    if (checklistData.done === false) {
+                      return (
+                        <Box className="task_list">
+                          <FormControlLabel
+                            sx={{
+                              display: 'flex',
+                              alignItems: 'flex-start',
                             }}
-                            value={checklistData.done}
-                            defaultChecked
+                            control={
+                              <Checkbox
+                                sx={{
+                                  padding: 0,
+                                  margin: '0px 7px',
+                                }}
+                                onChange={() => {
+                                  updateCheckListStatus(checklistData?.id)
+                                }}
+                                value={checklistData.done}
+                              />
+                            }
+                            label={checklistData?.task}
                           />
-                        }
-                        label={checklistData?.task}
-                      />
-                    )
-                  }
-                })}
-            </FormGroup>
+                          <DeleteRoundedIcon
+                            sx={{
+                              padding: 0,
+                              marginRight: '4px',
+                            }}
+                            onClick={() => handleDeleteTask(checklistData?.id)}
+                            className="common_icon"
+                          />
+                        </Box>
+                      )
+                    }
+                  })}
+              </FormGroup>
+
+              <Box sx={{ marginBottom: '10px', marginRight: '15px' }}>
+                <TextField
+                  sx={{ width: '100%', margin: '10px 0px' }}
+                  label="Add item"
+                  variant="outlined"
+                  value={addCheckList}
+                  onChange={e => {
+                    setAddCheckList(e.target.value)
+                  }}
+                />
+                <Box>
+                  <Button onClick={handleAddItem} className="common_button">
+                    Add item
+                  </Button>
+
+                  <Button
+                    onClick={() => setAddCheckList('')}
+                    className="common_button"
+                  >
+                    Cancel
+                  </Button>
+                </Box>
+              </Box>
+
+              {completedTask.length > 0 && (
+                <Typography className="completed_heading" variant="span">
+                  Completed
+                </Typography>
+              )}
+
+              <Box sx={{ marginLeft: '15px' }}>
+                <FormGroup className="completed_task_list">
+                  {checkLists &&
+                    checkLists.map(checklistData => {
+                      if (checklistData.done === true) {
+                        return (
+                          <FormControlLabel
+                            sx={{
+                              display: 'flex',
+                              alignItems: 'flex-start',
+                            }}
+                            control={
+                              <Checkbox
+                                sx={{
+                                  padding: 0,
+                                  margin: '5px',
+                                }}
+                                onChange={() => {
+                                  updateCheckListStatus(checklistData?.id)
+                                }}
+                                value={checklistData.done}
+                                defaultChecked
+                              />
+                            }
+                            label={checklistData?.task}
+                          />
+                        )
+                      }
+                    })}
+                </FormGroup>
+              </Box>
+            </Box>
           </Box>
 
           <Box className="task_details_section">
-            <Box className="common_row">
-              <Typography
-                className="common_sub_heading mx-3 mt-3"
-                variant="span"
-              >
-                Due Date
+            <Box sx={{ marginBottom: '10px' }}>
+              <Box className="common_row">
+                <Typography className="common_sub_heading" variant="span">
+                  Due Date
+                </Typography>
+                <Button variant="filled" className="white_button">
+                  <CalendarMonthRoundedIcon
+                    onClick={() => {
+                      setDueDateDialogControl({
+                        ...dueDateDialogControl,
+                        status: true,
+                        id: taskDetail.id,
+                      })
+                    }}
+                    sx={{ color: '#2E3591' }}
+                  />
+                </Button>
+              </Box>
+              <Typography variant="span" className="common_description_text">
+                {moment(taskDetail?.due_date).format('MMMM Do YYYY, h:mm:ss a')}
               </Typography>
-              <Button variant="filled" sx={{ background: '#fff' }}>
-                {' '}
-                <CalendarMonthRoundedIcon sx={{ color: '#2E3591' }} />
-              </Button>
             </Box>
-            <Typography className="mx-3 mt-3" variant="span">
-              {moment(taskDetail?.due_date).format('MMMM Do YYYY, h:mm:ss a')}
-            </Typography>
-            <Box className="common_row mx-3 mt-3">
+            <Box sx={{ margin: '10px 0px' }}>
               <Typography className="common_sub_heading" variant="span">
                 Description
               </Typography>
-              <Button
-                className="me-3"
-                variant="filled"
+              <Typography variant="span" className="common_description_text">
+                {taskDetail?.description}
+              </Typography>
+            </Box>
+
+            <Box sx={{ margin: '10px 0px' }}>
+              <Typography className="common_sub_heading" variant="span">
+                Assigned Member
+              </Typography>
+
+              {taskDetail?.team?.email ? (
+                <Box className="d-flex" sx={{ marginTop: '5px' }}>
+                  <Typography className="name_chip" variant="span">
+                    {taskDetail?.team?.email &&
+                      taskDetail?.team?.email?.charAt(0).toUpperCase()}
+                  </Typography>
+                  <Typography className="assigned_user_detail" variant="span">
+                    {taskDetail?.team?.email}
+                  </Typography>
+                </Box>
+              ) : (
+                <Typography className="common_description_text">
+                  Not Assigned
+                </Typography>
+              )}
+            </Box>
+
+            <Box sx={{ margin: '10px 0px' }}>
+              <Typography className="common_sub_heading" variant="span">
+                Task Create By
+              </Typography>
+
+              <Box
+                className="d-flex"
                 sx={{
-                  background: '#fff',
+                  marginTop: '5px',
                 }}
               >
-                {' '}
-                <EditRoundedIcon
-                  onClick={() =>
-                    setEditDescriptionDialog({
-                      ...editDescriptionDialog,
-                      status: true,
-                      description: taskDetail?.description,
-                      id: taskDetail.id,
-                    })
-                  }
-                  sx={{ color: '#2E3591' }}
-                />
-              </Button>
-            </Box>
-            <Typography className="mx-3 mt-3" variant="span">
-              {taskDetail?.description}
-            </Typography>
-            <Typography className="common_sub_heading mx-3 mt-3" variant="span">
-              Assigned Member
-            </Typography>
-            {taskDetail?.team?.email ? (
-              <Box className="mx-3 mt-4 d-flex">
-                <Typography className="name_chip" variant="span">
-                  {taskDetail?.team?.email &&
-                    taskDetail?.team?.email?.charAt(0).toUpperCase()}
+                <Typography
+                  className="created_by_icon name_chip"
+                  variant="span"
+                >
+                  {taskDetail?.createdBy &&
+                    taskDetail?.createdBy.charAt(0).toUpperCase()}
                 </Typography>
                 <Typography className="assigned_user_detail" variant="span">
-                  {taskDetail?.team?.email}
+                  {taskDetail?.createdBy}
                 </Typography>
               </Box>
-            ) : (
-              <Typography className="mx-3 mt-4">Not Assigned</Typography>
-            )}
-            <Typography className="common_sub_heading mx-3 mt-3" variant="span">
-              Task Create By
-            </Typography>
-            <Box className="mx-3 mt-4 mb-2 d-flex">
-              <Typography className="created_by_icon name_chip" variant="span">
-                {taskDetail?.createdBy && taskDetail?.createdBy.charAt(0).toUpperCase()}
-              </Typography>
-              <Typography className="assigned_user_detail" variant="span">
-                {taskDetail?.createdBy}
-              </Typography>
             </Box>
           </Box>
         </Box>
+
         <EditDescriptionDialog
           editDescriptionDialog={editDescriptionDialog}
           setEditDescriptionDialog={setEditDescriptionDialog}
@@ -351,6 +443,18 @@ const TaskDetail = () => {
           setEditTaskNameDialog={setEditTaskNameDialog}
           handleDialogClose={handleDialogClose}
           handleEditTaskName={handleEditTaskName}
+        />
+        <DeleteTaskDialog
+          DeleteTask={DeleteTask}
+          setDeleteTaskDialog={setDeleteTaskDialog}
+          deleteTaskDialog={deleteTaskDialog}
+          handleDeleteDialogClose={handleDeleteDialogClose}
+        />
+        <DueDateDialog
+          dueDateDialogControl={dueDateDialogControl}
+          handleDueDateDialogClose={handleDueDateDialogClose}
+          setDueDateDialogControl={setDueDateDialogControl}
+          handleEditDueDate={handleEditDueDate}
         />
       </Box>
     </>

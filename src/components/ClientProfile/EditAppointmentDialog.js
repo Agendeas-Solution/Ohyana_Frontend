@@ -17,14 +17,18 @@ import { GetAllStaffList } from '../../services/apiservices/staffDetail.js'
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 
-const EditAppointmentDialog = props => {
+const EditAppointmentDialog = ({
+  handleAppointmentClose,
+  editClientAppointmentDetail,
+  clientProfileDetail,
+}) => {
   const [clientAppointmentDetail, setClientAppointmentDetail] = useState({
-    date: props?.editClientAppointmentDetail?.date,
-    time: props?.editClientAppointmentDetail?.time,
-    description: props?.editClientAppointmentDetail?.description,
-    appointed_member: props?.editClientAppointmentDetail?.appointed_member,
-    appointment_unit: props?.editClientAppointmentDetail?.appointment_unit,
-    appointmentId: props?.editClientAppointmentDetail?.appointmentId,
+    date: editClientAppointmentDetail?.date,
+    time: editClientAppointmentDetail?.time,
+    description: editClientAppointmentDetail?.description,
+    appointed_member: editClientAppointmentDetail?.appointed_member,
+    appointment_unit: editClientAppointmentDetail?.appointment_unit,
+    appointmentId: editClientAppointmentDetail?.appointmentId,
   })
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
@@ -37,7 +41,7 @@ const EditAppointmentDialog = props => {
     GetAllStaffList(
       {},
       res => {
-        setStaffDetailList(res.data.team)
+        setStaffDetailList(res.data)
       },
       err => {},
     )
@@ -58,7 +62,7 @@ const EditAppointmentDialog = props => {
       EditAdminClientAppointmentDetail(
         clientAppointmentDetail,
         res => {
-          props.handleAppointmentClose()
+          handleAppointmentClose()
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
@@ -74,8 +78,8 @@ const EditAppointmentDialog = props => {
   return (
     <>
       <Dialog
-        open={props.editClientAppointmentDetail.status}
-        onClose={props.handleAppointmentClose}
+        open={editClientAppointmentDetail.status}
+        onClose={handleAppointmentClose}
       >
         <div className="px-3 my-3">
           <h3>Appointment</h3>
@@ -137,7 +141,7 @@ const EditAppointmentDialog = props => {
                     setClientAppointmentDetail({
                       ...clientAppointmentDetail,
                       description: e.target.value,
-                      clientId: props?.clientProfileDetail?.id,
+                      clientId: clientProfileDetail?.id,
                     })
                   }}
                   value={clientAppointmentDetail.description}
@@ -217,7 +221,7 @@ const EditAppointmentDialog = props => {
           <Button variant="contained" onClick={handleAddAppointment}>
             Ok
           </Button>
-          <Button variant="contained" onClick={props.handleAppointmentClose}>
+          <Button variant="contained" onClick={handleAppointmentClose}>
             Cancel
           </Button>
         </DialogActions>

@@ -1,42 +1,43 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import {
   Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
-  TextField,
   Typography,
   TextareaAutosize,
+  TextField,
 } from '@mui/material'
-import { EditClientStatus } from '../../services/apiservices/adminprofile'
+import { AddCloseStatusApiCall } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-
-const EditStatusDialog = props => {
-  const [editStatusDetail, setEditStatusDetail] = useState({
-    description: props?.editStatusDialog?.description,
-    statusId: props?.editStatusDialog?.statusId,
-  })
+const CloseStatusDialog = ({
+  handleCloseStatusDialogClose,
+  closeStatusDialogControl,
+  setCloseStatusDialogControl,
+}) => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
-
-  const EditStatus = () => {
-    EditClientStatus(
-      editStatusDetail,
+  const addCloseStatus = () => {
+    let data = closeStatusDialogControl
+    delete data.status
+    debugger
+    AddCloseStatusApiCall(
+      data,
       res => {
-        props.handleStatusClose()
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
+        setCloseStatusDialogControl({
+          ...closeStatusDialogControl,
+          description: '',
+        })
+        handleCloseStatusDialogClose()
       },
       err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err.response.data.error,
-        })
+        console.log(err)
       },
     )
   }
@@ -44,22 +45,23 @@ const EditStatusDialog = props => {
   return (
     <>
       <Dialog
-        open={props.editStatusDialog.status}
-        onClose={props.handleStatusClose}
+        open={closeStatusDialogControl.status}
+        onClose={handleCloseStatusDialogClose}
       >
         <Box className="dialogue_main_section">
-          <Typography className="dialogue_heading">Update Status</Typography>
+          <Typography className="dialogue_heading">Close Status</Typography>
+
           <TextField
             className="dialogue_input_fields"
             multiline
             label="Description"
             autoComplete="off"
+            placeholder="Reason Here..."
             minRows={3}
-            placeholder="Description Here..."
-            value={editStatusDetail?.description}
+            value={closeStatusDialogControl.description}
             onChange={e =>
-              setEditStatusDetail({
-                ...editStatusDetail,
+              setCloseStatusDialogControl({
+                ...closeStatusDialogControl,
                 description: e.target.value,
               })
             }
@@ -69,21 +71,21 @@ const EditStatusDialog = props => {
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={EditStatus}>
-              Add
+              onClick={addCloseStatus}
+            >
+              Ok
             </Button>
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={props.handleStatusClose}>
+              onClick={handleCloseStatusDialogClose}>
               Cancel
             </Button>
-
           </DialogActions>
         </Box>
-      </Dialog >
+      </Dialog>
     </>
   )
 }
 
-export default EditStatusDialog
+export default CloseStatusDialog

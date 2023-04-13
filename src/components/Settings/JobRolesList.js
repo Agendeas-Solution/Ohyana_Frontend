@@ -17,7 +17,7 @@ import {
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import './index.css'
-import { GetAdminRole } from '../../services/apiservices/adminprofile'
+import { GetAddEditAdminRole } from '../../services/apiservices/adminprofile'
 import {
   UpdatePermission,
   getUserPermissions,
@@ -62,22 +62,17 @@ const EditJobRoleDialog = React.lazy(() => import('./EditJobRoleDialog'))
 
 const JobRolesList = () => {
   // const classes = useStyles();
-
   let navigate = useNavigate()
   const { flagLoader, permissions } = useContext(AuthContext).state
   const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false)
-  const [
-    addEditDepartmentDialogControlDummy,
-    setAddEditDepartmentDialogControlDummy,
-  ] = useState(false)
+
   const [deleteJobRoleDialogControl, setDeleteJobRoleDialogControl] = useState({
     status: false,
     id: null,
   })
-
   const handleClose = () => {
-    // setJobRoleDialogControl(false)
-    setAddEditDepartmentDialogControlDummy(false)
+    setJobRoleDialogControl(false)
+    // setAddEditDepartmentDialogControlDummy(false)
   }
   const [deleteDepartmentDialogControl, setDeleteDepartmentControl] = useState({
     status: false,
@@ -98,7 +93,6 @@ const JobRolesList = () => {
       id: null,
       departmentName: '',
     })
-
   const [jobRoleList, setJobRoleList] = useState({
     name: '',
     roles: [],
@@ -106,7 +100,7 @@ const JobRolesList = () => {
   })
 
   useEffect(() => {
-    GetAdminRole(
+    GetAddEditAdminRole(
       {},
       res => {
         if (res.success) {
@@ -120,11 +114,7 @@ const JobRolesList = () => {
         console.log(err)
       },
     )
-  }, [
-    deleteJobRoleDialogControl.status,
-    jobRoleDialogControl,
-    editJobRoleDialogControl.status,
-  ])
+  }, [])
 
   return (
     <>
@@ -136,10 +126,7 @@ const JobRolesList = () => {
           {permissions?.editDepartment && (
             <Button
               onClick={() => {
-                setAddEditDepartmentDialogControlDummy({
-                  ...addEditDepartmentDialogControlDummy,
-                  status: true,
-                })
+                setJobRoleDialogControl(true)
               }}
               variant="contained"
             >
@@ -147,13 +134,10 @@ const JobRolesList = () => {
             </Button>
           )}
         </Box>
-        {/* <Divider sx={{ width: "95%", margin: "0 auto" }} /> */}
         <Divider
           sx={{ borderColor: '#8E8E8E' }}
           orientation="horizontal"
-          // variant="middle"
           width="100%"
-          // flexItem
         />
         <Box sx={{ marginTop: '19px', width: 'initial' }}>
           {/* <Grid
@@ -208,7 +192,7 @@ const JobRolesList = () => {
             </TableHead>
           </Box>
         </Box>
-        {jobRoleList.roles.length > 0 &&
+        {jobRoleList?.roles &&
           jobRoleList?.roles.map((data, index) => {
             return (
               <Box className="appointment_notification">
@@ -245,10 +229,9 @@ const JobRolesList = () => {
             )
           })}
       </div>
-      <EditJobRoleDialog
-        // editJobRoleDialogControl={addEditDepartmentDialogControl}
-        editJobRoleDialogControl={addEditDepartmentDialogControlDummy}
-        // addEditDepartmentDialogControl={addEditDepartmentDialogControl}
+      <JobRoleDialog
+        jobRoleList={jobRoleList}
+        jobRoleDialogControl={jobRoleDialogControl}
         handleClose={handleClose}
       />
     </>

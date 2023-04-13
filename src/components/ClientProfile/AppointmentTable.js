@@ -14,7 +14,7 @@ import moment from 'moment'
 import EditAppointmentDialog from './EditAppointmentDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 
-const AppointmentTable = props => {
+const AppointmentTable = ({ clientAppointmentList }) => {
   const [editClientAppointmentDetail, setEditClientAppointmentDetail] =
     useState({
       date: '',
@@ -53,7 +53,7 @@ const AppointmentTable = props => {
           overflowY: 'auto',
         }}
       >
-        {props.clientAppointmentList.length > 0 ? (
+        {clientAppointmentList.length > 0 ? (
           <Table
             stickyHeader
             aria-label="sticky table"
@@ -72,38 +72,39 @@ const AppointmentTable = props => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.clientAppointmentList.map((row, index) => (
-                <TableRow
-                  key={index}
-                  hover
-                  role="checkbox"
-                  tabIndex={-1}
-                  sx={{
-                    '&:last-child td,th': { border: 0 },
-                  }}
-                >
-                  <TableCell scope="row">{index + 1}</TableCell>
-                  <TableCell align="left">{row.memberName}</TableCell>
-                  <TableCell align="left">{row.memberRole}</TableCell>
-                  <TableCell align="left">
-                    {moment(row?.date).format('DD-MM-YYYY')}
-                  </TableCell>
-                  <TableCell align="left">
-                    {moment(row.time, 'hh:mm:ss').format('LT')}
-                  </TableCell>
-                  <TableCell align="left">{row.appointment_unit}</TableCell>
-                  <TableCell align="left">
-                    <Button
-                      className="client_profile_edit_button"
-                      onClick={() => {
-                        handleAppointmentReminder(row)
-                      }}
-                    >
-                      Edit
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {clientAppointmentList &&
+                clientAppointmentList.map((row, index) => (
+                  <TableRow
+                    key={index}
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    sx={{
+                      '&:last-child td,th': { border: 0 },
+                    }}
+                  >
+                    <TableCell scope="row">{index + 1}</TableCell>
+                    <TableCell align="left">{row.memberName}</TableCell>
+                    <TableCell align="left">{row.memberRole}</TableCell>
+                    <TableCell align="left">
+                      {moment(row?.date).format('DD-MM-YYYY')}
+                    </TableCell>
+                    <TableCell align="left">
+                      {moment(row.time, 'hh:mm:ss').format('LT')}
+                    </TableCell>
+                    <TableCell align="left">{row.appointment_unit}</TableCell>
+                    <TableCell align="left">
+                      <Button
+                        className="client_profile_edit_button"
+                        onClick={() => {
+                          handleAppointmentReminder(row)
+                        }}
+                      >
+                        Edit
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         ) : (

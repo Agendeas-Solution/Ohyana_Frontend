@@ -3,6 +3,7 @@ import {
   Typography,
   Box,
   TextField,
+  Autocomplete,
   Button,
   TextareaAutosize,
 } from '@mui/material'
@@ -13,6 +14,7 @@ import {
   editCompanyProfile,
 } from '../../services/apiservices/companyprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+import { GetCountryList } from '../../services/apiservices/clientDetail'
 const EditCompanyProfile = () => {
   const [companyDetail, setCompanyDetail] = useState({
     companyName: '',
@@ -23,6 +25,7 @@ const EditCompanyProfile = () => {
     city: '',
     country: '',
   })
+  const [countryList, setCountryList] = useState([])
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const navigate = useNavigate()
@@ -45,6 +48,17 @@ const EditCompanyProfile = () => {
       },
       err => {
         console.log(err)
+      },
+    )
+    GetCountryList(
+      {},
+      res => {
+        if (res.success) {
+          setCountryList(res.data)
+        }
+      },
+      err => {
+        console.log('Printing ', err)
       },
     )
   }, [])
@@ -84,12 +98,11 @@ const EditCompanyProfile = () => {
   return (
     <>
       <Box className="main_section">
+        {/* Company Name &&  City */}
         <Box className="input_field_row">
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Company Name
-            </Typography>
             <TextField
+              label="Company Name"
               onChange={e => {
                 setCompanyDetail({
                   ...companyDetail,
@@ -97,17 +110,12 @@ const EditCompanyProfile = () => {
                 })
               }}
               value={companyDetail.companyName}
-              className="form-control"
               variant="outlined"
-              label=""
             />
           </Box>
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              City
-            </Typography>
             <TextField
-              disabled
+              label="City"
               onChange={e => {
                 setCompanyDetail({ ...companyDetail, city: e.target.value })
               }}
@@ -116,13 +124,12 @@ const EditCompanyProfile = () => {
             />
           </Box>
         </Box>
+        {/* Email &&  State */}
         <Box className="input_field_row">
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Email
-            </Typography>
             <TextField
-              autoComplete={false}
+              label="Email"
+              autoComplete="false"
               onChange={e => {
                 setCompanyDetail({ ...companyDetail, email: e.target.value })
               }}
@@ -131,10 +138,9 @@ const EditCompanyProfile = () => {
             />
           </Box>
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              State
-            </Typography>
             <TextField
+              label="State"
+              autoComplete="false"
               onChange={e => {
                 setCompanyDetail({ ...companyDetail, state: e.target.value })
               }}
@@ -143,12 +149,11 @@ const EditCompanyProfile = () => {
             />
           </Box>
         </Box>
+        {/* Business Type &&  Country */}
         <Box className="input_field_row">
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Business Type
-            </Typography>
             <TextField
+              label="Business Type"
               autoComplete={false}
               onChange={e => {
                 setCompanyDetail({
@@ -161,27 +166,30 @@ const EditCompanyProfile = () => {
             />
           </Box>
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Country
-            </Typography>
-            <TextField
-              onChange={e => {
-                setCompanyDetail({ ...companyDetail, country: e.target.value })
+            <Autocomplete
+              disablePortal
+              options={countryList}
+              value={companyDetail?.country}
+              onChange={(e, value) => {
+                setCompanyDetail({ ...companyDetail, country: value })
               }}
-              value={companyDetail.country}
-              variant="outlined"
+              getOptionLabel={option => option?.name}
+              renderInput={params => (
+                <TextField {...params} label="Select Country" />
+              )}
             />
           </Box>
         </Box>
+        {/* CRM Key*/}
         <Box className="input_field_row">
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              CRM Key
-            </Typography>
-            <TextareaAutosize
-              placeholder="Description Here..."
+            <TextField
+              id="outlined-textarea"
+              multiline
+              placeholder="CRM Key"
+              autoComplete="off"
+              label="CRM Key"
               minRows={3}
-              className="w-100"
               onChange={e => {
                 setCompanyDetail({ ...companyDetail, crmKey: e.target.value })
               }}
@@ -189,7 +197,10 @@ const EditCompanyProfile = () => {
             />
           </Box>
         </Box>
-        <Box sx={{ justifyContent: 'flex-start' }} className="input_field_row">
+        <Box
+          sx={{ display: 'flex', justifyContent: 'flex-end' }}
+          className="input_field_row"
+        >
           <Button
             onClick={SaveProfile}
             variant="contained"

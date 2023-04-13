@@ -38,13 +38,13 @@ import {
 } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 
-const drawerWidth = 400
+const drawerWidth = 350
 
 const Orders = () => {
   const navigate = useNavigate()
   const theme = useTheme()
   const [orderList, setOrderList] = useState([])
-  const [open, setOpen] = useState(false)
+  const [openDrawer, setOpen] = useState(false)
   const [createTask, setCreateTask] = useState({
     title: '',
     description: '',
@@ -81,199 +81,180 @@ const Orders = () => {
     setOpen(false)
   }
 
+  const handleApplyFilter = () => {}
+  const handleClearAllFilter = () => {}
+
   return (
-    <Box>
-      <Box className="d-flex flex-row justify-content-between align-items-center mx-2 px-2 mt-2">
+    <Box className="main_tab_section">
+      <Box className="tab_header">
         <Box>
-          <Typography variant="span">Overview</Typography>
+          <Typography sx={{ color: '#8E8E8E' }} variant="span">
+            Overview
+          </Typography>
         </Box>
-        <Box>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
           <FormControl variant="outlined">
             <OutlinedInput
-              sx={{ background: '#fff' }}
-              className="order_search_field"
+              className="search_field"
               placeholder="Search Here..."
               startAdornment={
-                <InputAdornment position="start" sx={{ background: '#fff' }}>
-                  <IconButton>
+                <InputAdornment position="start" sx={{ margin: '0px' }}>
+                  <IconButton sx={{ margin: '0px' }}>
                     <SearchRoundedIcon />
                   </IconButton>
                 </InputAdornment>
               }
-              label="Password"
             />
           </FormControl>
 
           <IconButton
-            onClick={handleDrawerOpen}
-            sx={{ ...(open && { display: 'none' }) }}
-            className="me-1"
             edge="end"
+            onClick={handleDrawerOpen}
+            sx={{ ...(openDrawer && { display: 'flex' }) }}
           >
             <img src={FilterIcon} alt="" />
           </IconButton>
 
           <Drawer
+            onClose={handleDrawerClose}
             sx={{
-              width: 2,
-              flexShrink: 0,
               '& .MuiDrawer-paper': {
                 width: drawerWidth,
               },
             }}
-            variant="persistent"
             anchor="right"
-            open={open}
+            open={openDrawer}
           >
-            <DrawerHeader>
-              <Box className="d-flex justify-content-between column w-100 align-items-center">
-                <Box className="d-flex column justify-content-between w-50 align-items-center">
-                  <IconButton
-                    // sx={{ paddingRight: '10px' }}
-                    // sx={{ paddingRight: '12rem' }}
-                    // className="pe-5"
-                    disableRipple={true}
-                    onClick={handleDrawerClose}
-                  >
-                    {theme.direction === 'rtl' ? (
-                      <ChevronLeftIcon sx={{ fontSize: '30px' }} />
-                    ) : (
-                      <ChevronRightIcon sx={{ fontSize: '30px' }} />
-                    )}
-                  </IconButton>
+            <DrawerHeader
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <IconButton
+                  sx={{ color: '#2e3591' }}
+                  disableRipple={true}
+                  onClick={handleDrawerClose}
+                >
+                  {theme.direction === 'rtl' ? (
+                    <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                  ) : (
+                    <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                  )}
+                </IconButton>
 
-                  <Typography sx={{ fontSize: '22px', paddingRight: '60px' }}>
-                    Filter By
-                  </Typography>
-                </Box>
-                <Box className=" d-flex justify-content-end row w-50">
-                  {/* <Typography sx={{ textAlign: 'end' }}>Clear All</Typography> */}
-                  <Typography sx={{ paddingLeft: '80px' }}>
-                    Clear All
-                  </Typography>
-                </Box>
+                <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
+              </Box>
+              <Box>
+                <Button onClick={handleClearAllFilter} className="text_button">
+                  Reset
+                </Button>
+                <Button
+                  onClick={handleApplyFilter}
+                  className="common_button"
+                  variant="contained"
+                >
+                  Apply
+                </Button>
               </Box>
             </DrawerHeader>
 
             <Divider />
 
-            <Box className="py-3">
-              <div className="row px-3">
-                <FormControl className="px-3">
-                  <FormLabel
-                    sx={{ color: '#000000' }}
-                    className="mb-2"
-                    id="demo-row-radio-buttons-group-label"
-                  >
-                    Customer Type
-                  </FormLabel>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                  >
-                    <FormControlLabel
-                      // sx={{ backgroundColor: '#F1F2F6' }}
-                      className="checkbox_background_color"
-                      value="regular"
-                      control={<Radio />}
-                      label="Regular"
-                    />
-                    <FormControlLabel
-                      className="checkbox_background_color"
-                      value="dealer"
-                      control={<Radio />}
-                      label="Dealer"
-                    />
-                  </RadioGroup>
-                </FormControl>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}
+            >
+              <FormControl>
+                <FormLabel
+                  sx={{ color: '#000000' }}
+                  className="mb-2"
+                  id="demo-row-radio-buttons-group-label"
+                >
+                  Delivery
+                </FormLabel>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="row-radio-buttons-group"
+                >
+                  <FormControlLabel
+                    className="checkbox_background_color"
+                    value="dispatch"
+                    control={<Radio />}
+                    label="Dispatch"
+                  />
+                  <FormControlLabel
+                    className="checkbox_background_color"
+                    value="shipping"
+                    control={<Radio />}
+                    label="Shipping"
+                  />
+                </RadioGroup>
+              </FormControl>
 
-                <FormControl className="px-3 pt-3">
-                  <FormLabel
-                    sx={{ color: '#000000' }}
-                    className="mb-2"
-                    id="demo-row-radio-buttons-group-label"
-                  >
-                    Delivery
-                  </FormLabel>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                  >
-                    <FormControlLabel
-                      className="checkbox_background_color"
-                      value="dispatch"
-                      control={<Radio />}
-                      label="Dispatch"
-                    />
-                    <FormControlLabel
-                      className="checkbox_background_color"
-                      value="shipping"
-                      control={<Radio />}
-                      label="Shipping"
-                    />
-                  </RadioGroup>
-                </FormControl>
+              <FormControl>
+                <FormLabel
+                  sx={{ color: '#000000' }}
+                  id="demo-row-radio-buttons-group-label"
+                >
+                  Payment
+                </FormLabel>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="row-radio-buttons-group"
+                >
+                  <FormControlLabel
+                    className="checkbox_background_color"
+                    value="pending"
+                    control={<Radio />}
+                    label="Pending"
+                  />
+                  <FormControlLabel
+                    className="checkbox_background_color"
+                    value="confirm"
+                    control={<Radio />}
+                    label="Confirm"
+                  />
+                </RadioGroup>
+              </FormControl>
 
-                <FormControl className="px-3 pt-3">
-                  <FormLabel
-                    sx={{ color: '#000000' }}
-                    className="mb-2"
-                    id="demo-row-radio-buttons-group-label"
-                  >
-                    Payment
-                  </FormLabel>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                  >
-                    <FormControlLabel
-                      className="checkbox_background_color"
-                      value="pending"
-                      control={<Radio />}
-                      label="Pending"
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  inputFormat="dd/MM/yyyy"
+                  value={createTask.due_date}
+                  onChange={e => {
+                    setCreateTask({
+                      ...createTask,
+                      due_date: moment(e).format('YYYY-MM-DD'),
+                    })
+                  }}
+                  renderInput={params => (
+                    <TextField
+                      variant="outlined"
+                      {...params}
+                      label="Date"
+                      sx={{ margin: '10px' }}
                     />
-                    <FormControlLabel
-                      className="checkbox_background_color"
-                      value="confirm"
-                      control={<Radio />}
-                      label="Confirm"
-                    />
-                  </RadioGroup>
-                </FormControl>
-
-                <div className="col-md-12 px-3 pt-3 mb-2">
-                  <Typography variant="span">Task Starting Date</Typography>
-                </div>
-                <div className="mb-2">
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    {/* <DatePicker */}
-                    <DesktopDatePicker
-                      disablePast
-                      className="w-100"
-                      value={createTask.due_date}
-                      inputFormat="dd/MM/yyyy"
-                      onChange={e => {
-                        setCreateTask({
-                          ...createTask,
-                          due_date: moment(e).format('YYYY-MM-DD'),
-                        })
-                      }}
-                      renderInput={params => (
-                        <TextField className="w-100" {...params} />
-                      )}
-                    />
-                  </LocalizationProvider>
-                </div>
-              </div>
+                  )}
+                  PopperProps={{
+                    placement: 'bottom-start', // Set placement to 'bottom-start'
+                  }}
+                />
+              </LocalizationProvider>
             </Box>
           </Drawer>
         </Box>
       </Box>
 
-      <Box className="order_section">
+      <Box className="below_main_tab_section">
         <TableContainer
           className="orders_table_height "
           component={Paper}

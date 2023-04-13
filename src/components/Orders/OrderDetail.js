@@ -158,7 +158,6 @@ const OrderDetail = () => {
                   marginRight: '10px',
                 }}
               >
-                {' '}
                 Dispatch
               </Button>
             </Box>

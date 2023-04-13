@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext,lazy } from "react";
-import { Typography, Box, TextField, Button, Select, MenuItem, } from "@mui/material";
+import React, { useEffect, useState, useContext, lazy } from "react";
+import { Typography, Box, TextField, InputLabel, FormControl, Button, Select, MenuItem, } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -98,28 +98,23 @@ const EditProfile = () => {
   };
   return (
     <>
-      <Box className="edit_profile_section">
+      <Box className="main_section">
         <Box className="input_field_row">
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Employee Name
-            </Typography>
             <TextField
+              label="Employee Name"
+              autoComplete="off"
               onChange={(e) => {
                 setUserDetail({ ...userDetail, employeeName: e.target.value });
               }}
               value={userDetail.employeeName}
-              className="form-control"
               variant="outlined"
-              label=""
             />
           </Box>
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Job Role
-            </Typography>
             <TextField
-              disabled
+              label="Job Role"
+              autoComplete="off"
               onChange={(e) => {
                 setUserDetail({ ...userDetail, jobRole: e.target.value });
               }}
@@ -130,11 +125,9 @@ const EditProfile = () => {
         </Box>
         <Box className="input_field_row">
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Email
-            </Typography>
             <TextField
-              autoComplete={false}
+              label="Email"
+              autoComplete="off"
               onChange={(e) => {
                 setUserDetail({ ...userDetail, email: e.target.value });
               }}
@@ -143,10 +136,9 @@ const EditProfile = () => {
             />
           </Box>
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Contact No:
-            </Typography>
             <TextField
+              label="Contact No"
+              autoComplete="off"
               onChange={(e) => {
                 setUserDetail({ ...userDetail, contactNo: e.target.value });
               }}
@@ -157,57 +149,28 @@ const EditProfile = () => {
         </Box>
         <Box className="input_field_row">
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Password
-            </Typography>
-            <OutlinedInput
-              autoFocus
-              autoComplete={false}
-              type={userDetail.showPassword ? "text" : "password"}
-              value={userDetail.password}
-              onChange={handleChange("password")}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {userDetail.showPassword ? (
-                      <Visibility />
-                    ) : (
-                      <VisibilityOff />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </Box>
-          <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Gender
-            </Typography>
-
-            <Select
-              value={userDetail.gender}
-              className="w-100"
-              onChange={(e) => {
-                setUserDetail({ ...userDetail, gender: e.target.value });
-              }}
-            >
-              <MenuItem value="Male">Male</MenuItem>
-              <MenuItem value="Female">Female</MenuItem>
-            </Select>
-
+            <FormControl>
+              <InputLabel>Select Gender</InputLabel>
+              <Select
+                label="Select Gender"
+                value={userDetail.gender}
+                className="w-100"
+                onChange={(e) => {
+                  setUserDetail({ ...userDetail, gender: e.target.value });
+                }}
+              >
+                <MenuItem value="Male">Male</MenuItem>
+                <MenuItem value="Female">Female</MenuItem>
+                <MenuItem value="Other">Female</MenuItem>
+              </Select>
+            </FormControl>
           </Box>
         </Box>
         <Box className="input_field_row">
           <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Birth Date:
-            </Typography>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
+                label="Select Date"
                 inputFormat="dd/MM/yyyy"
                 value={userDetail.birthDate}
                 onChange={(e) => {
@@ -218,7 +181,9 @@ const EditProfile = () => {
             </LocalizationProvider>
           </Box>
         </Box>
-        <Box sx={{ justifyContent: "flex-start" }} className="input_field_row">
+        <Box
+          sx={{ display: 'flex', justifyContent: 'flex-end' }}
+          className="input_field_row">
           <Button
             onClick={SaveProfile}
             variant="contained"

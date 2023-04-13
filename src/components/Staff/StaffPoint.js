@@ -16,6 +16,7 @@ import {
   GiveAppreciation,
 } from '../../services/apiservices/pointDetail'
 import moment from 'moment'
+import NoResultFound from '../ErrorComponent/NoResultFound'
 const StaffPoint = () => {
   const [pointRule, setPointRule] = useState([])
   const [selectMonth, setSelectMonth] = useState({
@@ -42,7 +43,7 @@ const StaffPoint = () => {
       },
     )
   }, [])
-  useEffect(() => {
+  const handleGetPointTeamMember = () => {
     GetPointTeamMember(
       {
         month: selectMonth?.$M + 1,
@@ -60,14 +61,22 @@ const StaffPoint = () => {
             : null
         setTotalPage(pages)
       },
-      err => {},
+      err => {
+        setPointsData([])
+        setTotalPoints([])
+      },
     )
+  }
+  useEffect(() => {
+    handleGetPointTeamMember()
   }, [selectMonth, currentPage])
 
   const handleAppreciation = () => {
     GiveAppreciation(
       parseInt(path),
-      res => {},
+      res => {
+        handleGetPointTeamMember()
+      },
       err => {},
     )
   }
@@ -134,43 +143,49 @@ const StaffPoint = () => {
               overflowX: 'scroll',
             }}
           >
-            <Table
-              stickyHeader
-              aria-label="sticky table"
-              sx={{ minWidth: 650 }}
-              className="table_heading"
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell>Date</TableCell>
-                  <TableCell align="left">Type</TableCell>
-                  <TableCell align="left">Point</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {pointsData.length > 0 &&
-                  pointsData.map(data => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        sx={{
-                          '&:last-child td,th': { border: 0 },
-                        }}
-                      >
-                        <TableCell className="tablecell_height">
-                          {moment(data?.createdAt).format('l')}{' '}
-                        </TableCell>
-                        <TableCell align="left">{data?.point?.name}</TableCell>
-                        <TableCell align="left">
-                          {data?.point?.points}
-                        </TableCell>
-                      </TableRow>
-                    )
-                  })}
-              </TableBody>
-            </Table>
+            {pointsData.length > 0 ? (
+              <Table
+                stickyHeader
+                aria-label="sticky table"
+                sx={{ minWidth: 650 }}
+                className="table_heading"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Date</TableCell>
+                    <TableCell align="left">Type</TableCell>
+                    <TableCell align="left">Point</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {pointsData.length > 0 &&
+                    pointsData.map(data => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          sx={{
+                            '&:last-child td,th': { border: 0 },
+                          }}
+                        >
+                          <TableCell className="tablecell_height">
+                            {moment(data?.createdAt).format('l')}{' '}
+                          </TableCell>
+                          <TableCell align="left">
+                            {data?.point?.name}
+                          </TableCell>
+                          <TableCell align="left">
+                            {data?.point?.points}
+                          </TableCell>
+                        </TableRow>
+                      )
+                    })}
+                </TableBody>
+              </Table>
+            ) : (
+              <NoResultFound />
+            )}
           </TableContainer>
           {/* <Pagination
             className="mt-3"

@@ -26,18 +26,32 @@ const Statistics = () => {
     <>
       <Box className="main_section">
         <Box className="statistics_title">
-          <Typography variant="span">Product</Typography>
-          <Box className="column">
+          <Box>
+            <Typography
+              sx={{ fontSize: '22px', fontWeight: '500' }}
+              variant="span"
+            >
+              Product
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '10px',
+            }}
+          >
             <Box
               sx={{
                 background: '#F1F2F6',
                 borderRadius: '5px',
-                // marginRight: '100px',
+                height: '35px',
+                marginRight: '10px',
               }}
             >
               <Button
                 className={
-                  activeTab === 'product' ? 'active_button' : 'common_button'
+                  activeTab === 'product' ? 'active_button' : 'custom_tab_background'
                 }
                 onClick={() => {
                   setActiveTab('product')
@@ -48,7 +62,7 @@ const Statistics = () => {
               </Button>
               <Button
                 className={
-                  activeTab === 'team' ? 'active_button' : 'common_button'
+                  activeTab === 'team' ? 'active_button' : 'custom_tab_background'
                 }
                 onClick={() => {
                   setActiveTab('team')
@@ -60,8 +74,7 @@ const Statistics = () => {
             </Box>
 
             <Autocomplete
-              // sx={{ display: 'flex', flexDirection: 'row' }}
-              // className="m-2"
+              sx={{ width: '150px' }}
               disablePortal
               options={daterange}
               value={selectedPeriod}
@@ -71,9 +84,9 @@ const Statistics = () => {
               }}
               renderInput={params => (
                 <TextField
-                  className="common_dropdown"
+                  // className="common_dropdown"
                   {...params}
-                  placeholder="1 Mon"
+                  label="1 Mon"
                 />
               )}
             />

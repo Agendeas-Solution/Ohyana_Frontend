@@ -46,7 +46,7 @@ const AddRemainderDialog = props => {
           })
         }
       },
-      err => {},
+      err => { },
     )
   }
   return (
@@ -55,111 +55,82 @@ const AddRemainderDialog = props => {
         open={props.remainderDialogControl}
         onClose={props.handleRemainderDialogClose}
       >
-        <div className="px-3 py-3">
-          <h3>Reminder</h3>
-        </div>
-        <DialogContent>
-          <Box className="my-3">
-            <div className="row">
-              <div className="col-md-6">
-                <Typography variant="span">
-                  Heading<span className="required_star">*</span>
-                </Typography>
-              </div>
-              <div className="col-md-12">
-                <TextField
-                  className="w-100"
-                  value={addReminder.heading}
-                  placeholder="Enter Heading"
-                  onChange={e => {
-                    setAddReminder({ ...addReminder, heading: e.target.value })
-                  }}
-                  type="text"
-                />
-              </div>
-            </div>
-          </Box>
-          <Box className="my-3">
-            <div className="row">
-              <div className="col-md-6">
-                <Typography variant="span">
-                  Date<span className="required_star">*</span>
-                </Typography>
-              </div>
-              <div className="col-md-12  ">
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    disablePast
-                    inputFormat="dd/MM/yyyy"
-                    value={addReminder.date}
-                    onChange={e => {
-                      setAddReminder({
-                        ...addReminder,
-                        date: moment(e).format('YYYY-MM-DD'),
-                      })
-                    }}
-                    renderInput={params => (
-                      <TextField className="w-100" {...params} />
-                    )}
-                  />
-                </LocalizationProvider>
-              </div>
-            </div>
-          </Box>
-          <Box className="my-3">
-            <div className="row">
-              <div className="col-md-6">
-                <Typography variant="span">
-                  Time<span className="required_star">*</span>
-                </Typography>
-              </div>
-              <div className="col-md-12">
-                <TextField
-                  value={addReminder.time}
-                  className="w-100"
-                  onChange={e => {
-                    setAddReminder({ ...addReminder, time: e.target.value })
-                  }}
-                  type="time"
-                />
-              </div>
-            </div>
-          </Box>
-          <Box className="my-3">
-            <div className="row">
-              <div className="col-md-6">
-                <Typography variant="span">
-                  Description<span className="required_star">*</span>
-                </Typography>
-              </div>
-              <div className="col-md-12">
-                <TextareaAutosize
-                  value={addReminder.description}
-                  className="w-100"
-                  onChange={e => {
-                    setAddReminder({
-                      ...addReminder,
-                      description: e.target.value,
-                    })
-                  }}
-                  placeholder="Description Here..."
-                />
-              </div>
-            </div>
-          </Box>
-        </DialogContent>
-        <DialogActions className="m-auto">
-          <Button variant="contained" onClick={handleAddReminder}>
-            Add
-          </Button>
-          <Button
-            // variant="contained"
-            className="cancel-btn"
-            onClick={props.handleRemainderDialogClose}
-          >
-            Cancel
-          </Button>
-        </DialogActions>
+        <Box className="dialogue_main_section">
+          <Typography className="dialogue_heading">Add Reminder</Typography>
+          <TextField
+            type="text"
+            className="dialogue_input_fields"
+            label="Reminder Heading"
+            variant="outlined"
+            placeholder="Enter Heading"
+            value={addReminder.heading}
+            onChange={e => {
+              setAddReminder({ ...addReminder, heading: e.target.value })
+            }}
+          />
+
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              inputFormat="dd/MM/yyyy"
+              disablePast
+              value={addReminder.date}
+              onChange={e => {
+                setAddReminder({
+                  ...addReminder,
+                  date: moment(e).format('YYYY-MM-DD'),
+                })
+              }}
+              renderInput={params => (
+                <TextField {...params} className="dialogue_input_fields" />
+              )}
+              PopperProps={{
+                placement: 'bottom-start', // Set placement to 'bottom-start'
+              }}
+            />
+          </LocalizationProvider>
+
+          <TextField
+            className="dialogue_input_fields"
+            type="time"
+            label="Select Time"
+            value={addReminder.time}
+            onChange={e => {
+              setAddReminder({ ...addReminder, time: e.target.value })
+            }}
+          />
+
+          <TextField
+            className="dialogue_input_fields"
+            multiline
+            label="Description"
+            autoComplete="off"
+            minRows={3}
+            placeholder="Description Here..."
+            value={addReminder.description}
+            onChange={e =>
+              setAddReminder({
+                ...addReminder,
+                description: e.target.value,
+              })
+            }
+          />
+
+          <DialogActions className="m-auto">
+            <Button
+              className="dialogue_button_positive"
+              variant="contained"
+              onClick={handleAddReminder}>
+              Add
+            </Button>
+            <Button
+              className="dialogue_button_nagative"
+              variant="contained"
+              onClick={props.handleRemainderDialogClose}
+            >
+              Cancel
+            </Button>
+          </DialogActions>
+        </Box>
       </Dialog>
     </>
   )

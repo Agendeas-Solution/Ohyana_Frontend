@@ -12,7 +12,7 @@ import NoResultFound from '../ErrorComponent/NoResultFound'
 import './index.css'
 import { Box } from '@mui/system'
 
-const PJPScheduleTable = ({ pjpList }) => {
+const PJPScheduleTable = ({ pjpList, completedDialog, setCompletedDialog }) => {
   const [pjpDetailDialog, setPJPDetailDialog] = useState({
     status: false,
     id: '',
@@ -49,6 +49,7 @@ const PJPScheduleTable = ({ pjpList }) => {
                 <TableCell align="left">City</TableCell>
                 <TableCell align="left">Status</TableCell>
                 <TableCell align="left"></TableCell>
+                <TableCell align="left"></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -66,13 +67,31 @@ const PJPScheduleTable = ({ pjpList }) => {
                       {index + 1}
                     </TableCell>
                     <TableCell align="left">{pjpData?.date}</TableCell>
-                    <TableCell align="left">{pjpData?.name}</TableCell>
-                    <TableCell align="left">{pjpData?.business}</TableCell>
+                    <TableCell align="left">{pjpData?.client?.name}</TableCell>
                     <TableCell align="left">
-                      {pjpData?.contact_number}
+                      {pjpData?.client?.business}
                     </TableCell>
-                    <TableCell align="left">{pjpData?.city}</TableCell>
+                    <TableCell align="left">
+                      {pjpData?.client?.contact_number}
+                    </TableCell>
+                    <TableCell align="left">{pjpData?.client?.city}</TableCell>
                     <TableCell align="left">{pjpData?.status}</TableCell>
+                    <TableCell align="left">
+                      {!pjpData?.is_completed && (
+                        <Button
+                          onClick={() =>
+                            setCompletedDialog({
+                              ...completedDialog,
+                              status: true,
+                              pjpId: pjpData?.id,
+                            })
+                          }
+                          className="pjp_table_btn"
+                        >
+                          Completed
+                        </Button>
+                      )}
+                    </TableCell>
                     <TableCell align="left">
                       <Button
                         onClick={() =>

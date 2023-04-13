@@ -6,6 +6,8 @@ import {
   Button,
   Select,
   MenuItem,
+  FormControl,
+  InputLabel,
 } from '@mui/material'
 import {
   GetAdminDepartmentList,
@@ -28,18 +30,18 @@ import {
   GetAdminStaffProfileDetail,
 } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
+import { TEAM } from '../../constants'
 const EditStaff = () => {
   const [userDetail, setUserDetail] = useState({
-    employeeName: '',
-    departmentId: null,
+    name: '',
+    contact_number: '',
+    roleId: '',
     email: '',
-    jobRole: '',
-    contactNo: '',
-    password: '',
+    birthDay: '',
     gender: '',
-    confirmpassword: '',
-    birthDate: '',
-    showPassword: false,
+    state: '',
+    jobType: '',
+    id: '',
   })
   const [departmentList, setDepartmentList] = useState([])
   const [employeeJobRole, setEmployeeJobRole] = useState([])
@@ -62,8 +64,6 @@ const EditStaff = () => {
 
   useEffect(() => {
     let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
     GetAdminStaffProfileDetail(
       parseInt(path),
@@ -71,15 +71,15 @@ const EditStaff = () => {
         if (res.success) {
           setUserDetail({
             ...userDetail,
-            employeeName: res.data.member.name,
-            departmentId: res.data.member.department.id,
-            contactNo: res.data.member.contact_number,
-            jobRole: res.data.member.role.id,
-            email: res.data.member.email,
-            birthDate: res.data.member.birthDay,
-            password: res.data.member.password,
-            confirmpassword: res.data.member.password,
-            gender: res.data.member.gender,
+            name: res.data.name,
+            contact_number: res.data.contact_number,
+            roleId: res.data.role.id,
+            email: res.data.email,
+            birthDay: res.data.birthDay,
+            gender: res.data.gender,
+            state: res.data.state,
+            jobType: res.data.jobType,
+            id: res.data.id,
           })
         }
       },
@@ -90,20 +90,19 @@ const EditStaff = () => {
   }, [])
   useEffect(() => {
     {
-      userDetail?.departmentId &&
-        GetAdminRole(
-          parseInt(userDetail?.departmentId),
-          res => {
-            if (res.success) {
-              setEmployeeJobRole(res.data?.roles)
-            }
-          },
-          err => {
-            console.log('Printing Error of GetAdminRole', err)
-          },
-        )
+      GetAdminRole(
+        {},
+        res => {
+          if (res.success) {
+            setEmployeeJobRole(res.data)
+          }
+        },
+        err => {
+          console.log('Printing Error of GetAdminRole', err)
+        },
+      )
     }
-  }, [userDetail?.departmentId])
+  }, [])
 
   const handleClickShowPassword = () => {
     setUserDetail({
@@ -119,33 +118,15 @@ const EditStaff = () => {
   const handleAddEmployee = () => {
     if (
       userDetail.employeeName !== '' &&
-      userDetail.departmentId !== null &&
       userDetail.email !== '' &&
-      userDetail.jobRole !== '' &&
-      userDetail.contactNo !== '' &&
-      userDetail.password === userDetail.confirmpassword &&
-      userDetail.confirmpassword !== '' &&
-      userDetail.password !== '' &&
-      userDetail.gender !== ''
+      userDetail.roleId !== '' &&
+      userDetail.contact_number !== '' &&
+      userDetail.gender !== '' &&
+      userDetail.jobType !== '' &&
+      userDetail.id !== ''
     ) {
-      let employeeDetail = {
-        name: userDetail.employeeName,
-        email: userDetail.email,
-        password: userDetail.password,
-        roleId: userDetail.jobRole,
-        departmentId: userDetail.departmentId,
-        contact_number: userDetail.contactNo,
-        gender: userDetail.gender,
-        birthDay: userDetail.birthDate,
-      }
-      let path = window.location.pathname
-
-      console.log('Printing Path of ', path)
-      console.log('Printing ', path.split('/').pop())
-      path = path.split('/').pop()
       EditEmployee(
-        parseInt(path),
-        employeeDetail,
+        userDetail,
         res => {
           if (res.success) {
             setSuccessDialog(true)
@@ -159,7 +140,7 @@ const EditStaff = () => {
   }
   return (
     <>
-      <Box className="edit_profile_section">
+      {/* <Box className="edit_profile_section">
         <Box className="input_field_row">
           <Box className="input_fields">
             <Typography className="input_field_label" variant="span">
@@ -200,9 +181,9 @@ const EditStaff = () => {
             <TextField
               placeholder="Contact No"
               onChange={e => {
-                setUserDetail({ ...userDetail, contactNo: e.target.value })
+                setUserDetail({ ...userDetail, contact_number: e.target.value })
               }}
-              value={userDetail.contactNo}
+              value={userDetail.contact_number}
               variant="outlined"
             />
           </Box>
@@ -240,14 +221,14 @@ const EditStaff = () => {
           </Box>
           <Box className="input_fields">
             <Typography className="input_field_label" variant="span">
-              BirthDate<span className="required_star">*</span>
+              birthDay<span className="required_star">*</span>
             </Typography>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 inputFormat="dd/MM/yyyy"
-                value={userDetail.birthDate}
+                value={userDetail.birthDay}
                 onChange={e => {
-                  setUserDetail({ ...userDetail, birthDate: e })
+                  setUserDetail({ ...userDetail, birthDay: e })
                 }}
                 renderInput={params => <TextField {...params} />}
               />
@@ -377,26 +358,164 @@ const EditStaff = () => {
             Save
           </Button>
         </Box>
-        <Dialog open={successDialog} onClose={() => setSuccessDialog(false)}>
-          <Box className="successdialog">
-            <Box className="drawdownsuccessellipse">
-              <Box>
-                <CheckCircleIcon />
-              </Box>
-            </Box>
-            <DialogContent>
-              <DialogContentText className="successful">
-                Staff Edited Successful.
-              </DialogContentText>
-              <DialogContentText className="successfulmessage">
-                <Button onClick={() => navigate('/staff')} variant="outlined">
-                  Ok
-                </Button>
-              </DialogContentText>
-            </DialogContent>
+      </Box> */}
+
+      <Box className="main_section">
+        <Box className="input_field_row">
+          <Box className="input_fields">
+            <TextField
+              label="Employee Name"
+              onChange={e => {
+                setUserDetail({
+                  ...userDetail,
+                  name: e.target.value,
+                })
+              }}
+              value={userDetail.name}
+              variant="outlined"
+            />
           </Box>
-        </Dialog>
+          <Box className="input_fields">
+            <FormControl>
+              <InputLabel>Select Job Type</InputLabel>
+              <Select
+                label="Select Job Type"
+                value={userDetail?.jobType}
+                onChange={e => {
+                  setUserDetail({ ...userDetail, jobType: e.target.value })
+                }}
+              >
+                {TEAM.JOBTYPE.map(data => {
+                  return <MenuItem value={data?.id}>{data?.type}</MenuItem>
+                })}
+              </Select>
+            </FormControl>
+          </Box>
+        </Box>
+
+        {/* Email &&  Job Role  */}
+        <Box className="input_field_row">
+          <Box className="input_fields">
+            <TextField
+              autoComplete="off"
+              label="Email"
+              type="email"
+              onChange={e => {
+                setUserDetail({ ...userDetail, email: e.target.value })
+              }}
+              value={userDetail.email}
+              variant="outlined"
+            />
+          </Box>
+          <Box className="input_fields">
+            <FormControl>
+              <InputLabel>Select jobRole</InputLabel>
+              <Select
+                label="Select Job Role"
+                value={userDetail?.roleId}
+                onChange={e => {
+                  setUserDetail({ ...userDetail, roleId: e.target.value })
+                }}
+              >
+                {employeeJobRole &&
+                  employeeJobRole.map(data => {
+                    return <MenuItem value={data?.id}>{data?.name}</MenuItem>
+                  })}
+              </Select>
+            </FormControl>
+          </Box>
+        </Box>
+
+        <Box className="input_field_row">
+          <Box className="input_fields">
+            <TextField
+              autoComplete="off"
+              type="number"
+              label="Contact No"
+              onChange={e => {
+                setUserDetail({ ...userDetail, contact_number: e.target.value })
+              }}
+              value={userDetail.contact_number}
+              variant="outlined"
+            />
+          </Box>
+          <Box className="input_fields">
+            <TextField
+              autoComplete="off"
+              label="State"
+              onChange={e => {
+                setUserDetail({ ...userDetail, state: e.target.value })
+              }}
+              value={userDetail.state}
+              variant="outlined"
+            />
+          </Box>
+        </Box>
+
+        {/* Gender*/}
+        <Box className="input_field_row">
+          <Box className="input_fields">
+            <FormControl>
+              <InputLabel>Select Gender</InputLabel>
+              <Select
+                label="Select Gender"
+                value={userDetail?.gender}
+                onChange={e => {
+                  setUserDetail({ ...userDetail, gender: e.target.value })
+                }}
+              >
+                <MenuItem value="Male">Male</MenuItem>
+                <MenuItem value="Female">Female</MenuItem>
+                <MenuItem value="Other">Other</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+          <Box className="input_fields">
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                inputFormat="dd/MM/yyyy"
+                value={userDetail.birthDay}
+                onChange={e => {
+                  setUserDetail({ ...userDetail, birthDay: e })
+                }}
+                renderInput={params => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+          </Box>
+        </Box>
+
+        <Box
+          sx={{ display: 'flex', justifyContent: 'flex-end' }}
+          className="input_field_row"
+        >
+          <Button
+            onClick={handleAddEmployee}
+            variant="contained"
+            className="edit_page_save_button"
+          >
+            Save
+          </Button>
+        </Box>
       </Box>
+      <Dialog open={successDialog} onClose={() => setSuccessDialog(false)}>
+        <Box className="successdialog">
+          <Box className="drawdownsuccessellipse">
+            <Box>
+              <CheckCircleIcon />
+            </Box>
+          </Box>
+          <DialogContent>
+            <DialogContentText className="successful">
+              Staff Edited Successful.
+            </DialogContentText>
+            <DialogContentText className="successfulmessage">
+              <Button onClick={() => navigate('/staff')} variant="outlined">
+                Ok
+              </Button>
+            </DialogContentText>
+          </DialogContent>
+        </Box>
+      </Dialog>
     </>
   )
 }

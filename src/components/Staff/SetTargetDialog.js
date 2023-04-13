@@ -1,35 +1,42 @@
 import React, { useState, useContext } from 'react'
 import {
+  Box,
   Dialog,
   DialogTitle,
   TextField,
-  DialogContent,
   DialogActions,
-  Rating,
   Typography,
   Button,
   Autocomplete,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material'
-import { GiveFeedBack } from '../../services/apiservices/staffDetail'
+import { SetTarget } from '../../services/apiservices/staffDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-
-const SetTargetDialog = ({ targetDetail }) => {
+import { TEAM } from '../../constants'
+const SetTargetDialog = ({ targetDetail, handleCloseTargetDetailDialog }) => {
   const [feedbackDetail, setFeedBackDetail] = useState({
-    feedback: '',
-    rating: 0,
-    memberId: '',
+    type: '',
+    period: '',
+    target: '',
   })
+  const [typeOptions, setTypeOptions] = useState(TEAM.TARGETTYPE)
+  const [periodOptions, setPeriodOptions] = useState(TEAM.PERIOD)
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
-  const addFeedback = () => {
-    GiveFeedBack(
+  const handleSetTarget = () => {
+    SetTarget(
+      targetDetail.id,
       feedbackDetail,
       res => {
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
+        handleCloseTargetDetailDialog()
       },
       err => {
         console.log('Printing Feedback Error', err)
@@ -38,54 +45,63 @@ const SetTargetDialog = ({ targetDetail }) => {
   }
   return (
     <>
-      <Dialog open={targetDetail.status}>
-        <DialogTitle>Set Target</DialogTitle>
-        <div className="row">
-          <div className="col-md-12">
-            <Typography variant="span">To Achieve</Typography>
-          </div>
-          <div className="col-md-12 ">
-            <Autocomplete
-              disablePortal
-              variant="outlined"
-              options={['Take Order', 'Generate leads']}
-              renderInput={params => (
-                <TextField {...params} placeholder="Take Order" />
-              )}
-            />
-          </div>
-          <div className="row ">
-            <div className="col-md-12">
-              <Typography variant="span">Period</Typography>
-            </div>
-            <div className="col-md-12">
-              <Autocomplete
-                variant="outlined"
-                disablePortal
-                options={['7 Days', '15 days', '1 Month']}
-                renderInput={params => (
-                  <TextField {...params} placeholder="Take Order" />
-                )}
-              />
-            </div>
-          </div>
-          <div className="row mt-3">
-            <div className="col-md-12">
-              <Typography variant="span">Value</Typography>
-            </div>
-            <div className="col-md-12">
-              <TextField placeholder="Target Value" variant="outlined" />
-            </div>
-          </div>
-        </div>
-        <DialogActions>
-          <Button variant="contained" onClick={addFeedback}>
-            Ok
-          </Button>
-          {/* <Button onClick={handleCloseRatingDialog} autoFocus>
-            Cancel
-          </Button> */}
-        </DialogActions>
+      <Dialog
+        open={targetDetail.status}
+        onClose={handleCloseTargetDetailDialog}
+      >
+        <Box className="dialogue_main_section">
+          <Typography className="dialogue_heading">Set Target</Typography>
+
+          <FormControl className="dialogue_input_fields">
+            <InputLabel>Client Type</InputLabel>
+            <Select
+              label="Target Type"
+              value={feedbackDetail.clientType}
+              onChange={e => {
+                setFeedBackDetail({ ...feedbackDetail, type: e.target.value })
+              }}
+            >
+              {typeOptions.map(data => {
+                return <MenuItem value={data.id}>{data.type}</MenuItem>
+              })}
+            </Select>
+          </FormControl>
+
+          <FormControl className="dialogue_input_fields">
+            <InputLabel>Select Period</InputLabel>
+            <Select
+              label="Select Period"
+              value={feedbackDetail.period}
+              onChange={e => {
+                setFeedBackDetail({ ...feedbackDetail, period: e.target.value })
+              }}
+            >
+              {periodOptions.map(data => {
+                return <MenuItem value={data.days}>{data.period}</MenuItem>
+              })}
+            </Select>
+          </FormControl>
+
+          <TextField
+            className="dialogue_input_fields"
+            label="Target Value"
+            placeholder="Target Value"
+            value={feedbackDetail.target}
+            onChange={e => {
+              setFeedBackDetail({ ...feedbackDetail, target: e.target.value })
+            }}
+          />
+
+          <DialogActions>
+            <Button
+              className="dialogue_bottom_button"
+              variant="contained"
+              onClick={handleSetTarget}
+            >
+              Save
+            </Button>
+          </DialogActions>
+        </Box>
       </Dialog>
     </>
   )

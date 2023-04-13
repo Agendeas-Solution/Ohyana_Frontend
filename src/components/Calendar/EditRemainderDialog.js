@@ -54,7 +54,7 @@ const EditRemainderDialog = props => {
             })
           }
         },
-        err => {},
+        err => { },
       )
     }
   }
@@ -64,110 +64,78 @@ const EditRemainderDialog = props => {
         open={editRemainderDialogFlag}
         onClose={props.handleRemainderDialogClose}
       >
-        <div className="px-3 pt-3">
-          <h3>Remainder</h3>
-        </div>
-        <DialogContent>
-          <Box>
-            <div className="row">
-              <div className="col-md-6">
-                <Typography variant="span">
-                  Heading<span className="required_star">*</span>
-                </Typography>
-              </div>
-              <div className="col-md-6">
-                <TextField
-                  className="w-100"
-                  value={editReminderDetail.heading}
-                  placeholder="Enter Heading"
-                  onChange={e => {
-                    setEditReminderDetail({
-                      ...editReminderDetail,
-                      heading: e.target.value,
-                    })
-                  }}
-                  type="text"
-                />
-              </div>
-            </div>
-          </Box>
-          <Box className="mt-3">
-            <div className="row">
-              <div className="col-md-6">
-                <Typography variant="span">
-                  Date<span className="required_star">*</span>
-                </Typography>
-              </div>
-              <div className="col-md-6">
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    inputFormat="dd/MM/yyyy"
-                    value={editReminderDetail.date}
-                    onChange={e => {
-                      setEditReminderDetail({ ...editReminderDetail, date: e })
-                    }}
-                    renderInput={params => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-              </div>
-            </div>
-          </Box>
-          <Box className="mt-3">
-            <div className="row">
-              <div className="col-md-6">
-                <Typography variant="span">
-                  Time<span className="required_star">*</span>
-                </Typography>
-              </div>
-              <div className="col-md-6">
-                <TextField
-                  value={editReminderDetail.time}
-                  className="w-100"
-                  onChange={e => {
-                    setEditReminderDetail({
-                      ...editReminderDetail,
-                      time: e.target.value,
-                    })
-                  }}
-                  type="time"
-                />
-              </div>
-            </div>
-          </Box>
-          <Box className="mt-3">
-            <div className="row">
-              <div className="col-md-6">
-                <Typography variant="span">
-                  Description<span className="required_star">*</span>
-                </Typography>
-              </div>
-              <div className="col-md-6">
-                <TextField
-                  value={editReminderDetail.description}
-                  className="w-100"
-                  onChange={e => {
-                    setEditReminderDetail({
-                      ...editReminderDetail,
-                      description: e.target.value,
-                    })
-                  }}
-                  placeholder="Description Here..."
-                />
-              </div>
-            </div>
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button variant="contained" onClick={handleEditReminder}>
-            Save
-          </Button>
-          <Button
-            variant="contained"
-            onClick={props.handleRemainderDialogClose}
-          >
-            Cancel
-          </Button>
-        </DialogActions>
+        <Box className="dialogue_main_section">
+          <Typography className="dialogue_heading">Add Reminder</Typography>
+
+          <TextField
+            className="w-100"
+            value={editReminderDetail.heading}
+            placeholder="Enter Heading"
+            onChange={e => {
+              setEditReminderDetail({
+                ...editReminderDetail,
+                heading: e.target.value,
+              })
+            }}
+            type="text"
+          />
+
+          <Typography variant="span">
+            Date<span className="required_star">*</span>
+          </Typography>
+
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              inputFormat="dd/MM/yyyy"
+              value={editReminderDetail.date}
+              onChange={e => {
+                setEditReminderDetail({ ...editReminderDetail, date: e })
+              }}
+              renderInput={params => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+
+          <Typography variant="span">
+            Time<span className="required_star">*</span>
+          </Typography>
+
+          <TextField
+            value={editReminderDetail.time}
+            className="w-100"
+            onChange={e => {
+              setEditReminderDetail({
+                ...editReminderDetail,
+                time: e.target.value,
+              })
+            }}
+            type="time"
+          />
+
+
+          <TextField
+            value={editReminderDetail.description}
+            className="w-100"
+            onChange={e => {
+              setEditReminderDetail({
+                ...editReminderDetail,
+                description: e.target.value,
+              })
+            }}
+            placeholder="Description Here..."
+          />
+
+          {/* <DialogActions>
+            <Button variant="contained" onClick={handleEditReminder}>
+              Save
+            </Button>
+            <Button
+              variant="contained"
+              onClick={props.handleRemainderDialogClose}
+            >
+              Cancel
+            </Button>
+          </DialogActions> */}
+        </Box>
       </Dialog>
 
       <Dialog
@@ -262,7 +230,7 @@ const EditRemainderDialog = props => {
             </div>
           </Box>
         </DialogContent>
-        <DialogActions className="m-auto">
+        {/* <DialogActions className="m-auto">
           <Button variant="contained" onClick={handleEditReminder}>
             Add
           </Button>
@@ -273,7 +241,7 @@ const EditRemainderDialog = props => {
           >
             Cancel
           </Button>
-        </DialogActions>
+        </DialogActions> */}
       </Dialog>
     </>
   )

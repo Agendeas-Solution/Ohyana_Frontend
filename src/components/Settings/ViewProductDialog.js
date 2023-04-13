@@ -21,7 +21,8 @@ import {
   DeleteAdminProduct,
   UpdateProductQuantity,
 } from '../../services/apiservices/adminprofile'
-const ViewProductDialog = ({ viewProductDialog, handleClose }) => {
+const ViewProductDialog = ({ viewProductDialog, handleClose, deleteProductDialogControl,
+  setDeleteProductDialogControl }) => {
   const [productDetail, setProductDetail] = useState({})
   const navigate = useNavigate()
   useEffect(() => {
@@ -30,7 +31,7 @@ const ViewProductDialog = ({ viewProductDialog, handleClose }) => {
       res => {
         setProductDetail(res?.data)
       },
-      err => {},
+      err => { },
     )
   }, [viewProductDialog?.id])
   const handleDeleteProduct = () => {
@@ -70,7 +71,7 @@ const ViewProductDialog = ({ viewProductDialog, handleClose }) => {
             >
               <EditRoundedIcon />
             </Button>
-            <Button onClick={handleDeleteProduct} className="common_button">
+            <Button onClick={() => setDeleteProductDialogControl({ ...deleteProductDialogControl, status: true, id: viewProductDialog?.id })} className="common_button">
               <DeleteRoundedIcon />
             </Button>
           </Box>

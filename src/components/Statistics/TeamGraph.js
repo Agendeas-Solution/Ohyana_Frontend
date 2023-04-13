@@ -63,117 +63,120 @@ const TeamGraph = ({ selectedPeriod }) => {
   }, [graphData])
   return (
     <>
-      <Box>
-        <Box className=" graph_section team_graph">
-          <Box className="common_row">
+
+      <Box className=" graph_section team_graph">
+        <Box className="common_row mb-3">
+          <box>
             <Typography
               variant="span"
-              sx={{ color: '#2E3591', fontSize: '20px', float: 'center' }}
+              sx={{ color: '#2E3591', fontSize: '20px', fontWeight: '600' }}
             >
               Overall
             </Typography>
-            <Box className="row me-1 mx-1 mt-1 mb-3">
-              <Autocomplete
-                disablePortal
-                options={top100Films}
-                sx={{ width: '200px' }}
-                renderInput={params => (
-                  <TextField
-                    className="common_dropdown"
-                    {...params}
-                    placeholder="Performance"
-                  />
-                )}
-              />
-              <Autocomplete
-                disablePortal
-                options={top100Films}
-                sx={{ width: '200px' }}
-                renderInput={params => (
-                  <TextField
-                    className="common_dropdown"
-                    {...params}
-                    placeholder="Jr. Sales Person"
-                  />
-                )}
-              />
-              <Autocomplete
-                disablePortal
-                options={top100Films}
-                sx={{ width: '200px' }}
-                renderInput={params => (
-                  <TextField
-                    className="common_dropdown"
-                    {...params}
-                    placeholder="Benedict Cumberbatch"
-                  />
-                )}
-              />
-            </Box>
+          </box>
+
+          <Box sx={{ display: 'flex' }}>
+            <Autocomplete
+              disablePortal
+              options={top100Films}
+              sx={{ width: '200px', marginRight: '10px' }}
+              renderInput={params => (
+                <TextField
+                  className="common_dropdown"
+                  {...params}
+                  label="Performance"
+                />
+              )}
+            />
+            <Autocomplete
+              disablePortal
+              options={top100Films}
+              sx={{ width: '200px', marginRight: '10px' }}
+              renderInput={params => (
+                <TextField
+                  className="common_dropdown"
+                  {...params}
+                  label="Jr. Sales Person"
+                />
+              )}
+            />
+            <Autocomplete
+              disablePortal
+              options={top100Films}
+              sx={{ width: '200px' }}
+              renderInput={params => (
+                <TextField
+                  className="common_dropdown"
+                  {...params}
+                  label="Benedict Cumberbatch"
+                />
+              )}
+            />
+
           </Box>
-          <Box
-            sx={{
-              border: '1px solid #E5E5E5',
-              borderRadius: '5px',
-              // margin: '3px',
-            }}
-            className="me-3"
-          >
-            {userData?.datasets && <BarChart chartData={userData} />}
-          </Box>
-          <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
-            <Table
-              sx={{
-                maxWidth: 300,
-                marginTop: '20px',
-                // border: '1px solid black',
-              }}
-            >
-              <TableHead className="team_overview_table_heading">
-                <TableRow>
-                  <TableCell>Sr No.</TableCell>
-                  <TableCell align="left">Team Member</TableCell>
-                  <TableCell align="left">Points</TableCell>
-                  <TableCell align="left">Performance</TableCell>
-                  <TableCell align="left"></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow
-                  sx={{
-                    '&:last-child td, &:last-child th': { border: 0 },
-                  }}
-                >
-                  <TableCell align="left">1</TableCell>
-                  <TableCell align="left">Benedict Cumberbatch</TableCell>
-                  <TableCell align="left">30</TableCell>
-                  <TableCell align="left">+ 4%</TableCell>
-                  <TableCell align="left">
-                    <Button
-                      // onClick={() => {
-                      //   navigate(`/orderDetail/${orderData?.id}`)
-                      // }}
-                      className="common_button"
-                    >
-                      View
-                    </Button>
-                  </TableCell>
-                </TableRow>
-                <TableRow
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell align="right">2</TableCell>
-                  <TableCell align="right"> Rober Downey</TableCell>
-                  <TableCell align="right">20</TableCell>
-                  <TableCell align="right">- 2%</TableCell>
-                  <TableCell align="right">
-                    <Button className="common_button">View</Button>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
         </Box>
+        <Box
+          sx={{
+            border: '1px solid #E5E5E5',
+            borderRadius: '5px',
+            // margin: '3px',
+          }}
+          className="me-3"
+        >
+          {userData?.datasets && <BarChart chartData={userData} />}
+        </Box>
+        <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+          <Table
+            sx={{
+              maxWidth: 300,
+              marginTop: '20px',
+              // border: '1px solid black',
+            }}
+          >
+            <TableHead className="team_overview_table_heading">
+              <TableRow>
+                <TableCell>Sr No.</TableCell>
+                <TableCell align="left">Team Member</TableCell>
+                <TableCell align="left">Points</TableCell>
+                <TableCell align="left">Performance</TableCell>
+                <TableCell align="left"></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow
+                sx={{
+                  '&:last-child td, &:last-child th': { border: 0 },
+                }}
+              >
+                <TableCell align="left">1</TableCell>
+                <TableCell align="left">Benedict Cumberbatch</TableCell>
+                <TableCell align="left">30</TableCell>
+                <TableCell align="left">+ 4%</TableCell>
+                <TableCell align="left">
+                  <Button
+                    // onClick={() => {
+                    //   navigate(`/orderDetail/${orderData?.id}`)
+                    // }}
+                    className="common_button"
+                  >
+                    View
+                  </Button>
+                </TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell align="right">2</TableCell>
+                <TableCell align="right"> Rober Downey</TableCell>
+                <TableCell align="right">20</TableCell>
+                <TableCell align="right">- 2%</TableCell>
+                <TableCell align="right">
+                  <Button className="common_button">View</Button>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Box>
     </>
   )

@@ -9,35 +9,38 @@ import {
 } from '@mui/material'
 import { DeleteAdminProduct } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-const DeleteProductDialog = props => {
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
+const DeleteProductDialog = ({ handleGetAdminProduct, deleteProductDialogControl, handleClose }) => {
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleDelete = id => {
     DeleteAdminProduct(
       id,
       res => {
         if (res.success) {
-          props.handleClose()
+          debugger;
+          handleGetAdminProduct();
+          handleClose()
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
-            message: `${
-              props.DeleteProductDialogControl.type.charAt(0) +
-              props.DeleteProductDialogControl.type.toLowerCase().slice(1)
-            } Deleted Successfully`,
+            message: res.message
           })
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }
   return (
     <>
       <Dialog
-        open={props.DeleteProductDialogControl.status}
-        onClose={props.handleClose}
+        open={deleteProductDialogControl.status}
+        onClose={handleClose}
       >
         <DialogTitle>Delete Product</DialogTitle>
         <DialogContent>
@@ -48,11 +51,11 @@ const DeleteProductDialog = props => {
         <DialogActions className="m-auto">
           <Button
             variant="contained"
-            onClick={() => handleDelete(props.DeleteProductDialogControl.id)}
+            onClick={() => handleDelete(deleteProductDialogControl.id)}
           >
             Ok
           </Button>
-          <Button className="cancel-btn" onClick={props.handleClose} autoFocus>
+          <Button className="cancel-btn" onClick={handleClose} autoFocus>
             Cancel
           </Button>
         </DialogActions>

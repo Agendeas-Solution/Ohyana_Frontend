@@ -1,20 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './index.css'
 import { Box, Typography, Button, TextField } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import Tab from '@mui/material/Tab'
-import TabContext from '@mui/lab/TabContext'
-import TabList from '@mui/lab/TabList'
-import TabPanel from '@mui/lab/TabPanel'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
 import {
   GetStaffAttendanceList,
   GetStaffLeaveList,
@@ -24,12 +13,19 @@ import moment from 'moment'
 import ApproveLeaveDialog from './ApproveLeaveDialog'
 import StaffAttendancePresent from './StaffAttendancePresent'
 import StaffAttendanceLeave from './StaffAttendanceLeave'
-
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 const StaffAttendance = () => {
   const [dateRange, setDateRange] = useState({
     startDate: '',
     endDate: '',
   })
+  const [selectMonth, setSelectMonth] = useState({
+    $M: moment().month(),
+    $y: moment().year(),
+  })
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [value, setValue] = useState('1')
   const [activeTab, setActiveTab] = useState('present')
   const [staffAttendanceList, setStaffAttendanceList] = useState([])
@@ -47,9 +43,19 @@ const StaffAttendance = () => {
       { id: approveLeave.id, leaveStatus: approveLeave?.leaveStatus },
       res => {
         handleCloseDialog()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res.message,
+          status: true,
+        })
       },
       err => {
         console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          message: err.message,
+          status: true,
+        })
       },
     )
   }
@@ -62,24 +68,31 @@ const StaffAttendance = () => {
     console.log('Printing Path of ', path)
     console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
-    value === '1' &&
+    activeTab === 'present' &&
       GetStaffAttendanceList(
-        path,
+        {
+          month: selectMonth?.$M + 1,
+          year: selectMonth?.$y,
+          teamId: parseInt(path),
+        },
         res => {
           setStaffAttendanceList(res?.data)
         },
-        err => {},
+        err => { },
       )
-    value === '2' &&
+    activeTab === 'leave' &&
       GetStaffLeaveList(
-        path,
+        {
+          month: selectMonth?.$M + 1,
+          year: selectMonth?.$y,
+          teamId: parseInt(path),
+        },
         res => {
           setStaffLeaveList(res?.data)
         },
-        err => {},
+        err => { },
       )
-  }, [value])
-
+  }, [activeTab, selectMonth])
   return (
     <>
       <Box className="target_section">
@@ -87,40 +100,41 @@ const StaffAttendance = () => {
           <Box className="col-md-7 inner_attendance_data_row">
             <Box className="week_data inner_profile_details days_data col-md-2 me-3 p-2">
               <Typography variant="span">Total Days</Typography>
-              <Typography variant="span">24</Typography>
+              <Typography variant="span">
+                {staffAttendanceList?.totalDays}
+              </Typography>
             </Box>
             <Box className="Absent_days_data inner_profile_details days_data col-md-2 me-3 p-2">
               <Typography variant="span">Absent Days</Typography>
-              <Typography variant="span">24</Typography>
+              <Typography variant="span">
+                {staffAttendanceList?.absentDays}
+              </Typography>
             </Box>
             <Box className="Late_days_data inner_profile_details days_data col-md-2">
               <Typography variant="span">Late Days</Typography>
-              <Typography variant="span">24</Typography>
+              <Typography variant="span">
+                {staffAttendanceList?.lateDays}
+              </Typography>
             </Box>
           </Box>
-
           <Box className="attendance_date_filter ">
-            {/* <Typography variant="span">Select Date Range</Typography> */}
-            {/* <Box> */}
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                disablePast
-                inputFormat="dd/MM/yyyy"
-                value={dateRange.startDate}
-                onChange={e => {
-                  setDateRange({ ...dateRange, startDate: e })
+                views={['month', 'year']}
+                value={selectMonth}
+                onChange={newValue => {
+                  setSelectMonth(newValue)
                 }}
-                renderInput={params => <TextField className="" {...params} />}
+                renderInput={params => (
+                  <TextField
+                    placeholder="Year and Month"
+                    {...params}
+                    helperText={null}
+                  />
+                )}
               />
             </LocalizationProvider>
           </Box>
-
-          {/* <Box className="tab_row"> */}
-          {/* <TabList className="client_profile_tab mb-3" onChange={handleChange}>
-            <Tab label="Present" value="1" />
-            <Tab label="Leave" value="2" />
-          </TabList> */}
-
           <Box
             sx={{
               background: '#F1F2F6',
@@ -130,7 +144,7 @@ const StaffAttendance = () => {
           >
             <Button
               className={
-                activeTab === 'present' ? 'active_button' : 'custom_tab'
+                activeTab === 'present' ? 'active_button' : 'custom_tab_background'
               }
               onClick={() => {
                 setActiveTab('present')
@@ -140,7 +154,7 @@ const StaffAttendance = () => {
               Present
             </Button>
             <Button
-              className={activeTab === 'leave' ? 'active_button' : 'custom_tab'}
+              className={activeTab === 'leave' ? 'active_button' : 'custom_tab_background'}
               onClick={() => {
                 setActiveTab('leave')
               }}
@@ -150,7 +164,6 @@ const StaffAttendance = () => {
             </Button>
           </Box>
         </Box>
-
         {/* <TabContext value={value}> */}
         {/* <Box className="tab_row">
             <TabList
@@ -247,8 +260,16 @@ const StaffAttendance = () => {
         </TableContainer> */}
         {/* </TabPanel> */}
         {/* </TabContext> */}
-        {activeTab === 'present' && <StaffAttendancePresent />}
-        {activeTab === 'leave' && <StaffAttendanceLeave />}
+        {activeTab === 'present' && (
+          <StaffAttendancePresent staffAttendanceList={staffAttendanceList} />
+        )}
+        {activeTab === 'leave' && (
+          <StaffAttendanceLeave
+            approveLeave={approveLeave}
+            setApproveLeave={setApproveLeave}
+            staffLeaveList={staffLeaveList}
+          />
+        )}
       </Box>
       <ApproveLeaveDialog
         approveLeave={approveLeave}

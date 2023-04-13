@@ -45,7 +45,7 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
   return (
     <>
       <TableContainer
-        className="orders_table_height m-1"
+        className="orders_table_height"
         component={Paper}
         sx={{
           boxShadow: 'none',
@@ -67,8 +67,8 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
                 <TableCell align="right">Contact No.</TableCell>
                 <TableCell align="right">State</TableCell>
                 <TableCell align="right">Date</TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
+                <TableCell align="right"></TableCell>
+                <TableCell align="right"></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -82,21 +82,29 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
                     '&:last-child td,th': { border: 0 },
                   }}
                 >
-                  <TableCell className="tablecell_height" scope="row">
+                  <TableCell
+                    className="tablecell_height"
+                    scope="row"
+                    sx={{ maxWidth: '150px' }}
+                  >
                     {row.id}
                   </TableCell>
-                  <TableCell align="right">{row.name}</TableCell>
                   <TableCell align="right" sx={{ maxWidth: '150px' }}>
-                    {row.business}
+                    {row.name ?? '-'}
                   </TableCell>
-                  <TableCell align="right">{row.contact_number}</TableCell>
                   <TableCell align="right" sx={{ maxWidth: '150px' }}>
-                    {row.state}
+                    {row.business ?? '-'}
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="right" sx={{ maxWidth: '150px' }}>
+                    {row.contact_number ?? '-'}
+                  </TableCell>
+                  <TableCell align="right" sx={{ maxWidth: '150px' }}>
+                    {row.state?.name ?? '-'}
+                  </TableCell>
+                  <TableCell align="right" sx={{ maxWidth: '150px' }}>
                     {moment(row.createdAt).format('DD-MM-YYYY')}
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="right" sx={{ maxWidth: '150px' }}>
                     {row.teamId === null ? (
                       <Button
                         onClick={() => {
@@ -122,16 +130,8 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
                             <img src={CallIcon} />
                           </Button>
                         </a>
-                        <a href={`mailto:${row.email}`}>
-                          <Button className="common_button">
-                            <img src={MailIcon} />
-                          </Button>
-                        </a>
                       </>
                     ) : null}
-                    {/* {permissions?.deleteClient && <DeleteRoundedIcon className="delete_client_icon" onClick={() => {
-                          setDeleteClientDialogControl({ ...deleteClientDialogControl, status: true, clientId: row.id })
-                        }} />} */}
                   </TableCell>
                 </TableRow>
               ))}

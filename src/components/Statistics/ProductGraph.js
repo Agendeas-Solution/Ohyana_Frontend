@@ -16,14 +16,14 @@ const ProductGraph = ({ selectedPeriod }) => {
       res => {
         setGraphData(res?.data)
       },
-      err => { },
+      err => {},
     )
     GetAdminProductList(
       {},
       res => {
         setProductList(res?.data?.products)
       },
-      err => { },
+      err => {},
     )
   }, [selectedPeriod])
   const top100Films = [
@@ -71,55 +71,36 @@ const ProductGraph = ({ selectedPeriod }) => {
         <Box className="graph_section">
           <Box className="common_row mb-3">
             <Typography
-              sx={{ color: '#2E3591', fontSize: '20px' }}
+              sx={{ color: '#2E3591', fontSize: '20px', fontWeight: '600' }}
               variant="span"
             >
               Overall
             </Typography>
-            <Box className="row">
+            <Box sx={{ display: 'flex' }}>
               <Autocomplete
                 disablePortal
                 options={productList}
                 getOptionLabel={option => option.name}
-                sx={{ width: '200px' }}
-                onChange={(e, value) => {
-                  console.log(value)
-                  // setClientStage(value?.id);
-                }}
+                sx={{ width: '200px', marginRight: '10px' }}
                 renderInput={params => (
                   <TextField
                     className="common_dropdown"
                     {...params}
-                    placeholder="City"
+                    label="City"
                   />
                 )}
               />
-              {/* <Autocomplete
-                disablePortal
-                options={top100Films}
-                sx={{ width: '200px' }}
-                renderInput={params => (
-                  <TextField
-                    className="common_dropdown"
-                    {...params}
-                    placeholder="City"
-                  />
-                )}
-              /> */}
+
               <Autocomplete
                 disablePortal
                 options={productList}
                 getOptionLabel={option => option.name}
-                sx={{ width: '200px' }}
-                onChange={(e, value) => {
-                  console.log(value)
-                  // setClientStage(value?.id);
-                }}
+                sx={{ width: '200px', marginRight: '10px' }}
                 renderInput={params => (
                   <TextField
-                    className="common_dropdown"
+                    // className="common_dropdown"
                     {...params}
-                    placeholder="Product"
+                    label="Product"
                   />
                 )}
               />
@@ -131,7 +112,7 @@ const ProductGraph = ({ selectedPeriod }) => {
                   <TextField
                     className="common_dropdown"
                     {...params}
-                    placeholder="City"
+                    label="City"
                   />
                 )}
               />

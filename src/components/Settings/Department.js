@@ -18,7 +18,7 @@ import {
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import './index.css'
-import { GetSingleRole } from '../../services/apiservices/adminprofile'
+import { EditJobRole, GetSingleRole, UpdateClockInOut } from '../../services/apiservices/adminprofile'
 import {
   UpdatePermission,
   getUserPermissions,
@@ -29,6 +29,8 @@ import StatisticsIcon from '../../assets/img/statistics.svg'
 import ClientIcon from '../../assets/img/Clients.svg'
 import SettingIcon from '../../assets/img/setting.svg'
 import { Context as AuthContext } from '../../context/authContext/authContext'
+import { CLIENT } from '../../constants/clientConstant'
+
 const DeleteJobRoleDialog = React.lazy(() => import('./DeleteJobRoleDialog'))
 const DeleteDepartmentDialog = React.lazy(() =>
   import('./DeleteDepartmentDialog'),
@@ -55,10 +57,9 @@ const Department = () => {
   })
   const [editJobRoleDialogControl, setEditJobRoleDialogControl] = useState({
     status: false,
-    departmentId: null,
-    name: '',
-    description: '',
-    roleId: null,
+    name: "",
+    description: "",
+    parentId: '',
   })
   const [addEditDepartmentDialogControl, setAddEditDepartmentDialogControl] =
     useState({
@@ -66,22 +67,13 @@ const Department = () => {
       id: null,
       departmentName: '',
     })
-  const [jobRoleList, setJobRoleList] = useState({
-    name: '',
-    senior: [],
-    departmentId: null,
-  })
-  const [clientType, setClientType] = useState([
-    { stage: 'intiate', id: 0 },
-    { stage: 'no response', id: 1 },
-    { stage: 'irrelevant', id: 2 },
-    { stage: 'inter-mediate', id: 3 },
-    { stage: 'confirm', id: 4 },
-  ])
+  const [jobRoleList, setJobRoleList] = useState({})
+  const [clientType, setClientType] = useState(CLIENT.STAGE)
 
   const [accessControl, setAccessControl] = useState({
     clientControl: false,
     client: {
+      viewClient: false,
       editClient: false,
       deleteClient: false,
       accessClient: false,
@@ -89,15 +81,16 @@ const Department = () => {
     },
     staffControl: false,
     staff: {
+      viewStaff: false,
       editStaff: false,
       deleteStaff: false,
       accessStaff: false,
     },
     settingControl: false,
     setting: {
-      viewDepartment: false,
-      editDepartment: false,
-      deleteDepartment: false,
+      viewRole: false,
+      editRole: false,
+      deleteRole: false,
       viewProduct: false,
       editProduct: false,
       accessSetting: false,
@@ -115,11 +108,13 @@ const Department = () => {
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state
   const [expensePolicy, setExpensePolicy] = useState()
+  const [expensePermissions, setExpensePermissions] = useState()
   useEffect(() => {
-    getUserPermissions(
-      parseInt(window.location.pathname.split('/').pop()),
+    jobRoleList.id && getUserPermissions(
+      parseInt(jobRoleList.id),
       res => {
         let staffPermission = res?.data?.permissions
+        debugger;
         setAccessControl({
           ...accessControl,
           clientControl: staffPermission?.clientMenu,
@@ -128,21 +123,23 @@ const Department = () => {
           client: {
             ...accessControl.client,
             editClient: staffPermission?.editClient,
+            viewClient: staffPermission?.viewClient,
             deleteClient: staffPermission?.deleteClient,
             accessClient: staffPermission?.accessClient,
             clientStage: staffPermission?.clientStageAccess,
           },
           staff: {
             ...accessControl.staff,
+            viewStaff: staffPermission.viewStaff,
             editStaff: staffPermission?.editStaff,
             deleteStaff: staffPermission?.deleteStaff,
             accessStaff: staffPermission?.accessStaff,
           },
           setting: {
             ...accessControl.setting,
-            viewDepartment: staffPermission?.viewDepartment,
-            editDepartment: staffPermission?.editDepartment,
-            deleteDepartment: staffPermission?.deleteDepartment,
+            viewRole: staffPermission?.viewRole,
+            editRole: staffPermission?.editRole,
+            deleteRole: staffPermission?.deleteRole,
             viewProduct: staffPermission?.viewProduct,
             editProduct: staffPermission?.editProduct,
             deleteProduct: staffPermission?.deleteProduct,
@@ -150,23 +147,27 @@ const Department = () => {
           },
         })
         setExpensePolicy(res?.data?.expensePolicies)
+        setExpensePermissions(res?.data?.expensePermissions)
       },
-      err => {},
+      err => { },
     )
-  }, [])
+  }, [jobRoleList.id])
   const handleUserPermissions = () => {
     let userPermission = {
-      teamId: parseInt(window.location.pathname.split('/').pop()),
+      roleId: jobRoleList?.id,
       clientMenu: accessControl?.clientControl,
       editClient: accessControl?.client?.editClient,
+      viewClient: accessControl?.client?.viewClient,
       deleteClient: accessControl?.client?.deleteClient,
       staffMenu: accessControl?.staffControl,
+      viewStaff: accessControl?.staff?.viewStaff,
       editStaff: accessControl?.staff?.editStaff,
+      viewStaff: accessControl?.staff?.viewStaff,
       deleteStaff: accessControl?.staff?.deleteStaff,
       settingMenu: accessControl?.settingControl,
-      viewDepartment: accessControl?.setting?.viewDepartment,
-      editDepartment: accessControl?.setting?.editDepartment,
-      deleteDepartment: accessControl?.setting?.deleteDepartment,
+      viewRole: accessControl?.setting?.viewRole,
+      editRole: accessControl?.setting?.editRole,
+      deleteRole: accessControl?.setting?.deleteRole,
       viewProduct: accessControl?.setting?.viewProduct,
       editProduct: accessControl?.setting?.editProduct,
       deleteProduct: accessControl?.setting?.deleteProduct,
@@ -175,7 +176,7 @@ const Department = () => {
       accessSetting: accessControl?.setting.accessSetting,
       clientStageAccess: accessControl?.client?.clientStage,
     }
-
+    debugger;
     UpdatePermission(
       userPermission,
       res => {
@@ -207,6 +208,46 @@ const Department = () => {
     setAddEditDepartmentDialogControl(false)
     setEditJobRoleDialogControl({ ...editJobRoleDialogControl, status: false })
   }
+  const handleUpdateClockInOut = () => {
+    let data = {
+      roleId: jobRoleList?.id,
+      clockOut: jobRoleList?.clockOut,
+      clockIn: jobRoleList?.clockIn
+    }
+    debugger;
+    UpdateClockInOut(
+      data,
+      (res) => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res.message,
+          status: true,
+        })
+      },
+      (err) => { },
+    )
+  }
+  const handleEditJobRole = () => {
+    if (editJobRoleDialogControl.name !== '' &&
+      editJobRoleDialogControl.description !== '' &&
+      editJobRoleDialogControl.parentId !== '') {
+      let data = editJobRoleDialogControl;
+      delete data.status;
+      EditJobRole(
+        jobRoleList.id, data,
+        (res) => {
+
+          handleClose()
+          setSuccessSnackbar({
+            ...successSnackbar,
+            message: res.message,
+            status: true,
+          })
+        },
+        (err) => { },
+      )
+    }
+  }
   useEffect(() => {
     let path = window.location.pathname
     console.log('Printing Path of ', path)
@@ -216,12 +257,7 @@ const Department = () => {
       parseInt(path),
       res => {
         if (res.success) {
-          setJobRoleList({
-            ...jobRoleList,
-            departmentId: res.data.departmentId,
-            name: res.data.name,
-            senior: res.data.senior,
-          })
+          setJobRoleList(res.data)
         }
       },
       err => {
@@ -252,27 +288,28 @@ const Department = () => {
         <Box className="sales_header_section">
           <Typography variant="h5">{jobRoleList.name}</Typography>
           <Box>
-            {permissions?.editDepartment && (
+            {permissions?.editRole && (
               <EditRoundedIcon
                 sx={{ margin: 2 }}
                 onClick={() => {
-                  setAddEditDepartmentDialogControl({
-                    ...addEditDepartmentDialogControl,
-                    id: jobRoleList.departmentId,
+                  setEditJobRoleDialogControl({
+                    ...editJobRoleDialogControl,
                     status: true,
-                    departmentName: jobRoleList.name,
+                    name: jobRoleList.name,
+                    description: jobRoleList.description,
+                    parentId: jobRoleList.senior.id,
                   })
                 }}
                 className="edit_icon_profile "
               />
             )}
-            {permissions?.deleteDepartment && (
+            {permissions?.deleteRole && (
               <DeleteRoundedIcon
                 onClick={() => {
-                  setDeleteDepartmentControl({
-                    ...deleteDepartmentDialogControl,
+                  setDeleteJobRoleDialogControl({
+                    ...deleteJobRoleDialogControl,
                     status: true,
-                    id: jobRoleList.departmentId,
+                    id: jobRoleList.id,
                   })
                 }}
                 className="edit_icon_profile"
@@ -330,38 +367,28 @@ const Department = () => {
                     sx={{ display: 'inline', marginLeft: '18rem' }}
                     className="set_date_time_bg"
                     type="time"
+                    value={jobRoleList?.clockIn}
+                    onChange={e => {
+                      setJobRoleList({ ...jobRoleList, clockIn: e.target.value })
+                    }}
                   />
-                  <Button className="p-2 m-1" variant="contained">
-                    Save
-                  </Button>
-                  {/* <Button sx={{ marginLeft: "16rem" }} onClick={handleOpen}>
-                      Set In Time
-                    </Button>
-                    <Modal
-                      open={open}
-                      onClose={handleCloseTime}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={style}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <StaticTimePicker orientation="landscape" />
-                        </LocalizationProvider>
-                      </Box>
-                    </Modal> */}
                 </Box>
                 <Box sx={{ padding: 1 }}>
-                  {/* <MenuItem sx={{ display: "inline" }}>Clock Out</MenuItem> */}
                   <MenuItem sx={{ display: 'inline' }}>Clock Out</MenuItem>
                   <TextField
                     sx={{ display: 'inline', marginLeft: '17rem' }}
                     className="set_date_time_bg"
                     type="time"
+                    value={jobRoleList?.clockOut}
+                    onChange={e => {
+                      setJobRoleList({ ...jobRoleList, clockOut: e.target.value })
+                      debugger;
+                    }}
                   />
-                  <Button className="p-2 m-1" variant="contained">
-                    Save
-                  </Button>
                 </Box>
+                <Button onClick={handleUpdateClockInOut} className="p-2 m-1" variant="contained">
+                  Save
+                </Button>
               </Select>
             </FormControl>
             <FormControl sx={{ width: '31rem' }} className="mb-3 ">
@@ -370,7 +397,9 @@ const Department = () => {
               </InputLabel>
               <Select id="demo-multiple-checkbox-label">
                 <FormGroup className="p-2">
-                  {expensePolicy &&
+                  {
+                    // expensePermissions.map(()=>)
+                    expensePolicy &&
                     expensePolicy.map(data => (
                       <Box sx={{ margin: '5px' }}>
                         <FormControlLabel
@@ -402,7 +431,8 @@ const Department = () => {
                           }
                         />
                       </Box>
-                    ))}
+                    ))
+                  }
 
                   <Button
                     disabled={!expenseManagement?.hotelChecked}
@@ -446,6 +476,7 @@ const Department = () => {
                               client: {
                                 ...accessControl.client,
                                 editClient: false,
+                                viewClient: false,
                                 deleteClient: false,
                                 accessClient: false,
                               },
@@ -486,6 +517,7 @@ const Department = () => {
                               staff: {
                                 ...accessControl.staff,
                                 editStaff: false,
+                                viewStaff: false,
                                 deleteStaff: false,
                                 accessStaff: false,
                               },
@@ -529,9 +561,9 @@ const Department = () => {
                               ...accessControl,
                               setting: {
                                 ...accessControl.setting,
-                                viewDepartment: false,
-                                editDepartment: false,
-                                deleteDepartment: false,
+                                viewRole: false,
+                                editRole: false,
+                                deleteRole: false,
                                 viewProduct: false,
                                 editProduct: false,
                                 deleteProduct: false,
@@ -577,9 +609,9 @@ const Department = () => {
                               ...accessControl,
                               setting: {
                                 ...accessControl.setting,
-                                viewDepartment: false,
-                                editDepartment: false,
-                                deleteDepartment: false,
+                                viewRole: false,
+                                editRole: false,
+                                deleteRole: false,
                                 viewProduct: false,
                                 editProduct: false,
                                 deleteProduct: false,
@@ -624,6 +656,27 @@ const Department = () => {
                         client: {
                           ...accessControl.client,
                           editClient: e.target.checked,
+                        },
+                      })
+                    }}
+                  />
+                </Box>
+                <Box className="row  ">
+                  <Box className="d-flex col-md-8 align-items-center">
+                    <Typography variant="span">
+                      Can View a Client Detail ?{' '}
+                    </Typography>
+                  </Box>
+                  <Checkbox
+                    disableRipple
+                    className="col-md-4 check_box_color"
+                    checked={accessControl?.client?.viewClient}
+                    onChange={e => {
+                      setAccessControl({
+                        ...accessControl,
+                        client: {
+                          ...accessControl.client,
+                          viewClient: e.target.checked,
                         },
                       })
                     }}
@@ -709,6 +762,27 @@ const Department = () => {
                 <Box className="row">
                   <Box className="d-flex col-md-8 align-items-center">
                     <Typography variant="span">
+                      Can View a Staff Detail ?{' '}
+                    </Typography>
+                  </Box>
+                  <Checkbox
+                    disableRipple
+                    className="col-md-4 check_box_color"
+                    checked={accessControl?.staff?.viewStaff}
+                    onChange={e => {
+                      setAccessControl({
+                        ...accessControl,
+                        staff: {
+                          ...accessControl.staff,
+                          viewStaff: e.target.checked,
+                        },
+                      })
+                    }}
+                  />
+                </Box>
+                <Box className="row">
+                  <Box className="d-flex col-md-8 align-items-center">
+                    <Typography variant="span">
                       Can Edit a Staff Detail ?{' '}
                     </Typography>
                   </Box>
@@ -787,13 +861,13 @@ const Department = () => {
                   <Checkbox
                     disableRipple
                     className="col-md-4 check_box_color"
-                    checked={accessControl?.setting?.viewDepartment}
+                    checked={accessControl?.setting?.viewRole}
                     onChange={e => {
                       setAccessControl({
                         ...accessControl,
                         setting: {
                           ...accessControl.setting,
-                          viewDepartment: e.target.checked,
+                          viewRole: e.target.checked,
                         },
                       })
                     }}
@@ -808,13 +882,13 @@ const Department = () => {
                   <Checkbox
                     disableRipple
                     className="col-md-4 check_box_color"
-                    checked={accessControl?.setting?.editDepartment}
+                    checked={accessControl?.setting?.editRole}
                     onChange={e => {
                       setAccessControl({
                         ...accessControl,
                         setting: {
                           ...accessControl.setting,
-                          editDepartment: e.target.checked,
+                          editRole: e.target.checked,
                         },
                       })
                     }}
@@ -830,13 +904,13 @@ const Department = () => {
                   <Checkbox
                     disableRipple
                     className="col-md-4 check_box_color"
-                    checked={accessControl?.setting?.deleteDepartment}
+                    checked={accessControl?.setting?.deleteRole}
                     onChange={e => {
                       setAccessControl({
                         ...accessControl,
                         setting: {
                           ...accessControl.setting,
-                          deleteDepartment: e.target.checked,
+                          deleteRole: e.target.checked,
                         },
                       })
                     }}
@@ -939,17 +1013,18 @@ const Department = () => {
           </Box>
           {/* </div> */}
         </Box>
-        <JobRoleDialog
+        {/* <JobRoleDialog
           jobRoleList={jobRoleList}
           jobRoleDialogControl={jobRoleDialogControl}
           handleClose={handleClose}
+        /> */}
+
+        <EditJobRoleDialog
+          editJobRoleDialogControl={editJobRoleDialogControl}
+          handleClose={handleClose}
+          setEditJobRoleDialogControl={setEditJobRoleDialogControl}
+          handleEditJobRole={handleEditJobRole}
         />
-        {editJobRoleDialogControl.status === true && (
-          <EditJobRoleDialog
-            editJobRoleDialogControl={editJobRoleDialogControl}
-            handleClose={handleClose}
-          />
-        )}
         <DeleteJobRoleDialog
           deleteJobRoleDialogControl={deleteJobRoleDialogControl}
           handleClose={handleClose}

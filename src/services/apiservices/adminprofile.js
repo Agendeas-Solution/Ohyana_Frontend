@@ -302,7 +302,6 @@ export const GetAdminRole = async (value, onSuccess, onError) => {
   try {
     const { data } = await axiosInstance.get(`/role`, {
       headers: { ...defaultHeaders },
-      
     })
     console.log('Printing data of GetAdminRole', data)
     onSuccess && onSuccess(data)
@@ -313,13 +312,27 @@ export const GetAdminRole = async (value, onSuccess, onError) => {
     ////
   }
 }
+export const GetAddEditAdminRole = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.get(`/role?selection=true`, {
+      headers: { ...defaultHeaders },
+    })
+    console.log('Printing data of GetAddEditAdminRole', data)
+    onSuccess && onSuccess(data)
+    ////
+  } catch (err) {
+    console.log('Got error while calling API - GetAddEditAdminRole', err)
+    onError && onError(err)
+    ////
+  }
+}
 export const GetSingleRole = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
     const { data } = await axiosInstance.get(`/role/detail`, {
       headers: { ...defaultHeaders },
-      params:{roleId:value}
-      
+      params: { roleId: value },
     })
     console.log('Printing data of GetSingleRole', data)
     onSuccess && onSuccess(data)
@@ -330,7 +343,19 @@ export const GetSingleRole = async (value, onSuccess, onError) => {
     ////
   }
 }
-
+export const UpdateClockInOut = async ( value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.put(`/clockin-out`, value, {
+      headers: { ...defaultHeaders },
+    })
+    console.log('Printing data of UpdateClockInOut', data)
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log('Got error while calling API - UpdateClockInOut', err)
+    onError && onError(err)
+  }
+}
 export const CreateJobRole = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
@@ -352,11 +377,11 @@ export const EditJobRole = async (id, value, onSuccess, onError) => {
     const { data } = await axiosInstance.put(`/role/${id}`, value, {
       headers: { ...defaultHeaders },
     })
-    console.log('Printing data of CreateJobRole', data)
+    console.log('Printing data of EditJobRole', data)
     onSuccess && onSuccess(data)
     ////
   } catch (err) {
-    console.log('Got error while calling API - CreateJobRole', err)
+    console.log('Got error while calling API - EditJobRole', err)
     onError && onError(err)
     ////
   }
@@ -370,11 +395,23 @@ export const AddClientStatus = async (value, onSuccess, onError) => {
     })
     console.log('Printing data of AddClientStatus', data)
     onSuccess && onSuccess(data)
-    ////
   } catch (err) {
     console.log('Got error while calling API - AddClientStatus', err)
     onError && onError(err)
-    ////
+  }
+}
+
+export const AddCloseStatusApiCall = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.patch(`/client/status/closed`, value, {
+      headers: { ...defaultHeaders },
+    })
+    console.log('Printing data of AddCloseStatusApiCall', data)
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log('Got error while calling API - AddCloseStatusApiCall', err)
+    onError && onError(err)
   }
 }
 
