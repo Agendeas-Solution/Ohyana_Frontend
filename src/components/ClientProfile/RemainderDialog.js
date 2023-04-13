@@ -80,7 +80,6 @@ const RemainderDialog = props => {
           <TextField
             className="dialogue_input_fields"
             label="Select Time"
-            // placeholder="Select Time"
             type="time"
             value={clientReminderDetail.time}
             onChange={e => {

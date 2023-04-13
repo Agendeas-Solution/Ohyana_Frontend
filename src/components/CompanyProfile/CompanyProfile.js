@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Typography, Box } from '@mui/material'
+import { Typography, Box, Button } from '@mui/material'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import { useNavigate } from 'react-router-dom'
 import { GetCompanyProfile } from '../../services/apiservices/companyprofile'
@@ -27,51 +27,32 @@ const CompanyProfile = () => {
   return (
     <>
       <Box className="main_section">
-        <Box className="profile_img">
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Box className="userName_and_position">
-              {/* <AccountCircleRoundedIcon className="userprofile_dummy_icon" /> */}
-              {/* <AccountBoxSharp className="userprofile_dummy_icon" /> */}
-              <img
-                src={ProfileImage}
-                // className="userprofile_dummy_icon m-3"
-                className="user_profile_icon m-3"
-                alt="profile"
-              />
 
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  marginLeft: 2,
-                }}
-              >
-                <Typography
-                  variant="span"
-                  sx={{ fontWeight: 'bold', fontSize: '18px' }}
-                >
-                  {companyDetail?.name}
-                </Typography>
-              </Box>
+        <Box className="user_profile_header_Section">
+          <Box className="username_profile_Section">
+            <img
+              src={ProfileImage}
+              className="user_profile_icon"
+              alt="profile"
+            />
+            {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
+            <Box className="username_and_position">
+              <Typography className="username_text" variant="span">
+                {companyDetail?.name}
+              </Typography>
             </Box>
           </Box>
-          <EditRoundedIcon
-            onClick={() => {
-              console.log('Printing Edit icon')
-              navigate('/editcompanyprofile')
-            }}
-            className="edit_icon_profile cursor-pointer"
-          />
+
+          <Button variant="contained" className="profile_header_button">
+            <EditRoundedIcon
+              onClick={() => {
+                navigate('/editcompanyprofile')
+              }}
+            />
+          </Button>
         </Box>
 
-        <Box className="companyDetail">
+        < Box className="companyDetail" >
           <Box className="companyDetail_root p-3">
             <Typography className="" variant="span">
               Email:
@@ -118,8 +99,8 @@ const CompanyProfile = () => {
             </Typography>
             <Typography variant="span">{companyDetail?.crmKey}</Typography>
           </Box>
-        </Box>
-      </Box>
+        </Box >
+      </Box >
     </>
   )
 }

@@ -8,6 +8,10 @@ import {
   TextField,
   Typography,
   Autocomplete,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -43,7 +47,7 @@ const EditAppointmentDialog = ({
       res => {
         setStaffDetailList(res.data)
       },
-      err => {},
+      err => { },
     )
   }, [])
   const handleAddAppointment = () => {
@@ -81,150 +85,118 @@ const EditAppointmentDialog = ({
         open={editClientAppointmentDetail.status}
         onClose={handleAppointmentClose}
       >
-        <div className="px-3 my-3">
-          <h3>Appointment</h3>
-        </div>
-        <DialogContent sx={{ maxWidth: '500px' }}>
-          <Box>
-            <div className="row">
-              <div className="col-md-12">
-                <Typography variant="span">Date</Typography>
-              </div>
-              <div className="col-md-12">
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    disablePast
-                    inputFormat="dd/MM/yyyy"
-                    value={clientAppointmentDetail.date}
-                    onChange={e => {
-                      setClientAppointmentDetail({
-                        ...clientAppointmentDetail,
-                        date: moment(e).format('YYYY-MM-DD'),
-                      })
-                    }}
-                    renderInput={params => (
-                      <TextField className="w-100" {...params} />
-                    )}
-                  />
-                </LocalizationProvider>
-              </div>
-            </div>
-          </Box>
-          <Box className="my-3">
-            <div className="row">
-              <div className="col-md-12">
-                <Typography variant="span">Time</Typography>
-              </div>
-              <div className="col-md-12">
-                <TextField
-                  onChange={e => {
-                    setClientAppointmentDetail({
-                      ...clientAppointmentDetail,
-                      time: e.target.value,
-                    })
-                  }}
-                  value={clientAppointmentDetail.time}
-                  className="w-100"
-                  type="time"
-                />
-              </div>
-            </div>
-          </Box>
-          <Box>
-            <div className="row">
-              <div className="col-md-12">
-                <Typography variant="span">Description</Typography>
-              </div>
-              <div className="col-md-12">
-                <TextField
-                  onChange={e => {
-                    setClientAppointmentDetail({
-                      ...clientAppointmentDetail,
-                      description: e.target.value,
-                      clientId: clientProfileDetail?.id,
-                    })
-                  }}
-                  value={clientAppointmentDetail.description}
-                  className="w-100"
-                  placeholder="Description..."
-                />
-              </div>
-            </div>
-          </Box>
-          <Box className="my-3">
-            <div className="row">
-              <div className="col-md-12">
-                <Typography variant="span">Appointment At ?</Typography>
-              </div>
-              <div className="col-md-12">
-                <Autocomplete
-                  filterSelectedOptions
-                  options={appointmentPlaceList}
-                  value={clientAppointmentDetail?.appointment_unit}
-                  onChange={(e, value) => {
-                    console.log(value)
-                    setClientAppointmentDetail({
-                      ...clientAppointmentDetail,
-                      appointment_unit: value,
-                    })
-                  }}
-                  getOptionLabel={option => option}
-                  renderInput={params => (
-                    <TextField
-                      {...params}
-                      placeholder={
-                        clientAppointmentDetail?.appointed_member
-                          ? ''
-                          : 'Add Member'
-                      }
-                    />
-                  )}
-                />
-              </div>
-            </div>
-          </Box>
-          <Box className="my-3">
-            <div className="row">
-              <div className="col-md-12">
-                <Typography variant="span">Who can join ?</Typography>
-              </div>
-              <div className="col-md-12">
-                <Autocomplete
-                  filterSelectedOptions
-                  options={staffDetailList}
-                  value={clientAppointmentDetail?.appointed_member}
-                  onChange={(e, value) => {
-                    console.log(value)
-                    setClientAppointmentDetail({
-                      ...clientAppointmentDetail,
-                      appointed_member: value,
-                    })
-                  }}
-                  getOptionLabel={option => option?.name}
-                  multiple
-                  renderInput={params => (
-                    <TextField
-                      {...params}
-                      placeholder={
-                        clientAppointmentDetail?.appointed_member > 0
-                          ? ''
-                          : 'Add Member'
-                      }
-                    />
-                  )}
-                />
-              </div>
-            </div>
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button variant="contained" onClick={handleAddAppointment}>
-            Ok
-          </Button>
-          <Button variant="contained" onClick={handleAppointmentClose}>
-            Cancel
-          </Button>
-        </DialogActions>
+        <Box className="dialogue_main_section">
+
+          <Typography className="dialogue_heading">Update Appointment</Typography>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              disablePast
+              inputFormat="dd/MM/yyyy"
+              value={clientAppointmentDetail.date}
+              onChange={e => {
+                setClientAppointmentDetail({
+                  ...clientAppointmentDetail,
+                  date: moment(e).format('YYYY-MM-DD'),
+                })
+              }}
+              renderInput={params => (
+                <TextField {...params} className="dialogue_input_fields" />
+              )}
+              PopperProps={{
+                placement: 'bottom-start', // Set placement to 'bottom-start'
+              }}
+            />
+          </LocalizationProvider>
+
+          <TextField
+            className="dialogue_input_fields"
+            type="time"
+            value={clientAppointmentDetail.time}
+            onChange={e => {
+              setClientAppointmentDetail({
+                ...clientAppointmentDetail,
+                time: e.target.value,
+              })
+            }}
+          />
+
+          <FormControl className="dialogue_input_fields">
+            <InputLabel>Appoinment For</InputLabel>
+            <Select
+              filterSelectedOptions
+              label="Appoinment For"
+              value={clientAppointmentDetail?.appointment_unit}
+              onChange={(e, value) => {
+                setClientAppointmentDetail({
+                  ...clientAppointmentDetail,
+                  appointment_unit: value,
+                })
+              }}
+            >
+              <MenuItem value="Ofiice">Ofiice</MenuItem>
+              <MenuItem value="Factory">Factory</MenuItem>
+            </Select>
+          </FormControl>
+
+          <Autocomplete
+            filterSelectedOptions
+            options={staffDetailList}
+            value={clientAppointmentDetail?.appointed_member}
+            onChange={(e, value) => {
+              console.log(value)
+              setClientAppointmentDetail({
+                ...clientAppointmentDetail,
+                appointed_member: value,
+              })
+            }}
+            getOptionLabel={option => option?.name}
+            multiple
+            renderInput={params => (
+              <TextField
+                {...params}
+                label="Add Member"
+                className="dialogue_input_fields"
+                placeholder={
+                  clientAppointmentDetail?.appointed_member > 0
+                    ? ''
+                    : 'Add Member'
+                }
+              />
+            )}
+          />
+
+          <TextField
+            className="dialogue_input_fields"
+            multiline
+            label="Description"
+            autoComplete="off"
+            minRows={3}
+            value={clientAppointmentDetail.description}
+            placeholder="Description Here..."
+            onChange={e => {
+              setClientAppointmentDetail({
+                ...clientAppointmentDetail,
+                description: e.target.value,
+                clientId: clientProfileDetail?.id,
+              })
+            }}
+          />
+
+          <DialogActions>
+            <Button
+              className="dialogue_button_positive"
+              variant="contained"
+              onClick={handleAddAppointment}>
+              Ok
+            </Button>
+            <Button
+              className="dialogue_button_nagative"
+              variant="contained"
+              onClick={handleAppointmentClose}>
+              Cancel
+            </Button>
+          </DialogActions>
+        </Box>
       </Dialog>
     </>
   )
