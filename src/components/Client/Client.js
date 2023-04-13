@@ -120,7 +120,7 @@ const Client = () => {
           message: res.data.message,
         })
       },
-      err => {},
+      err => { },
     )
   }
   const handleDialogClose = () => {
@@ -280,8 +280,8 @@ const Client = () => {
               width: drawerWidth,
             },
           }}
-          anchor="right"
           open={open}
+          anchor="right"
         >
           <DrawerHeader
             sx={{
@@ -389,46 +389,6 @@ const Client = () => {
           }}
         />
       </Box>
-
-      {/* <Dialog
-        open={deleteClientDialogControl.status}
-        onClose={handleDialogClose}
-      >
-        <Box className="client_appointment_dialog">
-          <Box className="client_appointment_content">
-            <img
-              style={{ width: '60px', height: '60px' }}
-              src={DeleteIcon}
-              alt=""
-            />
-            <Typography variant="h5" sx={{ fontWeight: '500' }}>
-              Delete Client
-            </Typography>
-            <Typography
-              sx={{ marginTop: '10px', marginBottom: '10px' }}
-              variant="span"
-            >
-              Are You Sure you want to Delete this Client ?
-            </Typography>
-          </Box>
-          <DialogActions>
-            <Button
-              variant="contained"
-              onClick={handleClientDelete}
-              autoFocus
-            >
-              Ok
-            </Button>
-            <Button
-              className="cancel-btn"
-              onClick={handleDialogClose}
-              autoFocus
-            >
-              Cancel
-            </Button>
-          </DialogActions>
-        </Box>
-      </Dialog> */}
     </Box>
   )
 }

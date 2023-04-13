@@ -215,7 +215,6 @@ const Staff = () => {
               </FormControl>
 
               <Button
-                // sx={{ WebkitLineClamp: ' 1 !important' }}
                 onClick={() => navigate('/addstaffmember')}
                 className="main_tab_button"
                 variant="span"

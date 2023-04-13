@@ -41,7 +41,7 @@ const AddProduct = props => {
             skuId: res.data.skuId,
           })
         },
-        err => {},
+        err => { },
       )
   }, [])
   const handleAddProduct = () => {
@@ -54,7 +54,7 @@ const AddProduct = props => {
             console.log('printing Data', res.data)
           }
         },
-        err => {},
+        err => { },
       )
     } else {
       AddAdminProduct(
@@ -64,12 +64,130 @@ const AddProduct = props => {
             console.log('printing Data', res.data)
           }
         },
-        err => {},
+        err => { },
       )
     }
   }
   return (
     <>
+      <Box className="main_section">
+        {/* Product Name &&  Business Name */}
+        <Box className="input_field_row">
+          <Box className="input_fields">
+            <TextField
+              label=" Product Name"
+              placeholder="Enter Product Name"
+              variant="outlined"
+              value={productDetail.name}
+              onChange={e => {
+                setProductDetail({ ...productDetail, name: e.target.value })
+              }}
+            />
+          </Box>
+          <Box className="input_fields">
+            <TextField
+              label="SKU Id"
+              placeholder="Enter SKU Id"
+              variant="outlined"
+              value={productDetail.skuId}
+              onChange={e => {
+                setProductDetail({ ...productDetail, skuId: e.target.value })
+              }}
+            />
+          </Box>
+        </Box>
+
+        {/* Price &&  Enter Quantity */}
+        <Box className="input_field_row">
+          <Box className="input_fields">
+            <TextField
+              label="Price (1 pc)"
+              placeholder="Enter Price"
+              autoComplete={false}
+              variant="outlined"
+              value={productDetail.price}
+              onChange={e => {
+                setProductDetail({ ...productDetail, price: e.target.value })
+              }}
+            />
+          </Box>
+          <Box className="input_fields">
+            <TextField
+              label="Available Quantity"
+              placeholder="Enter Quantity"
+              variant="outlined"
+              value={productDetail.quantity}
+              onChange={e => {
+                setProductDetail({ ...productDetail, quantity: e.target.value })
+              }}
+            />
+          </Box>
+        </Box>
+
+        {/* Weight &&  Material Type */}
+        <Box className="input_field_row">
+          <Box className="input_fields">
+            <TextField
+              label="Weight"
+              placeholder="Enter Weight"
+              variant="outlined"
+              value={productDetail.weight}
+              onChange={e => {
+                setProductDetail({ ...productDetail, weight: e.target.value })
+              }}
+            />
+          </Box>
+
+          <Box className="input_fields">
+            <TextField
+              label="Material Type"
+              placeholder="Enter Material Type"
+              variant="outlined"
+              value={productDetail.materialType}
+              onChange={e => {
+                setProductDetail({
+                  ...productDetail,
+                  materialType: e.target.value,
+                })
+              }}
+            />
+          </Box>
+        </Box>
+
+        {/* Description */}
+        <Box className="input_field_row">
+          <Box className="input_fields">
+            <TextField
+              multiline
+              label="Description"
+              placeholder="Description Here..."
+              minRows={3}
+              autoComplete="off"
+              variant="outlined"
+              value={productDetail.description}
+              onChange={e => {
+                setProductDetail({
+                  ...productDetail,
+                  description: e.target.value,
+                })
+              }}
+            />
+          </Box>
+        </Box>
+
+        <Box
+          sx={{ display: 'flex', justifyContent: 'flex-end' }}
+          className="input_field_row"
+        >
+          <Button
+            onClick={handleAddProduct}
+            variant="contained"
+            className="edit_page_save_button"
+          >Save
+          </Button>
+        </Box>
+      </Box>
+
       {/* <Dialog
         open={props.addProductDialogControl.status}
         onClose={props.handleClose}
@@ -165,124 +283,6 @@ const AddProduct = props => {
           </Button>
         </DialogActions>
       </Dialog> */}
-      <Box className="edit_profile_section">
-        <Box className="input_field_row">
-          <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Product Name
-            </Typography>
-            <TextField
-              placeholder="Enter Product Name"
-              onChange={e => {
-                setProductDetail({ ...productDetail, name: e.target.value })
-              }}
-              value={productDetail.name}
-              className="form-control"
-              variant="outlined"
-              label=""
-            />
-          </Box>
-          <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Product Id
-            </Typography>
-            <TextField
-              placeholder="Enter Product Id"
-              onChange={e => {
-                setProductDetail({ ...productDetail, skuId: e.target.value })
-              }}
-              value={productDetail.skuId}
-              variant="outlined"
-            />
-          </Box>
-        </Box>
-        <Box className="input_field_row">
-          <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Price (1 pc)
-            </Typography>
-            <TextField
-              placeholder="Enter Price"
-              autoComplete={false}
-              onChange={e => {
-                setProductDetail({ ...productDetail, price: e.target.value })
-              }}
-              value={productDetail.price}
-              variant="outlined"
-            />
-          </Box>
-          <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Available Quantity
-            </Typography>
-            <TextField
-              placeholder="Enter Quantity"
-              onChange={e => {
-                setProductDetail({ ...productDetail, quantity: e.target.value })
-              }}
-              value={productDetail.quantity}
-              variant="outlined"
-            />
-          </Box>
-        </Box>
-        <Box className="input_field_row">
-          <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Material Type
-            </Typography>
-            <TextField
-              placeholder="Enter Material Type"
-              onChange={e => {
-                setProductDetail({
-                  ...productDetail,
-                  materialType: e.target.value,
-                })
-              }}
-              value={productDetail.materialType}
-            />
-          </Box>
-          <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Weight
-            </Typography>
-            <TextField
-              placeholder="Enter Weight"
-              onChange={e => {
-                setProductDetail({ ...productDetail, weight: e.target.value })
-              }}
-              value={productDetail.weight}
-            />
-          </Box>
-        </Box>
-        <Box className="input_field_row">
-          <Box className="input_fields">
-            <Typography className="input_field_label" variant="span">
-              Description
-            </Typography>
-            <TextareaAutosize
-              placeholder="Description Here..."
-              className="w-100"
-              minRows={3}
-              value={productDetail.description}
-              onChange={e => {
-                setProductDetail({
-                  ...productDetail,
-                  description: e.target.value,
-                })
-              }}
-            />
-          </Box>
-        </Box>
-        <Box sx={{ justifyContent: 'flex-start' }} className="input_field_row">
-          <Button
-            onClick={handleAddProduct}
-            variant="contained"
-            className="edit_page_save_button"
-          >
-            Save
-          </Button>
-        </Box>
-      </Box>
     </>
   )
 }
