@@ -20,6 +20,7 @@ import {
 } from '../../services/apiservices/clientDetail'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+import { CLIENT } from '../../constants/clientConstant'
 const SuccessSnackbar = React.lazy(() =>
   import('../SuccessSnackbar/SuccessSnackbar'),
 )
@@ -33,7 +34,6 @@ const EditClient = () => {
     clientType: '',
     country: null,
     inquiryfor: '',
-    // product: [],
     address: '',
     state: '',
     city: '',
@@ -45,8 +45,8 @@ const EditClient = () => {
   const [successDialog, setSuccessDialog] = useState(false)
   const [countryList, setCountryList] = useState([])
   const navigate = useNavigate()
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleChange = prop => event => {
     setUserDetail({ ...userDetail, [prop]: event.target.value })
   }
@@ -69,26 +69,29 @@ const EditClient = () => {
       parseInt(path),
       res => {
         if (res.success) {
-          debugger
           setUserDetail({
             ...userDetail,
             clientName: res.data.name,
             reference: res.data.reference,
-            email: res.data.email,
-            max_invesment_amount: res.data.max_invesment_amount,
-            contactNo: res.data.contact_number,
-            country: res.data.country,
-            state: res.data.state,
-            address: res.data.address,
-            city: res.data.city,
-            business: res.data.business,
-            clientType: res.data.isInternational.toString(),
-            referenceName: res.data.reference_name,
+            email: res.data?.email,
+            max_invesment_amount: res.data?.max_invesment_amount,
+            contactNo: res.data?.contact_number,
+            country: res.data?.country,
+            state: res.data?.state,
+            address: res.data?.address,
+            city: res.data?.city,
+            business: res.data?.business,
+            clientType: res.data?.isInternational,
+            referenceName: res.data?.reference_name,
           })
         }
       },
       err => {
-        console.log('Printing ', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [])
@@ -131,7 +134,6 @@ const EditClient = () => {
   // }, [userDetail?.inquiryfor])
   const EditClient = () => {
     console.log('userDetail', userDetail)
-    debugger
     if (
       userDetail.clientName !== '' &&
       (userDetail.email || userDetail.contactNo) &&
@@ -140,8 +142,6 @@ const EditClient = () => {
       userDetail.state !== '' &&
       userDetail.city !== '' &&
       userDetail.memberId !== '' &&
-      // userDetail.product.length > 0 &&
-      // userDetail.inquiryfor !== '' &&
       userDetail.country
     ) {
       let clientDetail = {
@@ -150,7 +150,8 @@ const EditClient = () => {
         reference: userDetail.reference,
         business: userDetail.business,
         contact_number: userDetail.contactNo,
-        client_type: userDetail.clientType,
+        max_invesment_amount: userDetail?.max_invesment_amount,
+        isInternational: userDetail.clientType,
         state: userDetail.state,
         address: userDetail.address,
         countryId: userDetail.country?.id,
@@ -161,6 +162,7 @@ const EditClient = () => {
       console.log('Printing Path of ', path)
       console.log('Printing ', path.split('/').pop())
       path = path.split('/').pop()
+      debugger;
       EditClientDetail(
         path,
         clientDetail,
@@ -174,7 +176,13 @@ const EditClient = () => {
             })
           }
         },
-        err => {},
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
       )
     }
   }
@@ -266,13 +274,15 @@ const EditClient = () => {
                 <InputLabel>Client Type</InputLabel>
                 <Select
                   label="Client Type"
-                  value={userDetail.clientType}
+                  value={userDetail?.clientType}
                   onChange={e => {
                     setUserDetail({ ...userDetail, clientType: e.target.value })
+                    debugger;
                   }}
                 >
-                  <MenuItem value="true">Domestic</MenuItem>
-                  <MenuItem value="false">International</MenuItem>
+                  {CLIENT.CLIENTTYPE.map((data) => {
+                    return <MenuItem value={data.type}>{data.fieldName}</MenuItem>
+                  })}
                 </Select>
               </FormControl>
             </Box>

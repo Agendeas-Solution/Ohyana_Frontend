@@ -21,11 +21,13 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import AddRoundedIcon from '@mui/icons-material/AddRounded'
 import { useNavigate } from 'react-router-dom'
 import { Context as AuthContext } from '../../context/authContext/authContext'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+
 import {
   GetAdminClientProfileDetail,
   GetAdminClientStatusDetail,
   GetAdminClientReminderDetail,
-  GetAdminClientAppointmentDetail,
+  GetAdminClientAppointmentDetail, AddPoorContact
 } from '../../services/apiservices/clientDetail'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import moment from 'moment'
@@ -52,6 +54,8 @@ const StatusDialog = React.lazy(() => import('./StatusDialog'))
 const ClientProfile = () => {
   const [value, setValue] = useState('1')
   const { flagLoader, permissions } = useContext(AuthContext).state
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [remainderDialog, setRemainderDialog] = useState(false)
   const [callDialog, setCallDialog] = useState(false)
   const [statusDialog, setStatusDialog] = useState(false)
@@ -69,8 +73,11 @@ const ClientProfile = () => {
   })
   const [addPoorContact, setAddPoorContact] = useState({
     clientId: null,
-    inquiry: '',
+    description: '',
     status: false,
+    callNotReceived: true,
+    flag: "true",
+    followUpType: "OTHER",
   })
   const [viewClientStatus, setViewClientStatus] = useState({
     clientId: null,
@@ -100,24 +107,25 @@ const ClientProfile = () => {
       },
     )
   }, [stageDialog])
-
+  let path = window.location.pathname;
+  path = path.split('/').pop();
+  const handleAdminClienStatusDetail = () => {
+    GetAdminClientStatusDetail(
+      parseInt(path),
+      res => {
+        if (res.success) {
+          setClientStatusList(res?.data)
+        }
+      },
+      err => {
+        console.log('Printing Error', err)
+      },
+    )
+  }
   useEffect(() => {
-    let path = window.location.pathname
-    // console.log("Printing Path of ", path);
-    // console.log("Printing ", path.split("/").pop());
-    path = path.split('/').pop()
-    value === '1' &&
-      GetAdminClientStatusDetail(
-        parseInt(path),
-        res => {
-          if (res.success) {
-            setClientStatusList(res?.data)
-          }
-        },
-        err => {
-          console.log('Printing Error', err)
-        },
-      )
+
+    value === '1' && handleAdminClienStatusDetail();
+
     value === '2' &&
       GetAdminClientReminderDetail(
         parseInt(path),
@@ -146,6 +154,37 @@ const ClientProfile = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
+  const handleAddPoorContact = () => {
+    let data = {};
+    if (addPoorContact.flag === "true") {
+      data = {
+        clientId: addPoorContact.clientId,
+        callNotReceived: addPoorContact.callNotReceived,
+        followUpType: addPoorContact.followUpType,
+        description: "Call Not Received",
+      }
+    }
+    else {
+      data = {
+        clientId: addPoorContact.clientId,
+        callNotReceived: addPoorContact.callNotReceived,
+        followUpType: addPoorContact.followUpType,
+        description: addPoorContact.description,
+      }
+    }
+    debugger;
+    AddPoorContact(data, (res) => {
+      setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
+      handleCallClose();
+      handleAdminClienStatusDetail();
+    }, (err) => {
+      setErrorSnackbar({
+        ...errorSnackbar,
+        status: true,
+        message: err?.response?.data?.message,
+      })
+    })
+  }
   const handleClickOpen = () => {
     setRemainderDialog(true)
   }
@@ -156,7 +195,7 @@ const ClientProfile = () => {
   }
 
   const handleCallOpen = () => {
-    setAddPoorContact({ ...addPoorContact, status: true })
+    setAddPoorContact({ ...addPoorContact, status: true, clientId: clientProfileDetail.id })
   }
   const handleCallClose = () => {
     setAddPoorContact({
@@ -444,7 +483,9 @@ const ClientProfile = () => {
           />
           <PoorContact
             addPoorContact={addPoorContact}
+            setAddPoorContact={setAddPoorContact}
             handleCallClose={handleCallClose}
+            handleAddPoorContact={handleAddPoorContact}
           />
           <CloseStatusDialog
             handleCloseStatusDialogClose={handleCloseStatusDialogClose}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useContext } from 'react'
 import {
   Dialog,
   Box,
@@ -17,9 +17,13 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { GetAllLeaveType, ApplyLeave } from '../../services/apiservices/holiday'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+
 import moment from 'moment'
 const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
   const [leaveType, setLeaveType] = useState([])
+  const { successSnackbar ,errorSnackbar} = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar,setErrorSnackbar } = useContext(ContextSnackbar)
   const [leaveDetail, setLeaveDetail] = useState({
     duration: '',
     leaveType: null,
@@ -31,19 +35,32 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
         setLeaveType(res.data)
         debugger
       },
-      err => { },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+       },
     )
   }, [])
   const handleApplyLeave = () => {
     ApplyLeave(
       {
-        leavetypeId: leaveDetail.leaveType.id,
-        duration: leaveDetail.leaveType.duration,
+        leavetypeId: leaveDetail.leaveType,
+        duration: leaveDetail.duration,
       },
       res => {
-        handleCloseDialog()
+        handleCloseDialog();
+        setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
       },
-      err => { },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
   return (
