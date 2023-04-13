@@ -21,7 +21,6 @@ const CloseStatusDialog = ({
   const addCloseStatus = () => {
     let data = closeStatusDialogControl
     delete data.status
-    debugger
     AddCloseStatusApiCall(
       data,
       res => {
