@@ -144,7 +144,9 @@ const AppContent = () => {
                 element={<DepartmentList />}
               ></Route>
             )}
-              <Route path="/expenselist" element={<ExpenseList />} />
+
+            <Route path="/expenselist" element={<ExpenseList />} />
+
             {permissions?.viewDepartment && (
               <Route path="/jobrolelist" element={<JobRolesList />}></Route>
             )}

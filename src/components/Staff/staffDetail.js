@@ -6,7 +6,7 @@ const StaffDetail = props => {
     <>
       <Box className="companyDetail">
         <Box className="companyDetail_root p-3">
-          <Typography className=" user_profile_font_weight" variant="span">
+          <Typography className=" profile_data_lable" variant="span">
             Contact No.:
           </Typography>
           <Typography variant="span">
@@ -14,7 +14,7 @@ const StaffDetail = props => {
           </Typography>
         </Box>
         <Box className="companyDetail_root p-3">
-          <Typography variant="span" className=" user_profile_font_weight">
+          <Typography variant="span" className=" profile_data_lable">
             Senior Post:
           </Typography>
           <Typography variant="span">
@@ -22,7 +22,7 @@ const StaffDetail = props => {
           </Typography>
         </Box>
         <Box className="companyDetail_root p-3">
-          <Typography variant="span" className=" user_profile_font_weight">
+          <Typography variant="span" className=" profile_data_lable">
             Email:
           </Typography>
           <Typography variant="span">
@@ -30,7 +30,7 @@ const StaffDetail = props => {
           </Typography>
         </Box>
         <Box className="companyDetail_root  p-3">
-          <Typography variant="span" className=" user_profile_font_weight">
+          <Typography variant="span" className=" profile_data_lable">
             Password:
           </Typography>
           <Typography variant="span">
@@ -38,7 +38,7 @@ const StaffDetail = props => {
           </Typography>
         </Box>
         <Box className="companyDetail_root  p-3">
-          <Typography className=" user_profile_font_weight" variant="span">
+          <Typography className=" profile_data_lable" variant="span">
             Birthdate
           </Typography>
           <Typography variant="span">
@@ -46,7 +46,7 @@ const StaffDetail = props => {
           </Typography>
         </Box>
         <Box className="companyDetail_root  p-3">
-          <Typography className=" user_profile_font_weight" variant="span">
+          <Typography className=" profile_data_lable" variant="span">
             Gender
           </Typography>
           <Typography variant="span">

@@ -20,116 +20,82 @@ const HolidayDialog = ({
   SetHoliday,
   UpdateHolidayFunc,
 }) => {
-  // const [leaveType, setLeaveType] = useState([])
-  // const [leaveDetail, setLeaveDetail] = useState({
-  //   duration: '',
-  //   leaveType: null,
-  // })
-  // useEffect(() => {
-  //   GetAllLeaveType(
-  //     {},
-  //     res => {
-  //       setLeaveType(res.data)
-  //     },
-  //     err => { },
-  //   )
-  // }, [])
   return (
     <>
-      <Dialog open={addHolidayDetail.status} onClose={handleCloseHolidayDialog}>
-        <div className="px-3 pt-3">
-          <h3>Set Holiday</h3>
-        </div>
-        <DialogContent>
-          <Box className="py-3">
-            <div className="row">
-              <div className="col-md-6">
-                <Typography variant="span">Date</Typography>
-              </div>
-              <div className="col-md-12">
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    disablePast
-                    inputFormat="dd/MM/yyyy"
-                    className="w-100"
-                    value={addHolidayDetail.date}
-                    onChange={e => {
-                      setAddHolidayDetail({
-                        ...addHolidayDetail,
-                        date: moment(e).format('YYYY-MM-DD'),
-                      })
-                    }}
-                    renderInput={params => (
-                      <TextField className="w-100" {...params} />
-                    )}
-                  />
-                </LocalizationProvider>
-              </div>
-            </div>
-          </Box>
-          <Box className="py-3">
-            <div className="row">
-              <div className="col-md-12">
-                <Typography variant="span">How Many Days</Typography>
-              </div>
-              <div className="col-md-12">
-                <TextField
-                  type="number"
-                  value={addHolidayDetail.duration}
-                  onChange={e => {
-                    setAddHolidayDetail({
-                      ...addHolidayDetail,
-                      duration: e.target.value,
-                    })
-                  }}
-                  className="w-100"
-                  placeholder="Enter Holiday Duration"
-                  variant="outlined"
-                />
-              </div>
-            </div>
-          </Box>
-          <Box className="py-3">
-            <div className="row">
-              <div className="col-md-6">
-                <Typography variant="span">On Occasion of</Typography>
-              </div>
-              <div className="col-md-12">
-                <TextField
-                  value={addHolidayDetail.occasion}
-                  onChange={e => {
-                    setAddHolidayDetail({
-                      ...addHolidayDetail,
-                      occasion: e.target.value,
-                    })
-                  }}
-                  className="w-100"
-                  placeholder="Enter Holiday Duraion "
-                  variant="outlined"
-                />
-              </div>
-            </div>
-          </Box>
-        </DialogContent>
-        <DialogActions
-          sx={{ marginLeft: '13px', marginRight: '13px' }}
-          className="mt-1 d-flex justify-content-between"
-        >
-          <Button
-            variant="contained"
-            className="ok-btn"
-            onClick={
-              addHolidayDetail?.id
-                ? UpdateHolidayFunc
-                : SetHoliday
-            }
-          >
-            Ok
-          </Button>
-          <Button onClick={handleCloseHolidayDialog} className="cancel-btn" autoFocus>
-            Cancel
-          </Button>
-        </DialogActions>
+      <Dialog
+        open={addHolidayDetail.status}
+        onClose={handleCloseHolidayDialog}>
+        <Box className="dialogue_main_section">
+          <Typography className="dialogue_heading">Add Holiday</Typography>
+
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              disablePast
+              inputFormat="dd/MM/yyyy"
+              value={addHolidayDetail.date}
+              onChange={e => {
+                setAddHolidayDetail({
+                  ...addHolidayDetail,
+                  date: moment(e).format('YYYY-MM-DD'),
+                })
+              }}
+              renderInput={params => (
+                <TextField {...params} className="dialogue_input_fields" />
+              )}
+              PopperProps={{
+                placement: 'bottom-start', // Set placement to 'bottom-start'
+              }}
+            />
+          </LocalizationProvider>
+
+          <TextField
+            className="dialogue_input_fields"
+            label="Occasion Name"
+            placeholder="Enter Occasion Name"
+            variant="outlined"
+            value={addHolidayDetail.occasion}
+            onChange={e => {
+              setAddHolidayDetail({
+                ...addHolidayDetail,
+                occasion: e.target.value,
+              })
+            }}
+          />
+
+          <TextField
+            className="dialogue_input_fields"
+            label="Holiday Duration"
+            placeholder="Enter Holiday Duration"
+            variant="outlined"
+            type="number"
+            value={addHolidayDetail.duration}
+            onChange={e => {
+              setAddHolidayDetail({
+                ...addHolidayDetail,
+                duration: e.target.value,
+              })
+            }}
+          />
+
+          <DialogActions>
+            <Button
+              className="dialogue_button_positive"
+              variant="contained"
+              onClick={
+                addHolidayDetail?.id
+                  ? UpdateHolidayFunc
+                  : SetHoliday
+              }>
+              Add
+            </Button>
+            <Button
+              className="dialogue_button_nagative"
+              variant="contained"
+              onClick={handleCloseHolidayDialog}>
+              Cancel
+            </Button>
+          </DialogActions>
+        </Box>
       </Dialog>
     </>
   )
