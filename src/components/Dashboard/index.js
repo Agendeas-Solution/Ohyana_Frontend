@@ -20,6 +20,7 @@ import {
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { TEAM } from '../../constants'
+
 const Dashboard = () => {
   const navigate = useNavigate()
   const [inquiryData, setInquiryData] = useState([])
@@ -403,6 +404,7 @@ const Dashboard = () => {
               View All >
             </Button>
           </Box>
+
           <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
             <Table sx={{ minWidth: 650 }}>
               <TableHead className="team_overview_table_heading">
@@ -428,7 +430,7 @@ const Dashboard = () => {
                       >
                         <TableCell
                           align="right"
-                          className="d-flex flex-row-reverse"
+                          className="d-flex flex-row align-items-center"
                         >
                           <Stack direction="row" spacing={2}>
                             <Avatar
@@ -443,6 +445,7 @@ const Dashboard = () => {
                           </Stack>
                           <Typography>{data?.name || '-'}</Typography>
                         </TableCell>
+
                         <TableCell align="right">{data?.role || '-'}</TableCell>
                         <TableCell align="right">
                           {data.attendances || '-'}
@@ -474,6 +477,7 @@ const Dashboard = () => {
             </Table>
           </TableContainer>
         </Box>
+
         <Box className="team_overview">
           <Box className="team_overview_heading">
             <Typography className="team_overview_inner_heading" variant="span">

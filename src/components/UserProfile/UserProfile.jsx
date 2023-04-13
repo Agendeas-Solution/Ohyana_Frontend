@@ -277,7 +277,7 @@ const UserProfile = () => {
             <Box className="staff_profile">
               <Box className="staff_profile_page">
                 <Typography
-                  className="user_profile_font_weight"
+                  className="profile_data_lable"
                   variant="span"
                 >
                   Contact No.:
@@ -290,7 +290,7 @@ const UserProfile = () => {
                 <Box className="staff_profile_page">
                   <Typography
                     variant="span"
-                    className="user_profile_font_weight"
+                    className="profile_data_lable"
                   >
                     Senior Post:
                   </Typography>
@@ -302,7 +302,7 @@ const UserProfile = () => {
               <Box className="staff_profile_page">
                 <Typography
                   variant="span"
-                  className=" user_profile_font_weight"
+                  className=" profile_data_lable"
                 >
                   Email:
                 </Typography>
@@ -311,7 +311,7 @@ const UserProfile = () => {
               <Box className="staff_profile_page">
                 <Typography
                   variant="span"
-                  className=" user_profile_font_weight"
+                  className=" profile_data_lable"
                 >
                   Password:
                 </Typography>
@@ -319,7 +319,7 @@ const UserProfile = () => {
               </Box>
               <Box className="staff_profile_page">
                 <Typography
-                  className=" user_profile_font_weight"
+                  className=" profile_data_lable"
                   variant="span"
                 >
                   Birthday
@@ -328,7 +328,7 @@ const UserProfile = () => {
               </Box>
               <Box className="staff_profile_page">
                 <Typography
-                  className=" user_profile_font_weight"
+                  className=" profile_data_lable"
                   variant="span"
                 >
                   Gender

@@ -21,8 +21,12 @@ import {
   DeleteAdminProduct,
   UpdateProductQuantity,
 } from '../../services/apiservices/adminprofile'
-const ViewProductDialog = ({ viewProductDialog, handleClose, deleteProductDialogControl,
-  setDeleteProductDialogControl }) => {
+const ViewProductDialog = ({
+  viewProductDialog,
+  handleClose,
+  deleteProductDialogControl,
+  setDeleteProductDialogControl,
+}) => {
   const [productDetail, setProductDetail] = useState({})
   const navigate = useNavigate()
   useEffect(() => {
@@ -31,7 +35,7 @@ const ViewProductDialog = ({ viewProductDialog, handleClose, deleteProductDialog
       res => {
         setProductDetail(res?.data)
       },
-      err => { },
+      err => {},
     )
   }, [viewProductDialog?.id])
   const handleDeleteProduct = () => {
@@ -71,7 +75,16 @@ const ViewProductDialog = ({ viewProductDialog, handleClose, deleteProductDialog
             >
               <EditRoundedIcon />
             </Button>
-            <Button onClick={() => setDeleteProductDialogControl({ ...deleteProductDialogControl, status: true, id: viewProductDialog?.id })} className="common_button">
+            <Button
+              onClick={() =>
+                setDeleteProductDialogControl({
+                  ...deleteProductDialogControl,
+                  status: true,
+                  id: viewProductDialog?.id,
+                })
+              }
+              className="common_button"
+            >
               <DeleteRoundedIcon />
             </Button>
           </Box>
@@ -84,6 +97,7 @@ const ViewProductDialog = ({ viewProductDialog, handleClose, deleteProductDialog
                 <img src={SampleProduct} alt="" />
               </Box>
               <TextField
+                size="small"
                 value={productDetail?.quantity}
                 onChange={e =>
                   setProductDetail({

@@ -91,7 +91,6 @@ const Task = () => {
   }
   const handleOpenMemberDialog = id => {
     setTaskId(id)
-
     setOpenMemberDialog(true)
   }
   const handleCloseMemberDialog = () => {
@@ -168,7 +167,7 @@ const Task = () => {
         setMember()
         handleCloseMemberDialog()
       },
-      err => { },
+      err => {},
     )
   }
 
@@ -232,10 +231,10 @@ const Task = () => {
             <DrawerHeader
               sx={{
                 display: 'flex',
-                justifyContent: 'space-between',
                 alignItems: 'center',
               }}
             >
+
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <IconButton
                   sx={{ color: '#2e3591' }}
@@ -278,17 +277,14 @@ const Task = () => {
                       due_date: moment(e).format('YYYY-MM-DD'),
                     })
                   }}
+                  getOptionLabel={option => option.stage}
                   renderInput={params => (
                     <TextField
                       variant="outlined"
                       {...params}
-                      label="Date"
-                      sx={{ margin: '10px' }}
+                      label="Member Name"
                     />
                   )}
-                  PopperProps={{
-                    placement: 'bottom-start', // Set placement to 'bottom-start'
-                  }}
                 />
               </LocalizationProvider>
               <FormControl>
@@ -309,76 +305,71 @@ const Task = () => {
             </Box>
           </Drawer>
         </Box>
-      </Box>
-      <Box className="below_main_tab_section">
-        <Box className="inner_container">
-          {taskList.length > 0 ? (
-            taskList.map(taskData => {
-              return (
-                <Box className="task_card">
-                  <Box
-                    className="task_card_hover"
-                    onClick={() => {
-                      navigate(`/taskdetail/${taskData?.id}`)
-                    }}
-                  >
-                    <Typography className="task_card_heading" variant="span">
-                      {taskData.title}
-                    </Typography>
 
-                    <Typography className="task_description" variant="span">
-                      {taskData.description}
-                    </Typography>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <Typography className="task_date" variant="span">
-                      {moment(taskData.createdAt).format('Do MMM YY')}
-                    </Typography>
-                    {taskData?.team?.email ? (
-                      <Typography className="name_chip " variant="span">
-                        {taskData?.team?.email.toUpperCase().charAt(0)}
+        <Box className="below_main_tab_section">
+          <Box className="inner_container">
+            {taskList.length > 0 ? (
+              taskList.map(taskData => {
+                return (
+                  <Box className="task_card">
+                    <Box
+                      className="task_card_hover"
+                      onClick={() => {
+                        navigate(`/taskdetail/${taskData?.id}`)
+                      }}
+                    >
+                      <Typography className="task_card_heading" variant="span">
+                        {taskData.title}
                       </Typography>
-                    ) : (
-                      <Button
-                        onClick={() => handleOpenMemberDialog(taskData.id)}
-                        className="task_button"
-                      >
-                        + Member
-                      </Button>
-                    )}
+
+                      <Typography className="task_description" variant="span">
+                        {taskData.description}
+                      </Typography>
+                    </Box>
+
+                    <Box className="task_bottom_section">
+                      <Typography className="task_date" variant="span">
+                        {moment(taskData.createdAt).format('Do MMM YY')}
+                      </Typography>
+                      {taskData?.team?.email ? (
+                        <Typography className="name_chip " variant="span">
+                          {taskData?.team?.email.toUpperCase().charAt(0)}
+                        </Typography>
+                      ) : (
+                        <Button
+                          onClick={() => handleOpenMemberDialog(taskData.id)}
+                          className="task_button"
+                        >
+                          + Member
+                        </Button>
+                      )}
+                    </Box>
                   </Box>
-                </Box>
-              )
-            })
-          ) : (
-            <NoResultFound />
-          )}
+                )
+              })
+            ) : (
+              <NoResultFound />
+            )}
+          </Box>
+          <CreateTaskDialog
+            handleClose={handleClose}
+            fullScreen={fullScreen}
+            open={open}
+            createTask={createTask}
+            handleCreateTask={handleCreateTask}
+            setCreateTask={setCreateTask}
+          />
+          <AssignMemberDialog
+            handleCloseMemberDialog={handleCloseMemberDialog}
+            openMemberDialog={openMemberDialog}
+            handleAssignMember={handleAssignMember}
+            memberList={memberList}
+            member={member}
+            setMember={setMember}
+          />
         </Box>
-        <CreateTaskDialog
-          handleClose={handleClose}
-          fullScreen={fullScreen}
-          open={open}
-          createTask={createTask}
-          handleCreateTask={handleCreateTask}
-          setCreateTask={setCreateTask}
-        />
-        <AssignMemberDialog
-          handleCloseMemberDialog={handleCloseMemberDialog}
-          openMemberDialog={openMemberDialog}
-          handleAssignMember={handleAssignMember}
-          memberList={memberList}
-          member={member}
-          setMember={setMember}
-        />
       </Box>
-    </Box>
+    </>
   )
 }
 

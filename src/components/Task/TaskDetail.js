@@ -190,6 +190,7 @@ const TaskDetail = () => {
       )
     }
   }, [checkLists, countDoneTask])
+
   return (
     <>
       <Box className="main_section">

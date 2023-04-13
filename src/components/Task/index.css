@@ -1,31 +1,8 @@
-.task_card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: calc(100% / 4 - 1rem);
-  height: 155px;
-  border-radius: 5px;
-  border: 1px solid #e5e5e5;
-  padding: 10px;
-}
-
 .inner_container {
   height: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-}
-
-.below_main_tab_section {
-  background-color: #fff;
-  margin-top: 5px;
-  width: 100%;
-  border-radius: 5px;
-  height: 79vh;
-  width: 78vw;
-  padding: 10px !important;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
 .task_header {
@@ -132,10 +109,6 @@
   margin: 5px;
   font-size: 15px;
   text-decoration: line-through;
-}
-
-.task_card_hover:hover {
-  cursor: pointer;
 }
 
 .task_button {
