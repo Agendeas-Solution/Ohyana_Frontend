@@ -12,6 +12,7 @@ export const GetTaskList = async (value, onSuccess, onError) => {
   try {
     const { data } = await axiosInstance.get(`/tasks`, {
       headers: { ...defaultHeaders },
+      params: value
     })
     console.log('Printing data of GetTaskList', data)
     onSuccess && onSuccess(data)

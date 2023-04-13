@@ -32,6 +32,7 @@ import {
 } from '../../services/apiservices/adminprofile'
 import ApplyLeaveDialog from './ApplyLeaveDialog'
 import { GetAllHoliday } from '../../services/apiservices/holiday'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const SuccessSnackbar = React.lazy(() =>
@@ -44,6 +45,8 @@ const HolidayData = React.lazy(() => import('./HolidayData'))
 const UserProfile = () => {
   const navigate = useNavigate()
   const [value, setValue] = useState('Profile')
+  const { successSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
@@ -198,17 +201,17 @@ const UserProfile = () => {
               >
                 <Box className="inner_profile_details first_box me-3 p-2">
                   <Typography>Total Days</Typography>
-                  <Typography>24</Typography>
+                  <Typography>{staffAttendanceList?.totalDays}</Typography>
                 </Box>
 
                 <Box className="inner_profile_details middle_box  me-3 p-2">
                   <Typography>Absent Days</Typography>
-                  <Typography>10</Typography>
+                  <Typography>{staffAttendanceList?.absentDays}</Typography>
                 </Box>
 
                 <Box className="inner_profile_details last_box p-2">
                   <Typography>Late Days</Typography>
-                  <Typography>5d</Typography>
+                  <Typography>{staffAttendanceList?.lateDays}</Typography>
                 </Box>
               </Box>
 

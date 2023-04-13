@@ -11,6 +11,9 @@ import {
   Drawer,
   Divider,
   Autocomplete,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
@@ -46,11 +49,14 @@ const Task = () => {
   const [openMemberDialog, setOpenMemberDialog] = useState(false)
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const [taskId, setTaskId] = useState()
-  const [clientStage, setClientStage] = useState()
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const theme = useTheme()
   const [member, setMember] = useState({})
-
+  const [filterTask, setFilterTask] = useState({
+    due_date: '',
+    teamId: '',
+  })
+  const [searchQuery, setSearchQuery] = useState('')
   const [createTask, setCreateTask] = useState({
     title: '',
     description: '',
@@ -59,10 +65,6 @@ const Task = () => {
   const [memberList, setMemberList] = useState([])
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
-  const [clientType, setClientType] = useState([
-    { stage: 'john', id: 0 },
-    { stage: 'michael', id: 1 },
-  ])
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -89,23 +91,33 @@ const Task = () => {
   }
   const handleOpenMemberDialog = id => {
     setTaskId(id)
-    GetAllMemberList(
-      {},
-      res => {
-        setMemberList(res.data)
-      },
-      err => { },
-    )
+
     setOpenMemberDialog(true)
   }
   const handleCloseMemberDialog = () => {
     setOpenMemberDialog(false)
   }
-  const handleApplyFilter = () => { }
-  const handleClearAllFilter = () => { }
+  const handleClearAllFilter = () => {
+    setFilterTask({
+      ...filterTask,
+      due_date: null,
+      teamId: '',
+    })
+  }
   const handleTaskList = () => {
+    let data = {}
+    if (searchQuery !== "") {
+      data['searchQuery'] = searchQuery
+    }
+    if (filterTask.due_date !== "") {
+      data['due_date'] = filterTask.due_date
+    }
+    if (filterTask.teamId !== "") {
+      data['teamId'] = filterTask.teamId
+    }
+    debugger;
     GetTaskList(
-      {},
+      data,
       res => {
         if (res?.success) {
           setTaskList(res?.data)
@@ -113,12 +125,22 @@ const Task = () => {
       },
       err => {
         console.log(err)
+        setTaskList([])
+
       },
     )
   }
-
   useEffect(() => {
     handleTaskList()
+  }, [searchQuery])
+  useEffect(() => {
+    GetAllMemberList(
+      {},
+      res => {
+        setMemberList(res.data)
+      },
+      err => { },
+    )
   }, [])
   const handleCreateTask = () => {
     CreateTaskCall(
@@ -169,6 +191,8 @@ const Task = () => {
               <OutlinedInput
                 className="search_field"
                 placeholder="Search Here..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 startAdornment={
                   <InputAdornment position="start" sx={{ margin: '0px' }}>
                     <IconButton sx={{ margin: '0px' }}>
@@ -232,7 +256,7 @@ const Task = () => {
                   Reset
                 </Button>
                 <Button
-                  onClick={handleApplyFilter}
+                  onClick={handleTaskList}
                   className="common_button"
                   variant="contained"
                 >
@@ -247,10 +271,10 @@ const Task = () => {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   inputFormat="dd/MM/yyyy"
-                  value={createTask.due_date}
+                  value={filterTask.due_date}
                   onChange={e => {
-                    setCreateTask({
-                      ...createTask,
+                    setFilterTask({
+                      ...filterTask,
                       due_date: moment(e).format('YYYY-MM-DD'),
                     })
                   }}
@@ -267,24 +291,21 @@ const Task = () => {
                   }}
                 />
               </LocalizationProvider>
-              <Autocomplete
-                sx={{ margin: '10px' }}
-                disablePortal
-                options={clientType}
-                value={clientStage !== null ? clientType[clientStage] : null}
-                onChange={(e, value) => {
-                  console.log(value)
-                  setClientStage(value?.id)
-                }}
-                getOptionLabel={option => option.stage}
-                renderInput={params => (
-                  <TextField
-                    variant="outlined"
-                    {...params}
-                    label="Member Name"
-                  />
-                )}
-              />
+              <FormControl>
+                <InputLabel>Select Member</InputLabel>
+                <Select
+                  label="Select Member"
+                  value={filterTask?.teamId}
+                  onChange={e => {
+                    setFilterTask({ ...filterTask, teamId: e.target.value })
+                  }}
+                >
+                  {memberList.length > 0 &&
+                    memberList.map((data) => {
+                      return <MenuItem value={data?.id}>{data?.email}</MenuItem>
+                    })}
+                </Select>
+              </FormControl>
             </Box>
           </Drawer>
         </Box>
