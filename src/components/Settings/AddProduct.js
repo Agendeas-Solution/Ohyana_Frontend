@@ -13,6 +13,7 @@ import {
 import { GetProductDetail } from '../../services/apiservices/productDetail'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+import CompanyIcon from '../../assets/img/companyIcon.svg'
 
 const AddProduct = props => {
   const [productDetail, setProductDetail] = useState({
@@ -26,7 +27,7 @@ const AddProduct = props => {
   })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   let path = window.location.pathname
   console.log('Printing Path of ', path)
   console.log('Printing ', path.split('/').pop())
@@ -46,7 +47,6 @@ const AddProduct = props => {
             weight: res.data.weight,
             skuId: res.data.skuId,
           })
-
         },
         err => {
           setErrorSnackbar({
@@ -64,8 +64,12 @@ const AddProduct = props => {
         parseInt(path),
         res => {
           if (res.success) {
-            navigate('/productlist');
-            setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
+            navigate('/productlist')
+            setSuccessSnackbar({
+              ...successSnackbar,
+              message: res?.message,
+              status: true,
+            })
           }
         },
         err => {
@@ -81,8 +85,12 @@ const AddProduct = props => {
         productDetail,
         res => {
           if (res.success) {
-            navigate('/productlist');
-            setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
+            navigate('/productlist')
+            setSuccessSnackbar({
+              ...successSnackbar,
+              message: res?.message,
+              status: true,
+            })
           }
         },
         err => {
@@ -97,8 +105,113 @@ const AddProduct = props => {
   }
   return (
     <>
-      <Box className="main_section">
-        {/* Product Name &&  Business Name */}
+      {/* <Dialog
+        open={props.addProductDialogControl.status}
+        onClose={props.handleClose}
+      >
+        <div className="px-3 pt-3">
+          <h3>Product</h3>
+        </div>
+        <DialogContent>
+          <Box className="py-3">
+            <div className="row">
+              <div className="col-md-6">
+                <Typography variant="span">Product Name</Typography>
+              </div>
+              <div className="col-md-12">
+                <TextField className="w-100"
+                  defaultValue={
+                    props.addProductDialogControl.id
+                      ? props.addProductDialogControl.name
+                      : productOrMachineName.name
+                  }
+                  onChange={(e) => {
+                    if (e.target.value !== "") {
+                      setFlagButton(false);
+                      setProductOrMachineName({
+                        ...productOrMachineName,
+                        name: e.target.value,
+                      });
+                      setEditProductDetail({
+                        ...editProductDetail,
+                        name: e.target.value,
+                        id: props.addProductDialogControl.id,
+                      });
+                    } else {
+                      setFlagButton(true);
+                    }
+                  }}
+                  variant="outlined"
+                  placeholder="Product Name"
+                />
+              </div>
+            </div>
+          </Box>
+          {props?.addProductDialogControl?.id === null && (
+            <RadioGroup
+              row
+              defaultValue={
+                props?.addProductDialogControl?.id
+                  ? props.addProductDialogControl.type
+                  : productOrMachineName.type
+              }
+              onChange={(e) => {
+                if (e.target.value !== "") {
+                  setProductOrMachineName({
+                    ...productOrMachineName,
+                    type: e.target.value,
+                  });
+                }
+              }}
+            >
+              <FormControlLabel
+                value="PRODUCT"
+                control={<Radio />}
+                label="Product"
+              />
+              <FormControlLabel
+                value="MACHINE"
+                control={<Radio />}
+                label="Machine"
+              />
+            </RadioGroup>
+          )}
+        </DialogContent>
+        <DialogActions sx={{ marginLeft: "13px", marginRight: "13px" }} className="mt-1 d-flex justify-content-between">
+          <Button
+            variant="contained"
+            disabled={flagButton}
+            onClick={() => {
+              if (props.addProductDialogControl.id) {
+                EditProduct(editProductDetail);
+              } else {
+                handleAddProduct();
+              }
+            }}
+          >
+            Ok
+          </Button>
+          <Button className="cancel-btn" onClick={() => {
+            props.handleClose();
+            setProductOrMachineName({ ...productOrMachineName, name: "" })
+            setEditProductDetail({ ...editProductDetail, name: "" })
+          }} autoFocus>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog> */}
+      {/* <Box className="edit_profile_section"> */}
+      <Box className="product_list_add_section">
+        <Box className="input_field_row justify-content-center">
+          <Box className="product_profile_icon">
+            <img
+              src={CompanyIcon}
+              className="user_profile_icon"
+              alt="profile"
+            />
+          </Box>
+        </Box>
+
         <Box className="input_field_row">
           <Box className="input_fields">
             <TextField
@@ -123,8 +236,8 @@ const AddProduct = props => {
             />
           </Box>
         </Box>
-
         {/* Price &&  Enter Quantity */}
+
         <Box className="input_field_row">
           <Box className="input_fields">
             <TextField
@@ -145,13 +258,14 @@ const AddProduct = props => {
               variant="outlined"
               value={productDetail.quantity}
               onChange={e => {
-                setProductDetail({ ...productDetail, quantity: e.target.value })
+                setProductDetail({
+                  ...productDetail,
+                  quantity: e.target.value,
+                })
               }}
             />
           </Box>
         </Box>
-
-        {/* Weight &&  Material Type */}
         <Box className="input_field_row">
           <Box className="input_fields">
             <TextField
@@ -180,8 +294,6 @@ const AddProduct = props => {
             />
           </Box>
         </Box>
-
-        {/* Description */}
         <Box className="input_field_row">
           <Box className="input_fields">
             <TextField
@@ -201,11 +313,8 @@ const AddProduct = props => {
             />
           </Box>
         </Box>
+        <Box sx={{ justifyContent: 'flex-start' }} className="input_field_row">
 
-        <Box
-          sx={{ display: 'flex', justifyContent: 'flex-end' }}
-          className="input_field_row"
-        >
           <Button
             onClick={handleAddProduct}
             variant="contained"
