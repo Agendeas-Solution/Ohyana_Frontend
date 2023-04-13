@@ -14,30 +14,29 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { GetAllLeaveType, ApplyLeave } from '../../services/apiservices/holiday'
 import moment from 'moment'
 const HolidayDialog = ({
-  addHolidayDialog,
-  handleCloseDialog,
+  handleCloseHolidayDialog,
   addHolidayDetail,
   setAddHolidayDetail,
   SetHoliday,
   UpdateHolidayFunc,
 }) => {
-  const [leaveType, setLeaveType] = useState([])
-  const [leaveDetail, setLeaveDetail] = useState({
-    duration: '',
-    leaveType: null,
-  })
-  useEffect(() => {
-    GetAllLeaveType(
-      {},
-      res => {
-        setLeaveType(res.data)
-      },
-      err => {},
-    )
-  }, [])
+  // const [leaveType, setLeaveType] = useState([])
+  // const [leaveDetail, setLeaveDetail] = useState({
+  //   duration: '',
+  //   leaveType: null,
+  // })
+  // useEffect(() => {
+  //   GetAllLeaveType(
+  //     {},
+  //     res => {
+  //       setLeaveType(res.data)
+  //     },
+  //     err => { },
+  //   )
+  // }, [])
   return (
     <>
-      <Dialog open={addHolidayDialog.status} onClose={handleCloseDialog}>
+      <Dialog open={addHolidayDetail.status} onClose={handleCloseHolidayDialog}>
         <div className="px-3 pt-3">
           <h3>Set Holiday</h3>
         </div>
@@ -84,7 +83,7 @@ const HolidayDialog = ({
                     })
                   }}
                   className="w-100"
-                  placeholder="Enter Holiday Duration "
+                  placeholder="Enter Holiday Duration"
                   variant="outlined"
                 />
               </div>
@@ -121,19 +120,13 @@ const HolidayDialog = ({
             className="ok-btn"
             onClick={
               addHolidayDetail?.id
-                ? () =>
-                    UpdateHolidayFunc(addHolidayDetail?.id, {
-                      date: addHolidayDetail?.date,
-                      occasion: addHolidayDetail?.occasion,
-                      duration: addHolidayDetail?.duration,
-                      regular: false,
-                    })
+                ? UpdateHolidayFunc
                 : SetHoliday
             }
           >
             Ok
           </Button>
-          <Button onClick={handleCloseDialog} className="cancel-btn" autoFocus>
+          <Button onClick={handleCloseHolidayDialog} className="cancel-btn" autoFocus>
             Cancel
           </Button>
         </DialogActions>

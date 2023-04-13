@@ -7,28 +7,29 @@ import {
     Button,
     Typography,
 } from '@mui/material'
+import { DeleteAdminProduct } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-const DeleteLeaveDialog = ({ setDeleteLeaveDialogControl, deleteLeaveDialogControl, handleDeleteLeave, handleLeaveDeleteDialog }) => {
+const DeleteHolidayDialog = ({ deleteHolidayDialogControl, handleDeleteHoliday, handleHolidayDeleteDialog }) => {
     return (
         <>
             <Dialog
-                open={deleteLeaveDialogControl.status}
-                onClose={handleLeaveDeleteDialog}
+                open={deleteHolidayDialogControl.status}
+                onClose={handleHolidayDeleteDialog}
             >
-                <DialogTitle>Delete Leave</DialogTitle>
+                <DialogTitle>Delete Holiday</DialogTitle>
                 <DialogContent>
                     <Typography variant="span">
-                        Are You Sure you want to Delete this Leave ?
+                        Are You Sure you want to Delete this Holiday ?
                     </Typography>
                 </DialogContent>
                 <DialogActions className="m-auto">
                     <Button
                         variant="contained"
-                        onClick={handleDeleteLeave}
+                        onClick={handleDeleteHoliday}
                     >
                         Ok
                     </Button>
-                    <Button className="cancel-btn" onClick={handleLeaveDeleteDialog} autoFocus>
+                    <Button className="cancel-btn" onClick={handleHolidayDeleteDialog} autoFocus>
                         Cancel
                     </Button>
                 </DialogActions>
@@ -37,4 +38,4 @@ const DeleteLeaveDialog = ({ setDeleteLeaveDialogControl, deleteLeaveDialogContr
     )
 }
 
-export default DeleteLeaveDialog
+export default DeleteHolidayDialog
