@@ -94,15 +94,15 @@ const Task = () => {
       res => {
         setMemberList(res.data)
       },
-      err => { },
+      err => {},
     )
     setOpenMemberDialog(true)
   }
   const handleCloseMemberDialog = () => {
     setOpenMemberDialog(false)
   }
-  const handleApplyFilter = () => { }
-  const handleClearAllFilter = () => { }
+  const handleApplyFilter = () => {}
+  const handleClearAllFilter = () => {}
   const handleTaskList = () => {
     GetTaskList(
       {},
@@ -146,216 +146,225 @@ const Task = () => {
         setMember()
         handleCloseMemberDialog()
       },
-      err => { },
+      err => {},
     )
   }
 
   return (
-    <Box className="main_tab_section">
-      <Box className="tab_header">
-        <Box>
-          <Typography sx={{ color: '#8E8E8E' }} variant="span">
-            Overview
-          </Typography>
-        </Box>
-        <Box>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <FormControl variant="outlined">
-              <OutlinedInput
-                className="search_field"
-                placeholder="Search Here..."
-                startAdornment={
-                  <InputAdornment position="start" sx={{ margin: '0px' }}>
-                    <IconButton sx={{ margin: '0px' }}>
-                      <SearchRoundedIcon />
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-            <Button
-              onClick={handleClickOpen}
-              className="main_tab_button"
-              variant="span"
-            >
-              + Task
-            </Button>
-            <IconButton
-              edge="end"
-              onClick={handleDrawerOpen}
-              sx={{ ...(openDrawer && { display: 'flex' }) }}
-            >
-              <img src={FilterIcon} alt="" />
-            </IconButton>
+    <>
+      <Box className="main_tab_section">
+        <Box className="tab_header">
+          <Box>
+            <Typography sx={{ color: '#8E8E8E' }} variant="span">
+              Overview
+            </Typography>
           </Box>
-          <Drawer
-            onClose={handleDrawerClose}
-            sx={{
-              '& .MuiDrawer-paper': {
-                width: drawerWidth,
-              },
-            }}
-            anchor="right"
-            open={openDrawer}
-          >
-            <DrawerHeader
+
+          <Box>
+            <Box
               sx={{
                 display: 'flex',
-                justifyContent: 'space-between',
                 alignItems: 'center',
               }}
             >
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <IconButton
-                  sx={{ color: '#2e3591' }}
-                  disableRipple={true}
-                  onClick={handleDrawerClose}
-                >
-                  {theme.direction === 'rtl' ? (
-                    <ChevronLeftIcon sx={{ fontSize: '30px' }} />
-                  ) : (
-                    <ChevronRightIcon sx={{ fontSize: '30px' }} />
-                  )}
-                </IconButton>
-
-                <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
-              </Box>
-              <Box>
-                <Button onClick={handleClearAllFilter} className="text_button">
-                  Reset
-                </Button>
-                <Button
-                  onClick={handleApplyFilter}
-                  className="common_button"
-                  variant="contained"
-                >
-                  Apply
-                </Button>
-              </Box>
-            </DrawerHeader>
-            <Divider />
-            <Box
-              sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}
+              <FormControl variant="outlined">
+                <OutlinedInput
+                  className="search_field"
+                  placeholder="Search Here..."
+                  startAdornment={
+                    <InputAdornment position="start" sx={{ margin: '0px' }}>
+                      <IconButton sx={{ margin: '0px' }}>
+                        <SearchRoundedIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+              <Button
+                onClick={handleClickOpen}
+                className="main_tab_button"
+                variant="span"
+              >
+                + Task
+              </Button>
+              <IconButton
+                edge="end"
+                onClick={handleDrawerOpen}
+                sx={{
+                  ...(openDrawer && { display: 'flex' }),
+                  padding: '0',
+                  margin: '0px 0px 0px 10px',
+                }}
+              >
+                <img src={FilterIcon} alt="" />
+              </IconButton>
+            </Box>
+            <Drawer
+              onClose={handleDrawerClose}
+              sx={{
+                '& .MuiDrawer-paper': {
+                  width: drawerWidth,
+                },
+              }}
+              anchor="right"
+              open={openDrawer}
             >
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  inputFormat="dd/MM/yyyy"
-                  value={createTask.due_date}
-                  onChange={e => {
-                    setCreateTask({
-                      ...createTask,
-                      due_date: moment(e).format('YYYY-MM-DD'),
-                    })
+              <DrawerHeader
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <IconButton
+                    sx={{ color: '#2e3591' }}
+                    disableRipple={true}
+                    onClick={handleDrawerClose}
+                  >
+                    {theme.direction === 'rtl' ? (
+                      <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                    ) : (
+                      <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                    )}
+                  </IconButton>
+
+                  <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
+                </Box>
+                <Box>
+                  <Button
+                    onClick={handleClearAllFilter}
+                    className="text_button"
+                  >
+                    Reset
+                  </Button>
+                  <Button
+                    onClick={handleApplyFilter}
+                    className="common_button"
+                    variant="contained"
+                  >
+                    Apply
+                  </Button>
+                </Box>
+              </DrawerHeader>
+              <Divider />
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  margin: '10px',
+                }}
+              >
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    inputFormat="dd/MM/yyyy"
+                    value={createTask.due_date}
+                    onChange={e => {
+                      setCreateTask({
+                        ...createTask,
+                        due_date: moment(e).format('YYYY-MM-DD'),
+                      })
+                    }}
+                    renderInput={params => (
+                      <TextField
+                        variant="outlined"
+                        {...params}
+                        label="Date"
+                        sx={{ margin: '10px' }}
+                      />
+                    )}
+                    PopperProps={{
+                      placement: 'bottom-start', // Set placement to 'bottom-start'
+                    }}
+                  />
+                </LocalizationProvider>
+                <Autocomplete
+                  sx={{ margin: '10px' }}
+                  disablePortal
+                  options={clientType}
+                  value={clientStage !== null ? clientType[clientStage] : null}
+                  onChange={(e, value) => {
+                    console.log(value)
+                    setClientStage(value?.id)
                   }}
+                  getOptionLabel={option => option.stage}
                   renderInput={params => (
                     <TextField
                       variant="outlined"
                       {...params}
-                      label="Date"
-                      sx={{ margin: '10px' }}
+                      label="Member Name"
                     />
                   )}
-                  PopperProps={{
-                    placement: 'bottom-start', // Set placement to 'bottom-start'
-                  }}
                 />
-              </LocalizationProvider>
-              <Autocomplete
-                sx={{ margin: '10px' }}
-                disablePortal
-                options={clientType}
-                value={clientStage !== null ? clientType[clientStage] : null}
-                onChange={(e, value) => {
-                  console.log(value)
-                  setClientStage(value?.id)
-                }}
-                getOptionLabel={option => option.stage}
-                renderInput={params => (
-                  <TextField
-                    variant="outlined"
-                    {...params}
-                    label="Member Name"
-                  />
-                )}
-              />
-            </Box>
-          </Drawer>
+              </Box>
+            </Drawer>
+          </Box>
         </Box>
-      </Box>
-      <Box className="below_main_tab_section">
-        <Box className="inner_container">
-          {taskList.length > 0 ? (
-            taskList.map(taskData => {
-              return (
-                <Box className="task_card">
-                  <Box
-                    className="task_card_hover"
-                    onClick={() => {
-                      navigate(`/taskdetail/${taskData?.id}`)
-                    }}
-                  >
-                    <Typography className="task_card_heading" variant="span">
-                      {taskData.title}
-                    </Typography>
 
-                    <Typography className="task_description" variant="span">
-                      {taskData.description}
-                    </Typography>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <Typography className="task_date" variant="span">
-                      {moment(taskData.createdAt).format('Do MMM YY')}
-                    </Typography>
-                    {taskData?.team?.email ? (
-                      <Typography className="name_chip " variant="span">
-                        {taskData?.team?.email.toUpperCase().charAt(0)}
+        <Box className="below_main_tab_section">
+          <Box className="inner_container">
+            {taskList.length > 0 ? (
+              taskList.map(taskData => {
+                return (
+                  <Box className="task_card">
+                    <Box
+                      className="task_card_hover"
+                      onClick={() => {
+                        navigate(`/taskdetail/${taskData?.id}`)
+                      }}
+                    >
+                      <Typography className="task_card_heading" variant="span">
+                        {taskData.title}
                       </Typography>
-                    ) : (
-                      <Button
-                        onClick={() => handleOpenMemberDialog(taskData.id)}
-                        className="task_button"
-                      >
-                        + Member
-                      </Button>
-                    )}
+
+                      <Typography className="task_description" variant="span">
+                        {taskData.description}
+                      </Typography>
+                    </Box>
+
+                    <Box className="task_bottom_section">
+                      <Typography className="task_date" variant="span">
+                        {moment(taskData.createdAt).format('Do MMM YY')}
+                      </Typography>
+                      {taskData?.team?.email ? (
+                        <Typography className="name_chip " variant="span">
+                          {taskData?.team?.email.toUpperCase().charAt(0)}
+                        </Typography>
+                      ) : (
+                        <Button
+                          onClick={() => handleOpenMemberDialog(taskData.id)}
+                          className="task_button"
+                        >
+                          + Member
+                        </Button>
+                      )}
+                    </Box>
                   </Box>
-                </Box>
-              )
-            })
-          ) : (
-            <NoResultFound />
-          )}
+                )
+              })
+            ) : (
+              <NoResultFound />
+            )}
+          </Box>
+          <CreateTaskDialog
+            handleClose={handleClose}
+            fullScreen={fullScreen}
+            open={open}
+            createTask={createTask}
+            handleCreateTask={handleCreateTask}
+            setCreateTask={setCreateTask}
+          />
+          <AssignMemberDialog
+            handleCloseMemberDialog={handleCloseMemberDialog}
+            openMemberDialog={openMemberDialog}
+            handleAssignMember={handleAssignMember}
+            memberList={memberList}
+            member={member}
+            setMember={setMember}
+          />
         </Box>
-        <CreateTaskDialog
-          handleClose={handleClose}
-          fullScreen={fullScreen}
-          open={open}
-          createTask={createTask}
-          handleCreateTask={handleCreateTask}
-          setCreateTask={setCreateTask}
-        />
-        <AssignMemberDialog
-          handleCloseMemberDialog={handleCloseMemberDialog}
-          openMemberDialog={openMemberDialog}
-          handleAssignMember={handleAssignMember}
-          memberList={memberList}
-          member={member}
-          setMember={setMember}
-        />
       </Box>
-    </Box>
+    </>
   )
 }
 

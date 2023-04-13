@@ -13,6 +13,7 @@ import {
 import { GetProductDetail } from '../../services/apiservices/productDetail'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+import CompanyIcon from '../../assets/img/companyIcon.svg'
 
 const AddProduct = props => {
   const [productDetail, setProductDetail] = useState({
@@ -26,7 +27,7 @@ const AddProduct = props => {
   })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   let path = window.location.pathname
   console.log('Printing Path of ', path)
   console.log('Printing ', path.split('/').pop())
@@ -46,7 +47,6 @@ const AddProduct = props => {
             weight: res.data.weight,
             skuId: res.data.skuId,
           })
-
         },
         err => {
           setErrorSnackbar({
@@ -64,8 +64,12 @@ const AddProduct = props => {
         parseInt(path),
         res => {
           if (res.success) {
-            navigate('/productlist');
-            setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
+            navigate('/productlist')
+            setSuccessSnackbar({
+              ...successSnackbar,
+              message: res?.message,
+              status: true,
+            })
           }
         },
         err => {
@@ -81,8 +85,12 @@ const AddProduct = props => {
         productDetail,
         res => {
           if (res.success) {
-            navigate('/productlist');
-            setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
+            navigate('/productlist')
+            setSuccessSnackbar({
+              ...successSnackbar,
+              message: res?.message,
+              status: true,
+            })
           }
         },
         err => {
@@ -192,7 +200,18 @@ const AddProduct = props => {
           </Button>
         </DialogActions>
       </Dialog> */}
-      <Box className="edit_profile_section">
+      {/* <Box className="edit_profile_section"> */}
+      <Box className="product_list_add_section">
+        <Box className="input_field_row justify-content-center">
+          <Box className="product_profile_icon">
+            <img
+              src={CompanyIcon}
+              className="user_profile_icon"
+              alt="profile"
+            />
+          </Box>
+        </Box>
+
         <Box className="input_field_row">
           <Box className="input_fields">
             <Typography className="input_field_label" variant="span">
@@ -223,6 +242,7 @@ const AddProduct = props => {
             />
           </Box>
         </Box>
+
         <Box className="input_field_row">
           <Box className="input_fields">
             <Typography className="input_field_label" variant="span">
@@ -245,13 +265,17 @@ const AddProduct = props => {
             <TextField
               placeholder="Enter Quantity"
               onChange={e => {
-                setProductDetail({ ...productDetail, quantity: e.target.value })
+                setProductDetail({
+                  ...productDetail,
+                  quantity: e.target.value,
+                })
               }}
               value={productDetail.quantity}
               variant="outlined"
             />
           </Box>
         </Box>
+
         <Box className="input_field_row">
           <Box className="input_fields">
             <Typography className="input_field_label" variant="span">
@@ -281,6 +305,7 @@ const AddProduct = props => {
             />
           </Box>
         </Box>
+
         <Box className="input_field_row">
           <Box className="input_fields">
             <Typography className="input_field_label" variant="span">
@@ -300,6 +325,7 @@ const AddProduct = props => {
             />
           </Box>
         </Box>
+
         <Box sx={{ justifyContent: 'flex-start' }} className="input_field_row">
           <Button
             onClick={handleAddProduct}

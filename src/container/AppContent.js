@@ -40,6 +40,8 @@ import EditCompanyProfile from '../components/CompanyProfile/EditCompanyProfile'
 import AddProduct from '../components/Settings/AddProduct'
 import JobRolesList from '../components/Settings/JobRolesList'
 import ExpenseList from '../components/Expense/ExpenseList'
+import ClientOrders from '../components/Orders/ClientOrders'
+import MyCart from '../components/Orders/MyCart'
 const socket = io('http://192.168.1.65:9009')
 
 const AppContent = () => {
@@ -76,6 +78,8 @@ const AppContent = () => {
             <Route path="/profile" element={<UserProfile />}></Route>
             <Route path="/editprofile" element={<EditProfile />}></Route>
             <Route path="/dashboard" element={<Dashboard />}></Route>
+            <Route path="/clientorders" element={<ClientOrders />}></Route>
+            <Route path="/mycart" element={<MyCart />}></Route>
             <Route
               path="/dashboardemployee"
               element={<DashboardEmployee />}
