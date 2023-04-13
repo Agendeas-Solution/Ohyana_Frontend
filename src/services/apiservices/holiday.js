@@ -115,10 +115,10 @@ export const DeleteLeaveType = async (value, onSuccess, onError) => {
     onError && onError(err)
   }
 }
-export const UpdateLeaveType = async (id, data, onSuccess, onError) => {
+export const UpdateLeaveType = async (id, value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.put(`/leave/${id}`, data, {
+    const { data } = await axiosInstance.put(`/leave/${id}`, value, {
       headers: { ...defaultHeaders },
     })
     console.log('Printing data of UpdateLeaveType', data)

@@ -312,6 +312,21 @@ export const GetAdminRole = async (value, onSuccess, onError) => {
     ////
   }
 }
+export const GetAddEditAdminRole = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.get(`/role?selection=true`, {
+      headers: { ...defaultHeaders },
+    })
+    console.log('Printing data of GetAddEditAdminRole', data)
+    onSuccess && onSuccess(data)
+    ////
+  } catch (err) {
+    console.log('Got error while calling API - GetAddEditAdminRole', err)
+    onError && onError(err)
+    ////
+  }
+}
 export const GetSingleRole = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
@@ -328,7 +343,19 @@ export const GetSingleRole = async (value, onSuccess, onError) => {
     ////
   }
 }
-
+export const UpdateClockInOut = async ( value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.put(`/clockin-out`, value, {
+      headers: { ...defaultHeaders },
+    })
+    console.log('Printing data of UpdateClockInOut', data)
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log('Got error while calling API - UpdateClockInOut', err)
+    onError && onError(err)
+  }
+}
 export const CreateJobRole = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
@@ -350,11 +377,11 @@ export const EditJobRole = async (id, value, onSuccess, onError) => {
     const { data } = await axiosInstance.put(`/role/${id}`, value, {
       headers: { ...defaultHeaders },
     })
-    console.log('Printing data of CreateJobRole', data)
+    console.log('Printing data of EditJobRole', data)
     onSuccess && onSuccess(data)
     ////
   } catch (err) {
-    console.log('Got error while calling API - CreateJobRole', err)
+    console.log('Got error while calling API - EditJobRole', err)
     onError && onError(err)
     ////
   }

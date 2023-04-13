@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
   Box,
   Button,
@@ -11,6 +11,9 @@ import {
   EditAdminProduct,
 } from '../../services/apiservices/adminprofile'
 import { GetProductDetail } from '../../services/apiservices/productDetail'
+import { useNavigate } from 'react-router-dom'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+
 const AddProduct = props => {
   const [productDetail, setProductDetail] = useState({
     name: '',
@@ -21,6 +24,9 @@ const AddProduct = props => {
     weight: '',
     description: '',
   })
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const navigate = useNavigate();
   let path = window.location.pathname
   console.log('Printing Path of ', path)
   console.log('Printing ', path.split('/').pop())
@@ -40,8 +46,15 @@ const AddProduct = props => {
             weight: res.data.weight,
             skuId: res.data.skuId,
           })
+
         },
-        err => {},
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err.response.data.message,
+          })
+        },
       )
   }, [])
   const handleAddProduct = () => {
@@ -51,20 +64,34 @@ const AddProduct = props => {
         parseInt(path),
         res => {
           if (res.success) {
-            console.log('printing Data', res.data)
+            navigate('/productlist');
+            setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
           }
         },
-        err => {},
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
       )
     } else {
       AddAdminProduct(
         productDetail,
         res => {
           if (res.success) {
-            console.log('printing Data', res.data)
+            navigate('/productlist');
+            setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
           }
         },
-        err => {},
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
       )
     }
   }

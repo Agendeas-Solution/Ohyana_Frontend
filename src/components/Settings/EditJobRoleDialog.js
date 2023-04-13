@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import {
   Dialog,
   Box,
@@ -10,147 +10,119 @@ import {
   TextField,
   TextareaAutosize,
   Autocomplete,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material'
-import { EditJobRole } from '../../services/apiservices/adminprofile'
+import { GetAddEditAdminRole } from '../../services/apiservices/adminprofile'
+import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-
-const EditJobRoleDialog = props => {
-  const [clientType, setClientType] = useState([
-    { stage: 'Jr. Sales Person', id: 0 },
-    { stage: 'Sr. Sales Person', id: 1 },
-    { stage: 'Ass. Sales Person', id: 2 },
-    { stage: 'None', id: 3 },
-  ])
-  const [clientStage, setClientStage] = useState()
-  const [jobRoleDetail, setJobRoleDetail] = useState({
-    name: props?.editJobRoleDialogControl?.name,
-    description: props?.editJobRoleDialogControl.description,
-    departmentId: props?.editJobRoleDialogControl?.departmentId,
-    id: props?.editJobRoleDialogControl?.roleId,
-  })
+const EditJobRoleDialog = ({ editJobRoleDialogControl, setEditJobRoleDialogControl,
+  handleClose, handleEditJobRole }) => {
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
-
-  const handleEditJobRole = () => {
-    if (jobRoleDetail.description !== '' && jobRoleDetail.name !== '') {
-      EditJobRole(
-        jobRoleDetail.id,
-        {
-          description: jobRoleDetail.description,
-          departmentId: jobRoleDetail.departmentId,
-          name: jobRoleDetail.name,
-        },
-        res => {
-          props.handleClose()
-          setSuccessSnackbar({
-            ...successSnackbar,
-            status: true,
-            message: res.data.message,
+  const [jobRoleList, setJobRoleList] = useState({})
+  const [seniorName, setSeniorName] = useState("");
+  useEffect(() => {
+    GetAddEditAdminRole(
+      {},
+      res => {
+        if (res.success) {
+          setJobRoleList({
+            ...jobRoleList,
+            roles: res.data,
           })
-        },
-        err => {},
-      )
-    }
-  }
-
+        }
+      },
+      err => {
+        console.log(err)
+      },
+    )
+  }, [])
   return (
     <>
-      <Dialog
-        open={props.editJobRoleDialogControl.status}
-        onClose={props.handleClose}
-      >
-        <Box sx={{ margin: '10px' }}>
-          <DialogTitle
-            sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px' }}
-          >
-            Job Role
-          </DialogTitle>
-          <DialogContent>
-            <Box>
-              <div className="row">
-                <div className="col-md-12">
-                  <Typography variant="span">Job Role</Typography>
-                </div>
-                <div className="col-md-12">
-                  <TextField
-                    value={jobRoleDetail.name}
-                    onChange={e => {
-                      setJobRoleDetail({
-                        ...jobRoleDetail,
-                        name: e.target.value,
-                      })
-                    }}
-                    className="w-100"
-                    type="text"
-                    variant="outlined"
-                    placeholder="Job Role"
-                  />
-                </div>
+      <Dialog open={editJobRoleDialogControl.status} onClose={handleClose}>
+        <DialogTitle>Job Role</DialogTitle>
+        <DialogContent>
+          <Box>
+            <div className="row">
+              <div className="col-md-12">
+                <Typography variant="span">
+                  Job Role<span className="required_star">*</span>
+                </Typography>
               </div>
-            </Box>
+              <div className="col-md-12">
+                <TextField
+                  className="w-100"
+                  value={editJobRoleDialogControl.name}
+                  onChange={e => {
+                    setEditJobRoleDialogControl({
+                      ...editJobRoleDialogControl,
+                      name: e.target.value,
+                    })
+                  }}
+                  type="text"
+                  variant="outlined"
+                  placeholder="Job Role"
+                />
+              </div>
+            </div>
+          </Box>
+          <Box>
             <div className="col-md-12 pt-4">
               <Typography variant="span">Who is the senior ?</Typography>
             </div>
-            <Autocomplete
-              className="mt-1 align-items-center d-flex client_type_select justify-content-center "
-              options={clientType}
-              value={clientStage !== null ? clientType[clientStage] : null}
-              sx={{ width: '21rem' }}
-              onChange={(e, value) => {
-                console.log(value)
-                setClientStage(value?.id)
-              }}
-              getOptionLabel={option => option.stage}
-              renderInput={params => (
-                <TextField
-                  // className="m-3"
-                  variant="outlined"
-                  // sx={{ width: '24rem' }}
-                  {...params}
-                  placeholder="Select Job Role"
-                />
-              )}
-            />
-
-            <Box>
-              <div className="row my-4">
-                <div className="col-md-6">
-                  <Typography variant="span">Description</Typography>
-                </div>
-                <div className="col-md-12">
-                  <TextareaAutosize
-                    style={{ width: 150 }}
-                    placeholder="Description Here..."
-                    className="w-100"
-                    value={jobRoleDetail.description}
-                    onChange={e => {
-                      setJobRoleDetail({
-                        ...jobRoleDetail,
-                        description: e.target.value,
-                      })
-                    }}
-                  />
-                </div>
+            <FormControl>
+              <InputLabel>Select jobRole</InputLabel>
+              <Select
+                label="Select Job Role"
+                value={editJobRoleDialogControl?.parentId}
+                onChange={e => {
+                  setEditJobRoleDialogControl({ ...editJobRoleDialogControl, parentId: e.target.value })
+                }}
+              >
+                {jobRoleList?.roles &&
+                  jobRoleList?.roles.map(data => {
+                    return <MenuItem value={data?.id}>{data?.name}</MenuItem>
+                  })}
+              </Select>
+            </FormControl>
+          </Box>
+          <Box>
+            <div className="row my-4">
+              <div className="col-md-6">
+                <Typography variant="span">
+                  Description<span className="required_star">*</span>
+                </Typography>
               </div>
-            </Box>
-          </DialogContent>
-
-          <DialogActions className="m-auto">
-            <Button
-              className="px-5 pe-5"
-              variant="contained"
-              onClick={handleEditJobRole}
-            >
-              Save
-            </Button>
-            {/* <Button className="cancel-btn" onClick={props.handleClose} autoFocus>
+              <div className="col-md-12">
+                <TextareaAutosize
+                  style={{ width: 150 }}
+                  placeholder="Description Here..."
+                  className="w-100"
+                  value={editJobRoleDialogControl.description}
+                  onChange={e => {
+                    setEditJobRoleDialogControl({
+                      ...editJobRoleDialogControl,
+                      description: e.target.value,
+                    })
+                  }}
+                />
+              </div>
+            </div>
+          </Box>
+        </DialogContent>
+        <DialogActions className="m-auto">
+          <Button variant="contained" onClick={handleEditJobRole}>
+            Ok
+          </Button>
+          <Button className="cancel-btn" onClick={handleClose} autoFocus>
             Cancel
-          </Button> */}
-          </DialogActions>
-        </Box>
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   )
 }
-
 export default EditJobRoleDialog

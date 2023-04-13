@@ -4,7 +4,6 @@ import {
   Box,
   DialogTitle,
   DialogContent,
-  DialogContentText,
   DialogActions,
   Button,
   Typography,
@@ -12,13 +11,6 @@ import {
   TextareaAutosize,
   Autocomplete,
 } from '@mui/material'
-import Stack from '@mui/material/Stack'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { TimePicker } from '@mui/x-date-pickers/TimePicker'
-import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker'
-import { DesktopTimePicker } from '@mui/x-date-pickers/DesktopTimePicker'
-import dayjs from 'dayjs'
 import { CreateJobRole } from '../../services/apiservices/adminprofile'
 import moment from 'moment'
 
@@ -35,12 +27,10 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
   const addJobRole = () => {
     if (
       jobRoleDetail.name !== '' &&
-
       jobRoleDetail.description !== '' &&
       jobRoleDetail.parentId !== '' &&
       jobRoleDetail.clockIn !== ''
     ) {
-
       CreateJobRole(
         jobRoleDetail,
         res => {
@@ -51,7 +41,7 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
             status: true,
           })
         },
-        err => {},
+        (err) => { },
       )
     }
   }
@@ -91,12 +81,10 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
             <Autocomplete
               className="mt-1 align-items-center d-flex client_type_select justify-content-center "
               options={jobRoleList?.roles}
-              // value={jobRoleDetail?.parentId}
               sx={{ width: '21rem' }}
               onChange={(e, value) => {
                 console.log(value)
                 setJobRoleDetail({ ...jobRoleDetail, parentId: value.id })
-                debugger
               }}
               getOptionLabel={option => option?.name}
               renderInput={params => (

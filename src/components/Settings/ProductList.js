@@ -19,7 +19,7 @@ const ProductList = () => {
     name: '',
     type: '',
   })
-  const [DeleteProductDialogControl, setDeleteProductDialogControl] = useState({
+  const [deleteProductDialogControl, setDeleteProductDialogControl] = useState({
     status: false,
     id: null,
     type: '',
@@ -34,7 +34,7 @@ const ProductList = () => {
   }
 
   const [AdminProductList, setAdminProductList] = useState([])
-  useEffect(() => {
+  const handleGetAdminProduct=()=>{
     GetAdminProductList(
       {},
       res => {
@@ -44,13 +44,15 @@ const ProductList = () => {
       },
       err => {
         console.log('Printing Error', err)
-        //
       },
     )
-  }, [addProductDialogControl.status, DeleteProductDialogControl.status])
+  }
+  useEffect(() => {
+    handleGetAdminProduct();
+  }, [])
   const handleClose = () => {
     setDeleteProductDialogControl({
-      ...DeleteProductDialogControl,
+      ...deleteProductDialogControl,
       status: false,
     })
     setViewProductDialog({ ...viewProductDialog, status: false })
@@ -107,12 +109,15 @@ const ProductList = () => {
         </Box>
       </TabContext>
       <DeleteProductDialog
-        DeleteProductDialogControl={DeleteProductDialogControl}
+        deleteProductDialogControl={deleteProductDialogControl}
         handleClose={handleClose}
+        handleGetAdminProduct={handleGetAdminProduct}
       />
       <ViewProductDialog
         handleClose={handleClose}
         viewProductDialog={viewProductDialog}
+        deleteProductDialogControl={deleteProductDialogControl}
+        setDeleteProductDialogControl={setDeleteProductDialogControl}
       />
     </>
   )
