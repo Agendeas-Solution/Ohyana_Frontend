@@ -47,41 +47,41 @@ const EditStatusDialog = props => {
         open={props.editStatusDialog.status}
         onClose={props.handleStatusClose}
       >
-        <div style={{ textAlign: 'center' }} className="px-3 pt-3">
-          <h4 style={{ fontWeight: '600' }}>Add Status</h4>
-        </div>
-        <DialogContent>
-          <Box>
-            <div className="row">
-              <div className="col-md-6">
-                <Typography variant="span">Description</Typography>
-              </div>
-              <div className="col-md-12">
-                <TextareaAutosize
-                  value={editStatusDetail?.description}
-                  className="w-100"
-                  sx={{ borderRadius: '10px' }}
-                  onChange={e =>
-                    setEditStatusDetail({
-                      ...editStatusDetail,
-                      description: e.target.value,
-                    })
-                  }
-                  placeholder="Description Here..."
-                />
-              </div>
-            </div>
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button variant="contained" onClick={EditStatus}>
-            Add
-          </Button>
-          <Button variant="contained" onClick={props.handleStatusClose}>
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <Box className="dialogue_main_section">
+          <Typography className="dialogue_heading">Update Status</Typography>
+          <TextField
+            className="dialogue_input_fields"
+            multiline
+            label="Description"
+            autoComplete="off"
+            minRows={3}
+            placeholder="Description Here..."
+            value={editStatusDetail?.description}
+            onChange={e =>
+              setEditStatusDetail({
+                ...editStatusDetail,
+                description: e.target.value,
+              })
+            }
+          />
+
+          <DialogActions>
+            <Button
+              className="dialogue_button_positive"
+              variant="contained"
+              onClick={EditStatus}>
+              Add
+            </Button>
+            <Button
+              className="dialogue_button_nagative"
+              variant="contained"
+              onClick={props.handleStatusClose}>
+              Cancel
+            </Button>
+
+          </DialogActions>
+        </Box>
+      </Dialog >
     </>
   )
 }

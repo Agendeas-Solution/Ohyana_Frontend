@@ -9,6 +9,7 @@ import {
   Radio,
   RadioGroup,
   FormControl,
+  DialogActions,
 } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
@@ -17,88 +18,67 @@ import { Box } from '@mui/system'
 const PoorContact = ({ addPoorContact, handleCallClose }) => {
   return (
     <>
-      <Dialog open={addPoorContact.status} onClose={handleCallClose}>
-        {/* <Dialog> */}
-        <div style={{ textAlign: 'center' }} className="px-3 pt-3">
-          <h4
-            style={{
-              fontWeight: '600',
-              textAlign: 'center',
-              marginBottom: '15px',
-            }}
-          >
-            Poor Contact
-          </h4>
-          <div>
-            <FormControl>
-              <RadioGroup row defaultValue="not received">
-                <FormControlLabel
-                  value="not received"
-                  control={<Radio />}
-                  label="Call not received"
-                />
-                <FormControlLabel
-                  value="other reason"
-                  control={<Radio />}
-                  label="Due to other work"
-                />
-              </RadioGroup>
-            </FormControl>
-          </div>
-          <div className="col-md-12 mt-3">
-            <TextareaAutosize
-              className="w-100"
-              sx={{ borderRadius: '10px' }}
-              placeholder="Brief in late inquiry"
-            />
-          </div>
-          <Box className="mt-4 p-3 set_reminder_bg" sx={{ borderRadius: 3 }}>
-            <h6 align="left">Set Reminder</h6>
-            <Box>
-              <div className="row mt-2">
-                <div className="col-md-12">
-                  <Typography align="left">Date</Typography>
-                </div>
-                <div className="col-md-12  ">
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DatePicker
-                      disablePast
-                      inputFormat="dd/MM/yyyy"
-                      className="set_date_time_bg w-100"
-                      renderInput={params => (
-                        <TextField className="w-100" {...params} />
-                      )}
-                    />
-                  </LocalizationProvider>
-                </div>
-              </div>
-            </Box>
-            <Box className="my-3">
-              <div className="row mt-2">
-                <div className="col-md-12">
-                  <Typography align="left">Time</Typography>
-                </div>
-                <div className="col-md-12">
-                  <TextField className="set_date_time_bg w-100" type="time" />
-                </div>
-              </div>
-            </Box>
-          </Box>
-          <Button
-            className="mt-3"
+      <Dialog
+        open={addPoorContact.status}
+        onClose={handleCallClose}>
+
+        <Box className="dialogue_main_section">
+          <Typography className="dialogue_heading">Poor Contact</Typography>
+          <FormControl
             sx={{
-              paddingRight: 12,
-              paddingLeft: 12,
-              borderRadius: 2,
-              fontSize: 22,
-              backgroundColor: '#2E3591',
-            }}
-            variant="contained"
-            onClick={() => console.log('Save button clicked!!!')}
-          >
-            Save
-          </Button>
-        </div>
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginTop: '8px',
+            }} >
+            <RadioGroup defaultValue="not received"
+              sx={{
+                padding: '0px'
+              }} row>
+              <FormControlLabel
+                value="not received"
+                control={<Radio />}
+                label="Call not received"
+              />
+              <FormControlLabel
+                value="other reason"
+                control={<Radio />}
+                label="Left Inquiry"
+              />
+            </RadioGroup>
+          </FormControl>
+
+          <TextField
+            className="dialogue_input_fields"
+            multiline
+            label="Description"
+            autoComplete="off"
+            minRows={3}
+            placeholder="reason of late inquiry"
+          // value={closeStatusDialogControl.description}
+          // onChange={e =>
+          //   setCloseStatusDialogControl({
+          //     ...closeStatusDialogControl,
+          //     description: e.target.value,
+          //   })
+          // }
+          />
+          <DialogActions>
+            <Button
+              className="dialogue_button_positive"
+              variant="contained"
+              onClick={() => console.log('Save button clicked!!!')}
+            >
+              Save
+            </Button>
+            <Button
+              className="dialogue_button_nagative"
+              variant="contained"
+              onClick={handleCallClose}>
+              Cancel
+            </Button>
+          </DialogActions>
+
+        </Box>
       </Dialog>
     </>
   )
