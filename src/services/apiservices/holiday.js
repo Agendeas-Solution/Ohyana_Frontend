@@ -20,6 +20,19 @@ export const GetAllHoliday = async (value, onSuccess, onError) => {
     onError && onError(err)
   }
 }
+export const GetAllRegularHoliday = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.get('/holiday?type=regular', {
+      headers: { ...defaultHeaders },
+    })
+    console.log('Printing data of GetAllRegularHoliday', data)
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log('Got error while calling API - GetAllRegularHoliday', err)
+    onError && onError(err)
+  }
+}
 export const GetAllLeaveType = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
@@ -50,7 +63,7 @@ export const ApplyLeave = async (value, onSuccess, onError) => {
 export const CreateHoliday = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.post('/holiday?regular=true', value, {
+    const { data } = await axiosInstance.post('/holiday', value, {
       headers: { ...defaultHeaders },
     })
     console.log('Printing data of CreateHoliday', data)
@@ -115,10 +128,10 @@ export const DeleteLeaveType = async (value, onSuccess, onError) => {
     onError && onError(err)
   }
 }
-export const UpdateLeaveType = async (id, data, onSuccess, onError) => {
+export const UpdateLeaveType = async (id, value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.put(`/leave/${id}`, data, {
+    const { data } = await axiosInstance.put(`/leave/${id}`, value, {
       headers: { ...defaultHeaders },
     })
     console.log('Printing data of UpdateLeaveType', data)
