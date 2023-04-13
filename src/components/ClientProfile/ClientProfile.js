@@ -259,7 +259,6 @@ const ClientProfile = () => {
           </Button>
         </Box>
 
-
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={value}>
             <Box className="tab_row">
@@ -326,138 +325,160 @@ const ClientProfile = () => {
                       onClick={handleAppointmentOpen}
                       variant="contained"
                     >
-                      {/* <TableHead className="client_profile_table_header"> */}
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Sr No.</TableCell>
-                          <TableCell align="left">Status Added By</TableCell>
-                          {/* <TableCell align="left">Job Role</TableCell> */}
-                          {/* <TableCell align="left">Audio</TableCell> */}
-                          <TableCell align="left">Date</TableCell>
-                          <TableCell align="left">Time</TableCell>
-                          <TableCell align="left">Description</TableCell>
-                          <TableCell></TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {clientStatusList.map((row, index) => (
-                          <TableRow
-                            key={index}
-                            hover
-                            role="checkbox"
-                            tabIndex={-1}
-                            sx={{
-                              '&:last-child td,th': { border: 0 },
-                            }}
+                      {/* <AddRoundedIcon /> */}+ Create
+                    </Button>
+                  </>
+                ) : null}
+              </Box>
+            </Box>
+            <TabPanel sx={{ padding: '0px' }} value="1">
+              <TableContainer
+                className="client_table_height mt-1"
+                component={Paper}
+                sx={{
+                  boxShadow: 'none',
+                  border: '1px solid #e5e5e5',
+                  overflowY: 'auto',
+                }}
+              >
+                {clientStatusList.length > 0 ? (
+                  <Table
+                    stickyHeader
+                    aria-label="sticky table"
+                    sx={{ minWidth: 690, marginLeft: '-10px' }}
+                    className="table_heading "
+                  >
+                    {/* <TableHead className="client_profile_table_header"> */}
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Sr No.</TableCell>
+                        <TableCell align="left">Status Added By</TableCell>
+                        {/* <TableCell align="left">Job Role</TableCell> */}
+                        {/* <TableCell align="left">Audio</TableCell> */}
+                        <TableCell align="left">Date</TableCell>
+                        <TableCell align="left">Time</TableCell>
+                        <TableCell align="left">Description</TableCell>
+                        <TableCell></TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {clientStatusList.map((row, index) => (
+                        <TableRow
+                          key={index}
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          sx={{
+                            '&:last-child td,th': { border: 0 },
+                          }}
+                        >
+                          <TableCell scope="row">{index + 1}</TableCell>
+                          <TableCell align="left">{row?.team?.name}</TableCell>
+                          <TableCell align="left">
+                            {moment(row?.date).format('LL')}
+                          </TableCell>
+                          <TableCell align="left">
+                            {moment(row.time, 'hh:mm:ss').format('LT')}
+                          </TableCell>
+                          <TableCell
+                            className="status_description"
+                            align="left"
                           >
-                            <TableCell scope="row">{index + 1}</TableCell>
-                            <TableCell align="left">{row?.team?.name}</TableCell>
-                            <TableCell align="left">
-                              {moment(row?.date).format('LL')}
-                            </TableCell>
-                            <TableCell align="left">
-                              {moment(row.time, 'hh:mm:ss').format('LT')}
-                            </TableCell>
-                            <TableCell
-                              className="status_description"
-                              align="left"
+                            {row?.description}
+                          </TableCell>
+                          <TableCell align="left">
+                            <Button
+                              onClick={() => {
+                                handleViewClientStatus(
+                                  row,
+                                  clientProfileDetail.id,
+                                )
+                              }}
+                              className="client_profile_edit_button m-1"
                             >
-                              {row?.description}
-                            </TableCell>
-                            <TableCell align="left">
-                              <Button
-                                onClick={() => {
-                                  handleViewClientStatus(
-                                    row,
-                                    clientProfileDetail.id,
-                                  )
-                                }}
-                                className="client_profile_edit_button m-1"
-                              >
-                                View
-                              </Button>
-                              <Button
-                                className="client_profile_edit_button"
-                                onClick={() => {
-                                  handleEditClientStatus(
-                                    row,
-                                    clientProfileDetail.id,
-                                  )
-                                }}
-                              >
-                                Edit
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  ) : (
-                    <NoResultFound />
-                  )}
-                </TableContainer>
-              </TabPanel>
-              <TabPanel sx={{ padding: '0px' }} value="2">
-                <RemainderTable clientReminderList={clientReminderList} />
-              </TabPanel>
-              <TabPanel sx={{ padding: '0px' }} value="3">
-                <AppointmentTable clientAppointmentList={clientAppointmentList} />
-              </TabPanel>
-              <TabPanel sx={{ paddingTop: '15px' }} value="4">
-                <ProfileTable clientProfileDetail={clientProfileDetail} />
-              </TabPanel>
-              <TabPanel sx={{ padding: '0px' }} value="5">
-                <OrderList />
-              </TabPanel>
-            </TabContext>
-            <RemainderDialog
-              remainderDialog={remainderDialog}
-              handleClose={handleClose}
-              clientProfileDetail={clientProfileDetail}
-            />
-            <StatusDialog
-              clientProfileDetail={clientProfileDetail}
-              statusDialog={statusDialog}
+                              View
+                            </Button>
+                            <Button
+                              className="client_profile_edit_button"
+                              onClick={() => {
+                                handleEditClientStatus(
+                                  row,
+                                  clientProfileDetail.id,
+                                )
+                              }}
+                            >
+                              Edit
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                ) : (
+                  <NoResultFound />
+                )}
+              </TableContainer>
+            </TabPanel>
+            <TabPanel sx={{ padding: '0px' }} value="2">
+              <RemainderTable clientReminderList={clientReminderList} />
+            </TabPanel>
+            <TabPanel sx={{ padding: '0px' }} value="3">
+              <AppointmentTable clientAppointmentList={clientAppointmentList} />
+            </TabPanel>
+            <TabPanel sx={{ paddingTop: '15px' }} value="4">
+              <ProfileTable clientProfileDetail={clientProfileDetail} />
+            </TabPanel>
+            <TabPanel sx={{ padding: '0px' }} value="5">
+              <OrderList />
+            </TabPanel>
+          </TabContext>
+          <RemainderDialog
+            remainderDialog={remainderDialog}
+            handleClose={handleClose}
+            clientProfileDetail={clientProfileDetail}
+          />
+          <StatusDialog
+            clientProfileDetail={clientProfileDetail}
+            statusDialog={statusDialog}
+            handleStatusClose={handleStatusClose}
+          />
+          <PoorContact
+            addPoorContact={addPoorContact}
+            handleCallClose={handleCallClose}
+          />
+          <CloseStatusDialog
+            handleCloseStatusDialogClose={handleCloseStatusDialogClose}
+            closeStatusDialogControl={closeStatusDialogControl}
+            setCloseStatusDialogControl={setCloseStatusDialogControl}
+          />
+          <StageDialog
+            clientProfileDetail={clientProfileDetail}
+            stageDialog={stageDialog}
+            handleClose={handleClose}
+          />
+          {editStatusDialog.status === true ? (
+            <EditStatusDialog
               handleStatusClose={handleStatusClose}
+              editStatusDialog={editStatusDialog}
             />
-            <PoorContact
-              addPoorContact={addPoorContact}
-              handleCallClose={handleCallClose}
-            />
-            <CloseStatusDialog
-              handleCloseStatusDialogClose={handleCloseStatusDialogClose}
-              closeStatusDialogControl={closeStatusDialogControl}
-              setCloseStatusDialogControl={setCloseStatusDialogControl}
-            />
-            <StageDialog
-              clientProfileDetail={clientProfileDetail}
-              stageDialog={stageDialog}
-              handleClose={handleClose}
-            />
-            {editStatusDialog.status === true ? (
-              <EditStatusDialog
-                handleStatusClose={handleStatusClose}
-                editStatusDialog={editStatusDialog}
-              />
-            ) : null}
-            {/* {addPoorContact.status === true ? (
+          ) : null}
+          {/* {addPoorContact.status === true ? (
             <PoorContact
               handleCallClose={handleCallClose}
               addPoorContact={addPoorContact}
             />
           ) : null} */}
-            {viewClientStatus.status === true ? (
-              <ViewClientStatusDialog
-                handleViewStatusDialogClose={handleViewStatusDialogClose}
-                viewClientStatus={viewClientStatus}
-              />
-            ) : null}
-            <AppointmentDialog
-              appointmentDialog={appointmentDialog}
-              handleAppointmentClose={handleAppointmentClose}
-              clientProfileDetail={clientProfileDetail}
+          {viewClientStatus.status === true ? (
+            <ViewClientStatusDialog
+              handleViewStatusDialogClose={handleViewStatusDialogClose}
+              viewClientStatus={viewClientStatus}
             />
-          </Box>
+          ) : null}
+          <AppointmentDialog
+            appointmentDialog={appointmentDialog}
+            handleAppointmentClose={handleAppointmentClose}
+            clientProfileDetail={clientProfileDetail}
+          />
         </Box>
       </Box>
     </>
