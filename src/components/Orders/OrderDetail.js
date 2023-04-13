@@ -113,6 +113,7 @@ const OrderDetail = () => {
               </Typography>
             </Box>
           </Box>
+
           <Box className="order_description_middle_section">
             <Box className="common_row mb-4">
               <Typography className="order_desc_subheading" variant="span">
@@ -137,6 +138,7 @@ const OrderDetail = () => {
               </Typography>
             </Box>
           </Box>
+
           <Box className="order_description_right_section mt-3">
             <Button className="invoice_button">
               <ReceiptRoundedIcon />

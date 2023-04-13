@@ -54,8 +54,23 @@
   overflow-y: auto;
   background-color: #ffffff;
   flex-wrap: wrap;
-  width: 98%;
+  width: 97%;
   margin: 0 auto;
+  padding: 10px;
+}
+
+.product_list_add_section {
+  /* margin-top: 1rem !important; */
+  border-radius: 5px;
+  height: 104vh;
+  /* height: auto; */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: #ffffff;
+  flex-wrap: wrap;
+  width: 97%;
+  margin: 25px auto;
   padding: 10px;
 }
 

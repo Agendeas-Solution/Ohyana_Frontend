@@ -38,6 +38,7 @@ import CallNotReceived from '../../assets/img/callnotreceived.svg'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import CloseStatusDialog from './CloseStatusDialog'
+import { Dashboard } from '@mui/icons-material'
 const EditStatusDialog = React.lazy(() => import('./EditStatusDialog'))
 const StageDialog = React.lazy(() => import('./StageDialog'))
 const OrderList = React.lazy(() => import('./OrderList'))
@@ -51,6 +52,7 @@ const AppointmentTable = React.lazy(() => import('./AppointmentTable'))
 const ProfileTable = React.lazy(() => import('./ProfileTable'))
 const RemainderDialog = React.lazy(() => import('./RemainderDialog'))
 const StatusDialog = React.lazy(() => import('./StatusDialog'))
+
 const ClientProfile = () => {
   const [value, setValue] = useState('1')
   const { flagLoader, permissions } = useContext(AuthContext).state
@@ -65,6 +67,8 @@ const ClientProfile = () => {
   const [clientReminderList, setClientReminderList] = useState([])
   const [clientAppointmentList, setClientAppointmentList] = useState([])
   const [stageDialog, setStageDialog] = useState(false)
+  const navigate = useNavigate()
+
   const [editStatusDialog, setEditStatusDialog] = useState({
     clientId: null,
     description: '',
@@ -89,7 +93,7 @@ const ClientProfile = () => {
     clientId: null,
     description: '',
   })
-  let navigate = useNavigate()
+  // let navigate = useNavigate()
   useEffect(() => {
     let path = window.location.pathname
     console.log('Printing Path of ', path)
@@ -226,10 +230,16 @@ const ClientProfile = () => {
   }
   const handleAppointmentOpen = () => {
     setAppointmentDialog(true)
+    // navigate('/clientorders')
   }
   const handleAppointmentClose = () => {
     setAppointmentDialog(false)
   }
+
+  const handleOrderOpen = () => {
+    navigate('/clientorders')
+  }
+
   const handleEditClientStatus = (row, clientid) => {
     setEditStatusDialog({
       ...editStatusDialog,
@@ -265,7 +275,6 @@ const ClientProfile = () => {
                   className="ml-1 p-1"
                   onClick={() => {
                     setStageDialog(true)
-
                   }}
                   src={
                     (clientProfileDetail?.stage === 0 && Stage0) ||
@@ -361,10 +370,11 @@ const ClientProfile = () => {
                   <>
                     <Button
                       className="common_button"
-                      onClick={handleAppointmentOpen}
+                      onClick={handleOrderOpen}
+                      // onClick={navigate('/dashboard')}
                       variant="contained"
                     >
-                      {/* <AddRoundedIcon /> */}+ Create
+                      + Order
                     </Button>
                   </>
                 ) : null}
