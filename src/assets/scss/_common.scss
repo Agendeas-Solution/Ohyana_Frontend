@@ -340,7 +340,7 @@ textarea:focus {
 .dialogue_input_fields {
   display: flex;
   width: 320px !important;
-  margin: 16px 10px !important;
+  margin: 14px 10px !important;
 }
 
 .dialogue_heading {
@@ -835,11 +835,9 @@ button {
 
 .range_days_data {
   display: flex;
-  // flex-wrap: wrap;
   background-color: #f1f2f6;
   height: 35px;
   width: 11rem;
-  // margin: 2px;
   margin-left: 140px;
   margin-top: 2px;
   border-radius: 5px;
@@ -850,23 +848,22 @@ button {
 }
 
 .left_panel {
-  border-radius: 5px;
-  // padding: 7px;
+  width: 60%;
+  height: 100%;
   display: flex;
   flex-direction: row;
-  height: 100%;
-  width: 58.5%;
+  border-radius: 5px;
+  margin-right: 10px;
 }
 
 .right_panel {
-  border-radius: 5px;
-  // padding: 10px;
+  width: 40%;
   height: 100%;
   display: flex;
-  flex-direction: row;
-  width: 40%;
+  align-items: flex-start;
+  flex-direction: column;
   background-color: #ffffff;
-
+  border-radius: 5px;
   overflow: hidden;
 }
 
@@ -907,8 +904,8 @@ button {
 
 .bottom_right_part {
   overflow: auto;
-  width: 90%;
-  height: 50%;
+  width: 100%;
+  height: 100%;
 }
 
 .first_box {
@@ -927,7 +924,6 @@ button {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  align-content: center;
   align-items: center;
 }
 
@@ -993,7 +989,7 @@ button {
   padding: 0;
 }
 
-.user_profile_font_weight {
+.profile_data_lable {
   font-weight: 600;
 }
 

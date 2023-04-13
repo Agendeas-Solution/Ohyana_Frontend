@@ -182,8 +182,9 @@ const Staff = () => {
 
   return (
     <Box sx={{ backgroundColor: '#f1f2f6' }} className="team_profile_section">
-      <Box sx={{ marginBottom: '10px' }} className="left_panel">
-        <Box className="holiday_inner_class">
+
+      <Box className="left_panel">
+        <Box sx={{ width: '100%' }}>
           <Box className="team_header">
             <Box>
               <Typography sx={{ color: '#8E8E8E' }} variant="span">
@@ -362,10 +363,6 @@ const Staff = () => {
           <Box className="left_team_profile_section">
             <TableContainer>
               <Table
-                // style={{
-                //   borderCollapse: 'separate',
-                //   borderSpacing: '0 4px',
-                // }}
                 className="team_member_table"
               >
                 <TableHead>
@@ -433,181 +430,178 @@ const Staff = () => {
           </Box>
         </Box>
       </Box>
-      {/* starting of SECOND section */}
+
       <Box className="right_panel">
-        <Box>
-          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-            <AccountCircleRoundedIcon className="user_profile_icon mx-2 mt-2" />
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-              }}
-            >
-              <Typography
-                variant="span"
-                sx={{ fontWeight: 'bold', fontSize: '18px' }}
-              >
-                {singleStaffDetails?.memberDetail?.name}
-                <img className="ml-1 p-1" alt="" />
-              </Typography>
-              <Typography sx={{ marginTop: '10px' }} variant="span">
-                {singleStaffDetails?.memberDetail?.role?.name}
-              </Typography>
+
+        <Box sx={{ width: '100%', padding: '0px 8px' }}>
+          <Box className="user_profile_header_Section">
+            <Box className="username_profile_Section">
+              <AccountCircleRoundedIcon className="user_profile_icon" />
+              <Box className="username_and_position">
+                <Typography className="username_text" variant="span">
+                  {singleStaffDetails?.memberDetail?.name}
+                </Typography>
+                <Typography variant="span" sx={{ marginTop: '5px' }}>
+                  {singleStaffDetails?.memberDetail?.role?.name}
+                </Typography>
+              </Box>
             </Box>
+            <Button
+              className='common_button'
+              onClick={() =>
+                navigate(
+                  `/staffprofile/${singleStaffDetails?.memberDetail?.id}`,
+                )}
+            >View
+            </Button>
           </Box>
-          <Box className="mt-3 mb-4 mx-2">
+
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              alignItems: 'start',
+              padding: '0px 15px',
+            }}>
+
             <Box
-              className="m-3"
-              sx={{
-                justifyContent: 'space-between',
-                // width: '100%',
-                alignItems: 'center',
-                flexDirection: 'row',
-              }}
-            >
-              <Typography variant="span" sx={{ fontWeight: 'bold' }}>
+              className='profile_detail_row'>
+              <Typography className='profile_lable' variant="span">
                 Contact
               </Typography>
-              <Typography className="mx-5" variant="span">
+
+              <Typography variant="span">
                 {singleStaffDetails?.memberDetail?.contact_number}
               </Typography>
-              <Button
-                className=""
-                sx={{
-                  backgroundColor: '#F1F2F6',
-                  // float: 'right',
-                }}
-                onClick={() =>
-                  navigate(
-                    `/staffprofile/${singleStaffDetails?.memberDetail?.id}`,
-                  )
-                }
-              >
-                View Profile
-              </Button>
+
             </Box>
-            <Box className="m-3 me-5">
-              <Typography variant="span" sx={{ fontWeight: 'bold' }}>
+
+            <Box className='profile_detail_row'>
+              <Typography className="profile_lable" variant="span">
                 Email
               </Typography>
               <Typography
-                sx={{ paddingLeft: '25px' }}
-                className="mx-5"
                 variant="span"
               >
                 {singleStaffDetails?.memberDetail?.email}
               </Typography>
             </Box>
-            <Box className="m-3  me-5">
-              <Typography variant="span" sx={{ fontWeight: 'bold' }}>
+
+            <Box className='profile_detail_row'>
+              <Typography className='profile_lable' variant="span">
                 Location
               </Typography>
-              <Typography className="mx-5" variant="span">
-                {singleStaffDetails?.memberDetail?.location}
+              <Typography variant="span">
+                Office
+                {/* {singleStaffDetails?.memberDetail?.location} */}
+              </Typography>
+            </Box>
+
+          </Box>
+        </Box>
+
+        <Box className="bottom_right_part">
+          <Typography className="px-3">Inquiry Status</Typography>
+          <Box className="staff_statistics_data">
+            <Box className="inner_profile_details first_box p-2">
+              <Typography>Total Inquiry</Typography>
+              <Typography>
+                {singleStaffDetails?.currentMonthClients?.total}
+              </Typography>
+            </Box>
+            <Box className="inner_profile_details middle_box p-2">
+              <Typography>Attend</Typography>
+              <Typography>
+                {singleStaffDetails?.currentMonthClients?.attend}
+              </Typography>
+            </Box>
+            <Box className="inner_profile_details last_box  p-2">
+              <Typography className="text_ellipsis">Avg. Response</Typography>
+              <Typography>
+                {singleStaffDetails?.currentMonthClients?.avgResponseTime}{' '}
               </Typography>
             </Box>
           </Box>
-          <Box className="bottom_right_part mt-3">
-            <Typography className="px-3">Inquiry Status</Typography>
-            <Box className="staff_statistics_data">
-              <Box className="inner_profile_details first_box p-2">
-                <Typography>Total Inquiry</Typography>
-                <Typography>
-                  {singleStaffDetails?.currentMonthClients?.total}
-                </Typography>
-              </Box>
-              <Box className="inner_profile_details middle_box p-2">
-                <Typography>Attend</Typography>
-                <Typography>
-                  {singleStaffDetails?.currentMonthClients?.attend}
-                </Typography>
-              </Box>
-              <Box className="inner_profile_details last_box  p-2">
-                <Typography className="text_ellipsis">Avg. Response</Typography>
-                <Typography>
-                  {singleStaffDetails?.currentMonthClients?.avgResponseTime}{' '}
-                </Typography>
-              </Box>
+          <Typography className="px-3">Attendance</Typography>
+          <Box className="staff_statistics_data">
+            <Box className="inner_profile_details first_box m-1 p-2">
+              <Typography className="text_ellipsis">Total Present</Typography>
+              <Typography>
+                {singleStaffDetails?.currentMonthAttendance?.totalPresent}
+              </Typography>
             </Box>
-            <Typography className="px-3">Attendance</Typography>
-            <Box className="staff_statistics_data">
-              <Box className="inner_profile_details first_box m-1 p-2">
-                <Typography className="text_ellipsis">Total Present</Typography>
-                <Typography>
-                  {singleStaffDetails?.currentMonthAttendance?.totalPresent}
-                </Typography>
-              </Box>
-              <Box className="inner_profile_details middle_box m-1 p-2">
-                <Typography>Absent</Typography>
-                <Typography>
-                  {singleStaffDetails?.currentMonthAttendance?.totalAbsent}
-                </Typography>
-              </Box>
+            <Box className="inner_profile_details middle_box m-1 p-2">
+              <Typography>Absent</Typography>
+              <Typography>
+                {singleStaffDetails?.currentMonthAttendance?.totalAbsent}
+              </Typography>
+            </Box>
 
-              <Box className="inner_profile_details  last_box m-1 p-2">
-                <Typography>Late</Typography>
-                <Typography>
-                  {singleStaffDetails?.currentMonthAttendance?.totalLate}
-                </Typography>
-              </Box>
+            <Box className="inner_profile_details  last_box m-1 p-2">
+              <Typography>Late</Typography>
+              <Typography>
+                {singleStaffDetails?.currentMonthAttendance?.totalLate}
+              </Typography>
             </Box>
-            <Typography className="px-3">Target</Typography>
-            <Box className="staff_statistics_data">
-              <Box className="inner_profile_details first_box m-1 p-2">
-                <Typography className="text_ellipsis">Total Days</Typography>
-                <Typography>
-                  {singleStaffDetails?.currentMonthTarget?.totalDays}
-                </Typography>
-              </Box>
-              <Box className="inner_profile_details middle_box m-1 p-2">
-                <Typography className="text_ellipsis">Total Order</Typography>
-                <Typography>
-                  {singleStaffDetails?.currentMonthTarget?.targetOrder}
-                </Typography>
-              </Box>
-              <Box className="inner_profile_details last_box m-1 p-2">
-                <Typography>Achieved</Typography>
-                <Typography>
-                  {singleStaffDetails?.currentMonthTarget?.achieved}
-                </Typography>
-              </Box>
+          </Box>
+          <Typography className="px-3">Target</Typography>
+          <Box className="staff_statistics_data">
+            <Box className="inner_profile_details first_box m-1 p-2">
+              <Typography className="text_ellipsis">Total Days</Typography>
+              <Typography>
+                {singleStaffDetails?.currentMonthTarget?.totalDays}
+              </Typography>
             </Box>
-            <Typography className="px-3">Expense</Typography>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                width: '100%',
-                justifyContent: 'space-around',
-                marginBottom: '14px',
-                marginLeft: '6px',
-              }}
-            >
-              <Box className="inner_profile_details first_box  m-1 p-2">
-                <Typography>Approved</Typography>
-                <Typography>
-                  {singleStaffDetails?.currentMonthExpense?.approvedExpense}
-                </Typography>
-              </Box>
-              <Box className="inner_profile_details middle_box m-1 p-2">
-                <Typography>Pending</Typography>
-                <Typography>
-                  {singleStaffDetails?.currentMonthExpense?.pendingExpense}
-                </Typography>
-              </Box>
-              <Box className="inner_profile_details last_box m-1 p-2">
-                <Typography>Rejected</Typography>
-                <Typography>
-                  {singleStaffDetails?.currentMonthExpense?.rejectedExpense}
-                </Typography>
-              </Box>
+            <Box className="inner_profile_details middle_box m-1 p-2">
+              <Typography className="text_ellipsis">Total Order</Typography>
+              <Typography>
+                {singleStaffDetails?.currentMonthTarget?.targetOrder}
+              </Typography>
+            </Box>
+            <Box className="inner_profile_details last_box m-1 p-2">
+              <Typography>Achieved</Typography>
+              <Typography>
+                {singleStaffDetails?.currentMonthTarget?.achieved}
+              </Typography>
+            </Box>
+          </Box>
+          <Typography className="px-3">Expense</Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              width: '100%',
+              justifyContent: 'space-around',
+              marginBottom: '14px',
+              marginLeft: '6px',
+            }}
+          >
+            <Box className="inner_profile_details first_box  m-1 p-2">
+              <Typography>Approved</Typography>
+              <Typography>
+                {singleStaffDetails?.currentMonthExpense?.approvedExpense}
+              </Typography>
+            </Box>
+            <Box className="inner_profile_details middle_box m-1 p-2">
+              <Typography>Pending</Typography>
+              <Typography>
+                {singleStaffDetails?.currentMonthExpense?.pendingExpense}
+              </Typography>
+            </Box>
+            <Box className="inner_profile_details last_box m-1 p-2">
+              <Typography>Rejected</Typography>
+              <Typography>
+                {singleStaffDetails?.currentMonthExpense?.rejectedExpense}
+              </Typography>
             </Box>
           </Box>
         </Box>
+
       </Box>
-    </Box>
+
+    </Box >
   )
 }
 

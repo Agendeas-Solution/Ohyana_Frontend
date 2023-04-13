@@ -19,70 +19,57 @@ const AddLeaveDialog = ({
 }) => {
   return (
     <>
-      <Dialog open={addLeaveDialog.status} onClose={handleCloseDialog}>
-        <div className="px-3 pt-3 text-center">
-          <h3>Leave Management</h3>
-        </div>
-        <DialogContent>
-          <Box className="py-3">
-            <div className="row">
-              <div className="col-md-12">
-                <Typography variant="span">Leave Type</Typography>
-              </div>
-              <div className="col-md-12">
-                <TextField
-                  value={addLeaveDialog.type}
-                  onChange={e => {
-                    setAddLeaveDialog({
-                      ...addLeaveDialog,
-                      type: e.target.value,
-                    })
-                  }}
-                  className="w-100"
-                  placeholder="Enter Leave Name"
-                  variant="outlined"
-                />
-              </div>
-            </div>
-          </Box>
-          <Box className="py-3">
-            <div className="row">
-              <div className="col-md-6">
-                <Typography variant="span">Total Days for Apply</Typography>
-              </div>
-              <div className="col-md-12">
-                <TextField
-                  type="number"
-                  value={addLeaveDialog.duration}
-                  onChange={e => {
-                    setAddLeaveDialog({
-                      ...addLeaveDialog,
-                      duration: e.target.value,
-                    })
-                  }}
-                  className="w-100"
-                  placeholder="Enter Days Leave Name"
-                  variant="outlined"
-                />
-              </div>
-            </div>
-          </Box>
-        </DialogContent>
-        <DialogActions
-          sx={{ marginLeft: '13px', marginRight: '13px' }}
-          className="mt-1 d-flex justify-content-between"
-        >
-          <Button
-            variant="contained"
-            className="ok-btn"
-            onClick={addLeaveDialog?.id ? UpdateLeave : AddLeave}
-          >
-            Ok
-          </Button>
-          <Button onClick={handleCloseDialog} className="cancel-btn" autoFocus>
-            Cancel
-          </Button>
-        </DialogActions>
+      <Dialog
+        open={addLeaveDialog.status}
+        onClose={handleCloseDialog}>
+        <Box className="dialogue_main_section">
+          <Typography className="dialogue_heading">Add Leave</Typography>
+
+          <TextField
+            className="dialogue_input_fields"
+            label="Leave Name"
+            placeholder="Enter Leave Name"
+            variant="outlined"
+            value={addLeaveDialog.type}
+            onChange={e => {
+              setAddLeaveDialog({
+                ...addLeaveDialog,
+                type: e.target.value,
+              })
+            }}
+          />
+
+          <TextField
+            className="dialogue_input_fields"
+            label="Toatal Days"
+            placeholder="Enter total Days for Leave apply"
+            type="number"
+            variant="outlined"
+            value={addLeaveDialog.duration}
+            onChange={e => {
+              setAddLeaveDialog({
+                ...addLeaveDialog,
+                duration: e.target.value,
+              })
+            }}
+
+          />
+
+          <DialogActions>
+            <Button
+              className="dialogue_button_positive"
+              variant="contained"
+              onClick={addLeaveDialog?.id ? UpdateLeave : AddLeave}>
+              Add
+            </Button>
+            <Button
+              className="dialogue_button_nagative"
+              variant="contained"
+              onClick={handleCloseDialog}>
+              Cancel
+            </Button>
+          </DialogActions>
+        </Box>
       </Dialog>
     </>
   )
