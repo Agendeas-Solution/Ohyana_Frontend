@@ -199,17 +199,17 @@ const UserProfile = () => {
                   flexDirection: 'row',
                 }}
               >
-                <Box className="inner_profile_details first_box me-3 p-2">
+                <Box className="statistics_box first_box me-3 p-2">
                   <Typography>Total Days</Typography>
                   <Typography>{staffAttendanceList?.totalDays}</Typography>
                 </Box>
 
-                <Box className="inner_profile_details middle_box  me-3 p-2">
+                <Box className="statistics_box middle_box  me-3 p-2">
                   <Typography>Absent Days</Typography>
                   <Typography>{staffAttendanceList?.absentDays}</Typography>
                 </Box>
 
-                <Box className="inner_profile_details last_box p-2">
+                <Box className="statistics_box last_box p-2">
                   <Typography>Late Days</Typography>
                   <Typography>{staffAttendanceList?.lateDays}</Typography>
                 </Box>

@@ -98,19 +98,19 @@ const StaffAttendance = () => {
       <Box className="target_section">
         <Box className="attendance_data_row col-md-12">
           <Box className="col-md-7 inner_attendance_data_row">
-            <Box className="week_data inner_profile_details days_data col-md-2 me-3 p-2">
+            <Box className="week_data statistics_box days_data col-md-2 me-3 p-2">
               <Typography variant="span">Total Days</Typography>
               <Typography variant="span">
                 {staffAttendanceList?.totalDays}
               </Typography>
             </Box>
-            <Box className="Absent_days_data inner_profile_details days_data col-md-2 me-3 p-2">
+            <Box className="Absent_days_data statistics_box days_data col-md-2 me-3 p-2">
               <Typography variant="span">Absent Days</Typography>
               <Typography variant="span">
                 {staffAttendanceList?.absentDays}
               </Typography>
             </Box>
-            <Box className="Late_days_data inner_profile_details days_data col-md-2">
+            <Box className="Late_days_data statistics_box days_data col-md-2">
               <Typography variant="span">Late Days</Typography>
               <Typography variant="span">
                 {staffAttendanceList?.lateDays}
