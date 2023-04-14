@@ -44,9 +44,7 @@ const ExpenseList = () => {
     name: '',
     description: '',
   })
-
   const [expenseList, setExpenseList] = useState([])
-
   const GetExpenseList = () => {
     GetExpenseTypeList(
       parseInt(path),
@@ -68,21 +66,27 @@ const ExpenseList = () => {
     setAddExpenseType({ ...addExpenseType, status: false })
     setDeletexpenseListDialog({ ...deletexpenseListDialog, status: false })
   }
-  const handleDelete = id => {
+  const handleDelete = () => {
     DeleteExpenseType(
-      id,
+      deletexpenseListDialog.id,
       res => {
         if (res.success) {
+          handleCloseDialog();
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
-            message: res.data.message,
+            message: res.message,
           })
-          handleCloseDialog()
+          GetExpenseList();
         }
       },
       err => {
         console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }
@@ -95,6 +99,13 @@ const ExpenseList = () => {
       data,
       res => {
         if (res?.success) {
+          setAddExpenseType({
+            ...addExpenseType,
+            status: false,
+            name: '',
+            description: '',
+          })
+          GetExpenseList();
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
@@ -134,28 +145,27 @@ const ExpenseList = () => {
           <Typography variant="span" className="ms-2">
             Expense List
           </Typography>
-          {permissions?.editDepartment && (
-            <Button
-              onClick={() =>
-                setAddExpenseType({
-                  ...addExpenseType,
-                  status: true,
-                  name: '',
-                  description: '',
-                })
-              }
-              variant="contained"
-            >
-              + Expense Type
-            </Button>
-          )}
+          <Button
+            onClick={() =>
+              setAddExpenseType({
+                ...addExpenseType,
+                status: true,
+                name: '',
+                expenseId: "",
+                description: '',
+              })
+            }
+            variant="contained"
+          >
+            + Expense Type
+          </Button>
         </Box>
         <Divider
           sx={{ borderColor: '#8E8E8E' }}
           orientation="horizontal"
           // variant="middle"
           width="100%"
-          // flexItem
+        // flexItem
         />
         <Box sx={{ marginTop: '19px', width: 'initial' }}>
           <Box
@@ -218,13 +228,13 @@ const ExpenseList = () => {
                     />
                     <img
                       className="iconn ms-2"
-                      onClick={() =>
+                      onClick={() => {
                         setDeletexpenseListDialog({
                           ...deletexpenseListDialog,
                           status: true,
-                          id: data.id,
+                          id: data.id
                         })
-                      }
+                      }}
                       src={DeleteIcon}
                       alt=""
                     />

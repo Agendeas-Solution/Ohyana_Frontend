@@ -14,9 +14,6 @@ const DeleteExpenseTypeDialog = ({
   handleCloseDialog,
   handleDelete,
 }) => {
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
-
   return (
     <>
       <Dialog open={deletexpenseListDialog.status} onClose={handleCloseDialog}>
@@ -30,7 +27,7 @@ const DeleteExpenseTypeDialog = ({
           <Button
             className="ok-btn"
             variant="contained"
-            onClick={() => handleDelete(deletexpenseListDialog.id)}
+            onClick={handleDelete}
           >
             Ok
           </Button>

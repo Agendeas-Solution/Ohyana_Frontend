@@ -3,9 +3,6 @@ import {
   Box,
   Typography,
   Button,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
 } from '@mui/material'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import Table from '@mui/material/Table'
@@ -28,9 +25,10 @@ const DashboardEmployee = () => {
       {},
       res => {
         setSalesInquiry(res?.data)
-        debugger;
       },
-      err => { },
+      err => {
+
+      },
     )
   }, [])
   return (
@@ -70,17 +68,7 @@ const DashboardEmployee = () => {
                     }}
                     variant="span"
                   >
-                    {salesInquiry?.performance?.total}
-
-                    {/* "performance": {
-                      "total": 0,
-                    "targets": {
-                      "target": 100,
-                    "achieved": 0,
-                    "precentageAchieved": 0,
-                    "remainDays": 0
-                      }
-                       }, */}
+                    {salesInquiry?.performance?.total || "-"}
                   </Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
@@ -95,7 +83,7 @@ const DashboardEmployee = () => {
                     sx={{ marginBottom: '15px', paddingBottom: '5px' }}
                     variant="span"
                   >
-                    {salesInquiry?.performance?.total}
+                    {salesInquiry?.performance?.total || "-"}
                   </Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
@@ -118,7 +106,6 @@ const DashboardEmployee = () => {
                   </Typography>
                 </Box>
               </Box>
-
               <Box className="performance_statistics_data">
                 <Typography sx={{ padding: '8px' }} variant="span">
                   Target Order
@@ -127,7 +114,7 @@ const DashboardEmployee = () => {
                   sx={{ padding: '10px' }}
                   className="below_performance_parameter"
                 >
-                  <Typography variant="span">{salesInquiry?.performance?.targets?.target}</Typography>
+                  <Typography variant="span">{salesInquiry?.performance?.targets?.target || "-"}</Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
                     5%
@@ -137,7 +124,7 @@ const DashboardEmployee = () => {
               <Box className="performance_statistics_data">
                 <Typography variant="span">Achieved</Typography>
                 <Box className="below_performance_parameter">
-                  <Typography variant="span">{salesInquiry?.performance?.targets?.precentageAchieved}</Typography>
+                  <Typography variant="span">{salesInquiry?.performance?.targets?.precentageAchieved || "0"}</Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
                     5%
@@ -147,7 +134,7 @@ const DashboardEmployee = () => {
               <Box className="performance_statistics_data me-2">
                 <Typography variant="span">Days Remain</Typography>
                 <Box className="below_performance_parameter">
-                  <Typography variant="span">{salesInquiry?.performance?.targets?.remainDays}</Typography>
+                  <Typography variant="span">{salesInquiry?.performance?.targets?.remainDays || "0"}</Typography>
                   {/* <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
                     5%
@@ -156,7 +143,6 @@ const DashboardEmployee = () => {
               </Box>
             </Box>
           </Box>
-
           <Box className="attendance_section">
             <Box className="attendance_subheading">
               <Typography className="right_panel_heading" variant="span">
@@ -166,37 +152,103 @@ const DashboardEmployee = () => {
                 sx={{ color: '#8e8e8e', padding: '10px' }}
                 variant="span"
               >
-                {salesInquiry?.attendance?.date}
+                {salesInquiry?.attendance?.date || "-"}
               </Typography>
             </Box>
-            <Box className="right_panel_sub_heading">
+            <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+              <Table sx={{ minWidth: 250 }}>
+                <TableBody>
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell align="right">
+                      Check In
+                    </TableCell>
+                    <TableCell align="left">
+                      :
+                    </TableCell>
+                    <TableCell align="left">
+                      {salesInquiry?.attendance?.checkIn || "-"}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell align="right">
+                      Check Out
+                    </TableCell>
+                    <TableCell align="left">
+                      :
+                    </TableCell>
+                    <TableCell align="left">
+                      {salesInquiry?.attendance?.checkOut || "-"}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell align="right">
+                      Break Time
+                    </TableCell>
+                    <TableCell align="left">
+                      :
+                    </TableCell>
+                    <TableCell align="left">
+                      {salesInquiry?.attendance?.breakIn || "-"}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell align="right">
+                      Total Hours
+                    </TableCell>
+                    <TableCell align="left">
+                      :
+                    </TableCell>
+                    <TableCell align="left">
+                      {salesInquiry?.attendance?.breakOut || "-"}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+            {/* <Box className="right_panel_sub_heading">
               <Typography variant="span">Check In </Typography>
               <Typography variant="span">:</Typography>
               <Typography variant="span">
-                {salesInquiry?.attendance?.checkIn}
+                {salesInquiry?.attendance?.checkIn || "-"}
               </Typography>
             </Box>
             <Box className="right_panel_sub_heading">
               <Typography variant="span">Check Out </Typography>
               <Typography variant="span">:</Typography>
               <Typography variant="span">
-                {salesInquiry?.attendance?.checkOut}
+                {salesInquiry?.attendance?.checkOut || "-"}
               </Typography>
             </Box>
             <Box className="right_panel_sub_heading">
-              <Typography variant="span">Break In </Typography>
+              <Typography variant="span">Break Time </Typography>
               <Typography variant="span">:</Typography>
               <Typography variant="span">
-                {salesInquiry?.attendance?.breakIn}
+                {salesInquiry?.attendance?.breakIn || "-"}
               </Typography>
             </Box>
             <Box className="right_panel_sub_heading">
-              <Typography variant="span">Break Out </Typography>
+              <Typography variant="span">Total Hours </Typography>
               <Typography variant="span">:</Typography>
               <Typography variant="span">
-                {salesInquiry?.attendance?.breakOut}
+                {salesInquiry?.attendance?.breakOut || "-"}
               </Typography>
-            </Box>
+            </Box> */}
           </Box>
         </Box>
 
@@ -262,11 +314,11 @@ const DashboardEmployee = () => {
                           {moment(value?.createdAt).format('D/MM/YY')}
                         </TableCell>
                         <TableCell align="right">
-                          {value?.point?.name}
+                          {value?.point?.name || "-"}
                         </TableCell>
                         <TableCell align="right">
                           {' '}
-                          {value?.point?.points}
+                          {value?.point?.points || "-"}
                         </TableCell>
                       </TableRow>
                     )
@@ -284,7 +336,7 @@ const DashboardEmployee = () => {
               </Typography>
             </Box>
             {
-              salesInquiry.starPerformerList.map((data) => {
+              salesInquiry?.starPerformerList.length > 0 && salesInquiry.starPerformerList.map((data) => {
                 return <div class="a-box">
                   <div class="img-container">
                     <div class="img-inner">
@@ -294,8 +346,8 @@ const DashboardEmployee = () => {
                     </div>
                   </div>
                   <div class="text-container">
-                    <h3>{data?.name}</h3>
-                    <h6>{data?.role?.name}</h6>
+                    <h3>{data?.name || "-"}</h3>
+                    <h6>{data?.role?.name || "-"}</h6>
                     <h5>Star Performer of the Month.</h5>
                   </div>
                 </div>
