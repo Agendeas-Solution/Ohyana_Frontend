@@ -135,7 +135,7 @@ const StaffAttendanceLeave = ({
                           className="common_button"
                           onClick={() => {
                             console.log(leaveList)
-                            debugger
+
                             setApproveLeave({
                               ...approveLeave,
                               status: true,

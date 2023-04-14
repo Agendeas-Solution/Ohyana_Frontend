@@ -19,15 +19,22 @@ let path = window.location.pathname
 console.log('Printing Path of ', path)
 console.log('Printing ', path.split('/').pop())
 path = path.split('/').pop()
+
 const StaffTarget = () => {
   const [dateRange, setDateRange] = useState({
     startDate: '',
     endDate: '',
   })
-  const [selectMonth, setSelectMonth] = useState({
-    $M: moment().month(),
-    $y: moment().year(),
-  })
+  // const [selectMonth, setSelectMonth] = useState({
+  //   $M: moment().month(),
+  //   $y: moment().year(),
+  //   defaultDate: moment().format('LL'),
+  // })
+  const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
+  console.log(`All: ${selectMonth}`)
+  console.log(`Month index: ${selectMonth.indexOf(moment().format('MMMM'))}`)
+  console.log(`Year index: ${selectMonth.indexOf(moment().format('YYYY'))}`)
+  console.log(`Month: ${moment().format('MMMM')}`)
   const [targetDetail, setTargetDetail] = useState({
     status: false,
     id: path,
@@ -83,8 +90,8 @@ const StaffTarget = () => {
               <DatePicker
                 views={['month', 'year']}
                 value={selectMonth}
-                onChange={newValue => {
-                  setSelectMonth(newValue)
+                onChange={selectMonth => {
+                  setSelectMonth(selectMonth)
                 }}
                 renderInput={params => (
                   <TextField

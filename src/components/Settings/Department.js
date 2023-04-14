@@ -18,7 +18,11 @@ import {
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import './index.css'
-import { EditJobRole, GetSingleRole, UpdateClockInOut } from '../../services/apiservices/adminprofile'
+import {
+  EditJobRole,
+  GetSingleRole,
+  UpdateClockInOut,
+} from '../../services/apiservices/adminprofile'
 import {
   UpdatePermission,
   getUserPermissions,
@@ -57,8 +61,8 @@ const Department = () => {
   })
   const [editJobRoleDialogControl, setEditJobRoleDialogControl] = useState({
     status: false,
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     parentId: '',
   })
   const [addEditDepartmentDialogControl, setAddEditDepartmentDialogControl] =
@@ -110,47 +114,47 @@ const Department = () => {
   const [expensePolicy, setExpensePolicy] = useState()
   const [expensePermissions, setExpensePermissions] = useState()
   useEffect(() => {
-    jobRoleList.id && getUserPermissions(
-      parseInt(jobRoleList.id),
-      res => {
-        let staffPermission = res?.data?.permissions
-        debugger;
-        setAccessControl({
-          ...accessControl,
-          clientControl: staffPermission?.clientMenu,
-          staffControl: staffPermission?.staffMenu,
-          settingControl: staffPermission?.settingMenu,
-          client: {
-            ...accessControl.client,
-            editClient: staffPermission?.editClient,
-            viewClient: staffPermission?.viewClient,
-            deleteClient: staffPermission?.deleteClient,
-            accessClient: staffPermission?.accessClient,
-            clientStage: staffPermission?.clientStageAccess,
-          },
-          staff: {
-            ...accessControl.staff,
-            viewStaff: staffPermission.viewStaff,
-            editStaff: staffPermission?.editStaff,
-            deleteStaff: staffPermission?.deleteStaff,
-            accessStaff: staffPermission?.accessStaff,
-          },
-          setting: {
-            ...accessControl.setting,
-            viewRole: staffPermission?.viewRole,
-            editRole: staffPermission?.editRole,
-            deleteRole: staffPermission?.deleteRole,
-            viewProduct: staffPermission?.viewProduct,
-            editProduct: staffPermission?.editProduct,
-            deleteProduct: staffPermission?.deleteProduct,
-            accessSetting: staffPermission?.accessSetting,
-          },
-        })
-        setExpensePolicy(res?.data?.expensePolicies)
-        setExpensePermissions(res?.data?.expensePermissions)
-      },
-      err => { },
-    )
+    jobRoleList.id &&
+      getUserPermissions(
+        parseInt(jobRoleList.id),
+        res => {
+          let staffPermission = res?.data?.permissions
+          setAccessControl({
+            ...accessControl,
+            clientControl: staffPermission?.clientMenu,
+            staffControl: staffPermission?.staffMenu,
+            settingControl: staffPermission?.settingMenu,
+            client: {
+              ...accessControl.client,
+              editClient: staffPermission?.editClient,
+              viewClient: staffPermission?.viewClient,
+              deleteClient: staffPermission?.deleteClient,
+              accessClient: staffPermission?.accessClient,
+              clientStage: staffPermission?.clientStageAccess,
+            },
+            staff: {
+              ...accessControl.staff,
+              viewStaff: staffPermission.viewStaff,
+              editStaff: staffPermission?.editStaff,
+              deleteStaff: staffPermission?.deleteStaff,
+              accessStaff: staffPermission?.accessStaff,
+            },
+            setting: {
+              ...accessControl.setting,
+              viewRole: staffPermission?.viewRole,
+              editRole: staffPermission?.editRole,
+              deleteRole: staffPermission?.deleteRole,
+              viewProduct: staffPermission?.viewProduct,
+              editProduct: staffPermission?.editProduct,
+              deleteProduct: staffPermission?.deleteProduct,
+              accessSetting: staffPermission?.accessSetting,
+            },
+          })
+          setExpensePolicy(res?.data?.expensePolicies)
+          setExpensePermissions(res?.data?.expensePermissions)
+        },
+        err => {},
+      )
   }, [jobRoleList.id])
   const handleUserPermissions = () => {
     let userPermission = {
@@ -176,7 +180,6 @@ const Department = () => {
       accessSetting: accessControl?.setting.accessSetting,
       clientStageAccess: accessControl?.client?.clientStage,
     }
-    debugger;
     UpdatePermission(
       userPermission,
       res => {
@@ -212,31 +215,32 @@ const Department = () => {
     let data = {
       roleId: jobRoleList?.id,
       clockOut: jobRoleList?.clockOut,
-      clockIn: jobRoleList?.clockIn
+      clockIn: jobRoleList?.clockIn,
     }
-    debugger;
     UpdateClockInOut(
       data,
-      (res) => {
+      res => {
         setSuccessSnackbar({
           ...successSnackbar,
           message: res.message,
           status: true,
         })
       },
-      (err) => { },
+      err => {},
     )
   }
   const handleEditJobRole = () => {
-    if (editJobRoleDialogControl.name !== '' &&
+    if (
+      editJobRoleDialogControl.name !== '' &&
       editJobRoleDialogControl.description !== '' &&
-      editJobRoleDialogControl.parentId !== '') {
-      let data = editJobRoleDialogControl;
-      delete data.status;
+      editJobRoleDialogControl.parentId !== ''
+    ) {
+      let data = editJobRoleDialogControl
+      delete data.status
       EditJobRole(
-        jobRoleList.id, data,
-        (res) => {
-
+        jobRoleList.id,
+        data,
+        res => {
           handleClose()
           setSuccessSnackbar({
             ...successSnackbar,
@@ -244,7 +248,7 @@ const Department = () => {
             status: true,
           })
         },
-        (err) => { },
+        err => {},
       )
     }
   }
@@ -369,7 +373,10 @@ const Department = () => {
                     type="time"
                     value={jobRoleList?.clockIn}
                     onChange={e => {
-                      setJobRoleList({ ...jobRoleList, clockIn: e.target.value })
+                      setJobRoleList({
+                        ...jobRoleList,
+                        clockIn: e.target.value,
+                      })
                     }}
                   />
                 </Box>
@@ -381,12 +388,18 @@ const Department = () => {
                     type="time"
                     value={jobRoleList?.clockOut}
                     onChange={e => {
-                      setJobRoleList({ ...jobRoleList, clockOut: e.target.value })
-                      debugger;
+                      setJobRoleList({
+                        ...jobRoleList,
+                        clockOut: e.target.value,
+                      })
                     }}
                   />
                 </Box>
-                <Button onClick={handleUpdateClockInOut} className="p-2 m-1" variant="contained">
+                <Button
+                  onClick={handleUpdateClockInOut}
+                  className="p-2 m-1"
+                  variant="contained"
+                >
                   Save
                 </Button>
               </Select>
@@ -400,38 +413,38 @@ const Department = () => {
                   {
                     // expensePermissions.map(()=>)
                     expensePolicy &&
-                    expensePolicy.map(data => (
-                      <Box sx={{ margin: '5px' }}>
-                        <FormControlLabel
-                          sx={{ display: 'inline' }}
-                          control={
-                            <Checkbox
-                              checked={expenseManagement?.travelChecked}
-                              className="check_box_color"
-                              onChange={e => {
-                                setExpenseManagement({
-                                  ...expenseManagement,
-                                  travelChecked: e.target.checked,
-                                })
-                              }}
-                            />
-                          }
-                          label={data?.name}
-                        />
-                        <TextField
-                          sx={{ display: 'inline', marginLeft: '17rem' }}
-                          placeholder="Max Amount"
-                          type="number"
-                          value={expenseManagement?.travelAmount}
-                          onChange={e =>
-                            setExpenseManagement({
-                              ...expenseManagement,
-                              travelAmount: e.target.value,
-                            })
-                          }
-                        />
-                      </Box>
-                    ))
+                      expensePolicy.map(data => (
+                        <Box sx={{ margin: '5px' }}>
+                          <FormControlLabel
+                            sx={{ display: 'inline' }}
+                            control={
+                              <Checkbox
+                                checked={expenseManagement?.travelChecked}
+                                className="check_box_color"
+                                onChange={e => {
+                                  setExpenseManagement({
+                                    ...expenseManagement,
+                                    travelChecked: e.target.checked,
+                                  })
+                                }}
+                              />
+                            }
+                            label={data?.name}
+                          />
+                          <TextField
+                            sx={{ display: 'inline', marginLeft: '17rem' }}
+                            placeholder="Max Amount"
+                            type="number"
+                            value={expenseManagement?.travelAmount}
+                            onChange={e =>
+                              setExpenseManagement({
+                                ...expenseManagement,
+                                travelAmount: e.target.value,
+                              })
+                            }
+                          />
+                        </Box>
+                      ))
                   }
 
                   <Button

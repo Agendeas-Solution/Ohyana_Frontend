@@ -28,9 +28,8 @@ const DashboardEmployee = () => {
       {},
       res => {
         setSalesInquiry(res?.data)
-        debugger;
       },
-      err => { },
+      err => {},
     )
   }, [])
   return (
@@ -127,7 +126,9 @@ const DashboardEmployee = () => {
                   sx={{ padding: '10px' }}
                   className="below_performance_parameter"
                 >
-                  <Typography variant="span">{salesInquiry?.performance?.targets?.target}</Typography>
+                  <Typography variant="span">
+                    {salesInquiry?.performance?.targets?.target}
+                  </Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
                     5%
@@ -137,7 +138,9 @@ const DashboardEmployee = () => {
               <Box className="performance_statistics_data">
                 <Typography variant="span">Achieved</Typography>
                 <Box className="below_performance_parameter">
-                  <Typography variant="span">{salesInquiry?.performance?.targets?.precentageAchieved}</Typography>
+                  <Typography variant="span">
+                    {salesInquiry?.performance?.targets?.precentageAchieved}
+                  </Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
                     5%
@@ -147,7 +150,9 @@ const DashboardEmployee = () => {
               <Box className="performance_statistics_data me-2">
                 <Typography variant="span">Days Remain</Typography>
                 <Box className="below_performance_parameter">
-                  <Typography variant="span">{salesInquiry?.performance?.targets?.remainDays}</Typography>
+                  <Typography variant="span">
+                    {salesInquiry?.performance?.targets?.remainDays}
+                  </Typography>
                   {/* <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
                     5%
@@ -283,9 +288,9 @@ const DashboardEmployee = () => {
                 Star Performers
               </Typography>
             </Box>
-            {
-              salesInquiry.starPerformerList.map((data) => {
-                return <div class="a-box">
+            {salesInquiry.starPerformerList.map(data => {
+              return (
+                <div class="a-box">
                   <div class="img-container">
                     <div class="img-inner">
                       <div class="inner-skew">
@@ -299,11 +304,11 @@ const DashboardEmployee = () => {
                     <h5>Star Performer of the Month.</h5>
                   </div>
                 </div>
-              })
-            }
+              )
+            })}
           </Box>
         </Box>
-      </Box >
+      </Box>
     </>
   )
 }

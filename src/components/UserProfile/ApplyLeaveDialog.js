@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
   Dialog,
   Box,
@@ -22,8 +22,8 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 import moment from 'moment'
 const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
   const [leaveType, setLeaveType] = useState([])
-  const { successSnackbar ,errorSnackbar} = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar,setErrorSnackbar } = useContext(ContextSnackbar)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [leaveDetail, setLeaveDetail] = useState({
     duration: '',
     leaveType: null,
@@ -33,7 +33,6 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
       {},
       res => {
         setLeaveType(res.data)
-        debugger
       },
       err => {
         setErrorSnackbar({
@@ -41,7 +40,7 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
           status: true,
           message: err?.response?.data?.message,
         })
-       },
+      },
     )
   }, [])
   const handleApplyLeave = () => {
@@ -51,8 +50,12 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
         duration: leaveDetail.duration,
       },
       res => {
-        handleCloseDialog();
-        setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
+        handleCloseDialog()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
+        })
       },
       err => {
         setErrorSnackbar({
@@ -65,10 +68,8 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
   }
   return (
     <>
-      <Dialog open={leaveDialogControl}
-        onClose={handleCloseDialog}>
+      <Dialog open={leaveDialogControl} onClose={handleCloseDialog}>
         <Box className="dialogue_main_section">
-
           <Typography className="dialogue_heading">Apply For Leave</Typography>
 
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -111,12 +112,11 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
             <Button
               className="dialogue_bottom_button"
               variant="contained"
-              onClick={handleApplyLeave}>
+              onClick={handleApplyLeave}
+            >
               Apply
             </Button>
-
           </DialogActions>
-
         </Box>
       </Dialog>
     </>

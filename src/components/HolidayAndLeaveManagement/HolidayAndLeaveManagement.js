@@ -37,14 +37,14 @@ const HolidayAndLeaveManagement = () => {
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state
   const [holidayList, setHolidayList] = useState([])
-  const [regularHolidayList, setRegularHolidayList] = useState([]);
+  const [regularHolidayList, setRegularHolidayList] = useState([])
   const [leaveList, setLeaveList] = useState([])
   const [deleteLeaveDialogControl, setDeleteLeaveDialogControl] = useState({
     status: false,
-  });
+  })
   const [deleteHolidayDialogControl, setDeleteHolidayDialogControl] = useState({
     status: false,
-  });
+  })
   const [daysList, setDaysList] = useState(LEAVEHOLIDAY.WEEKDAYS)
 
   const [addHolidayDetail, setAddHolidayDetail] = useState({
@@ -57,7 +57,7 @@ const HolidayAndLeaveManagement = () => {
     occasion: '',
     regular: true,
     status: false,
-    id: ''
+    id: '',
   })
   const [addLeaveDialog, setAddLeaveDialog] = useState({
     status: false,
@@ -99,7 +99,7 @@ const HolidayAndLeaveManagement = () => {
     GetAllRegularHoliday(
       {},
       res => {
-        setRegularHolidayList(res?.data);
+        setRegularHolidayList(res?.data)
       },
       err => {
         setErrorSnackbar({
@@ -111,9 +111,9 @@ const HolidayAndLeaveManagement = () => {
     )
   }
   useEffect(() => {
-    handleGetAllHoliday();
-    handleGetLeaveType();
-    handleGetRegularAllHoliday();
+    handleGetAllHoliday()
+    handleGetLeaveType()
+    handleGetRegularAllHoliday()
   }, [])
   const handleCloseDialog = () => {
     setAddHolidayDetail({
@@ -130,22 +130,27 @@ const HolidayAndLeaveManagement = () => {
     setAddHolidayDetail({ ...addHolidayDetail, status: false })
   }
   const SetHoliday = () => {
-    console.log("addHolidayDetail", addHolidayDetail);
-    let data = addHolidayDetail;
-    delete data.status;
-    delete data?.id;
+    console.log('addHolidayDetail', addHolidayDetail)
+    let data = addHolidayDetail
+    delete data.status
+    delete data?.id
     CreateHoliday(
       data,
       res => {
-        handleGetAllHoliday();
+        handleGetAllHoliday()
         setAddHolidayDetail({
-          ...addHolidayDetail, status: false,
+          ...addHolidayDetail,
+          status: false,
           date: '',
           occasion: '',
           duration: '',
-          id: ''
+          id: '',
         })
-        setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
+        })
       },
       err => {
         setErrorSnackbar({
@@ -163,22 +168,35 @@ const HolidayAndLeaveManagement = () => {
     setAddEditRegularDetail({ ...addEditRegularDetail, status: false })
   }
   const handleHolidayDeleteDialog = () => {
-    setDeleteHolidayDialogControl({ ...deleteHolidayDialogControl, status: false })
+    setDeleteHolidayDialogControl({
+      ...deleteHolidayDialogControl,
+      status: false,
+    })
   }
   const handleUpdateRegularHoliday = () => {
-    console.log("addHolidayDetail", addEditRegularDetail);
+    console.log('addHolidayDetail', addEditRegularDetail)
     let data = {
-      occasion: (addEditRegularDetail.occasion).toString(),
+      occasion: addEditRegularDetail.occasion.toString(),
       regular: addEditRegularDetail.regular,
     }
     UpdateHoliday(
-      addEditRegularDetail.id, data,
-      (res) => {
-        setAddEditRegularDetail({ ...addEditRegularDetail, status: false, id: '', occasion: '' });
-        handleGetRegularAllHoliday();
-        setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
+      addEditRegularDetail.id,
+      data,
+      res => {
+        setAddEditRegularDetail({
+          ...addEditRegularDetail,
+          status: false,
+          id: '',
+          occasion: '',
+        })
+        handleGetRegularAllHoliday()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
+        })
       },
-      (err) => {
+      err => {
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
@@ -188,17 +206,21 @@ const HolidayAndLeaveManagement = () => {
     )
   }
   const handleAddRegularHoliday = () => {
-    console.log("addHolidayDetail", addEditRegularDetail);
+    console.log('addHolidayDetail', addEditRegularDetail)
     let data = {
-      occasion: (addEditRegularDetail.occasion).toString(),
+      occasion: addEditRegularDetail.occasion.toString(),
       regular: addEditRegularDetail.regular,
     }
     CreateHoliday(
       data,
       res => {
-        handleAddEditRegularDialogClose();
-        handleGetRegularAllHoliday();
-        setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
+        handleAddEditRegularDialogClose()
+        handleGetRegularAllHoliday()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
+        })
       },
       err => {
         setErrorSnackbar({
@@ -213,9 +235,13 @@ const HolidayAndLeaveManagement = () => {
     DeleteLeaveType(
       deleteLeaveDialogControl.id,
       res => {
-        setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
-        handleLeaveDeleteDialog();
-        handleGetLeaveType();
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
+        })
+        handleLeaveDeleteDialog()
+        handleGetLeaveType()
       },
       err => {
         setErrorSnackbar({
@@ -227,12 +253,12 @@ const HolidayAndLeaveManagement = () => {
     )
   }
   const UpdateHolidayFunc = () => {
-    console.log("addHolidayDetail", addHolidayDetail);
+    console.log('addHolidayDetail', addHolidayDetail)
     let data = {
       date: addHolidayDetail?.date,
       occasion: addHolidayDetail?.occasion,
       duration: addHolidayDetail?.duration,
-      regular: addHolidayDetail?.regular
+      regular: addHolidayDetail?.regular,
     }
 
     UpdateHoliday(
@@ -240,14 +266,19 @@ const HolidayAndLeaveManagement = () => {
       data,
       res => {
         setAddHolidayDetail({
-          ...addHolidayDetail, status: false,
+          ...addHolidayDetail,
+          status: false,
           date: '',
           occasion: '',
           duration: '',
-          id: ''
+          id: '',
         })
-        handleGetAllHoliday();
-        setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
+        handleGetAllHoliday()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
+        })
       },
       err => {
         setErrorSnackbar({
@@ -261,13 +292,17 @@ const HolidayAndLeaveManagement = () => {
   const handleDeleteHoliday = () => {
     DeleteHoliday(
       deleteHolidayDialogControl.id,
-      (res) => {
-        handleGetAllHoliday();
-        handleHolidayDeleteDialog();
-        handleGetRegularAllHoliday();
-        setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true });
+      res => {
+        handleGetAllHoliday()
+        handleHolidayDeleteDialog()
+        handleGetRegularAllHoliday()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
+        })
       },
-      (err) => {
+      err => {
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
@@ -280,7 +315,11 @@ const HolidayAndLeaveManagement = () => {
     DeleteLeaveType(
       id,
       res => {
-        setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
+        })
       },
       err => {
         setErrorSnackbar({
@@ -298,14 +337,19 @@ const HolidayAndLeaveManagement = () => {
         type: addLeaveDialog.type,
       },
       res => {
-        handleCloseDialog();
-        setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
-        handleGetLeaveType();
+        handleCloseDialog()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
+        })
+        handleGetLeaveType()
         setAddLeaveDialog({
-          ...addLeaveDialog, status: false,
+          ...addLeaveDialog,
+          status: false,
           type: '',
           duration: '',
-          id: ''
+          id: '',
         })
       },
       err => {
@@ -320,16 +364,23 @@ const HolidayAndLeaveManagement = () => {
   const UpdateLeave = () => {
     UpdateLeaveType(
       addLeaveDialog?.id,
-      { type: addLeaveDialog?.type, duration: parseInt(addLeaveDialog?.duration) },
-      (res) => {
+      {
+        type: addLeaveDialog?.type,
+        duration: parseInt(addLeaveDialog?.duration),
+      },
+      res => {
         setAddLeaveDialog({
           status: false,
           type: '',
           duration: '',
-          id: ''
+          id: '',
         })
         setLeaveList(res?.data)
-        setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
+        })
       },
       err => {
         setErrorSnackbar({
@@ -343,10 +394,9 @@ const HolidayAndLeaveManagement = () => {
   return (
     <>
       <Box className="leave_holiday_section">
-
         <Box className="occassional_holiday_section">
           <Box className="header_section">
-            <Typography variant="span" className='sub_heading'>
+            <Typography variant="span" className="sub_heading">
               Occassional Holidays
             </Typography>
             <Button
@@ -355,12 +405,17 @@ const HolidayAndLeaveManagement = () => {
                 setAddHolidayDetail({ ...addHolidayDetail, status: true })
               }}
               variant="span"
-            >+ Holiday
+            >
+              + Holiday
             </Button>
           </Box>
 
           <TableContainer component={Paper}>
-            <Table>
+            <Table
+              className="table_heading"
+              stickyHeader
+              aria-label="sticky table"
+            >
               <TableHead className="leave_holidays_table_header">
                 <TableRow>
                   <TableCell>Date</TableCell>
@@ -375,52 +430,45 @@ const HolidayAndLeaveManagement = () => {
                     return (
                       <TableRow>
                         <TableCell>{data?.date}</TableCell>
-                        <TableCell align="left">
-                          {data?.occasion}{' '}
-                        </TableCell>
+                        <TableCell align="left">{data?.occasion} </TableCell>
                         <TableCell align="left">{data?.duration}</TableCell>
-                        <td className="common_row">
-                          <Box>
-                            <EditRoundedIcon
-                              onClick={() => {
-                                setAddHolidayDetail({
-                                  ...addHolidayDetail, status: true,
-                                  date: data.date,
-                                  occasion: data.occasion,
-                                  duration: data.duration,
-                                  id: data.id
-                                })
-                              }}
-                              className="icon common_row"
-                            />
-                          </Box>
-                          <Box>
-                            <DeleteRoundedIcon
-                              onClick={() => setDeleteHolidayDialogControl({ ...deleteHolidayDialogControl, status: true, id: data.id })}
-                              className="icon delete_icon_style"
-                            />
-                          </Box>
-                        </td>
+                        <TableCell>
+                          <EditRoundedIcon
+                            onClick={() => {
+                              setAddHolidayDetail({
+                                ...addHolidayDetail,
+                                status: true,
+                                date: data.date,
+                                occasion: data.occasion,
+                                duration: data.duration,
+                                id: data.id,
+                              })
+                            }}
+                            className="icon common_row"
+                          />
+                          <DeleteRoundedIcon
+                            onClick={() =>
+                              setDeleteHolidayDialogControl({
+                                ...deleteHolidayDialogControl,
+                                status: true,
+                                id: data.id,
+                              })
+                            }
+                            className="icon delete_icon_style"
+                          />
+                        </TableCell>
                       </TableRow>
                     )
                   })}
               </TableBody>
             </Table>
           </TableContainer>
-
         </Box>
 
-        <Box
-          className='leave_regular_holiday_section'
-        >
+        <Box className="leave_regular_holiday_section">
           <Box className="leave_management_section">
-            <Box
-              className="header_section"
-            >
-              <Typography
-                className="sub_heading"
-                variant="span"
-              >
+            <Box className="header_section">
+              <Typography className="sub_heading" variant="span">
                 Leave Management
               </Typography>
               <Button
@@ -433,13 +481,26 @@ const HolidayAndLeaveManagement = () => {
                   })
                 }
                 className="leave_holiday_buttons"
-              >+ Leave
+              >
+                + Leave
               </Button>
             </Box>
-            <TableContainer component={Paper}>
-              <Table>
+
+            <TableContainer
+              component={Paper}
+              // sx={{
+              //   boxShadow: 'none',
+              //   border: '1px solid #e5e5e5',
+              //   overflowY: 'auto',
+              // }}
+            >
+              <Table
+                className="table_heading"
+                stickyHeader
+                aria-label="sticky table"
+              >
                 <TableHead className="leave_holidays_table_header">
-                  <TableRow>
+                  <TableRow sx={{ backgroundColor: 'red' }}>
                     <TableCell>Type</TableCell>
                     <TableCell align="left">Total</TableCell>
                     <TableCell></TableCell>
@@ -459,7 +520,7 @@ const HolidayAndLeaveManagement = () => {
                           <TableCell align="right">{row.duration}</TableCell>
                           <TableCell align="right">
                             <EditRoundedIcon
-                              sx={{ marginLeft: '4rem' }}
+                              // sx={{ marginLeft: '1rem' }}
                               onClick={() => {
                                 setAddLeaveDialog({
                                   ...addLeaveDialog,
@@ -473,7 +534,11 @@ const HolidayAndLeaveManagement = () => {
                             />
                             <DeleteRoundedIcon
                               onClick={() =>
-                                setDeleteLeaveDialogControl({ ...deleteLeaveDialogControl, status: true, id: row.id })
+                                setDeleteLeaveDialogControl({
+                                  ...deleteLeaveDialogControl,
+                                  status: true,
+                                  id: row.id,
+                                })
                               }
                               className="icon"
                             />
@@ -488,49 +553,58 @@ const HolidayAndLeaveManagement = () => {
 
           <Box className="regular_holiday_section" sx={{ marginTop: '10px' }}>
             <Box className="header_section">
-              <Typography
-                className="sub_heading"
-                variant="span"
-              >Regular Holiday On
+              <Typography className="sub_heading" variant="span">
+                Regular Holiday On
               </Typography>
               <Button
                 className="leave_holiday_buttons"
                 variant="contained"
-                onClick={() => setAddEditRegularDetail({ ...addEditRegularDetail, status: true })}
+                onClick={() =>
+                  setAddEditRegularDetail({
+                    ...addEditRegularDetail,
+                    status: true,
+                  })
+                }
               >
                 + Add
               </Button>
             </Box>
-            {regularHolidayList.length > 0 && regularHolidayList.map((data) => {
-              return <>
-                <Box className="regular_holiday_data">
-                  <Typography
-                    variant="span"
-                  >
-                    {daysList[data.occasion].days}
-                  </Typography>
-                  <Box>
-                    <EditRoundedIcon
-                      className="icon"
-                      onClick={() => {
-                        setAddEditRegularDetail({
-                          ...addEditRegularDetail, status: true,
-                          id: data.id, occasion: data.occasion
-                        })
-                      }
-                      }
-                    />
-                    <DeleteRoundedIcon
-                      onClick={() => setDeleteHolidayDialogControl({ ...deleteHolidayDialogControl, status: true, id: data.id })}
-                      className="icon"
-                    />
-                  </Box>
-                </Box>
-              </>
-            })}
-
+            {regularHolidayList.length > 0 &&
+              regularHolidayList.map(data => {
+                return (
+                  <>
+                    <Box className="regular_holiday_data">
+                      <Typography variant="span">
+                        {daysList[data.occasion].days}
+                      </Typography>
+                      <Box>
+                        <EditRoundedIcon
+                          className="icon"
+                          onClick={() => {
+                            setAddEditRegularDetail({
+                              ...addEditRegularDetail,
+                              status: true,
+                              id: data.id,
+                              occasion: data.occasion,
+                            })
+                          }}
+                        />
+                        <DeleteRoundedIcon
+                          onClick={() =>
+                            setDeleteHolidayDialogControl({
+                              ...deleteHolidayDialogControl,
+                              status: true,
+                              id: data.id,
+                            })
+                          }
+                          className="icon"
+                        />
+                      </Box>
+                    </Box>
+                  </>
+                )
+              })}
           </Box>
-
         </Box>
 
         {/* Add Edit Occasional Holiday Dialog */}
@@ -573,7 +647,6 @@ const HolidayAndLeaveManagement = () => {
           setDeleteHolidayDialogControl={setDeleteHolidayDialogControl}
           handleHolidayDeleteDialog={handleHolidayDeleteDialog}
         />
-
       </Box>
     </>
   )

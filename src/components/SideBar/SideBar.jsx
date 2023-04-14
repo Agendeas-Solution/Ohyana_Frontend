@@ -70,6 +70,7 @@ const SideBar = () => {
     var retrievedObject = JSON.parse(localStorage.getItem('permissions'))
     setPermissions(retrievedObject)
   }, [])
+
   const handleNavItemClick = (path, name) => {
     console.log('Printing Edit icon')
     navigate(path)

@@ -17,6 +17,7 @@ import Paper from '@mui/material/Paper'
 import Avatar from '@mui/material/Avatar'
 import Stack from '@mui/material/Stack'
 import ProductPhotoWithOutline from '../../assets/img/Product_Photo_With_Outline.svg'
+
 const MyCart = () => {
   return (
     <>
@@ -71,7 +72,7 @@ const MyCart = () => {
             <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
               <Table>
                 <TableHead className="team_overview_table_heading">
-                  <TableRow>
+                  <TableRow sx={{ marginTop: '5px' }}>
                     <TableCell></TableCell>
                     <TableCell align="right">Name</TableCell>
                     <TableCell align="right">Price</TableCell>

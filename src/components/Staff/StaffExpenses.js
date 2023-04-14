@@ -23,6 +23,7 @@ const StaffExpenses = () => {
   const [dateRange, setDateRange] = useState({
     startDate: '',
     endDate: '',
+    // defaultDate: moment().format('dd/mm/yyyy'),
   })
 
   const [value, setValue] = useState('1')
@@ -43,13 +44,13 @@ const StaffExpenses = () => {
         setExpenseList(res.data.expenses)
         setExpensesData(res.data)
       },
-      err => { },
+      err => {},
     )
   }, [])
   const handlePaymentStatusUpdate = id => {
     PaymentStatusUpdate(
       id,
-      res => { },
+      res => {},
       err => {
         console.log('Printing Error Payment Status Update', err)
       },
@@ -59,8 +60,8 @@ const StaffExpenses = () => {
     StatusUpdate(
       id,
       status,
-      res => { },
-      err => { },
+      res => {},
+      err => {},
     )
   }
 

@@ -19,15 +19,17 @@ import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import AddRoundedIcon from '@mui/icons-material/AddRounded'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+import { Context as ContextActivePage } from '../../context/pageContext'
 
 import {
   GetAdminClientProfileDetail,
   GetAdminClientStatusDetail,
   GetAdminClientReminderDetail,
-  GetAdminClientAppointmentDetail, AddPoorContact
+  GetAdminClientAppointmentDetail,
+  AddPoorContact,
 } from '../../services/apiservices/clientDetail'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import moment from 'moment'
@@ -54,6 +56,10 @@ const RemainderDialog = React.lazy(() => import('./RemainderDialog'))
 const StatusDialog = React.lazy(() => import('./StatusDialog'))
 
 const ClientProfile = () => {
+  const navigate = useNavigate()
+  const [paths, setPaths] = useState(null)
+  const { setActivePage } = useContext(ContextActivePage)
+
   const [value, setValue] = useState('1')
   const { flagLoader, permissions } = useContext(AuthContext).state
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
@@ -67,7 +73,6 @@ const ClientProfile = () => {
   const [clientReminderList, setClientReminderList] = useState([])
   const [clientAppointmentList, setClientAppointmentList] = useState([])
   const [stageDialog, setStageDialog] = useState(false)
-  const navigate = useNavigate()
 
   const [editStatusDialog, setEditStatusDialog] = useState({
     clientId: null,
@@ -80,8 +85,8 @@ const ClientProfile = () => {
     description: '',
     status: false,
     callNotReceived: true,
-    flag: "true",
-    followUpType: "OTHER",
+    flag: 'true',
+    followUpType: 'OTHER',
   })
   const [viewClientStatus, setViewClientStatus] = useState({
     clientId: null,
@@ -111,8 +116,8 @@ const ClientProfile = () => {
       },
     )
   }, [stageDialog])
-  let path = window.location.pathname;
-  path = path.split('/').pop();
+  let path = window.location.pathname
+  path = path.split('/').pop()
   const handleAdminClienStatusDetail = () => {
     GetAdminClientStatusDetail(
       parseInt(path),
@@ -127,8 +132,7 @@ const ClientProfile = () => {
     )
   }
   useEffect(() => {
-
-    value === '1' && handleAdminClienStatusDetail();
+    value === '1' && handleAdminClienStatusDetail()
 
     value === '2' &&
       GetAdminClientReminderDetail(
@@ -159,16 +163,15 @@ const ClientProfile = () => {
     setValue(newValue)
   }
   const handleAddPoorContact = () => {
-    let data = {};
-    if (addPoorContact.flag === "true") {
+    let data = {}
+    if (addPoorContact.flag === 'true') {
       data = {
         clientId: addPoorContact.clientId,
         callNotReceived: addPoorContact.callNotReceived,
         followUpType: addPoorContact.followUpType,
-        description: "Call Not Received",
+        description: 'Call Not Received',
       }
-    }
-    else {
+    } else {
       data = {
         clientId: addPoorContact.clientId,
         callNotReceived: addPoorContact.callNotReceived,
@@ -176,18 +179,26 @@ const ClientProfile = () => {
         description: addPoorContact.description,
       }
     }
-    debugger;
-    AddPoorContact(data, (res) => {
-      setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
-      handleCallClose();
-      handleAdminClienStatusDetail();
-    }, (err) => {
-      setErrorSnackbar({
-        ...errorSnackbar,
-        status: true,
-        message: err?.response?.data?.message,
-      })
-    })
+
+    AddPoorContact(
+      data,
+      res => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
+        })
+        handleCallClose()
+        handleAdminClienStatusDetail()
+      },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
+    )
   }
   const handleClickOpen = () => {
     setRemainderDialog(true)
@@ -199,7 +210,11 @@ const ClientProfile = () => {
   }
 
   const handleCallOpen = () => {
-    setAddPoorContact({ ...addPoorContact, status: true, clientId: clientProfileDetail.id })
+    setAddPoorContact({
+      ...addPoorContact,
+      status: true,
+      clientId: clientProfileDetail.id,
+    })
   }
   const handleCallClose = () => {
     setAddPoorContact({
@@ -236,10 +251,6 @@ const ClientProfile = () => {
     setAppointmentDialog(false)
   }
 
-  const handleOrderOpen = () => {
-    navigate('/clientorders')
-  }
-
   const handleEditClientStatus = (row, clientid) => {
     setEditStatusDialog({
       ...editStatusDialog,
@@ -260,6 +271,17 @@ const ClientProfile = () => {
   }
   const handleViewStatusDialogClose = () => {
     setViewClientStatus({ ...viewClientStatus, status: false })
+  }
+
+  const handleOrderOpen = () => {
+    navigate('/clientorders')
+  }
+
+  const handleClientOrdersClick = (path, name) => {
+    navigate(path)
+    setActivePage(name)
+    setPaths(path)
+    localStorage.setItem('path', path)
   }
 
   return (
@@ -370,8 +392,10 @@ const ClientProfile = () => {
                   <>
                     <Button
                       className="common_button"
-                      onClick={handleOrderOpen}
-                      // onClick={navigate('/dashboard')}
+                      // onClick={handleOrderOpen}
+                      onClick={() =>
+                        handleClientOrdersClick('/clientorders', 'Add to Cart')
+                      }
                       variant="contained"
                     >
                       + Order
