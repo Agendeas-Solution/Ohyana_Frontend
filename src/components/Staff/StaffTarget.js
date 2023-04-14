@@ -42,10 +42,13 @@ const StaffTarget = () => {
   const [targetList, setTargetList] = useState([])
 
   useEffect(() => {
+    // debugger
     GetTargetList(
       {
-        month: selectMonth?.$M + 1,
-        year: selectMonth?.$y,
+        // month: selectMonth?.$M + 1,
+        // year: selectMonth?.$y,
+        month: moment().format('MMM'),
+        year: moment().format('YYYY'),
         teamId: parseInt(path),
       },
       res => {
@@ -91,6 +94,7 @@ const StaffTarget = () => {
                 views={['month', 'year']}
                 value={selectMonth}
                 onChange={selectMonth => {
+                  console.log(`inside Onchange: ${selectMonth.format('MMM')}`)
                   setSelectMonth(selectMonth)
                 }}
                 renderInput={params => (
