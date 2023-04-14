@@ -125,7 +125,6 @@ const Staff = () => {
         if (res?.success) {
           setStaffDetailList(res?.data)
           setLoader(false)
-          debugger
         }
       },
       err => {
@@ -172,7 +171,6 @@ const Staff = () => {
 
   return (
     <Box sx={{ backgroundColor: '#f1f2f6' }} className="team_profile_section">
-
       <Box className="left_panel">
         <Box sx={{ width: '100%' }}>
           <Box className="team_header">
@@ -340,9 +338,7 @@ const Staff = () => {
           </Box>
           <Box className="left_team_profile_section">
             <TableContainer>
-              <Table
-                className="team_member_table"
-              >
+              <Table className="team_member_table">
                 <TableHead>
                   <TableRow sx={{ backgroundColor: '#f1f2f6' }}>
                     <TableCell align="left">Name</TableCell>
@@ -410,8 +406,7 @@ const Staff = () => {
       </Box >
 
       <Box className="right_panel">
-
-        <Box sx={{ width: '100%', padding: '0px 5px' }}>
+        <Box sx={{ width: '100%', padding: '0px 8px' }}>
           <Box className="user_profile_header_Section">
             <Box className="username_profile_Section">
               <AccountCircleRoundedIcon className="user_profile_icon" />
@@ -425,12 +420,14 @@ const Staff = () => {
               </Box>
             </Box>
             <Button
-              className='common_button'
+              className="common_button"
               onClick={() =>
                 navigate(
                   `/staffprofile/${singleStaffDetails?.memberDetail?.id}`,
-                )}
-            >View
+                )
+              }
+            >
+              View
             </Button>
           </Box>
 
@@ -442,33 +439,29 @@ const Staff = () => {
               justifyContent: 'space-between',
               alignItems: 'start',
               padding: '0px 15px',
-            }}>
-
-            <Box
-              className='profile_detail_row'>
-              <Typography className='profile_lable' variant="span">
+            }}
+          >
+            <Box className="profile_detail_row">
+              <Typography className="profile_lable" variant="span">
                 Contact
               </Typography>
 
               <Typography variant="span">
                 {singleStaffDetails?.memberDetail?.contact_number}
               </Typography>
-
             </Box>
 
-            <Box className='profile_detail_row'>
+            <Box className="profile_detail_row">
               <Typography className="profile_lable" variant="span">
                 Email
               </Typography>
-              <Typography
-                variant="span"
-              >
+              <Typography variant="span">
                 {singleStaffDetails?.memberDetail?.email}
               </Typography>
             </Box>
 
-            <Box className='profile_detail_row'>
-              <Typography className='profile_lable' variant="span">
+            <Box className="profile_detail_row">
+              <Typography className="profile_lable" variant="span">
                 Location
               </Typography>
               <Typography variant="span">
@@ -476,7 +469,6 @@ const Staff = () => {
                 {/* {singleStaffDetails?.memberDetail?.location} */}
               </Typography>
             </Box>
-
           </Box>
         </Box>
 
@@ -573,10 +565,8 @@ const Staff = () => {
             </Box>
           </Box>
         </Box>
-
       </Box>
-
-    </Box >
+    </Box>
   )
 }
 

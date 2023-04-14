@@ -94,7 +94,7 @@ const AddStaffMember = () => {
         jobType: userDetail.jobType,
         password: userDetail.password,
       }
-      debugger
+
       AddEmployee(
         employeeDetail,
         res => {

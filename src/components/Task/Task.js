@@ -114,7 +114,7 @@ const Task = () => {
     if (filterTask.teamId !== '') {
       data['teamId'] = filterTask.teamId
     }
-    debugger
+
     GetTaskList(
       data,
       res => {

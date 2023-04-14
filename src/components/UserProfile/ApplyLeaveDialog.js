@@ -50,8 +50,12 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
         duration: leaveDetail.duration,
       },
       res => {
-        handleCloseDialog();
-        setSuccessSnackbar({ ...successSnackbar, message: res?.message, status: true })
+        handleCloseDialog()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
+        })
       },
       err => {
         setErrorSnackbar({
@@ -64,10 +68,8 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
   }
   return (
     <>
-      <Dialog open={leaveDialogControl}
-        onClose={handleCloseDialog}>
+      <Dialog open={leaveDialogControl} onClose={handleCloseDialog}>
         <Box className="dialogue_main_section">
-
           <Typography className="dialogue_heading">Apply For Leave</Typography>
 
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -110,12 +112,11 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
             <Button
               className="dialogue_bottom_button"
               variant="contained"
-              onClick={handleApplyLeave}>
+              onClick={handleApplyLeave}
+            >
               Apply
             </Button>
-
           </DialogActions>
-
         </Box>
       </Dialog>
     </>

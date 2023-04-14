@@ -162,7 +162,6 @@ const EditClient = () => {
       console.log('Printing Path of ', path)
       console.log('Printing ', path.split('/').pop())
       path = path.split('/').pop()
-      debugger;
       EditClientDetail(
         path,
         clientDetail,
@@ -277,11 +276,12 @@ const EditClient = () => {
                   value={userDetail?.clientType}
                   onChange={e => {
                     setUserDetail({ ...userDetail, clientType: e.target.value })
-                    debugger;
                   }}
                 >
-                  {CLIENT.CLIENTTYPE.map((data) => {
-                    return <MenuItem value={data.type}>{data.fieldName}</MenuItem>
+                  {CLIENT.CLIENTTYPE.map(data => {
+                    return (
+                      <MenuItem value={data.type}>{data.fieldName}</MenuItem>
+                    )
                   })}
                 </Select>
               </FormControl>

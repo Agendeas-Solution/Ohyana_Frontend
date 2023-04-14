@@ -256,7 +256,7 @@ const Orders = () => {
 
       <Box className="below_main_tab_section">
         <TableContainer
-          className="orders_table_height "
+          className="orders_table_height"
           component={Paper}
           sx={{
             boxShadow: 'none',

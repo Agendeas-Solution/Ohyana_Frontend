@@ -26,9 +26,7 @@ const DashboardEmployee = () => {
       res => {
         setSalesInquiry(res?.data)
       },
-      err => {
-
-      },
+      err => {},
     )
   }, [])
   return (
@@ -114,6 +112,7 @@ const DashboardEmployee = () => {
                   sx={{ padding: '10px' }}
                   className="below_performance_parameter"
                 >
+
                   <Typography variant="span">{salesInquiry?.performance?.targets?.target || "-"}</Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
@@ -124,6 +123,7 @@ const DashboardEmployee = () => {
               <Box className="performance_statistics_data">
                 <Typography variant="span">Achieved</Typography>
                 <Box className="below_performance_parameter">
+
                   <Typography variant="span">{salesInquiry?.performance?.targets?.precentageAchieved || "0"}</Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
@@ -335,6 +335,7 @@ const DashboardEmployee = () => {
                 Star Performers
               </Typography>
             </Box>
+
             {
               salesInquiry?.starPerformerList.length > 0 && salesInquiry.starPerformerList.map((data) => {
                 return <div class="a-box">
@@ -351,11 +352,11 @@ const DashboardEmployee = () => {
                     <h5>Star Performer of the Month.</h5>
                   </div>
                 </div>
-              })
-            }
+              )
+            })}
           </Box>
         </Box>
-      </Box >
+      </Box>
     </>
   )
 }

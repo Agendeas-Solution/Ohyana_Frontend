@@ -9,7 +9,15 @@
   margin: 15px auto;
   overflow-y: hidden;
   overflow-x: hidden;
+}
 
+.regular_holiday_section {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e5e6eb;
+  border-radius: 5px;
+  padding: 10px;
+  height: 40%;
 }
 
 .occassional_holiday_section {
@@ -43,19 +51,12 @@ table {
 .regular_holiday_data {
   display: flex;
   justify-content: space-between;
-}
-
-.regular_holiday_section {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #e5e6eb;
-  border-radius: 5px;
-  padding: 5px;
-  padding: 10px;
-  height: 40%;
+  padding-left: 16px;
+  padding-bottom: 16px;
 }
 
 .leave_management_section {
+  display: grid;
   border: 1px solid #e5e6eb;
   padding: 10px;
   border-radius: 5px;

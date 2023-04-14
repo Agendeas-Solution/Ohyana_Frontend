@@ -853,7 +853,7 @@ button {
 .range_days_data {
   display: flex;
   background-color: #f1f2f6;
-  height: 35px;
+  // height: 35px;
   width: 11rem;
   margin-left: 140px;
   margin-top: 2px;
@@ -1155,6 +1155,8 @@ button {
 .info_and_cart {
   display: flex;
   justify-content: space-between;
+  // align-items: center;
+  // align-content: center;
   margin-top: 30px;
 }
 

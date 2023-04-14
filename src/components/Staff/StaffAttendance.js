@@ -78,7 +78,7 @@ const StaffAttendance = () => {
         res => {
           setStaffAttendanceList(res?.data)
         },
-        err => { },
+        err => {},
       )
     activeTab === 'leave' &&
       GetStaffLeaveList(
@@ -90,7 +90,7 @@ const StaffAttendance = () => {
         res => {
           setStaffLeaveList(res?.data)
         },
-        err => { },
+        err => {},
       )
   }, [activeTab, selectMonth])
   return (
@@ -144,7 +144,9 @@ const StaffAttendance = () => {
           >
             <Button
               className={
-                activeTab === 'present' ? 'active_button' : 'custom_tab_background'
+                activeTab === 'present'
+                  ? 'active_button'
+                  : 'custom_tab_background'
               }
               onClick={() => {
                 setActiveTab('present')
@@ -154,7 +156,11 @@ const StaffAttendance = () => {
               Present
             </Button>
             <Button
-              className={activeTab === 'leave' ? 'active_button' : 'custom_tab_background'}
+              className={
+                activeTab === 'leave'
+                  ? 'active_button'
+                  : 'custom_tab_background'
+              }
               onClick={() => {
                 setActiveTab('leave')
               }}

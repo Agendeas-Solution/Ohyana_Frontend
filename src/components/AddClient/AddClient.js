@@ -142,7 +142,6 @@ const AddClient = () => {
         city: userDetail.city,
         reference_name: userDetail?.referenceName,
       }
-      debugger
       AddClientDetail(
         clientDetail,
         res => {
@@ -172,7 +171,6 @@ const AddClient = () => {
   return (
     <>
       <Box className="main_section">
-
         {/* Client Name &&  Business Name*/}
         <Box className="input_field_row">
           <Box className="input_fields">
@@ -380,8 +378,6 @@ const AddClient = () => {
             Save
           </Button>
         </Box>
-
-
       </Box>
       {/* <ErrorSnackbar /> */}
     </>
