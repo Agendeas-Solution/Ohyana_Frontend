@@ -50,24 +50,16 @@ const UserProfile = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-  const [dateRange, setDateRange] = useState({
-    startDate: '',
-    endDate: '',
-  })
   const [attendanceTab, setAttendanceTab] = useState('1')
   const handleTabChange = (event, newValue) => {
     setAttendanceTab(newValue)
   }
   const [userDetail, setUserDetail] = useState({})
-  const [showPassword, setShowPassword] = useState(false)
-  const { flagLoader } = useContext(AuthContext).state
-  const { setFlagLoader } = useContext(AuthContext)
   const [activeTab, setActiveTab] = useState('present')
   const [staffAttendanceList, setStaffAttendanceList] = useState([])
   const [leaveList, setLeaveList] = useState([])
   const [holidayList, setHolidayList] = useState([])
   const [leaveDialogControl, setLeaveDialogControl] = useState(false)
-
   useEffect(() => {
     GetAdminProfile(
       {},
@@ -82,9 +74,9 @@ const UserProfile = () => {
     )
   }, [])
   localStorage.setItem('userEmail', userDetail?.email)
-
   useEffect(() => {
     activeTab === 'present' &&
+      value === 'Attendance' &&
       GetAdminAttendanceList(
         userDetail?.id,
         res => {
@@ -92,9 +84,10 @@ const UserProfile = () => {
             setStaffAttendanceList(res?.data)
           }
         },
-        err => { },
+        err => {},
       )
     activeTab === 'leave' &&
+      value === 'Attendance' &&
       GetAdminLeaveList(
         userDetail?.id,
         res => {
@@ -102,9 +95,10 @@ const UserProfile = () => {
             setLeaveList(res?.data)
           }
         },
-        err => { },
+        err => {},
       )
     activeTab === 'holiday' &&
+      value === 'Attendance' &&
       GetAllHoliday(
         userDetail?.id,
         res => {
@@ -113,15 +107,15 @@ const UserProfile = () => {
             setHolidayList(res?.data)
           }
         },
-        err => { },
+        err => {},
       )
-  }, [value, activeTab])
+  }, [activeTab, value])
 
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
-      res => { },
-      err => { },
+      res => {},
+      err => {},
     )
   }
   const handleCloseDialog = () => {
@@ -135,9 +129,7 @@ const UserProfile = () => {
           <Box className="username_profile_Section">
             <AccountCircleRoundedIcon className="user_profile_icon" />
             <Box className="username_and_position">
-              <Typography className="username_text"
-                variant="span"
-              >
+              <Typography className="username_text" variant="span">
                 {userDetail?.name || '-'}
               </Typography>
               <Typography variant="span" sx={{ marginTop: '5px' }}>
@@ -159,9 +151,7 @@ const UserProfile = () => {
               </>
             )}
 
-            <Button
-              className="profile_header_button"
-            >
+            <Button className="profile_header_button">
               <EditRoundedIcon
                 onClick={() => {
                   console.log('Printing Edit icon')
@@ -224,7 +214,9 @@ const UserProfile = () => {
                 >
                   <Button
                     className={
-                      activeTab === 'present' ? 'active_button' : 'custom_tab_background'
+                      activeTab === 'present'
+                        ? 'active_button'
+                        : 'custom_tab_background'
                     }
                     onClick={() => {
                       setActiveTab('present')
@@ -236,7 +228,9 @@ const UserProfile = () => {
                   <Button
                     // sx={{ marginLeft: '0px', marginRight: '0' }}
                     className={
-                      activeTab === 'leave' ? 'active_button' : 'custom_tab_background'
+                      activeTab === 'leave'
+                        ? 'active_button'
+                        : 'custom_tab_background'
                     }
                     onClick={() => {
                       setActiveTab('leave')
@@ -247,7 +241,9 @@ const UserProfile = () => {
                   </Button>
                   <Button
                     className={
-                      activeTab === 'holiday' ? 'active_button' : 'custom_tab_background'
+                      activeTab === 'holiday'
+                        ? 'active_button'
+                        : 'custom_tab_background'
                     }
                     onClick={() => {
                       setActiveTab('holiday')
@@ -259,7 +255,6 @@ const UserProfile = () => {
                 </Box>
               </Box>
             </Box>
-
 
             {activeTab === 'present' && (
               <PresentData staffAttendanceList={staffAttendanceList} />
@@ -276,10 +271,7 @@ const UserProfile = () => {
           <TabPanel value="Profile">
             <Box className="staff_profile">
               <Box className="staff_profile_page">
-                <Typography
-                  className="profile_data_lable"
-                  variant="span"
-                >
+                <Typography className="profile_data_lable" variant="span">
                   Contact No.:
                 </Typography>
                 <Typography variant="span">
@@ -288,10 +280,7 @@ const UserProfile = () => {
               </Box>
               {userDetail?.senior && (
                 <Box className="staff_profile_page">
-                  <Typography
-                    variant="span"
-                    className="profile_data_lable"
-                  >
+                  <Typography variant="span" className="profile_data_lable">
                     Senior Post:
                   </Typography>
                   <Typography variant="span">
@@ -300,37 +289,25 @@ const UserProfile = () => {
                 </Box>
               )}
               <Box className="staff_profile_page">
-                <Typography
-                  variant="span"
-                  className=" profile_data_lable"
-                >
+                <Typography variant="span" className=" profile_data_lable">
                   Email:
                 </Typography>
                 <Typography variant="span">{userDetail?.email}</Typography>
               </Box>
               <Box className="staff_profile_page">
-                <Typography
-                  variant="span"
-                  className=" profile_data_lable"
-                >
+                <Typography variant="span" className=" profile_data_lable">
                   Password:
                 </Typography>
                 <Typography variant="span">{userDetail?.password}</Typography>
               </Box>
               <Box className="staff_profile_page">
-                <Typography
-                  className=" profile_data_lable"
-                  variant="span"
-                >
+                <Typography className=" profile_data_lable" variant="span">
                   Birthday
                 </Typography>
                 <Typography variant="span">{userDetail?.birthDay}</Typography>
               </Box>
               <Box className="staff_profile_page">
-                <Typography
-                  className=" profile_data_lable"
-                  variant="span"
-                >
+                <Typography className=" profile_data_lable" variant="span">
                   Gender
                 </Typography>
                 <Typography variant="span">{userDetail?.gender}</Typography>
@@ -349,10 +326,12 @@ const UserProfile = () => {
             </Box>
           </TabPanel>
         </TabContext>
-        <ApplyLeaveDialog
-          leaveDialogControl={leaveDialogControl}
-          handleCloseDialog={handleCloseDialog}
-        />
+        {leaveDialogControl.status && (
+          <ApplyLeaveDialog
+            leaveDialogControl={leaveDialogControl}
+            handleCloseDialog={handleCloseDialog}
+          />
+        )}
       </Box>
     </>
   )

@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
   Dialog,
   Box,
@@ -22,8 +22,8 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 import moment from 'moment'
 const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
   const [leaveType, setLeaveType] = useState([])
-  const { successSnackbar ,errorSnackbar} = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar,setErrorSnackbar } = useContext(ContextSnackbar)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [leaveDetail, setLeaveDetail] = useState({
     duration: '',
     leaveType: null,
@@ -33,7 +33,6 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
       {},
       res => {
         setLeaveType(res.data)
-        debugger
       },
       err => {
         setErrorSnackbar({
@@ -41,7 +40,7 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
           status: true,
           message: err?.response?.data?.message,
         })
-       },
+      },
     )
   }, [])
   const handleApplyLeave = () => {

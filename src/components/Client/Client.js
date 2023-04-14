@@ -25,7 +25,7 @@ import { useNavigate } from 'react-router-dom'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import {
   GetAdminClientDetail,
-  DeleteClientDetail,
+  DeleteClientDetail, GetCityList, GetStateList
 } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as AuthContext } from '../../context/authContext/authContext'
@@ -52,16 +52,22 @@ const Client = () => {
   const [value, setValue] = useState('digital')
   const navigate = useNavigate()
   const { flagLoader, permissions } = useContext(AuthContext).state
-  const { setFlagLoader } = useContext(AuthContext)
+  // const { setFlagLoader } = useContext(AuthContext)
   const [open, setOpen] = useState(false)
   const [clientDetails, setClientDetails] = useState([])
   const [rowsPerPage, setRowsPerPage] = useState(20)
-  const [pageNumber, setPageNumber] = useState(1)
+  // const [pageNumber, setPageNumber] = useState(1)
   const [totalResult, setTotalresult] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [isInternational, setIsInternational] = useState(null)
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
+  const [cityList, setCityList] = useState([]);
+  const [stateList, setStateList] = useState([]);
+  const [selectedCityState, setSelectedCityState] = useState({
+    city: "",
+    state: ""
+  })
   const [deleteClientDialogControl, setDeleteClientDialogControl] = useState({
     status: false,
     clientId: null,
@@ -83,17 +89,48 @@ const Client = () => {
   const handleDrawerOpen = () => {
     setOpen(true)
   }
-
   const handleDrawerClose = () => {
     setOpen(false)
   }
   const handleClearAllFilter = () => {
     setClientStage(null)
-    getClientDetails()
+    setSelectedCityState({ city: "", state: "" });
+    getClientDetails();
   }
   const handleApplyFilter = () => {
     getClientDetails()
   }
+  const handleCityList = () => {
+    GetCityList(
+      {},
+      (res) => {
+        if (res?.success) {
+          setCityList(res.data)
+        }
+      },
+      (err) => {
+        console.log(err)
+      },
+    )
+  }
+  const handleStateList = () => {
+    GetStateList(
+      {},
+      res => {
+        if (res?.success) {
+          setStateList(res.data)
+        }
+      },
+      err => {
+        console.log(err)
+      },
+    )
+  }
+
+  useEffect(() => {
+    handleCityList();
+    handleStateList();
+  }, [])
   useEffect(() => {
     console.log(clientType)
     let value = clientType.filter(data => {
@@ -186,6 +223,12 @@ const Client = () => {
     if (searchQuery) {
       data['searchQuery'] = searchQuery
     }
+    if (selectedCityState.city !== "") {
+      data['city'] = selectedCityState.city
+    }
+    if (selectedCityState.state !== "") {
+      data['state'] = selectedCityState.state
+    }
     data['stage'] = clientStage
     setClientLoader(true)
     GetAdminClientDetail(
@@ -215,7 +258,9 @@ const Client = () => {
     currentPage,
     isInternational,
     value,
+    clientStage,
     searchQuery,
+    selectedCityState,
     deleteClientDialogControl.status,
   ])
   return (
@@ -235,7 +280,6 @@ const Client = () => {
           <Tab value="existing" label="Existing" />
           <Tab value="other" label="Other" />
         </Tabs>
-
         <Box
           sx={{
             display: 'flex',
@@ -336,31 +380,31 @@ const Client = () => {
               <InputLabel>Select City</InputLabel>
               <Select
                 label="Select City"
-                // value=
-                //   {userDetail.city}
-                onChange={(e, value) => {
-                  // setClientCity(value?.id)
+                value=
+                {selectedCityState.city}
+                onChange={(e) => {
+                  setSelectedCityState({ ...selectedCityState, city: e.target.value });
                 }}
               >
-                <MenuItem value="INDIAMART">Ahmedabad</MenuItem>
-                <MenuItem value="WEBSITE">Baroda</MenuItem>
-                <MenuItem value="WEBSITE">Rajkot</MenuItem>
-                <MenuItem value="OFFICE">Surat</MenuItem>
+                {cityList && cityList.map((data) => {
+                  console.log("Printing Data", data);
+                  return <MenuItem value={data}>{data}</MenuItem>
+                })}
               </Select>
             </FormControl>
             <FormControl sx={{ margin: '10px' }}>
               <InputLabel>Select State</InputLabel>
               <Select
                 label="Select State"
-                onChange={(e, value) => {
-                  // console.log(value)
-                  // setClientState(value?.id)
+                value={selectedCityState.state}
+                onChange={(e) => {
+                  setSelectedCityState({ ...selectedCityState, state: e.target.value });
                 }}
               >
-                <MenuItem value="WEBSITE">Chhattisgarh</MenuItem>
-                <MenuItem value="INDIAMART">Gujarat</MenuItem>
-                <MenuItem value="OFFICE">Maharashtra</MenuItem>
-                <MenuItem value="WEBSITE">Uttar Pradesh</MenuItem>
+                {stateList && stateList.map((data) => {
+                  console.log("Printing Data", data);
+                  return <MenuItem value={data}>{data}</MenuItem>
+                })}
               </Select>
             </FormControl>
           </Box>
