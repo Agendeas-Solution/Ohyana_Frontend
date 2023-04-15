@@ -142,21 +142,17 @@ const AppContent = () => {
             {permissions?.settingMenu && (
               <Route path="/settings" element={<Settings />}></Route>
             )}
-            {permissions?.viewDepartment && (
+            {/* {permissions?.viewDepartment && (
               <Route
                 path="/departmentlist"
                 element={<DepartmentList />}
               ></Route>
-            )}
+            )} */}
 
             <Route path="/expenselist" element={<ExpenseList />} />
 
-            {permissions?.viewDepartment && (
-              <Route path="/jobrolelist" element={<JobRolesList />}></Route>
-            )}
-            {permissions?.viewDepartment && (
-              <Route path="/jobroleaccess/:id" element={<Department />}></Route>
-            )}
+            <Route path="/jobrolelist" element={<JobRolesList />}></Route>
+            <Route path="/jobroleaccess/:id" element={<Department />}></Route>
             {permissions?.viewProduct && (
               <Route path="/productlist" element={<ProductList />}></Route>
             )}

@@ -123,16 +123,14 @@ const JobRolesList = () => {
           <Typography variant="span" className="ms-2">
             Job Roles
           </Typography>
-          {permissions?.editDepartment && (
-            <Button
-              onClick={() => {
-                setJobRoleDialogControl(true)
-              }}
-              variant="contained"
-            >
-              + Add Job Role
-            </Button>
-          )}
+          <Button
+            onClick={() => {
+              setJobRoleDialogControl(true)
+            }}
+            variant="contained"
+          >
+            + Add Job Role
+          </Button>
         </Box>
         <Divider
           sx={{ borderColor: '#8E8E8E' }}

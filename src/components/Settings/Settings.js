@@ -29,21 +29,19 @@ const Settings = () => {
           />
           <Typography variant="span">Company Profile</Typography>
         </Box>
-        {permissions?.viewDepartment && (
-          <Box
-            className="setting_cards-list"
-            onClick={() => {
-              navigate('/jobrolelist')
-            }}
-          >
-            <img
-              className="department_icon"
-              src={DepartmentIcon}
-              alt="department_icon"
-            />
-            <Typography variant="span">Team Role</Typography>
-          </Box>
-        )}
+        <Box
+          className="setting_cards-list"
+          onClick={() => {
+            navigate('/jobrolelist')
+          }}
+        >
+          <img
+            className="department_icon"
+            src={DepartmentIcon}
+            alt="department_icon"
+          />
+          <Typography variant="span">Team Role</Typography>
+        </Box>
         {permissions?.viewProduct && (
           <Box
             className="setting_cards-list"
