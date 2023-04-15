@@ -227,13 +227,12 @@ input[type='radio']:focus {
   text-transform: capitalize !important;
   color: #2e3591 !important;
 }
-.job_role_description {
-  /* font-size: 13px; */
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  white-space: normal;
-  /* color: #8e8e8e; */
+.background_col_btn {
+  background-color: #2e3591 !important;
+  box-shadow: none;
+}
+.job_role_list tbody tr {
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  /* border-bottom: 5px; */
 }
