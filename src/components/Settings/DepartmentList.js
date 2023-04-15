@@ -38,20 +38,18 @@ const DepartmentList = () => {
     <>
       <div className="add_product_button p-3">
         <Typography variant="span">All Department</Typography>
-        {permissions?.editDepartment && (
-          <Button
-            onClick={() => {
-              setAddEditDepartmentDialogControl({
-                ...addEditDepartmentDialogControl,
-                status: true,
-              })
-            }}
-            // variant="contained"
-            className="main_department_button"
-          >
-            + Add Department
-          </Button>
-        )}
+        <Button
+          onClick={() => {
+            setAddEditDepartmentDialogControl({
+              ...addEditDepartmentDialogControl,
+              status: true,
+            })
+          }}
+          // variant="contained"
+          className="main_department_button"
+        >
+          + Add Department
+        </Button>
       </div>
       <Box className="department_list_section bg-body">
         {AdminDepartmentList.map(row => {

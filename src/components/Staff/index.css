@@ -146,8 +146,9 @@
   border: 1px solid #e5e5e5;
   border-radius: 5px;
   box-shadow: none;
+  /* margin-bottom: 4px; */
   /* width: 53px; */
-  height: 34.5rem;
+  /* height: 32.5rem; */
 }
 
 .pjp_all_table_header tr th {
