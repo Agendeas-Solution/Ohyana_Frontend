@@ -45,7 +45,6 @@ const EditProfile = () => {
       {},
       res => {
         if (res?.success) {
-          debugger
           setUserDetail({
             ...userDetail,
             employeeName: res?.data.name,
@@ -78,12 +77,11 @@ const EditProfile = () => {
       birthDay: userDetail.birthDate,
     }
     console.log('Printing Data', data)
-    debugger
+
     EditAdminProfile(
       data,
       res => {
         if (res.success) {
-          debugger
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,

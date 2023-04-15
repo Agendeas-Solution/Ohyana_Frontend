@@ -25,6 +25,8 @@ import {
   FormLabelRadioGroup,
   FormControlLabel,
   Radio,
+  Select,
+  InputLabel,
 } from '@mui/material'
 import './index.css'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
@@ -46,7 +48,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import moment from 'moment'
 import { styled, useTheme } from '@mui/material/styles'
-const drawerWidth = 400
+const drawerWidth = 350
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const SuccessSnackbar = React.lazy(() =>
   import('../SuccessSnackbar/SuccessSnackbar'),
@@ -123,7 +125,6 @@ const Staff = () => {
         if (res?.success) {
           setStaffDetailList(res?.data)
           setLoader(false)
-          debugger
         }
       },
       err => {
@@ -132,18 +133,6 @@ const Staff = () => {
       },
     )
   }, [value, departmentAndJobRoles, searchQuery])
-
-  // useEffect(() => {
-  //   GetAdminDepartmentList(
-  //     {},
-  //     res => {
-  //       setDepartmentList(res?.data)
-  //     },
-  //     err => {
-  //       console.log('Printing Error', err)
-  //     },
-  //   )
-  // }, [])
 
   useEffect(() => {
     GetAdminRole(
@@ -182,7 +171,6 @@ const Staff = () => {
 
   return (
     <Box sx={{ backgroundColor: '#f1f2f6' }} className="team_profile_section">
-
       <Box className="left_panel">
         <Box sx={{ width: '100%' }}>
           <Box className="team_header">
@@ -241,47 +229,41 @@ const Staff = () => {
                   width: drawerWidth,
                 },
               }}
-              // variant="persistent"
               anchor="right"
               open={open}
             >
-              <DrawerHeader>
-                <Box className="d-flex justify-content-between column w-100 align-items-center">
-                  <Box className="d-flex column justify-content-between w-50 align-items-center">
-                    <IconButton
-                      disableRipple={true}
-                      onClick={handleDrawerClose}
-                    >
-                      {theme.direction === 'rtl' ? (
-                        <ChevronLeftIcon sx={{ fontSize: '30px' }} />
-                      ) : (
-                        <ChevronRightIcon sx={{ fontSize: '30px' }} />
-                      )}
-                    </IconButton>
-
-                    <Typography sx={{ fontSize: '22px', paddingRight: '60px' }}>
-                      Filter By
-                    </Typography>
-                  </Box>
-                  <Box className=" d-flex justify-content-end row w-50">
-                    <Typography sx={{ paddingLeft: '80px' }}>
-                      Clear All
-                    </Typography>
-                  </Box>
+              <DrawerHeader className="drawer_header_section">
+                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                  <IconButton
+                    sx={{ color: '#2e3591', padding: '0px' }}
+                    disableRipple={true}
+                    onClick={handleDrawerClose}>
+                    {theme.direction === 'rtl' ? (
+                      <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                    ) : (
+                      <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                    )}
+                  </IconButton>
+                  <Typography sx={{ fontSize: '22px', paddingRight: '0px' }}>
+                    Filter By
+                  </Typography>
+                </Box>
+                <Box>
+                  <Button>Reset</Button>
+                  <Button className="common_button" variant="contained">
+                    Apply
+                  </Button>
                 </Box>
               </DrawerHeader>
               <Divider />
-              <Box className="py-3">
-                <div className="row px-3">
-                  <FormControl className="px-3">
-                    <FormLabel
-                      sx={{ color: '#000000' }}
-                      className="mb-2"
-                      id="demo-row-radio-buttons-group-label"
-                    >
-                      Team Type
-                    </FormLabel>
-                    <RadioGroup row>
+              <Box
+                sx={{ display: 'flex', flexDirection: 'column' }}>
+                <FormControl sx={{ margin: '5px 15px' }}>
+                  <FormLabel sx={{ margin: '0px 5px' }}
+                  >Team Type
+                  </FormLabel>
+                  <RadioGroup>
+                    <Box className="checkbox_section">
                       <FormControlLabel
                         className="checkbox_background_color"
                         value="office"
@@ -294,17 +276,15 @@ const Staff = () => {
                         control={<Radio />}
                         label="On Field"
                       />
-                    </RadioGroup>
-                  </FormControl>
-                  <FormControl className="px-3 pt-3">
-                    <FormLabel sx={{ color: '#000000' }} className="mb-2">
-                      Result for
-                    </FormLabel>
-                    <RadioGroup
-                      row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
-                    >
+                    </Box>
+                  </RadioGroup>
+                </FormControl>
+                <FormControl sx={{ margin: '5px 15px' }}>
+                  <FormLabel sx={{ margin: '0px 5px' }}>
+                    Result for
+                  </FormLabel>
+                  <RadioGroup>
+                    <Box className="checkbox_section">
                       <FormControlLabel
                         className="checkbox_background_color"
                         value="present"
@@ -317,6 +297,8 @@ const Staff = () => {
                         control={<Radio />}
                         label="Absent"
                       />
+                    </Box>
+                    <Box className="checkbox_section">
                       <FormControlLabel
                         className="checkbox_background_color"
                         value="late"
@@ -329,42 +311,34 @@ const Staff = () => {
                         control={<Radio />}
                         label="On Leave"
                       />
-                    </RadioGroup>
-                  </FormControl>
-                  <div className="col-md-12 pt-3 px-3">
-                    <Typography variant="span">Job Role</Typography>
-                  </div>
-                  <Autocomplete
-                    className="mt-1 mx-3 align-items-center d-flex client_type_select justify-content-center "
-                    options={clientType}
+                    </Box>
+                  </RadioGroup>
+                </FormControl>
+
+                <FormControl sx={{ margin: '10px 20px' }}>
+                  <InputLabel>Job Role</InputLabel>
+                  <Select
+                    label="Job Role"
                     value={
                       clientStage !== null ? clientType[clientStage] : null
                     }
-                    sx={{ width: '21rem' }}
                     onChange={(e, value) => {
                       console.log(value)
                       setClientStage(value?.id)
                     }}
-                    getOptionLabel={option => option.stage}
-                    renderInput={params => (
-                      <TextField
-                        // className="m-3"
-                        variant="outlined"
-                        // sx={{ width: '24rem' }}
-                        {...params}
-                        placeholder="Job Role"
-                      />
-                    )}
-                  />
-                </div>
+                  >
+                    {clientType.map(data => {
+                      return <MenuItem value={data.id}>{data.stage}</MenuItem>
+                    })}
+                  </Select>
+                </FormControl>
+
               </Box>
             </Drawer>
           </Box>
           <Box className="left_team_profile_section">
             <TableContainer>
-              <Table
-                className="team_member_table"
-              >
+              <Table className="team_member_table">
                 <TableHead>
                   <TableRow sx={{ backgroundColor: '#f1f2f6' }}>
                     <TableCell align="left">Name</TableCell>
@@ -429,10 +403,9 @@ const Staff = () => {
             </TableContainer>
           </Box>
         </Box>
-      </Box>
+      </Box >
 
       <Box className="right_panel">
-
         <Box sx={{ width: '100%', padding: '0px 8px' }}>
           <Box className="user_profile_header_Section">
             <Box className="username_profile_Section">
@@ -447,12 +420,14 @@ const Staff = () => {
               </Box>
             </Box>
             <Button
-              className='common_button'
+              className="common_button"
               onClick={() =>
                 navigate(
                   `/staffprofile/${singleStaffDetails?.memberDetail?.id}`,
-                )}
-            >View
+                )
+              }
+            >
+              View
             </Button>
           </Box>
 
@@ -464,33 +439,29 @@ const Staff = () => {
               justifyContent: 'space-between',
               alignItems: 'start',
               padding: '0px 15px',
-            }}>
-
-            <Box
-              className='profile_detail_row'>
-              <Typography className='profile_lable' variant="span">
+            }}
+          >
+            <Box className="profile_detail_row">
+              <Typography className="profile_lable" variant="span">
                 Contact
               </Typography>
 
               <Typography variant="span">
                 {singleStaffDetails?.memberDetail?.contact_number}
               </Typography>
-
             </Box>
 
-            <Box className='profile_detail_row'>
+            <Box className="profile_detail_row">
               <Typography className="profile_lable" variant="span">
                 Email
               </Typography>
-              <Typography
-                variant="span"
-              >
+              <Typography variant="span">
                 {singleStaffDetails?.memberDetail?.email}
               </Typography>
             </Box>
 
-            <Box className='profile_detail_row'>
-              <Typography className='profile_lable' variant="span">
+            <Box className="profile_detail_row">
+              <Typography className="profile_lable" variant="span">
                 Location
               </Typography>
               <Typography variant="span">
@@ -498,99 +469,95 @@ const Staff = () => {
                 {/* {singleStaffDetails?.memberDetail?.location} */}
               </Typography>
             </Box>
-
           </Box>
         </Box>
 
         <Box className="bottom_right_part">
-          <Typography className="px-3">Inquiry Status</Typography>
+
+          <Typography className="statistics_box_heading">Inquiry Status</Typography>
+
           <Box className="staff_statistics_data">
-            <Box className="inner_profile_details first_box p-2">
+            <Box className="statistics_box first_box">
               <Typography>Total Inquiry</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthClients?.total}
               </Typography>
             </Box>
-            <Box className="inner_profile_details middle_box p-2">
+            <Box className="statistics_box middle_box">
               <Typography>Attend</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthClients?.attend}
               </Typography>
             </Box>
-            <Box className="inner_profile_details last_box  p-2">
+            <Box className="statistics_box last_box">
               <Typography className="text_ellipsis">Avg. Response</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthClients?.avgResponseTime}{' '}
               </Typography>
             </Box>
           </Box>
-          <Typography className="px-3">Attendance</Typography>
+
+          <Typography className="statistics_box_heading">Attendance</Typography>
+
           <Box className="staff_statistics_data">
-            <Box className="inner_profile_details first_box m-1 p-2">
+            <Box className="statistics_box first_box">
               <Typography className="text_ellipsis">Total Present</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthAttendance?.totalPresent}
               </Typography>
             </Box>
-            <Box className="inner_profile_details middle_box m-1 p-2">
+            <Box className="statistics_box middle_box">
               <Typography>Absent</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthAttendance?.totalAbsent}
               </Typography>
             </Box>
-
-            <Box className="inner_profile_details  last_box m-1 p-2">
+            <Box className="statistics_box  last_box">
               <Typography>Late</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthAttendance?.totalLate}
               </Typography>
             </Box>
           </Box>
-          <Typography className="px-3">Target</Typography>
+
+          <Typography className="statistics_box_heading">Target</Typography>
+
           <Box className="staff_statistics_data">
-            <Box className="inner_profile_details first_box m-1 p-2">
+            <Box className="statistics_box first_box">
               <Typography className="text_ellipsis">Total Days</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthTarget?.totalDays}
               </Typography>
             </Box>
-            <Box className="inner_profile_details middle_box m-1 p-2">
+            <Box className="statistics_box middle_box">
               <Typography className="text_ellipsis">Total Order</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthTarget?.targetOrder}
               </Typography>
             </Box>
-            <Box className="inner_profile_details last_box m-1 p-2">
+            <Box className="statistics_box last_box">
               <Typography>Achieved</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthTarget?.achieved}
               </Typography>
             </Box>
           </Box>
-          <Typography className="px-3">Expense</Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              width: '100%',
-              justifyContent: 'space-around',
-              marginBottom: '14px',
-              marginLeft: '6px',
-            }}
-          >
-            <Box className="inner_profile_details first_box  m-1 p-2">
+
+          <Typography className="statistics_box_heading">Expense</Typography>
+          <Box className="staff_statistics_data">
+            <Box className="statistics_box first_box">
               <Typography>Approved</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthExpense?.approvedExpense}
               </Typography>
             </Box>
-            <Box className="inner_profile_details middle_box m-1 p-2">
+            <Box className="statistics_box middle_box">
               <Typography>Pending</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthExpense?.pendingExpense}
               </Typography>
             </Box>
-            <Box className="inner_profile_details last_box m-1 p-2">
+            <Box className="statistics_box last_box">
               <Typography>Rejected</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthExpense?.rejectedExpense}
@@ -598,10 +565,8 @@ const Staff = () => {
             </Box>
           </Box>
         </Box>
-
       </Box>
-
-    </Box >
+    </Box>
   )
 }
 

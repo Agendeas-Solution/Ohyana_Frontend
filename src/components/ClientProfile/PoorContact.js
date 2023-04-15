@@ -11,12 +11,15 @@ import {
   DialogActions,
 } from '@mui/material'
 import { Box } from '@mui/system'
-const PoorContact = ({ addPoorContact, handleCallClose, setAddPoorContact, handleAddPoorContact }) => {
+const PoorContact = ({
+  addPoorContact,
+  handleCallClose,
+  setAddPoorContact,
+  handleAddPoorContact,
+}) => {
   return (
     <>
-      <Dialog
-        open={addPoorContact.status}
-        onClose={handleCallClose}>
+      <Dialog open={addPoorContact.status} onClose={handleCallClose}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Poor Contact</Typography>
           <FormControl
@@ -24,45 +27,50 @@ const PoorContact = ({ addPoorContact, handleCallClose, setAddPoorContact, handl
               display: 'flex',
               justifyContent: 'space-between',
               marginTop: '8px',
-            }} >
-            <RadioGroup value={addPoorContact.flag}
+            }}
+          >
+            <RadioGroup
+              value={addPoorContact.flag}
               onChange={e => {
                 setAddPoorContact({
                   ...addPoorContact,
                   flag: e.target.value,
                 })
-                debugger;
               }}
               sx={{
-                padding: '0px'
-              }} row>
+                padding: '0px',
+              }}
+              row
+            >
               <FormControlLabel
                 value={true}
                 control={<Radio />}
                 label="Call not received"
               />
-              < FormControlLabel
+              <FormControlLabel
                 value={false}
-                control={< Radio />}
+                control={<Radio />}
                 label="Left Inquiry"
               />
             </RadioGroup>
           </FormControl>
-          {addPoorContact.flag !== "true" && <TextField
-            className="dialogue_input_fields"
-            multiline
-            label="Description"
-            autoComplete="off"
-            minRows={3}
-            placeholder="reason of late inquiry"
-            value={addPoorContact.description}
-            onChange={e =>
-              setAddPoorContact({
-                ...addPoorContact,
-                description: e.target.value,
-              })
-            }
-          />}
+          {addPoorContact.flag !== 'true' && (
+            <TextField
+              className="dialogue_input_fields"
+              multiline
+              label="Description"
+              autoComplete="off"
+              minRows={3}
+              placeholder="reason of late inquiry"
+              value={addPoorContact.description}
+              onChange={e =>
+                setAddPoorContact({
+                  ...addPoorContact,
+                  description: e.target.value,
+                })
+              }
+            />
+          )}
           <DialogActions>
             <Button
               className="dialogue_button_positive"
@@ -74,11 +82,11 @@ const PoorContact = ({ addPoorContact, handleCallClose, setAddPoorContact, handl
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={handleCallClose}>
+              onClick={handleCallClose}
+            >
               Cancel
             </Button>
           </DialogActions>
-
         </Box>
       </Dialog>
     </>

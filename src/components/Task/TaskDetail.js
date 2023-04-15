@@ -115,7 +115,6 @@ const TaskDetail = () => {
       { taskid: path, id: id },
       res => {
         setCheckLists(res?.data)
-        debugger
       },
       err => {
         console.log(err)

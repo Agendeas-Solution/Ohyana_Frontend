@@ -23,6 +23,7 @@ const StaffExpenses = () => {
   const [dateRange, setDateRange] = useState({
     startDate: '',
     endDate: '',
+    // defaultDate: moment().format('dd/mm/yyyy'),
   })
 
   const [value, setValue] = useState('1')
@@ -43,13 +44,13 @@ const StaffExpenses = () => {
         setExpenseList(res.data.expenses)
         setExpensesData(res.data)
       },
-      err => { },
+      err => {},
     )
   }, [])
   const handlePaymentStatusUpdate = id => {
     PaymentStatusUpdate(
       id,
-      res => { },
+      res => {},
       err => {
         console.log('Printing Error Payment Status Update', err)
       },
@@ -59,8 +60,8 @@ const StaffExpenses = () => {
     StatusUpdate(
       id,
       status,
-      res => { },
-      err => { },
+      res => {},
+      err => {},
     )
   }
 
@@ -74,19 +75,19 @@ const StaffExpenses = () => {
             flexDirection: 'row',
           }}
         >
-          <Box className="inner_profile_details first_box me-3">
+          <Box className="statistics_box first_box me-3">
             <Typography>Approved</Typography>
             <Typography>{expensesData?.approved}</Typography>
           </Box>
-          <Box className="inner_profile_details middle_box  me-3">
+          <Box className="statistics_box middle_box  me-3">
             <Typography>Rejected</Typography>
             <Typography>{expensesData?.rejected}</Typography>
           </Box>
-          <Box className="inner_profile_details last_box me-3">
+          <Box className="statistics_box last_box me-3">
             <Typography>Pending</Typography>
             <Typography>{expensesData?.pending}</Typography>
           </Box>
-          <Box className="inner_profile_details last_box">
+          <Box className="statistics_box last_box">
             <Typography className="" sx={{ whiteSpace: 'nowrap' }}>
               Payment Done
             </Typography>

@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Box,
-  Typography,
-  Button,
-} from '@mui/material'
+import { Box, Typography, Button } from '@mui/material'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -26,9 +22,7 @@ const DashboardEmployee = () => {
       res => {
         setSalesInquiry(res?.data)
       },
-      err => {
-
-      },
+      err => {},
     )
   }, [])
   return (
@@ -68,7 +62,7 @@ const DashboardEmployee = () => {
                     }}
                     variant="span"
                   >
-                    {salesInquiry?.performance?.total || "-"}
+                    {salesInquiry?.performance?.total || '-'}
                   </Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
@@ -83,7 +77,7 @@ const DashboardEmployee = () => {
                     sx={{ marginBottom: '15px', paddingBottom: '5px' }}
                     variant="span"
                   >
-                    {salesInquiry?.performance?.total || "-"}
+                    {salesInquiry?.performance?.total || '-'}
                   </Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
@@ -114,7 +108,9 @@ const DashboardEmployee = () => {
                   sx={{ padding: '10px' }}
                   className="below_performance_parameter"
                 >
-                  <Typography variant="span">{salesInquiry?.performance?.targets?.target || "-"}</Typography>
+                  <Typography variant="span">
+                    {salesInquiry?.performance?.targets?.target || '-'}
+                  </Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
                     5%
@@ -124,7 +120,10 @@ const DashboardEmployee = () => {
               <Box className="performance_statistics_data">
                 <Typography variant="span">Achieved</Typography>
                 <Box className="below_performance_parameter">
-                  <Typography variant="span">{salesInquiry?.performance?.targets?.precentageAchieved || "0"}</Typography>
+                  <Typography variant="span">
+                    {salesInquiry?.performance?.targets?.precentageAchieved ||
+                      '0'}
+                  </Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
                     5%
@@ -134,7 +133,9 @@ const DashboardEmployee = () => {
               <Box className="performance_statistics_data me-2">
                 <Typography variant="span">Days Remain</Typography>
                 <Box className="below_performance_parameter">
-                  <Typography variant="span">{salesInquiry?.performance?.targets?.remainDays || "0"}</Typography>
+                  <Typography variant="span">
+                    {salesInquiry?.performance?.targets?.remainDays || '0'}
+                  </Typography>
                   {/* <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
                     5%
@@ -152,7 +153,7 @@ const DashboardEmployee = () => {
                 sx={{ color: '#8e8e8e', padding: '10px' }}
                 variant="span"
               >
-                {salesInquiry?.attendance?.date || "-"}
+                {salesInquiry?.attendance?.date || '-'}
               </Typography>
             </Box>
             <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
@@ -163,14 +164,10 @@ const DashboardEmployee = () => {
                       '&:last-child td, &:last-child th': { border: 0 },
                     }}
                   >
-                    <TableCell align="right">
-                      Check In
-                    </TableCell>
+                    <TableCell align="right">Check In</TableCell>
+                    <TableCell align="left">:</TableCell>
                     <TableCell align="left">
-                      :
-                    </TableCell>
-                    <TableCell align="left">
-                      {salesInquiry?.attendance?.checkIn || "-"}
+                      {salesInquiry?.attendance?.checkIn || '-'}
                     </TableCell>
                   </TableRow>
                   <TableRow
@@ -178,14 +175,10 @@ const DashboardEmployee = () => {
                       '&:last-child td, &:last-child th': { border: 0 },
                     }}
                   >
-                    <TableCell align="right">
-                      Check Out
-                    </TableCell>
+                    <TableCell align="right">Check Out</TableCell>
+                    <TableCell align="left">:</TableCell>
                     <TableCell align="left">
-                      :
-                    </TableCell>
-                    <TableCell align="left">
-                      {salesInquiry?.attendance?.checkOut || "-"}
+                      {salesInquiry?.attendance?.checkOut || '-'}
                     </TableCell>
                   </TableRow>
                   <TableRow
@@ -193,14 +186,10 @@ const DashboardEmployee = () => {
                       '&:last-child td, &:last-child th': { border: 0 },
                     }}
                   >
-                    <TableCell align="right">
-                      Break Time
-                    </TableCell>
+                    <TableCell align="right">Break Time</TableCell>
+                    <TableCell align="left">:</TableCell>
                     <TableCell align="left">
-                      :
-                    </TableCell>
-                    <TableCell align="left">
-                      {salesInquiry?.attendance?.breakIn || "-"}
+                      {salesInquiry?.attendance?.breakIn || '-'}
                     </TableCell>
                   </TableRow>
                   <TableRow
@@ -208,14 +197,10 @@ const DashboardEmployee = () => {
                       '&:last-child td, &:last-child th': { border: 0 },
                     }}
                   >
-                    <TableCell align="right">
-                      Total Hours
-                    </TableCell>
+                    <TableCell align="right">Total Hours</TableCell>
+                    <TableCell align="left">:</TableCell>
                     <TableCell align="left">
-                      :
-                    </TableCell>
-                    <TableCell align="left">
-                      {salesInquiry?.attendance?.breakOut || "-"}
+                      {salesInquiry?.attendance?.breakOut || '-'}
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -314,11 +299,11 @@ const DashboardEmployee = () => {
                           {moment(value?.createdAt).format('D/MM/YY')}
                         </TableCell>
                         <TableCell align="right">
-                          {value?.point?.name || "-"}
+                          {value?.point?.name || '-'}
                         </TableCell>
                         <TableCell align="right">
                           {' '}
-                          {value?.point?.points || "-"}
+                          {value?.point?.points || '-'}
                         </TableCell>
                       </TableRow>
                     )
@@ -335,27 +320,29 @@ const DashboardEmployee = () => {
                 Star Performers
               </Typography>
             </Box>
-            {
-              salesInquiry?.starPerformerList.length > 0 && salesInquiry.starPerformerList.map((data) => {
-                return <div class="a-box">
-                  <div class="img-container">
-                    <div class="img-inner">
-                      <div class="inner-skew">
-                        <img src={StarPerformer} />
+
+            {salesInquiry?.starPerformerList.length > 0 &&
+              salesInquiry.starPerformerList.map(data => {
+                return (
+                  <div class="a-box">
+                    <div class="img-container">
+                      <div class="img-inner">
+                        <div class="inner-skew">
+                          <img src={StarPerformer} />
+                        </div>
                       </div>
                     </div>
+                    <div class="text-container">
+                      <h3>{data?.name || '-'}</h3>
+                      <h6>{data?.role?.name || '-'}</h6>
+                      <h5>Star Performer of the Month.</h5>
+                    </div>
                   </div>
-                  <div class="text-container">
-                    <h3>{data?.name || "-"}</h3>
-                    <h6>{data?.role?.name || "-"}</h6>
-                    <h5>Star Performer of the Month.</h5>
-                  </div>
-                </div>
-              })
-            }
+                )
+              })}
           </Box>
         </Box>
-      </Box >
+      </Box>
     </>
   )
 }

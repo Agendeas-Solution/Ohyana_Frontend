@@ -9,7 +9,11 @@ import {
 } from '@mui/material'
 import { DeleteAdminProduct } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-const DeleteProductDialog = ({ handleGetAdminProduct, deleteProductDialogControl, handleClose }) => {
+const DeleteProductDialog = ({
+  handleGetAdminProduct,
+  deleteProductDialogControl,
+  handleClose,
+}) => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleDelete = id => {
@@ -17,13 +21,12 @@ const DeleteProductDialog = ({ handleGetAdminProduct, deleteProductDialogControl
       id,
       res => {
         if (res.success) {
-          debugger;
-          handleGetAdminProduct();
+          handleGetAdminProduct()
           handleClose()
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
-            message: res.message
+            message: res.message,
           })
         }
       },
@@ -38,10 +41,7 @@ const DeleteProductDialog = ({ handleGetAdminProduct, deleteProductDialogControl
   }
   return (
     <>
-      <Dialog
-        open={deleteProductDialogControl.status}
-        onClose={handleClose}
-      >
+      <Dialog open={deleteProductDialogControl.status} onClose={handleClose}>
         <DialogTitle>Delete Product</DialogTitle>
         <DialogContent>
           <Typography variant="span">

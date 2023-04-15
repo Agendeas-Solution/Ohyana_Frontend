@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import {
   Button,
+  Checkbox,
   FormControl,
   IconButton,
   InputAdornment,
@@ -14,11 +15,22 @@ import SnacksPhoto from '../../assets/img/SnacksPhoto.png'
 import InfoIcon from '@mui/icons-material/Info'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import DoneIcon from '@mui/icons-material/Done'
+import { Context as ContextActivePage } from '../../context/pageContext'
 
 const ClientOrders = () => {
   const navigate = useNavigate()
+  const { setActivePage } = useContext(ContextActivePage)
+  const [path, setPath] = useState(null)
+
   const handleClickOpen = () => {
     navigate('/mycart')
+  }
+
+  const handleClientOrdersClick = (path, name) => {
+    navigate(path)
+    setActivePage(name)
+    setPath(path)
+    localStorage.setItem('path', path)
   }
 
   return (
@@ -46,7 +58,8 @@ const ClientOrders = () => {
               />
             </FormControl>
             <Button
-              onClick={handleClickOpen}
+              // onClick={handleClickOpen}
+              onClick={() => handleClientOrdersClick('/mycart', 'Order Detail')}
               className="main_tab_button"
               variant="span"
             >
@@ -161,7 +174,8 @@ const ClientOrders = () => {
                   </Box>
                   <Box className="info_and_cart">
                     <InfoIcon />
-                    <DoneIcon />
+                    <Checkbox />
+                    {/* <DoneIcon /> */}
                   </Box>
                 </Box>
               </Box>

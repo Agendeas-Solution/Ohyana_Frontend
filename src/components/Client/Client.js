@@ -157,7 +157,7 @@ const Client = () => {
           message: res.data.message,
         })
       },
-      err => { },
+      err => {},
     )
   }
   const handleDialogClose = () => {
@@ -328,15 +328,10 @@ const Client = () => {
           anchor="right"
         >
           <DrawerHeader
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            className="drawer_header_section">
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               <IconButton
-                sx={{ color: '#2e3591' }}
+                sx={{ color: '#2e3591', padding: '0px' }}
                 disableRipple={true}
                 onClick={handleDrawerClose}
               >
@@ -346,18 +341,16 @@ const Client = () => {
                   <ChevronRightIcon sx={{ fontSize: '30px' }} />
                 )}
               </IconButton>
-
               <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
             </Box>
             <Box>
-              <Button onClick={handleApplyFilter} variant="contained">
+              <Button onClick={handleClearAllFilter}>Reset</Button>
+              <Button className="common_button" onClick={handleApplyFilter} variant="contained">
                 Apply
               </Button>
-              <Button onClick={handleClearAllFilter}>Clear All</Button>
             </Box>
           </DrawerHeader>
           <Divider />
-
           <Box
             sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}
           >

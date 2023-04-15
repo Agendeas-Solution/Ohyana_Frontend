@@ -20,7 +20,7 @@ const DeleteJobRoleDialog = ({ deleteJobRoleDialogControl, handleClose }) => {
       deleteJobRoleDialogControl.id,
       res => {
         handleClose()
-        debugger
+
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
