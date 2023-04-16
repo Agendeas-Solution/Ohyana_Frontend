@@ -174,17 +174,6 @@ textarea:focus {
 }
 
 
-.main_section_of_team_profile {
-  display: flex;
-  background-color: #fff;
-  padding: 10px;
-  height: 87%;
-  border-radius: 5px;
-  width: 97%;
-  flex-direction: column !important;
-  margin: 15px auto;
-}
-
 .table_heading tr th {
   border-bottom: none;
   background: #f1f2f6;
@@ -863,6 +852,15 @@ button {
     gap: 1rem;
     justify-content: space-between;
   }
+}
+
+.profile_body_section {
+  display: flex;
+  background-color: #fff;
+  border-radius: 5px;
+  flex-direction: column !important;
+  padding: 10px;
+  margin: 8px 12px;
 }
 
 .left_team_profile_section {

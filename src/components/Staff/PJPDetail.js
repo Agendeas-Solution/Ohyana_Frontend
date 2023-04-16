@@ -132,7 +132,7 @@ const PJPDetail = () => {
         handleCloseDialog()
         setSuccessSnackbar({ ...successSnackbar, message: res?.message })
       },
-      err => {},
+      err => { },
     )
   }
 

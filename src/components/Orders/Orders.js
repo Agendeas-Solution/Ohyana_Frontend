@@ -135,12 +135,7 @@ const Orders = () => {
             open={openDrawer}
           >
             <DrawerHeader
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
+              className="drawer_header_section">
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <IconButton
                   sx={{ color: '#2e3591' }}
