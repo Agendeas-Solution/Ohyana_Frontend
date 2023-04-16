@@ -15,6 +15,7 @@ import {
   Select,
   MenuItem,
 } from '@mui/material'
+import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 import IconButton from '@mui/material/IconButton'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import InputAdornment from '@mui/material/InputAdornment'
@@ -173,7 +174,7 @@ const Task = () => {
   return (
     <Box className="main_tab_section">
       <Box className="tab_header">
-        <Box>
+        <Box >
           <Typography sx={{ color: '#8E8E8E' }} variant="span">
             Overview
           </Typography>
@@ -207,6 +208,7 @@ const Task = () => {
             >
               + Task
             </Button>
+
             <IconButton
               edge="end"
               onClick={handleDrawerOpen}

@@ -8,38 +8,42 @@
   /* border-bottom: 1px solid #C4C4C4; */
   background-color: #f1f2f6;
 }
+
 .header_root .header_logo_root {
   padding-left: 10px;
   height: 100%;
   width: 50%;
   padding-top: 5px;
 }
+
 .header_root .header_logo_root img {
   height: 60px;
 }
+
 .user_profile_photo_root {
   display: flex;
   justify-content: center;
   align-content: center;
   align-items: center;
 }
+
 .user_profile_photo_root img {
   border-radius: 50%;
   width: 34px;
   height: 34px;
   margin-right: 12px;
 }
+
 .header-info {
   display: flex;
-  justify-content: space-between;
   width: 100%;
   border-bottom: 1px solid #c4c4c4;
+  justify-content: space-between;
   flex-direction: row;
   align-items: center;
-  margin-left: 20px;
-  margin-right: 20px;
-  /* margin: 20px auto; */
+  margin: 0px 12px;
 }
+
 .notification_class {
   margin-left: 810px;
   padding: 4px;
