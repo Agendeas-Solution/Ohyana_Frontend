@@ -157,7 +157,7 @@ const Client = () => {
           message: res.data.message,
         })
       },
-      err => {},
+      err => { },
     )
   }
   const handleDialogClose = () => {
@@ -266,6 +266,7 @@ const Client = () => {
   return (
     <Box className="main_tab_section">
       <Box className="tab_header">
+
         <Tabs
           value={value}
           onChange={handleChange}
@@ -280,6 +281,7 @@ const Client = () => {
           <Tab value="existing" label="Existing" />
           <Tab value="other" label="Other" />
         </Tabs>
+
         <Box
           sx={{
             display: 'flex',
@@ -404,7 +406,7 @@ const Client = () => {
         </Drawer>
       </Box>
 
-      <Box sx={{ overflowY: 'hidden' }} className="client_body_section">
+      <Box sx={{ overflowY: 'hidden' }} className="body_section_paddingless_pagination">
         {value === 'business_card' ? (
           <BusinessCard clientDetails={clientDetails} />
         ) : (
@@ -426,6 +428,7 @@ const Client = () => {
           }}
         />
       </Box>
+
     </Box>
   )
 }
