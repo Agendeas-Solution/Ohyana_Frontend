@@ -12,4 +12,10 @@ export const TEAM = {
     { type: 'Office', id: 0 },
     { type: 'On Field', id: 1 },
   ],
+  ATTENDANCETYPE: [
+    { typeName: 'Present', type: 'P' },
+    { typeName: 'Leave', type: 'L' },
+    { typeName: 'Absent', type: 'A' },
+    { typeName: 'Late', type: 'LT' },
+  ]
 }
