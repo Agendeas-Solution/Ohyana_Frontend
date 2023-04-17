@@ -23,8 +23,9 @@ export const GetSingleClientOrderList = async (value, onSuccess, onError) => {
 export const GetAllClientOrderList = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.get(`/orders?all=true`, {
+    const { data } = await axiosInstance.get(`/orders`, {
       headers: { ...defaultHeaders },
+      params:value
     })
     console.log('Printing data of GetAllClientOrderList', data)
     onSuccess && onSuccess(data)
