@@ -34,7 +34,7 @@ const ProductList = () => {
   }
 
   const [AdminProductList, setAdminProductList] = useState([])
-  const handleGetAdminProduct = () => {
+  const handleGetAdminProduct=()=>{
     GetAdminProductList(
       {},
       res => {
@@ -65,7 +65,7 @@ const ProductList = () => {
   return (
     <>
       <TabContext value={value}>
-        <div className="main_tab_section">
+        <div className="add_product_button p-3">
           <Typography variant="span">All Products</Typography>
           {permissions?.editProduct && (
             <Button

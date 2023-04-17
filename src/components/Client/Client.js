@@ -157,7 +157,7 @@ const Client = () => {
           message: res.data.message,
         })
       },
-      err => { },
+      err => {},
     )
   }
   const handleDialogClose = () => {
@@ -264,7 +264,7 @@ const Client = () => {
     deleteClientDialogControl.status,
   ])
   return (
-    <Box className="main_tab_section" >
+    <Box className="main_tab_section">
       <Box className="tab_header">
         <Tabs
           value={value}
@@ -280,7 +280,6 @@ const Client = () => {
           <Tab value="existing" label="Existing" />
           <Tab value="other" label="Other" />
         </Tabs>
-
         <Box
           sx={{
             display: 'flex',
@@ -313,13 +312,7 @@ const Client = () => {
             </Button>
           )}
 
-          <IconButton edge="end"
-            onClick={handleDrawerOpen}
-            sx={{
-              display: 'flex',
-              padding: '0',
-              margin: '0 0 0 10px',
-            }}>
+          <IconButton edge="end" onClick={handleDrawerOpen}>
             <img src={FilterIcon} alt="" />
           </IconButton>
         </Box>
@@ -411,7 +404,7 @@ const Client = () => {
         </Drawer>
       </Box>
 
-      <Box className="body_section_paddingless_pagination">
+      <Box sx={{ overflowY: 'hidden' }} className="client_body_section">
         {value === 'business_card' ? (
           <BusinessCard clientDetails={clientDetails} />
         ) : (
@@ -433,8 +426,7 @@ const Client = () => {
           }}
         />
       </Box>
-
-    </Box >
+    </Box>
   )
 }
 
