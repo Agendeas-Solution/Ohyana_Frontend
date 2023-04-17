@@ -186,57 +186,12 @@ textarea:focus {
 
 .main_section {
   display: flex;
-  height: 88vh;
+  height: 100%;
   background-color: #fff;
   border-radius: 5px;
   padding: 10px;
   flex-direction: column !important;
   margin: 8px 12px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.orders_main_section {
-  display: flex;
-  background-color: #fff;
-  padding: 10px;
-  height: 88%;
-  border-radius: 5px;
-  width: 97%;
-  flex-direction: column !important;
-  margin: 15px auto;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.client_body_section {
-  background-color: #fff;
-  margin-top: 5px;
-  width: 100%;
-  border-radius: 5px;
-  height: 79vh;
-  width: 78vw;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  .inner_container {
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-  }
-}
-
-.tab_main_section {
-  display: flex;
-  background-color: #fff;
-  padding: 10px;
-  height: 80%;
-  border-radius: 5px;
-  width: 97%;
-  flex-direction: column !important;
-  margin: 20px auto;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -870,24 +825,22 @@ button {
   padding: 0px;
 }
 
-.left_panel {
-  width: 60%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  border-radius: 5px;
-  margin-right: 10px;
-}
 
-.right_panel {
-  width: 40%;
-  height: 100%;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  background-color: #ffffff;
+.body_section_paddingless_pagination {
+  background-color: #fff;
   border-radius: 5px;
-  overflow: hidden;
+  height: 100%;
+  margin: 0px 0px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .inner_container {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
 }
 
 .team_profile_section {
@@ -904,14 +857,23 @@ button {
 .main_tab_section {
   display: flex;
   flex-direction: column;
-  width: 97%;
-  margin: 6px auto;
+  margin: 0px 12px;
+  height: 100%;
 }
 
 .team_right_panel_heading {
   font-weight: bold;
   font-size: 22px;
   padding-right: 190px;
+}
+
+.profile_body_section {
+  display: flex;
+  background-color: #fff;
+  border-radius: 5px;
+  flex-direction: column !important;
+  padding: 10px;
+  margin: 8px 12px;
 }
 
 .left_team_profile_section {
@@ -1170,11 +1132,9 @@ button {
 
 .below_main_tab_section {
   background-color: #fff;
-  margin-top: 5px;
-  width: 100%;
   border-radius: 5px;
-  height: 79vh;
-  width: 78vw;
+  height: 100%;
+  margin: 0px 0px;
   padding: 10px !important;
   overflow-y: auto;
   overflow-x: hidden;

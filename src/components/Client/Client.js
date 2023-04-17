@@ -157,7 +157,7 @@ const Client = () => {
           message: res.data.message,
         })
       },
-      err => {},
+      err => { },
     )
   }
   const handleDialogClose = () => {
@@ -312,7 +312,13 @@ const Client = () => {
             </Button>
           )}
 
-          <IconButton edge="end" onClick={handleDrawerOpen}>
+          <IconButton edge="end"
+            onClick={handleDrawerOpen}
+            sx={{
+              display: 'flex',
+              padding: '0',
+              margin: '0 0 0 10px',
+            }}>
             <img src={FilterIcon} alt="" />
           </IconButton>
         </Box>
@@ -404,7 +410,7 @@ const Client = () => {
         </Drawer>
       </Box>
 
-      <Box sx={{ overflowY: 'hidden' }} className="client_body_section">
+      <Box className="body_section_paddingless_pagination">
         {value === 'business_card' ? (
           <BusinessCard clientDetails={clientDetails} />
         ) : (
