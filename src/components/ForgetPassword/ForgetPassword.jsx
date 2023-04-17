@@ -1,6 +1,6 @@
-import React, {  useState, useContext,lazy } from 'react'
+import React, { useState, useContext, lazy } from 'react'
 import { Box, Typography, TextField, Button } from '@mui/material';
-import CompanyLogo from '../../assets/img/Ohyana_logo.png';
+import Logo from '../../assets/img/Ohyana Logo Blue.svg'
 import { ResetPassword } from "../../services/apiservices/login";
 import { useSearchParams } from 'react-router-dom';
 import { Context as ContextSnackbar } from "../../context/pageContext";
@@ -31,31 +31,50 @@ const ForgetPassword = () => {
     }
     return (
         <>
-            <Box className="login_page_root">
-                <Box className="login_page_logo_root">
-                    <img src={CompanyLogo} alt="Company logo" />
+            <Box className="login_page">
+                <Box className="company_logo">
+                    <img src={Logo} alt="Company logo" />
                 </Box>
-                <Box className="login_form_root">
-                    <Typography className="login_heading_root" variant='span'>Welcome To Ohyana.</Typography>
-                    <Box className="login_email_root">
-                        <label for="newpassword">New Password</label>
-                        <TextField type="password" value={password.newPassword} variant="outlined" placeholder="New Password"
-                            onChange={(e) => {
-                                setPassword({ ...password, newPassword: e.target.value });
-                            }} />
-                    </Box>
-                    <Box className="login_password_root">
-                        <label for="confirmpassword">Confirm Password</label>
-                        <TextField variant="outlined" value={password.confirmPassword} type="password" onChange={(e) => {
+                <Box className="login_form">
+
+                    <Typography className="login_heading" variant="span">
+                        Reset Password
+                    </Typography>
+
+
+                    <TextField
+                        sx={{ width: '100%', margin: '18px 0px' }}
+                        label="New Password"
+                        type="password"
+                        value={password.newPassword}
+                        variant="outlined"
+                        onChange={(e) => {
+                            setPassword({ ...password, newPassword: e.target.value });
+                        }}
+                    />
+
+                    <TextField
+                        sx={{ width: '100%', margin: '18px 0px' }}
+                        label="Confirm Password"
+                        type="password"
+                        variant="outlined"
+                        value={password.confirmPassword}
+                        onChange={(e) => {
                             setPassword({ ...password, confirmPassword: e.target.value });
-                        }} placeholder="Confirm Password" />
-                    </Box>
-                    <Box className="login_submit_button_root">
-                        <Button variant="contained" onClick={upddatePassword}>Update</Button>
-                    </Box>
+                        }}
+                    />
+
+                    <Button
+                        className="dialogue_bottom_button"
+                        variant="contained"
+                        onClick={upddatePassword}>Update</Button>
+
+
                 </Box>
-                <Typography className="login_copyright_root" variant="span">{(new Date().getFullYear())} © Biguar Tech(India) Pvt. Ltd.</Typography>
-            </Box>
+                <Typography className="login_copyright_root" variant="span">
+                    {new Date().getFullYear()} © Ohyana.
+                </Typography>
+            </Box >
             <SuccessSnackbar />
             <ErrorSnackbar />
         </>

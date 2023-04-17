@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { Box, Typography, TextField, Button } from '@mui/material'
-import CompanyLogo from '../../assets/img/Ohyana_logo.png'
+import Logo from '../../assets/img/Ohyana Logo Blue.svg'
 import { useNavigate } from 'react-router-dom'
 import { ForgotPassword } from '../../services/apiservices/login'
 import { Context as ContextSnackbar } from '../../context/pageContext'
@@ -34,36 +34,39 @@ const ForgotPasswordEmail = () => {
   }
   return (
     <>
-      <Box className="login_page_root">
-        <Box className="login_page_logo_root">
-          <img src={CompanyLogo} alt="Company logo" />
+      <Box className="login_page">
+        <Box className="company_logo">
+          <img src={Logo} alt="Company logo" />
         </Box>
-        <Box className="login_form_root">
-          <Typography className="login_heading_root" variant="span">
-            Welcome To Ohyana.
+        <Box className="login_form">
+
+          <Typography className="login_heading" variant="span">
+            Forgot Password
           </Typography>
-          <Box className="login_email_root">
-            <label for="email">Email</label>
-            <TextField
-              autoComplete={true}
-              type="email"
-              value={userDetail.email}
-              variant="outlined"
-              placeholder="Email"
-              className="form-control"
-              onChange={e => {
-                setUserDetail({ ...userDetail, email: e.target.value })
-              }}
-            />
-          </Box>
-          <Box className="login_submit_button_root overflow-hidden">
-            <Button onClick={handleForgotPassword} variant="contained">
-              Get Link
-            </Button>
-          </Box>
+
+          <TextField
+            sx={{ width: '100%', margin: '18px 0px' }}
+            label="Email"
+            type="email"
+            autoComplete={true}
+            value={userDetail.email}
+            variant="outlined"
+            onChange={e => {
+              setUserDetail({ ...userDetail, email: e.target.value })
+            }}
+          />
+
+
+          <Button className="dialogue_bottom_button"
+            onClick={handleForgotPassword}
+            variant="contained">
+            Get Link
+          </Button>
+
         </Box>
+
         <Typography className="login_copyright_root" variant="span">
-          {new Date().getFullYear()} © Biguar Tech(India) Pvt. Ltd.
+          {new Date().getFullYear()} © Ohyana.
         </Typography>
       </Box>
       <SuccessSnackbar />

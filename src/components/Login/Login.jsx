@@ -54,63 +54,70 @@ const Login = () => {
   }
   return (
     <>
-      <Box className="login_page_root">
-        <Box className="login_page_logo_root">
+      <Box className="login_page">
+
+        <Box className="company_logo">
           <img src={Logo} alt="Company logo" />
         </Box>
-        <Box className="login_form_root">
-          <Typography className="login_heading_root" variant="span">
+
+        <Box className="login_form">
+          <Typography className="login_heading" variant="span">
             Welcome To Ohyana.
           </Typography>
+
           <form
             onSubmit={e => {
               e.preventDefault()
               userlogin()
             }}
-            className="w-100"
           >
-            <Box className="login_email_root">
-              <Typography className="mb-1">Emailll</Typography>
+            <TextField
+              sx={{ width: '100%', margin: '18px 0px' }}
+              label="Email"
+              type="email"
+              value={userDetail.email}
+              variant="outlined"
+              onChange={e => {
+                setUserDetail({ ...userDetail, email: e.target.value })
+              }}
+            />
+
+            <Box sx={{ width: '100%', margin: '18px 0px' }}>
               <TextField
-                type="email"
-                value={userDetail.email}
-                variant="outlined"
-                placeholder="Email"
-                className="mb-3 form-control"
-                onChange={e => {
-                  setUserDetail({ ...userDetail, email: e.target.value })
-                }}
-              />
-            </Box>
-            <Box className="login_password_root">
-              <Typography className="mb-2">Password</Typography>
-              <TextField
+                sx={{ width: '100%' }}
+                label='password'
                 variant="outlined"
                 type="password"
                 value={userDetail.password}
                 onChange={e => {
                   setUserDetail({ ...userDetail, password: e.target.value })
                 }}
-                placeholder="Password"
               />
-            </Box>
-            <Typography className="login_forget_password_root" variant="span">
-              <Button onClick={() => navigate('/forgotpassword')}>
-                {' '}
-                Forgotten password ?{' '}
-              </Button>
-            </Typography>
-            <Box className="login_submit_button_root overflow-hidden">
-              <Button type="submit" onClick={userlogin} variant="contained">
-                Submit
-              </Button>
-            </Box>
+
+              <Typography className="login_forget_password_root" variant="span">
+                <Button sx={{ padding: '5px 0px' }} onClick={() => navigate('/forgotpassword')}>
+                  {' '}
+                  Forgotten password ?{' '}
+                </Button>
+              </Typography></Box>
+
+            <Button
+              className="dialogue_bottom_button"
+              onClick={userlogin}
+              variant="contained"
+              type="submit">
+              Submit
+            </Button>
+
           </form>
         </Box>
+
         <Typography className="login_copyright_root" variant="span">
           {new Date().getFullYear()} © Ohyana.
         </Typography>
-      </Box>
+
+
+      </Box >
       <ErrorSnackbar />
     </>
   )
