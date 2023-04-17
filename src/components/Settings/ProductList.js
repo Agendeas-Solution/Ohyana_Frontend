@@ -108,7 +108,7 @@ const ProductList = () => {
         {/* </TabPanel> */}
       </Box>
       {/* </TabContext> */}
-      {/* <DeleteProductDialog
+      <DeleteProductDialog
         deleteProductDialogControl={deleteProductDialogControl}
         handleClose={handleClose}
         handleGetAdminProduct={handleGetAdminProduct}
@@ -118,7 +118,7 @@ const ProductList = () => {
         viewProductDialog={viewProductDialog}
         deleteProductDialogControl={deleteProductDialogControl}
         setDeleteProductDialogControl={setDeleteProductDialogControl}
-      /> */}
+      />
     </>
   )
 }

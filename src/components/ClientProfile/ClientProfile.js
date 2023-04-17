@@ -286,7 +286,7 @@ const ClientProfile = () => {
 
   return (
     <>
-      <Box className="profile_body_section">
+      <Box className="main_section_of_team_profile">
         <Box className="user_profile_header_Section">
           <Box className="username_profile_Section">
             <AccountCircleRoundedIcon className="user_profile_icon" />

@@ -48,6 +48,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import moment from 'moment'
 import { styled, useTheme } from '@mui/material/styles'
+import { TEAM } from '../../constants'
 const drawerWidth = 350
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const SuccessSnackbar = React.lazy(() =>
@@ -61,8 +62,9 @@ const Staff = () => {
   const [value, setValue] = useState('1')
   const [open, setOpen] = useState(false)
   const [loader, setLoader] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [clientStage, setClientStage] = useState()
+  const [attendanceTypeList, setAttendanceTypeList] = useState(TEAM.ATTENDANCETYPE);
+  const [jobTypeList, setJobTypeList] = useState(TEAM.JOBTYPE);
+  const [searchQuery, setSearchQuery] = useState('');
   const d = new Date()
   const [datePicker, setDatePicker] = useState({
     $M: d.getMonth() + 1,
@@ -70,21 +72,15 @@ const Staff = () => {
   })
   const [staffDetailList, setStaffDetailList] = useState([])
   const [singleStaffDetails, setSingleStaffDetails] = useState({})
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
-  const [departmentList, setDepartmentList] = useState([])
   const [jobRoleList, setJobRoleList] = useState([])
+  const [queryParams, setQueryParams] = useState({
+    searchQuery: '',
+    jobRole: '',
+    teamType: '',
+    attendanceType: ''
+  });
   const [usersAttendanceList, setUserAttendanceList] = useState([])
-  const [departmentAndJobRoles, setDepartmentAndJobRoles] = useState({
-    departmentId: null,
-    roleId: null,
-  })
-  const [clientType, setClientType] = useState([
-    { stage: 'Jr. Sales Person', id: 0 },
-    { stage: 'Sr. Sales Person', id: 1 },
-    { stage: 'Ass. Sales Person', id: 2 },
-  ])
+
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -99,7 +95,9 @@ const Staff = () => {
   const handleDrawerClose = () => {
     setOpen(false)
   }
+  const handleApplyFilter = () => {
 
+  }
   const teamLeaderDetails = id => {
     GetSingleStaffDetailList(
       id,
@@ -117,8 +115,8 @@ const Staff = () => {
   useEffect(() => {
     singleStaffDetails && teamLeaderDetails(staffDetailList[0]?.id)
   }, [staffDetailList.length > 0])
-  useEffect(() => {
-    value === '1' && setLoader(true)
+
+  const handleGetAdminStaffDetail = () => {
     GetAdminStaffDetailList(
       searchQuery,
       res => {
@@ -132,11 +130,15 @@ const Staff = () => {
         setLoader(false)
       },
     )
-  }, [value, departmentAndJobRoles, searchQuery])
+  }
+  useEffect(() => {
+    value === '1' && setLoader(true)
+    handleGetAdminStaffDetail();
+  }, [value, queryParams.searchQuery])
 
   useEffect(() => {
     GetAdminRole(
-      departmentAndJobRoles?.departmentId,
+      {},
       res => {
         setJobRoleList(res.data)
       },
@@ -144,7 +146,7 @@ const Staff = () => {
         console.log('Printing Error', err)
       },
     )
-  }, [departmentAndJobRoles?.departmentId])
+  }, [])
 
   useEffect(() => {
     value === '2' &&
@@ -159,18 +161,8 @@ const Staff = () => {
       )
   }, [value, datePicker])
 
-  useEffect(() => {
-    console.log(clientType)
-    let value = clientType.filter(data => {
-      if (data.id <= permissions?.clientStageAccess) {
-        return data
-      }
-    })
-    setClientType(value)
-  }, [])
-
   return (
-    <Box className="team_profile_section">
+    <Box sx={{ backgroundColor: '#f1f2f6' }} className="team_profile_section">
       <Box className="left_panel">
         <Box sx={{ width: '100%' }}>
           <Box className="team_header">
@@ -189,9 +181,9 @@ const Staff = () => {
                 <OutlinedInput
                   className="search_field"
                   placeholder="Search Here..."
-                  value={searchQuery}
+                  value={queryParams.searchQuery}
                   onChange={e => {
-                    setSearchQuery(e.target.value)
+                    setQueryParams({ queryParams, searchQuery: e.target.value })
                   }}
                   startAdornment={
                     <InputAdornment position="start">
@@ -215,11 +207,7 @@ const Staff = () => {
               <IconButton
                 edge="end"
                 onClick={handleDrawerOpen}
-                sx={{
-                  ...(open && { display: 'flex' }),
-                  padding: '0',
-                  margin: '0 0 0 10px',
-                }}
+                sx={{ ...(open && { display: 'flex' }) }}
               >
                 <img src={FilterIcon} alt="" />
               </IconButton>
@@ -237,18 +225,11 @@ const Staff = () => {
               open={open}
             >
               <DrawerHeader className="drawer_header_section">
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}
-                >
+                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                   <IconButton
                     sx={{ color: '#2e3591', padding: '0px' }}
                     disableRipple={true}
-                    onClick={handleDrawerClose}
-                  >
+                    onClick={handleDrawerClose}>
                     {theme.direction === 'rtl' ? (
                       <ChevronLeftIcon sx={{ fontSize: '30px' }} />
                     ) : (
@@ -260,84 +241,76 @@ const Staff = () => {
                   </Typography>
                 </Box>
                 <Box>
-                  <Button>Reset</Button>
-                  <Button className="common_button" variant="contained">
+                  <Button onClick={() => {
+
+                  }}>Reset</Button>
+                  <Button onClick={handleApplyFilter} className="common_button" variant="contained">
                     Apply
                   </Button>
                 </Box>
               </DrawerHeader>
               <Divider />
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Box
+                sx={{ display: 'flex', flexDirection: 'column' }}>
                 <FormControl sx={{ margin: '5px 15px' }}>
-                  <FormLabel sx={{ margin: '0px 5px' }}>Team Type</FormLabel>
-                  <RadioGroup>
+                  <FormLabel sx={{ margin: '0px 5px' }}
+                  >Team Type
+                  </FormLabel>
+                  <RadioGroup
+                    onChange={(e) => {
+                      setQueryParams({ ...queryParams, teamType: e.target.value });
+                    }}>
                     <Box className="checkbox_section">
-                      <FormControlLabel
-                        className="checkbox_background_color"
-                        value="office"
-                        control={<Radio />}
-                        label="Office"
-                      />
-                      <FormControlLabel
-                        className="checkbox_background_color"
-                        value="onfields"
-                        control={<Radio />}
-                        label="On Field"
-                      />
+                      {jobTypeList.map((data) => {
+                        return <FormControlLabel
+                          className="checkbox_background_color"
+                          value={data.id}
+                          control={<Radio />}
+                          label={data.type}
+                        />
+                      })}
                     </Box>
                   </RadioGroup>
                 </FormControl>
                 <FormControl sx={{ margin: '5px 15px' }}>
-                  <FormLabel sx={{ margin: '0px 5px' }}>Result for</FormLabel>
-                  <RadioGroup>
-                    <Box className="checkbox_section">
-                      <FormControlLabel
-                        className="checkbox_background_color"
-                        value="present"
-                        control={<Radio />}
-                        label="Present"
-                      />
-                      <FormControlLabel
-                        className="checkbox_background_color"
-                        value="absent"
-                        control={<Radio />}
-                        label="Absent"
-                      />
-                    </Box>
-                    <Box className="checkbox_section">
-                      <FormControlLabel
-                        className="checkbox_background_color"
-                        value="late"
-                        control={<Radio />}
-                        label="Late"
-                      />
-                      <FormControlLabel
-                        className="checkbox_background_color"
-                        value="onleave"
-                        control={<Radio />}
-                        label="On Leave"
-                      />
-                    </Box>
-                  </RadioGroup>
-                </FormControl>
+                  <FormLabel sx={{ margin: '0px 5px' }}>
+                    Result for
+                  </FormLabel>
+                  <RadioGroup
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      debugger;
+                      setQueryParams({ ...queryParams, attendanceType: e.target.value });
 
+                    }}
+                  >
+                    <Box className="checkbox_section">
+                      {attendanceTypeList.map((data) => {
+                        return <FormControlLabel
+                          className="checkbox_background_color"
+                          value={data.type}
+                          control={<Radio />}
+                          label={data.typeName}
+                        />
+                      })}
+                    </Box>
+                  </RadioGroup>
+                </FormControl>
                 <FormControl sx={{ margin: '10px 20px' }}>
                   <InputLabel>Job Role</InputLabel>
                   <Select
                     label="Job Role"
-                    value={
-                      clientStage !== null ? clientType[clientStage] : null
-                    }
-                    onChange={(e, value) => {
-                      console.log(value)
-                      setClientStage(value?.id)
+                    value={queryParams.jobRole}
+                    onChange={(e) => {
+                      setQueryParams({ ...queryParams, jobRole: e.target.value });
                     }}
                   >
-                    {clientType.map(data => {
-                      return <MenuItem value={data.id}>{data.stage}</MenuItem>
+                    {jobRoleList.map(data => {
+                      return <MenuItem value={data.id}>{data.name}</MenuItem>
                     })}
                   </Select>
                 </FormControl>
+
               </Box>
             </Drawer>
           </Box>
@@ -358,7 +331,6 @@ const Staff = () => {
                   variant="middle"
                   flexItem
                 />
-
                 <TableBody
                   style={{
                     borderCollapse: 'separate',
@@ -409,7 +381,7 @@ const Staff = () => {
             </TableContainer>
           </Box>
         </Box>
-      </Box>
+      </Box >
 
       <Box className="right_panel">
         <Box sx={{ width: '100%', padding: '0px 8px' }}>
@@ -479,9 +451,8 @@ const Staff = () => {
         </Box>
 
         <Box className="bottom_right_part">
-          <Typography className="statistics_box_heading">
-            Inquiry Status
-          </Typography>
+
+          <Typography className="statistics_box_heading">Inquiry Status</Typography>
 
           <Box className="staff_statistics_data">
             <Box className="statistics_box first_box">

@@ -54,8 +54,6 @@ const PresentData = ({ staffAttendanceList }) => {
         }}
       >
         <Table
-          // stickyHeader
-          // aria-label="sticky table"
           stickyHeader
           aria-label="sticky table"
           sx={{ minWidth: 690, marginLeft: '-10px' }}
@@ -73,7 +71,7 @@ const PresentData = ({ staffAttendanceList }) => {
           </TableHead>
 
           <TableBody>
-            {staffAttendanceList?.attendancePerUser.length > 0 &&
+            {staffAttendanceList?.attendancePerUser &&
               staffAttendanceList.attendancePerUser.map(attendanceList => {
                 return (
                   <TableRow
