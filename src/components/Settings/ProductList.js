@@ -64,51 +64,51 @@ const ProductList = () => {
   }
   return (
     <>
-      <TabContext value={value}>
-        <div className="main_tab_section">
-          <Typography variant="span">All Products</Typography>
-          {permissions?.editProduct && (
-            <Button
-              onClick={() => {
-                navigate('/addproduct')
-              }}
-              // variant="contained"
-              className="main_product_button"
-              sx={{ color: '#2E3591' }}
-            >
-              + Add Product
-            </Button>
-          )}
+      {/* <TabContext value={value}> */}
+      <div className="main_tab_section">
+        <Typography variant="span">All Products</Typography>
+        {permissions?.editProduct && (
+          <Button
+            onClick={() => {
+              navigate('/addproduct')
+            }}
+            // variant="contained"
+            className="main_product_button"
+            sx={{ color: '#2E3591' }}
+          >
+            + Add Product
+          </Button>
+        )}
+      </div>
+      <Box className="product_list_section">
+        {/* <TabPanel value="ProductList"> */}
+        <div className="p-2 h-75 row">
+          {AdminProductList && AdminProductList.map(row => {
+            let image_url = `${process.env.REACT_APP_API_CALL_URL}/file/${row?.imageUrl}`
+            console.log(image_url)
+            return (
+              <>
+                <Box
+                  className="product_card me-4 mx-3"
+                  onClick={() =>
+                    setViewProductDialog({
+                      ...viewProductDialog,
+                      status: true,
+                      id: row?.id,
+                    })
+                  }
+                >
+                  {/* <img src={image_url} alt="sample" /> */}
+                  <img src={SnacksPhoto} alt="sample" />
+                </Box>
+              </>
+            )
+          })}
         </div>
-        <Box className="product_list_section">
-          <TabPanel value="ProductList">
-            <div className="p-2 h-75 row">
-              {AdminProductList.map(row => {
-                let image_url = `${process.env.REACT_APP_API_CALL_URL}/file/${row?.imageUrl}`
-                console.log(image_url)
-                return (
-                  <>
-                    <Box
-                      className="product_card me-4 mx-3"
-                      onClick={() =>
-                        setViewProductDialog({
-                          ...viewProductDialog,
-                          status: true,
-                          id: row?.id,
-                        })
-                      }
-                    >
-                      {/* <img src={image_url} alt="sample" /> */}
-                      <img src={SnacksPhoto} alt="sample" />
-                    </Box>
-                  </>
-                )
-              })}
-            </div>
-          </TabPanel>
-        </Box>
-      </TabContext>
-      <DeleteProductDialog
+        {/* </TabPanel> */}
+      </Box>
+      {/* </TabContext> */}
+      {/* <DeleteProductDialog
         deleteProductDialogControl={deleteProductDialogControl}
         handleClose={handleClose}
         handleGetAdminProduct={handleGetAdminProduct}
@@ -118,7 +118,7 @@ const ProductList = () => {
         viewProductDialog={viewProductDialog}
         deleteProductDialogControl={deleteProductDialogControl}
         setDeleteProductDialogControl={setDeleteProductDialogControl}
-      />
+      /> */}
     </>
   )
 }
