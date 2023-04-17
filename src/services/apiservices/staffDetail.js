@@ -11,11 +11,7 @@ export const GetAdminStaffDetailList = async (value, onSuccess, onError) => {
   try {
     const { data } = await axiosInstance.get('/member', {
       headers: { ...defaultHeaders },
-      params: value
-        ? {
-            searchQuery: value,
-          }
-        : {},
+      params: value,
     })
     console.log('Printing data of GetAdminProfile', data)
     onSuccess && onSuccess(data)

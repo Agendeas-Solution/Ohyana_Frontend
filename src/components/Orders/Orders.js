@@ -19,7 +19,7 @@ import {
   FormLabel,
   Radio,
   Divider,
-  TextField,
+  TextField, Pagination
 } from '@mui/material'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import Drawer from '@mui/material/Drawer'
@@ -37,18 +37,27 @@ import {
   LocalizationProvider,
 } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-
+import { ORDER } from '../../constants/orderConstant'
 const drawerWidth = 350
-
 const Orders = () => {
+  let path = window.location.pathname
+  path = path.split('/').pop()
   const navigate = useNavigate()
   const theme = useTheme()
   const [orderList, setOrderList] = useState([])
   const [openDrawer, setOpen] = useState(false)
-  const [createTask, setCreateTask] = useState({
-    title: '',
-    description: '',
-    due_date: '2023-03-31',
+  const [totalResult, setTotalresult] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(2);
+  const [deliveryStatusList, setDeliveryStatusList] = useState(ORDER.DELIVERYSTATUS);
+  const [paymentStatusList, setPaymentStatusList] = useState(ORDER.PAYMENTSTATUS);
+  const [numbersToDisplayOnPagination, setNumbersToDisplayOnPagination] =
+    useState(0)
+  const [queryParams, setQueryParams] = useState({
+    delivery: '',
+    payment: '',
+    date: '',
+    searchQuery: ''
   })
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -57,33 +66,58 @@ const Orders = () => {
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   }))
-
-  useEffect(() => {
-    let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
-    path = path.split('/').pop()
+  const handleOrderList = () => {
+    let data = { page: currentPage, size: rowsPerPage }
+    if (queryParams.delivery !== "" && queryParams.delivery !== null) {
+      data['delivery'] = queryParams.delivery;
+    }
+    if (queryParams.payment !== "" && queryParams.payment !== null) {
+      data['payment'] = queryParams.payment;
+    }
+    if (queryParams.date !== "" && queryParams.date !== null) {
+      data['date'] = queryParams.date;
+    }
+    if (queryParams.searchQuery !== "" && queryParams.searchQuery !== null) {
+      data['searchQuery'] = queryParams.searchQuery;
+    }
     GetAllClientOrderList(
-      parseInt(path),
+      data,
       res => {
         setOrderList(res?.data?.orders)
+        setTotalresult(res?.data?.totalPage)
+        let pages =
+          res?.data?.totalPage > 0
+            ? Math.ceil(res?.data?.totalPage / rowsPerPage)
+            : null
+        setNumbersToDisplayOnPagination(pages)
+        debugger;
       },
       err => {
         console.log('Printing OrderList Error', err)
+        setOrderList([])
       },
     )
-  }, [])
-
+  }
+  useEffect(() => {
+    handleOrderList();
+  }, [queryParams.searchQuery, currentPage])
   const handleDrawerOpen = () => {
     setOpen(true)
   }
   const handleDrawerClose = () => {
     setOpen(false)
   }
-
-  const handleApplyFilter = () => {}
-  const handleClearAllFilter = () => {}
-
+  const handleApplyFilter = () => {
+    handleOrderList();
+  }
+  const handleClearAllFilter = () => {
+    setQueryParams({
+      ...queryParams, delivery: null,
+      payment: null,
+      date: null,
+      searchQuery: ''
+    })
+  }
   return (
     <Box className="main_tab_section">
       <Box className="tab_header">
@@ -102,6 +136,10 @@ const Orders = () => {
             <OutlinedInput
               className="search_field"
               placeholder="Search Here..."
+              value={queryParams.searchQuery}
+              onChange={(e) => {
+                setQueryParams({ ...queryParams, searchQuery: e.target.value })
+              }}
               startAdornment={
                 <InputAdornment position="start" sx={{ margin: '0px' }}>
                   <IconButton sx={{ margin: '0px' }}>
@@ -111,7 +149,6 @@ const Orders = () => {
               }
             />
           </FormControl>
-
           <IconButton
             edge="end"
             onClick={handleDrawerOpen}
@@ -119,7 +156,6 @@ const Orders = () => {
           >
             <img src={FilterIcon} alt="" />
           </IconButton>
-
           <Drawer
             onClose={handleDrawerClose}
             sx={{
@@ -149,7 +185,6 @@ const Orders = () => {
                     <ChevronRightIcon sx={{ fontSize: '30px' }} />
                   )}
                 </IconButton>
-
                 <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
               </Box>
               <Box>
@@ -165,9 +200,7 @@ const Orders = () => {
                 </Button>
               </Box>
             </DrawerHeader>
-
             <Divider />
-
             <Box
               sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}
             >
@@ -181,21 +214,21 @@ const Orders = () => {
                 </FormLabel>
                 <RadioGroup
                   row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
+                  value={queryParams.delivery}
+                  onChange={(e) => {
+                    setQueryParams({ ...queryParams, delivery: e.target.value })
+                  }}
                 >
-                  <FormControlLabel
-                    className="checkbox_background_color"
-                    value="dispatch"
-                    control={<Radio />}
-                    label="Dispatch"
-                  />
-                  <FormControlLabel
-                    className="checkbox_background_color"
-                    value="shipping"
-                    control={<Radio />}
-                    label="Shipping"
-                  />
+                  {deliveryStatusList.map((data) => {
+                    return <FormControlLabel
+                      className="checkbox_background_color"
+                      value={data.value}
+                      control={<Radio />}
+                      label={data.type}
+                    />
+                  })}
+
+
                 </RadioGroup>
               </FormControl>
 
@@ -208,32 +241,30 @@ const Orders = () => {
                 </FormLabel>
                 <RadioGroup
                   row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
+                  value={queryParams.payment}
+                  onChange={(e) => {
+                    setQueryParams({ ...queryParams, payment: e.target.value })
+                  }}
                 >
-                  <FormControlLabel
-                    className="checkbox_background_color"
-                    value="pending"
-                    control={<Radio />}
-                    label="Pending"
-                  />
-                  <FormControlLabel
-                    className="checkbox_background_color"
-                    value="confirm"
-                    control={<Radio />}
-                    label="Confirm"
-                  />
+                  {paymentStatusList.map((data) => {
+                    return <FormControlLabel
+                      className="checkbox_background_color"
+                      value={data.value}
+                      control={<Radio />}
+                      label={data.type}
+                    />
+                  })}
                 </RadioGroup>
               </FormControl>
 
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   inputFormat="dd/MM/yyyy"
-                  value={createTask.due_date}
+                  value={queryParams.date}
                   onChange={e => {
-                    setCreateTask({
-                      ...createTask,
-                      due_date: moment(e).format('YYYY-MM-DD'),
+                    setQueryParams({
+                      ...queryParams,
+                      date: moment(e).format('YYYY-MM-DD'),
                     })
                   }}
                   renderInput={params => (
@@ -253,7 +284,6 @@ const Orders = () => {
           </Drawer>
         </Box>
       </Box>
-
       <Box className="below_main_tab_section">
         <TableContainer
           className="orders_table_height"
@@ -268,7 +298,7 @@ const Orders = () => {
             stickyHeader
             aria-label="sticky table"
             sx={{ minWidth: 690, marginLeft: '-10px' }}
-            // className="table_heading "
+          // className="table_heading "
           >
             <TableHead>
               <TableRow>
@@ -299,7 +329,7 @@ const Orders = () => {
                         {orderData?.id}
                       </TableCell>
                       <TableCell align="left">
-                        {orderData?.team?.name}
+                        {orderData?.client?.name}
                       </TableCell>
                       <TableCell align="left">
                         {moment(orderData?.date).format('Do MMM YY')}
@@ -332,6 +362,18 @@ const Orders = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        <Pagination
+          className="mt-3"
+          boundaryCount={0}
+          siblingCount={0}
+          size="small"
+          shape="rounded"
+          count={numbersToDisplayOnPagination}
+          page={currentPage}
+          onChange={(e, value) => {
+            setCurrentPage(value)
+          }}
+        />
       </Box>
     </Box>
   )

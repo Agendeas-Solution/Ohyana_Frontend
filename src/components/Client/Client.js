@@ -63,6 +63,7 @@ const Client = () => {
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const [cityList, setCityList] = useState([]);
+  const [clientStage, setClientStage] = useState('');
   const [stateList, setStateList] = useState([]);
   const [selectedCityState, setSelectedCityState] = useState({
     city: "",
@@ -141,7 +142,6 @@ const Client = () => {
     setClientType(value)
   }, [])
 
-  const [clientStage, setClientStage] = useState()
   const [location, setLocation] = useState()
   const handleClientDelete = () => {
     DeleteClientDetail(
@@ -157,7 +157,7 @@ const Client = () => {
           message: res.data.message,
         })
       },
-      err => {},
+      err => { },
     )
   }
   const handleDialogClose = () => {
@@ -223,13 +223,15 @@ const Client = () => {
     if (searchQuery) {
       data['searchQuery'] = searchQuery
     }
-    if (selectedCityState.city !== "") {
+    if (selectedCityState.city !== "" && selectedCityState.city !== null) {
       data['city'] = selectedCityState.city
     }
-    if (selectedCityState.state !== "") {
+    if (selectedCityState.state !== "" && selectedCityState.state !== null) {
       data['state'] = selectedCityState.state
     }
-    data['stage'] = clientStage
+    if (clientStage !== "" && clientStage !== null) {
+      data['stage'] = clientStage
+    }
     setClientLoader(true)
     GetAdminClientDetail(
       data,
@@ -358,9 +360,8 @@ const Client = () => {
               <InputLabel>Client Type</InputLabel>
               <Select
                 label="Client Stage"
-                value={clientStage !== null ? clientType[clientStage] : null}
-                onChange={(e, value) => {
-                  console.log(value)
+                value={clientStage}
+                onChange={(e) => {
                   setClientStage(e.target.value)
                 }}
               >

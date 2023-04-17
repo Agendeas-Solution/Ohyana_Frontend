@@ -34,7 +34,7 @@ const ProductList = () => {
   }
 
   const [AdminProductList, setAdminProductList] = useState([])
-  const handleGetAdminProduct=()=>{
+  const handleGetAdminProduct = () => {
     GetAdminProductList(
       {},
       res => {
@@ -72,7 +72,7 @@ const ProductList = () => {
               onClick={() => {
                 navigate('/addproduct')
               }}
-              // variant="contained"
+              // variant="contained"  
               className="main_product_button"
               sx={{ color: '#2E3591' }}
             >

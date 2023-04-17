@@ -64,7 +64,6 @@ const Staff = () => {
   const [loader, setLoader] = useState(false)
   const [attendanceTypeList, setAttendanceTypeList] = useState(TEAM.ATTENDANCETYPE);
   const [jobTypeList, setJobTypeList] = useState(TEAM.JOBTYPE);
-  const [searchQuery, setSearchQuery] = useState('');
   const d = new Date()
   const [datePicker, setDatePicker] = useState({
     $M: d.getMonth() + 1,
@@ -96,7 +95,17 @@ const Staff = () => {
     setOpen(false)
   }
   const handleApplyFilter = () => {
-
+    handleGetAdminStaffDetail();
+  }
+  const handleResetFilter = () => {
+    setQueryParams({
+      ...queryParams,
+      searchQuery: null,
+      jobRole: '',
+      teamType: null,
+      attendanceType: null
+    })
+    handleGetAdminStaffDetail();
   }
   const teamLeaderDetails = id => {
     GetSingleStaffDetailList(
@@ -117,8 +126,22 @@ const Staff = () => {
   }, [staffDetailList.length > 0])
 
   const handleGetAdminStaffDetail = () => {
+    let data = {};
+    if (queryParams.searchQuery !== "" && queryParams?.searchQuery !== null) {
+      data["searchQuery"] = queryParams.searchQuery;
+    }
+    if (queryParams?.teamType !== "" && queryParams?.teamType !== null) {
+      data["teamType"] = parseInt(queryParams.teamType);
+    }
+    if (queryParams.attendanceType !== "" && queryParams.attendanceType !== null) {
+      data["attendanceType"] = queryParams.attendanceType;
+    }
+    if (queryParams.jobRole !== "" && queryParams.jobRole !== null) {
+      data["roleId"] = queryParams.jobRole;
+    }
+    debugger;
     GetAdminStaffDetailList(
-      searchQuery,
+      data,
       res => {
         if (res?.success) {
           setStaffDetailList(res?.data)
@@ -127,6 +150,7 @@ const Staff = () => {
       },
       err => {
         console.log(err)
+        setStaffDetailList([]);
         setLoader(false)
       },
     )
@@ -134,7 +158,7 @@ const Staff = () => {
   useEffect(() => {
     value === '1' && setLoader(true)
     handleGetAdminStaffDetail();
-  }, [value, queryParams.searchQuery])
+  }, [value, queryParams])
 
   useEffect(() => {
     GetAdminRole(
@@ -241,9 +265,7 @@ const Staff = () => {
                   </Typography>
                 </Box>
                 <Box>
-                  <Button onClick={() => {
-
-                  }}>Reset</Button>
+                  <Button onClick={handleResetFilter}>Reset</Button>
                   <Button onClick={handleApplyFilter} className="common_button" variant="contained">
                     Apply
                   </Button>
@@ -257,6 +279,7 @@ const Staff = () => {
                   >Team Type
                   </FormLabel>
                   <RadioGroup
+                    value={queryParams.teamType}
                     onChange={(e) => {
                       setQueryParams({ ...queryParams, teamType: e.target.value });
                     }}>
@@ -277,11 +300,9 @@ const Staff = () => {
                     Result for
                   </FormLabel>
                   <RadioGroup
+                    value={queryParams.attendanceType}
                     onChange={(e) => {
-                      console.log(e.target.value);
-                      debugger;
                       setQueryParams({ ...queryParams, attendanceType: e.target.value });
-
                     }}
                   >
                     <Box className="checkbox_section">

@@ -5,10 +5,12 @@ import { UserData } from './Data'
 import LineChart from './LineChart'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import { GetProductReport } from '../../services/apiservices/productDetail'
+import { GetCityList } from '../../services/apiservices/clientDetail'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 const ProductGraph = ({ selectedPeriod }) => {
   const [graphData, setGraphData] = useState()
   const [productList, setProductList] = useState([])
+  const [cityList, setCityList]=useState([]);
   const [selectedProduct, se] = useState()
   useEffect(() => {
     GetProductReport(
@@ -16,14 +18,22 @@ const ProductGraph = ({ selectedPeriod }) => {
       res => {
         setGraphData(res?.data)
       },
-      err => {},
+      err => { },
     )
     GetAdminProductList(
       {},
       res => {
         setProductList(res?.data?.products)
       },
-      err => {},
+      err => { },
+    )
+    GetCityList(
+      {},
+      res => {
+        setCityList(res?.data)
+        debugger;
+      },
+      err => { },
     )
   }, [selectedPeriod])
   const top100Films = [
@@ -79,8 +89,8 @@ const ProductGraph = ({ selectedPeriod }) => {
             <Box sx={{ display: 'flex' }}>
               <Autocomplete
                 disablePortal
-                options={productList}
-                getOptionLabel={option => option.name}
+                options={cityList}
+                getOptionLabel={option => option}
                 sx={{ width: '200px', marginRight: '10px' }}
                 renderInput={params => (
                   <TextField
@@ -90,7 +100,6 @@ const ProductGraph = ({ selectedPeriod }) => {
                   />
                 )}
               />
-
               <Autocomplete
                 disablePortal
                 options={productList}
@@ -98,7 +107,6 @@ const ProductGraph = ({ selectedPeriod }) => {
                 sx={{ width: '200px', marginRight: '10px' }}
                 renderInput={params => (
                   <TextField
-                    // className="common_dropdown"
                     {...params}
                     label="Product"
                   />
