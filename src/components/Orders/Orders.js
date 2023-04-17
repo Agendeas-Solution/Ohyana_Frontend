@@ -152,8 +152,12 @@ const Orders = () => {
           <IconButton
             edge="end"
             onClick={handleDrawerOpen}
-            sx={{ ...(openDrawer && { display: 'flex' }) }}
-          >
+            sx={{
+              display: 'flex',
+              padding: '0',
+              margin: '0px',
+            }}>
+
             <img src={FilterIcon} alt="" />
           </IconButton>
           <Drawer
@@ -167,15 +171,15 @@ const Orders = () => {
             open={openDrawer}
           >
             <DrawerHeader
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
+              className="drawer_header_section">
+
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <IconButton
-                  sx={{ color: '#2e3591' }}
+                  sx={{
+                    ...(openDrawer && { display: 'flex' }),
+                    padding: '0',
+                    margin: '0 0 0 0px',
+                  }}
                   disableRipple={true}
                   onClick={handleDrawerClose}
                 >
@@ -284,7 +288,8 @@ const Orders = () => {
           </Drawer>
         </Box>
       </Box>
-      <Box className="below_main_tab_section">
+
+      <Box className="body_section_paddingless_pagination">
         <TableContainer
           className="orders_table_height"
           component={Paper}

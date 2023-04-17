@@ -186,7 +186,7 @@ const Staff = () => {
   }, [value, datePicker])
 
   return (
-    <Box sx={{ backgroundColor: '#f1f2f6' }} className="team_profile_section">
+    <Box className="team_profile_section">
       <Box className="left_panel">
         <Box sx={{ width: '100%' }}>
           <Box className="team_header">
@@ -231,7 +231,11 @@ const Staff = () => {
               <IconButton
                 edge="end"
                 onClick={handleDrawerOpen}
-                sx={{ ...(open && { display: 'flex' }) }}
+                sx={{
+                  ...(open && { display: 'flex' }),
+                  padding: '0',
+                  margin: '0 0 0 10px',
+                }}
               >
                 <img src={FilterIcon} alt="" />
               </IconButton>

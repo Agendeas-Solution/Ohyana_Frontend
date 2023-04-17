@@ -21,13 +21,14 @@
 }
 
 .login_forget_password_root {
-  text-decoration: underline;
-  color: #8e8e8e;
   width: 100%;
-  text-align: right;
-  margin-top: 10px !important;
   display: flex;
   justify-content: flex-end;
+  color: #8e8e8e;
+  padding: 0px;
+  margin: 0px;
+  text-align: right;
+  text-decoration: underline;
 }
 
 .login_forget_password_root a {

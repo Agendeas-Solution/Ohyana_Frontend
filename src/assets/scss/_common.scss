@@ -83,6 +83,17 @@ textarea:focus {
   color: #2e3591;
 }
 
+.company_logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0px 5px 0px;
+
+  img {
+    width: 9rem;
+  }
+}
+
 .outlined_textfield_height {
   height: 20px;
   display: flex;
@@ -175,58 +186,12 @@ textarea:focus {
 
 .main_section {
   display: flex;
+  height: 100%;
   background-color: #fff;
+  border-radius: 5px;
   padding: 10px;
-  height: 87%;
-  border-radius: 5px;
-  width: 97%;
   flex-direction: column !important;
-  margin: 15px auto;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.orders_main_section {
-  display: flex;
-  background-color: #fff;
-  padding: 10px;
-  height: 88%;
-  border-radius: 5px;
-  width: 97%;
-  flex-direction: column !important;
-  margin: 15px auto;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.client_body_section {
-  background-color: #fff;
-  margin-top: 5px;
-  width: 100%;
-  border-radius: 5px;
-  height: 79vh;
-  width: 78vw;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  .inner_container {
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-  }
-}
-
-.tab_main_section {
-  display: flex;
-  background-color: #fff;
-  padding: 10px;
-  height: 80%;
-  border-radius: 5px;
-  width: 97%;
-  flex-direction: column !important;
-  margin: 20px auto;
+  margin: 8px 12px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -497,31 +462,28 @@ textarea:focus {
   width: 100%;
 }
 
-.login_page_root {
+.login_page {
+  height: 100vh !important;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
-  width: 100%;
   background: #f1f2f6;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.login_form_root {
-  background: #ffffff;
-  width: 35%;
-  height: 55%;
+.login_form {
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: column !important;
   align-items: center;
+  background: #ffffff;
   border-radius: 10px;
-  padding: 20px;
-  margin-top: 25px;
+  padding: 10px 20px 15px 20px;
+  margin: 5px 10px;
 }
 
-.login_heading_root {
-  font-size: 24px;
+.login_heading {
+  font-size: 22px;
   text-align: left;
   width: 100%;
 }
@@ -545,7 +507,6 @@ textarea:focus {
   color: #000000;
   font-size: 17px;
   font-weight: 400;
-  margin-top: 10px !important;
 }
 
 button {
@@ -864,24 +825,22 @@ button {
   padding: 0px;
 }
 
-.left_panel {
-  width: 60%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  border-radius: 5px;
-  margin-right: 10px;
-}
 
-.right_panel {
-  width: 40%;
-  height: 100%;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  background-color: #ffffff;
+.body_section_paddingless_pagination {
+  background-color: #fff;
   border-radius: 5px;
-  overflow: hidden;
+  height: 100%;
+  margin: 0px 0px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .inner_container {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
 }
 
 .team_profile_section {
@@ -898,14 +857,23 @@ button {
 .main_tab_section {
   display: flex;
   flex-direction: column;
-  width: 97%;
-  margin: 6px auto;
+  margin: 0px 12px;
+  height: 100%;
 }
 
 .team_right_panel_heading {
   font-weight: bold;
   font-size: 22px;
   padding-right: 190px;
+}
+
+.profile_body_section {
+  display: flex;
+  background-color: #fff;
+  border-radius: 5px;
+  flex-direction: column !important;
+  padding: 10px;
+  margin: 8px 12px;
 }
 
 .left_team_profile_section {
@@ -1164,11 +1132,9 @@ button {
 
 .below_main_tab_section {
   background-color: #fff;
-  margin-top: 5px;
-  width: 100%;
   border-radius: 5px;
-  height: 79vh;
-  width: 78vw;
+  height: 100%;
+  margin: 0px 0px;
   padding: 10px !important;
   overflow-y: auto;
   overflow-x: hidden;
