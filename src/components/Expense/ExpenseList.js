@@ -8,6 +8,9 @@ import {
   TableHead,
   TableRow,
   TableCell,
+  TableBody,
+  TableContainer,
+  Table,
 } from '@mui/material'
 import DeleteIcon from '../../assets/img/Delete_Icon.svg'
 import EditIcon from '../../assets/img/Edit_Icon.svg'
@@ -71,13 +74,13 @@ const ExpenseList = () => {
       deletexpenseListDialog.id,
       res => {
         if (res.success) {
-          handleCloseDialog();
+          handleCloseDialog()
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
             message: res.message,
           })
-          GetExpenseList();
+          GetExpenseList()
         }
       },
       err => {
@@ -105,7 +108,7 @@ const ExpenseList = () => {
             name: '',
             description: '',
           })
-          GetExpenseList();
+          GetExpenseList()
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
@@ -140,18 +143,19 @@ const ExpenseList = () => {
   }
   return (
     <>
-      <div className="main_section p-4">
+      <div className="main_section">
         <Box className="job_role_title mb-3">
-          <Typography variant="span" className="ms-2">
+          <Typography variant="span" className="setting_main_heading">
             Expense List
           </Typography>
           <Button
+            className="background_col_btn"
             onClick={() =>
               setAddExpenseType({
                 ...addExpenseType,
                 status: true,
                 name: '',
-                expenseId: "",
+                expenseId: '',
                 description: '',
               })
             }
@@ -160,40 +164,32 @@ const ExpenseList = () => {
             + Expense Type
           </Button>
         </Box>
-        <Divider
+        {/* <Divider
           sx={{ borderColor: '#8E8E8E' }}
           orientation="horizontal"
-          // variant="middle"
-          width="100%"
-        // flexItem
-        />
-        <Box sx={{ marginTop: '19px', width: 'initial' }}>
-          <Box
-            sx={{
-              backgroundColor: '#F1F2F6',
-              marginBottom: '20px',
-              borderRadius: '6px',
-            }}
-          >
-            <TableHead
-              sx={{ paddingTop: '5px' }}
-              className="client_profile_table_header"
-            >
-              <TableRow>
-                <TableCell sx={{ paddingRight: '4px' }}></TableCell>
-                <TableCell sx={{ paddingRight: '68px' }}>Sr No.</TableCell>
-                <TableCell sx={{ paddingRight: '70px' }} align="left">
-                  Name
-                </TableCell>
-                <TableCell sx={{ paddingLeft: '75px' }} align="center">
-                  Description
-                </TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableHead>
-          </Box>
-        </Box>
-        {expenseList.length > 0 &&
+          variant="middle"
+          // width="100%"
+          flexItem
+        /> */}
+
+        <Box className="left_team_profile_section">
+          <TableContainer>
+            <Table className="job_role_list">
+              <TableHead className="client_profile_table_header">
+                <TableRow sx={{ backgroundColor: '#f1f2f6' }}>
+                  <TableCell align="left">Sr. No.</TableCell>
+                  <TableCell align="left">Name</TableCell>
+                  <TableCell align="left">Description</TableCell>
+                  <TableCell align="left"></TableCell>
+                </TableRow>
+              </TableHead>
+              <Divider
+                // sx={{ borderColor: '#C4C4C4' }}
+                orientation="vertical"
+                variant="middle"
+                flexItem
+              />
+              {/* {expenseList.length > 0 &&
           expenseList?.map((data, index) => {
             return (
               <Box className="appointment_notification">
@@ -232,7 +228,7 @@ const ExpenseList = () => {
                         setDeletexpenseListDialog({
                           ...deletexpenseListDialog,
                           status: true,
-                          id: data.id
+                          id: data.id,
                         })
                       }}
                       src={DeleteIcon}
@@ -242,7 +238,57 @@ const ExpenseList = () => {
                 </Grid>
               </Box>
             )
-          })}
+          })} */}
+
+              <TableBody>
+                {expenseList.length > 0 &&
+                  expenseList?.map((data, index) => (
+                    <React.Fragment key={index}>
+                      <TableRow className="job_role_list" key={data.id}>
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell align="left">{data.name || '-'}</TableCell>
+                        <TableCell className="job_role_description">
+                          {data.description || '-'}
+                        </TableCell>
+                        <TableCell align="left">
+                          <img
+                            onClick={() =>
+                              setAddExpenseType({
+                                ...addExpenseType,
+                                status: true,
+                                expenseId: data.id,
+                                name: data.name,
+                                description: data.description,
+                              })
+                            }
+                            className="me-3 p-2"
+                            src={EditIcon}
+                            alt=""
+                          />
+                          <img
+                            className="iconn ms-2"
+                            onClick={() => {
+                              setDeletexpenseListDialog({
+                                ...deletexpenseListDialog,
+                                status: true,
+                                id: data.id,
+                              })
+                            }}
+                            src={DeleteIcon}
+                            alt=""
+                          />
+                        </TableCell>
+                      </TableRow>
+                      <Divider
+                        sx={{ height: '24px', borderColor: 'transparent' }}
+                      />
+                      {/* {index < staffDetailList.length - 1 && <Box my={2} />} */}
+                    </React.Fragment>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
         <ExpenseType
           addExpenseType={addExpenseType}
           handleCloseDialog={handleCloseDialog}

@@ -170,7 +170,7 @@ const Staff = () => {
   }, [])
 
   return (
-    <Box sx={{ backgroundColor: '#f1f2f6' }} className="team_profile_section">
+    <Box className="team_profile_section">
       <Box className="left_panel">
         <Box sx={{ width: '100%' }}>
           <Box className="team_header">
@@ -215,7 +215,11 @@ const Staff = () => {
               <IconButton
                 edge="end"
                 onClick={handleDrawerOpen}
-                sx={{ ...(open && { display: 'flex' }) }}
+                sx={{
+                  ...(open && { display: 'flex' }),
+                  padding: '0',
+                  margin: '0 0 0 10px',
+                }}
               >
                 <img src={FilterIcon} alt="" />
               </IconButton>
@@ -233,11 +237,18 @@ const Staff = () => {
               open={open}
             >
               <DrawerHeader className="drawer_header_section">
-                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}
+                >
                   <IconButton
                     sx={{ color: '#2e3591', padding: '0px' }}
                     disableRipple={true}
-                    onClick={handleDrawerClose}>
+                    onClick={handleDrawerClose}
+                  >
                     {theme.direction === 'rtl' ? (
                       <ChevronLeftIcon sx={{ fontSize: '30px' }} />
                     ) : (
@@ -256,12 +267,9 @@ const Staff = () => {
                 </Box>
               </DrawerHeader>
               <Divider />
-              <Box
-                sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <FormControl sx={{ margin: '5px 15px' }}>
-                  <FormLabel sx={{ margin: '0px 5px' }}
-                  >Team Type
-                  </FormLabel>
+                  <FormLabel sx={{ margin: '0px 5px' }}>Team Type</FormLabel>
                   <RadioGroup>
                     <Box className="checkbox_section">
                       <FormControlLabel
@@ -280,9 +288,7 @@ const Staff = () => {
                   </RadioGroup>
                 </FormControl>
                 <FormControl sx={{ margin: '5px 15px' }}>
-                  <FormLabel sx={{ margin: '0px 5px' }}>
-                    Result for
-                  </FormLabel>
+                  <FormLabel sx={{ margin: '0px 5px' }}>Result for</FormLabel>
                   <RadioGroup>
                     <Box className="checkbox_section">
                       <FormControlLabel
@@ -332,7 +338,6 @@ const Staff = () => {
                     })}
                   </Select>
                 </FormControl>
-
               </Box>
             </Drawer>
           </Box>
@@ -353,6 +358,7 @@ const Staff = () => {
                   variant="middle"
                   flexItem
                 />
+
                 <TableBody
                   style={{
                     borderCollapse: 'separate',
@@ -403,7 +409,7 @@ const Staff = () => {
             </TableContainer>
           </Box>
         </Box>
-      </Box >
+      </Box>
 
       <Box className="right_panel">
         <Box sx={{ width: '100%', padding: '0px 8px' }}>
@@ -473,8 +479,9 @@ const Staff = () => {
         </Box>
 
         <Box className="bottom_right_part">
-
-          <Typography className="statistics_box_heading">Inquiry Status</Typography>
+          <Typography className="statistics_box_heading">
+            Inquiry Status
+          </Typography>
 
           <Box className="staff_statistics_data">
             <Box className="statistics_box first_box">

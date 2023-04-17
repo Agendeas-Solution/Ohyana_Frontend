@@ -81,8 +81,8 @@ const Orders = () => {
     setOpen(false)
   }
 
-  const handleApplyFilter = () => {}
-  const handleClearAllFilter = () => {}
+  const handleApplyFilter = () => { }
+  const handleClearAllFilter = () => { }
 
   return (
     <Box className="main_tab_section">
@@ -115,7 +115,11 @@ const Orders = () => {
           <IconButton
             edge="end"
             onClick={handleDrawerOpen}
-            sx={{ ...(openDrawer && { display: 'flex' }) }}
+            sx={{
+              ...(openDrawer && { display: 'flex' }),
+              padding: '0',
+              margin: '0 0 0 0px',
+            }}
           >
             <img src={FilterIcon} alt="" />
           </IconButton>
@@ -131,12 +135,7 @@ const Orders = () => {
             open={openDrawer}
           >
             <DrawerHeader
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
+              className="drawer_header_section">
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <IconButton
                   sx={{ color: '#2e3591' }}
@@ -253,8 +252,7 @@ const Orders = () => {
           </Drawer>
         </Box>
       </Box>
-
-      <Box className="below_main_tab_section">
+      <Box className="body_section_paddingless_pagination">
         <TableContainer
           className="orders_table_height"
           component={Paper}
@@ -268,7 +266,7 @@ const Orders = () => {
             stickyHeader
             aria-label="sticky table"
             sx={{ minWidth: 690, marginLeft: '-10px' }}
-            // className="table_heading "
+          // className="table_heading "
           >
             <TableHead>
               <TableRow>
