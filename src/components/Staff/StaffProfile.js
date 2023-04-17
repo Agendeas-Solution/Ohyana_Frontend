@@ -25,7 +25,7 @@ const StaffProfile = () => {
   const { flagLoader, permissions } = useContext(AuthContext).state
   const [changeRoleDialogControl, setChangeRoleDialogControl] = useState(false)
   const [adminProfileDetail, setAdminProfileDetail] = useState({})
-
+  
   const navigate = useNavigate()
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -52,7 +52,7 @@ const StaffProfile = () => {
 
   return (
     <>
-      <Box className="profile_body_section">
+      <Box className="main_section_of_team_profile">
         <Box className="user_profile_header_Section">
           <Box className="username_profile_Section">
             <AccountCircleRoundedIcon className="user_profile_icon" />
@@ -91,7 +91,7 @@ const StaffProfile = () => {
                   borderBottom: '1px solid #F1F2F6',
                   width: '100%',
                 }}
-                className="mb-2"
+                className="client_profile_tab mb-2"
                 onChange={handleChange}
               >
                 <Tab label="Target" value="1" />

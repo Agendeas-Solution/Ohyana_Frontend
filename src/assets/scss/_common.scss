@@ -173,6 +173,74 @@ textarea:focus {
   letter-spacing: 0.04rem;
 }
 
+.main_section {
+  display: flex;
+  background-color: #fff;
+  padding: 10px;
+  height: 87%;
+  border-radius: 5px;
+  width: 97%;
+  flex-direction: column !important;
+  margin: 15px auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.orders_main_section {
+  display: flex;
+  background-color: #fff;
+  padding: 10px;
+  height: 88%;
+  border-radius: 5px;
+  width: 97%;
+  flex-direction: column !important;
+  margin: 15px auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.client_body_section {
+  background-color: #fff;
+  margin-top: 5px;
+  width: 100%;
+  border-radius: 5px;
+  height: 79vh;
+  width: 78vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .inner_container {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+}
+
+.tab_main_section {
+  display: flex;
+  background-color: #fff;
+  padding: 10px;
+  height: 80%;
+  border-radius: 5px;
+  width: 97%;
+  flex-direction: column !important;
+  margin: 20px auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.main_section_of_team_profile {
+  display: flex;
+  background-color: #fff;
+  padding: 10px;
+  height: 87%;
+  border-radius: 5px;
+  width: 97%;
+  flex-direction: column !important;
+  margin: 15px auto;
+}
 
 .table_heading tr th {
   border-bottom: none;
@@ -645,10 +713,6 @@ button {
   font-weight: 600 !important;
 }
 
-.job_role_btn {
-  border: 1px solid #E5E5E5 !important;
-}
-
 .access_control_box {
   margin: 5px;
   width: 48%;
@@ -800,67 +864,48 @@ button {
   padding: 0px;
 }
 
-.main_section {
-  display: flex;
+.left_panel {
+  width: 60%;
   height: 100%;
-  background-color: #fff;
+  display: flex;
+  flex-direction: row;
   border-radius: 5px;
-  padding: 10px;
-  flex-direction: column !important;
-  margin: 8px 12px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  margin-right: 10px;
+}
+
+.right_panel {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.team_profile_section {
+  display: flex;
+  background: #ffffff;
+  width: 97%;
+  // padding: 10px;
+  height: 86%;
+  // flex-direction: column ;
+  justify-content: space-between;
+  margin: 15px auto;
 }
 
 .main_tab_section {
   display: flex;
   flex-direction: column;
-  margin: 0px 12px;
-  height: 100%;
+  width: 97%;
+  margin: 6px auto;
 }
 
-.tab_header {
-  display: flex;
-  margin: 8px 0px;
-  justify-content: space-between;
-  align-content: center;
-  align-items: center;
-}
-
-.below_main_tab_section {
-  background-color: #fff;
-  border-radius: 5px;
-  height: 100%;
-  margin: 0px 0px;
-  padding: 10px !important;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.body_section_paddingless_pagination {
-  background-color: #fff;
-  border-radius: 5px;
-  height: 100%;
-  margin: 0px 0px;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  .inner_container {
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-  }
-}
-
-.profile_body_section {
-  display: flex;
-  background-color: #fff;
-  border-radius: 5px;
-  flex-direction: column !important;
-  padding: 10px;
-  margin: 8px 12px;
+.team_right_panel_heading {
+  font-weight: bold;
+  font-size: 22px;
+  padding-right: 190px;
 }
 
 .left_team_profile_section {
@@ -903,6 +948,15 @@ button {
   align-items: center;
 }
 
+.tab_header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  padding: 8px 0px;
+}
+
 .checkbox_section {
   display: flex;
   justify-content: space-between;
@@ -928,7 +982,6 @@ button {
 
 .pjp_table_height {
   height: 59vh;
-  // height: 55%;
   width: 100% !important;
   margin-top: 6px;
 }
@@ -1108,35 +1161,20 @@ button {
   margin-top: 30px;
 }
 
-
+.below_main_tab_section {
+  background-color: #fff;
+  margin-top: 5px;
+  width: 100%;
+  border-radius: 5px;
+  height: 79vh;
+  width: 78vw;
+  padding: 10px !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 
 .product_card_main_section {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-
-.job_role_body_content {
-  display: 'flex' !important;
-  justify-content: 'center' !important;
-  align-items: 'center' !important;
-  flex-direction: 'row' !important;
-  font-size: '15px' !important;
-  float: 'left' !important;
-}
-
-.setting_main_heading {
-  font-size: 18px;
-  color: #8E8E8E;
-}
-
-.job_role_description {
-  font-size: 15px;
-  text-overflow: ellipsis;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  white-space: normal;
-  overflow: hidden;
-  max-height: 5em;
 }

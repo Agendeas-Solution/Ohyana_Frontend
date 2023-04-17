@@ -13,17 +13,11 @@ import {
   TableHead,
   TableRow,
   TableCell,
-  TableContainer,
-  Table,
-  TableBody,
 } from '@mui/material'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import './index.css'
-import {
-  GetAddEditAdminRole,
-  GetAdminRole,
-} from '../../services/apiservices/adminprofile'
+import { GetAddEditAdminRole } from '../../services/apiservices/adminprofile'
 import {
   UpdatePermission,
   getUserPermissions,
@@ -106,7 +100,7 @@ const JobRolesList = () => {
   })
 
   useEffect(() => {
-    GetAdminRole(
+    GetAddEditAdminRole(
       {},
       res => {
         if (res.success) {
@@ -126,11 +120,10 @@ const JobRolesList = () => {
     <>
       <div className="main_section">
         <Box className="job_role_title mb-3">
-          <Typography className="setting_main_heading" variant="span">
+          <Typography variant="span" className="ms-2">
             Job Roles
           </Typography>
           <Button
-            className="background_col_btn"
             onClick={() => {
               setJobRoleDialogControl(true)
             }}
@@ -144,7 +137,31 @@ const JobRolesList = () => {
           orientation="horizontal"
           width="100%"
         />
-        {/* <Box sx={{ marginTop: '19px', width: 'initial' }}>
+        <Box sx={{ marginTop: '19px', width: 'initial' }}>
+          {/* <Grid
+            sx={{
+              background: "#F1F2F6",
+              marginLeft: "1px",
+              marginRight: "8px",
+            }}
+            container
+            spacing={2}
+            className="align-items-center d-flex justify-content-center"
+          >
+            <Grid align="left" item xs={1}>
+              <Typography variant="span">Sr. No.</Typography>
+            </Grid>
+            <Grid align="left" item xs={3}>
+              <Typography variant="span">Job Role</Typography>
+            </Grid>
+            <Grid align="left" item xs={3}>
+              <Typography variant="span">Senior Post</Typography>
+            </Grid>
+            <Grid align="left" item xs={3}>
+              <Typography variant="span">Description</Typography>
+            </Grid>
+            <Grid item xs={3}></Grid>
+          </Grid> */}
           <Box
             sx={{
               backgroundColor: '#F1F2F6',
@@ -172,16 +189,15 @@ const JobRolesList = () => {
               </TableRow>
             </TableHead>
           </Box>
-        </Box> */}
-
-        {/* {jobRoleList?.roles &&
+        </Box>
+        {jobRoleList?.roles &&
           jobRoleList?.roles.map((data, index) => {
             return (
               <Box className="appointment_notification">
                 <Grid
                   container
                   spacing={2}
-                 className="d-flex justify-content-center" 
+                  className="d-flex justify-content-center"
                 >
                   <Grid item xs={1}>
                     <Typography variant="span">{index + 1}</Typography>
@@ -209,82 +225,7 @@ const JobRolesList = () => {
                 </Grid>
               </Box>
             )
-          })} */}
-
-        <Box className="left_team_profile_section">
-          <TableContainer>
-            <Table className="job_role_list">
-              <TableHead className="client_profile_table_header">
-                <TableRow sx={{ backgroundColor: '#f1f2f6' }}>
-                  <TableCell align="left">Sr. No.</TableCell>
-                  <TableCell align="left">Job Role</TableCell>
-                  <TableCell align="left">Senior Post</TableCell>
-                  <TableCell align="left">Description</TableCell>
-                  <TableCell align="left"></TableCell>
-                </TableRow>
-              </TableHead>
-              <Divider
-                // sx={{ borderColor: '#C4C4C4' }}
-                orientation="vertical"
-                variant="middle"
-                flexItem
-              />
-
-              <TableBody>
-                {jobRoleList?.roles &&
-                  jobRoleList?.roles.map((data, index) => (
-                    <React.Fragment key={index}>
-                      <TableRow
-                        // className="appointment_notification"
-                        className="job_role_list"
-                        key={data.id}
-                        sx={
-                          {
-                            // border: '1px solid #E5E5E5',
-                            // borderRadius: '5px',
-                          }
-                        }
-                      >
-                        <TableCell>{index + 1}</TableCell>
-                        <TableCell
-                        // className="job_role_body_content"
-                        // sx={{
-                        //   display: 'flex',
-                        //   justifyContent: 'center',
-                        //   alignItems: 'center',
-                        //   flexDirection: 'row',
-                        //   fontSize: '15px',
-                        //   float: 'left',
-                        // }}
-                        >
-                          {data.name || '-'}
-                        </TableCell>
-                        <TableCell align="left">{data.name || '-'}</TableCell>
-                        <TableCell className="job_role_description">
-                          {data.description || '-'}
-                        </TableCell>
-                        <TableCell align="left">
-                          <Button
-                            variant="outlined"
-                            onClick={() =>
-                              navigate(`/jobroleaccess/${data.id}`)
-                            }
-                            className="job_role_btn"
-                          >
-                            View
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                      <Divider
-                        sx={{ height: '24px', borderColor: 'transparent' }}
-                      />
-                      {/* {index < staffDetailList.length - 1 && <Box my={2} />} */}
-                    </React.Fragment>
-                  ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
+          })}
       </div>
       <JobRoleDialog
         jobRoleList={jobRoleList}
