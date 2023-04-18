@@ -99,12 +99,9 @@ const StaffTarget = () => {
                 }}
                 renderInput={params => (
                   <TextField
+                    sx={{ width: '175px', marginRight: '10px' }}
                     {...params}
-                    sx={{
-                      display: 'flex',
-                      width: '125px',
-                      marginRight: '10px',
-                    }}
+                    helperText={null}
                   />
                 )}
                 PopperProps={{
@@ -196,6 +193,7 @@ const StaffTarget = () => {
             <NoResultFound />
           )}
         </TableContainer>
+
         {targetDetail.status && (
           <SetTargetDialog
             targetDetail={targetDetail}

@@ -68,6 +68,6 @@
     "prettier": "^2.8.6"
   },
   "lint-staged": {
-    "src/**/*.{html,css,js,jsx,md}": "prettier --check"
+    "src/**/*.{html,css,js,md}": "prettier --check"
   }
 }

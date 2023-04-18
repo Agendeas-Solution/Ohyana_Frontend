@@ -85,7 +85,7 @@ const UserProfile = () => {
             setStaffAttendanceList(res?.data)
           }
         },
-        err => {},
+        err => { },
       )
     activeTab === 'leave' &&
       value === 'Attendance' &&
@@ -96,7 +96,7 @@ const UserProfile = () => {
             setLeaveList(res?.data)
           }
         },
-        err => {},
+        err => { },
       )
     activeTab === 'holiday' &&
       value === 'Attendance' &&
@@ -108,15 +108,15 @@ const UserProfile = () => {
             setHolidayList(res?.data)
           }
         },
-        err => {},
+        err => { },
       )
   }, [activeTab, value])
 
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
-      res => {},
-      err => {},
+      res => { },
+      err => { },
     )
   }
   const handleCloseDialog = () => {
@@ -181,79 +181,68 @@ const UserProfile = () => {
           </Box>
 
           <TabPanel sx={{ padding: '10px' }} value="Attendance">
-            <Box className="sub_header_data_box col-md-12 mb-1">
-              <Box
-                sx={{
-                  // background: '#F1F2F6',
-                  borderRadius: '5px',
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}
-              >
-                <Box className="staff_statistics_box first_box me-3 p-2">
+            <Box className="statistics_data_section">
+              <Box className="statistics_data">
+                <Box className="statistics_box first_box">
                   <Typography>Total Days</Typography>
                   <Typography>{staffAttendanceList?.totalDays}</Typography>
                 </Box>
 
-                <Box className="staff_statistics_box second_box  me-3 p-2">
+                <Box className="statistics_box second_box">
                   <Typography>Absent Days</Typography>
                   <Typography>{staffAttendanceList?.absentDays}</Typography>
                 </Box>
 
-                <Box className="staff_statistics_box third_box p-2">
+                <Box className="statistics_box third_box">
                   <Typography>Late Days</Typography>
                   <Typography>{staffAttendanceList?.lateDays}</Typography>
                 </Box>
               </Box>
-
-              <Box>
-                <Box
-                  sx={{
-                    background: '#F1F2F6',
-                    borderRadius: '5px',
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'start',
+                }}>
+                <Button
+                  className={
+                    activeTab === 'present'
+                      ? 'active_button'
+                      : 'custom_tab_background'
+                  }
+                  onClick={() => {
+                    setActiveTab('present')
                   }}
+                  variant="contained"
                 >
-                  <Button
-                    className={
-                      activeTab === 'present'
-                        ? 'active_button'
-                        : 'custom_tab_background'
-                    }
-                    onClick={() => {
-                      setActiveTab('present')
-                    }}
-                    variant="contained"
-                  >
-                    Present
-                  </Button>
-                  <Button
-                    // sx={{ marginLeft: '0px', marginRight: '0' }}
-                    className={
-                      activeTab === 'leave'
-                        ? 'active_button'
-                        : 'custom_tab_background'
-                    }
-                    onClick={() => {
-                      setActiveTab('leave')
-                    }}
-                    variant="contained"
-                  >
-                    Leave
-                  </Button>
-                  <Button
-                    className={
-                      activeTab === 'holiday'
-                        ? 'active_button'
-                        : 'custom_tab_background'
-                    }
-                    onClick={() => {
-                      setActiveTab('holiday')
-                    }}
-                    variant="contained"
-                  >
-                    Holiday
-                  </Button>
-                </Box>
+                  Present
+                </Button>
+                <Button
+                  // sx={{ marginLeft: '0px', marginRight: '0' }}
+                  className={
+                    activeTab === 'leave'
+                      ? 'active_button'
+                      : 'custom_tab_background'
+                  }
+                  onClick={() => {
+                    setActiveTab('leave')
+                  }}
+                  variant="contained"
+                >
+                  Leave
+                </Button>
+                <Button
+                  className={
+                    activeTab === 'holiday'
+                      ? 'active_button'
+                      : 'custom_tab_background'
+                  }
+                  onClick={() => {
+                    setActiveTab('holiday')
+                  }}
+                  variant="contained"
+                >
+                  Holiday
+                </Button>
               </Box>
             </Box>
 
