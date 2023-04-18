@@ -40,7 +40,7 @@ const StaffTarget = () => {
   useEffect(() => {
     // debugger
     let data = {
-      month: moment(selectMonth.$d).month()+1,
+      month: moment(selectMonth.$d).month() + 1,
       year: moment(selectMonth.$d).format('YYYY'),
       teamId: parseInt(path),
     }
@@ -193,6 +193,7 @@ const StaffTarget = () => {
             <NoResultFound />
           )}
         </TableContainer>
+
         {targetDetail.status && (
           <SetTargetDialog
             targetDetail={targetDetail}
