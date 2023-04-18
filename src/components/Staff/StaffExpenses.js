@@ -229,6 +229,9 @@ const StaffExpenses = () => {
           ) : (
             <NoResultFound />
           )}
+
+
+
         </TableContainer>
         <StaffExpensesDetail
           closeStaffExpenses={handleClose}

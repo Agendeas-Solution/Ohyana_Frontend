@@ -27,7 +27,7 @@ const TeamGraph = ({ selectedPeriod }) => {
       res => {
         setGraphData(res?.data)
       },
-      err => { },
+      err => {},
     )
   }, [selectedPeriod])
   useEffect(() => {

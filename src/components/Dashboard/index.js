@@ -31,15 +31,15 @@ const Dashboard = () => {
       res => {
         setInquiryData(res.data.data)
       },
-      err => { },
+      err => {},
     )
   }, [])
 
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
-      res => { },
-      err => { },
+      res => {},
+      err => {},
     )
   }
 

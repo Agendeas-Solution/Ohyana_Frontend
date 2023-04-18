@@ -21,7 +21,9 @@ const DeleteExpenseTypeDialog = ({
       <Dialog open={deletexpenseListDialog.status} onClose={handleCloseDialog}>
         <Box className="dialogue_main_section">
           <DeleteOutlinedIcon className="dialogue_delete_Icon" />
-          <Typography className="dialogue_heading">Delete Expense Type</Typography>
+          <Typography className="dialogue_heading">
+            Delete Expense Type
+          </Typography>
           <Typography className="dialogue_description">
             Are you sure, you want to Delete this Expense Type ?
           </Typography>

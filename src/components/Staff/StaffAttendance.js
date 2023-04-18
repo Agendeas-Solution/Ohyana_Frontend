@@ -78,7 +78,7 @@ const StaffAttendance = () => {
         res => {
           setStaffAttendanceList(res?.data)
         },
-        err => { },
+        err => {},
       )
     activeTab === 'leave' &&
       GetStaffLeaveList(
@@ -90,7 +90,7 @@ const StaffAttendance = () => {
         res => {
           setStaffLeaveList(res?.data)
         },
-        err => { },
+        err => {},
       )
   }, [activeTab, selectMonth])
   return (

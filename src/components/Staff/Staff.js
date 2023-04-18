@@ -500,8 +500,9 @@ const Staff = () => {
         </Box>
 
         <Box className="bottom_right_part">
-          <Typography className="staff_statistics_box_heading">Inquiry Status</Typography>
-
+          <Typography className="staff_statistics_box_heading">
+            Inquiry Status
+          </Typography>
 
           <Box className="staff_statistics_data">
             <Box className="staff_statistics_box first_box">
@@ -524,7 +525,9 @@ const Staff = () => {
             </Box>
           </Box>
 
-          <Typography className="staff_statistics_box_heading">Attendance</Typography>
+          <Typography className="staff_statistics_box_heading">
+            Attendance
+          </Typography>
 
           <Box className="staff_statistics_data">
             <Box className="staff_statistics_box first_box">
@@ -547,7 +550,9 @@ const Staff = () => {
             </Box>
           </Box>
 
-          <Typography className="staff_statistics_box_heading">Target</Typography>
+          <Typography className="staff_statistics_box_heading">
+            Target
+          </Typography>
 
           <Box className="staff_statistics_data">
             <Box className="staff_statistics_box first_box">
@@ -570,7 +575,9 @@ const Staff = () => {
             </Box>
           </Box>
 
-          <Typography className="staff_statistics_box_heading">Expense</Typography>
+          <Typography className="staff_statistics_box_heading">
+            Expense
+          </Typography>
           <Box className="staff_statistics_data">
             <Box className="staff_statistics_box first_box">
               <Typography>Approved</Typography>

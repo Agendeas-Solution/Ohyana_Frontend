@@ -19,9 +19,7 @@ const AddLeaveDialog = ({
 }) => {
   return (
     <>
-      <Dialog
-        open={addLeaveDialog.status}
-        onClose={handleCloseDialog}>
+      <Dialog open={addLeaveDialog.status} onClose={handleCloseDialog}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add Leave</Typography>
 
@@ -52,20 +50,21 @@ const AddLeaveDialog = ({
                 duration: e.target.value,
               })
             }}
-
           />
 
           <DialogActions>
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={addLeaveDialog?.id ? UpdateLeave : AddLeave}>
+              onClick={addLeaveDialog?.id ? UpdateLeave : AddLeave}
+            >
               Add
             </Button>
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={handleCloseDialog}>
+              onClick={handleCloseDialog}
+            >
               Cancel
             </Button>
           </DialogActions>

@@ -63,9 +63,7 @@ const StaffTarget = () => {
   return (
     <>
       <Box className="target_section">
-
         <Box className="statistics_data_section">
-
           <Box className="statistics_data">
             <Box className="statistics_box first_box">
               <Typography variant="span">This Week</Typography>
@@ -85,11 +83,13 @@ const StaffTarget = () => {
             </Box>
           </Box>
 
-          <Box sx={{
-            display: 'flex',
-            alignItems: 'start',
-          }}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}  >
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'start',
+            }}
+          >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 views={['month', 'year']}
                 value={selectMonth}
@@ -98,11 +98,14 @@ const StaffTarget = () => {
                   setSelectMonth(selectMonth)
                 }}
                 renderInput={params => (
-                  <TextField {...params} sx={{
-                    display: 'flex',
-                    width: '125px',
-                    marginRight: '10px',
-                  }} />
+                  <TextField
+                    {...params}
+                    sx={{
+                      display: 'flex',
+                      width: '125px',
+                      marginRight: '10px',
+                    }}
+                  />
                 )}
                 PopperProps={{
                   placement: 'bottom-start', // Set placement to 'bottom-start'
@@ -112,10 +115,10 @@ const StaffTarget = () => {
             <Button
               className="common_button"
               onClick={() => setTargetDetail({ ...targetDetail, status: true })}
-            >+ Set Target
+            >
+              + Set Target
             </Button>
           </Box>
-
         </Box>
 
         <TableContainer
@@ -200,7 +203,7 @@ const StaffTarget = () => {
             handleCloseTargetDetailDialog={handleCloseTargetDetailDialog}
           />
         )}
-      </Box >
+      </Box>
     </>
   )
 }
