@@ -59,13 +59,13 @@ const StaffExpenses = () => {
         setExpenseList(res.data.expenses)
         setExpensesData(res.data)
       },
-      err => { },
+      err => {},
     )
   }, [selectMonth])
   const handlePaymentStatusUpdate = id => {
     PaymentStatusUpdate(
       id,
-      res => { },
+      res => {},
       err => {
         console.log('Printing Error Payment Status Update', err)
       },
@@ -75,8 +75,8 @@ const StaffExpenses = () => {
     StatusUpdate(
       id,
       status,
-      res => { },
-      err => { },
+      res => {},
+      err => {},
     )
   }
 
@@ -206,7 +206,9 @@ const StaffExpenses = () => {
                           ) : (
                             <Box>
                               <Button
-                                onClick={() => handlePaymentStatusUpdate(row?.id)}
+                                onClick={() =>
+                                  handlePaymentStatusUpdate(row?.id)
+                                }
                                 className="common_button"
                               >
                                 Update
@@ -218,7 +220,6 @@ const StaffExpenses = () => {
                                 Vieww
                               </Button>
                             </Box>
-
                           )}
                         </TableCell>
                       </TableRow>
@@ -229,9 +230,6 @@ const StaffExpenses = () => {
           ) : (
             <NoResultFound />
           )}
-
-
-
         </TableContainer>
         <StaffExpensesDetail
           closeStaffExpenses={handleClose}
