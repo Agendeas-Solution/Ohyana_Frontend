@@ -51,7 +51,9 @@ const Statistics = () => {
             >
               <Button
                 className={
-                  activeTab === 'product' ? 'active_button' : 'custom_tab_background'
+                  activeTab === 'product'
+                    ? 'active_button'
+                    : 'custom_tab_background'
                 }
                 onClick={() => {
                   setActiveTab('product')
@@ -62,7 +64,9 @@ const Statistics = () => {
               </Button>
               <Button
                 className={
-                  activeTab === 'team' ? 'active_button' : 'custom_tab_background'
+                  activeTab === 'team'
+                    ? 'active_button'
+                    : 'custom_tab_background'
                 }
                 onClick={() => {
                   setActiveTab('team')

@@ -1,5 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Box, Tabs, Tab, Button, Typography, OutlinedInput, FormControl, IconButton, InputAdornment } from '@mui/material'
+import {
+  Box,
+  Tabs,
+  Tab,
+  Button,
+  Typography,
+  OutlinedInput,
+  FormControl,
+  IconButton,
+  InputAdornment,
+} from '@mui/material'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import TabPanel from '@mui/lab/TabPanel'
@@ -50,7 +60,7 @@ const ProductList = () => {
     )
   }
   useEffect(() => {
-    handleGetAdminProduct();
+    handleGetAdminProduct()
   }, [])
   const handleClose = () => {
     setDeleteProductDialogControl({
@@ -75,7 +85,8 @@ const ProductList = () => {
             sx={{
               display: 'flex',
               alignItems: 'center',
-            }}>
+            }}
+          >
             <FormControl variant="outlined">
               <OutlinedInput
                 className="search_field"
@@ -98,7 +109,7 @@ const ProductList = () => {
                 onClick={() => {
                   navigate('/addproduct')
                 }}
-              // variant="contained"
+                // variant="contained"
               >
                 + Add Product
               </Button>
@@ -109,27 +120,28 @@ const ProductList = () => {
         <Box className="below_main_tab_section">
           {/* <TabPanel value="ProductList"> */}
           <div className="row">
-            {AdminProductList && AdminProductList.map(row => {
-              let image_url = `${process.env.REACT_APP_API_CALL_URL}/file/${row?.imageUrl}`
-              console.log(image_url)
-              return (
-                <>
-                  <Box
-                    className="product_card"
-                    onClick={() =>
-                      setViewProductDialog({
-                        ...viewProductDialog,
-                        status: true,
-                        id: row?.id,
-                      })
-                    }
-                  >
-                    {/* <img src={image_url} alt="sample" /> */}
-                    <img src={SnacksPhoto} alt="sample" />
-                  </Box>
-                </>
-              )
-            })}
+            {AdminProductList &&
+              AdminProductList.map(row => {
+                let image_url = `${process.env.REACT_APP_API_CALL_URL}/file/${row?.imageUrl}`
+                console.log(image_url)
+                return (
+                  <>
+                    <Box
+                      className="product_card"
+                      onClick={() =>
+                        setViewProductDialog({
+                          ...viewProductDialog,
+                          status: true,
+                          id: row?.id,
+                        })
+                      }
+                    >
+                      {/* <img src={image_url} alt="sample" /> */}
+                      <img src={SnacksPhoto} alt="sample" />
+                    </Box>
+                  </>
+                )
+              })}
           </div>
           {/* </TabPanel> */}
         </Box>

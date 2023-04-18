@@ -25,7 +25,9 @@ import { useNavigate } from 'react-router-dom'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import {
   GetAdminClientDetail,
-  DeleteClientDetail, GetCityList, GetStateList
+  DeleteClientDetail,
+  GetCityList,
+  GetStateList,
 } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as AuthContext } from '../../context/authContext/authContext'
@@ -62,12 +64,12 @@ const Client = () => {
   const [isInternational, setIsInternational] = useState(null)
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
-  const [cityList, setCityList] = useState([]);
-  const [clientStage, setClientStage] = useState('');
-  const [stateList, setStateList] = useState([]);
+  const [cityList, setCityList] = useState([])
+  const [clientStage, setClientStage] = useState('')
+  const [stateList, setStateList] = useState([])
   const [selectedCityState, setSelectedCityState] = useState({
-    city: "",
-    state: ""
+    city: '',
+    state: '',
   })
   const [deleteClientDialogControl, setDeleteClientDialogControl] = useState({
     status: false,
@@ -95,8 +97,8 @@ const Client = () => {
   }
   const handleClearAllFilter = () => {
     setClientStage(null)
-    setSelectedCityState({ city: "", state: "" });
-    getClientDetails();
+    setSelectedCityState({ city: '', state: '' })
+    getClientDetails()
   }
   const handleApplyFilter = () => {
     getClientDetails()
@@ -104,12 +106,12 @@ const Client = () => {
   const handleCityList = () => {
     GetCityList(
       {},
-      (res) => {
+      res => {
         if (res?.success) {
           setCityList(res.data)
         }
       },
-      (err) => {
+      err => {
         console.log(err)
       },
     )
@@ -129,8 +131,8 @@ const Client = () => {
   }
 
   useEffect(() => {
-    handleCityList();
-    handleStateList();
+    handleCityList()
+    handleStateList()
   }, [])
   useEffect(() => {
     console.log(clientType)
@@ -157,7 +159,7 @@ const Client = () => {
           message: res.data.message,
         })
       },
-      err => { },
+      err => {},
     )
   }
   const handleDialogClose = () => {
@@ -223,13 +225,13 @@ const Client = () => {
     if (searchQuery) {
       data['searchQuery'] = searchQuery
     }
-    if (selectedCityState.city !== "" && selectedCityState.city !== null) {
+    if (selectedCityState.city !== '' && selectedCityState.city !== null) {
       data['city'] = selectedCityState.city
     }
-    if (selectedCityState.state !== "" && selectedCityState.state !== null) {
+    if (selectedCityState.state !== '' && selectedCityState.state !== null) {
       data['state'] = selectedCityState.state
     }
-    if (clientStage !== "" && clientStage !== null) {
+    if (clientStage !== '' && clientStage !== null) {
       data['stage'] = clientStage
     }
     setClientLoader(true)
@@ -314,13 +316,15 @@ const Client = () => {
             </Button>
           )}
 
-          <IconButton edge="end"
+          <IconButton
+            edge="end"
             onClick={handleDrawerOpen}
             sx={{
               display: 'flex',
               padding: '0',
               margin: '0 0 0 10px',
-            }}>
+            }}
+          >
             <img src={FilterIcon} alt="" />
           </IconButton>
         </Box>
@@ -335,9 +339,14 @@ const Client = () => {
           open={open}
           anchor="right"
         >
-          <DrawerHeader
-            className="drawer_header_section">
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <DrawerHeader className="drawer_header_section">
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
               <IconButton
                 sx={{ color: '#2e3591', padding: '0px' }}
                 disableRipple={true}
@@ -353,7 +362,11 @@ const Client = () => {
             </Box>
             <Box>
               <Button onClick={handleClearAllFilter}>Reset</Button>
-              <Button className="common_button" onClick={handleApplyFilter} variant="contained">
+              <Button
+                className="common_button"
+                onClick={handleApplyFilter}
+                variant="contained"
+              >
                 Apply
               </Button>
             </Box>
@@ -367,7 +380,7 @@ const Client = () => {
               <Select
                 label="Client Stage"
                 value={clientStage}
-                onChange={(e) => {
+                onChange={e => {
                   setClientStage(e.target.value)
                 }}
               >
@@ -380,16 +393,19 @@ const Client = () => {
               <InputLabel>Select City</InputLabel>
               <Select
                 label="Select City"
-                value=
-                {selectedCityState.city}
-                onChange={(e) => {
-                  setSelectedCityState({ ...selectedCityState, city: e.target.value });
+                value={selectedCityState.city}
+                onChange={e => {
+                  setSelectedCityState({
+                    ...selectedCityState,
+                    city: e.target.value,
+                  })
                 }}
               >
-                {cityList && cityList.map((data) => {
-                  console.log("Printing Data", data);
-                  return <MenuItem value={data}>{data}</MenuItem>
-                })}
+                {cityList &&
+                  cityList.map(data => {
+                    console.log('Printing Data', data)
+                    return <MenuItem value={data}>{data}</MenuItem>
+                  })}
               </Select>
             </FormControl>
             <FormControl sx={{ margin: '10px' }}>
@@ -397,14 +413,18 @@ const Client = () => {
               <Select
                 label="Select State"
                 value={selectedCityState.state}
-                onChange={(e) => {
-                  setSelectedCityState({ ...selectedCityState, state: e.target.value });
+                onChange={e => {
+                  setSelectedCityState({
+                    ...selectedCityState,
+                    state: e.target.value,
+                  })
                 }}
               >
-                {stateList && stateList.map((data) => {
-                  console.log("Printing Data", data);
-                  return <MenuItem value={data}>{data}</MenuItem>
-                })}
+                {stateList &&
+                  stateList.map(data => {
+                    console.log('Printing Data', data)
+                    return <MenuItem value={data}>{data}</MenuItem>
+                  })}
               </Select>
             </FormControl>
           </Box>

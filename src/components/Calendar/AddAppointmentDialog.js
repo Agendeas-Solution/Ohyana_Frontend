@@ -45,7 +45,7 @@ const AddAppointmentDialog = props => {
           })
         }
       },
-      err => { },
+      err => {},
     )
   }
   return (

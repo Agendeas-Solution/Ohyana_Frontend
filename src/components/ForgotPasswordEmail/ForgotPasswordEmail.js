@@ -39,7 +39,6 @@ const ForgotPasswordEmail = () => {
           <img src={Logo} alt="Company logo" />
         </Box>
         <Box className="login_form">
-
           <Typography className="login_heading" variant="span">
             Forgot Password
           </Typography>
@@ -56,13 +55,13 @@ const ForgotPasswordEmail = () => {
             }}
           />
 
-
-          <Button className="dialogue_bottom_button"
+          <Button
+            className="dialogue_bottom_button"
             onClick={handleForgotPassword}
-            variant="contained">
+            variant="contained"
+          >
             Get Link
           </Button>
-
         </Box>
 
         <Typography className="login_copyright_root" variant="span">

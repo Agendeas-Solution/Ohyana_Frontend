@@ -25,7 +25,7 @@ export const GetAllClientOrderList = async (value, onSuccess, onError) => {
   try {
     const { data } = await axiosInstance.get(`/orders`, {
       headers: { ...defaultHeaders },
-      params:value
+      params: value,
     })
     console.log('Printing data of GetAllClientOrderList', data)
     onSuccess && onSuccess(data)
