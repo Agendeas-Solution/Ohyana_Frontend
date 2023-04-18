@@ -41,7 +41,7 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
             status: true,
           })
         },
-        (err) => { },
+        err => {},
       )
     }
   }
@@ -123,7 +123,6 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
           </Box>
           <Box>
             <div className="row my-4">
-
               <TextField
                 sx={{ display: 'inline', marginLeft: '18rem' }}
                 className="set_date_time_bg"

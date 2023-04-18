@@ -107,8 +107,6 @@ const Settings = () => {
           <Typography variant="span">Poll</Typography>
         </Box> */}
       </Box>
-
-
     </>
   )
 }

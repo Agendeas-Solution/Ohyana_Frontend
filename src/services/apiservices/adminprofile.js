@@ -343,7 +343,7 @@ export const GetSingleRole = async (value, onSuccess, onError) => {
     ////
   }
 }
-export const UpdateClockInOut = async ( value, onSuccess, onError) => {
+export const UpdateClockInOut = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
     const { data } = await axiosInstance.put(`/clockin-out`, value, {

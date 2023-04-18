@@ -46,7 +46,7 @@ const AddRemainderDialog = props => {
           })
         }
       },
-      err => { },
+      err => {},
     )
   }
   return (
@@ -119,7 +119,8 @@ const AddRemainderDialog = props => {
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={handleAddReminder}>
+              onClick={handleAddReminder}
+            >
               Add
             </Button>
             <Button

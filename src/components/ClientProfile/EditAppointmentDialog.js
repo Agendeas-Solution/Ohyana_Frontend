@@ -47,7 +47,7 @@ const EditAppointmentDialog = ({
       res => {
         setStaffDetailList(res.data)
       },
-      err => { },
+      err => {},
     )
   }, [])
   const handleAddAppointment = () => {
@@ -86,8 +86,9 @@ const EditAppointmentDialog = ({
         onClose={handleAppointmentClose}
       >
         <Box className="dialogue_main_section">
-
-          <Typography className="dialogue_heading">Update Appointment</Typography>
+          <Typography className="dialogue_heading">
+            Update Appointment
+          </Typography>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               disablePast
@@ -186,13 +187,15 @@ const EditAppointmentDialog = ({
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={handleAddAppointment}>
+              onClick={handleAddAppointment}
+            >
               Ok
             </Button>
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={handleAppointmentClose}>
+              onClick={handleAppointmentClose}
+            >
               Cancel
             </Button>
           </DialogActions>

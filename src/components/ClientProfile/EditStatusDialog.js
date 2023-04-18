@@ -69,19 +69,20 @@ const EditStatusDialog = props => {
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={EditStatus}>
+              onClick={EditStatus}
+            >
               Add
             </Button>
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={props.handleStatusClose}>
+              onClick={props.handleStatusClose}
+            >
               Cancel
             </Button>
-
           </DialogActions>
         </Box>
-      </Dialog >
+      </Dialog>
     </>
   )
 }

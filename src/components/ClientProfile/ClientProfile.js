@@ -493,7 +493,7 @@ const ClientProfile = () => {
             <TabPanel sx={{ padding: '0px' }} value="3">
               <AppointmentTable clientAppointmentList={clientAppointmentList} />
             </TabPanel>
-            <TabPanel sx={{ paddingTop: '15px', }} value="4">
+            <TabPanel sx={{ paddingTop: '15px' }} value="4">
               <ProfileTable clientProfileDetail={clientProfileDetail} />
             </TabPanel>
             <TabPanel sx={{ padding: '0px' }} value="5">
