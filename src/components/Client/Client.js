@@ -24,7 +24,7 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded'
 import { useNavigate } from 'react-router-dom'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import {
-  GetAdminClientDetail,
+  GetAllClients,
   DeleteClientDetail, GetCityList, GetStateList
 } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
@@ -55,7 +55,7 @@ const Client = () => {
   // const { setFlagLoader } = useContext(AuthContext)
   const [open, setOpen] = useState(false)
   const [clientDetails, setClientDetails] = useState([])
-  const [rowsPerPage, setRowsPerPage] = useState(100)
+  const [rowsPerPage, setRowsPerPage] = useState(20)
   // const [pageNumber, setPageNumber] = useState(1)
   const [totalResult, setTotalresult] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
@@ -194,7 +194,7 @@ const Client = () => {
     // const socket = io("http://159.89.165.83");
     socket.on('client_list', data => {
       console.log('Printing Connections', data)
-      GetAdminClientDetail(
+      GetAllClients(
         data,
         res => {
           if (res?.success) {
@@ -233,7 +233,7 @@ const Client = () => {
       data['stage'] = clientStage
     }
     setClientLoader(true)
-    GetAdminClientDetail(
+    GetAllClients(
       data,
       res => {
         if (res?.success) {

@@ -16,7 +16,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import './index.css'
-import { GetAdminClientDetail } from '../../services/apiservices/clientDetail'
+import { GetAllClients } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
 const AddPJPDialog = ({
   addPJPDetail,
@@ -33,7 +33,7 @@ const AddPJPDialog = ({
     if (searchQuery !== '') {
       data['searchQuery'] = searchQuery
     }
-    GetAdminClientDetail(
+    GetAllClients(
       data,
       res => {
         if (res?.success) {

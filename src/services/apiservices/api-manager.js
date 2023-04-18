@@ -11,10 +11,8 @@ export const handleApiGetCall = async (url, value, onSuccess, onError) => {
       },
       params: value,
     })
-    console.log('Printing data of GetAdminClientDetail', data)
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log('Got error while calling API - GetAdminClientDetail', err)
     onError && onError(err)
   }
 }

@@ -20,19 +20,7 @@ export const GetAdminProfile = async (value, onSuccess, onError) => {
     onError && onError(err)
   }
 }
-export const GetCompanyProfile = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(`/company`, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of GetCompanyProfile', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetCompanyProfile', err)
-    onError && onError(err)
-  }
-}
+
 export const GetNotification = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
