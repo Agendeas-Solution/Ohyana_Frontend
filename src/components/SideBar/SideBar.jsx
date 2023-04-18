@@ -96,16 +96,15 @@ const SideBar = () => {
 
   return (
     <>
-      <div style={{ width: '20%', background: 'white' }}>
+      <div style={{ width: '17%', background: 'white' }}>
         {/* {flagLoader ? <Loader></Loader> : null} */}
         <div className="main-logo">
           <img src={Logo} alt="Company logo" />
         </div>
         <Box className="sidebar_group_icon">
           <Box
-            className={`sidebar_icons ${
-              path === '/dashboard' && 'selected-link'
-            }`}
+            className={`sidebar_icons ${path === '/dashboard' && 'selected-link'
+              }`}
             onClick={() => {
               handleNavItemClick('/dashboard', 'Dashboard')
             }}
@@ -143,9 +142,8 @@ const SideBar = () => {
 
           {permissions?.clientMenu && (
             <Box
-              className={`sidebar_icons ${
-                path === '/client' && 'selected-link'
-              }`}
+              className={`sidebar_icons ${path === '/client' && 'selected-link'
+                }`}
               onClick={() => {
                 handleNavItemClick('/client', 'Clients')
               }}
@@ -164,9 +162,8 @@ const SideBar = () => {
 
           {permissions?.staffMenu && (
             <Box
-              className={`sidebar_icons ${
-                path === '/staff' && 'selected-link'
-              }`}
+              className={`sidebar_icons ${path === '/staff' && 'selected-link'
+                }`}
               onClick={() => {
                 handleNavItemClick('/staff', 'Staff')
                 // navigate("/staff");
@@ -268,9 +265,8 @@ const SideBar = () => {
           </Box> */}
           {permissions?.settingMenu && (
             <Box
-              className={`sidebar_icons ${
-                path === '/settings' && 'selected-link'
-              }`}
+              className={`sidebar_icons ${path === '/settings' && 'selected-link'
+                }`}
               onClick={() => {
                 handleNavItemClick('/settings', 'Settings')
               }}

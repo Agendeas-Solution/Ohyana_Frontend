@@ -196,6 +196,14 @@ textarea:focus {
   overflow-x: hidden;
 }
 
+.team_profile_section {
+  display: flex;
+  height: 100%;
+  background: #ffffff;
+  justify-content: space-between;
+  margin: 8px 12px;
+}
+
 .main_section_of_team_profile {
   display: flex;
   background-color: #fff;
@@ -780,15 +788,16 @@ button {
   padding: 10px;
 }
 
-.attendance_data_row {
+.statistics_data_section {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   border: 1px solid #e5e5e5;
-  padding: 12px;
+  padding: 10px;
 }
 
-.inner_attendance_data_row {
+.inner_statistics_data_section {
   display: flex;
   // flex-direction: row;
   justify-content: space-between;
@@ -812,13 +821,10 @@ button {
 }
 
 .range_days_data {
+  width: 125px;
   display: flex;
   background-color: #f1f2f6;
   // height: 35px;
-  width: 11rem;
-  margin-left: 140px;
-  margin-top: 2px;
-  border-radius: 5px;
 }
 
 .target_section {
@@ -843,16 +849,6 @@ button {
   }
 }
 
-.team_profile_section {
-  display: flex;
-  background: #ffffff;
-  width: 97%;
-  // padding: 10px;
-  height: 86%;
-  // flex-direction: column ;
-  justify-content: space-between;
-  margin: 15px auto;
-}
 
 .main_tab_section {
   display: flex;
@@ -868,6 +864,7 @@ button {
 }
 
 .profile_body_section {
+  height: 100%;
   display: flex;
   background-color: #fff;
   border-radius: 5px;
@@ -881,12 +878,16 @@ button {
 }
 
 .statistics_box {
-  padding: 10px;
-  width: 30%;
+  width: 30% !important;
+  margin-right: 15px;
+  display: flex;
+  flex-direction: column;
   border-radius: 5px;
+  padding: 10px;
 }
 
-.statistics_box_heading {
+
+.staff_statistics_box_heading {
   margin: 15px 10px 0px 10px !important;
 }
 
@@ -897,16 +898,28 @@ button {
   overflow-y: auto;
 }
 
+.statistics_data {
+  width: 70%;
+  height: 75px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
 .first_box {
-  background-color: #e6dff1;
+  background-color: #E6DFF1;
 }
 
-.middle_box {
-  background-color: #e5e6eb;
+.second_box {
+  background-color: #EDE9F2;
 }
 
-.last_box {
-  background-color: #f2eee9;
+.third_box {
+  background-color: #E5E6EB;
+}
+
+.fourth_box {
+  background-color: #EAE6EF;
 }
 
 .team_header {

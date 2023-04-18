@@ -181,7 +181,7 @@ const UserProfile = () => {
           </Box>
 
           <TabPanel sx={{ padding: '10px' }} value="Attendance">
-            <Box className="attendance_data_row col-md-12 mb-1">
+            <Box className="sub_header_data_box col-md-12 mb-1">
               <Box
                 sx={{
                   // background: '#F1F2F6',
@@ -190,17 +190,17 @@ const UserProfile = () => {
                   flexDirection: 'row',
                 }}
               >
-                <Box className="statistics_box first_box me-3 p-2">
+                <Box className="staff_statistics_box first_box me-3 p-2">
                   <Typography>Total Days</Typography>
                   <Typography>{staffAttendanceList?.totalDays}</Typography>
                 </Box>
 
-                <Box className="statistics_box middle_box  me-3 p-2">
+                <Box className="staff_statistics_box second_box  me-3 p-2">
                   <Typography>Absent Days</Typography>
                   <Typography>{staffAttendanceList?.absentDays}</Typography>
                 </Box>
 
-                <Box className="statistics_box last_box p-2">
+                <Box className="staff_statistics_box third_box p-2">
                   <Typography>Late Days</Typography>
                   <Typography>{staffAttendanceList?.lateDays}</Typography>
                 </Box>

@@ -31,15 +31,15 @@ const Dashboard = () => {
       res => {
         setInquiryData(res.data.data)
       },
-      err => {},
+      err => { },
     )
   }, [])
 
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
-      res => {},
-      err => {},
+      res => { },
+      err => { },
     )
   }
 
@@ -321,7 +321,7 @@ const Dashboard = () => {
             >
               Sales Statistics
             </Typography>
-            <Box className="sales_statistics_data">
+            <Box className="sales_staff_statistics_data">
               <Typography variant="span">Total</Typography>
               <Box className="sales_parameter sales_parameter_bottom_border">
                 <Typography className="dashboard_sub_heading" variant="span">
@@ -333,7 +333,7 @@ const Dashboard = () => {
                 </Typography>
               </Box>
             </Box>
-            <Box className="sales_statistics_data">
+            <Box className="sales_staff_statistics_data">
               <Typography>Getting lead </Typography>
               <Box className="sales_parameter sales_parameter_bottom_border">
                 <Typography className="dashboard_sub_heading" variant="span">
@@ -345,7 +345,7 @@ const Dashboard = () => {
                 </Typography>
               </Box>
             </Box>
-            <Box className="sales_statistics_data">
+            <Box className="sales_staff_statistics_data">
               <Typography>Get Order </Typography>
               <Box className="sales_parameter sales_parameter_bottom_border">
                 <Typography className="dashboard_sub_heading" variant="span">
@@ -357,7 +357,7 @@ const Dashboard = () => {
                 </Typography>
               </Box>
             </Box>
-            <Box className="sales_statistics_data">
+            <Box className="sales_staff_statistics_data">
               <Typography>Pending</Typography>
               <Box className="sales_parameter sales_parameter_bottom_border">
                 <Typography className="dashboard_sub_heading" variant="span">
@@ -369,7 +369,7 @@ const Dashboard = () => {
                 </Typography>
               </Box>
             </Box>
-            <Box className="sales_statistics_data">
+            <Box className="sales_staff_statistics_data">
               <Typography>Irrelevant</Typography>
               <Box className="sales_parameter">
                 <Typography className="dashboard_sub_heading" variant="span">
@@ -381,7 +381,7 @@ const Dashboard = () => {
                 </Typography>
               </Box>
             </Box>{' '}
-            <Box className="sales_statistics_data">
+            <Box className="sales_staff_statistics_data">
               <Typography>No Response</Typography>
               <Box className="sales_parameter">
                 <Typography className="dashboard_sub_heading" variant="span">

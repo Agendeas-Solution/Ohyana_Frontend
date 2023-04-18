@@ -63,28 +63,33 @@ const StaffTarget = () => {
   return (
     <>
       <Box className="target_section">
-        <Box className="attendance_data_row col-md-12">
-          <Box className="col-md-7 inner_attendance_data_row">
-            <Box className="week_data days_data col-md-3 me-3">
+
+        <Box className="statistics_data_section">
+
+          <Box className="statistics_data">
+            <Box className="statistics_box first_box">
               <Typography variant="span">This Week</Typography>
               <Typography variant="span">15-07-2022</Typography>
             </Box>
-            <Box className="target_order_data days_data col-md-3 me-3">
+            <Box className="statistics_box second_box">
               <Typography variant="span">Target order</Typography>
               <Typography variant="span">400</Typography>
             </Box>
-            <Box className="target_achieved_data days_data col-md-3 me-3">
+            <Box className="statistics_box third_box">
               <Typography variant="span">Achieved</Typography>
               <Typography variant="span">24</Typography>
             </Box>
-            <Box className="Late_days_data days_data col-md-3">
+            <Box className="statistics_box fourth_box">
               <Typography variant="span">Days Remain</Typography>
               <Typography variant="span">24</Typography>
             </Box>
           </Box>
 
-          <Box className="range_days_data">
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Box sx={{
+            display: 'flex',
+            alignItems: 'start',
+          }}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}  >
               <DatePicker
                 views={['month', 'year']}
                 value={selectMonth}
@@ -93,22 +98,24 @@ const StaffTarget = () => {
                   setSelectMonth(selectMonth)
                 }}
                 renderInput={params => (
-                  <TextField
-                    placeholder="Year and Month"
-                    {...params}
-                    helperText={null}
-                  />
+                  <TextField {...params} sx={{
+                    display: 'flex',
+                    width: '125px',
+                    marginRight: '10px',
+                  }} />
                 )}
+                PopperProps={{
+                  placement: 'bottom-start', // Set placement to 'bottom-start'
+                }}
               />
             </LocalizationProvider>
+            <Button
+              className="common_button"
+              onClick={() => setTargetDetail({ ...targetDetail, status: true })}
+            >+ Set Target
+            </Button>
           </Box>
 
-          <Button
-            onClick={() => setTargetDetail({ ...targetDetail, status: true })}
-            className="common_button"
-          >
-            Set Target
-          </Button>
         </Box>
 
         <TableContainer
@@ -192,7 +199,7 @@ const StaffTarget = () => {
             handleCloseTargetDetailDialog={handleCloseTargetDetailDialog}
           />
         )}
-      </Box>
+      </Box >
     </>
   )
 }

@@ -15,7 +15,7 @@ const Settings = () => {
   const navigate = useNavigate()
   return (
     <>
-      <Box className="main_section">
+      <Box className="main_section" sx={{ height: '90%', overflowY: 'auto' }}>
         <Box
           className="setting_cards-list"
           onClick={() => {
@@ -107,6 +107,8 @@ const Settings = () => {
           <Typography variant="span">Poll</Typography>
         </Box> */}
       </Box>
+
+
     </>
   )
 }
