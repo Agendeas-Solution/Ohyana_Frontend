@@ -55,7 +55,7 @@ const Client = () => {
   // const { setFlagLoader } = useContext(AuthContext)
   const [open, setOpen] = useState(false)
   const [clientDetails, setClientDetails] = useState([])
-  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [rowsPerPage, setRowsPerPage] = useState(100)
   // const [pageNumber, setPageNumber] = useState(1)
   const [totalResult, setTotalresult] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)

@@ -17,7 +17,7 @@ import {
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import './index.css'
-import { GetAddEditAdminRole } from '../../services/apiservices/adminprofile'
+import { GetAddEditAdminRole, GetAdminRole } from '../../services/apiservices/adminprofile'
 import {
   UpdatePermission,
   getUserPermissions,
@@ -100,7 +100,7 @@ const JobRolesList = () => {
   })
 
   useEffect(() => {
-    GetAddEditAdminRole(
+    GetAdminRole(
       {},
       res => {
         if (res.success) {

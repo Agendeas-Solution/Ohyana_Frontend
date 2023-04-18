@@ -15,18 +15,25 @@ import {
   Select,
   MenuItem,
 } from '@mui/material'
-import { GetAddEditAdminRole } from '../../services/apiservices/adminprofile'
+import {
+  GetAddEditAdminRole,
+  GetAdminRole,
+} from '../../services/apiservices/adminprofile'
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-const EditJobRoleDialog = ({ editJobRoleDialogControl, setEditJobRoleDialogControl,
-  handleClose, handleEditJobRole }) => {
+const EditJobRoleDialog = ({
+  editJobRoleDialogControl,
+  setEditJobRoleDialogControl,
+  handleClose,
+  handleEditJobRole,
+}) => {
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const [jobRoleList, setJobRoleList] = useState({})
-  const [seniorName, setSeniorName] = useState("");
+  const [seniorName, setSeniorName] = useState('')
   useEffect(() => {
-    GetAddEditAdminRole(
-      {},
+    GetAdminRole(
+      { selection: true },
       res => {
         if (res.success) {
           setJobRoleList({
@@ -79,7 +86,10 @@ const EditJobRoleDialog = ({ editJobRoleDialogControl, setEditJobRoleDialogContr
                 label="Select Job Role"
                 value={editJobRoleDialogControl?.parentId}
                 onChange={e => {
-                  setEditJobRoleDialogControl({ ...editJobRoleDialogControl, parentId: e.target.value })
+                  setEditJobRoleDialogControl({
+                    ...editJobRoleDialogControl,
+                    parentId: e.target.value,
+                  })
                 }}
               >
                 {jobRoleList?.roles &&
