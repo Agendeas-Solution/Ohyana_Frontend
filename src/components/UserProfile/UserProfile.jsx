@@ -74,6 +74,7 @@ const UserProfile = () => {
     )
   }, [])
   localStorage.setItem('userEmail', userDetail?.email)
+
   useEffect(() => {
     activeTab === 'present' &&
       value === 'Attendance' &&
@@ -84,7 +85,7 @@ const UserProfile = () => {
             setStaffAttendanceList(res?.data)
           }
         },
-        err => { },
+        err => {},
       )
     activeTab === 'leave' &&
       value === 'Attendance' &&
@@ -95,7 +96,7 @@ const UserProfile = () => {
             setLeaveList(res?.data)
           }
         },
-        err => { },
+        err => {},
       )
     activeTab === 'holiday' &&
       value === 'Attendance' &&
@@ -107,15 +108,15 @@ const UserProfile = () => {
             setHolidayList(res?.data)
           }
         },
-        err => { },
+        err => {},
       )
   }, [activeTab, value])
 
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
-      res => { },
-      err => { },
+      res => {},
+      err => {},
     )
   }
   const handleCloseDialog = () => {
@@ -294,12 +295,14 @@ const UserProfile = () => {
                 </Typography>
                 <Typography variant="span">{userDetail?.email}</Typography>
               </Box>
-              <Box className="staff_profile_page">
+              {/* <Box className="staff_profile_page">
                 <Typography variant="span" className=" profile_data_lable">
-                  Password:
+                  City:
                 </Typography>
-                <Typography variant="span">{userDetail?.password}</Typography>
-              </Box>
+                <Typography variant="span">
+                  {userDetail?.city || '-'}
+                </Typography>
+              </Box> */}
               <Box className="staff_profile_page">
                 <Typography className=" profile_data_lable" variant="span">
                   Birthday

@@ -62,11 +62,11 @@ const PresentData = ({ staffAttendanceList }) => {
           <TableHead>
             <TableRow>
               <TableCell>Date</TableCell>
-              <TableCell align="left">Check In</TableCell>
-              <TableCell align="left">Check Out</TableCell>
-              <TableCell align="left">Break In</TableCell>
-              <TableCell align="left">Break Out</TableCell>
-              <TableCell align="left">Working Hours</TableCell>
+              <TableCell>Check In</TableCell>
+              <TableCell>Check Out</TableCell>
+              <TableCell>Break In</TableCell>
+              <TableCell>Break Out</TableCell>
+              <TableCell>Working Hours</TableCell>
             </TableRow>
           </TableHead>
 
@@ -89,21 +89,11 @@ const PresentData = ({ staffAttendanceList }) => {
                     <TableCell className="tablecell_height">
                       {moment(attendanceList.date).format('DD-MM-YYYY')}
                     </TableCell>
-                    <TableCell align="left">
-                      {attendanceList.checkIn || '-'}
-                    </TableCell>
-                    <TableCell align="left">
-                      {attendanceList.checkOut || '-'}
-                    </TableCell>
-                    <TableCell align="left">
-                      {attendanceList.breakIn || '-'}
-                    </TableCell>
-                    <TableCell align="left">
-                      {attendanceList.breakOut || '-'}
-                    </TableCell>
-                    <TableCell align="left">
-                      {attendanceList.totalHours || '-'}
-                    </TableCell>
+                    <TableCell>{attendanceList.checkIn || '-'}</TableCell>
+                    <TableCell>{attendanceList.checkOut || '-'}</TableCell>
+                    <TableCell>{attendanceList.breakIn || '-'}</TableCell>
+                    <TableCell>{attendanceList.breakOut || '-'}</TableCell>
+                    <TableCell>{attendanceList.totalHours || '-'}</TableCell>
                   </TableRow>
                 )
               })}

@@ -195,7 +195,7 @@ const TaskDetail = () => {
       <Box className="main_section">
         <Box className="task_heading">
           <Typography className="task_card_heading" variant="span">
-            {taskDetail?.title}
+            {taskDetail?.title || '-'}
           </Typography>
           <Box>
             <Button className="profile_header_button">
@@ -381,7 +381,7 @@ const TaskDetail = () => {
                 Description
               </Typography>
               <Typography variant="span" className="common_description_text">
-                {taskDetail?.description}
+                {taskDetail?.description || '-'}
               </Typography>
             </Box>
 
@@ -397,7 +397,7 @@ const TaskDetail = () => {
                       taskDetail?.team?.email?.charAt(0).toUpperCase()}
                   </Typography>
                   <Typography className="assigned_user_detail" variant="span">
-                    {taskDetail?.team?.email}
+                    {taskDetail?.team?.email || '-'}
                   </Typography>
                 </Box>
               ) : (
@@ -426,7 +426,7 @@ const TaskDetail = () => {
                     taskDetail?.createdBy.charAt(0).toUpperCase()}
                 </Typography>
                 <Typography className="assigned_user_detail" variant="span">
-                  {taskDetail?.createdBy}
+                  {taskDetail?.createdBy || '-'}
                 </Typography>
               </Box>
             </Box>

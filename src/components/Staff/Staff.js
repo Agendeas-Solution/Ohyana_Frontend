@@ -62,8 +62,10 @@ const Staff = () => {
   const [value, setValue] = useState('1')
   const [open, setOpen] = useState(false)
   const [loader, setLoader] = useState(false)
-  const [attendanceTypeList, setAttendanceTypeList] = useState(TEAM.ATTENDANCETYPE);
-  const [jobTypeList, setJobTypeList] = useState(TEAM.JOBTYPE);
+  const [attendanceTypeList, setAttendanceTypeList] = useState(
+    TEAM.ATTENDANCETYPE,
+  )
+  const [jobTypeList, setJobTypeList] = useState(TEAM.JOBTYPE)
   const d = new Date()
   const [datePicker, setDatePicker] = useState({
     $M: d.getMonth() + 1,
@@ -76,8 +78,8 @@ const Staff = () => {
     searchQuery: '',
     jobRole: '',
     teamType: '',
-    attendanceType: ''
-  });
+    attendanceType: '',
+  })
   const [usersAttendanceList, setUserAttendanceList] = useState([])
 
   const DrawerHeader = styled('div')(({ theme }) => ({
@@ -95,7 +97,7 @@ const Staff = () => {
     setOpen(false)
   }
   const handleApplyFilter = () => {
-    handleGetAdminStaffDetail();
+    handleGetAdminStaffDetail()
   }
   const handleResetFilter = () => {
     setQueryParams({
@@ -103,9 +105,9 @@ const Staff = () => {
       searchQuery: null,
       jobRole: '',
       teamType: null,
-      attendanceType: null
+      attendanceType: null,
     })
-    handleGetAdminStaffDetail();
+    handleGetAdminStaffDetail()
   }
   const teamLeaderDetails = id => {
     GetSingleStaffDetailList(
@@ -126,20 +128,23 @@ const Staff = () => {
   }, [staffDetailList.length > 0])
 
   const handleGetAdminStaffDetail = () => {
-    let data = {};
-    if (queryParams.searchQuery !== "" && queryParams?.searchQuery !== null) {
-      data["searchQuery"] = queryParams.searchQuery;
+    let data = {}
+    if (queryParams.searchQuery !== '' && queryParams?.searchQuery !== null) {
+      data['searchQuery'] = queryParams.searchQuery
     }
-    if (queryParams?.teamType !== "" && queryParams?.teamType !== null) {
-      data["teamType"] = parseInt(queryParams.teamType);
+    if (queryParams?.teamType !== '' && queryParams?.teamType !== null) {
+      data['teamType'] = parseInt(queryParams.teamType)
     }
-    if (queryParams.attendanceType !== "" && queryParams.attendanceType !== null) {
-      data["attendanceType"] = queryParams.attendanceType;
+    if (
+      queryParams.attendanceType !== '' &&
+      queryParams.attendanceType !== null
+    ) {
+      data['attendanceType'] = queryParams.attendanceType
     }
-    if (queryParams.jobRole !== "" && queryParams.jobRole !== null) {
-      data["roleId"] = queryParams.jobRole;
+    if (queryParams.jobRole !== '' && queryParams.jobRole !== null) {
+      data['roleId'] = queryParams.jobRole
     }
-    debugger;
+    debugger
     GetAdminStaffDetailList(
       data,
       res => {
@@ -150,14 +155,14 @@ const Staff = () => {
       },
       err => {
         console.log(err)
-        setStaffDetailList([]);
+        setStaffDetailList([])
         setLoader(false)
       },
     )
   }
   useEffect(() => {
     value === '1' && setLoader(true)
-    handleGetAdminStaffDetail();
+    handleGetAdminStaffDetail()
   }, [value, queryParams])
 
   useEffect(() => {
@@ -253,11 +258,18 @@ const Staff = () => {
               open={open}
             >
               <DrawerHeader className="drawer_header_section">
-                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}
+                >
                   <IconButton
                     sx={{ color: '#2e3591', padding: '0px' }}
                     disableRipple={true}
-                    onClick={handleDrawerClose}>
+                    onClick={handleDrawerClose}
+                  >
                     {theme.direction === 'rtl' ? (
                       <ChevronLeftIcon sx={{ fontSize: '30px' }} />
                     ) : (
@@ -270,53 +282,63 @@ const Staff = () => {
                 </Box>
                 <Box>
                   <Button onClick={handleResetFilter}>Reset</Button>
-                  <Button onClick={handleApplyFilter} className="common_button" variant="contained">
+                  <Button
+                    onClick={handleApplyFilter}
+                    className="common_button"
+                    variant="contained"
+                  >
                     Apply
                   </Button>
                 </Box>
               </DrawerHeader>
               <Divider />
-              <Box
-                sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <FormControl sx={{ margin: '5px 15px' }}>
-                  <FormLabel sx={{ margin: '0px 5px' }}
-                  >Team Type
-                  </FormLabel>
+                  <FormLabel sx={{ margin: '0px 5px' }}>Team Type</FormLabel>
                   <RadioGroup
                     value={queryParams.teamType}
-                    onChange={(e) => {
-                      setQueryParams({ ...queryParams, teamType: e.target.value });
-                    }}>
+                    onChange={e => {
+                      setQueryParams({
+                        ...queryParams,
+                        teamType: e.target.value,
+                      })
+                    }}
+                  >
                     <Box className="checkbox_section">
-                      {jobTypeList.map((data) => {
-                        return <FormControlLabel
-                          className="checkbox_background_color"
-                          value={data.id}
-                          control={<Radio />}
-                          label={data.type}
-                        />
+                      {jobTypeList.map(data => {
+                        return (
+                          <FormControlLabel
+                            className="checkbox_background_color"
+                            value={data.id}
+                            control={<Radio />}
+                            label={data.type}
+                          />
+                        )
                       })}
                     </Box>
                   </RadioGroup>
                 </FormControl>
                 <FormControl sx={{ margin: '5px 15px' }}>
-                  <FormLabel sx={{ margin: '0px 5px' }}>
-                    Result for
-                  </FormLabel>
+                  <FormLabel sx={{ margin: '0px 5px' }}>Result for</FormLabel>
                   <RadioGroup
                     value={queryParams.attendanceType}
-                    onChange={(e) => {
-                      setQueryParams({ ...queryParams, attendanceType: e.target.value });
+                    onChange={e => {
+                      setQueryParams({
+                        ...queryParams,
+                        attendanceType: e.target.value,
+                      })
                     }}
                   >
                     <Box className="checkbox_section">
-                      {attendanceTypeList.map((data) => {
-                        return <FormControlLabel
-                          className="checkbox_background_color"
-                          value={data.type}
-                          control={<Radio />}
-                          label={data.typeName}
-                        />
+                      {attendanceTypeList.map(data => {
+                        return (
+                          <FormControlLabel
+                            className="checkbox_background_color"
+                            value={data.type}
+                            control={<Radio />}
+                            label={data.typeName}
+                          />
+                        )
                       })}
                     </Box>
                   </RadioGroup>
@@ -326,8 +348,11 @@ const Staff = () => {
                   <Select
                     label="Job Role"
                     value={queryParams.jobRole}
-                    onChange={(e) => {
-                      setQueryParams({ ...queryParams, jobRole: e.target.value });
+                    onChange={e => {
+                      setQueryParams({
+                        ...queryParams,
+                        jobRole: e.target.value,
+                      })
                     }}
                   >
                     {jobRoleList.map(data => {
@@ -335,7 +360,6 @@ const Staff = () => {
                     })}
                   </Select>
                 </FormControl>
-
               </Box>
             </Drawer>
           </Box>
@@ -393,7 +417,7 @@ const Staff = () => {
                         <TableCell align="left">
                           {row?.attendance ? row?.attendance[0] : '-'}
                         </TableCell>
-                        <TableCell align="left">{row.points}</TableCell>
+                        <TableCell align="left">{row.points || '-'}</TableCell>
                       </TableRow>
                       <Divider
                         sx={{ height: '12px', borderColor: 'transparent' }}
@@ -406,7 +430,7 @@ const Staff = () => {
             </TableContainer>
           </Box>
         </Box>
-      </Box >
+      </Box>
 
       <Box className="right_panel">
         <Box sx={{ width: '100%', padding: '0px 8px' }}>
@@ -476,8 +500,9 @@ const Staff = () => {
         </Box>
 
         <Box className="bottom_right_part">
-
-          <Typography className="statistics_box_heading">Inquiry Status</Typography>
+          <Typography className="statistics_box_heading">
+            Inquiry Status
+          </Typography>
 
           <Box className="staff_statistics_data">
             <Box className="statistics_box first_box">

@@ -55,9 +55,11 @@ const HolidayData = ({ holidayList }) => {
                   }}
                   key={row.date}
                 >
-                  <TableCell className="tablecell_height">{row.date}</TableCell>
-                  <TableCell align="left">{row.occasion}</TableCell>
-                  <TableCell align="left">{row.duration}</TableCell>
+                  <TableCell className="tablecell_height">
+                    {row.date || '-'}
+                  </TableCell>
+                  <TableCell align="left">{row.occasion || '-'}</TableCell>
+                  <TableCell align="left">{row.duration || '-'}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

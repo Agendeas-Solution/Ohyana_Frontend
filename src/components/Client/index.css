@@ -116,3 +116,7 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.buttons {
+  margin-right: 15px;
+}

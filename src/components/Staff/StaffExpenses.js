@@ -19,6 +19,7 @@ import {
   StatusUpdate,
 } from '../../services/apiservices/staffDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import StaffExpensesDetail from './StaffExpensesDetail'
 
 const StaffExpenses = () => {
   const [dateRange, setDateRange] = useState({
@@ -32,6 +33,16 @@ const StaffExpenses = () => {
   const [expensesData, setExpensesData] = useState([])
   const handleChange = (event, newValue) => {
     setValue(newValue)
+  }
+
+  const [openStaffExpenses, setOpenStaffExpenses] = useState(false)
+
+  const handleOpen = () => {
+    setOpenStaffExpenses(true)
+  }
+
+  const handleClose = () => {
+    setOpenStaffExpenses(false)
   }
 
   useEffect(() => {
@@ -81,21 +92,21 @@ const StaffExpenses = () => {
         >
           <Box className="statistics_box first_box me-3">
             <Typography>Approved</Typography>
-            <Typography>{expensesData?.approved}</Typography>
+            <Typography>{expensesData?.approved || '-'}</Typography>
           </Box>
           <Box className="statistics_box middle_box  me-3">
             <Typography>Rejected</Typography>
-            <Typography>{expensesData?.rejected}</Typography>
+            <Typography>{expensesData?.rejected || '-'}</Typography>
           </Box>
           <Box className="statistics_box last_box me-3">
             <Typography>Pending</Typography>
-            <Typography>{expensesData?.pending}</Typography>
+            <Typography>{expensesData?.pending || '-'}</Typography>
           </Box>
           <Box className="statistics_box last_box">
             <Typography className="" sx={{ whiteSpace: 'nowrap' }}>
               Payment Done
             </Typography>
-            <Typography>{expensesData?.paymentDone}</Typography>
+            <Typography>{expensesData?.paymentDone || '-'}</Typography>
           </Box>
         </Box>
 
@@ -140,13 +151,13 @@ const StaffExpenses = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Date</TableCell>
-                <TableCell align="left">Type</TableCell>
-                <TableCell align="left">Apply</TableCell>
-                <TableCell align="left">Approval</TableCell>
-                <TableCell align="left">Payment</TableCell>
-                <TableCell align="left">Document</TableCell>
-                <TableCell align="left">Approval</TableCell>
-                <TableCell align="left">Payment</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Apply</TableCell>
+                <TableCell>Approval</TableCell>
+                <TableCell>Payment</TableCell>
+                <TableCell>Document</TableCell>
+                {/* <TableCell>Approval</TableCell> */}
+                <TableCell>Payment</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -165,16 +176,16 @@ const StaffExpenses = () => {
                       <TableCell className="tablecell_height">
                         {moment(row?.date).format('D/MM/YY')}
                       </TableCell>
-                      <TableCell align="left">{row?.name}</TableCell>
-                      <TableCell align="left">{row?.amount}</TableCell>
-                      <TableCell align="left">
+                      <TableCell>{row?.name || '-'}</TableCell>
+                      <TableCell>{row?.amount || '-'}</TableCell>
+                      <TableCell>
                         {row?.status === 'APPROVED'
-                          ? row?.aprrovalAmount
+                          ? row?.approvalAmount
                           : row?.status}
                       </TableCell>
-                      <TableCell align="left">{row?.payment_status}</TableCell>
-                      <TableCell align="left">{row?.file}</TableCell>
-                      <TableCell align="left">
+                      <TableCell>{row?.payment_status || '-'}</TableCell>
+                      <TableCell>{row?.file || '-'}</TableCell>
+                      {/* <TableCell>
                         {row?.status === 'APPROVED' || 'REJECTED' ? (
                           row?.status
                         ) : (
@@ -197,17 +208,26 @@ const StaffExpenses = () => {
                             </Button>
                           </>
                         )}
-                      </TableCell>
-                      <TableCell align="right">
+                      </TableCell> */}
+                      <TableCell>
                         {row?.payment_status === 'DONE' ? (
                           <Typography>-</Typography>
                         ) : (
-                          <Button
-                            onClick={() => handlePaymentStatusUpdate(row?.id)}
-                            className="common_button"
-                          >
-                            Approve
-                          </Button>
+                          <Box>
+                            <Button
+                              onClick={() => handlePaymentStatusUpdate(row?.id)}
+                              className="common_button"
+                            >
+                              Update
+                            </Button>
+                            <Button
+                              onClick={handleOpen}
+                              className="common_button"
+                            >
+                              Vieww
+                            </Button>
+                          </Box>
+
                         )}
                       </TableCell>
                     </TableRow>
@@ -219,6 +239,10 @@ const StaffExpenses = () => {
           <NoResultFound />
         )}
       </TableContainer>
+      <StaffExpensesDetail
+        closeStaffExpenses={handleClose}
+        openStaffExpenses={openStaffExpenses}
+      />
     </>
   )
 }

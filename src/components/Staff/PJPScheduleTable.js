@@ -40,15 +40,15 @@ const PJPScheduleTable = ({ pjpList, completedDialog, setCompletedDialog }) => {
           >
             <TableHead>
               <TableRow>
-                <TableCell align="left">Sr Noss.</TableCell>
-                <TableCell align="left">Date</TableCell>
-                <TableCell align="left">Customer Name</TableCell>
-                <TableCell align="left">Business Name</TableCell>
-                <TableCell align="left">Contact Number</TableCell>
-                <TableCell align="left">City</TableCell>
-                <TableCell align="left">Status</TableCell>
-                <TableCell align="left"></TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell>Sr No.</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Customer Name</TableCell>
+                <TableCell>Business Name</TableCell>
+                <TableCell>Contact Number</TableCell>
+                <TableCell>City</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -62,21 +62,19 @@ const PJPScheduleTable = ({ pjpList, completedDialog, setCompletedDialog }) => {
                       '&:last-child td,th': { border: 0 },
                     }}
                   >
-                    <TableCell className="tablecell_height" align="left">
+                    <TableCell className="tablecell_height">
                       {index + 1}
                     </TableCell>
-                    <TableCell align="left">{pjpData?.date}</TableCell>
-                    <TableCell align="left">{pjpData?.client?.name}</TableCell>
-                    <TableCell align="left">
-                      {pjpData?.client?.business}
+                    <TableCell>{pjpData?.date || '-'}</TableCell>
+                    <TableCell>{pjpData?.client?.name || '-'}</TableCell>
+                    <TableCell>{pjpData?.client?.business || '-'}</TableCell>
+                    <TableCell>
+                      {pjpData?.client?.contact_number || '-'}
                     </TableCell>
-                    <TableCell align="left">
-                      {pjpData?.client?.contact_number}
-                    </TableCell>
-                    <TableCell align="left">{pjpData?.client?.city}</TableCell>
-                    <TableCell align="left">{pjpData?.status}</TableCell>
-                    <TableCell align="left">
-                      {!pjpData?.is_completed && (
+                    <TableCell>{pjpData?.client?.city || '-'}</TableCell>
+                    <TableCell>{pjpData?.status || '-'}</TableCell>
+                    <TableCell>
+                      {!pjpData?.is_completed ? (
                         <Button
                           onClick={() =>
                             setCompletedDialog({
@@ -89,9 +87,11 @@ const PJPScheduleTable = ({ pjpList, completedDialog, setCompletedDialog }) => {
                         >
                           Completed
                         </Button>
+                      ) : (
+                        '-'
                       )}
                     </TableCell>
-                    <TableCell align="left">
+                    <TableCell>
                       <Button
                         onClick={() =>
                           setPJPDetailDialog({

@@ -21,6 +21,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import './index.css'
 import { GetAdminClientDetail } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
+
 const AddPJPDialog = ({
   addPJPDetail,
   handleCloseDialog,
