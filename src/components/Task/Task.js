@@ -178,131 +178,131 @@ const Task = () => {
             Overview
           </Typography>
         </Box>
-        <Box>
-          <Box
+
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <FormControl variant="outlined">
+            <OutlinedInput
+              className="search_field"
+              placeholder="Search Here..."
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              startAdornment={
+                <InputAdornment position="start" sx={{ margin: '0px' }}>
+                  <IconButton sx={{ margin: '0px' }}>
+                    <SearchRoundedIcon />
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+          <Button
+            onClick={handleClickOpen}
+            className="main_tab_button"
+            variant="span"
+          >
+            + Task
+          </Button>
+          <IconButton
+            edge="end"
+            onClick={handleDrawerOpen}
             sx={{
-              display: 'flex',
-              alignItems: 'center',
+              ...(openDrawer && { display: 'flex' }),
+              padding: '0',
+              margin: '0 0 0 10px',
             }}
           >
-            <FormControl variant="outlined">
-              <OutlinedInput
-                className="search_field"
-                placeholder="Search Here..."
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
-                startAdornment={
-                  <InputAdornment position="start" sx={{ margin: '0px' }}>
-                    <IconButton sx={{ margin: '0px' }}>
-                      <SearchRoundedIcon />
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-            <Button
-              onClick={handleClickOpen}
-              className="main_tab_button"
-              variant="span"
-            >
-              + Task
-            </Button>
-            <IconButton
-              edge="end"
-              onClick={handleDrawerOpen}
-              sx={{
-                ...(openDrawer && { display: 'flex' }),
-                padding: '0',
-                margin: '0 0 0 10px',
-              }}
-            >
-              <img src={FilterIcon} alt="" />
-            </IconButton>
-          </Box>
-
-          <Drawer
-            onClose={handleDrawerClose}
-            sx={{
-              '& .MuiDrawer-paper': {
-                width: drawerWidth,
-              },
-            }}
-            anchor="right"
-            open={openDrawer}
-          >
-            <DrawerHeader
-              className="drawer_header_section"
-            >
-              <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                <IconButton
-                  sx={{ color: '#2e3591', padding: '0px' }}
-                  disableRipple={true}
-                  onClick={handleDrawerClose}>
-                  {theme.direction === 'rtl' ? (
-                    <ChevronLeftIcon sx={{ fontSize: '30px' }} />
-                  ) : (
-                    <ChevronRightIcon sx={{ fontSize: '30px' }} />
-                  )}
-                </IconButton>
-
-                <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
-              </Box>
-
-              <Box>
-                <Button onClick={handleClearAllFilter} className="text_button">
-                  Reset
-                </Button>
-                <Button
-                  className="common_button"
-                  onClick={handleTaskList}
-                  variant="contained"
-                >Apply
-                </Button>
-              </Box>
-            </DrawerHeader>
-            <Divider />
-            <Box
-              sx={{ display: 'flex', flexDirection: 'column', }}>
-              <LocalizationProvider dateAdapter={AdapterDateFns} sx={{ margin: '10px' }}>
-                <DatePicker
-                  inputFormat="dd/MM/yyyy"
-                  value={filterTask.due_date}
-                  onChange={e => {
-                    setFilterTask({
-                      ...filterTask,
-                      due_date: moment(e).format('YYYY-MM-DD'),
-                    })
-                  }}
-                  renderInput={params => (
-                    <TextField
-                      variant="outlined"
-                      {...params}
-                      label="Date"
-                      sx={{ margin: '10px' }}
-                    />
-                  )}
-                  PopperProps={{
-                    placement: 'bottom-start', // Set placement to 'bottom-start'
-                  }}
-                />
-              </LocalizationProvider>
-              <FormControl sx={{ margin: '10px' }}>
-                <InputLabel>Select Member</InputLabel>
-                <Select
-                  label="Select Member"
-                  value={filterTask?.teamId}
-                  onChange={e => {
-                    setFilterTask({ ...filterTask, teamId: e.target.value })
-                  }}>
-                  {memberList.length > 0 &&
-                    memberList.map(data => {
-                      return <MenuItem value={data?.id}>{data?.email}</MenuItem>
-                    })}
-                </Select>
-              </FormControl>
-            </Box>
-          </Drawer>
+            <img src={FilterIcon} alt="" />
+          </IconButton>
         </Box>
+
+        <Drawer
+          onClose={handleDrawerClose}
+          sx={{
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+            },
+          }}
+          anchor="right"
+          open={openDrawer}
+        >
+          <DrawerHeader
+            className="drawer_header_section"
+          >
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <IconButton
+                sx={{ color: '#2e3591', padding: '0px' }}
+                disableRipple={true}
+                onClick={handleDrawerClose}>
+                {theme.direction === 'rtl' ? (
+                  <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                ) : (
+                  <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                )}
+              </IconButton>
+
+              <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
+            </Box>
+
+            <Box>
+              <Button onClick={handleClearAllFilter} className="text_button">
+                Reset
+              </Button>
+              <Button
+                className="common_button"
+                onClick={handleTaskList}
+                variant="contained"
+              >Apply
+              </Button>
+            </Box>
+          </DrawerHeader>
+          <Divider />
+          <Box
+            sx={{ display: 'flex', flexDirection: 'column', }}>
+            <LocalizationProvider dateAdapter={AdapterDateFns} sx={{ margin: '10px' }}>
+              <DatePicker
+                inputFormat="dd/MM/yyyy"
+                value={filterTask.due_date}
+                onChange={e => {
+                  setFilterTask({
+                    ...filterTask,
+                    due_date: moment(e).format('YYYY-MM-DD'),
+                  })
+                }}
+                renderInput={params => (
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    label="Date"
+                    sx={{ margin: '10px' }}
+                  />
+                )}
+                PopperProps={{
+                  placement: 'bottom-start', // Set placement to 'bottom-start'
+                }}
+              />
+            </LocalizationProvider>
+            <FormControl sx={{ margin: '10px' }}>
+              <InputLabel>Select Member</InputLabel>
+              <Select
+                label="Select Member"
+                value={filterTask?.teamId}
+                onChange={e => {
+                  setFilterTask({ ...filterTask, teamId: e.target.value })
+                }}>
+                {memberList.length > 0 &&
+                  memberList.map(data => {
+                    return <MenuItem value={data?.id}>{data?.email}</MenuItem>
+                  })}
+              </Select>
+            </FormControl>
+          </Box>
+        </Drawer>
+
       </Box>
       <Box className="below_main_tab_section">
         <Box className="inner_container">

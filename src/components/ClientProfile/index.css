@@ -1,6 +1,6 @@
 .client_profile_detail {
   width: 70%;
-  padding-left: 1px;
+  height: 100%;
 }
 
 audio::-internal-media-controls-download-button {
@@ -10,11 +10,13 @@ audio::-internal-media-controls-download-button {
 .set_reminder_bg {
   background-color: #f1f2f6;
 }
+
 .userdetail_root {
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
 }
+
 .client_profile_underline {
   margin-left: 10px !important;
   background-color: red !important;

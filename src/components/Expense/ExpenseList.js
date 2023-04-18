@@ -140,7 +140,7 @@ const ExpenseList = () => {
   }
   return (
     <>
-      <div className="main_section p-4">
+      <div className="main_section">
         <Box className="job_role_title mb-3">
           <Typography variant="span" className="ms-2">
             Expense List

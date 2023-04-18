@@ -22,7 +22,7 @@ const DashboardEmployee = () => {
       res => {
         setSalesInquiry(res?.data)
       },
-      err => {},
+      err => { },
     )
   }, [])
   return (
@@ -49,7 +49,7 @@ const DashboardEmployee = () => {
             </Typography>
 
             <Box className="performance_terms">
-              <Box className="performance_statistics_data">
+              <Box className="performance_staff_statistics_data">
                 <Typography sx={{ padding: '8px' }} variant="span">
                   Total Inquiries
                 </Typography>
@@ -70,7 +70,7 @@ const DashboardEmployee = () => {
                   </Typography>
                 </Box>
               </Box>
-              <Box className="performance_statistics_data">
+              <Box className="performance_staff_statistics_data">
                 <Typography variant="span">My lead</Typography>
                 <Box className="performance_parameter">
                   <Typography
@@ -85,7 +85,7 @@ const DashboardEmployee = () => {
                   </Typography>
                 </Box>
               </Box>
-              <Box className="performance_statistics_data me-2">
+              <Box className="performance_staff_statistics_data me-2">
                 <Typography variant="span">Total Points</Typography>
                 <Box className="performance_parameter">
                   <Typography
@@ -100,7 +100,7 @@ const DashboardEmployee = () => {
                   </Typography>
                 </Box>
               </Box>
-              <Box className="performance_statistics_data">
+              <Box className="performance_staff_statistics_data">
                 <Typography sx={{ padding: '8px' }} variant="span">
                   Target Order
                 </Typography>
@@ -117,7 +117,7 @@ const DashboardEmployee = () => {
                   </Typography>
                 </Box>
               </Box>
-              <Box className="performance_statistics_data">
+              <Box className="performance_staff_statistics_data">
                 <Typography variant="span">Achieved</Typography>
                 <Box className="below_performance_parameter">
                   <Typography variant="span">
@@ -130,7 +130,7 @@ const DashboardEmployee = () => {
                   </Typography>
                 </Box>
               </Box>
-              <Box className="performance_statistics_data me-2">
+              <Box className="performance_staff_statistics_data me-2">
                 <Typography variant="span">Days Remain</Typography>
                 <Box className="below_performance_parameter">
                   <Typography variant="span">

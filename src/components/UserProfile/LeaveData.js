@@ -32,7 +32,7 @@ const LeaveData = ({ leaveList }) => {
             stickyHeader
             aria-label="sticky table"
             className="table_heading"
-            // sx={{ marginLeft: '-10px' }}
+          // sx={{ marginLeft: '-10px' }}
           >
             {/* <TableHead className="team_overview_table_heading"> */}
             <TableHead>
@@ -72,11 +72,7 @@ const LeaveData = ({ leaveList }) => {
         </TableContainer>
 
         <Box sx={{ margin: '16px' }}>
-          <Box className="m-10 float-right flex-end">
-            <Button className="attendance_button m-2" variant="contained">
-              + Apply For Leave
-            </Button>
-          </Box>
+
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Grid item xs={12} md={6}>
               <CalendarPicker

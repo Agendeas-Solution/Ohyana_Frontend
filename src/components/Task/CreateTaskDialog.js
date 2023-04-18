@@ -60,7 +60,7 @@ const CreateTaskDialog = ({
           <TextField
             className="dialogue_input_fields"
             multiline
-            placeholder="Description"
+            placeholder="Description here..."
             autoComplete="off"
             label="Description"
             minRows={3}

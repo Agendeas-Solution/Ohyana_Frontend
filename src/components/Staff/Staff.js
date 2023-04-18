@@ -477,22 +477,22 @@ const Staff = () => {
 
         <Box className="bottom_right_part">
 
-          <Typography className="statistics_box_heading">Inquiry Status</Typography>
+          <Typography className="staff_statistics_box_heading">Inquiry Status</Typography>
 
           <Box className="staff_statistics_data">
-            <Box className="statistics_box first_box">
+            <Box className="staff_statistics_box first_box">
               <Typography>Total Inquiry</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthClients?.total}
               </Typography>
             </Box>
-            <Box className="statistics_box middle_box">
+            <Box className="staff_statistics_box second_box">
               <Typography>Attend</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthClients?.attend}
               </Typography>
             </Box>
-            <Box className="statistics_box last_box">
+            <Box className="staff_statistics_box third_box">
               <Typography className="text_ellipsis">Avg. Response</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthClients?.avgResponseTime}{' '}
@@ -500,22 +500,22 @@ const Staff = () => {
             </Box>
           </Box>
 
-          <Typography className="statistics_box_heading">Attendance</Typography>
+          <Typography className="staff_statistics_box_heading">Attendance</Typography>
 
           <Box className="staff_statistics_data">
-            <Box className="statistics_box first_box">
+            <Box className="staff_statistics_box first_box">
               <Typography className="text_ellipsis">Total Present</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthAttendance?.totalPresent}
               </Typography>
             </Box>
-            <Box className="statistics_box middle_box">
+            <Box className="staff_statistics_box second_box">
               <Typography>Absent</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthAttendance?.totalAbsent}
               </Typography>
             </Box>
-            <Box className="statistics_box  last_box">
+            <Box className="staff_statistics_box  third_box">
               <Typography>Late</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthAttendance?.totalLate}
@@ -523,22 +523,22 @@ const Staff = () => {
             </Box>
           </Box>
 
-          <Typography className="statistics_box_heading">Target</Typography>
+          <Typography className="staff_statistics_box_heading">Target</Typography>
 
           <Box className="staff_statistics_data">
-            <Box className="statistics_box first_box">
+            <Box className="staff_statistics_box first_box">
               <Typography className="text_ellipsis">Total Days</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthTarget?.totalDays}
               </Typography>
             </Box>
-            <Box className="statistics_box middle_box">
+            <Box className="staff_statistics_box second_box">
               <Typography className="text_ellipsis">Total Order</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthTarget?.targetOrder}
               </Typography>
             </Box>
-            <Box className="statistics_box last_box">
+            <Box className="staff_statistics_box third_box">
               <Typography>Achieved</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthTarget?.achieved}
@@ -546,21 +546,21 @@ const Staff = () => {
             </Box>
           </Box>
 
-          <Typography className="statistics_box_heading">Expense</Typography>
+          <Typography className="staff_statistics_box_heading">Expense</Typography>
           <Box className="staff_statistics_data">
-            <Box className="statistics_box first_box">
+            <Box className="staff_statistics_box first_box">
               <Typography>Approved</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthExpense?.approvedExpense}
               </Typography>
             </Box>
-            <Box className="statistics_box middle_box">
+            <Box className="staff_statistics_box second_box">
               <Typography>Pending</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthExpense?.pendingExpense}
               </Typography>
             </Box>
-            <Box className="statistics_box last_box">
+            <Box className="staff_statistics_box third_box">
               <Typography>Rejected</Typography>
               <Typography>
                 {singleStaffDetails?.currentMonthExpense?.rejectedExpense}
