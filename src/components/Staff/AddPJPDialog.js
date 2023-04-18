@@ -11,6 +11,9 @@ import {
   CircularProgress,
   DialogTitle,
   TextareaAutosize,
+  InputLabel,
+  Select,
+  MenuItem, FormControl
 } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -51,7 +54,23 @@ const AddPJPDialog = ({
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add PJP</Typography>
 
-          <Autocomplete
+          <FormControl >
+            <InputLabel>Client Type</InputLabel>
+            <Select
+              label="Select Client"
+              className="dialogue_input_fields"
+              value={addPJPDetail?.clientId}
+              onChange={(e) => {
+                setAddPJPDetail({ ...addPJPDetail, clientId: e.target.value })
+              }}
+            >
+              {options.map(data => {
+                return <MenuItem value={data.id}>{data.name}</MenuItem>
+              })}
+            </Select>
+          </FormControl>
+
+          {/* <Autocomplete
             disablePortal
             options={options}
             value={addPJPDetail?.clientId}
@@ -67,7 +86,7 @@ const AddPJPDialog = ({
                 className="dialogue_input_fields"
               />
             )}
-          />
+          /> */}
 
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
