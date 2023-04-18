@@ -10,9 +10,11 @@ import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 const ProductGraph = ({ selectedPeriod }) => {
   const [graphData, setGraphData] = useState()
   const [productList, setProductList] = useState([])
-  const [cityList, setCityList]=useState([]);
-  const [selectedProduct, se] = useState()
+  const [cityList, setCityList] = useState([]);
+  // const [selectedProduct, se] = useState()
   useEffect(() => {
+    console.log('selectedPerid', selectedPeriod);
+    debugger;
     GetProductReport(
       { selectedPeriod: selectedPeriod },
       res => {
@@ -31,7 +33,6 @@ const ProductGraph = ({ selectedPeriod }) => {
       {},
       res => {
         setCityList(res?.data)
-        debugger;
       },
       err => { },
     )
@@ -73,7 +74,7 @@ const ProductGraph = ({ selectedPeriod }) => {
     // console.log("Printing xlables", xlabels);
     // ;
     datga && setUserData({ ...userData, datasets: datga })
-    console.log('Printing userData', userData)
+    debugger;
   }, [graphData])
   return (
     <>
