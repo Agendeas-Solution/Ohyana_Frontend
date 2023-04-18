@@ -137,7 +137,7 @@ const Task = () => {
       res => {
         setMemberList(res.data)
       },
-      err => { },
+      err => {},
     )
   }, [])
   const handleCreateTask = () => {
@@ -166,7 +166,7 @@ const Task = () => {
         setMember()
         handleCloseMemberDialog()
       },
-      err => { },
+      err => {},
     )
   }
 
@@ -245,9 +245,9 @@ const Task = () => {
                 )}
               </IconButton>
 
+
               <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
             </Box>
-
             <Box>
               <Button onClick={handleClearAllFilter} className="text_button">
                 Reset
@@ -304,6 +304,7 @@ const Task = () => {
         </Drawer>
 
       </Box>
+
       <Box className="below_main_tab_section">
         <Box className="inner_container">
           {taskList.length > 0 ? (

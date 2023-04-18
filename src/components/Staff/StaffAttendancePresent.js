@@ -38,11 +38,11 @@ const StaffAttendancePresent = ({ staffAttendanceList }) => {
             <TableHead>
               <TableRow>
                 <TableCell>Date</TableCell>
-                <TableCell align="left">Check In</TableCell>
-                <TableCell align="left">Check Out</TableCell>
-                <TableCell align="left">Break In </TableCell>
-                <TableCell align="left">Break Out</TableCell>
-                <TableCell align="left">Working Hours</TableCell>
+                <TableCell>Check In</TableCell>
+                <TableCell>Check Out</TableCell>
+                <TableCell>Break In </TableCell>
+                <TableCell>Break Out</TableCell>
+                <TableCell>Working Hours</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -60,13 +60,11 @@ const StaffAttendancePresent = ({ staffAttendanceList }) => {
                       <TableCell className="tablecell_height">
                         {staffList.date}
                       </TableCell>
-                      <TableCell align="left">{staffList?.checkIn}</TableCell>
-                      <TableCell align="left">{staffList?.checkOut}</TableCell>
-                      <TableCell align="left">{staffList?.breakIn}</TableCell>
-                      <TableCell align="left">{staffList?.breakOut}</TableCell>
-                      <TableCell align="left">
-                        {staffList?.totalHours}
-                      </TableCell>
+                      <TableCell>{staffList?.checkIn ?? '-'}</TableCell>
+                      <TableCell>{staffList?.checkOut ?? '-'}</TableCell>
+                      <TableCell>{staffList?.breakIn ?? '-'}</TableCell>
+                      <TableCell>{staffList?.breakOut ?? '-'}</TableCell>
+                      <TableCell>{staffList?.totalHours ?? '-'}</TableCell>
                     </TableRow>
                   )
                 })}

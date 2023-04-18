@@ -10,6 +10,7 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import moment from 'moment'
 import './index.css'
 import {
@@ -18,6 +19,7 @@ import {
   StatusUpdate,
 } from '../../services/apiservices/staffDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import StaffExpensesDetail from './StaffExpensesDetail'
 
 const StaffExpenses = () => {
   const [dateRange, setDateRange] = useState({
@@ -25,7 +27,7 @@ const StaffExpenses = () => {
     endDate: '',
     // defaultDate: moment().format('dd/mm/yyyy'),
   })
-
+  const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const [value, setValue] = useState('1')
   const [expenseList, setExpenseList] = useState([])
   const [expensesData, setExpensesData] = useState([])
@@ -33,20 +35,33 @@ const StaffExpenses = () => {
     setValue(newValue)
   }
 
+  const [openStaffExpenses, setOpenStaffExpenses] = useState(false)
+
+  const handleOpen = () => {
+    setOpenStaffExpenses(true)
+  }
+
+  const handleClose = () => {
+    setOpenStaffExpenses(false)
+  }
+
   useEffect(() => {
     let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
+    let data = {
+      month: moment(selectMonth.$d).month() + 1,
+      year: moment(selectMonth.$d).format('YYYY'),
+      teamId: parseInt(path),
+    }
     GetExpenseList(
-      {},
+      data,
       res => {
         setExpenseList(res.data.expenses)
         setExpensesData(res.data)
       },
       err => { },
     )
-  }, [])
+  }, [selectMonth])
   const handlePaymentStatusUpdate = id => {
     PaymentStatusUpdate(
       id,
@@ -77,34 +92,40 @@ const StaffExpenses = () => {
         >
           <Box className="staff_statistics_box first_box me-3">
             <Typography>Approved</Typography>
-            <Typography>{expensesData?.approved}</Typography>
+            <Typography>{expensesData?.approved || '-'}</Typography>
           </Box>
           <Box className="staff_statistics_box second_box  me-3">
             <Typography>Rejected</Typography>
-            <Typography>{expensesData?.rejected}</Typography>
+            <Typography>{expensesData?.rejected || '-'}</Typography>
           </Box>
           <Box className="staff_statistics_box third_box me-3">
             <Typography>Pending</Typography>
-            <Typography>{expensesData?.pending}</Typography>
+            <Typography>{expensesData?.pending || '-'}</Typography>
           </Box>
           <Box className="staff_statistics_box third_box">
             <Typography className="" sx={{ whiteSpace: 'nowrap' }}>
               Payment Done
             </Typography>
-            <Typography>{expensesData?.paymentDone}</Typography>
+            <Typography>{expensesData?.paymentDone || '-'}</Typography>
           </Box>
         </Box>
 
         <Box className="days_data">
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-              disablePast
-              inputFormat="dd/MM/yyyy"
-              value={dateRange?.startDate}
-              onChange={e => {
-                setDateRange({ ...dateRange, startDate: e })
+              views={['month', 'year']}
+              value={selectMonth}
+              onChange={selectMonth => {
+                console.log(`inside Onchange: ${selectMonth.format('MMM')}`)
+                setSelectMonth(selectMonth)
               }}
-              renderInput={params => <TextField {...params} />}
+              renderInput={params => (
+                <TextField
+                  placeholder="Year and Month"
+                  {...params}
+                  helperText={null}
+                />
+              )}
             />
           </LocalizationProvider>
         </Box>
@@ -130,13 +151,13 @@ const StaffExpenses = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Date</TableCell>
-                <TableCell align="left">Type</TableCell>
-                <TableCell align="left">Apply</TableCell>
-                <TableCell align="left">Approval</TableCell>
-                <TableCell align="left">Payment</TableCell>
-                <TableCell align="left">Document</TableCell>
-                <TableCell align="left">Approval</TableCell>
-                <TableCell align="left">Payment</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Apply</TableCell>
+                <TableCell>Approval</TableCell>
+                <TableCell>Payment</TableCell>
+                <TableCell>Document</TableCell>
+                {/* <TableCell>Approval</TableCell> */}
+                <TableCell>Payment</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -155,16 +176,16 @@ const StaffExpenses = () => {
                       <TableCell className="tablecell_height">
                         {moment(row?.date).format('D/MM/YY')}
                       </TableCell>
-                      <TableCell align="left">{row?.name}</TableCell>
-                      <TableCell align="left">{row?.amount}</TableCell>
-                      <TableCell align="left">
+                      <TableCell>{row?.name || '-'}</TableCell>
+                      <TableCell>{row?.amount || '-'}</TableCell>
+                      <TableCell>
                         {row?.status === 'APPROVED'
-                          ? row?.aprrovalAmount
+                          ? row?.approvalAmount
                           : row?.status}
                       </TableCell>
-                      <TableCell align="left">{row?.payment_status}</TableCell>
-                      <TableCell align="left">{row?.file}</TableCell>
-                      <TableCell align="left">
+                      <TableCell>{row?.payment_status || '-'}</TableCell>
+                      <TableCell>{row?.file || '-'}</TableCell>
+                      {/* <TableCell>
                         {row?.status === 'APPROVED' || 'REJECTED' ? (
                           row?.status
                         ) : (
@@ -187,17 +208,26 @@ const StaffExpenses = () => {
                             </Button>
                           </>
                         )}
-                      </TableCell>
-                      <TableCell align="right">
+                      </TableCell> */}
+                      <TableCell>
                         {row?.payment_status === 'DONE' ? (
                           <Typography>-</Typography>
                         ) : (
-                          <Button
-                            onClick={() => handlePaymentStatusUpdate(row?.id)}
-                            className="common_button"
-                          >
-                            Update
-                          </Button>
+                          <Box>
+                            <Button
+                              onClick={() => handlePaymentStatusUpdate(row?.id)}
+                              className="common_button"
+                            >
+                              Update
+                            </Button>
+                            <Button
+                              onClick={handleOpen}
+                              className="common_button"
+                            >
+                              Vieww
+                            </Button>
+                          </Box>
+
                         )}
                       </TableCell>
                     </TableRow>
@@ -209,6 +239,10 @@ const StaffExpenses = () => {
           <NoResultFound />
         )}
       </TableContainer>
+      <StaffExpensesDetail
+        closeStaffExpenses={handleClose}
+        openStaffExpenses={openStaffExpenses}
+      />
     </>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Typography, Button } from '@mui/material'
+import { Box, Typography, Button, FormGroup, FormControlLabel, Checkbox } from '@mui/material'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -10,13 +10,18 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import './index.css'
 import { GetSalesInquiry } from '../../services/apiservices/staffDetail'
+import { UpdateCheckListItemStatus } from '../../services/apiservices/task'
 import moment from 'moment'
 import StarPerformer from '../../assets/img/star_performer.png'
 import SecondStarPerformer from '../../assets/img/second_star_performer.png'
-
+import { AttendanceStatus } from '../../services/apiservices/staffDetail'
+import { useNavigate } from 'react-router-dom'
 const DashboardEmployee = () => {
   const [salesInquiry, setSalesInquiry] = useState()
-  useEffect(() => {
+  const navigate = useNavigate();
+  let path = window.location.pathname
+  path = path.split('/').pop()
+  const handleGetSalesInquiry = () => {
     GetSalesInquiry(
       {},
       res => {
@@ -24,7 +29,27 @@ const DashboardEmployee = () => {
       },
       err => { },
     )
+  }
+  useEffect(() => {
+    handleGetSalesInquiry();
   }, [])
+  const handleCheckIn = type => {
+    AttendanceStatus(
+      type,
+      res => { },
+      err => { },
+    )
+  }
+  const updateCheckListStatus = id => {
+    UpdateCheckListItemStatus(
+      [id, path],
+      res => {
+      },
+      err => {
+        console.log(err)
+      },
+    )
+  }
   return (
     <>
       <Box className="dashboard_emp_main_section">
@@ -35,10 +60,13 @@ const DashboardEmployee = () => {
             </Typography>
           </Box>
           <Box>
-            <Button className="custom_text_button">Check In</Button>
-            <Button className="custom_text_button">Break In</Button>
-            <Button className="custom_text_button">Break Out</Button>
-            <Button className="custom_text_button">Check Out</Button>
+            <Button className="custom_text_button"
+              onClick={() => handleCheckIn('checkIn')}>Check In</Button>
+            <Button
+              onClick={() => handleCheckIn('breakIn')}
+              className="custom_text_button">Break In</Button>
+            <Button onClick={() => handleCheckIn('breakOut')} className="custom_text_button">Break Out</Button>
+            <Button onClick={() => handleCheckIn('checkOut')} className="custom_text_button">Check Out</Button>
           </Box>
         </Box>
 
@@ -47,7 +75,6 @@ const DashboardEmployee = () => {
             <Typography className="left_panel_heading" variant="span">
               Performance
             </Typography>
-
             <Box className="performance_terms">
               <Box className="performance_staff_statistics_data">
                 <Typography sx={{ padding: '8px' }} variant="span">
@@ -62,11 +89,11 @@ const DashboardEmployee = () => {
                     }}
                     variant="span"
                   >
-                    {salesInquiry?.performance?.total || '-'}
+                    {salesInquiry?.performance?.total || '0'}
                   </Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
-                    5%
+                    {salesInquiry?.performance.totalInquiryPercentage}%
                   </Typography>
                 </Box>
               </Box>
@@ -77,11 +104,11 @@ const DashboardEmployee = () => {
                     sx={{ marginBottom: '15px', paddingBottom: '5px' }}
                     variant="span"
                   >
-                    {salesInquiry?.performance?.total || '-'}
+                    {salesInquiry?.performance?.lead || '0'}
                   </Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
-                    5%
+                    {salesInquiry?.performance.leadPercentage}%
                   </Typography>
                 </Box>
               </Box>
@@ -92,11 +119,11 @@ const DashboardEmployee = () => {
                     sx={{ marginBottom: '15px', paddingBottom: '5px' }}
                     variant="span"
                   >
-                    400
+                    {salesInquiry?.performance.points}
                   </Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
-                    5%
+                    {salesInquiry?.performance.pointsPercentage}%
                   </Typography>
                 </Box>
               </Box>
@@ -109,7 +136,7 @@ const DashboardEmployee = () => {
                   className="below_performance_parameter"
                 >
                   <Typography variant="span">
-                    {salesInquiry?.performance?.targets?.target || '-'}
+                    {salesInquiry?.performance?.targets?.target || '0'}
                   </Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
@@ -121,12 +148,13 @@ const DashboardEmployee = () => {
                 <Typography variant="span">Achieved</Typography>
                 <Box className="below_performance_parameter">
                   <Typography variant="span">
-                    {salesInquiry?.performance?.targets?.precentageAchieved ||
+                    {salesInquiry?.performance?.targets?.achieved ||
                       '0'}
                   </Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
-                    5%
+                    {salesInquiry?.performance?.targets?.percentageAchieved ||
+                      '0'}%
                   </Typography>
                 </Box>
               </Box>
@@ -167,7 +195,7 @@ const DashboardEmployee = () => {
                     <TableCell align="right">Check In</TableCell>
                     <TableCell align="left">:</TableCell>
                     <TableCell align="left">
-                      {salesInquiry?.attendance?.checkIn || '-'}
+                      {salesInquiry?.userAttendance?.checkIn || '-'}
                     </TableCell>
                   </TableRow>
                   <TableRow
@@ -178,7 +206,7 @@ const DashboardEmployee = () => {
                     <TableCell align="right">Check Out</TableCell>
                     <TableCell align="left">:</TableCell>
                     <TableCell align="left">
-                      {salesInquiry?.attendance?.checkOut || '-'}
+                      {salesInquiry?.userAttendance?.checkOut || '-'}
                     </TableCell>
                   </TableRow>
                   <TableRow
@@ -189,7 +217,7 @@ const DashboardEmployee = () => {
                     <TableCell align="right">Break Time</TableCell>
                     <TableCell align="left">:</TableCell>
                     <TableCell align="left">
-                      {salesInquiry?.attendance?.breakIn || '-'}
+                      {salesInquiry?.userAttendance?.breakIn || '-'}
                     </TableCell>
                   </TableRow>
                   <TableRow
@@ -200,7 +228,7 @@ const DashboardEmployee = () => {
                     <TableCell align="right">Total Hours</TableCell>
                     <TableCell align="left">:</TableCell>
                     <TableCell align="left">
-                      {salesInquiry?.attendance?.breakOut || '-'}
+                      {salesInquiry?.userAttendance?.breakOut || '-'}
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -243,31 +271,68 @@ const DashboardEmployee = () => {
               <Typography className="bottom_left_panel_heading" variant="span">
                 My Task
               </Typography>
-              <Button>View All ></Button>
+              <Button onClick={() => navigate('/task')}>View All ></Button>
             </Box>
             <Box className="my_task_subheading">
               <Typography sx={{ padding: '8px' }} variant="span">
-                Lorem ipsum
+                {salesInquiry?.tasks?.title}
               </Typography>
               <Typography
                 sx={{ color: '#8E8E8E', padding: '8px' }}
                 variant="span"
               >
-                Due Date : 22 Oct 2022
+                Due Date : {moment(salesInquiry?.tasks?.due_date).format('DD-MM-YYYY')}
               </Typography>
             </Box>
-            {/* {salesInquiry?.task.map(data => {
-              return (
-                <Box>
-                  <FormGroup>
+
+            <FormGroup>
+              {salesInquiry?.tasks?.checklists && salesInquiry?.tasks?.checklists.map(data => {
+                return (
+                  <Box className="task_list">
                     <FormControlLabel
-                      control={<Checkbox />}
-                      label="Lorem ipsum is a placeholder text commonly used to demonstrate."
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                      }}
+                      control={
+                        <Checkbox
+                          sx={{
+                            padding: 0,
+                            margin: '0px 7px',
+                          }}
+                          onChange={() => {
+                            updateCheckListStatus(data?.id)
+                          }}
+                          value={data.done}
+                          defaultChecked={data.done ? true : false}
+                        />
+                      }
+                      label={data?.task}
                     />
-                  </FormGroup>
-                </Box>
-              )
-            })} */}
+                  </Box>
+                )
+              })}
+            </FormGroup>
+
+            {/* <FormGroup>
+              {salesInquiry?.tasks?.checklists && salesInquiry?.tasks?.checklists.map((data) => {
+                debugger;
+                return (
+                  <Box>
+                    <FormControlLabel
+                      control={<Checkbox
+                        onChange={() => {
+                          updateCheckListStatus(data?.id)
+                        }}
+                        value={data.done}
+                      />}
+                      label={data.task}
+
+                    />
+                  </Box>
+                )
+              })}
+            </FormGroup> */}
           </Box>
 
           <Box className="point_table_section">
@@ -324,15 +389,15 @@ const DashboardEmployee = () => {
             {salesInquiry?.starPerformerList.length > 0 &&
               salesInquiry.starPerformerList.map(data => {
                 return (
-                  <div class="a-box">
-                    <div class="img-container">
-                      <div class="img-inner">
-                        <div class="inner-skew">
+                  <div className="a-box">
+                    <div className="img-container">
+                      <div className="img-inner">
+                        <div className="inner-skew">
                           <img src={StarPerformer} />
                         </div>
                       </div>
                     </div>
-                    <div class="text-container">
+                    <div className="text-container">
                       <h3>{data?.name || '-'}</h3>
                       <h6>{data?.role?.name || '-'}</h6>
                       <h5>Star Performer of the Month.</h5>
@@ -342,7 +407,7 @@ const DashboardEmployee = () => {
               })}
           </Box>
         </Box>
-      </Box>
+      </Box >
     </>
   )
 }

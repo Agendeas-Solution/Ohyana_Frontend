@@ -61,10 +61,10 @@ const LeaveData = ({ leaveList }) => {
                   <TableCell className="tablecell_height">
                     {moment(row.date).format('D/MM/YY')}
                   </TableCell>
-                  <TableCell align="left">{row?.leave?.type}</TableCell>
-                  <TableCell align="left">{row?.takenDays}</TableCell>
-                  <TableCell align="left">{row?.remainDays}</TableCell>
-                  <TableCell align="left">{row?.status}</TableCell>
+                  <TableCell align="left">{row?.leave?.type ?? '-'}</TableCell>
+                  <TableCell align="left">{row?.takenDays ?? '-'}</TableCell>
+                  <TableCell align="left">{row?.remainDays ?? '-'}</TableCell>
+                  <TableCell align="left">{row?.status ?? '-'}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

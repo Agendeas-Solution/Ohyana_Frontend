@@ -131,14 +131,15 @@ const Dashboard = () => {
                       <Typography>IndiaMart</Typography>
                       <Box className="inquiry_row">
                         <Typography variant="span">
-                          {inquiryData?.inquiry?.crtMonIndiaMart}
+                          {inquiryData?.inquiry?.crtMonIndiaMart || 0}
                         </Typography>
                         <Typography variant="span">
-                          {inquiryData?.inquiry?.percentageIndiaMart}%
+                          {inquiryData?.inquiry?.percentageIndiaMart || 0}%
                         </Typography>
                       </Box>
                       <Typography className="small_sub_heading" variant="span">
-                        Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
+                        Last Month :{' '}
+                        {inquiryData?.inquiry?.lstMonIndiaMart || 0}
                       </Typography>
                       <Divider className="underline" />
                     </Box>
@@ -173,14 +174,15 @@ const Dashboard = () => {
                       <Typography>Website</Typography>
                       <Box className="inquiry_row">
                         <Typography variant="span">
-                          {inquiryData?.inquiry?.crtMonIndiaMart}
+                          {inquiryData?.inquiry?.crtMonIndiaMart || 0}
                         </Typography>
                         <Typography variant="span">
-                          {inquiryData?.inquiry?.percentageIndiaMart}%
+                          {inquiryData?.inquiry?.percentageIndiaMart || 0}%
                         </Typography>
                       </Box>
                       <Typography className="small_sub_heading" variant="span">
-                        Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
+                        Last Month :{' '}
+                        {inquiryData?.inquiry?.lstMonIndiaMart || 0}
                       </Typography>
                       <Divider className="underline" />
                     </Box>
@@ -224,14 +226,15 @@ const Dashboard = () => {
                       <Typography>From PJP</Typography>
                       <Box className="inquiry_row">
                         <Typography variant="span">
-                          {inquiryData?.inquiry?.crtMonIndiaMart}
+                          {inquiryData?.inquiry?.crtMonIndiaMart || 0}
                         </Typography>
                         <Typography variant="span">
-                          {inquiryData?.inquiry?.percentageIndiaMart}%
+                          {inquiryData?.inquiry?.percentageIndiaMart || 0}%
                         </Typography>
                       </Box>
                       <Typography className="small_sub_heading" variant="span">
-                        Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
+                        Last Month :{' '}
+                        {inquiryData?.inquiry?.lstMonIndiaMart || 0}
                       </Typography>
                     </Box>
                   </Box>
@@ -265,14 +268,15 @@ const Dashboard = () => {
                       <Typography>Others</Typography>
                       <Box className="inquiry_row">
                         <Typography variant="span">
-                          {inquiryData?.inquiry?.crtMonIndiaMart}
+                          {inquiryData?.inquiry?.crtMonIndiaMart || 0}
                         </Typography>
                         <Typography variant="span">
-                          {inquiryData?.inquiry?.percentageIndiaMart}%
+                          {inquiryData?.inquiry?.percentageIndiaMart || 0}%
                         </Typography>
                       </Box>
                       <Typography className="small_sub_heading" variant="span">
-                        Last Month : {inquiryData?.inquiry?.lstMonIndiaMart}
+                        Last Month :{' '}
+                        {inquiryData?.inquiry?.lstMonIndiaMart || 0}
                       </Typography>
                     </Box>
                   </Box>
@@ -321,7 +325,7 @@ const Dashboard = () => {
               <Typography variant="span">Total</Typography>
               <Box className="sales_parameter sales_parameter_bottom_border">
                 <Typography className="dashboard_sub_heading" variant="span">
-                  {inquiryData?.sales?.crtLead}
+                  {inquiryData?.sales?.crtLead || 0}
                 </Typography>
                 <Typography variant="span">
                   <TrendingUpRoundedIcon className="common_icon" />{' '}
@@ -333,7 +337,7 @@ const Dashboard = () => {
               <Typography>Getting lead </Typography>
               <Box className="sales_parameter sales_parameter_bottom_border">
                 <Typography className="dashboard_sub_heading" variant="span">
-                  {inquiryData?.sales?.crtLead}
+                  {inquiryData?.sales?.crtLead || 0}
                 </Typography>
                 <Typography>
                   <TrendingDownRoundedIcon className="common_icon" />{' '}
@@ -345,7 +349,7 @@ const Dashboard = () => {
               <Typography>Get Order </Typography>
               <Box className="sales_parameter sales_parameter_bottom_border">
                 <Typography className="dashboard_sub_heading" variant="span">
-                  {inquiryData?.sales?.crtOrders}
+                  {inquiryData?.sales?.crtOrders || 0}
                 </Typography>
                 <Typography>
                   <TrendingDownRoundedIcon className="common_icon" />{' '}
@@ -357,7 +361,7 @@ const Dashboard = () => {
               <Typography>Pending</Typography>
               <Box className="sales_parameter sales_parameter_bottom_border">
                 <Typography className="dashboard_sub_heading" variant="span">
-                  {inquiryData?.sales?.crtPending}
+                  {inquiryData?.sales?.crtPending || 0}
                 </Typography>
                 <Typography>
                   <TrendingDownRoundedIcon className="common_icon" />{' '}
@@ -369,7 +373,7 @@ const Dashboard = () => {
               <Typography>Irrelevant</Typography>
               <Box className="sales_parameter">
                 <Typography className="dashboard_sub_heading" variant="span">
-                  {inquiryData?.sales?.crtIrrelevant}
+                  {inquiryData?.sales?.crtIrrelevant || 0}
                 </Typography>
                 <Typography>
                   <TrendingDownRoundedIcon className="common_icon" />{' '}
@@ -381,7 +385,7 @@ const Dashboard = () => {
               <Typography>No Response</Typography>
               <Box className="sales_parameter">
                 <Typography className="dashboard_sub_heading" variant="span">
-                  {inquiryData?.sales?.crtNoResponse}
+                  {inquiryData?.sales?.crtNoResponse || 0}
                 </Typography>
                 <Typography>
                   <TrendingDownRoundedIcon className="common_icon" />{' '}
@@ -410,13 +414,13 @@ const Dashboard = () => {
               <TableHead className="team_overview_table_heading">
                 <TableRow>
                   <TableCell>Team Member</TableCell>
-                  <TableCell align="right">Role</TableCell>
-                  <TableCell align="right">Attendance</TableCell>
-                  <TableCell align="right">Points</TableCell>
-                  <TableCell align="right">Performance</TableCell>
-                  <TableCell align="right">Location</TableCell>
-                  <TableCell align="right"></TableCell>
-                  <TableCell align="right"></TableCell>
+                  <TableCell>Role</TableCell>
+                  <TableCell>Attendance</TableCell>
+                  <TableCell>Points</TableCell>
+                  <TableCell>Performance</TableCell>
+                  <TableCell>Location</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -428,10 +432,7 @@ const Dashboard = () => {
                           '&:last-child td, &:last-child th': { border: 0 },
                         }}
                       >
-                        <TableCell
-                          align="right"
-                          className="d-flex flex-row align-items-center"
-                        >
+                        <TableCell className="d-flex flex-row align-items-center">
                           <Stack direction="row" spacing={2}>
                             <Avatar
                               className="me-2"
@@ -446,21 +447,15 @@ const Dashboard = () => {
                           <Typography>{data?.name || '-'}</Typography>
                         </TableCell>
 
-                        <TableCell align="right">{data?.role || '-'}</TableCell>
-                        <TableCell align="right">
-                          {data.attendances || '-'}
-                        </TableCell>
-                        <TableCell align="right">
-                          {data.points || '-'}
-                        </TableCell>
-                        <TableCell align="right">
-                          {data.pointPercentage}%
-                        </TableCell>
-                        <TableCell align="right">
+                        <TableCell>{data?.role || '-'}</TableCell>
+                        <TableCell>{data.attendances || '-'}</TableCell>
+                        <TableCell>{data.points || '-'}</TableCell>
+                        <TableCell>{data.pointPercentage}%</TableCell>
+                        <TableCell>
                           {TEAM.JOBTYPE.find(e => e.id == data?.jobType)
                             ?.type || '-'}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell>
                           <Button
                             className="common_button"
                             onClick={() =>
@@ -496,13 +491,13 @@ const Dashboard = () => {
               <TableHead className="team_overview_table_heading">
                 <TableRow>
                   <TableCell>Order Id</TableCell>
-                  <TableCell align="right">Order Of</TableCell>
-                  <TableCell align="right">Date</TableCell>
-                  <TableCell align="right">Total</TableCell>
-                  <TableCell align="right">Delivery</TableCell>
-                  <TableCell align="right">Payment Method</TableCell>
-                  <TableCell align="right">Payment Status</TableCell>
-                  <TableCell align="right"></TableCell>
+                  <TableCell>Order Of</TableCell>
+                  <TableCell>Date</TableCell>
+                  <TableCell>Total</TableCell>
+                  <TableCell>Delivery</TableCell>
+                  <TableCell>Payment Method</TableCell>
+                  <TableCell>Payment Status</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -512,25 +507,15 @@ const Dashboard = () => {
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell>{row?.id || '-'}</TableCell>
-                      <TableCell align="right">
-                        {row?.client?.name || '-'}
-                      </TableCell>
-                      <TableCell align="right">
+                      <TableCell>{row?.client?.name || '-'}</TableCell>
+                      <TableCell>
                         {moment(row?.date).format('L') || '-'}
                       </TableCell>
-                      <TableCell align="right">
-                        {row?.order_total || '-'}
-                      </TableCell>
-                      <TableCell align="right">
-                        {row?.orderTrackingStatus || '-'}
-                      </TableCell>
-                      <TableCell align="right">
-                        {row?.paymentMethod || '-'}
-                      </TableCell>
-                      <TableCell align="right">
-                        {row?.paymentStatus || '-'}
-                      </TableCell>
-                      <TableCell align="right">
+                      <TableCell>{row?.order_total || '-'}</TableCell>
+                      <TableCell>{row?.orderTrackingStatus || '-'}</TableCell>
+                      <TableCell>{row?.paymentMethod || '-'}</TableCell>
+                      <TableCell>{row?.paymentStatus || '-'}</TableCell>
+                      <TableCell>
                         <Button
                           className="common_button"
                           onClick={() => navigate(`/orderDetail/${row?.id}`)}
