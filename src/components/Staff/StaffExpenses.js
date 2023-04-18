@@ -114,6 +114,7 @@ const StaffExpenses = () => {
               }}
               renderInput={params => (
                 <TextField
+                  sx={{ width: '175px', marginRight: '10px' }}
                   placeholder="Year and Month"
                   {...params}
                   helperText={null}
