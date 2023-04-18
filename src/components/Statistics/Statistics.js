@@ -8,7 +8,7 @@ const ProductGraph = React.lazy(() => import('./ProductGraph'))
 const LineChart = React.lazy(() => import('./LineChart'))
 const Statistics = () => {
   const [value, setValue] = React.useState('1')
-  const [selectedPeriod, setSelectedPeriod] = useState()
+  const [selectedPeriod, setSelectedPeriod] = useState('days-7')
   const [daterange, setDateRange] = useState([
     'days-7',
     'days-30',

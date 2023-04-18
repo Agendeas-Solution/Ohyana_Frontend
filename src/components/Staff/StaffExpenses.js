@@ -10,6 +10,7 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import moment from 'moment'
 import './index.css'
 import {
@@ -26,7 +27,7 @@ const StaffExpenses = () => {
     endDate: '',
     // defaultDate: moment().format('dd/mm/yyyy'),
   })
-
+  const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const [value, setValue] = useState('1')
   const [expenseList, setExpenseList] = useState([])
   const [expensesData, setExpensesData] = useState([])
@@ -46,22 +47,25 @@ const StaffExpenses = () => {
 
   useEffect(() => {
     let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
+    let data = {
+      month: moment(selectMonth.$d).month() + 1,
+      year: moment(selectMonth.$d).format('YYYY'),
+      teamId: parseInt(path),
+    }
     GetExpenseList(
-      {},
+      data,
       res => {
         setExpenseList(res.data.expenses)
         setExpensesData(res.data)
       },
-      err => {},
+      err => { },
     )
-  }, [])
+  }, [selectMonth])
   const handlePaymentStatusUpdate = id => {
     PaymentStatusUpdate(
       id,
-      res => {},
+      res => { },
       err => {
         console.log('Printing Error Payment Status Update', err)
       },
@@ -71,8 +75,8 @@ const StaffExpenses = () => {
     StatusUpdate(
       id,
       status,
-      res => {},
-      err => {},
+      res => { },
+      err => { },
     )
   }
 
@@ -107,15 +111,21 @@ const StaffExpenses = () => {
         </Box>
 
         <Box className="days_data">
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-              disablePast
-              inputFormat="dd/MM/yyyy"
-              value={dateRange?.startDate}
-              onChange={e => {
-                setDateRange({ ...dateRange, startDate: e })
+              views={['month', 'year']}
+              value={selectMonth}
+              onChange={selectMonth => {
+                console.log(`inside Onchange: ${selectMonth.format('MMM')}`)
+                setSelectMonth(selectMonth)
               }}
-              renderInput={params => <TextField {...params} />}
+              renderInput={params => (
+                <TextField
+                  placeholder="Year and Month"
+                  {...params}
+                  helperText={null}
+                />
+              )}
             />
           </LocalizationProvider>
         </Box>
@@ -217,6 +227,7 @@ const StaffExpenses = () => {
                               Vieww
                             </Button>
                           </Box>
+
                         )}
                       </TableCell>
                     </TableRow>

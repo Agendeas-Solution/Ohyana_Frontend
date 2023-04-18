@@ -27,7 +27,7 @@ const TeamGraph = ({ selectedPeriod }) => {
       res => {
         setGraphData(res?.data)
       },
-      err => {},
+      err => { },
     )
   }, [selectedPeriod])
   useEffect(() => {
@@ -65,14 +65,14 @@ const TeamGraph = ({ selectedPeriod }) => {
     <>
       <Box className=" graph_section team_graph">
         <Box className="common_row mb-3">
-          <box>
+          <Box>
             <Typography
               variant="span"
               sx={{ color: '#2E3591', fontSize: '20px', fontWeight: '600' }}
             >
               Overall
             </Typography>
-          </box>
+          </Box>
 
           <Box sx={{ display: 'flex' }}>
             <Autocomplete

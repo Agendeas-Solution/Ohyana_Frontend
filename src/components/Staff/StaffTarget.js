@@ -31,10 +31,6 @@ const StaffTarget = () => {
   //   defaultDate: moment().format('LL'),
   // })
   const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
-  console.log(`All: ${selectMonth}`)
-  console.log(`Month index: ${selectMonth.indexOf(moment().format('MMMM'))}`)
-  console.log(`Year index: ${selectMonth.indexOf(moment().format('YYYY'))}`)
-  console.log(`Month: ${moment().format('MMMM')}`)
   const [targetDetail, setTargetDetail] = useState({
     status: false,
     id: path,
@@ -43,14 +39,13 @@ const StaffTarget = () => {
 
   useEffect(() => {
     // debugger
+    let data = {
+      month: moment(selectMonth.$d).month()+1,
+      year: moment(selectMonth.$d).format('YYYY'),
+      teamId: parseInt(path),
+    }
     GetTargetList(
-      {
-        // month: selectMonth?.$M + 1,
-        // year: selectMonth?.$y,
-        month: moment().format('MMM'),
-        year: moment().format('YYYY'),
-        teamId: parseInt(path),
-      },
+      data,
       res => {
         if (res.success) {
           setTargetList(res?.data)

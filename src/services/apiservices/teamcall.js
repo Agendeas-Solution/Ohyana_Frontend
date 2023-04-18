@@ -9,9 +9,10 @@ export const GetPJPList = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
     const { data } = await axiosInstance.get(
-      `/pjp?teamId=${value.teamId}&day=${value.day}`,
+      `/pjp`,
       {
         headers: { ...defaultHeaders },
+        params: value
       },
     )
     console.log('Printing data of GetPJPList', data)

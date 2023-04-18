@@ -183,15 +183,9 @@ export const GetHolidayList = async (value, onSuccess, onError) => {
 export const GetExpenseList = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    console.log(value)
     const { data } = await axiosInstance.get(`/team/expense`, {
       headers: { ...defaultHeaders },
-      params:
-        Object.keys(value).length > 0
-          ? {
-              teamId: value,
-            }
-          : {},
+      params: value,
     })
     console.log('Printing data of GetExpenseList', data)
     onSuccess && onSuccess(data)
