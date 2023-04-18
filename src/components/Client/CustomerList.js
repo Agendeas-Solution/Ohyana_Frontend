@@ -9,6 +9,7 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material'
+import './index.css'
 import CallIcon from '../../assets/img/call.svg'
 import MailIcon from '../../assets/img/mail.svg'
 import moment from 'moment'
@@ -62,13 +63,13 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
             <TableHead>
               <TableRow>
                 <TableCell align="right">Id</TableCell>
-                <TableCell align="right">Name</TableCell>
-                <TableCell align="right">Company Name</TableCell>
-                <TableCell align="right">Contact No.</TableCell>
-                <TableCell align="right">State</TableCell>
-                <TableCell align="right">Date</TableCell>
-                <TableCell align="right"></TableCell>
-                <TableCell align="right"></TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Company Name</TableCell>
+                <TableCell>Contact No.</TableCell>
+                <TableCell>State</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -89,28 +90,28 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
                   >
                     {row.id}
                   </TableCell>
-                  <TableCell align="right" sx={{ maxWidth: '150px' }}>
+                  <TableCell sx={{ maxWidth: '150px' }}>
                     {row.name ?? '-'}
                   </TableCell>
-                  <TableCell align="right" sx={{ maxWidth: '150px' }}>
+                  <TableCell sx={{ maxWidth: '150px' }}>
                     {row.business ?? '-'}
                   </TableCell>
-                  <TableCell align="right" sx={{ maxWidth: '150px' }}>
+                  <TableCell sx={{ maxWidth: '150px' }}>
                     {row.contact_number ?? '-'}
                   </TableCell>
-                  <TableCell align="right" sx={{ maxWidth: '150px' }}>
+                  <TableCell sx={{ maxWidth: '150px' }}>
                     {row.state?.name ?? '-'}
                   </TableCell>
-                  <TableCell align="right" sx={{ maxWidth: '150px' }}>
+                  <TableCell sx={{ maxWidth: '150px' }}>
                     {moment(row.createdAt).format('DD-MM-YYYY')}
                   </TableCell>
-                  <TableCell align="right" sx={{ maxWidth: '150px' }}>
+                  <TableCell sx={{ maxWidth: '150px' }}>
                     {row.teamId === null ? (
                       <Button
                         onClick={() => {
                           handleTakeCustomer(row.id)
                         }}
-                        className="common_button"
+                        className="common_button buttons"
                       >
                         Take
                       </Button>

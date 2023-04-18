@@ -137,7 +137,7 @@ const Task = () => {
       res => {
         setMemberList(res.data)
       },
-      err => { },
+      err => {},
     )
   }, [])
   const handleCreateTask = () => {
@@ -166,7 +166,7 @@ const Task = () => {
         setMember()
         handleCloseMemberDialog()
       },
-      err => { },
+      err => {},
     )
   }
 
@@ -230,14 +230,19 @@ const Task = () => {
             anchor="right"
             open={openDrawer}
           >
-            <DrawerHeader
-              className="drawer_header_section"
-            >
-              <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <DrawerHeader className="drawer_header_section">
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
                 <IconButton
                   sx={{ color: '#2e3591', padding: '0px' }}
                   disableRipple={true}
-                  onClick={handleDrawerClose}>
+                  onClick={handleDrawerClose}
+                >
                   {theme.direction === 'rtl' ? (
                     <ChevronLeftIcon sx={{ fontSize: '30px' }} />
                   ) : (
@@ -256,14 +261,17 @@ const Task = () => {
                   className="common_button"
                   onClick={handleTaskList}
                   variant="contained"
-                >Apply
+                >
+                  Apply
                 </Button>
               </Box>
             </DrawerHeader>
             <Divider />
-            <Box
-              sx={{ display: 'flex', flexDirection: 'column', }}>
-              <LocalizationProvider dateAdapter={AdapterDateFns} sx={{ margin: '10px' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <LocalizationProvider
+                dateAdapter={AdapterDateFns}
+                sx={{ margin: '10px' }}
+              >
                 <DatePicker
                   inputFormat="dd/MM/yyyy"
                   value={filterTask.due_date}
@@ -293,7 +301,8 @@ const Task = () => {
                   value={filterTask?.teamId}
                   onChange={e => {
                     setFilterTask({ ...filterTask, teamId: e.target.value })
-                  }}>
+                  }}
+                >
                   {memberList.length > 0 &&
                     memberList.map(data => {
                       return <MenuItem value={data?.id}>{data?.email}</MenuItem>
@@ -304,6 +313,7 @@ const Task = () => {
           </Drawer>
         </Box>
       </Box>
+
       <Box className="below_main_tab_section">
         <Box className="inner_container">
           {taskList.length > 0 ? (

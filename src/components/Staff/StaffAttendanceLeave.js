@@ -49,37 +49,6 @@ const StaffAttendanceLeave = ({
 
   return (
     <>
-      {/* <h1>Hellow</h1> */}
-      {/* <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell align="left">Check In</TableCell>
-              <TableCell align="left">Check Out</TableCell>
-              <TableCell align="left">Break In </TableCell>
-              <TableCell align="left">Break Out</TableCell>
-              <TableCell align="left">Working Hours</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {staffAttendanceList.attendancePerUser &&
-              staffAttendanceList.attendancePerUser.map(staffList => {
-                return (
-                  <TableRow>
-                    <TableCell>{staffList.date}</TableCell>
-                    <TableCell align="left">{staffList?.checkIn}</TableCell>
-                    <TableCell align="left">{staffList?.checkOut}</TableCell>
-                    <TableCell align="left">{staffList?.breakIn}</TableCell>
-                    <TableCell align="left">{staffList?.breakOut}</TableCell>
-                    <TableCell align="left">{staffList?.totalHours}</TableCell>
-                  </TableRow>
-                )
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer> */}
-
       <TableContainer
         className="expenses_table_height mt-2"
         component={Paper}
@@ -99,12 +68,12 @@ const StaffAttendanceLeave = ({
           >
             <TableHead>
               <TableRow>
-                <TableCell align="left">Date</TableCell>
-                <TableCell align="left">Leave Type</TableCell>
-                <TableCell align="left">Taken</TableCell>
-                <TableCell align="left">Remain</TableCell>
-                <TableCell align="left">Status</TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Leave Type</TableCell>
+                <TableCell>Taken</TableCell>
+                <TableCell>Remain</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -119,18 +88,14 @@ const StaffAttendanceLeave = ({
                         '&:last-child td,th': { border: 0 },
                       }}
                     >
-                      <TableCell className="tablecell_height" align="left">
+                      <TableCell className="tablecell_height">
                         {moment(leaveList?.date).format('DD/MM/YY')}
                       </TableCell>
-                      <TableCell align="left">
-                        {leaveList?.leave?.type}
-                      </TableCell>
-                      <TableCell align="left">{leaveList?.takenDays}</TableCell>
-                      <TableCell align="left">
-                        {leaveList?.remainDays}
-                      </TableCell>
-                      <TableCell align="left">{leaveList?.status}</TableCell>
-                      <TableCell align="left">
+                      <TableCell>{leaveList?.leave?.type}</TableCell>
+                      <TableCell>{leaveList?.takenDays}</TableCell>
+                      <TableCell>{leaveList?.remainDays}</TableCell>
+                      <TableCell>{leaveList?.status}</TableCell>
+                      <TableCell>
                         <Button
                           className="common_button"
                           onClick={() => {

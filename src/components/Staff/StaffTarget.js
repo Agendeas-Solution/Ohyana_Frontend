@@ -163,17 +163,25 @@ const StaffTarget = () => {
                           moment(targetData?.endDate).format('D-M-YY')}{' '}
                       </TableCell>
                       <TableCell align="left">
-                        {targetData?.period} days
+                        {targetData?.period ?? '-'} days
                       </TableCell>
                       <TableCell align="left">
                         {targetData?.type === 0
                           ? 'Generate Lead'
                           : 'Take Order'}
                       </TableCell>
-                      <TableCell align="left">{targetData?.target}</TableCell>
-                      <TableCell align="left">{targetData?.achieve}</TableCell>
-                      <TableCell align="left">{targetData?.target}</TableCell>
-                      <TableCell align="left">{targetData?.state}</TableCell>
+                      <TableCell align="left">
+                        {targetData?.target || '-'}
+                      </TableCell>
+                      <TableCell align="left">
+                        {targetData?.achieve || '-'}
+                      </TableCell>
+                      <TableCell align="left">
+                        {targetData?.target || '-'}
+                      </TableCell>
+                      <TableCell align="left">
+                        {targetData?.state || '-'}
+                      </TableCell>
                     </TableRow>
                   )
                 })}
