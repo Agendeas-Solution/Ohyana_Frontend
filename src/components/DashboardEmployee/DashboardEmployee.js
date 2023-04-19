@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Typography, Button, FormGroup, FormControlLabel, Checkbox } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Button,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+} from '@mui/material'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -18,7 +25,7 @@ import { AttendanceStatus } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
 const DashboardEmployee = () => {
   const [salesInquiry, setSalesInquiry] = useState()
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   let path = window.location.pathname
   path = path.split('/').pop()
   const handleGetSalesInquiry = () => {
@@ -27,24 +34,23 @@ const DashboardEmployee = () => {
       res => {
         setSalesInquiry(res?.data)
       },
-      err => { },
+      err => {},
     )
   }
   useEffect(() => {
-    handleGetSalesInquiry();
+    handleGetSalesInquiry()
   }, [])
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
-      res => { },
-      err => { },
+      res => {},
+      err => {},
     )
   }
   const updateCheckListStatus = id => {
     UpdateCheckListItemStatus(
       [id, path],
-      res => {
-      },
+      res => {},
       err => {
         console.log(err)
       },
@@ -60,13 +66,30 @@ const DashboardEmployee = () => {
             </Typography>
           </Box>
           <Box>
-            <Button className="custom_text_button"
-              onClick={() => handleCheckIn('checkIn')}>Check In</Button>
+            <Button
+              className="custom_text_button"
+              onClick={() => handleCheckIn('checkIn')}
+            >
+              Check In
+            </Button>
             <Button
               onClick={() => handleCheckIn('breakIn')}
-              className="custom_text_button">Break In</Button>
-            <Button onClick={() => handleCheckIn('breakOut')} className="custom_text_button">Break Out</Button>
-            <Button onClick={() => handleCheckIn('checkOut')} className="custom_text_button">Check Out</Button>
+              className="custom_text_button"
+            >
+              Break In
+            </Button>
+            <Button
+              onClick={() => handleCheckIn('breakOut')}
+              className="custom_text_button"
+            >
+              Break Out
+            </Button>
+            <Button
+              onClick={() => handleCheckIn('checkOut')}
+              className="custom_text_button"
+            >
+              Check Out
+            </Button>
           </Box>
         </Box>
 
@@ -76,7 +99,7 @@ const DashboardEmployee = () => {
               Performance
             </Typography>
             <Box className="performance_terms">
-              <Box className="performance_statistics_data">
+              <Box className="performance_staff_statistics_data">
                 <Typography sx={{ padding: '8px' }} variant="span">
                   Total Inquiries
                 </Typography>
@@ -97,7 +120,7 @@ const DashboardEmployee = () => {
                   </Typography>
                 </Box>
               </Box>
-              <Box className="performance_statistics_data">
+              <Box className="performance_staff_statistics_data">
                 <Typography variant="span">My lead</Typography>
                 <Box className="performance_parameter">
                   <Typography
@@ -112,7 +135,7 @@ const DashboardEmployee = () => {
                   </Typography>
                 </Box>
               </Box>
-              <Box className="performance_statistics_data me-2">
+              <Box className="performance_staff_statistics_data me-2">
                 <Typography variant="span">Total Points</Typography>
                 <Box className="performance_parameter">
                   <Typography
@@ -127,7 +150,7 @@ const DashboardEmployee = () => {
                   </Typography>
                 </Box>
               </Box>
-              <Box className="performance_statistics_data">
+              <Box className="performance_staff_statistics_data">
                 <Typography sx={{ padding: '8px' }} variant="span">
                   Target Order
                 </Typography>
@@ -144,21 +167,21 @@ const DashboardEmployee = () => {
                   </Typography>
                 </Box>
               </Box>
-              <Box className="performance_statistics_data">
+              <Box className="performance_staff_statistics_data">
                 <Typography variant="span">Achieved</Typography>
                 <Box className="below_performance_parameter">
                   <Typography variant="span">
-                    {salesInquiry?.performance?.targets?.achieved ||
-                      '0'}
+                    {salesInquiry?.performance?.targets?.achieved || '0'}
                   </Typography>
                   <Typography variant="span" className="common_icon">
                     <TrendingUpRoundedIcon className="common_icon" />
                     {salesInquiry?.performance?.targets?.percentageAchieved ||
-                      '0'}%
+                      '0'}
+                    %
                   </Typography>
                 </Box>
               </Box>
-              <Box className="performance_statistics_data me-2">
+              <Box className="performance_staff_statistics_data me-2">
                 <Typography variant="span">Days Remain</Typography>
                 <Box className="below_performance_parameter">
                   <Typography variant="span">
@@ -281,37 +304,39 @@ const DashboardEmployee = () => {
                 sx={{ color: '#8E8E8E', padding: '8px' }}
                 variant="span"
               >
-                Due Date : {moment(salesInquiry?.tasks?.due_date).format('DD-MM-YYYY')}
+                Due Date :{' '}
+                {moment(salesInquiry?.tasks?.due_date).format('DD-MM-YYYY')}
               </Typography>
             </Box>
 
             <FormGroup>
-              {salesInquiry?.tasks?.checklists && salesInquiry?.tasks?.checklists.map(data => {
-                return (
-                  <Box className="task_list">
-                    <FormControlLabel
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                      }}
-                      control={
-                        <Checkbox
-                          sx={{
-                            padding: 0,
-                            margin: '0px 7px',
-                          }}
-                          onChange={() => {
-                            updateCheckListStatus(data?.id)
-                          }}
-                          value={data.done}
-                          defaultChecked={data.done ? true : false}
-                        />
-                      }
-                      label={data?.task}
-                    />
-                  </Box>
-                )
-              })}
+              {salesInquiry?.tasks?.checklists &&
+                salesInquiry?.tasks?.checklists.map(data => {
+                  return (
+                    <Box className="task_list">
+                      <FormControlLabel
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                        }}
+                        control={
+                          <Checkbox
+                            sx={{
+                              padding: 0,
+                              margin: '0px 7px',
+                            }}
+                            onChange={() => {
+                              updateCheckListStatus(data?.id)
+                            }}
+                            value={data.done}
+                            defaultChecked={data.done ? true : false}
+                          />
+                        }
+                        label={data?.task}
+                      />
+                    </Box>
+                  )
+                })}
             </FormGroup>
 
             {/* <FormGroup>
@@ -407,7 +432,7 @@ const DashboardEmployee = () => {
               })}
           </Box>
         </Box>
-      </Box >
+      </Box>
     </>
   )
 }

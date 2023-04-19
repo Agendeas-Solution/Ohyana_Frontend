@@ -93,8 +93,10 @@ const StaffPoint = () => {
               pointRule.map(data => {
                 return (
                   <Box className="common_row p-2 mt-1">
-                    <Typography variant="span">{data?.name}</Typography>
-                    <Typography variant="span">{data?.points}</Typography>
+                    <Typography variant="span">{data?.name || '-'}</Typography>
+                    <Typography variant="span">
+                      {data?.points ?? '-'}
+                    </Typography>
                   </Box>
                 )
               })}
@@ -153,8 +155,8 @@ const StaffPoint = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell>Date</TableCell>
-                    <TableCell align="left">Type</TableCell>
-                    <TableCell align="left">Point</TableCell>
+                    <TableCell>Type</TableCell>
+                    <TableCell>Point</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -172,12 +174,8 @@ const StaffPoint = () => {
                           <TableCell className="tablecell_height">
                             {moment(data?.createdAt).format('l')}{' '}
                           </TableCell>
-                          <TableCell align="left">
-                            {data?.point?.name}
-                          </TableCell>
-                          <TableCell align="left">
-                            {data?.point?.points}
-                          </TableCell>
+                          <TableCell>{data?.point?.name || '-'}</TableCell>
+                          <TableCell>{data?.point?.points}</TableCell>
                         </TableRow>
                       )
                     })}

@@ -74,6 +74,7 @@ const UserProfile = () => {
     )
   }, [])
   localStorage.setItem('userEmail', userDetail?.email)
+
   useEffect(() => {
     activeTab === 'present' &&
       value === 'Attendance' &&
@@ -180,79 +181,68 @@ const UserProfile = () => {
           </Box>
 
           <TabPanel sx={{ padding: '10px' }} value="Attendance">
-            <Box className="attendance_data_row col-md-12 mb-1">
-              <Box
-                sx={{
-                  // background: '#F1F2F6',
-                  borderRadius: '5px',
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}
-              >
-                <Box className="statistics_box first_box me-3 p-2">
+            <Box className="statistics_data_section">
+              <Box className="statistics_data">
+                <Box className="statistics_box first_box">
                   <Typography>Total Days</Typography>
                   <Typography>{staffAttendanceList?.totalDays}</Typography>
                 </Box>
 
-                <Box className="statistics_box middle_box  me-3 p-2">
+                <Box className="statistics_box second_box">
                   <Typography>Absent Days</Typography>
                   <Typography>{staffAttendanceList?.absentDays}</Typography>
                 </Box>
 
-                <Box className="statistics_box last_box p-2">
+                <Box className="statistics_box third_box">
                   <Typography>Late Days</Typography>
                   <Typography>{staffAttendanceList?.lateDays}</Typography>
                 </Box>
               </Box>
-
-              <Box>
-                <Box
-                  sx={{
-                    background: '#F1F2F6',
-                    borderRadius: '5px',
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'start',
+                }}>
+                <Button
+                  className={
+                    activeTab === 'present'
+                      ? 'active_button'
+                      : 'custom_tab_background'
+                  }
+                  onClick={() => {
+                    setActiveTab('present')
                   }}
+                  variant="contained"
                 >
-                  <Button
-                    className={
-                      activeTab === 'present'
-                        ? 'active_button'
-                        : 'custom_tab_background'
-                    }
-                    onClick={() => {
-                      setActiveTab('present')
-                    }}
-                    variant="contained"
-                  >
-                    Present
-                  </Button>
-                  <Button
-                    // sx={{ marginLeft: '0px', marginRight: '0' }}
-                    className={
-                      activeTab === 'leave'
-                        ? 'active_button'
-                        : 'custom_tab_background'
-                    }
-                    onClick={() => {
-                      setActiveTab('leave')
-                    }}
-                    variant="contained"
-                  >
-                    Leave
-                  </Button>
-                  <Button
-                    className={
-                      activeTab === 'holiday'
-                        ? 'active_button'
-                        : 'custom_tab_background'
-                    }
-                    onClick={() => {
-                      setActiveTab('holiday')
-                    }}
-                    variant="contained"
-                  >
-                    Holiday
-                  </Button>
-                </Box>
+                  Present
+                </Button>
+                <Button
+                  // sx={{ marginLeft: '0px', marginRight: '0' }}
+                  className={
+                    activeTab === 'leave'
+                      ? 'active_button'
+                      : 'custom_tab_background'
+                  }
+                  onClick={() => {
+                    setActiveTab('leave')
+                  }}
+                  variant="contained"
+                >
+                  Leave
+                </Button>
+                <Button
+                  className={
+                    activeTab === 'holiday'
+                      ? 'active_button'
+                      : 'custom_tab_background'
+                  }
+                  onClick={() => {
+                    setActiveTab('holiday')
+                  }}
+                  variant="contained"
+                >
+                  Holiday
+                </Button>
               </Box>
             </Box>
 
@@ -294,12 +284,14 @@ const UserProfile = () => {
                 </Typography>
                 <Typography variant="span">{userDetail?.email}</Typography>
               </Box>
-              <Box className="staff_profile_page">
+              {/* <Box className="staff_profile_page">
                 <Typography variant="span" className=" profile_data_lable">
-                  Password:
+                  City:
                 </Typography>
-                <Typography variant="span">{userDetail?.password}</Typography>
-              </Box>
+                <Typography variant="span">
+                  {userDetail?.city || '-'}
+                </Typography>
+              </Box> */}
               <Box className="staff_profile_page">
                 <Typography className=" profile_data_lable" variant="span">
                   Birthday

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import {
   Box,
   Button,
@@ -17,15 +17,15 @@ import {
   MenuItem,
   InputAdornment,
 } from '@mui/material'
-import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
+import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded'
 import { AddClientStatus } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { CLIENT } from '../../constants/clientConstant'
-import { Folder } from '@mui/icons-material';
+import { Folder } from '@mui/icons-material'
 var a
 const StatusDialog = props => {
-  const [audioFile, setAudioFile] = useState(null);
-  const inputRef = useRef(null);
+  const [audioFile, setAudioFile] = useState(null)
+  const inputRef = useRef(null)
   const [addStatusDetail, setAddStatusDetail] = useState({
     clientId: props.clientProfileDetail.id,
     description: '',
@@ -100,24 +100,22 @@ const StatusDialog = props => {
     }
   }
 
-  const handleAudioFileChange = (event) => {
-    setAudioFile(event.target.files[0]);
-  };
+  const handleAudioFileChange = event => {
+    setAudioFile(event.target.files[0])
+  }
 
   const handleUpload = () => {
     // TODO: handle the upload logic here
-    console.log('Uploading file:', audioFile.name);
-  };
+    console.log('Uploading file:', audioFile.name)
+  }
 
   const handleSelectFile = () => {
-    inputRef.current.click();
-  };
+    inputRef.current.click()
+  }
 
   return (
     <>
-      <Dialog
-        open={props.statusDialog}
-        onClose={props.handleStatusClose}>
+      <Dialog open={props.statusDialog} onClose={props.handleStatusClose}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add Status</Typography>
 
@@ -131,13 +129,12 @@ const StatusDialog = props => {
                   ...addStatusDetail,
                   followUpType: e.target.value,
                   clientId: props.clientProfileDetail.id,
-                })}
-            >
-              {
-                followUpType.map(data => {
-                  return <MenuItem value={data.type}>{data.fieldName}</MenuItem>
                 })
               }
+            >
+              {followUpType.map(data => {
+                return <MenuItem value={data.type}>{data.fieldName}</MenuItem>
+              })}
             </Select>
           </FormControl>
 
@@ -168,7 +165,15 @@ const StatusDialog = props => {
               readOnly: true,
               endAdornment: (
                 <InputAdornment position="end">
-                  <Button sx={{ margin: '0px', backgroundColor: '#2E3591', boxShadow: 'none' }} variant="contained" onClick={handleSelectFile}>
+                  <Button
+                    sx={{
+                      margin: '0px',
+                      backgroundColor: '#2E3591',
+                      boxShadow: 'none',
+                    }}
+                    variant="contained"
+                    onClick={handleSelectFile}
+                  >
                     Select
                   </Button>
                 </InputAdornment>
@@ -190,24 +195,24 @@ const StatusDialog = props => {
             </Box> */}
           {/* </Box> */}
 
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={AddStatus}>
+              onClick={AddStatus}
+            >
               Add
             </Button>
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={props.handleStatusClose}>
+              onClick={props.handleStatusClose}
+            >
               Cancel
             </Button>
           </DialogActions>
-
         </Box>
-      </Dialog >
+      </Dialog>
     </>
   )
 }

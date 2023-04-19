@@ -174,13 +174,6 @@ input[type='radio']:focus {
   padding: 5px;
 }
 
-.product_dialog_detail_section {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-between;
-}
-
 .product_dialog_left_Section {
   width: 40%;
   display: flex;

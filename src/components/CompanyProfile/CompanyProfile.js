@@ -27,7 +27,6 @@ const CompanyProfile = () => {
   return (
     <>
       <Box className="main_section">
-
         <Box className="user_profile_header_Section">
           <Box className="username_profile_Section">
             <img
@@ -52,55 +51,63 @@ const CompanyProfile = () => {
           </Button>
         </Box>
 
-        < Box className="companyDetail" >
+        <Box className="companyDetail">
           <Box className="companyDetail_root p-3">
             <Typography className="" variant="span">
               Email:
             </Typography>
-            <Typography variant="span">{companyDetail?.email}</Typography>
+            <Typography variant="span">
+              {companyDetail?.email || '-'}
+            </Typography>
           </Box>
           <Box className="companyDetail_root p-3">
             <Typography variant="span" className="">
               City:
             </Typography>
-            <Typography variant="span">{companyDetail?.city}</Typography>
+            <Typography variant="span">{companyDetail?.city || '-'}</Typography>
           </Box>
           <Box className="companyDetail_root p-3">
             <Typography variant="span" className="">
               State:
             </Typography>
-            <Typography variant="span">{companyDetail?.state}</Typography>
+            <Typography variant="span">
+              {companyDetail?.state || '-'}
+            </Typography>
           </Box>
           <Box className="companyDetail_root  p-3">
             <Typography variant="span" className="">
               Country:
             </Typography>
             <Typography variant="span">
-              {companyDetail?.country?.name}
+              {companyDetail?.country?.name || '-'}
             </Typography>
           </Box>
           <Box className="companyDetail_root  p-3">
             <Typography className="" variant="span">
               GSTIN:
             </Typography>
-            <Typography variant="span">{companyDetail?.GSTIN}</Typography>
+            <Typography variant="span">
+              {companyDetail?.GSTIN || '-'}
+            </Typography>
           </Box>
           <Box className="companyDetail_root common_row p-3">
             <Typography className="" variant="span">
               Business Type:
             </Typography>
             <Typography variant="span">
-              {companyDetail?.businessType}
+              {companyDetail?.businessType || '-'}
             </Typography>
           </Box>
           <Box className="companyDetail_root  p-3">
             <Typography className="" variant="span">
               IndiaMart CRM Key:
             </Typography>
-            <Typography variant="span">{companyDetail?.crmKey}</Typography>
+            <Typography variant="span">
+              {companyDetail?.crmKey || '-'}
+            </Typography>
           </Box>
-        </Box >
-      </Box >
+        </Box>
+      </Box>
     </>
   )
 }

@@ -63,11 +63,11 @@ const AppointmentTable = ({ clientAppointmentList }) => {
             <TableHead className="client_profile_table_header">
               <TableRow>
                 <TableCell>Sr No.</TableCell>
-                <TableCell align="left">Appointment Added By</TableCell>
-                <TableCell align="left">Job Role</TableCell>
-                <TableCell align="left">Appointment Date</TableCell>
-                <TableCell align="left">Appointment Time</TableCell>
-                <TableCell align="left">Appointment At</TableCell>
+                <TableCell>Appointment Added By</TableCell>
+                <TableCell>Job Role</TableCell>
+                <TableCell>Appointment Date</TableCell>
+                <TableCell>Appointment Time</TableCell>
+                <TableCell>Appointment At</TableCell>
                 <TableCell></TableCell>
               </TableRow>
             </TableHead>
@@ -84,16 +84,16 @@ const AppointmentTable = ({ clientAppointmentList }) => {
                     }}
                   >
                     <TableCell scope="row">{index + 1}</TableCell>
-                    <TableCell align="left">{row.memberName}</TableCell>
-                    <TableCell align="left">{row.memberRole}</TableCell>
-                    <TableCell align="left">
+                    <TableCell>{row.memberName}</TableCell>
+                    <TableCell>{row.memberRole}</TableCell>
+                    <TableCell>
                       {moment(row?.date).format('DD-MM-YYYY')}
                     </TableCell>
-                    <TableCell align="left">
+                    <TableCell>
                       {moment(row.time, 'hh:mm:ss').format('LT')}
                     </TableCell>
-                    <TableCell align="left">{row.appointment_unit}</TableCell>
-                    <TableCell align="left">
+                    <TableCell>{row.appointment_unit}</TableCell>
+                    <TableCell>
                       <Button
                         className="client_profile_edit_button"
                         onClick={() => {

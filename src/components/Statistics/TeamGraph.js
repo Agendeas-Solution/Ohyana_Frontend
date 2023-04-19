@@ -27,7 +27,7 @@ const TeamGraph = ({ selectedPeriod }) => {
       res => {
         setGraphData(res?.data)
       },
-      err => { },
+      err => {},
     )
   }, [selectedPeriod])
   useEffect(() => {
@@ -63,7 +63,6 @@ const TeamGraph = ({ selectedPeriod }) => {
   }, [graphData])
   return (
     <>
-
       <Box className=" graph_section team_graph">
         <Box className="common_row mb-3">
           <Box>
@@ -112,7 +111,6 @@ const TeamGraph = ({ selectedPeriod }) => {
                 />
               )}
             />
-
           </Box>
         </Box>
         <Box
@@ -136,10 +134,10 @@ const TeamGraph = ({ selectedPeriod }) => {
             <TableHead className="team_overview_table_heading">
               <TableRow>
                 <TableCell>Sr No.</TableCell>
-                <TableCell align="left">Team Member</TableCell>
-                <TableCell align="left">Points</TableCell>
+                <TableCell>Team Member</TableCell>
+                <TableCell>Points</TableCell>
                 <TableCell align="left">Performance</TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -148,11 +146,11 @@ const TeamGraph = ({ selectedPeriod }) => {
                   '&:last-child td, &:last-child th': { border: 0 },
                 }}
               >
-                <TableCell align="left">1</TableCell>
-                <TableCell align="left">Benedict Cumberbatch</TableCell>
-                <TableCell align="left">30</TableCell>
-                <TableCell align="left">+ 4%</TableCell>
-                <TableCell align="left">
+                <TableCell>1</TableCell>
+                <TableCell>Benedict Cumberbatch</TableCell>
+                <TableCell>30</TableCell>
+                <TableCell>+ 4%</TableCell>
+                <TableCell>
                   <Button
                     // onClick={() => {
                     //   navigate(`/orderDetail/${orderData?.id}`)
@@ -166,11 +164,11 @@ const TeamGraph = ({ selectedPeriod }) => {
               <TableRow
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell align="right">2</TableCell>
-                <TableCell align="right"> Rober Downey</TableCell>
-                <TableCell align="right">20</TableCell>
-                <TableCell align="right">- 2%</TableCell>
-                <TableCell align="right">
+                <TableCell>2</TableCell>
+                <TableCell> Rober Downey</TableCell>
+                <TableCell>20</TableCell>
+                <TableCell>- 2%</TableCell>
+                <TableCell>
                   <Button className="common_button">View</Button>
                 </TableCell>
               </TableRow>

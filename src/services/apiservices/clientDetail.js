@@ -114,14 +114,10 @@ export const AddPoorContact = async (value, onSuccess, onError) => {
     console.log('Printing data of AddPoorContact', data)
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log(
-      'Got error while calling API - AddPoorContact',
-      err,
-    )
+    console.log('Got error while calling API - AddPoorContact', err)
     onError && onError(err)
   }
 }
-
 
 export const GetAdminClientReminderDetail = async (id, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`

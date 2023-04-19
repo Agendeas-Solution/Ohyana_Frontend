@@ -54,13 +54,13 @@ const OrderList = () => {
             <TableHead className="client_profile_table_header">
               <TableRow>
                 <TableCell>Order Id.</TableCell>
-                <TableCell align="left">Order By</TableCell>
-                <TableCell align="left">Date</TableCell>
-                <TableCell align="left">Total Item</TableCell>
-                <TableCell align="left">Order Total</TableCell>
+                <TableCell>Order By</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Total Item</TableCell>
+                <TableCell>Order Total</TableCell>
                 <TableCell>Delivery</TableCell>
-                <TableCell align="left">Payment</TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell>Payment</TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -76,19 +76,17 @@ const OrderList = () => {
                     }}
                   >
                     <TableCell scope="row">{orderData?.id}</TableCell>
-                    <TableCell align="left">{orderData?.team?.name}</TableCell>
-                    <TableCell align="left">
+                    <TableCell>{orderData?.team?.name}</TableCell>
+                    <TableCell>
                       {moment(orderData?.date).format('Do MMM YY')}
                     </TableCell>
-                    <TableCell align="left">{orderData?.total_items}</TableCell>
-                    <TableCell align="left">{orderData?.order_total}</TableCell>
-                    <TableCell className="status_description" align="left">
+                    <TableCell>{orderData?.total_items}</TableCell>
+                    <TableCell>{orderData?.order_total}</TableCell>
+                    <TableCell className="status_description">
                       {orderData?.orderTrackingStatus}
                     </TableCell>
-                    <TableCell align="left">
-                      {orderData?.paymentStatus}
-                    </TableCell>
-                    <TableCell align="right">
+                    <TableCell>{orderData?.paymentStatus}</TableCell>
+                    <TableCell>
                       <Button
                         onClick={() => {
                           navigate(`/orderDetail/${orderData?.id}`)

@@ -7,10 +7,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 * {
   font-family: "Poppins", sans-serif !important;
   // overflow: hidden;
 }
+
 // code {
 //   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
 //     monospace;
@@ -24,11 +26,13 @@ body {
 #root {
   background-color: #f1f2f6;
 }
-.staff_profile_section{
+
+.staff_profile_section {
   overflow: auto;
   height: 83vh;
   border-radius: 5px;
 }
+
 .App {
   text-align: center;
 }
@@ -63,17 +67,21 @@ body {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
 .login_page_section {
   display: none !important;
 }
+
 .width-main {
-  width: 80%;
+  width: 83%;
   height: 100vh;
 }
+
 .home_page_section {
   /* display: flex; */
   /* height: 30vh; */
