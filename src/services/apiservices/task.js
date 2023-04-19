@@ -1,3 +1,4 @@
+import { handleApiGetCall } from './api-manager'
 import axiosInstance from './axios'
 import Cookie from 'js-cookie'
 // let BaseUrl = process.env.REACT_APP_API_URL;
@@ -8,18 +9,7 @@ const defaultHeaders = {
 }
 // const authHeaders = { Authorization: `Barear ${getLoginToken()}` };
 export const GetTaskList = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(`/tasks`, {
-      headers: { ...defaultHeaders },
-      params: value
-    })
-    console.log('Printing data of GetTaskList', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetTaskList', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(`/tasks`, value, onSuccess, onError)
 }
 export const CreateTaskCall = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
@@ -35,18 +25,8 @@ export const CreateTaskCall = async (value, onSuccess, onError) => {
   }
 }
 
-export const GetSingleTaskDetail = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(`/task/${value}`, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of getSingleTaskDetail', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - getSingleTaskDetail', err)
-    onError && onError(err)
-  }
+export const GetSingleTaskDetail = async (id, value, onSuccess, onError) => {
+  await handleApiGetCall(`/task/${id}`, value, onSuccess, onError)
 }
 export const UpdateCheckListItemStatus = async (id, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
@@ -113,19 +93,7 @@ export const DeleteSingleTask = async (value, onSuccess, onError) => {
     onError && onError(err)
   }
 }
-export const GetAllMemberList = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(`/member`, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of GetAllMemberList', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetAllMemberList', err)
-    onError && onError(err)
-  }
-}
+
 export const AssignMemberParticularTask = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {

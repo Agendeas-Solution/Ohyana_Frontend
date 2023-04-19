@@ -17,5 +17,9 @@ export const TEAM = {
     { typeName: 'Leave', type: 'L' },
     { typeName: 'Absent', type: 'A' },
     { typeName: 'Late', type: 'LT' },
-  ]
+  ],
+  STATUSTYPE: [
+    { type: 'UpComing', value: 'UPCOMING' },
+    { type: 'Completed', value: 'COMPLETED' },
+  ],
 }

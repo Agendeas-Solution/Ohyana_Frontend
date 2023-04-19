@@ -1,3 +1,4 @@
+import { handleApiGetCall } from './api-manager'
 import axiosInstance from './axios'
 import Cookie from 'js-cookie'
 // let BaseUrl = process.env.REACT_APP_API_URL;
@@ -8,43 +9,11 @@ const defaultHeaders = {
 }
 
 export const GetAllHoliday = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get('/holiday?type=occasional', {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of GetAllHoliday', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetAllHoliday', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(`/holiday`, value, onSuccess, onError)
 }
-export const GetAllRegularHoliday = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get('/holiday?type=regular', {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of GetAllRegularHoliday', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetAllRegularHoliday', err)
-    onError && onError(err)
-  }
-}
+
 export const GetAllLeaveType = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get('/leave', {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of GetAllLeaveType', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetAllLeaveType', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(`/leave`, value, onSuccess, onError)
 }
 export const ApplyLeave = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`

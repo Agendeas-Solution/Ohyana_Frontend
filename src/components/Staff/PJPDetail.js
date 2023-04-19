@@ -34,7 +34,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { styled, useTheme } from '@mui/material/styles'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-
+import { TEAM } from '../../constants/teamConstant'
 const drawerWidth = 350
 
 const PJPDetail = () => {
@@ -55,10 +55,10 @@ const PJPDetail = () => {
     description: '',
     pjpId: '',
   })
-  const [createTask, setCreateTask] = useState({
-    title: '',
-    description: '',
-    due_date: '2023-03-31',
+  const [statusTypeList, setStatusTypeList] = useState(TEAM.STATUSTYPE)
+  const [filterPJP, setFilterPJP] = useState({
+    pjpStatus: '',
+    date: '',
   })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -90,6 +90,9 @@ const PJPDetail = () => {
       },
     )
   }
+  const handleApplyFilter = () => {
+    handleGetPJPList()
+  }
   // const getLocation = () => {
   //   if (!window.navigator.geolocation) {
   //   } else {
@@ -105,12 +108,17 @@ const PJPDetail = () => {
   //     )
   //   }
   // }
-  useEffect(() => {
+  const handleGetPJPList = () => {
+    let data = {
+      teamId: path,
+      day: value,
+    }
+    if (filterPJP.pjpStatus !== '' && filterPJP.pjpStatus !== null) {
+      data['statusType'] = filterPJP.pjpStatus
+    }
+    debugger
     GetPJPList(
-      {
-        teamId: path,
-        day: value,
-      },
+      data,
       res => {
         if (res.success) {
           setPjpList(res?.data?.pjps)
@@ -121,11 +129,13 @@ const PJPDetail = () => {
         setPjpList([])
       },
     )
+  }
+  useEffect(() => {
+    handleGetPJPList()
   }, [value])
   const handleAddPJPDetail = () => {
     let pjpDetail = addPJPDetail
     delete pjpDetail.dialogStatus
-
     CreatePJP(
       pjpDetail,
       res => {
@@ -217,7 +227,9 @@ const PJPDetail = () => {
                 <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
               </Box>
               <Box>
-                <Button variant="contained">Apply</Button>
+                <Button onClick={handleApplyFilter} variant="contained">
+                  Apply
+                </Button>
                 <Button>Clear All</Button>
               </Box>
             </DrawerHeader>
@@ -236,21 +248,21 @@ const PJPDetail = () => {
                 </FormLabel>
                 <RadioGroup
                   row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
+                  value={filterPJP.pjpStatus}
+                  onChange={e => {
+                    setFilterPJP({ ...filterPJP, pjpStatus: e.target.value })
+                  }}
                 >
-                  <FormControlLabel
-                    className="checkbox_background_color"
-                    value="dispatch"
-                    control={<Radio />}
-                    label="Upcoming"
-                  />
-                  <FormControlLabel
-                    className="checkbox_background_color"
-                    value="shipping"
-                    control={<Radio />}
-                    label="Completed"
-                  />
+                  {statusTypeList.map(data => {
+                    return (
+                      <FormControlLabel
+                        className="checkbox_background_color"
+                        value={data.value}
+                        control={<Radio />}
+                        label={data.type}
+                      />
+                    )
+                  })}
                 </RadioGroup>
               </FormControl>
 
@@ -266,11 +278,11 @@ const PJPDetail = () => {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   inputFormat="dd/MM/yyyy"
-                  value={createTask.due_date}
+                  value={filterPJP.date}
                   onChange={e => {
-                    setCreateTask({
-                      ...createTask,
-                      due_date: moment(e).format('YYYY-MM-DD'),
+                    setFilterPJP({
+                      ...filterPJP,
+                      date: moment(e).format('YYYY-MM-DD'),
                     })
                   }}
                   renderInput={params => (

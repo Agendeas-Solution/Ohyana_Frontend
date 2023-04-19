@@ -8,7 +8,7 @@ const ProductGraph = React.lazy(() => import('./ProductGraph'))
 const LineChart = React.lazy(() => import('./LineChart'))
 const Statistics = () => {
   const [value, setValue] = React.useState('1')
-  const [selectedPeriod, setSelectedPeriod] = useState()
+  const [selectedPeriod, setSelectedPeriod] = useState('days-7')
   const [daterange, setDateRange] = useState([
     'days-7',
     'days-30',
@@ -51,7 +51,9 @@ const Statistics = () => {
             >
               <Button
                 className={
-                  activeTab === 'product' ? 'active_button' : 'custom_tab_background'
+                  activeTab === 'product'
+                    ? 'active_button'
+                    : 'custom_tab_background'
                 }
                 onClick={() => {
                   setActiveTab('product')
@@ -62,7 +64,9 @@ const Statistics = () => {
               </Button>
               <Button
                 className={
-                  activeTab === 'team' ? 'active_button' : 'custom_tab_background'
+                  activeTab === 'team'
+                    ? 'active_button'
+                    : 'custom_tab_background'
                 }
                 onClick={() => {
                   setActiveTab('team')

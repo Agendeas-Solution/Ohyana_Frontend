@@ -1,3 +1,4 @@
+import { handleApiGetCall } from './api-manager'
 import axiosInstance from './axios'
 import Cookie from 'js-cookie'
 const defaultHeaders = {
@@ -6,38 +7,20 @@ const defaultHeaders = {
   Authorization: `Barear ${Cookie.get('userToken')}`,
 }
 export const GetPJPList = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(
-      `/pjp?teamId=${value.teamId}&day=${value.day}`,
-      {
-        headers: { ...defaultHeaders },
-      },
-    )
-    console.log('Printing data of GetPJPList', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetPJPList', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(`/pjp`, value, onSuccess, onError)
 }
 export const GetTargetList = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(`/targets/${value.teamId}`, {
-      headers: { ...defaultHeaders },
-      params: {
-        month: value.month,
-        year: value.year,
-      },
-    })
-    console.log('Printing data of GetTargetList', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetTargetList', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(
+    `/targets/${value.teamId}`,
+    {
+      month: value.month,
+      year: value.year,
+    },
+    onSuccess,
+    onError,
+  )
 }
+
 export const CreatePJP = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
@@ -64,16 +47,6 @@ export const CompletePJPStatus = async (value, onSuccess, onError) => {
     onError && onError(err)
   }
 }
-export const GetPJPDetail = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(`/pjp/${value}`, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of GetPJPDetail', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetPJPDetail', err)
-    onError && onError(err)
-  }
+export const GetPJPDetail = async (id, onSuccess, onError) => {
+  await handleApiGetCall(`/pjp/${id}`, {}, onSuccess, onError)
 }

@@ -10,6 +10,7 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import moment from 'moment'
 import './index.css'
 import {
@@ -18,6 +19,7 @@ import {
   StatusUpdate,
 } from '../../services/apiservices/staffDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import StaffExpensesDetail from './StaffExpensesDetail'
 
 const StaffExpenses = () => {
   const [dateRange, setDateRange] = useState({
@@ -25,7 +27,7 @@ const StaffExpenses = () => {
     endDate: '',
     // defaultDate: moment().format('dd/mm/yyyy'),
   })
-
+  const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const [value, setValue] = useState('1')
   const [expenseList, setExpenseList] = useState([])
   const [expensesData, setExpensesData] = useState([])
@@ -33,20 +35,33 @@ const StaffExpenses = () => {
     setValue(newValue)
   }
 
+  const [openStaffExpenses, setOpenStaffExpenses] = useState(false)
+
+  const handleOpen = () => {
+    setOpenStaffExpenses(true)
+  }
+
+  const handleClose = () => {
+    setOpenStaffExpenses(false)
+  }
+
   useEffect(() => {
     let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
+    let data = {
+      month: moment(selectMonth.$d).month() + 1,
+      year: moment(selectMonth.$d).format('YYYY'),
+      teamId: parseInt(path),
+    }
     GetExpenseList(
-      {},
+      data,
       res => {
         setExpenseList(res.data.expenses)
         setExpensesData(res.data)
       },
       err => {},
     )
-  }, [])
+  }, [selectMonth])
   const handlePaymentStatusUpdate = id => {
     PaymentStatusUpdate(
       id,
@@ -67,104 +82,102 @@ const StaffExpenses = () => {
 
   return (
     <>
-      <Box className="expenses_data_row col-md-12 mb-1">
-        <Box
-          sx={{
-            borderRadius: '5px',
-            display: 'flex',
-            flexDirection: 'row',
-          }}
-        >
-          <Box className="statistics_box first_box me-3">
-            <Typography>Approved</Typography>
-            <Typography>{expensesData?.approved}</Typography>
+      <Box className="target_section">
+        <Box className="statistics_data_section">
+          <Box className="statistics_data">
+            <Box className="statistics_box first_box">
+              <Typography>Approved</Typography>
+              <Typography>{expensesData?.approved || '-'}</Typography>
+            </Box>
+            <Box className="statistics_box second_box">
+              <Typography>Rejected</Typography>
+              <Typography>{expensesData?.rejected || '-'}</Typography>
+            </Box>
+            <Box className="statistics_box third_box">
+              <Typography>Pending</Typography>
+              <Typography>{expensesData?.pending || '-'}</Typography>
+            </Box>
+            <Box className="statistics_box fourth_box">
+              <Typography className="" sx={{ whiteSpace: 'nowrap' }}>
+                Payment Done
+              </Typography>
+              <Typography>{expensesData?.paymentDone || '-'}</Typography>
+            </Box>
           </Box>
-          <Box className="statistics_box middle_box  me-3">
-            <Typography>Rejected</Typography>
-            <Typography>{expensesData?.rejected}</Typography>
-          </Box>
-          <Box className="statistics_box last_box me-3">
-            <Typography>Pending</Typography>
-            <Typography>{expensesData?.pending}</Typography>
-          </Box>
-          <Box className="statistics_box last_box">
-            <Typography className="" sx={{ whiteSpace: 'nowrap' }}>
-              Payment Done
-            </Typography>
-            <Typography>{expensesData?.paymentDone}</Typography>
-          </Box>
-        </Box>
-
-        <Box className="days_data">
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-              disablePast
-              inputFormat="dd/MM/yyyy"
-              value={dateRange?.startDate}
-              onChange={e => {
-                setDateRange({ ...dateRange, startDate: e })
+              views={['month', 'year']}
+              value={selectMonth}
+              onChange={selectMonth => {
+                console.log(`inside Onchange: ${selectMonth.format('MMM')}`)
+                setSelectMonth(selectMonth)
               }}
-              renderInput={params => <TextField {...params} />}
+              renderInput={params => (
+                <TextField
+                  sx={{ width: '175px', marginRight: '10px' }}
+                  placeholder="Year and Month"
+                  {...params}
+                  helperText={null}
+                />
+              )}
             />
           </LocalizationProvider>
         </Box>
-      </Box>
-
-      <TableContainer
-        className="expenses_table_height mt-2"
-        component={Paper}
-        sx={{
-          boxShadow: 'none',
-          border: '1px solid #e5e5e5',
-          borderTop: 'none',
-          overflowY: 'auto',
-        }}
-      >
-        {expenseList.length > 0 ? (
-          <Table
-            stickyHeader
-            aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
-            className="table_heading "
-          >
-            <TableHead>
-              <TableRow>
-                <TableCell>Date</TableCell>
-                <TableCell align="left">Type</TableCell>
-                <TableCell align="left">Apply</TableCell>
-                <TableCell align="left">Approval</TableCell>
-                <TableCell align="left">Payment</TableCell>
-                <TableCell align="left">Document</TableCell>
-                <TableCell align="left">Approval</TableCell>
-                <TableCell align="left">Payment</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {expenseList &&
-                expenseList.map(row => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      // key={attendanceList.id}
-                      sx={{
-                        '&:last-child td,th': { border: 0 },
-                      }}
-                    >
-                      <TableCell className="tablecell_height">
-                        {moment(row?.date).format('D/MM/YY')}
-                      </TableCell>
-                      <TableCell align="left">{row?.name}</TableCell>
-                      <TableCell align="left">{row?.amount}</TableCell>
-                      <TableCell align="left">
-                        {row?.status === 'APPROVED'
-                          ? row?.aprrovalAmount
-                          : row?.status}
-                      </TableCell>
-                      <TableCell align="left">{row?.payment_status}</TableCell>
-                      <TableCell align="left">{row?.file}</TableCell>
-                      <TableCell align="left">
+        <TableContainer
+          className="expenses_table_height mt-2"
+          component={Paper}
+          sx={{
+            boxShadow: 'none',
+            border: '1px solid #e5e5e5',
+            borderTop: 'none',
+            overflowY: 'auto',
+          }}
+        >
+          {expenseList.length > 0 ? (
+            <Table
+              stickyHeader
+              aria-label="sticky table"
+              sx={{ minWidth: 690, marginLeft: '-10px' }}
+              className="table_heading "
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell>Date</TableCell>
+                  <TableCell>Type</TableCell>
+                  <TableCell>Apply</TableCell>
+                  <TableCell>Approval</TableCell>
+                  <TableCell>Payment</TableCell>
+                  <TableCell>Document</TableCell>
+                  {/* <TableCell>Approval</TableCell> */}
+                  <TableCell>Payment</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {expenseList &&
+                  expenseList.map(row => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        // key={attendanceList.id}
+                        sx={{
+                          '&:last-child td,th': { border: 0 },
+                        }}
+                      >
+                        <TableCell className="tablecell_height">
+                          {moment(row?.date).format('D/MM/YY')}
+                        </TableCell>
+                        <TableCell>{row?.name || '-'}</TableCell>
+                        <TableCell>{row?.amount || '-'}</TableCell>
+                        <TableCell>
+                          {row?.status === 'APPROVED'
+                            ? row?.approvalAmount
+                            : row?.status}
+                        </TableCell>
+                        <TableCell>{row?.payment_status || '-'}</TableCell>
+                        <TableCell>{row?.file || '-'}</TableCell>
+                        {/* <TableCell>
                         {row?.status === 'APPROVED' || 'REJECTED' ? (
                           row?.status
                         ) : (
@@ -187,28 +200,43 @@ const StaffExpenses = () => {
                             </Button>
                           </>
                         )}
-                      </TableCell>
-                      <TableCell align="right">
-                        {row?.payment_status === 'DONE' ? (
-                          <Typography>-</Typography>
-                        ) : (
-                          <Button
-                            onClick={() => handlePaymentStatusUpdate(row?.id)}
-                            className="common_button"
-                          >
-                            Update
-                          </Button>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  )
-                })}
-            </TableBody>
-          </Table>
-        ) : (
-          <NoResultFound />
-        )}
-      </TableContainer>
+                      </TableCell> */}
+                        <TableCell>
+                          {row?.payment_status === 'DONE' ? (
+                            <Typography>-</Typography>
+                          ) : (
+                            <Box>
+                              <Button
+                                onClick={() =>
+                                  handlePaymentStatusUpdate(row?.id)
+                                }
+                                className="common_button"
+                              >
+                                Update
+                              </Button>
+                              <Button
+                                onClick={handleOpen}
+                                className="common_button"
+                              >
+                                Vieww
+                              </Button>
+                            </Box>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    )
+                  })}
+              </TableBody>
+            </Table>
+          ) : (
+            <NoResultFound />
+          )}
+        </TableContainer>
+        <StaffExpensesDetail
+          closeStaffExpenses={handleClose}
+          openStaffExpenses={openStaffExpenses}
+        />
+      </Box>
     </>
   )
 }

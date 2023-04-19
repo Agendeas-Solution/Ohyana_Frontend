@@ -17,7 +17,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { EditAdminClientAppointmentDetail } from '../../services/apiservices/clientDetail'
-import { GetAllStaffList } from '../../services/apiservices/staffDetail.js'
+import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail.js'
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 
@@ -42,12 +42,12 @@ const EditAppointmentDialog = ({
     'Office',
   ])
   useEffect(() => {
-    GetAllStaffList(
-      {},
+    GetAdminStaffDetailList(
+      { admin: true },
       res => {
         setStaffDetailList(res.data)
       },
-      err => { },
+      err => {},
     )
   }, [])
   const handleAddAppointment = () => {
@@ -86,8 +86,9 @@ const EditAppointmentDialog = ({
         onClose={handleAppointmentClose}
       >
         <Box className="dialogue_main_section">
-
-          <Typography className="dialogue_heading">Update Appointment</Typography>
+          <Typography className="dialogue_heading">
+            Update Appointment
+          </Typography>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               disablePast
@@ -186,13 +187,15 @@ const EditAppointmentDialog = ({
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={handleAddAppointment}>
+              onClick={handleAddAppointment}
+            >
               Ok
             </Button>
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={handleAppointmentClose}>
+              onClick={handleAppointmentClose}
+            >
               Cancel
             </Button>
           </DialogActions>

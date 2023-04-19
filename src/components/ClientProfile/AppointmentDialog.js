@@ -20,7 +20,7 @@ import { AddAdminClientAppointmentDetail } from '../../services/apiservices/clie
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import './index.css'
-import { GetAllStaffList } from '../../services/apiservices/staffDetail.js'
+import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail.js'
 const AppointmentDialog = ({
   clientProfileDetail,
   handleAppointmentClose,
@@ -42,12 +42,12 @@ const AppointmentDialog = ({
     'Office',
   ])
   useEffect(() => {
-    GetAllStaffList(
-      {},
+    GetAdminStaffDetailList(
+      { admin: true },
       res => {
         setStaffDetailList(res.data)
       },
-      err => { },
+      err => {},
     )
   }, [])
   const handleAddAppointment = () => {
@@ -89,11 +89,8 @@ const AppointmentDialog = ({
   }
   return (
     <>
-      <Dialog
-        open={appointmentDialog}
-        onClose={handleAppointmentClose}>
+      <Dialog open={appointmentDialog} onClose={handleAppointmentClose}>
         <Box className="dialogue_main_section">
-
           <Typography className="dialogue_heading">Add Appointment</Typography>
 
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -146,7 +143,6 @@ const AppointmentDialog = ({
             </Select>
           </FormControl>
 
-
           <Autocomplete
             filterSelectedOptions
             options={staffDetailList}
@@ -191,17 +187,19 @@ const AppointmentDialog = ({
             }}
           />
 
-          <DialogActions >
+          <DialogActions>
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={handleAddAppointment}>
+              onClick={handleAddAppointment}
+            >
               Ok
             </Button>
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={handleAppointmentClose}>
+              onClick={handleAppointmentClose}
+            >
               Cancel
             </Button>
           </DialogActions>

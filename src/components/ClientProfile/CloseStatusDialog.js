@@ -77,7 +77,8 @@ const CloseStatusDialog = ({
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={handleCloseStatusDialogClose}>
+              onClick={handleCloseStatusDialogClose}
+            >
               Cancel
             </Button>
           </DialogActions>

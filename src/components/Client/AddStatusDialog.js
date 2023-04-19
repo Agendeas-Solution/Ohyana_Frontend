@@ -94,18 +94,19 @@ const AddStatusDialog = ({
             }}
           />
 
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={AddStatus}>
+              onClick={AddStatus}
+            >
               Add
             </Button>
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={() => setAddStatus({ ...addStatus, status: false })}>
+              onClick={() => setAddStatus({ ...addStatus, status: false })}
+            >
               Cancel
             </Button>
           </DialogActions>

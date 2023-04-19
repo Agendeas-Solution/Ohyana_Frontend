@@ -71,13 +71,13 @@ const ExpenseList = () => {
       deletexpenseListDialog.id,
       res => {
         if (res.success) {
-          handleCloseDialog();
+          handleCloseDialog()
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
             message: res.message,
           })
-          GetExpenseList();
+          GetExpenseList()
         }
       },
       err => {
@@ -105,7 +105,7 @@ const ExpenseList = () => {
             name: '',
             description: '',
           })
-          GetExpenseList();
+          GetExpenseList()
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
@@ -140,7 +140,7 @@ const ExpenseList = () => {
   }
   return (
     <>
-      <div className="main_section p-4">
+      <div className="main_section">
         <Box className="job_role_title mb-3">
           <Typography variant="span" className="ms-2">
             Expense List
@@ -151,7 +151,7 @@ const ExpenseList = () => {
                 ...addExpenseType,
                 status: true,
                 name: '',
-                expenseId: "",
+                expenseId: '',
                 description: '',
               })
             }
@@ -165,7 +165,7 @@ const ExpenseList = () => {
           orientation="horizontal"
           // variant="middle"
           width="100%"
-        // flexItem
+          // flexItem
         />
         <Box sx={{ marginTop: '19px', width: 'initial' }}>
           <Box
@@ -232,7 +232,7 @@ const ExpenseList = () => {
                         setDeletexpenseListDialog({
                           ...deletexpenseListDialog,
                           status: true,
-                          id: data.id
+                          id: data.id,
                         })
                       }}
                       src={DeleteIcon}

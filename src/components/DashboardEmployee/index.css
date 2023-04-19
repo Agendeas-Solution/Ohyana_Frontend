@@ -52,7 +52,7 @@
   padding-top: 12px;
 }
 
-.performance_statistics_data {
+.performance_staff_statistics_data {
   width: 27%;
   margin-bottom: 30px;
 }
@@ -86,10 +86,12 @@
   justify-content: space-between;
   /* border-bottom: 1px solid #e5e5e5; */
 }
+
 .my_task_subheading {
   display: flex;
   justify-content: space-between;
 }
+
 .point_table_section {
   border: 1px solid #e5e5e5;
   width: 38.5%;
@@ -111,10 +113,12 @@
   background-color: #f1f2f6;
   height: 250px; */
 }
+
 .point_table_heading {
   display: flex;
   justify-content: space-between;
 }
+
 .dashboard_emp_main_section {
   display: flex;
   background-color: #fff;
@@ -239,6 +243,7 @@
 .text-container h6 {
   color: #8e8e8e;
 }
+
 .text-container h5 {
   margin: 10px 0px 10px 0px;
   color: #2e3591;

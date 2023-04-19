@@ -258,7 +258,7 @@ const Department = () => {
     console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
     GetSingleRole(
-      parseInt(path),
+      { roleId: parseInt(path) },
       res => {
         if (res.success) {
           setJobRoleList(res.data)

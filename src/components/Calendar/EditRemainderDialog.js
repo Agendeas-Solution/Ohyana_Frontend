@@ -54,7 +54,7 @@ const EditRemainderDialog = props => {
             })
           }
         },
-        err => { },
+        err => {},
       )
     }
   }
@@ -110,7 +110,6 @@ const EditRemainderDialog = props => {
             }}
             type="time"
           />
-
 
           <TextField
             value={editReminderDetail.description}

@@ -82,7 +82,7 @@ export const GetAdminClientReminderDetail = async (
   onSuccess,
   onError,
 ) => {
-  await handleApiGetCall(`/status/client/${id}`, value, onSuccess, onError)
+  await handleApiGetCall(`/reminder/client/${id}`, value, onSuccess, onError)
 }
 
 export const AddAdminClientReminderDetail = async (

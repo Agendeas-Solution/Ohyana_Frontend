@@ -12,7 +12,6 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import {
   GetAllHoliday,
   GetAllLeaveType,
-  GetAllRegularHoliday,
 } from '../../services/apiservices/holiday'
 import './index.css'
 import {
@@ -82,7 +81,7 @@ const HolidayAndLeaveManagement = () => {
   }
   const handleGetAllHoliday = () => {
     GetAllHoliday(
-      {},
+      { type: 'occasional' },
       res => {
         setHolidayList(res?.data)
       },
@@ -96,8 +95,8 @@ const HolidayAndLeaveManagement = () => {
     )
   }
   const handleGetRegularAllHoliday = () => {
-    GetAllRegularHoliday(
-      {},
+    GetAllHoliday(
+      { type: 'regular' },
       res => {
         setRegularHolidayList(res?.data)
       },
@@ -419,8 +418,8 @@ const HolidayAndLeaveManagement = () => {
               <TableHead className="leave_holidays_table_header">
                 <TableRow>
                   <TableCell>Date</TableCell>
-                  <TableCell align="left">Occasion Name</TableCell>
-                  <TableCell align="left">Duration Day</TableCell>
+                  <TableCell>Occasion Name</TableCell>
+                  <TableCell>Duration Day</TableCell>
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
@@ -429,9 +428,9 @@ const HolidayAndLeaveManagement = () => {
                   holidayList.map(data => {
                     return (
                       <TableRow>
-                        <TableCell>{data?.date}</TableCell>
-                        <TableCell align="left">{data?.occasion} </TableCell>
-                        <TableCell align="left">{data?.duration}</TableCell>
+                        <TableCell>{data?.date || '-'}</TableCell>
+                        <TableCell>{data?.occasion || '-'} </TableCell>
+                        <TableCell>{data?.duration || '-'}</TableCell>
                         <TableCell>
                           <EditRoundedIcon
                             onClick={() => {
@@ -502,7 +501,7 @@ const HolidayAndLeaveManagement = () => {
                 <TableHead className="leave_holidays_table_header">
                   <TableRow sx={{ backgroundColor: 'red' }}>
                     <TableCell>Type</TableCell>
-                    <TableCell align="left">Total</TableCell>
+                    <TableCell>Total</TableCell>
                     <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
@@ -517,8 +516,8 @@ const HolidayAndLeaveManagement = () => {
                           }}
                         >
                           <TableCell scope="row">{row.type}</TableCell>
-                          <TableCell align="right">{row.duration}</TableCell>
-                          <TableCell align="right">
+                          <TableCell>{row.duration}</TableCell>
+                          <TableCell>
                             <EditRoundedIcon
                               // sx={{ marginLeft: '1rem' }}
                               onClick={() => {

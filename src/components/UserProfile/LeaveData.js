@@ -61,10 +61,10 @@ const LeaveData = ({ leaveList }) => {
                   <TableCell className="tablecell_height">
                     {moment(row.date).format('D/MM/YY')}
                   </TableCell>
-                  <TableCell align="left">{row?.leave?.type}</TableCell>
-                  <TableCell align="left">{row?.takenDays}</TableCell>
-                  <TableCell align="left">{row?.remainDays}</TableCell>
-                  <TableCell align="left">{row?.status}</TableCell>
+                  <TableCell align="left">{row?.leave?.type ?? '-'}</TableCell>
+                  <TableCell align="left">{row?.takenDays ?? '-'}</TableCell>
+                  <TableCell align="left">{row?.remainDays ?? '-'}</TableCell>
+                  <TableCell align="left">{row?.status ?? '-'}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -72,11 +72,6 @@ const LeaveData = ({ leaveList }) => {
         </TableContainer>
 
         <Box sx={{ margin: '16px' }}>
-          <Box className="m-10 float-right flex-end">
-            <Button className="attendance_button m-2" variant="contained">
-              + Apply For Leave
-            </Button>
-          </Box>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Grid item xs={12} md={6}>
               <CalendarPicker

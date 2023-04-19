@@ -96,7 +96,7 @@ const SideBar = () => {
 
   return (
     <>
-      <div style={{ width: '20%', background: 'white' }}>
+      <div style={{ width: '17%', background: 'white' }}>
         {/* {flagLoader ? <Loader></Loader> : null} */}
         <div className="main-logo">
           <img src={Logo} alt="Company logo" />

@@ -32,6 +32,7 @@ const ViewProductDialog = ({
   useEffect(() => {
     GetProductDetail(
       viewProductDialog?.id,
+      {},
       res => {
         setProductDetail(res?.data)
       },

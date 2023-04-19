@@ -429,12 +429,10 @@ const ClientProfile = () => {
                     <TableHead>
                       <TableRow>
                         <TableCell>Sr No.</TableCell>
-                        <TableCell align="left">Status Added By</TableCell>
-                        {/* <TableCell align="left">Job Role</TableCell> */}
-                        {/* <TableCell align="left">Audio</TableCell> */}
-                        <TableCell align="left">Date</TableCell>
-                        <TableCell align="left">Time</TableCell>
-                        <TableCell align="left">Description</TableCell>
+                        <TableCell>Status Added By</TableCell>
+                        <TableCell>Date</TableCell>
+                        <TableCell>Time</TableCell>
+                        <TableCell>Description</TableCell>
                         <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
@@ -450,20 +448,17 @@ const ClientProfile = () => {
                           }}
                         >
                           <TableCell scope="row">{index + 1}</TableCell>
-                          <TableCell align="left">{row?.team?.name}</TableCell>
-                          <TableCell align="left">
+                          <TableCell>{row?.team?.name}</TableCell>
+                          <TableCell>
                             {moment(row?.date).format('LL')}
                           </TableCell>
-                          <TableCell align="left">
+                          <TableCell>
                             {moment(row.time, 'hh:mm:ss').format('LT')}
                           </TableCell>
-                          <TableCell
-                            className="status_description"
-                            align="left"
-                          >
+                          <TableCell className="status_description">
                             {row?.description}
                           </TableCell>
-                          <TableCell align="left">
+                          <TableCell>
                             <Button
                               onClick={() => {
                                 handleViewClientStatus(

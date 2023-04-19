@@ -18,7 +18,5 @@ export const CLIENT = {
   CLIENTTYPE: [
     { type: true, fieldName: 'Domestic' },
     { type: false, fieldName: 'International' },
-
   ],
-
 }

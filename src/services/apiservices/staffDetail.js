@@ -1,3 +1,4 @@
+import { handleApiGetCall } from './api-manager'
 import axiosInstance from './axios'
 import Cookie from 'js-cookie'
 const defaultHeaders = {
@@ -7,72 +8,19 @@ const defaultHeaders = {
 }
 // const authHeaders = { Authorization: `Barear ${getLoginToken()}` };
 export const GetAdminStaffDetailList = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get('/member', {
-      headers: { ...defaultHeaders },
-      params: value,
-    })
-    console.log('Printing data of GetAdminProfile', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetAdminProfile', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(`/member`, value, onSuccess, onError)
 }
-export const GetSingleStaffDetailList = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(`/team/leaderboard/${value}`, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of GetSingleStaffDetailList', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetSingleStaffDetailList', err)
-    onError && onError(err)
-  }
+export const GetSingleStaffDetailList = async (id, onSuccess, onError) => {
+  await handleApiGetCall(`/team/leaderboard/${id}`, {}, onSuccess, onError)
 }
-export const GetAdminStaffProfileDetail = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(`/member/${value}`, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of GetAdminStaffProfileDetail', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetAdminStaffProfileDetail', err)
-    onError && onError(err)
-  }
+export const GetAdminStaffProfileDetail = async (id, onSuccess, onError) => {
+  await handleApiGetCall(`/member/${id}`, {}, onSuccess, onError)
 }
 export const SetTarget = async (id, value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.post(`/target/${id}`, value, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of SetTarget', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - SetTarget', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(`/target/${id}`, value, onSuccess, onError)
 }
-export const GetAllStaffList = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(`/member`, {
-      headers: { ...defaultHeaders },
-      params: { admin: true },
-    })
-    console.log('Printing data of GetAllStaffList', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetAllStaffList', err)
-    onError && onError(err)
-  }
-}
+
 export const AddEmployee = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
@@ -128,91 +76,25 @@ export const DeleteJobRole = async (id, onSuccess, onError) => {
   }
 }
 export const GetStaffAttendanceList = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(
-      `/attendance?teamId=${parseInt(value.teamId)}`,
-      {
-        headers: { ...defaultHeaders },
-        params: {
-          month: value.month,
-          year: value.year,
-        },
-      },
-    )
-    console.log('Printing data of GetStaffAttendanceList', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetStaffAttendanceList', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(`/attendance`, value, onSuccess, onError)
 }
+
 export const GetStaffLeaveList = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(
-      `user/leave?teamId=${value.teamId}`,
-      {
-        headers: { ...defaultHeaders },
-        params: {
-          month: value.month,
-          year: value.year,
-        },
-      },
-    )
-    console.log('Printing data of GetStaffLeaveList', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetStaffLeaveList', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(`/user/leave`, value, onSuccess, onError)
 }
+
 export const GetHolidayList = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(`/holiday`, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of GetHolidayList', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetHolidayList', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(`/holiday`, value, onSuccess, onError)
 }
+
 export const GetExpenseList = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    console.log(value)
-    const { data } = await axiosInstance.get(`/team/expense`, {
-      headers: { ...defaultHeaders },
-      params:
-        Object.keys(value).length > 0
-          ? {
-              teamId: value,
-            }
-          : {},
-    })
-    console.log('Printing data of GetExpenseList', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetExpenseList', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(`/team/expense`, value, onSuccess, onError)
 }
+
 export const GetExpenseTypeList = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(`/expense`, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing response of GetExpenseList', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetExpenseList', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(`/expense`, value, onSuccess, onError)
 }
+
 export const CreateExpenseType = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
@@ -288,20 +170,7 @@ export const StatusUpdate = async (id, value, onSuccess, onError) => {
 }
 
 export const GetUsersAttendanceList = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(
-      `/attendanceofall?month=${value?.month}&year=${value?.year}`,
-      {
-        headers: { ...defaultHeaders },
-      },
-    )
-    console.log('Printing data of GetExpenseList', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetExpenseList', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(`/attendanceofall`, value, onSuccess, onError)
 }
 export const AttendanceStatus = async (type, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
@@ -321,31 +190,12 @@ export const AttendanceStatus = async (type, onSuccess, onError) => {
   }
 }
 export const GetInquiryAnalytics = async (type, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(`/dashboard/inquiry`, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of GetInquiryAnalytics', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetInquiryAnalytics', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(`/dashboard/inquiry`, {}, onSuccess, onError)
 }
 export const GetSalesInquiry = async (type, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.get(`/dashboard/sales/inquiry`, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of GetSalesInquiry', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - GetSalesInquiry', err)
-    onError && onError(err)
-  }
+  await handleApiGetCall(`/dashboard/sales/inquiry`, {}, onSuccess, onError)
 }
+
 export const GrantLeave = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {

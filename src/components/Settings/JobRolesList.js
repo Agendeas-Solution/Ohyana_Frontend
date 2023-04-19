@@ -17,7 +17,10 @@ import {
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import './index.css'
-import { GetAddEditAdminRole, GetAdminRole } from '../../services/apiservices/adminprofile'
+import {
+  GetAddEditAdminRole,
+  GetAdminRole,
+} from '../../services/apiservices/adminprofile'
 import {
   UpdatePermission,
   getUserPermissions,
@@ -203,14 +206,14 @@ const JobRolesList = () => {
                     <Typography variant="span">{index + 1}</Typography>
                   </Grid>
                   <Grid item xs={3}>
-                    <Typography variant="span">{data.name}</Typography>
+                    <Typography variant="span">{data.name || '-'}</Typography>
                   </Grid>
                   <Grid item xs={3}>
-                    <Typography variant="span">{data.name}</Typography>
+                    <Typography variant="span">{data.name || '-'}</Typography>
                   </Grid>
                   <Grid item xs={3}>
                     <Typography className="job_role_description" variant="span">
-                      {data.description}
+                      {data.description || '-'}
                     </Typography>
                   </Grid>
                   <Grid item xs={2}>

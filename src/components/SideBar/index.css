@@ -1,6 +1,3 @@
-.sidebar_root .css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
-  /* margin-top: 9vh; */
-}
 .css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
   border-right: none !important;
 }
@@ -22,7 +19,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  margin: 5px auto;
+  margin: 6px auto;
   padding: 12px;
   cursor: pointer;
 }
@@ -33,12 +30,15 @@
   justify-content: flex-start;
   align-items: center;
   font-size: 1rem;
+  letter-spacing: 0.08rem;
 }
+
 .sidebar_img {
   color: #2e3591;
   height: 24px;
   width: 24px;
 }
+
 .sidebar_img svg {
   color: #f1f1f1;
 }

@@ -22,9 +22,7 @@ const HolidayDialog = ({
 }) => {
   return (
     <>
-      <Dialog
-        open={addHolidayDetail.status}
-        onClose={handleCloseHolidayDialog}>
+      <Dialog open={addHolidayDetail.status} onClose={handleCloseHolidayDialog}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add Holiday</Typography>
 
@@ -81,17 +79,15 @@ const HolidayDialog = ({
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={
-                addHolidayDetail?.id
-                  ? UpdateHolidayFunc
-                  : SetHoliday
-              }>
+              onClick={addHolidayDetail?.id ? UpdateHolidayFunc : SetHoliday}
+            >
               Add
             </Button>
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={handleCloseHolidayDialog}>
+              onClick={handleCloseHolidayDialog}
+            >
               Cancel
             </Button>
           </DialogActions>
