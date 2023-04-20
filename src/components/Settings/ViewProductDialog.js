@@ -53,8 +53,8 @@ const ViewProductDialog = ({
   }
   const handleProductQuantityUpdate = () => {
     UpdateProductQuantity(
-      productDetail?.quantity,
       viewProductDialog?.id,
+      { quantity: parseInt(productDetail?.quantity) },
       res => {
         console.log('Printing Response UpdateProductQuantity', res.data)
         handleClose()

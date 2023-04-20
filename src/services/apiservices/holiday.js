@@ -1,12 +1,9 @@
-import { handleApiGetCall } from './api-manager'
-import axiosInstance from './axios'
-import Cookie from 'js-cookie'
-// let BaseUrl = process.env.REACT_APP_API_URL;
-const defaultHeaders = {
-  'Content-Type': 'application/json',
-  withCredentials: true,
-  Authorization: `Barear ${Cookie.get('userToken')}`,
-}
+import {
+  handleApiDeleteCall,
+  handleApiGetCall,
+  handleApiPostCall,
+  handleApiPutCall,
+} from './api-manager'
 
 export const GetAllHoliday = async (value, onSuccess, onError) => {
   await handleApiGetCall(`/holiday`, value, onSuccess, onError)
@@ -16,97 +13,29 @@ export const GetAllLeaveType = async (value, onSuccess, onError) => {
   await handleApiGetCall(`/leave`, value, onSuccess, onError)
 }
 export const ApplyLeave = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.post('/apply/leave', value, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of ApplyLeave', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - ApplyLeave', err)
-    onError && onError(err)
-  }
+  await handleApiPostCall(`/apply/leave`, value, onSuccess, onError)
 }
 
 export const CreateHoliday = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.post('/holiday', value, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of CreateHoliday', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - CreateHoliday', err)
-    onError && onError(err)
-  }
+  await handleApiPostCall(`/holiday`, value, onSuccess, onError)
 }
 
 export const UpdateHoliday = async (id, holidayDetail, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.put(`/holiday/${id}`, holidayDetail, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of UpdateHoliday', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - UpdateHoliday', err)
-    onError && onError(err)
-  }
+  await handleApiPutCall(`/holiday/${id}`, holidayDetail, onSuccess, onError)
 }
+
 export const DeleteHoliday = async (id, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.delete(`/holiday/${id}`, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of DeleteHoliday', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - DeleteHoliday', err)
-    onError && onError(err)
-  }
+  await handleApiDeleteCall(`/holiday/${id}`, onSuccess, onError)
 }
 
 export const CreateLeaveType = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.post('/leave', value, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of CreateLeaveType', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - CreateLeaveType', err)
-    onError && onError(err)
-  }
+  await handleApiPostCall(`/leave`, value, onSuccess, onError)
 }
 
 export const DeleteLeaveType = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.delete(`/leave/${value}`, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of DeleteLeaveType', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - DeleteLeaveType', err)
-    onError && onError(err)
-  }
+  await handleApiDeleteCall(`/leave/${value}`, onSuccess, onError)
 }
+
 export const UpdateLeaveType = async (id, value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.put(`/leave/${id}`, value, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of UpdateLeaveType', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - UpdateLeaveType', err)
-    onError && onError(err)
-  }
+  await handleApiPutCall(`/leave/${id}`, value, onSuccess, onError)
 }

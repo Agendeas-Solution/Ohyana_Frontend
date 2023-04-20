@@ -12,7 +12,7 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { EditCalendarReminder } from '../../services/apiservices/adminprofile'
+import { EditCalendarAppointment } from '../../services/apiservices/adminprofile'
 import { Context as ContextEditRemainderDialog } from '../../context/pageContext'
 const EditRemainderDialog = props => {
   const [editReminderDetail, setEditReminderDetail] = useState({
@@ -33,7 +33,7 @@ const EditRemainderDialog = props => {
       editReminderDetail.date !== '' &&
       editReminderDetail.time !== ''
     ) {
-      EditCalendarReminder(
+      EditCalendarAppointment(
         editReminderDetail.id,
         {
           heading: editReminderDetail?.heading,

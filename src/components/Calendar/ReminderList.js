@@ -13,7 +13,7 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import {
   GetAdminAppointmentOrReminder,
-  DeleteReminder,
+  DeleteAppointment,
 } from '../../services/apiservices/adminprofile'
 import { Context as ContextEditRemainderDialog } from '../../context/pageContext'
 import EditRemainderDialog from './EditRemainderDialog'
@@ -71,7 +71,7 @@ const ReminderList = props => {
     })
   }
   const handleDeleteReminder = () => {
-    DeleteReminder(
+    DeleteAppointment(
       deleteReminderDialogControl.id,
       res => {
         if (res.success) {

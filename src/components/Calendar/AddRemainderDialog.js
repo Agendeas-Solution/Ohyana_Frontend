@@ -13,7 +13,7 @@ import moment from 'moment'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { AddCalendarReminder } from '../../services/apiservices/adminprofile'
+import { AddCalendarAppointment } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const AddRemainderDialog = props => {
   const [addReminder, setAddReminder] = useState({
@@ -27,7 +27,7 @@ const AddRemainderDialog = props => {
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const handleAddReminder = () => {
     console.log('Printing addReminder', addReminder)
-    AddCalendarReminder(
+    AddCalendarAppointment(
       addReminder,
       res => {
         if (res.success) {
