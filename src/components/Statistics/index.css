@@ -38,3 +38,18 @@
 .team_graph {
   width: 100%;
 }
+
+@media (max-width: 1250px) {
+  .graph_detail_section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+  }
+  .detail_section {
+    display: flex;
+    width: auto;
+    flex-direction: row;
+    margin: 10px 5px auto 5px;
+  }
+}

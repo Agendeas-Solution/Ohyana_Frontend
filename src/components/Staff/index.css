@@ -258,7 +258,6 @@
   margin: 5px 0px 10px 0px;
 }
 
-
 .staff_statistics_box {
   width: 30% !important;
   display: flex;
@@ -267,3 +266,9 @@
   padding: 10px;
 }
 
+@media (max-width: 1250px) {
+  .profile_detail_row {
+    display: flex;
+    justify-content: space-between;
+  }
+}

@@ -55,7 +55,6 @@ const Login = () => {
   return (
     <>
       <Box className="login_page">
-
         <Box className="company_logo">
           <img src={Logo} alt="Company logo" />
         </Box>
@@ -85,7 +84,7 @@ const Login = () => {
             <Box sx={{ width: '100%', margin: '18px 0px' }}>
               <TextField
                 sx={{ width: '100%' }}
-                label='password'
+                label="password"
                 variant="outlined"
                 type="password"
                 value={userDetail.password}
@@ -95,29 +94,31 @@ const Login = () => {
               />
 
               <Typography className="login_forget_password_root" variant="span">
-                <Button sx={{ padding: '5px 0px' }} onClick={() => navigate('/forgotpassword')}>
+                <Button
+                  sx={{ padding: '5px 0px' }}
+                  onClick={() => navigate('/forgotpassword')}
+                >
                   {' '}
                   Forgotten password ?{' '}
                 </Button>
-              </Typography></Box>
+              </Typography>
+            </Box>
 
             <Button
               className="dialogue_bottom_button"
               onClick={userlogin}
               variant="contained"
-              type="submit">
+              type="submit"
+            >
               Submit
             </Button>
-
           </form>
         </Box>
 
         <Typography className="login_copyright_root" variant="span">
           {new Date().getFullYear()} © Ohyana.
         </Typography>
-
-
-      </Box >
+      </Box>
       <ErrorSnackbar />
     </>
   )
