@@ -10,6 +10,7 @@ import {
 import { GetPJPDetail } from '../../services/apiservices/teamcall'
 import './index.css'
 import EditPJPDialog from './EditPJPDialog'
+
 const PJPDetailDialog = ({ pjpDetailDialog, handleCloseDialog }) => {
   const [pjpDetail, setPJPDetail] = useState({})
   const [editPJPDetail, setEditPJPDetail] = useState({

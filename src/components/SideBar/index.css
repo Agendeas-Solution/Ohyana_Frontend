@@ -42,3 +42,9 @@
 .sidebar_img svg {
   color: #f1f1f1;
 }
+
+@media (max-width: 1250px) {
+  .page_name_root {
+    display: none;
+  }
+}

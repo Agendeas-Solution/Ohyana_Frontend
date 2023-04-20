@@ -34,13 +34,15 @@ const AddStatusDialog = ({
   })
   const [followUpType, setFollowUpType] = useState(CLIENT.FOLLOWUP)
   const AddStatus = e => {
+    let data = {
+      description: addStatusDetail?.description,
+      clientId: addStatusDetail?.clientId,
+      callNotReceived: true,
+      followUpType: addStatusDetail?.followUpType,
+    }
+    debugger
     AddClientStatus(
-      {
-        description: addStatusDetail?.description,
-        clientId: addStatusDetail?.clientId,
-        callNotReceived: true,
-        followUpType: addStatusDetail?.followUpType,
-      },
+      data,
       res => {
         setAddStatus({ ...addStatus, status: false })
         // setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
@@ -58,7 +60,6 @@ const AddStatusDialog = ({
       >
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add Status</Typography>
-
           <FormControl className="dialogue_input_fields">
             <InputLabel>Conversation Type</InputLabel>
             <Select

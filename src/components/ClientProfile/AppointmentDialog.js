@@ -193,7 +193,7 @@ const AppointmentDialog = ({
               variant="contained"
               onClick={handleAddAppointment}
             >
-              Ok
+              Add
             </Button>
             <Button
               className="dialogue_button_nagative"

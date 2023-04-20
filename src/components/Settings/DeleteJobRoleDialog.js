@@ -6,8 +6,9 @@ import {
   DialogActions,
   Button,
   Typography,
+  Box,
 } from '@mui/material'
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteRounded'
 import { DeleteJobRole } from '../../services/apiservices/staffDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { useNavigate } from 'react-router-dom'
@@ -40,22 +41,32 @@ const DeleteJobRoleDialog = ({ deleteJobRoleDialogControl, handleClose }) => {
   return (
     <>
       <Dialog open={deleteJobRoleDialogControl.status} onClose={handleClose}>
-        <DialogTitle>
-          <DeleteRoundedIcon className="edit_icon_profile" />
-        </DialogTitle>
-        <DialogContent>
-          <Typography variant="span">
-            Are You Sure you want to delete this Job Role ?
+        <Box className="dialogue_main_section">
+          <DeleteOutlinedIcon className="dialogue_delete_Icon" />
+          <Typography className="dialogue_heading">Delete Job Role</Typography>
+
+          <Typography className="dialogue_description">
+            Are You Sure, you want to delete this Job Role ?
           </Typography>
-        </DialogContent>
-        <DialogActions className="m-auto">
-          <Button variant="contained" onClick={handleJobRoleDelete}>
-            Ok
-          </Button>
-          <Button className="cancel-btn" onClick={handleClose} autoFocus>
-            Cancel
-          </Button>
-        </DialogActions>
+
+          <DialogActions>
+            <Button
+              className="dialogue_button_positive"
+              variant="contained"
+              onClick={handleJobRoleDelete}
+              autoFocus
+            >
+              Delete
+            </Button>
+            <Button
+              className="dialogue_button_nagative"
+              onClick={handleClose}
+              autoFocus
+            >
+              Cancel
+            </Button>
+          </DialogActions>
+        </Box>
       </Dialog>
     </>
   )

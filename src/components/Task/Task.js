@@ -58,7 +58,7 @@ const Task = () => {
   const [createTask, setCreateTask] = useState({
     title: '',
     description: '',
-    due_date: '2023-03-31',
+    due_date: moment().format(''),
   })
   const [memberList, setMemberList] = useState([])
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))

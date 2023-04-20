@@ -14,9 +14,12 @@ import {
   MenuItem,
   FormGroup,
   Modal,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from '@mui/material'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteRounded'
 import './index.css'
 import {
   EditJobRole,
@@ -27,6 +30,7 @@ import {
   UpdatePermission,
   getUserPermissions,
 } from '../../services/apiservices/adminprofile'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import StaffIcon from '../../assets/img/staff.svg'
 import StatisticsIcon from '../../assets/img/statistics.svg'
@@ -71,6 +75,7 @@ const Department = () => {
       id: null,
       departmentName: '',
     })
+
   const [jobRoleList, setJobRoleList] = useState({})
   const [clientType, setClientType] = useState(CLIENT.STAGE)
 
@@ -108,6 +113,10 @@ const Department = () => {
     foodAmount: 0,
     hotelChecked: false,
     hotelAmount: 0,
+  })
+  const [expanded, setExpanded] = useState({
+    expenseManagement: false,
+    officeTimeManagement: false,
   })
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state
@@ -274,27 +283,23 @@ const Department = () => {
     editJobRoleDialogControl.status,
   ])
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 700,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 2,
-  }
+  useEffect(() => {
+    console.log('expanded', expanded)
+  }, [expanded])
 
   return (
     <>
-      <Box className="main_section">
-        <Box className="sales_header_section">
-          <Typography variant="h5">{jobRoleList.name}</Typography>
+      <Box
+        className="main_section"
+        sx={{ overflowY: 'hidden', padding: '0px' }}
+      >
+        <Box className="task_heading" sx={{ padding: '10px' }}>
+          <Typography className="task_card_heading" variant="span">
+            {jobRoleList.name || '-'}
+          </Typography>
           <Box>
-            {permissions?.editRole && (
+            <Button className="profile_header_button">
               <EditRoundedIcon
-                sx={{ margin: 2 }}
                 onClick={() => {
                   setEditJobRoleDialogControl({
                     ...editJobRoleDialogControl,
@@ -304,11 +309,10 @@ const Department = () => {
                     parentId: jobRoleList.senior.id,
                   })
                 }}
-                className="edit_icon_profile "
               />
-            )}
-            {permissions?.deleteRole && (
-              <DeleteRoundedIcon
+            </Button>
+            <Button className="profile_header_button">
+              <DeleteOutlineRoundedIcon
                 onClick={() => {
                   setDeleteJobRoleDialogControl({
                     ...deleteJobRoleDialogControl,
@@ -316,107 +320,141 @@ const Department = () => {
                     id: jobRoleList.id,
                   })
                 }}
-                className="edit_icon_profile"
               />
-            )}
+            </Button>
           </Box>
         </Box>
-        <Divider sx={{ width: '95%', margin: '0 auto' }} />
-        <Box className="bg-body p-4">
-          <Box className="mb-3 row post_detail">
+
+        <Box sx={{ height: '100%', overflowY: 'auto' }}>
+          <Box className="post_detail">
             <Box className="post_name">
-              <Typography
-                sx={{ color: '#8E8E8E' }}
-                className="p-1"
-                variant="span"
-              >
+              <Typography sx={{ color: '#8E8E8E' }} variant="span">
                 Senior Post
               </Typography>
-              <Typography className="p-1" variant="span">
-                {jobRoleList?.senior?.name}
+              <Typography variant="span">
+                {jobRoleList?.senior?.name || '-'}
               </Typography>
             </Box>
+
             <Box className="post_description">
-              <Typography
-                sx={{ color: '#8E8E8E' }}
-                className="p-1"
-                variant="span"
-              >
+              <Typography sx={{ color: '#8E8E8E' }} variant="span">
                 Post Description
               </Typography>
-              <Typography className="p-1" variant="span">
-                {jobRoleList?.senior?.description}
+              <Typography variant="span">
+                {jobRoleList?.senior?.description || '-'}
               </Typography>
             </Box>
           </Box>
 
-          <Box className="mb-1 row">
-            <FormControl
-              sx={{ width: '32rem', marginRight: 5 }}
-              className="mb-3"
-            >
-              <InputLabel id="demo-simple-select-label">
-                Office Time Management
-              </InputLabel>
-
-              <Select
-                label="Office Time Management"
-                onChange={() => console.log('Clicking on Drop down options')}
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              padding: '5px 10px',
+            }}
+          >
+            <Box sx={{ width: '100%', marginRight: '5px' }}>
+              <Accordion
+                sx={{ boxShadow: 'none', border: '1px solid #E5E6EB' }}
+                expanded={expanded.officeTimeManagement}
+                onChange={() => {
+                  setExpanded({
+                    ...expanded,
+                    officeTimeManagement: !expanded.officeTimeManagement,
+                    expenseManagement: expanded.expenseManagement,
+                  })
+                }}
               >
-                <Box sx={{ padding: 1 }}>
-                  <MenuItem sx={{ paddingTop: '19px', display: 'inline' }}>
-                    Clock In
-                  </MenuItem>
-                  <TextField
-                    sx={{ display: 'inline', marginLeft: '18rem' }}
-                    className="set_date_time_bg"
-                    type="time"
-                    value={jobRoleList?.clockIn}
-                    onChange={e => {
-                      setJobRoleList({
-                        ...jobRoleList,
-                        clockIn: e.target.value,
-                      })
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>Office Time Management</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: '10px',
                     }}
-                  />
-                </Box>
-                <Box sx={{ padding: 1 }}>
-                  <MenuItem sx={{ display: 'inline' }}>Clock Out</MenuItem>
-                  <TextField
-                    sx={{ display: 'inline', marginLeft: '17rem' }}
-                    className="set_date_time_bg"
-                    type="time"
-                    value={jobRoleList?.clockOut}
-                    onChange={e => {
-                      setJobRoleList({
-                        ...jobRoleList,
-                        clockOut: e.target.value,
-                      })
+                  >
+                    <Typography>Clock In</Typography>
+                    <TextField
+                      className="set_date_time_bg"
+                      type="time"
+                      value={jobRoleList?.clockIn}
+                      onChange={e => {
+                        setJobRoleList({
+                          ...jobRoleList,
+                          clockIn: e.target.value,
+                        })
+                      }}
+                    />
+                  </Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      margin: '10px 0px',
                     }}
-                  />
-                </Box>
-                <Button
-                  onClick={handleUpdateClockInOut}
-                  className="p-2 m-1"
-                  variant="contained"
-                >
-                  Save
-                </Button>
-              </Select>
-            </FormControl>
-            <FormControl sx={{ width: '31rem' }} className="mb-3 ">
-              <InputLabel id="demo-simple-select-label">
-                Expense Management
-              </InputLabel>
-              <Select id="demo-multiple-checkbox-label">
-                <FormGroup className="p-2">
-                  {
-                    // expensePermissions.map(()=>)
-                    expensePolicy &&
+                  >
+                    <Typography>Clock Out</Typography>
+                    <TextField
+                      className="set_date_time_bg"
+                      type="time"
+                      value={jobRoleList?.clockOut}
+                      onChange={e => {
+                        setJobRoleList({
+                          ...jobRoleList,
+                          clockOut: e.target.value,
+                        })
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Button
+                      className="Accordion_button"
+                      onClick={handleUpdateClockInOut}
+                      variant="contained"
+                    >
+                      Save
+                    </Button>
+                  </Box>
+                </AccordionDetails>
+              </Accordion>
+            </Box>
+            <Box sx={{ width: '100%', marginRight: '5px' }}>
+              <Accordion
+                sx={{
+                  boxShadow: 'none',
+                  border: '1px solid #E5E6EB',
+                }}
+                expanded={expanded.expenseManagement}
+                onChange={() => {
+                  setExpanded({
+                    ...expanded,
+                    expenseManagement: !expanded.expenseManagement,
+                    officeTimeManagement: expanded.officeTimeManagement,
+                  })
+                }}
+              >
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>Expense Management</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <FormGroup>
+                    {expensePolicy &&
                       expensePolicy.map(data => (
-                        <Box sx={{ margin: '5px' }}>
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            marginBottom: '10px',
+                          }}
+                        >
                           <FormControlLabel
-                            sx={{ display: 'inline' }}
                             control={
                               <Checkbox
                                 checked={expenseManagement?.travelChecked}
@@ -432,7 +470,8 @@ const Department = () => {
                             label={data?.name}
                           />
                           <TextField
-                            sx={{ display: 'inline', marginLeft: '17rem' }}
+                            sx={{ width: '150px' }}
+                            label="Max Amount"
                             placeholder="Max Amount"
                             type="number"
                             value={expenseManagement?.travelAmount}
@@ -444,27 +483,28 @@ const Department = () => {
                             }
                           />
                         </Box>
-                      ))
-                  }
-
-                  <Button
-                    disabled={!expenseManagement?.hotelChecked}
-                    className="p-2 m-1"
-                    variant={
-                      expenseManagement?.hotelChecked ? 'contained' : 'outlined'
-                    }
-                  >
-                    Save
-                  </Button>
-                </FormGroup>
-              </Select>
-            </FormControl>
+                      ))}
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                      <Button
+                        // disabled={!expenseManagement?.hotelChecked}
+                        className="Accordion_button"
+                        variant="contained"
+                      >
+                        Save
+                      </Button>
+                    </Box>
+                  </FormGroup>
+                </AccordionDetails>
+              </Accordion>
+            </Box>
           </Box>
 
-          <Box className="mb-3 row accessMenus_checkbox">
+          <Box className="accessMenus_checkbox">
             <Typography variant="span">
               Select the menu you want to give access to.
             </Typography>
+
+            {/* <Box className="col-md-1"></Box> */}
             {permissions.accessClient && (
               <Box
                 sx={{ marginRight: '30px' }}
@@ -508,7 +548,6 @@ const Department = () => {
                 </Box>
               </Box>
             )}
-            {/* <Box className="col-md-1"></Box> */}
             {permissions.accessStaff && (
               <Box className="d-flex m-2 align-items-center justify-content-between row access_checkbox">
                 <Box className="col-md-10 ">
