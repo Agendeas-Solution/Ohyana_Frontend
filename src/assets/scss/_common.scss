@@ -370,6 +370,17 @@ textarea:focus {
   text-transform: capitalize;
 }
 
+.Accordion_button {
+  width: 85px !important;
+  height: 35px !important;
+  background-color: #2e3591 !important;
+  box-shadow: none !important;
+  font-size: 16px !important;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin: '5px 0px';
+}
+
 .icon {
   color: #2e3591;
   font-size: 35px !important;
@@ -783,18 +794,11 @@ button {
 }
 
 .accessMenus_checkbox {
-  border: 1px solid #f1f2f6;
-  margin-bottom: 10px;
-  padding: 10px;
-}
-
-.statistics_data_section {
-  width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border: 1px solid #e5e5e5;
+  flex-direction: column;
+  border: 1px solid #f1f2f6;
   padding: 10px;
+  margin: 5px 10px;
 }
 
 .inner_statistics_data_section {
@@ -877,11 +881,25 @@ button {
   overflow-y: auto;
 }
 
+.statistics_data_section {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid #e5e5e5;
+  padding: 10px;
+}
+
+.statistics_data {
+  display: flex;
+  flex-direction: row;
+}
+
 .statistics_box {
-  width: 30% !important;
-  margin-right: 15px;
+  min-width: 34% !important;
   display: flex;
   flex-direction: column;
+  margin-right: 15px;
   border-radius: 5px;
   padding: 10px;
 }
@@ -896,14 +914,6 @@ button {
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-}
-
-.statistics_data {
-  width: 70%;
-  height: 75px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
 }
 
 .first_box {
@@ -1163,6 +1173,7 @@ button {
   background: #f1f2f6;
   height: 34.5rem;
 }
+
 .below_main_tab_section {
   background-color: #fff;
   border-radius: 5px;
@@ -1187,14 +1198,15 @@ button {
 }
 
 
-.alpha_1{
+.alpha_1 {
   margin: 10px 10px 5px 10px;
-    width: 700px;
-    display: flex;
-    text-align: "center" !important;
-    flex-direction: row;
-    align-items: center;
+  width: 700px;
+  display: flex;
+  text-align: "center" !important;
+  flex-direction: row;
+  align-items: center;
 }
+
 .expenses_detail_header {
   display: flex;
   // width: 240%;
@@ -1204,7 +1216,7 @@ button {
   // padding: 8px 0px;
 }
 
-.expenses_detail_main_section{
+.expenses_detail_main_section {
   // display: flex;
   width: 100vh;
 }

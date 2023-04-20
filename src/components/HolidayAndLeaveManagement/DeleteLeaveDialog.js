@@ -6,7 +6,9 @@ import {
   DialogActions,
   Button,
   Typography,
+  Box,
 } from '@mui/material'
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const DeleteLeaveDialog = ({
   setDeleteLeaveDialogControl,
@@ -20,24 +22,32 @@ const DeleteLeaveDialog = ({
         open={deleteLeaveDialogControl.status}
         onClose={handleLeaveDeleteDialog}
       >
-        <DialogTitle>Delete Leave</DialogTitle>
-        <DialogContent>
-          <Typography variant="span">
-            Are You Sure you want to Delete this Leave ?
+        <Box className="dialogue_main_section">
+          <DeleteOutlinedIcon className="dialogue_delete_Icon" />
+          <Typography className="dialogue_heading">
+            Delete Leave Type
           </Typography>
-        </DialogContent>
-        <DialogActions className="m-auto">
-          <Button variant="contained" onClick={handleDeleteLeave}>
-            Ok
-          </Button>
-          <Button
-            className="cancel-btn"
-            onClick={handleLeaveDeleteDialog}
-            autoFocus
-          >
-            Cancel
-          </Button>
-        </DialogActions>
+          <Typography className="dialogue_description">
+            Are you sure, you want to delete this Leave Type?
+          </Typography>
+          <DialogActions className="m-auto">
+            <Button
+              className="dialogue_button_positive"
+              variant="contained"
+              onClick={handleDeleteLeave}
+              autoFocus
+            >
+              Delete
+            </Button>
+            <Button
+              className="dialogue_button_nagative"
+              onClick={handleLeaveDeleteDialog}
+              autoFocus
+            >
+              Cancel
+            </Button>
+          </DialogActions>
+        </Box>
       </Dialog>
     </>
   )

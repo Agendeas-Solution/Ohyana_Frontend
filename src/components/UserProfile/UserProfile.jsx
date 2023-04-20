@@ -85,7 +85,7 @@ const UserProfile = () => {
             setStaffAttendanceList(res?.data)
           }
         },
-        err => { },
+        err => {},
       )
     activeTab === 'leave' &&
       value === 'Attendance' &&
@@ -96,7 +96,7 @@ const UserProfile = () => {
             setLeaveList(res?.data)
           }
         },
-        err => { },
+        err => {},
       )
     activeTab === 'holiday' &&
       value === 'Attendance' &&
@@ -108,15 +108,15 @@ const UserProfile = () => {
             setHolidayList(res?.data)
           }
         },
-        err => { },
+        err => {},
       )
   }, [activeTab, value])
 
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
-      res => { },
-      err => { },
+      res => {},
+      err => {},
     )
   }
   const handleCloseDialog = () => {
@@ -202,7 +202,8 @@ const UserProfile = () => {
                 sx={{
                   display: 'flex',
                   alignItems: 'start',
-                }}>
+                }}
+              >
                 <Button
                   className={
                     activeTab === 'present'
