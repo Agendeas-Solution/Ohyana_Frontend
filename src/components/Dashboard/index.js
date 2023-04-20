@@ -405,7 +405,7 @@ const Dashboard = () => {
               className="view_all_button"
               onClick={() => navigate('/staff')}
             >
-              View All >
+              View All {'>'}
             </Button>
           </Box>
 
@@ -483,7 +483,7 @@ const Dashboard = () => {
               onClick={() => navigate('/orders')}
             >
               {' '}
-              View All >{' '}
+              View All {'>'}{' '}
             </Button>
           </Box>
           <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>

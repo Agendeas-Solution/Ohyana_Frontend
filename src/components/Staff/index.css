@@ -265,3 +265,10 @@
   border-radius: 5px;
   padding: 10px;
 }
+
+@media (max-width: 1250px) {
+  .profile_detail_row {
+    display: flex;
+    justify-content: space-between;
+  }
+}
