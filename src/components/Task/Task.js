@@ -36,7 +36,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import NoResultFound from '../ErrorComponent/NoResultFound'
-
 const drawerWidth = 350
 const CreateTaskDialog = React.lazy(() => import('./CreateTaskDialog'))
 const AssignMemberDialog = React.lazy(() => import('./AssignMemberDialog'))
@@ -60,7 +59,7 @@ const Task = () => {
   const [createTask, setCreateTask] = useState({
     title: '',
     description: '',
-    due_date: '2023-03-31',
+    due_date: moment().format(''),
   })
   const [memberList, setMemberList] = useState([])
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))

@@ -11,6 +11,15 @@
   padding: 20px 0px 15px 35px;
 
   img {
-    width: 9rem;
+    width: 9rem; 
   }
+}
+
+@media(max-width: 1250px){
+
+  .main-logo{
+    padding: 20px 10px;
+    display: none; 
+  }
+  
 }

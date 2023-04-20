@@ -12,10 +12,14 @@ import {
 import { EditClientStatus } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import moment from 'moment'
-const ViewClientStatusDialog = props => {
+const ViewClientStatusDialog = ({
+  editStatusDialog,
+  handleViewStatusDialogClose,
+  viewClientStatus,
+}) => {
   const [editStatusDetail, setEditStatusDetail] = useState({
-    description: props?.editStatusDialog?.description,
-    statusId: props?.editStatusDialog?.statusId,
+    description: editStatusDialog?.description,
+    statusId: editStatusDialog?.statusId,
   })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -24,7 +28,7 @@ const ViewClientStatusDialog = props => {
     EditClientStatus(
       editStatusDetail,
       res => {
-        props.handleViewStatusDialogClose()
+        handleViewStatusDialogClose()
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
@@ -43,8 +47,8 @@ const ViewClientStatusDialog = props => {
   return (
     <>
       <Dialog
-        open={props.viewClientStatus.status}
-        onClose={props.handleViewStatusDialogClose}
+        open={viewClientStatus.status}
+        onClose={handleViewStatusDialogClose}
       >
         <div style={{ textAlign: 'center' }} className="px-3 pt-3">
           <h4 style={{ fontWeight: '600' }}>Detailed Status</h4>
@@ -59,7 +63,7 @@ const ViewClientStatusDialog = props => {
               </div>
               <div className="col-md-8">
                 <Typography variant="span">
-                  {props.viewClientStatus.statusDetail?.team?.name}
+                  {viewClientStatus.statusDetail?.team?.name}
                 </Typography>
               </div>
             </div>
@@ -71,7 +75,7 @@ const ViewClientStatusDialog = props => {
               </div>
               <div className="col-md-8">
                 <Typography variant="span">
-                  {props.viewClientStatus.statusDetail?.team?.role?.name}
+                  {viewClientStatus.statusDetail?.team?.role?.name}
                 </Typography>
               </div>
             </div>
@@ -83,12 +87,9 @@ const ViewClientStatusDialog = props => {
               </div>
               <div className="col-md-8 ">
                 <Typography variant="span">
-                  {moment(props.viewClientStatus.statusDetail?.date).format(
-                    'LL',
-                  )}
-                  ,
+                  {moment(viewClientStatus.statusDetail?.date).format('LL')},
                   {moment(
-                    props.viewClientStatus.statusDetail?.time,
+                    viewClientStatus.statusDetail?.time,
                     'hh:mm:ss',
                   ).format('LT')}
                 </Typography>
@@ -102,11 +103,11 @@ const ViewClientStatusDialog = props => {
               </div>
               <div className="col-md-8">
                 <Typography variant="span">
-                  {props.viewClientStatus.statusDetail?.description}
+                  {viewClientStatus.statusDetail?.description}
                 </Typography>
               </div>
             </div>
-            {props.viewClientStatus.statusDetail?.audioUrl && (
+            {viewClientStatus.statusDetail?.audioUrl && (
               <div className="row  mb-2">
                 <div className="col-md-4">
                   <Typography className="fw-bold" variant="span">
@@ -120,11 +121,11 @@ const ViewClientStatusDialog = props => {
                     controlsList="nodownload"
                   >
                     <source
-                      src={`${process.env.REACT_APP_API_CALL_URL}/status/audio/${props.viewClientStatus.statusDetail?.audioUrl}`}
+                      src={`${process.env.REACT_APP_API_CALL_URL}/status/audio/${viewClientStatus.statusDetail?.audioUrl}`}
                       type="audio/mpeg"
                     ></source>
                     <source
-                      src={`${process.env.REACT_APP_API_CALL_URL}/status/audio/${props.viewClientStatus.statusDetail?.audioUrl}`}
+                      src={`${process.env.REACT_APP_API_CALL_URL}/status/audio/${viewClientStatus.statusDetail?.audioUrl}`}
                       type="audio/ogg"
                     ></source>
                   </audio>

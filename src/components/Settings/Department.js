@@ -548,7 +548,6 @@ const Department = () => {
                 </Box>
               </Box>
             )}
-            {/* <Box className="col-md-1"></Box> */}
             {permissions.accessStaff && (
               <Box className="d-flex m-2 align-items-center justify-content-between row access_checkbox">
                 <Box className="col-md-10 ">

@@ -135,7 +135,7 @@ input[type='radio']:focus {
   justify-content: center;
   align-items: center;
   background-color: #f1f2f6;
-  margin: 5px;
+  margin: 15px 20px;
 }
 
 .poll_section {
@@ -183,12 +183,15 @@ input[type='radio']:focus {
 }
 
 .dialog_product_image {
-  height: 150px;
+  height: 240px;
   width: 100%;
+  /* width: 230px; */
   background: #f1f2f6;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
 .product_dialog_right_section {
@@ -231,5 +234,18 @@ input[type='radio']:focus {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   white-space: normal;
-  /* color: #8e8e8e; */
+  line-height: 1.4 !important;
+  max-height: 4.8em;
+}
+.background_col_btn {
+  background-color: #2e3591 !important;
+  box-shadow: none;
+}
+.job_role_list tbody tr {
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+}
+.product_dialog_heading {
+  font-size: 25px;
+  font-weight: 600;
 }

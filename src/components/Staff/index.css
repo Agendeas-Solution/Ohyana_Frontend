@@ -98,7 +98,7 @@
 
 /* Success Dialog End */
 .access_control_box:nth-of-type(odd) {
-  margin-right: 10%;
+  /* margin-right: 10%; */
 }
 
 .expenses_data_row {
@@ -264,4 +264,16 @@
   flex-direction: column;
   border-radius: 5px;
   padding: 10px;
+}
+
+.expenses_detailed_portion {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 1250px) {
+  .profile_detail_row {
+    display: flex;
+    justify-content: space-between;
+  }
 }

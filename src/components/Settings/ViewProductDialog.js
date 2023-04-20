@@ -21,6 +21,7 @@ import {
   DeleteAdminProduct,
   UpdateProductQuantity,
 } from '../../services/apiservices/adminprofile'
+
 const ViewProductDialog = ({
   viewProductDialog,
   handleClose,
@@ -65,9 +66,16 @@ const ViewProductDialog = ({
   }
   return (
     <>
-      <Dialog open={viewProductDialog.status} onClose={handleClose}>
+      <Dialog
+        open={viewProductDialog.status}
+        onClose={handleClose}
+        fullWidth
+        maxWidth="sm"
+      >
         <DialogTitle className="common_row">
-          <Typography variant="span">{productDetail?.name}</Typography>
+          <Typography className="product_dialog_heading" variant="span">
+            {productDetail?.name}
+          </Typography>
           <Box>
             <Button
               onClick={() => navigate(`/editproduct/${viewProductDialog?.id}`)}
@@ -89,7 +97,13 @@ const ViewProductDialog = ({
             </Button>
           </Box>
         </DialogTitle>
-        <Divider />
+
+        <Divider
+          sx={{ borderColor: '#C4C4C4' }}
+          orientation="horizontal"
+          width="100%"
+        />
+
         <DialogContent>
           <Box className="product_dialog_detail_section">
             <Box className="product_dialog_left_Section">
@@ -108,7 +122,7 @@ const ViewProductDialog = ({
                 placeholder="Number"
               />
               <Button onClick={handleProductQuantityUpdate} variant="contained">
-                Stock
+                Update Stock
               </Button>
             </Box>
             <Box className="product_dialog_right_section">
