@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Box, Typography, Button, TextField } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -20,6 +20,7 @@ import {
 } from '../../services/apiservices/staffDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import StaffExpensesDetail from './StaffExpensesDetail'
+import { Context as AuthContext } from '../../context/authContext/authContext'
 
 const StaffExpenses = () => {
   const [dateRange, setDateRange] = useState({
@@ -27,6 +28,8 @@ const StaffExpenses = () => {
     endDate: '',
     // defaultDate: moment().format('dd/mm/yyyy'),
   })
+  const { flagLoader, permissions } = useContext(AuthContext).state
+
   const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const [value, setValue] = useState('1')
   const [expenseList, setExpenseList] = useState([])
@@ -35,14 +38,13 @@ const StaffExpenses = () => {
     setValue(newValue)
   }
 
-  const [openStaffExpenses, setOpenStaffExpenses] = useState(false)
-
-  const handleOpen = () => {
-    setOpenStaffExpenses(true)
-  }
+  const [openStaffExpenses, setOpenStaffExpenses] = useState({
+    status: false,
+    id: '',
+  })
 
   const handleClose = () => {
-    setOpenStaffExpenses(false)
+    setOpenStaffExpenses({ ...openStaffExpenses, status: false })
   }
 
   useEffect(() => {
@@ -51,7 +53,7 @@ const StaffExpenses = () => {
     let data = {
       month: moment(selectMonth.$d).month() + 1,
       year: moment(selectMonth.$d).format('YYYY'),
-      teamId: parseInt(path),
+      teamId: permissions?.roleId,
     }
     GetExpenseList(
       data,
@@ -215,10 +217,15 @@ const StaffExpenses = () => {
                                 Update
                               </Button>
                               <Button
-                                onClick={handleOpen}
+                                onClick={() =>
+                                  setOpenStaffExpenses({
+                                    status: true,
+                                    id: row.id,
+                                  })
+                                }
                                 className="common_button"
                               >
-                                Vieww
+                                View
                               </Button>
                             </Box>
                           )}
@@ -233,8 +240,9 @@ const StaffExpenses = () => {
           )}
         </TableContainer>
         <StaffExpensesDetail
-          closeStaffExpenses={handleClose}
           openStaffExpenses={openStaffExpenses}
+          closeStaffExpenses={handleClose}
+          setOpenStaffExpenses={setOpenStaffExpenses}
         />
       </Box>
     </>
