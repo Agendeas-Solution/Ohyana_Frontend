@@ -10,31 +10,31 @@ import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 const ProductGraph = ({ selectedPeriod }) => {
   const [graphData, setGraphData] = useState()
   const [productList, setProductList] = useState([])
-  const [cityList, setCityList] = useState([]);
+  const [cityList, setCityList] = useState([])
   // const [selectedProduct, se] = useState()
   useEffect(() => {
-    console.log('selectedPerid', selectedPeriod);
-    debugger;
+    console.log('selectedPerid', selectedPeriod)
+    debugger
     GetProductReport(
       { selectedPeriod: selectedPeriod },
       res => {
         setGraphData(res?.data)
       },
-      err => { },
+      err => {},
     )
     GetAdminProductList(
       {},
       res => {
         setProductList(res?.data?.products)
       },
-      err => { },
+      err => {},
     )
     GetCityList(
       {},
       res => {
         setCityList(res?.data)
       },
-      err => { },
+      err => {},
     )
   }, [selectedPeriod])
   const top100Films = [
@@ -74,7 +74,7 @@ const ProductGraph = ({ selectedPeriod }) => {
     // console.log("Printing xlables", xlabels);
     // ;
     datga && setUserData({ ...userData, datasets: datga })
-    debugger;
+    debugger
   }, [graphData])
   return (
     <>
@@ -107,10 +107,7 @@ const ProductGraph = ({ selectedPeriod }) => {
                 getOptionLabel={option => option.name}
                 sx={{ width: '200px', marginRight: '10px' }}
                 renderInput={params => (
-                  <TextField
-                    {...params}
-                    label="Product"
-                  />
+                  <TextField {...params} label="Product" />
                 )}
               />
               <Autocomplete

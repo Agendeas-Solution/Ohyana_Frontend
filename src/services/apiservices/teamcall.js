@@ -8,13 +8,10 @@ const defaultHeaders = {
 export const GetPJPList = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.get(
-      `/pjp`,
-      {
-        headers: { ...defaultHeaders },
-        params: value
-      },
-    )
+    const { data } = await axiosInstance.get(`/pjp`, {
+      headers: { ...defaultHeaders },
+      params: value,
+    })
     console.log('Printing data of GetPJPList', data)
     onSuccess && onSuccess(data)
   } catch (err) {

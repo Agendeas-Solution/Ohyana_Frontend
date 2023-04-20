@@ -20,10 +20,7 @@ const StaffAttendance = () => {
     startDate: '',
     endDate: '',
   })
-  const [selectMonth, setSelectMonth] = useState({
-    $M: moment().month(),
-    $y: moment().year(),
-  })
+  const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [value, setValue] = useState('1')
@@ -78,7 +75,7 @@ const StaffAttendance = () => {
         res => {
           setStaffAttendanceList(res?.data)
         },
-        err => { },
+        err => {},
       )
     activeTab === 'leave' &&
       GetStaffLeaveList(
@@ -90,182 +87,99 @@ const StaffAttendance = () => {
         res => {
           setStaffLeaveList(res?.data)
         },
-        err => { },
+        err => {},
       )
   }, [activeTab, selectMonth])
   return (
     <>
       <Box className="target_section">
-        <Box className="sub_header_data_box col-md-12">
-          <Box className="col-md-7 inner_sub_header_data_box">
-            <Box className="week_data staff_statistics_box days_data col-md-2 me-3 p-2">
+        <Box className="statistics_data_section">
+          <Box className="statistics_data">
+            <Box className="statistics_box first_box">
               <Typography variant="span">Total Days</Typography>
               <Typography variant="span">
                 {staffAttendanceList?.totalDays}
               </Typography>
             </Box>
-            <Box className="Absent_days_data staff_statistics_box days_data col-md-2 me-3 p-2">
+            <Box className="statistics_box second_box">
               <Typography variant="span">Absent Days</Typography>
               <Typography variant="span">
                 {staffAttendanceList?.absentDays}
               </Typography>
             </Box>
-            <Box className="Late_days_data staff_statistics_box days_data col-md-2">
+            <Box className="statistics_box third_box">
               <Typography variant="span">Late Days</Typography>
               <Typography variant="span">
                 {staffAttendanceList?.lateDays}
               </Typography>
             </Box>
           </Box>
-          <Box className="attendance_date_filter ">
+
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'start',
+            }}
+          >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 views={['month', 'year']}
                 value={selectMonth}
-                onChange={newValue => {
-                  setSelectMonth(newValue)
+                onChange={selectMonth => {
+                  console.log(`inside Onchange: ${selectMonth.format('MMM')}`)
+                  setSelectMonth(selectMonth)
                 }}
                 renderInput={params => (
                   <TextField
+                    sx={{ width: '175px', marginRight: '10px' }}
                     placeholder="Year and Month"
                     {...params}
                     helperText={null}
                   />
                 )}
+                PopperProps={{
+                  placement: 'bottom-start', // Set placement to 'bottom-start'
+                }}
               />
             </LocalizationProvider>
-          </Box>
-          <Box
-            sx={{
-              background: '#F1F2F6',
-              borderRadius: '5px',
-              height: '35px',
-            }}
-          >
-            <Button
-              className={
-                activeTab === 'present'
-                  ? 'active_button'
-                  : 'custom_tab_background'
-              }
-              onClick={() => {
-                setActiveTab('present')
+            <Box
+              sx={{
+                background: '#F1F2F6',
+                borderRadius: '5px',
+                height: '35px',
+                display: 'flex',
+                flexDirection: 'row',
               }}
-              variant="contained"
             >
-              Present
-            </Button>
-            <Button
-              className={
-                activeTab === 'leave'
-                  ? 'active_button'
-                  : 'custom_tab_background'
-              }
-              onClick={() => {
-                setActiveTab('leave')
-              }}
-              variant="contained"
-            >
-              Leave
-            </Button>
+              <Button
+                className={
+                  activeTab === 'present'
+                    ? 'active_button'
+                    : 'custom_tab_background'
+                }
+                onClick={() => {
+                  setActiveTab('present')
+                }}
+                variant="contained"
+              >
+                Present
+              </Button>
+              <Button
+                className={
+                  activeTab === 'leave'
+                    ? 'active_button'
+                    : 'custom_tab_background'
+                }
+                onClick={() => {
+                  setActiveTab('leave')
+                }}
+                variant="contained"
+              >
+                Leave
+              </Button>
+            </Box>
           </Box>
         </Box>
-        {/* <TabContext value={value}> */}
-        {/* <Box className="tab_row">
-            <TabList
-              className="client_profile_tab mb-2"
-              onChange={handleChange}
-            >
-              <Tab label="Present" value="1" />
-              <Tab label="Leave" value="2" />
-            </TabList>
-          </Box> */}
-
-        {/* <TabPanel value="1"> */}
-        {/* <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Date</TableCell>
-                <TableCell align="left">Check In</TableCell>
-                <TableCell align="left">Check Out</TableCell>
-                <TableCell align="left">Break In </TableCell>
-                <TableCell align="left">Break Out</TableCell>
-                <TableCell align="left">Working Hours</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {staffAttendanceList.attendancePerUser &&
-                staffAttendanceList.attendancePerUser.map(staffList => {
-                  return (
-                    <TableRow>
-                      <TableCell>{staffList.date}</TableCell>
-                      <TableCell align="left">{staffList?.checkIn}</TableCell>
-                      <TableCell align="left">{staffList?.checkOut}</TableCell>
-                      <TableCell align="left">{staffList?.breakIn}</TableCell>
-                      <TableCell align="left">{staffList?.breakOut}</TableCell>
-                      <TableCell align="left">
-                        {staffList?.totalHours}
-                      </TableCell>
-                    </TableRow>
-                  )
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer> */}
-        {/* </TabPanel> */}
-
-        {/* <TabPanel value="2"> */}
-        {/* <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell align="left">Date</TableCell>
-                <TableCell align="left">Leave Type</TableCell>
-                <TableCell align="left">Taken</TableCell>
-                <TableCell align="left">Remain</TableCell>
-                <TableCell align="left">Status</TableCell>
-                <TableCell align="left"></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {staffLeaveList &&
-                staffLeaveList.map(leaveList => {
-                  return (
-                    <TableRow>
-                      <TableCell align="left">
-                        {moment(leaveList?.date).format('DD/MM/YY')}
-                      </TableCell>
-                      <TableCell align="left">
-                        {leaveList?.leave?.type}
-                      </TableCell>
-                      <TableCell align="left">{leaveList?.takenDays}</TableCell>
-                      <TableCell align="left">
-                        {leaveList?.remainDays}
-                      </TableCell>
-                      <TableCell align="left">{leaveList?.status}</TableCell>
-                      <TableCell align="left">
-                        <Button
-                          className="common_button"
-                          onClick={() => {
-                            setApproveLeave({
-                              ...approveLeave,
-                              status: true,
-                              id: leaveList?.id,
-                            })
-                          }}
-                        >
-                          Approve
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  )
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer> */}
-        {/* </TabPanel> */}
-        {/* </TabContext> */}
         {activeTab === 'present' && (
           <StaffAttendancePresent staffAttendanceList={staffAttendanceList} />
         )}

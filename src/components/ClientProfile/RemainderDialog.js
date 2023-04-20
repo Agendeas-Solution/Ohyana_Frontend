@@ -50,11 +50,8 @@ const RemainderDialog = props => {
   }
   return (
     <>
-      <Dialog
-        open={props.remainderDialog}
-        onClose={props.handleClose}>
+      <Dialog open={props.remainderDialog} onClose={props.handleClose}>
         <Box className="dialogue_main_section">
-
           <Typography className="dialogue_heading">Add Reminder</Typography>
 
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -111,12 +108,15 @@ const RemainderDialog = props => {
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={handleAddReminder}>
-              Save</Button>
+              onClick={handleAddReminder}
+            >
+              Save
+            </Button>
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={props.handleClose}>
+              onClick={props.handleClose}
+            >
               Cancel
             </Button>
           </DialogActions>

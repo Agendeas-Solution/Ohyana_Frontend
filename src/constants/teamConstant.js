@@ -21,5 +21,5 @@ export const TEAM = {
   STATUSTYPE: [
     { type: 'UpComing', value: 'UPCOMING' },
     { type: 'Completed', value: 'COMPLETED' },
-  ]
+  ],
 }

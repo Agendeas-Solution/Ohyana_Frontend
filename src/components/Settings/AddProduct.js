@@ -314,16 +314,15 @@ const AddProduct = props => {
           </Box>
         </Box>
         <Box sx={{ justifyContent: 'flex-start' }} className="input_field_row">
-
           <Button
             onClick={handleAddProduct}
             variant="contained"
             className="edit_page_save_button"
-          >Save
+          >
+            Save
           </Button>
         </Box>
       </Box>
-
     </>
   )
 }

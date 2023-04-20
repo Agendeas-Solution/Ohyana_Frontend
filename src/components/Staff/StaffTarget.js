@@ -40,7 +40,7 @@ const StaffTarget = () => {
   useEffect(() => {
     // debugger
     let data = {
-      month: moment(selectMonth.$d).month()+1,
+      month: moment(selectMonth.$d).month() + 1,
       year: moment(selectMonth.$d).format('YYYY'),
       teamId: parseInt(path),
     }
@@ -63,9 +63,7 @@ const StaffTarget = () => {
   return (
     <>
       <Box className="target_section">
-
         <Box className="statistics_data_section">
-
           <Box className="statistics_data">
             <Box className="statistics_box first_box">
               <Typography variant="span">This Week</Typography>
@@ -85,11 +83,13 @@ const StaffTarget = () => {
             </Box>
           </Box>
 
-          <Box sx={{
-            display: 'flex',
-            alignItems: 'start',
-          }}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}  >
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'start',
+            }}
+          >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 views={['month', 'year']}
                 value={selectMonth}
@@ -98,11 +98,11 @@ const StaffTarget = () => {
                   setSelectMonth(selectMonth)
                 }}
                 renderInput={params => (
-                  <TextField {...params} sx={{
-                    display: 'flex',
-                    width: '125px',
-                    marginRight: '10px',
-                  }} />
+                  <TextField
+                    sx={{ width: '175px', marginRight: '10px' }}
+                    {...params}
+                    helperText={null}
+                  />
                 )}
                 PopperProps={{
                   placement: 'bottom-start', // Set placement to 'bottom-start'
@@ -112,10 +112,10 @@ const StaffTarget = () => {
             <Button
               className="common_button"
               onClick={() => setTargetDetail({ ...targetDetail, status: true })}
-            >+ Set Target
+            >
+              + Set Target
             </Button>
           </Box>
-
         </Box>
 
         <TableContainer
@@ -193,13 +193,14 @@ const StaffTarget = () => {
             <NoResultFound />
           )}
         </TableContainer>
+
         {targetDetail.status && (
           <SetTargetDialog
             targetDetail={targetDetail}
             handleCloseTargetDetailDialog={handleCloseTargetDetailDialog}
           />
         )}
-      </Box >
+      </Box>
     </>
   )
 }

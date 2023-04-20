@@ -47,7 +47,7 @@ const AppointmentDialog = ({
       res => {
         setStaffDetailList(res.data)
       },
-      err => { },
+      err => {},
     )
   }, [])
   const handleAddAppointment = () => {
@@ -89,11 +89,8 @@ const AppointmentDialog = ({
   }
   return (
     <>
-      <Dialog
-        open={appointmentDialog}
-        onClose={handleAppointmentClose}>
+      <Dialog open={appointmentDialog} onClose={handleAppointmentClose}>
         <Box className="dialogue_main_section">
-
           <Typography className="dialogue_heading">Add Appointment</Typography>
 
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -146,7 +143,6 @@ const AppointmentDialog = ({
             </Select>
           </FormControl>
 
-
           <Autocomplete
             filterSelectedOptions
             options={staffDetailList}
@@ -191,17 +187,19 @@ const AppointmentDialog = ({
             }}
           />
 
-          <DialogActions >
+          <DialogActions>
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={handleAddAppointment}>
+              onClick={handleAddAppointment}
+            >
               Ok
             </Button>
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={handleAppointmentClose}>
+              onClick={handleAppointmentClose}
+            >
               Cancel
             </Button>
           </DialogActions>

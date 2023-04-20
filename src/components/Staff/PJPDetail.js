@@ -55,12 +55,11 @@ const PJPDetail = () => {
     description: '',
     pjpId: '',
   })
-  const [statusTypeList, setStatusTypeList] = useState(TEAM.STATUSTYPE);
+  const [statusTypeList, setStatusTypeList] = useState(TEAM.STATUSTYPE)
   const [filterPJP, setFilterPJP] = useState({
     pjpStatus: '',
-    date: ''
-
-  });
+    date: '',
+  })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleChange = (event, newValue) => {
@@ -92,7 +91,7 @@ const PJPDetail = () => {
     )
   }
   const handleApplyFilter = () => {
-    handleGetPJPList();
+    handleGetPJPList()
   }
   // const getLocation = () => {
   //   if (!window.navigator.geolocation) {
@@ -112,12 +111,12 @@ const PJPDetail = () => {
   const handleGetPJPList = () => {
     let data = {
       teamId: path,
-      day: value
-    };
-    if (filterPJP.pjpStatus !== "" && filterPJP.pjpStatus !== null) {
-      data['statusType'] = filterPJP.pjpStatus;
+      day: value,
     }
-    debugger;
+    if (filterPJP.pjpStatus !== '' && filterPJP.pjpStatus !== null) {
+      data['statusType'] = filterPJP.pjpStatus
+    }
+    debugger
     GetPJPList(
       data,
       res => {
@@ -132,7 +131,7 @@ const PJPDetail = () => {
     )
   }
   useEffect(() => {
-    handleGetPJPList();
+    handleGetPJPList()
   }, [value])
   const handleAddPJPDetail = () => {
     let pjpDetail = addPJPDetail
@@ -143,7 +142,7 @@ const PJPDetail = () => {
         handleCloseDialog()
         setSuccessSnackbar({ ...successSnackbar, message: res?.message })
       },
-      err => { },
+      err => {},
     )
   }
 
@@ -228,7 +227,9 @@ const PJPDetail = () => {
                 <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
               </Box>
               <Box>
-                <Button onClick={handleApplyFilter} variant="contained">Apply</Button>
+                <Button onClick={handleApplyFilter} variant="contained">
+                  Apply
+                </Button>
                 <Button>Clear All</Button>
               </Box>
             </DrawerHeader>
@@ -248,17 +249,19 @@ const PJPDetail = () => {
                 <RadioGroup
                   row
                   value={filterPJP.pjpStatus}
-                  onChange={(e) => {
-                    setFilterPJP({ ...filterPJP, pjpStatus: e.target.value });
+                  onChange={e => {
+                    setFilterPJP({ ...filterPJP, pjpStatus: e.target.value })
                   }}
                 >
-                  {statusTypeList.map((data) => {
-                    return <FormControlLabel
-                      className="checkbox_background_color"
-                      value={data.value}
-                      control={<Radio />}
-                      label={data.type}
-                    />
+                  {statusTypeList.map(data => {
+                    return (
+                      <FormControlLabel
+                        className="checkbox_background_color"
+                        value={data.value}
+                        control={<Radio />}
+                        label={data.type}
+                      />
+                    )
                   })}
                 </RadioGroup>
               </FormControl>
@@ -316,7 +319,7 @@ const PJPDetail = () => {
             />
           </TabPanel>
         </TabContext>
-      </Box >
+      </Box>
       <AddPJPDialog
         addPJPDetail={addPJPDetail}
         setAddPJPDetail={setAddPJPDetail}

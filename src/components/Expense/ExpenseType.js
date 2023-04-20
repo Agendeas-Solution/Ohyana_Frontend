@@ -59,8 +59,11 @@ const ExpenseType = ({
               className="dialogue_bottom_button"
               variant="contained"
               onClick={
-                addExpenseType?.expenseId ? handleEditExpenses : handleAddExpenses
-              }>
+                addExpenseType?.expenseId
+                  ? handleEditExpenses
+                  : handleAddExpenses
+              }
+            >
               Save
             </Button>
           </DialogActions>

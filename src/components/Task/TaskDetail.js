@@ -127,7 +127,7 @@ const TaskDetail = () => {
       res => {
         navigate('/task')
       },
-      err => { },
+      err => {},
     )
   }
   const handleEditTaskName = () => {
@@ -145,7 +145,7 @@ const TaskDetail = () => {
         handleSingleTaskDetail()
         handleDialogClose()
       },
-      err => { },
+      err => {},
     )
   }
   const handleEditDueDate = () => {
@@ -159,7 +159,7 @@ const TaskDetail = () => {
         })
         handleDueDateDialogClose()
       },
-      err => { },
+      err => {},
     )
   }
   const handleDialogClose = () => {
