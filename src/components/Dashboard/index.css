@@ -122,7 +122,17 @@
   margin-left: 30px;
   background-color: #e5e5e5;
 }
-
 .expenses_parameter_bottom_border {
   border-bottom: 1px solid #e5e5e5;
+}
+@media (max-width: 1250px) {
+  .sales_statistics {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sales_statistics_heading {
+    text-align: center;
+  }
 }

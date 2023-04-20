@@ -42,6 +42,7 @@ const StaffProfile = () => {
         res => {
           if (res.success) {
             setAdminProfileDetail(res?.data)
+            debugger
           }
         },
         err => {
@@ -115,7 +116,7 @@ const StaffProfile = () => {
               <StaffTarget />
             </TabPanel>
             <TabPanel sx={{ padding: '0' }} value="5">
-              <StaffExpenses />
+              <StaffExpenses adminProfileDetail={adminProfileDetail} />
             </TabPanel>
             <TabPanel sx={{ padding: '0' }} value="6">
               <StaffPoint />

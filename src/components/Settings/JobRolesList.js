@@ -37,12 +37,6 @@ import { useNavigate } from 'react-router-dom'
 
 const JobRoleDialog = React.lazy(() => import('./JobRoleDialog'))
 const DeleteJobRoleDialog = React.lazy(() => import('./DeleteJobRoleDialog'))
-const DeleteDepartmentDialog = React.lazy(() =>
-  import('./DeleteDepartmentDialog'),
-)
-const AddEditDepartmentDialog = React.lazy(() =>
-  import('./AddEditDepartmentDialog'),
-)
 const EditJobRoleDialog = React.lazy(() => import('./EditJobRoleDialog'))
 
 const JobRolesList = () => {

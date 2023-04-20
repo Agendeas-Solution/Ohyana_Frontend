@@ -26,7 +26,6 @@ const StaffExpenses = () => {
   const [dateRange, setDateRange] = useState({
     startDate: '',
     endDate: '',
-    // defaultDate: moment().format('dd/mm/yyyy'),
   })
   const { flagLoader, permissions } = useContext(AuthContext).state
 
@@ -37,7 +36,6 @@ const StaffExpenses = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-
   const [openStaffExpenses, setOpenStaffExpenses] = useState({
     status: false,
     id: '',
@@ -46,10 +44,7 @@ const StaffExpenses = () => {
   const handleClose = () => {
     setOpenStaffExpenses({ ...openStaffExpenses, status: false })
   }
-
   useEffect(() => {
-    let path = window.location.pathname
-    path = path.split('/').pop()
     let data = {
       month: moment(selectMonth.$d).month() + 1,
       year: moment(selectMonth.$d).format('YYYY'),
@@ -81,7 +76,6 @@ const StaffExpenses = () => {
       err => {},
     )
   }
-
   return (
     <>
       <Box className="target_section">
@@ -100,7 +94,7 @@ const StaffExpenses = () => {
               <Typography>{expensesData?.pending || '-'}</Typography>
             </Box>
             <Box className="statistics_box fourth_box">
-              <Typography className="" sx={{ whiteSpace: 'nowrap' }}>
+              <Typography sx={{ whiteSpace: 'nowrap' }}>
                 Payment Done
               </Typography>
               <Typography>{expensesData?.paymentDone || '-'}</Typography>
@@ -111,7 +105,6 @@ const StaffExpenses = () => {
               views={['month', 'year']}
               value={selectMonth}
               onChange={selectMonth => {
-                console.log(`inside Onchange: ${selectMonth.format('MMM')}`)
                 setSelectMonth(selectMonth)
               }}
               renderInput={params => (

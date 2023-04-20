@@ -333,7 +333,7 @@ const Department = () => {
                 Senior Post
               </Typography>
               <Typography className="p-1" variant="span">
-                {jobRoleList?.senior?.name}
+                {jobRoleList?.senior?.name || '-'}
               </Typography>
             </Box>
             <Box className="post_description">
@@ -345,11 +345,10 @@ const Department = () => {
                 Post Description
               </Typography>
               <Typography className="p-1" variant="span">
-                {jobRoleList?.senior?.description}
+                {jobRoleList?.senior?.description || '-'}
               </Typography>
             </Box>
           </Box>
-
           <Box className="mb-1 row">
             <FormControl
               sx={{ width: '32rem', marginRight: 5 }}
@@ -358,11 +357,7 @@ const Department = () => {
               <InputLabel id="demo-simple-select-label">
                 Office Time Management
               </InputLabel>
-
-              <Select
-                label="Office Time Management"
-                onChange={() => console.log('Clicking on Drop down options')}
-              >
+              <Select label="Office Time Management">
                 <Box sx={{ padding: 1 }}>
                   <MenuItem sx={{ paddingTop: '19px', display: 'inline' }}>
                     Clock In
@@ -405,48 +400,46 @@ const Department = () => {
               </Select>
             </FormControl>
             <FormControl sx={{ width: '31rem' }} className="mb-3 ">
-              <InputLabel id="demo-simple-select-label">
-                Expense Management
-              </InputLabel>
-              <Select id="demo-multiple-checkbox-label">
+              <InputLabel>Expense Management</InputLabel>
+              <Select
+                MenuProps={{
+                  disableAutoFocusItem: true,
+                }}
+              >
                 <FormGroup className="p-2">
-                  {
-                    // expensePermissions.map(()=>)
-                    expensePolicy &&
-                      expensePolicy.map(data => (
-                        <Box sx={{ margin: '5px' }}>
-                          <FormControlLabel
-                            sx={{ display: 'inline' }}
-                            control={
-                              <Checkbox
-                                checked={expenseManagement?.travelChecked}
-                                className="check_box_color"
-                                onChange={e => {
-                                  setExpenseManagement({
-                                    ...expenseManagement,
-                                    travelChecked: e.target.checked,
-                                  })
-                                }}
-                              />
-                            }
-                            label={data?.name}
-                          />
-                          <TextField
-                            sx={{ display: 'inline', marginLeft: '17rem' }}
-                            placeholder="Max Amount"
-                            type="number"
-                            value={expenseManagement?.travelAmount}
-                            onChange={e =>
-                              setExpenseManagement({
-                                ...expenseManagement,
-                                travelAmount: e.target.value,
-                              })
-                            }
-                          />
-                        </Box>
-                      ))
-                  }
-
+                  {expensePolicy &&
+                    expensePolicy.map(data => (
+                      <Box sx={{ margin: '5px' }}>
+                        <FormControlLabel
+                          // sx={{ display: 'inline' }}
+                          control={
+                            <Checkbox
+                              checked={expenseManagement?.travelChecked}
+                              className="check_box_color"
+                              onChange={e => {
+                                setExpenseManagement({
+                                  ...expenseManagement,
+                                  travelChecked: e.target.checked,
+                                })
+                              }}
+                            />
+                          }
+                          label={data?.name}
+                        />
+                        <TextField
+                          sx={{ display: 'inline', marginLeft: '17rem' }}
+                          placeholder="Max Amount"
+                          type="number"
+                          value={expenseManagement?.travelAmount}
+                          onChange={e =>
+                            setExpenseManagement({
+                              ...expenseManagement,
+                              travelAmount: e.target.value,
+                            })
+                          }
+                        />
+                      </Box>
+                    ))}
                   <Button
                     disabled={!expenseManagement?.hotelChecked}
                     className="p-2 m-1"
@@ -460,7 +453,6 @@ const Department = () => {
               </Select>
             </FormControl>
           </Box>
-
           <Box className="mb-3 row accessMenus_checkbox">
             <Typography variant="span">
               Select the menu you want to give access to.
@@ -508,7 +500,6 @@ const Department = () => {
                 </Box>
               </Box>
             )}
-            {/* <Box className="col-md-1"></Box> */}
             {permissions.accessStaff && (
               <Box className="d-flex m-2 align-items-center justify-content-between row access_checkbox">
                 <Box className="col-md-10 ">
