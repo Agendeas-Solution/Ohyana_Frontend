@@ -36,15 +36,15 @@
   margin-left: 10px;
 }
 
-.leave_holiday_section th,
+/* .leave_holiday_section th,
 tr,
 td,
 table {
   border: none !important;
   box-shadow: none !important;
-}
+} */
 
-.leave_holiday_section .css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+.leave_holiday_section {
   box-shadow: none !important;
 }
 

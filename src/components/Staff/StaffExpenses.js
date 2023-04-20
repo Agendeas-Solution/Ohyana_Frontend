@@ -21,12 +21,14 @@ import {
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import StaffExpensesDetail from './StaffExpensesDetail'
 import { Context as AuthContext } from '../../context/authContext/authContext'
+
 const StaffExpenses = () => {
   const [dateRange, setDateRange] = useState({
     startDate: '',
     endDate: '',
   })
   const { flagLoader, permissions } = useContext(AuthContext).state
+
   const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const [value, setValue] = useState('1')
   const [expenseList, setExpenseList] = useState([])
@@ -34,12 +36,13 @@ const StaffExpenses = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-  const [openStaffExpenses, setOpenStaffExpenses] = useState(false)
-  const handleOpen = () => {
-    setOpenStaffExpenses(true)
-  }
+  const [openStaffExpenses, setOpenStaffExpenses] = useState({
+    status: false,
+    id: '',
+  })
+
   const handleClose = () => {
-    setOpenStaffExpenses(false)
+    setOpenStaffExpenses({ ...openStaffExpenses, status: false })
   }
   useEffect(() => {
     let data = {
@@ -207,10 +210,15 @@ const StaffExpenses = () => {
                                 Update
                               </Button>
                               <Button
-                                onClick={handleOpen}
+                                onClick={() =>
+                                  setOpenStaffExpenses({
+                                    status: true,
+                                    id: row.id,
+                                  })
+                                }
                                 className="common_button"
                               >
-                                Vieww
+                                View
                               </Button>
                             </Box>
                           )}
@@ -225,8 +233,9 @@ const StaffExpenses = () => {
           )}
         </TableContainer>
         <StaffExpensesDetail
-          closeStaffExpenses={handleClose}
           openStaffExpenses={openStaffExpenses}
+          closeStaffExpenses={handleClose}
+          setOpenStaffExpenses={setOpenStaffExpenses}
         />
       </Box>
     </>
