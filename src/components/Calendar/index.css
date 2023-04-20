@@ -1,9 +1,0 @@
-.calender_section {
-  display: flex;
-  flex-direction: column;
-  width: auto;
-  background-color: #f1f2f6;
-  overflow: auto;
-  /* margin-left: 1.9rem;
-  margin-right: 1.2rem; */
-}

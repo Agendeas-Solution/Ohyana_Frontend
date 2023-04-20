@@ -15,12 +15,12 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { EditAdminClientReminderDetail } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-const EditReminderDialog = props => {
+const EditReminderDialog = ({ editReminderDetail, handleClose }) => {
   const [clientReminderDetail, setClientReminderDetail] = useState({
-    description: props?.editReminderDetail?.description,
-    date: props?.editReminderDetail?.date,
-    time: props?.editReminderDetail.time,
-    reminderId: props?.editReminderDetail?.id,
+    description: editReminderDetail?.description,
+    date: editReminderDetail?.date,
+    time: editReminderDetail.time,
+    reminderId: editReminderDetail?.id,
   })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -34,7 +34,7 @@ const EditReminderDialog = props => {
       EditAdminClientReminderDetail(
         clientReminderDetail,
         res => {
-          props.handleClose()
+          handleClose()
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
@@ -53,10 +53,7 @@ const EditReminderDialog = props => {
   }
   return (
     <>
-      <Dialog
-        open={props.editReminderDetail.status}
-        onClose={props.handleClose}
-      >
+      <Dialog open={editReminderDetail.status} onClose={handleClose}>
         <div className="px-3 pt-3">
           <h3>Reminder</h3>
         </div>
@@ -132,7 +129,7 @@ const EditReminderDialog = props => {
           <Button variant="contained" onClick={handleEditReminder}>
             Ok
           </Button>
-          <Button variant="contained" onClick={props.handleClose}>
+          <Button variant="contained" onClick={handleClose}>
             Cancel
           </Button>
         </DialogActions>

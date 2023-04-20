@@ -23,14 +23,19 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 import { CLIENT } from '../../constants/clientConstant'
 import { Folder } from '@mui/icons-material'
 var a
-const StatusDialog = props => {
+const StatusDialog = ({
+  clientProfileDetail,
+  handleStatusClose,
+  statusDialog,
+}) => {
   const [audioFile, setAudioFile] = useState(null)
   const inputRef = useRef(null)
   const [addStatusDetail, setAddStatusDetail] = useState({
-    clientId: props.clientProfileDetail.id,
+    clientId: clientProfileDetail.id,
     description: '',
     audio: {},
     callNotReceived: false,
+    followUpType: '',
   })
   const [followUpType, setFollowUpType] = useState(CLIENT.FOLLOWUP)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
@@ -54,6 +59,7 @@ const StatusDialog = props => {
     const formData = new FormData()
     formData.append('clientId', addStatusDetail.clientId)
     formData.append('description', addStatusDetail.description)
+    formData.append('followUpType', addStatusDetail.followUpType)
     if (addStatusDetail.callNotReceived === false) {
       formData.append('audio', blob)
       formData.append('callNotReceived', addStatusDetail.callNotReceived)
@@ -64,18 +70,18 @@ const StatusDialog = props => {
     AddClientStatus(
       formData,
       res => {
-        props.handleStatusClose()
+        handleStatusClose()
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
       },
       err => {
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
-          message: err.response.data.error,
+          message: err.response.data.message,
         })
       },
     )
@@ -115,7 +121,7 @@ const StatusDialog = props => {
 
   return (
     <>
-      <Dialog open={props.statusDialog} onClose={props.handleStatusClose}>
+      <Dialog open={statusDialog} onClose={handleStatusClose}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add Status</Typography>
 
@@ -128,7 +134,7 @@ const StatusDialog = props => {
                 setAddStatusDetail({
                   ...addStatusDetail,
                   followUpType: e.target.value,
-                  clientId: props.clientProfileDetail.id,
+                  clientId: clientProfileDetail.id,
                 })
               }
             >
@@ -150,7 +156,7 @@ const StatusDialog = props => {
               setAddStatusDetail({
                 ...addStatusDetail,
                 description: e.target.value,
-                clientId: props.clientProfileDetail.id,
+                clientId: clientProfileDetail.id,
               })
             }
           />
@@ -206,7 +212,7 @@ const StatusDialog = props => {
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={props.handleStatusClose}
+              onClick={handleStatusClose}
             >
               Cancel
             </Button>
