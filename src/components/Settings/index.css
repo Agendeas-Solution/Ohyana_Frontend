@@ -74,11 +74,11 @@
   padding: 10px;
 }
 
-input[type='radio'] {
+/* input[type='radio'] {
   border: 1px solid #fff !important;
   padding: 0.5em !important;
   -webkit-appearance: none !important;
-}
+} */
 
 input[type='radio']:checked {
   background: url('data:image/gif;base64,R0lGODlhAQABAPAAAP///////yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==')
@@ -91,10 +91,11 @@ input[type='radio']:focus {
 }
 
 .post_detail {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  width: 102%;
   justify-content: space-between;
+  padding: 10px;
 }
 
 .post_name {
@@ -103,16 +104,17 @@ input[type='radio']:focus {
   flex-direction: column;
   background-color: #f1f2f6;
   border-radius: 5px;
-  padding: 5px;
+  padding: 10px;
+  margin-right: 10px;
 }
 
 .post_description {
-  width: 80%;
+  width: 82%;
   display: flex;
   flex-direction: column;
   background-color: #f1f2f6;
   border-radius: 5px;
-  padding: 5px;
+  padding: 10px;
 }
 
 .check_in_time {
@@ -223,6 +225,7 @@ input[type='radio']:focus {
   text-transform: capitalize !important;
   color: #2e3591 !important;
 }
+
 .job_role_description {
   /* font-size: 13px; */
   text-overflow: ellipsis;

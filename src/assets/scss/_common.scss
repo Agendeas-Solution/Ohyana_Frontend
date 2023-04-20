@@ -4,7 +4,7 @@
 }
 
 
-html{
+html {
   font-size: 100%;
 }
 
@@ -373,6 +373,17 @@ textarea:focus {
   font-size: 18px !important;
   font-weight: 600;
   text-transform: capitalize;
+}
+
+.Accordion_button {
+  width: 85px !important;
+  height: 35px !important;
+  background-color: #2e3591 !important;
+  box-shadow: none !important;
+  font-size: 16px !important;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin: '5px 0px';
 }
 
 .icon {
@@ -796,18 +807,11 @@ button {
 }
 
 .accessMenus_checkbox {
-  border: 1px solid #f1f2f6;
-  margin-bottom: 10px;
-  padding: 10px;
-}
-
-.statistics_data_section {
-  width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border: 1px solid #e5e5e5;
+  flex-direction: column;
+  border: 1px solid #f1f2f6;
   padding: 10px;
+  margin: 5px 10px;
 }
 
 .inner_statistics_data_section {
@@ -890,11 +894,25 @@ button {
   overflow-y: auto;
 }
 
+.statistics_data_section {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid #e5e5e5;
+  padding: 10px;
+}
+
+.statistics_data {
+  display: flex;
+  flex-direction: row;
+}
+
 .statistics_box {
-  width: 30% !important;
-  margin-right: 15px;
+  min-width: 34% !important;
   display: flex;
   flex-direction: column;
+  margin-right: 15px;
   border-radius: 5px;
   padding: 10px;
 }
@@ -909,14 +927,6 @@ button {
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-}
-
-.statistics_data {
-  width: 70%;
-  height: 75px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
 }
 
 .first_box {
@@ -1176,6 +1186,7 @@ button {
   background: #f1f2f6;
   height: 34.5rem;
 }
+
 .below_main_tab_section {
   background-color: #fff;
   border-radius: 5px;
@@ -1208,7 +1219,7 @@ button {
   // padding: 8px 0px;
 }
 
-.expenses_detail_main_section{
+.expenses_detail_main_section {
   // display: flex;
   width: 100%;
   height: auto;
@@ -1274,7 +1285,7 @@ button {
 }
 
 .expenses_details_heading {
-  margin:  12px 12px !important;
+  margin: 12px 12px !important;
   font-size: 20px;
 }
 
@@ -1288,35 +1299,39 @@ button {
   font-size: 18px;
   font-weight: 500;
 }
+
 .expense_list tbody tr {
   border: 1px solid #e5e5e5;
   border-radius: 5px;
 }
+
 .inner_expenses_detail_left_section {
   background: #f1f2f6;
   height: 24.5rem;
   // height: 34.5rem;
 }
 
-@media(max-width: 1250px){
-  html{
+@media(max-width: 1250px) {
+  html {
     font-size: 100%;
   }
+
   .common_row {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;      
-  } 
+    align-items: center;
+  }
 }
 
-@media(max-width: 1250px){
+@media(max-width: 1250px) {
   .graph_section {
     display: flex;
     flex-direction: column;
     width: auto;
     margin: 10px 8px auto 5px;
   }
+
   .statistics_data_section {
     width: 100%;
     display: flex;
@@ -1329,10 +1344,8 @@ button {
   }
 }
 
-@media(max-width: 800px){
-  html{
+@media(max-width: 800px) {
+  html {
     font-size: 80%;
   }
 }
-
-
