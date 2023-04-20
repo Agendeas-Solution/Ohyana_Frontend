@@ -17,7 +17,6 @@ import Department from '../components/Settings/Department'
 import Staff from '../components/Staff/Staff'
 import StaffProfile from '../components/Staff/StaffProfile'
 import AddStaffMember from '../components/Staff/AddStaffMember'
-import Calendar from '../components/Calendar/Calendar'
 import Settings from '../components/Settings/Settings'
 import DepartmentList from '../components/Settings/DepartmentList'
 import ProductList from '../components/Settings/ProductList'
@@ -122,7 +121,6 @@ const AppContent = () => {
             <Route path="/task" element={<Task />}></Route>
             <Route path="/dealer" element={<Dealer />}></Route>
             <Route path="/taskdetail/:id" element={<TaskDetail />}></Route>
-            <Route path="/calendar" element={<Calendar />}></Route>
             <Route path="/report" element={<Statistics />}></Route>
             <Route path="/support" element={<Support />}></Route>
             <Route path="/complaint/:id" element={<Complaint />}></Route>

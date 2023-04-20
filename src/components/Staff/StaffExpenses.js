@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Box, Typography, Button, TextField } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -20,13 +20,13 @@ import {
 } from '../../services/apiservices/staffDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import StaffExpensesDetail from './StaffExpensesDetail'
-
+import { Context as AuthContext } from '../../context/authContext/authContext'
 const StaffExpenses = () => {
   const [dateRange, setDateRange] = useState({
     startDate: '',
     endDate: '',
-    // defaultDate: moment().format('dd/mm/yyyy'),
   })
+  const { flagLoader, permissions } = useContext(AuthContext).state
   const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const [value, setValue] = useState('1')
   const [expenseList, setExpenseList] = useState([])
@@ -34,24 +34,18 @@ const StaffExpenses = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-
   const [openStaffExpenses, setOpenStaffExpenses] = useState(false)
-
   const handleOpen = () => {
     setOpenStaffExpenses(true)
   }
-
   const handleClose = () => {
     setOpenStaffExpenses(false)
   }
-
   useEffect(() => {
-    let path = window.location.pathname
-    path = path.split('/').pop()
     let data = {
       month: moment(selectMonth.$d).month() + 1,
       year: moment(selectMonth.$d).format('YYYY'),
-      teamId: parseInt(path),
+      teamId: permissions?.roleId,
     }
     GetExpenseList(
       data,
@@ -79,7 +73,6 @@ const StaffExpenses = () => {
       err => {},
     )
   }
-
   return (
     <>
       <Box className="target_section">
@@ -98,7 +91,7 @@ const StaffExpenses = () => {
               <Typography>{expensesData?.pending || '-'}</Typography>
             </Box>
             <Box className="statistics_box fourth_box">
-              <Typography className="" sx={{ whiteSpace: 'nowrap' }}>
+              <Typography sx={{ whiteSpace: 'nowrap' }}>
                 Payment Done
               </Typography>
               <Typography>{expensesData?.paymentDone || '-'}</Typography>
@@ -109,7 +102,6 @@ const StaffExpenses = () => {
               views={['month', 'year']}
               value={selectMonth}
               onChange={selectMonth => {
-                console.log(`inside Onchange: ${selectMonth.format('MMM')}`)
                 setSelectMonth(selectMonth)
               }}
               renderInput={params => (

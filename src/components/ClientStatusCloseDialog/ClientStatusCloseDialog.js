@@ -17,7 +17,10 @@ import {
   GetAdminRole,
   AddNotificationDetail,
 } from '../../services/apiservices/adminprofile'
-const ClientStatusCloseDialog = props => {
+const ClientStatusCloseDialog = ({
+  CloseDeleteRemainder,
+  deleteRemainderDialog,
+}) => {
   const [addNotificationDetail, setAddNotificationDetail] = useState({
     heading: '',
     description: '',
@@ -67,7 +70,7 @@ const ClientStatusCloseDialog = props => {
     AddNotificationDetail(
       addNotificationDetail,
       res => {
-        props.CloseDeleteRemainder()
+        CloseDeleteRemainder()
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
@@ -80,16 +83,13 @@ const ClientStatusCloseDialog = props => {
           status: true,
           message: err.response.data.error,
         })
-        props.CloseDeleteRemainder()
+        CloseDeleteRemainder()
       },
     )
   }
   return (
     <>
-      <Dialog
-        open={props.deleteRemainderDialog}
-        onClose={props.CloseDeleteRemainder}
-      >
+      <Dialog open={deleteRemainderDialog} onClose={CloseDeleteRemainder}>
         <div className="px-3 py-3">
           <h3>Set Notification</h3>
         </div>
@@ -221,7 +221,7 @@ const ClientStatusCloseDialog = props => {
           </Button>
           <Button
             className="cancel-btn"
-            onClick={props.CloseDeleteRemainder}
+            onClick={CloseDeleteRemainder}
             autoFocus
           >
             Cancel

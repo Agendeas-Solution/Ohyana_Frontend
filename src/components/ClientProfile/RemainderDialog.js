@@ -15,12 +15,16 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { AddAdminClientReminderDetail } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-const RemainderDialog = props => {
+const RemainderDialog = ({
+  clientProfileDetail,
+  handleClose,
+  remainderDialog,
+}) => {
   const [clientReminderDetail, setClientReminderDetail] = useState({
     description: '',
     date: '',
     time: '',
-    clientId: props?.clientProfileDetail?.id,
+    clientId: clientProfileDetail?.id,
   })
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
@@ -35,7 +39,7 @@ const RemainderDialog = props => {
       AddAdminClientReminderDetail(
         clientReminderDetail,
         res => {
-          props.handleClose()
+          handleClose()
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
@@ -50,7 +54,7 @@ const RemainderDialog = props => {
   }
   return (
     <>
-      <Dialog open={props.remainderDialog} onClose={props.handleClose}>
+      <Dialog open={remainderDialog} onClose={handleClose}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add Reminder</Typography>
 
@@ -99,7 +103,7 @@ const RemainderDialog = props => {
               setClientReminderDetail({
                 ...clientReminderDetail,
                 description: e.target.value,
-                clientId: props?.clientProfileDetail?.id,
+                clientId: clientProfileDetail?.id,
               })
             }}
           />
@@ -115,7 +119,7 @@ const RemainderDialog = props => {
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={props.handleClose}
+              onClick={handleClose}
             >
               Cancel
             </Button>

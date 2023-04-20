@@ -15,7 +15,7 @@ import moment from 'moment'
 import EditReminderDialog from './EditReminderDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 
-const RemainderTable = props => {
+const RemainderTable = ({ clientReminderList }) => {
   const [editReminderDetail, setEditReminderDetail] = useState({
     description: '',
     date: '',
@@ -47,7 +47,7 @@ const RemainderTable = props => {
           overflowY: 'auto',
         }}
       >
-        {props.clientReminderList.length > 0 ? (
+        {clientReminderList.length > 0 ? (
           <Table
             stickyHeader
             aria-label="sticky table"
@@ -66,7 +66,7 @@ const RemainderTable = props => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.clientReminderList.map((row, index) => (
+              {clientReminderList.map((row, index) => (
                 <TableRow
                   key={index}
                   hover

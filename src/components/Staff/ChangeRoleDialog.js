@@ -7,11 +7,11 @@ import {
   DialogContentText,
   DialogActions,
 } from '@mui/material'
-const ChangeRoleDialog = props => {
+const ChangeRoleDialog = ({ changeRoleDialogControl }) => {
   return (
     <>
       <Dialog
-        open={props.changeRoleDialogControl}
+        open={changeRoleDialogControl}
         // onClose={handleClose}
       >
         <div className="px-3 pt-3">
