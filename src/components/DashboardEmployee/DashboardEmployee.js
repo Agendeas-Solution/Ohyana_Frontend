@@ -290,7 +290,7 @@ const DashboardEmployee = () => {
 
         <Box className="common_row">
           <Box className="my_task_section">
-            <Box className="my_task_heading">
+            <Box className="my_main_section_header">
               <Typography className="bottom_left_panel_heading" variant="span">
                 My Task
               </Typography>
@@ -405,7 +405,7 @@ const DashboardEmployee = () => {
         </Box>
         <Box className="common_row">
           <Box className="star_performers_section">
-            <Box className="my_task_heading">
+            <Box className="my_main_section_header">
               <Typography className="bottom_left_panel_heading" variant="span">
                 Star Performers
               </Typography>

@@ -238,18 +238,18 @@ input[type='radio']:focus {
   line-height: 1.4 !important;
   max-height: 4.8em;
 }
-.background_col_btn {
-  background-color: #2e3591 !important;
-  box-shadow: none;
-}
+
 .job_role_list tbody tr {
+  padding: 5px;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
 }
+
 .product_dialog_heading {
   font-size: 25px;
   font-weight: 600;
 }
+
 .update_button_section {
   /* background-color: #f1f2f6; */
   width: 240px;
@@ -257,4 +257,7 @@ input[type='radio']:focus {
   height: 40px;
   display: flex;
   flex-direction: row;
+}
+.table_row_top_align {
+  vertical-align: baseline !important;
 }
