@@ -1,10 +1,9 @@
-import { Button, Dialog, DialogTitle, Divider, Typography } from '@mui/material'
+import { Button, Dialog, Divider, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf'
 
 const StaffExpensesDetail = ({ openStaffExpenses, closeStaffExpenses }) => {
-  console.log(openStaffExpenses)
   return (
     <>
       <Dialog
@@ -46,7 +45,9 @@ const StaffExpensesDetail = ({ openStaffExpenses, closeStaffExpenses }) => {
                   Type
                 </Typography>
                 <Box className="expenses_parameter expenses_parameter_bottom_border">
-                  <Typography variant="span">Food</Typography>
+                  <Typography variant="span">
+                    {openStaffExpenses?.data?.name || '-'}
+                  </Typography>
                 </Box>
               </Box>
               <Box className="expenses_data">
@@ -54,7 +55,9 @@ const StaffExpensesDetail = ({ openStaffExpenses, closeStaffExpenses }) => {
                   Date
                 </Typography>
                 <Box className="expenses_parameter expenses_parameter_bottom_border">
-                  <Typography variant="span">18 Aug 2023</Typography>
+                  <Typography variant="span">
+                    {openStaffExpenses?.data?.date ?? '-'}
+                  </Typography>
                 </Box>
               </Box>
               <Box className="expenses_data">
@@ -62,7 +65,9 @@ const StaffExpensesDetail = ({ openStaffExpenses, closeStaffExpenses }) => {
                   Apply
                 </Typography>
                 <Box className="expenses_parameter expenses_parameter_bottom_border">
-                  <Typography variant="span">25000 Rs.</Typography>
+                  <Typography variant="span">
+                    {openStaffExpenses?.data?.amount ?? '-'}
+                  </Typography>
                 </Box>
               </Box>
               <Box className="expenses_data">
@@ -70,7 +75,9 @@ const StaffExpensesDetail = ({ openStaffExpenses, closeStaffExpenses }) => {
                   Approved
                 </Typography>
                 <Box className="expenses_parameter expenses_parameter_bottom_border">
-                  <Typography variant="span">23000 Rs.</Typography>
+                  <Typography variant="span">
+                    {openStaffExpenses?.data?.approvalAmount ?? '-'}
+                  </Typography>
                 </Box>
               </Box>
 
@@ -79,7 +86,9 @@ const StaffExpensesDetail = ({ openStaffExpenses, closeStaffExpenses }) => {
                   Approve By
                 </Typography>
                 <Box className="expenses_parameter ">
-                  <Typography variant="span">Robert Downey Jr.</Typography>
+                  <Typography variant="span">
+                    {openStaffExpenses?.data?.aprrovalBy || '-'}
+                  </Typography>
                 </Box>
               </Box>
 
@@ -88,7 +97,9 @@ const StaffExpensesDetail = ({ openStaffExpenses, closeStaffExpenses }) => {
                   Payment Status
                 </Typography>
                 <Box className="expenses_parameter ">
-                  <Typography variant="span">Pending</Typography>
+                  <Typography variant="span">
+                    {openStaffExpenses?.data?.payment_status || '-'}
+                  </Typography>
                 </Box>
               </Box>
               <Box className="common_button">
@@ -102,7 +113,7 @@ const StaffExpensesDetail = ({ openStaffExpenses, closeStaffExpenses }) => {
             <Box className="expenses_right_section">
               <Box className="document_section">
                 <Typography sx={{ color: '#8E8E8E' }} variant="span">
-                  Document
+                  {openStaffExpenses?.data?.file || '-'}
                 </Typography>
                 <PictureAsPdfIcon />
               </Box>
@@ -113,8 +124,7 @@ const StaffExpensesDetail = ({ openStaffExpenses, closeStaffExpenses }) => {
                 </Typography>
                 <Box>
                   <Typography variant="span">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
+                    {openStaffExpenses?.data?.expense_description || '-'}
                   </Typography>
                 </Box>
               </Box>
@@ -127,8 +137,7 @@ const StaffExpensesDetail = ({ openStaffExpenses, closeStaffExpenses }) => {
                 </Typography>
                 <Box>
                   <Typography variant="span">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
+                    {openStaffExpenses?.data?.description || '-'}
                   </Typography>
                 </Box>
               </Box>

@@ -42,7 +42,6 @@ const StaffProfile = () => {
         res => {
           if (res.success) {
             setAdminProfileDetail(res?.data)
-            debugger
           }
         },
         err => {

@@ -184,13 +184,13 @@ input[type='radio']:focus {
 
 .dialog_product_image {
   height: 240px;
-  width: 100%;
-  /* width: 230px; */
+  /* width: 100%; */
+  width: 240px;
   background: #f1f2f6;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   border-radius: 5px;
 }
 
@@ -249,3 +249,12 @@ input[type='radio']:focus {
   font-size: 25px;
   font-weight: 600;
 }
+.update_button_section {
+  background-color: #f1f2f6;
+  width: 240px;
+  border-radius: 5px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+}
+
