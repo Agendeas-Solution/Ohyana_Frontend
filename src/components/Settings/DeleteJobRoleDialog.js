@@ -12,6 +12,7 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteRounded'
 import { DeleteJobRole } from '../../services/apiservices/staffDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { useNavigate } from 'react-router-dom'
+
 const DeleteJobRoleDialog = ({ deleteJobRoleDialogControl, handleClose }) => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)

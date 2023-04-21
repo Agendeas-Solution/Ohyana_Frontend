@@ -20,6 +20,10 @@ import {
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import StaffExpensesDetail from './StaffExpensesDetail'
 import { Context as AuthContext } from '../../context/authContext/authContext'
+
+import StaffExpensesApprovalDialog from './StaffExpensesApprovalDialog'
+import StaffPaymentVerificationDialog from './StaffPaymentVerificationDialog'
+
 const StaffExpenses = () => {
   const [dateRange, setDateRange] = useState({
     startDate: '',
@@ -38,10 +42,23 @@ const StaffExpenses = () => {
     status: false,
     id: '',
   })
+  const [openApprovalDialog, setOpenApprovalDialog] = useState({
+    status: false,
+  })
+  const [paymentVerification, setPaymentVerification] = useState({
+    status: false,
+  })
 
   const handleClose = () => {
     setOpenStaffExpenses({ ...openStaffExpenses, status: false })
   }
+  const handleCloseApprovalDialog = () => {
+    setOpenApprovalDialog({ ...openApprovalDialog, status: false })
+  }
+  const handleClosePaymentVerificationDialog = () => {
+    setPaymentVerification({ ...paymentVerification, status: false })
+  }
+
   useEffect(() => {
     let data = {
       month: moment(selectMonth.$d).month() + 1,
@@ -235,6 +252,20 @@ const StaffExpenses = () => {
           openStaffExpenses={openStaffExpenses}
           closeStaffExpenses={handleClose}
           setOpenStaffExpenses={setOpenStaffExpenses}
+          openApprovalDialog={openApprovalDialog}
+          setOpenApprovalDialog={setOpenApprovalDialog}
+          paymentVerification={paymentVerification}
+          setPaymentVerification={setPaymentVerification}
+        />
+        <StaffExpensesApprovalDialog
+          openApprovalDialog={openApprovalDialog}
+          closeApprovalDialog={handleCloseApprovalDialog}
+          // setOpenApprovalDialog={setOpenApprovalDialog}
+        />
+        <StaffPaymentVerificationDialog
+          paymentVerification={paymentVerification}
+          closePaymentVerification={handleClosePaymentVerificationDialog}
+          setPaymentVerification={setPaymentVerification}
         />
       </Box>
     </>

@@ -220,6 +220,16 @@ textarea:focus {
   margin: 15px auto;
 }
 
+.main_section_header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #c4c4c4;
+}
+
 .table_heading tr th {
   border-bottom: none;
   background: #f1f2f6;
@@ -325,6 +335,15 @@ textarea:focus {
   padding: 8px;
 }
 
+.dialogue_done_Icon {
+  border-radius: 50%;
+  color: white;
+  font-size: 70px !important;
+  background-color: #2E3591 !important;
+  padding: 8px;
+}
+
+
 .dialogue_input_fields {
   display: flex;
   width: 320px !important;
@@ -408,8 +427,11 @@ textarea:focus {
 }
 
 .client_profile_table_header tr th {
+  margin-top: 15px !important;
   font-weight: 600;
   background-color: #f1f2f6;
+  border: none;
+  // padding: 0px;
 }
 
 .status_description {
@@ -428,6 +450,10 @@ textarea:focus {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+.product_detail_dia_right_section {
+  margin-bottom: 20px;
 }
 
 .common_icon {
@@ -679,6 +705,7 @@ button {
   text-transform: capitalize !important;
   color: #2e3591 !important;
   padding-left: 0px;
+  
 }
 
 .add_product_button {
@@ -696,6 +723,11 @@ button {
   background-color: #f1f2f6 !important;
   color: #2e3591 !important;
   font-weight: 600 !important;
+}
+
+.primary_color_button {
+  background-color: #2e3591 !important;
+  box-shadow: none !important;
 }
 
 .access_control_box {
@@ -1058,10 +1090,21 @@ button {
   border: 1px solid #e5e5e5;
 }
 
-.profile_header_button {
+.profile_header_button, .product_detail_buttons {
   padding: 0px 10px !important;
   box-shadow: none !important;
   background-color: #f1f2f6 !important;
+  color: #2e3591 !important;
+  height: 40px !important;
+  border-radius: 3px;
+  min-width: 0 !important;
+  margin-left: 10px !important;
+}
+
+.task_due_date_edit_button {
+  padding: 0px 10px !important;
+  box-shadow: none !important;
+  background-color: #fff !important;
   color: #2e3591 !important;
   height: 40px !important;
   border-radius: 3px;

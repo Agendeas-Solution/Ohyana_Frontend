@@ -193,7 +193,7 @@ const TaskDetail = () => {
   return (
     <>
       <Box className="main_section">
-        <Box className="task_heading">
+        <Box className="main_section_header">
           <Typography className="task_card_heading" variant="span">
             {taskDetail?.title || '-'}
           </Typography>
@@ -360,6 +360,7 @@ const TaskDetail = () => {
                 <Typography className="common_sub_heading" variant="span">
                   Due Date
                 </Typography>
+
                 <Button
                   onClick={() => {
                     setDueDateDialogControl({

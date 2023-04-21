@@ -197,7 +197,8 @@ input[type='radio']:focus {
 .product_dialog_right_section {
   display: flex;
   flex-direction: column;
-  width: 55%;
+  width: 53%;
+  /* margin-left: 16px; */
 }
 
 .department_list_section {
@@ -237,23 +238,28 @@ input[type='radio']:focus {
   line-height: 1.4 !important;
   max-height: 4.8em;
 }
-.background_col_btn {
-  background-color: #2e3591 !important;
-  box-shadow: none;
-}
+
 .job_role_list tbody tr {
+  padding: 5px;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
 }
+
 .product_dialog_heading {
   font-size: 25px;
   font-weight: 600;
 }
+
 .update_button_section {
-  background-color: #f1f2f6;
+  /* background-color: #f1f2f6; */
   width: 240px;
   border-radius: 5px;
   height: 40px;
   display: flex;
   flex-direction: row;
 }
+
+.table_row_top_align {
+  vertical-align: baseline !important;
+}
+
