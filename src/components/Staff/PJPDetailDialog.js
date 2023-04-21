@@ -23,6 +23,7 @@ const PJPDetailDialog = ({ pjpDetailDialog, handleCloseDialog }) => {
   const handleEditPJPOpenDialog = () => {
     setEditPJPDetail({ ...editPJPDetail, status: true })
   }
+
   const handlePJPDetail = () => {
     GetPJPDetail(
       pjpDetailDialog.id,

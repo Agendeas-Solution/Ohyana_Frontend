@@ -40,7 +40,7 @@ const AddStatusDialog = ({
       callNotReceived: true,
       followUpType: addStatusDetail?.followUpType,
     }
-    debugger
+
     AddClientStatus(
       data,
       res => {

@@ -38,7 +38,6 @@ const StaffTarget = () => {
   const [targetList, setTargetList] = useState([])
 
   useEffect(() => {
-    // debugger
     let data = {
       month: moment(selectMonth.$d).month() + 1,
       year: moment(selectMonth.$d).format('YYYY'),
