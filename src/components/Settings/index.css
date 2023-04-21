@@ -258,6 +258,8 @@ input[type='radio']:focus {
   display: flex;
   flex-direction: row;
 }
+
 .table_row_top_align {
   vertical-align: baseline !important;
 }
+

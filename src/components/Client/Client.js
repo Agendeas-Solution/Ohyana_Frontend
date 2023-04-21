@@ -430,7 +430,6 @@ const Client = () => {
           </Box>
         </Drawer>
       </Box>
-
       <Box className="body_section_paddingless_pagination">
         {value === 'business_card' ? (
           <BusinessCard clientDetails={clientDetails} />

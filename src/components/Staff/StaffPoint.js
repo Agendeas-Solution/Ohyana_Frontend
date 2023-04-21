@@ -17,6 +17,7 @@ import {
 } from '../../services/apiservices/pointDetail'
 import moment from 'moment'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import AddAppreciationDialog from './AddAppreciationDialog'
 const StaffPoint = () => {
   const [pointRule, setPointRule] = useState([])
   const [selectMonth, setSelectMonth] = useState({
@@ -28,6 +29,8 @@ const StaffPoint = () => {
   const [totalPoints, setTotalPoints] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [pointsData, setPointsData] = useState([])
+  const [addAppreciationDialogControl, setAddAppreciationDialogControl] =
+    useState(false)
   let path = window.location.pathname
   console.log('Printing Path of ', path)
   console.log('Printing ', path.split('/').pop())
@@ -76,11 +79,14 @@ const StaffPoint = () => {
       parseInt(path),
       res => {
         handleGetPointTeamMember()
+        handleAddAppreciationDialogClose()
       },
       err => {},
     )
   }
-
+  const handleAddAppreciationDialogClose = () => {
+    setAddAppreciationDialogControl(false)
+  }
   return (
     <>
       <Box className="point_section">
@@ -109,7 +115,10 @@ const StaffPoint = () => {
               Total Points : {totalPoints}
             </Typography>
             <Box>
-              <Button onClick={handleAppreciation} className="appreciation_btn">
+              <Button
+                onClick={() => setAddAppreciationDialogControl(true)}
+                className="appreciation_btn"
+              >
                 + Appreciation
               </Button>
             </Box>
@@ -131,7 +140,6 @@ const StaffPoint = () => {
                 />
               </LocalizationProvider>
             </Box>
-            {/* </Box> */}
           </Box>
 
           <TableContainer
@@ -139,7 +147,6 @@ const StaffPoint = () => {
             component={Paper}
             sx={{
               boxShadow: 'none',
-              // border: '1px solid #e5e5e5',
               borderTop: 'none',
               overflowY: 'auto',
               overflowX: 'scroll',
@@ -197,6 +204,11 @@ const StaffPoint = () => {
               setCurrentPage(value)
             }}
           /> */}
+          <AddAppreciationDialog
+            handleAppreciation={handleAppreciation}
+            addAppreciationDialogControl={addAppreciationDialogControl}
+            handleAddAppreciationDialogClose={handleAddAppreciationDialogClose}
+          />
         </Box>
       </Box>
     </>

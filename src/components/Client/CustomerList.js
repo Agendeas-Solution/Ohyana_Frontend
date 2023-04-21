@@ -16,7 +16,6 @@ import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { CustomerTake } from '../../services/apiservices/clientDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
-
 const CustomerList = ({ clientDetails, ViewClientDetail }) => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
