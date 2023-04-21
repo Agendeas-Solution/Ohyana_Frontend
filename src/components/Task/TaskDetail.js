@@ -359,7 +359,7 @@ const TaskDetail = () => {
                 <Typography className="common_sub_heading" variant="span">
                   Due Date
                 </Typography>
-                <Button variant="filled" className="white_button">
+                {/* <Button variant="filled" className="white_button">
                   <CalendarMonthRoundedIcon
                     onClick={() => {
                       setDueDateDialogControl({
@@ -369,6 +369,18 @@ const TaskDetail = () => {
                       })
                     }}
                     sx={{ color: '#2E3591' }}
+                  />
+                </Button> */}
+                <Button className="task_due_date_edit_button">
+                  <EditRoundedIcon
+                    onClick={() => {
+                      setDueDateDialogControl({
+                        ...dueDateDialogControl,
+                        status: true,
+                        id: taskDetail.id,
+                      })
+                    }}
+                    // className="main_tab_button"
                   />
                 </Button>
               </Box>
