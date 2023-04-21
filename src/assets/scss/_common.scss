@@ -335,6 +335,15 @@ textarea:focus {
   padding: 8px;
 }
 
+.dialogue_done_Icon {
+  border-radius: 50%;
+  color: white;
+  font-size: 70px !important;
+  background-color: #2E3591 !important;
+  padding: 8px;
+}
+
+
 .dialogue_input_fields {
   display: flex;
   width: 320px !important;
@@ -441,6 +450,10 @@ textarea:focus {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+.product_detail_dia_right_section {
+  margin-bottom: 20px;
 }
 
 .common_icon {
@@ -692,6 +705,7 @@ button {
   text-transform: capitalize !important;
   color: #2e3591 !important;
   padding-left: 0px;
+  
 }
 
 .add_product_button {
@@ -1076,10 +1090,21 @@ button {
   border: 1px solid #e5e5e5;
 }
 
-.profile_header_button {
+.profile_header_button, .product_detail_buttons {
   padding: 0px 10px !important;
   box-shadow: none !important;
   background-color: #f1f2f6 !important;
+  color: #2e3591 !important;
+  height: 40px !important;
+  border-radius: 3px;
+  min-width: 0 !important;
+  margin-left: 10px !important;
+}
+
+.task_due_date_edit_button {
+  padding: 0px 10px !important;
+  box-shadow: none !important;
+  background-color: #fff !important;
   color: #2e3591 !important;
   height: 40px !important;
   border-radius: 3px;

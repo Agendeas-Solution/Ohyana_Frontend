@@ -197,7 +197,8 @@ input[type='radio']:focus {
 .product_dialog_right_section {
   display: flex;
   flex-direction: column;
-  width: 55%;
+  width: 53%;
+  /* margin-left: 16px; */
 }
 
 .department_list_section {
@@ -250,14 +251,13 @@ input[type='radio']:focus {
 }
 
 .update_button_section {
-  background-color: #f1f2f6;
+  /* background-color: #f1f2f6; */
   width: 240px;
   border-radius: 5px;
   height: 40px;
   display: flex;
   flex-direction: row;
 }
-
 .table_row_top_align {
   vertical-align: baseline !important;
 }

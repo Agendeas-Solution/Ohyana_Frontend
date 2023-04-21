@@ -13,8 +13,8 @@ import {
 } from '@mui/material'
 import { CreateJobRole } from '../../services/apiservices/adminprofile'
 import moment from 'moment'
-
 import { Context as ContextSnackbar } from '../../context/pageContext'
+
 const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
   const [jobRoleDetail, setJobRoleDetail] = useState({
     name: '',

@@ -1,9 +1,18 @@
+import React, { useState } from 'react'
 import { Button, Dialog, Divider, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import React, { useEffect, useState } from 'react'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf'
 
-const StaffExpensesDetail = ({ openStaffExpenses, closeStaffExpenses }) => {
+const StaffExpensesDetail = ({
+  openStaffExpenses,
+  closeStaffExpenses,
+  openApprovalDialog,
+  setOpenApprovalDialog,
+  paymentVerification,
+  setPaymentVerification,
+}) => {
+  const [approvalDialog, setApprovalDialog] = useState(false)
+
   return (
     <>
       <Dialog
@@ -18,7 +27,19 @@ const StaffExpensesDetail = ({ openStaffExpenses, closeStaffExpenses }) => {
               Expenses Detail
             </Typography>
             <Box>
-              <Button className="common_button expenses_details_heading">
+              <Button
+                // onClick={() => {
+                //   setApprovalDialog(true)
+                // }}
+                // onClick={openApprovalDialog}
+                onClick={() =>
+                  setOpenApprovalDialog({
+                    ...openApprovalDialog,
+                    status: true,
+                  })
+                }
+                className="common_button expenses_details_heading"
+              >
                 Approve
               </Button>
             </Box>
@@ -103,7 +124,16 @@ const StaffExpensesDetail = ({ openStaffExpenses, closeStaffExpenses }) => {
                 </Box>
               </Box>
               <Box className="common_button">
-                <Button sx={{ backgroundColor: 'white' }} variant="span">
+                <Button
+                  onClick={() =>
+                    setPaymentVerification({
+                      ...paymentVerification,
+                      status: true,
+                    })
+                  }
+                  sx={{ backgroundColor: 'white' }}
+                  variant="span"
+                >
                   Update
                 </Button>
               </Box>
