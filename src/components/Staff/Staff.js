@@ -110,18 +110,19 @@ const Staff = () => {
     handleGetAdminStaffDetail()
   }
   const teamLeaderDetails = id => {
-    GetSingleStaffDetailList(
-      id,
-      res => {
-        if (res?.success) {
-          setSingleStaffDetails(res.data)
+    id &&
+      GetSingleStaffDetailList(
+        id,
+        res => {
+          if (res?.success) {
+            setSingleStaffDetails(res.data)
+            setLoader(false)
+          }
+        },
+        err => {
           setLoader(false)
-        }
-      },
-      err => {
-        setLoader(false)
-      },
-    )
+        },
+      )
   }
   useEffect(() => {
     singleStaffDetails && teamLeaderDetails(staffDetailList[0]?.id)
@@ -129,19 +130,16 @@ const Staff = () => {
 
   const handleGetAdminStaffDetail = () => {
     let data = {}
-    if (queryParams.searchQuery !== '' && queryParams?.searchQuery !== null) {
+    if (queryParams.searchQuery !== '' && queryParams?.searchQuery) {
       data['searchQuery'] = queryParams.searchQuery
     }
-    if (queryParams?.teamType !== '' && queryParams?.teamType !== null) {
+    if (queryParams?.teamType !== '' && queryParams?.teamType) {
       data['teamType'] = parseInt(queryParams.teamType)
     }
-    if (
-      queryParams.attendanceType !== '' &&
-      queryParams.attendanceType !== null
-    ) {
+    if (queryParams.attendanceType !== '' && queryParams.attendanceType) {
       data['attendanceType'] = queryParams.attendanceType
     }
-    if (queryParams.jobRole !== '' && queryParams.jobRole !== null) {
+    if (queryParams.jobRole !== '' && queryParams.jobRole) {
       data['roleId'] = queryParams.jobRole
     }
     GetAdminStaffDetailList(

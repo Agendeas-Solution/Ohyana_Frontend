@@ -198,28 +198,30 @@ const TaskDetail = () => {
             {taskDetail?.title || '-'}
           </Typography>
           <Box>
-            <Button className="profile_header_button">
-              <EditRoundedIcon
-                onClick={() => {
-                  setEditTaskNameDialog({
-                    ...editTaskNameDialog,
-                    status: true,
-                    id: taskDetail?.id,
-                    taskName: taskDetail?.title,
-                  })
-                }}
-              />
+            <Button
+              onClick={() => {
+                setEditTaskNameDialog({
+                  ...editTaskNameDialog,
+                  status: true,
+                  id: taskDetail?.id,
+                  taskName: taskDetail?.title,
+                })
+              }}
+              className="profile_header_button"
+            >
+              <EditRoundedIcon />
             </Button>
-            <Button className="profile_header_button">
-              <DeleteOutlineRoundedIcon
-                onClick={() =>
-                  setDeleteTaskDialog({
-                    ...deleteTaskDialog,
-                    status: true,
-                    id: taskDetail.id,
-                  })
-                }
-              />
+            <Button
+              onClick={() =>
+                setDeleteTaskDialog({
+                  ...deleteTaskDialog,
+                  status: true,
+                  id: taskDetail.id,
+                })
+              }
+              className="profile_header_button"
+            >
+              <DeleteOutlineRoundedIcon />
             </Button>
           </Box>
         </Box>
@@ -352,24 +354,24 @@ const TaskDetail = () => {
               </Box>
             </Box>
           </Box>
-
           <Box className="task_details_section">
             <Box sx={{ marginBottom: '10px' }}>
               <Box className="common_row">
                 <Typography className="common_sub_heading" variant="span">
                   Due Date
                 </Typography>
-                <Button variant="filled" className="white_button">
-                  <CalendarMonthRoundedIcon
-                    onClick={() => {
-                      setDueDateDialogControl({
-                        ...dueDateDialogControl,
-                        status: true,
-                        id: taskDetail.id,
-                      })
-                    }}
-                    sx={{ color: '#2E3591' }}
-                  />
+                <Button
+                  onClick={() => {
+                    setDueDateDialogControl({
+                      ...dueDateDialogControl,
+                      status: true,
+                      id: taskDetail.id,
+                    })
+                  }}
+                  variant="filled"
+                  className="white_button"
+                >
+                  <CalendarMonthRoundedIcon sx={{ color: '#2E3591' }} />
                 </Button>
               </Box>
               <Typography variant="span" className="common_description_text">

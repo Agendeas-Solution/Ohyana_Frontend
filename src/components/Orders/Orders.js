@@ -73,16 +73,16 @@ const Orders = () => {
   }))
   const handleOrderList = () => {
     let data = { page: currentPage, size: rowsPerPage }
-    if (queryParams.delivery !== '' && queryParams.delivery !== null) {
+    if (queryParams.delivery !== '' && queryParams.delivery) {
       data['delivery'] = queryParams.delivery
     }
-    if (queryParams.payment !== '' && queryParams.payment !== null) {
+    if (queryParams.payment !== '' && queryParams.payment) {
       data['payment'] = queryParams.payment
     }
-    if (queryParams.date !== '' && queryParams.date !== null) {
+    if (queryParams.date !== '' && queryParams.date) {
       data['date'] = queryParams.date
     }
-    if (queryParams.searchQuery !== '' && queryParams.searchQuery !== null) {
+    if (queryParams.searchQuery !== '' && queryParams.searchQuery) {
       data['searchQuery'] = queryParams.searchQuery
     }
     GetAllClientOrderList(
@@ -104,7 +104,7 @@ const Orders = () => {
   }
   useEffect(() => {
     handleOrderList()
-  }, [queryParams.searchQuery, currentPage])
+  }, [queryParams, currentPage])
   const handleDrawerOpen = () => {
     setOpen(true)
   }
