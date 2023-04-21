@@ -144,7 +144,6 @@ const Staff = () => {
     if (queryParams.jobRole !== '' && queryParams.jobRole !== null) {
       data['roleId'] = queryParams.jobRole
     }
-    debugger
     GetAdminStaffDetailList(
       data,
       res => {

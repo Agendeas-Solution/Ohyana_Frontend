@@ -110,20 +110,32 @@ const ViewProductDialog = ({
               <Box className="dialog_product_image">
                 <img src={SampleProduct} alt="" />
               </Box>
-              <TextField
-                size="small"
-                value={productDetail?.quantity}
-                onChange={e =>
-                  setProductDetail({
-                    ...productDetail,
-                    quantity: e.target.value,
-                  })
-                }
-                placeholder="Number"
-              />
-              <Button onClick={handleProductQuantityUpdate} variant="contained">
+
+              <Box className="update_button_section">
+                <TextField
+                  sx={{ width: '37%' }}
+                  size="small"
+                  value={productDetail?.quantity}
+                  onChange={e =>
+                    setProductDetail({
+                      ...productDetail,
+                      quantity: e.target.value,
+                    })
+                  }
+                  placeholder="Number"
+                />
+                <Button
+                  sx={{ width: '63%', backgroundColor: '#2E3591' }}
+                  size="large"
+                  onClick={handleProductQuantityUpdate}
+                  variant="contained"
+                >
+                  Update Stock
+                </Button>
+              </Box>
+              {/* <Button onClick={handleProductQuantityUpdate} variant="contained">
                 Update Stock
-              </Button>
+              </Button> */}
             </Box>
             <Box className="product_dialog_right_section">
               <Box className="common_row mb-1">

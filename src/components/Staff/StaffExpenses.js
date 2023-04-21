@@ -213,7 +213,7 @@ const StaffExpenses = () => {
                                 onClick={() =>
                                   setOpenStaffExpenses({
                                     status: true,
-                                    id: row.id,
+                                    data: row,
                                   })
                                 }
                                 className="common_button"

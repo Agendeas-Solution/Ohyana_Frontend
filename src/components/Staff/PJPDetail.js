@@ -116,7 +116,6 @@ const PJPDetail = () => {
     if (filterPJP.pjpStatus !== '' && filterPJP.pjpStatus !== null) {
       data['statusType'] = filterPJP.pjpStatus
     }
-    debugger
     GetPJPList(
       data,
       res => {

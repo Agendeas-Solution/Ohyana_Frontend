@@ -95,7 +95,6 @@ const Orders = () => {
             ? Math.ceil(res?.data?.totalPage / rowsPerPage)
             : null
         setNumbersToDisplayOnPagination(pages)
-        debugger
       },
       err => {
         console.log('Printing OrderList Error', err)
