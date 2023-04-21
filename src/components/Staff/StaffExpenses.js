@@ -147,8 +147,8 @@ const StaffExpenses = () => {
             <Table
               stickyHeader
               aria-label="sticky table"
-              sx={{ minWidth: 690, marginLeft: '-10px' }}
-              className="table_heading "
+              sx={{ minWidth: 690 }}
+              className="table_heading custom_table"
             >
               <TableHead>
                 <TableRow>
@@ -159,7 +159,7 @@ const StaffExpenses = () => {
                   <TableCell>Payment</TableCell>
                   <TableCell>Document</TableCell>
                   {/* <TableCell>Approval</TableCell> */}
-                  <TableCell>Payment</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -216,14 +216,15 @@ const StaffExpenses = () => {
                             <Typography>-</Typography>
                           ) : (
                             <Box>
-                              <Button
+                              {/* <Button
+                                sx={{ marginRight: '10px' }}
                                 onClick={() =>
                                   handlePaymentStatusUpdate(row?.id)
                                 }
-                                className="common_button"
+                                className="border_button"
                               >
                                 Update
-                              </Button>
+                              </Button> */}
                               <Button
                                 onClick={() =>
                                   setOpenStaffExpenses({
@@ -231,7 +232,7 @@ const StaffExpenses = () => {
                                     data: row,
                                   })
                                 }
-                                className="common_button"
+                                className="border_button"
                               >
                                 View
                               </Button>

@@ -406,7 +406,7 @@ const ClientProfile = () => {
             </Box>
             <TabPanel sx={{ padding: '0px' }} value="1">
               <TableContainer
-                className="client_table_height mt-1"
+                className="client_table_height"
                 component={Paper}
                 sx={{
                   boxShadow: 'none',
@@ -418,7 +418,7 @@ const ClientProfile = () => {
                   <Table
                     stickyHeader
                     aria-label="sticky table"
-                    sx={{ minWidth: 690, marginLeft: '-10px' }}
+                    sx={{ minWidth: 690, padding: '0px !important' }}
                     className="table_heading "
                   >
                     {/* <TableHead className="client_profile_table_header"> */}
@@ -454,20 +454,23 @@ const ClientProfile = () => {
                           <TableCell className="status_description">
                             {row?.description}
                           </TableCell>
-                          <TableCell>
+                          <TableCell
+                            sx={{ display: 'flex', justifyContent: 'center' }}
+                          >
                             <Button
+                              sx={{ marginRight: '10px' }}
                               onClick={() => {
                                 handleViewClientStatus(
                                   row,
                                   clientProfileDetail.id,
                                 )
                               }}
-                              className="client_profile_edit_button m-1"
+                              className="border_button"
                             >
                               View
                             </Button>
                             <Button
-                              className="client_profile_edit_button"
+                              className="border_button"
                               onClick={() => {
                                 handleEditClientStatus(
                                   row,
@@ -493,7 +496,7 @@ const ClientProfile = () => {
             <TabPanel sx={{ padding: '0px' }} value="3">
               <AppointmentTable clientAppointmentList={clientAppointmentList} />
             </TabPanel>
-            <TabPanel sx={{ paddingTop: '15px' }} value="4">
+            <TabPanel sx={{ padding: '0px' }} value="4">
               <ProfileTable clientProfileDetail={clientProfileDetail} />
             </TabPanel>
             <TabPanel sx={{ padding: '0px' }} value="5">

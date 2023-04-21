@@ -431,7 +431,8 @@ textarea:focus {
   font-weight: 600;
   background-color: #f1f2f6;
   border: none;
-  // padding: 0px;
+  padding-top: 10px ;
+  padding-bottom: 10px ;
 }
 
 .status_description {
@@ -642,7 +643,7 @@ button {
   text-transform: capitalize;
 }
 
-.client_profile_edit_button {
+.border_button {
   border: 1px solid #e5e5e5 !important;
   text-transform: capitalize !important;
 }
@@ -880,6 +881,9 @@ button {
   padding: 0px;
 }
 
+.custom_table {
+  padding: 0px !important;
+}
 
 .body_section_paddingless_pagination {
   background-color: #fff;
@@ -903,6 +907,7 @@ button {
   display: flex;
   flex-direction: column;
   margin: 0px 12px;
+  // height: 90%;
   height: 100%;
 }
 
@@ -913,6 +918,7 @@ button {
 }
 
 .profile_body_section {
+  // height: 89%;
   height: 100%;
   display: flex;
   background-color: #fff;
@@ -1013,7 +1019,7 @@ button {
 }
 
 .orders_table_height {
-  height: 71vh;
+  height: 82%;
   border: none !important;
 }
 
@@ -1391,4 +1397,18 @@ button {
   html {
     font-size: 80%;
   }
+}
+
+.table_description tbody tr td{
+  -webkit-line-clamp: 3 !important;
+  max-height: 3em !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+}
+
+.pagination_style {
+  margin: 20px auto;
+  float: right;
 }

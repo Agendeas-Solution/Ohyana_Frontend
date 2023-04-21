@@ -16,6 +16,7 @@ import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { CustomerTake } from '../../services/apiservices/clientDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import { Box } from '@mui/system'
 
 const CustomerList = ({ clientDetails, ViewClientDetail }) => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
@@ -46,101 +47,78 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
   return (
     <>
       <TableContainer
+        sx={{ boxShadow: 'none !important' }}
         className="orders_table_height"
         component={Paper}
-        sx={{
-          boxShadow: 'none',
-          border: '1px solid #e5e5e5',
-          overflowY: 'auto',
-        }}
       >
-        {clientDetails.length > 0 ? (
-          <Table
-            stickyHeader
-            aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
-          >
-            <TableHead>
-              <TableRow>
-                <TableCell align="right">Id</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Company Name</TableCell>
-                <TableCell>Contact No.</TableCell>
-                <TableCell>State</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {clientDetails.map((row, index) => (
-                <TableRow
-                  key={row.id}
-                  hover
-                  role="checkbox"
-                  tabIndex={-1}
+        <Table
+          sx={{ padding: '0px !important' }}
+          stickyHeader
+          aria-label="simple table"
+        >
+          <TableHead>
+            <TableRow>
+              <TableCell align="right">Id</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Company Name</TableCell>
+              <TableCell>Contact No.</TableCell>
+              <TableCell>State</TableCell>
+              <TableCell>Date</TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {clientDetails.map((row, index) => (
+              <TableRow key={row.id} hover role="checkbox" tabIndex={-1}>
+                <TableCell className="tablecell_height" scope="row">
+                  {row.id}
+                </TableCell>
+                <TableCell>{row.name ?? '-'}</TableCell>
+                <TableCell>{row.business ?? '-'}</TableCell>
+                <TableCell>{row.contact_number ?? '-'}</TableCell>
+                <TableCell>{row.state ?? '-'}</TableCell>
+                <TableCell>
+                  {moment(row.createdAt).format('DD-MM-YYYY')}
+                </TableCell>
+                <TableCell
                   sx={{
-                    '&:last-child td,th': { border: 0 },
+                    display: 'flex',
+                    padding: '0px',
+                    justifyContent: 'center',
                   }}
                 >
-                  <TableCell
-                    className="tablecell_height"
-                    scope="row"
-                    sx={{ maxWidth: '150px' }}
-                  >
-                    {row.id}
-                  </TableCell>
-                  <TableCell sx={{ maxWidth: '150px' }}>
-                    {row.name ?? '-'}
-                  </TableCell>
-                  <TableCell sx={{ maxWidth: '150px' }}>
-                    {row.business ?? '-'}
-                  </TableCell>
-                  <TableCell sx={{ maxWidth: '150px' }}>
-                    {row.contact_number ?? '-'}
-                  </TableCell>
-                  <TableCell sx={{ maxWidth: '150px' }}>
-                    {row.state?.name ?? '-'}
-                  </TableCell>
-                  <TableCell sx={{ maxWidth: '150px' }}>
-                    {moment(row.createdAt).format('DD-MM-YYYY')}
-                  </TableCell>
-                  <TableCell sx={{ maxWidth: '150px' }}>
-                    {row.teamId === null ? (
-                      <Button
-                        onClick={() => {
-                          handleTakeCustomer(row.id)
-                        }}
-                        className="common_button buttons"
-                      >
-                        Take
-                      </Button>
-                    ) : null}
+                  {row.teamId === null ? (
                     <Button
-                      className="client_view_button common_button"
                       onClick={() => {
-                        ViewClientDetail(row.id)
+                        handleTakeCustomer(row.id)
                       }}
+                      className="common_button buttons"
                     >
-                      View
+                      Take
                     </Button>
-                    {row.teamId ? (
-                      <>
-                        <a href={`tel:${row.contact_number}`}>
-                          <Button className="common_button">
-                            <img src={CallIcon} />
-                          </Button>
-                        </a>
-                      </>
-                    ) : null}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        ) : (
-          <NoResultFound />
-        )}
+                  ) : null}
+                  <Button
+                    className="client_view_button common_button"
+                    onClick={() => {
+                      ViewClientDetail(row.id)
+                    }}
+                  >
+                    View
+                  </Button>
+                  {row.teamId ? (
+                    <>
+                      <a href={`tel:${row.contact_number}`}>
+                        <Button className="common_button">
+                          <img src={CallIcon} />
+                        </Button>
+                      </a>
+                    </>
+                  ) : null}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </TableContainer>
     </>
   )

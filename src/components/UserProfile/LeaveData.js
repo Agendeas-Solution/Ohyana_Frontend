@@ -31,7 +31,7 @@ const LeaveData = ({ leaveList }) => {
           <Table
             stickyHeader
             aria-label="sticky table"
-            className="table_heading"
+            className="table_heading custom_table"
             // sx={{ marginLeft: '-10px' }}
           >
             {/* <TableHead className="team_overview_table_heading"> */}

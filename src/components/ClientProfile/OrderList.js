@@ -48,7 +48,7 @@ const OrderList = () => {
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            sx={{ minWidth: 690, padding: '0px !important' }}
             className="table_heading"
           >
             <TableHead className="client_profile_table_header">
@@ -91,7 +91,7 @@ const OrderList = () => {
                         onClick={() => {
                           navigate(`/orderDetail/${orderData?.id}`)
                         }}
-                        className="common_button"
+                        className="border_button"
                       >
                         View
                       </Button>

@@ -11,6 +11,7 @@ import {
   TableBody,
   TableContainer,
   Table,
+  makeStyles,
 } from '@mui/material'
 import DeleteIcon from '../../assets/img/Delete_Icon.svg'
 import EditIcon from '../../assets/img/Edit_Icon.svg'
@@ -30,6 +31,7 @@ const ExpenseType = React.lazy(() => import('./ExpenseType'))
 
 const ExpenseList = () => {
   let navigate = useNavigate()
+
   const { flagLoader, permissions } = useContext(AuthContext).state
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -165,11 +167,11 @@ const ExpenseList = () => {
           </Button>
         </Box>
 
-        <Box className="left_team_profile_section">
+        {/* <Box className="left_team_profile_section">
           <TableContainer>
             <Table className="expense_list">
               <TableHead className="client_profile_table_header">
-                <TableRow sx={{ backgroundColor: '#f1f2f6' }}>
+                <TableRow>
                   <TableCell align="left">Sr No.</TableCell>
                   <TableCell align="left">Name</TableCell>
                   <TableCell align="left">Description</TableCell>
@@ -183,7 +185,11 @@ const ExpenseList = () => {
                 {expenseList.length > 0 &&
                   expenseList?.map((data, index) => (
                     <React.Fragment key={index}>
-                      <TableRow className="job_role_list" key={data.id}>
+                      <TableRow
+                        // sx={{ padding: '20px' }}
+                        className="job_role_list"
+                        key={data.id}
+                      >
                         <TableCell>{index + 1}</TableCell>
                         <TableCell>{data.name || '-'}</TableCell>
                         <TableCell
@@ -225,7 +231,84 @@ const ExpenseList = () => {
                       <Divider
                         sx={{ height: '24px', borderColor: 'transparent' }}
                       />
-                      {/* {index < staffDetailList.length - 1 && <Box my={2} />} */}
+                    </React.Fragment>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box> */}
+
+        <Box>
+          <TableContainer>
+            <Table>
+              <TableHead className="client_profile_table_header">
+                <TableRow>
+                  <TableCell>Sr No.</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableHead>
+
+              {/* <Divider orientation="vertical" variant="middle" flexItem /> */}
+
+              <TableBody>
+                {expenseList.length > 0 &&
+                  expenseList?.map((data, index) => (
+                    <React.Fragment key={index}>
+                      <TableRow
+                        // sx={{
+                        //   border: '1px solid black',
+                        //   backgroundColor: 'lightgray',
+                        // }}
+                        style={{
+                          border: '1px solid black',
+                          padding: '5rem',
+                        }}
+                        key={data.id}
+                      >
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell>{data.name || '-'}</TableCell>
+                        <TableCell
+                          className="job_role_description"
+                          // sx={{
+                          //   maxHeight: '5em',
+                          //   overflow: 'hidden',
+                          //   textOverflow: 'ellipsis',
+                          //   whiteSpace: 'nowrap',
+                          // }}
+                        >
+                          {data.description || '-'}
+                        </TableCell>
+
+                        <TableCell>
+                          <img
+                            onClick={() =>
+                              setAddExpenseType({
+                                ...addExpenseType,
+                                status: true,
+                                expenseId: data.id,
+                                name: data.name,
+                                description: data.description,
+                              })
+                            }
+                            src={EditIcon}
+                          />
+                          <img
+                            onClick={() => {
+                              setDeletexpenseListDialog({
+                                ...deletexpenseListDialog,
+                                status: true,
+                                id: data.id,
+                              })
+                            }}
+                            src={DeleteIcon}
+                          />
+                        </TableCell>
+                      </TableRow>
+                      <Divider
+                        sx={{ height: '24px', borderColor: 'transparent' }}
+                      />
                     </React.Fragment>
                   ))}
               </TableBody>
