@@ -143,17 +143,14 @@ const ExpenseList = () => {
   }
   return (
     <>
-      <div className="main_section">
-        <Box className="expense_list_title mb-3">
-          <Typography
-            sx={{ color: '#8E8E8E', fontSize: '18px' }}
-            variant="span"
-            className=""
-          >
+      <Box className="main_section">
+        <Box className="main_section_header" sx={{ borderBottom: 'none' }}>
+          <Typography className="task_card_heading" variant="span">
             Expense List
           </Typography>
           <Button
-            className="background_col_btn"
+            className="primary_color_button"
+            variant="contained"
             onClick={() =>
               setAddExpenseType({
                 ...addExpenseType,
@@ -163,17 +160,10 @@ const ExpenseList = () => {
                 description: '',
               })
             }
-            variant="contained"
           >
             + Expense Type
           </Button>
         </Box>
-
-        <Divider
-          sx={{ borderColor: '#8E8E8E' }}
-          orientation="horizontal"
-          width="100%"
-        />
 
         <Box className="left_team_profile_section">
           <TableContainer>
@@ -192,65 +182,14 @@ const ExpenseList = () => {
               <TableBody>
                 {expenseList.length > 0 &&
                   expenseList?.map((data, index) => (
-                    // return (
-                    //   <Box className="appointment_notification">
-                    //     <Grid
-                    //       container
-                    //       spacing={2}
-                    //       className="align-items-center d-flex justify-content-center"
-                    //     >
-                    //       <Grid item xs={1}>
-                    //         <Typography variant="span">{index + 1}</Typography>
-                    //       </Grid>
-                    //       <Grid item xs={2}>
-                    //         <Typography variant="span">{data.name}</Typography>
-                    //       </Grid>
-                    //       <Grid item xs={3}>
-                    //         <Typography variant="span">
-                    //           {data.description}
-                    //         </Typography>
-                    //       </Grid>
-                    //       <Grid display="inline-flex" item xs={6}>
-                    //         <img
-                    //           onClick={() =>
-                    //             setAddExpenseType({
-                    //               ...addExpenseType,
-                    //               status: true,
-                    //               expenseId: data.id,
-                    //               name: data.name,
-                    //               description: data.description,
-                    //             })
-                    //           }
-                    //           className="me-3 p-2"
-                    //           src={EditIcon}
-                    //           alt=""
-                    //         />
-                    //         <img
-                    //           className="iconn ms-2"
-                    //           onClick={() => {
-                    //             setDeletexpenseListDialog({
-                    //               ...deletexpenseListDialog,
-                    //               status: true,
-                    //               id: data.id,
-                    //             })
-                    //           }}
-                    //           src={DeleteIcon}
-                    //           alt=""
-                    //         />
-                    //       </Grid>
-                    //     </Grid>
-                    //   </Box>
-                    // )
-
                     <React.Fragment key={index}>
-                      <TableRow
-                        // className="appointment_notification"
-                        className="job_role_list"
-                        key={data.id}
-                      >
+                      <TableRow className="job_role_list" key={data.id}>
                         <TableCell>{index + 1}</TableCell>
                         <TableCell>{data.name || '-'}</TableCell>
-                        <TableCell align="left">
+                        <TableCell
+                          align="left"
+                          className="job_role_description"
+                        >
                           {data.description || '-'}
                         </TableCell>
 
@@ -293,7 +232,7 @@ const ExpenseList = () => {
             </Table>
           </TableContainer>
         </Box>
-      </div>
+      </Box>
       <ExpenseType
         addExpenseType={addExpenseType}
         handleCloseDialog={handleCloseDialog}
