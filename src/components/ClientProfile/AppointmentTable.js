@@ -57,7 +57,7 @@ const AppointmentTable = ({ clientAppointmentList }) => {
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            sx={{ minWidth: 690, padding: '0px !important' }}
             className="table_heading"
           >
             <TableHead className="client_profile_table_header">
@@ -95,7 +95,7 @@ const AppointmentTable = ({ clientAppointmentList }) => {
                     <TableCell>{row.appointment_unit}</TableCell>
                     <TableCell>
                       <Button
-                        className="client_profile_edit_button"
+                        className="border_button"
                         onClick={() => {
                           handleAppointmentReminder(row)
                         }}

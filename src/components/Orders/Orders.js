@@ -307,7 +307,7 @@ const Orders = () => {
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            sx={{ minWidth: 690, padding: '0px !important' }}
             // className="table_heading "
           >
             <TableHead>
@@ -365,7 +365,7 @@ const Orders = () => {
           </Table>
         </TableContainer>
         <Pagination
-          className="mt-3"
+          className="pagination_style"
           boundaryCount={0}
           siblingCount={0}
           size="small"

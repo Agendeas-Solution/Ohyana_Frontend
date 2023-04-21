@@ -33,7 +33,7 @@ const HolidayData = ({ holidayList }) => {
           <Table
             stickyHeader
             aria-label="sticky table"
-            className="table_heading"
+            className="table_heading custom_table"
           >
             <TableHead>
               <TableRow>

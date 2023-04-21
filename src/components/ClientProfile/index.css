@@ -1,6 +1,7 @@
 .client_profile_detail {
-  width: 70%;
-  height: 100%;
+  width: 100%;
+  height: 68vh !important;
+  overflow: scroll;
 }
 
 audio::-internal-media-controls-download-button {

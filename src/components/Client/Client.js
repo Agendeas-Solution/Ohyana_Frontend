@@ -439,18 +439,20 @@ const Client = () => {
             ViewClientDetail={ViewClientDetail}
           />
         )}
-        <Pagination
-          className="mt-3"
-          boundaryCount={0}
-          siblingCount={0}
-          size="small"
-          shape="rounded"
-          count={numbersToDisplayOnPagination}
-          page={currentPage}
-          onChange={(e, value) => {
-            setCurrentPage(value)
-          }}
-        />
+        <Box>
+          <Pagination
+            className="pagination_style"
+            boundaryCount={0}
+            siblingCount={0}
+            size="small"
+            shape="rounded"
+            count={numbersToDisplayOnPagination}
+            page={currentPage}
+            onChange={(e, value) => {
+              setCurrentPage(value)
+            }}
+          />
+        </Box>
       </Box>
     </Box>
   )

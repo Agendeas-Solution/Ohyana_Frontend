@@ -37,7 +37,7 @@ const ClientProfileTable = props => {
           <TableCell align="left">{props.row.description}</TableCell>
           <TableCell align="left">
             <Button
-              className="client_profile_edit_button"
+              className="border_button"
               onClick={() => {
                 ViewClientDetail()
               }}
