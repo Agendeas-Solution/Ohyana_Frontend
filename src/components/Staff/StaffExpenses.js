@@ -231,9 +231,8 @@ const StaffExpenses = () => {
                                     status: true,
                                     data: row,
                                   })
-                                }
+                                }}
                                 className="border_button"
-
                               >
                                 View
                               </Button>
