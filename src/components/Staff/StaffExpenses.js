@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Box, Typography, Button, TextField } from '@mui/material'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import Table from '@mui/material/Table'
@@ -21,6 +20,7 @@ import {
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import StaffExpensesDetail from './StaffExpensesDetail'
 import { Context as AuthContext } from '../../context/authContext/authContext'
+
 import StaffExpensesApprovalDialog from './StaffExpensesApprovalDialog'
 import StaffPaymentVerificationDialog from './StaffPaymentVerificationDialog'
 
@@ -226,13 +226,14 @@ const StaffExpenses = () => {
                                 Update
                               </Button> */}
                               <Button
-                                onClick={() =>
+                                onClick={() => {
                                   setOpenStaffExpenses({
                                     status: true,
                                     data: row,
                                   })
                                 }
                                 className="border_button"
+
                               >
                                 View
                               </Button>

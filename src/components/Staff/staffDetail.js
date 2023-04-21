@@ -30,14 +30,6 @@ const StaffDetail = ({ adminProfileDetail }) => {
           </Typography>
         </Box>
         <Box className="companyDetail_root  p-3">
-          <Typography variant="span" className=" profile_data_lable">
-            Password:
-          </Typography>
-          <Typography variant="span">
-            {adminProfileDetail?.password || '-'}
-          </Typography>
-        </Box>
-        <Box className="companyDetail_root  p-3">
           <Typography className=" profile_data_lable" variant="span">
             Birthdate
           </Typography>
