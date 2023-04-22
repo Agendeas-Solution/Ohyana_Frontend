@@ -17,7 +17,6 @@ const ClientProfileTable = props => {
   const ViewClientDetail = () => {
     let domain = window.location.host
     let protocol = window.location.protocol
-    console.log('printing protocol', protocol)
     window.location.replace(`${protocol}//${domain}/clientprofile`)
   }
   return (

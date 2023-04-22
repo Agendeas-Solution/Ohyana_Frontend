@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState, Suspense } from 'react'
+import React, { useContext, useEffect, Suspense } from 'react'
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom'
-import { Box } from '@mui/material'
 import Cookie from 'js-cookie'
 import { clearLoginToken } from '../services/storage'
 import { io } from 'socket.io-client'
@@ -18,7 +17,6 @@ import Staff from '../components/Staff/Staff'
 import StaffProfile from '../components/Staff/StaffProfile'
 import AddStaffMember from '../components/Staff/AddStaffMember'
 import Settings from '../components/Settings/Settings'
-import DepartmentList from '../components/Settings/DepartmentList'
 import ProductList from '../components/Settings/ProductList'
 import EditClient from '../components/EditClient/EditClient'
 import EditStaff from '../components/Staff/EditStaff'
@@ -45,7 +43,7 @@ const socket = io('http://192.168.1.65:9009')
 
 const AppContent = () => {
   const { setPermissions } = useContext(AuthContext)
-  const { authorize, flagLoader, permissions } = useContext(AuthContext).state
+  const { permissions } = useContext(AuthContext).state
   const ProtectedRoutes = () => {
     return Cookie.get('userToken') ? <Outlet /> : <Navigate to="/login" />
   }
@@ -56,7 +54,6 @@ const AppContent = () => {
       socket.emit('join', { email: localStorage.getItem('userEmail') })
     })
     socket.on('connect', () => {
-      console.log('Successfully connected to server')
       socket.emit('join', { email: localStorage.getItem('userEmail') })
     })
     socket.on('permissionChanged', () => {

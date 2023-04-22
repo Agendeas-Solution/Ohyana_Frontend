@@ -99,8 +99,6 @@ const StaffAttendanceLeave = ({
                         <Button
                           className="common_button"
                           onClick={() => {
-                            console.log(leaveList)
-
                             setApproveLeave({
                               ...approveLeave,
                               status: true,

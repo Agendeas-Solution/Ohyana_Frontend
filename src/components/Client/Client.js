@@ -47,7 +47,6 @@ const NoResultFound = React.lazy(() =>
 )
 const CustomerList = React.lazy(() => import('./CustomerList'))
 const BusinessCard = React.lazy(() => import('./BusinessCard'))
-
 const Client = () => {
   const theme = useTheme()
   // const socket = io("http://159.89.165.83", { transports: ["websocket"] });
@@ -135,7 +134,6 @@ const Client = () => {
     handleStateList()
   }, [])
   useEffect(() => {
-    console.log(clientType)
     let value = clientType.filter(data => {
       if (data.id <= permissions?.clientStageAccess) {
         return data
@@ -195,7 +193,6 @@ const Client = () => {
     // return () => socket.disconnect();
     // const socket = io("http://159.89.165.83");
     socket.on('client_list', data => {
-      console.log('Printing Connections', data)
       GetAdminClientDetail(
         data,
         res => {
@@ -395,7 +392,6 @@ const Client = () => {
               >
                 {cityList &&
                   cityList.map(data => {
-                    console.log('Printing Data', data)
                     return <MenuItem value={data}>{data}</MenuItem>
                   })}
               </Select>
@@ -415,7 +411,6 @@ const Client = () => {
               >
                 {stateList &&
                   stateList.map(data => {
-                    console.log('Printing Data', data)
                     return <MenuItem value={data}>{data}</MenuItem>
                   })}
               </Select>

@@ -53,7 +53,6 @@ const TeamGraph = ({ selectedPeriod }) => {
           circular: true,
         }
       })
-    console.log('Printing userData', userData, datga)
     graphData &&
       setUserData({
         ...userData,

@@ -461,6 +461,9 @@ textarea:focus {
 .common_icon {
   color: #2e3591;
 }
+.common_icon:hover{
+  cursor: pointer;
+}
 
 .sales_parameter {
   display: flex;

@@ -44,7 +44,6 @@ const ViewProductDialog = ({
     DeleteAdminProduct(
       viewProductDialog?.id,
       res => {
-        console.log('Printing Response', res.data)
         handleClose()
       },
       err => {
@@ -57,7 +56,6 @@ const ViewProductDialog = ({
       productDetail?.quantity,
       viewProductDialog?.id,
       res => {
-        console.log('Printing Response UpdateProductQuantity', res.data)
         handleClose()
       },
       err => {

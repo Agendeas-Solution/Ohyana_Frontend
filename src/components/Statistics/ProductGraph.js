@@ -13,8 +13,6 @@ const ProductGraph = ({ selectedPeriod }) => {
   const [cityList, setCityList] = useState([])
   // const [selectedProduct, se] = useState()
   useEffect(() => {
-    console.log('selectedPerid', selectedPeriod)
-    debugger
     GetProductReport(
       { selectedPeriod: selectedPeriod },
       res => {

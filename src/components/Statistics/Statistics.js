@@ -83,7 +83,6 @@ const Statistics = () => {
               options={daterange}
               value={selectedPeriod}
               onChange={(e, value) => {
-                console.log(value)
                 setSelectedPeriod(value)
               }}
               renderInput={params => (

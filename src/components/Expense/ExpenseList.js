@@ -40,8 +40,6 @@ const ExpenseList = () => {
     id: null,
   })
   let path = window.location.pathname
-  console.log('Printing Path of ', path)
-  console.log('Printing ', path.split('/').pop())
   path = path.split('/').pop()
   const [addExpenseType, setAddExpenseType] = useState({
     expenseId: null,
@@ -86,7 +84,6 @@ const ExpenseList = () => {
         }
       },
       err => {
-        console.log(err)
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
