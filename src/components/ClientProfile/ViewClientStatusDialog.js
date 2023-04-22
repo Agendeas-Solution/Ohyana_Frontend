@@ -24,7 +24,6 @@ const ViewClientStatusDialog = ({
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const EditStatus = () => {
-    console.log('EditClient Status', editStatusDetail)
     EditClientStatus(
       editStatusDetail,
       res => {

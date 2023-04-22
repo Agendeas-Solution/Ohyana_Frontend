@@ -834,7 +834,6 @@ const Department = () => {
                       options={clientType}
                       value={clientType[accessControl?.client?.clientStage]}
                       onChange={(e, value) => {
-                        console.log(value)
                         setAccessControl({
                           ...accessControl,
                           client: {

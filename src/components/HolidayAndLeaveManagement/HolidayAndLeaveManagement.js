@@ -130,7 +130,6 @@ const HolidayAndLeaveManagement = () => {
     setAddHolidayDetail({ ...addHolidayDetail, status: false })
   }
   const SetHoliday = () => {
-    console.log('addHolidayDetail', addHolidayDetail)
     let data = addHolidayDetail
     delete data.status
     delete data?.id
@@ -174,7 +173,6 @@ const HolidayAndLeaveManagement = () => {
     })
   }
   const handleUpdateRegularHoliday = () => {
-    console.log('addHolidayDetail', addEditRegularDetail)
     let data = {
       occasion: addEditRegularDetail.occasion.toString(),
       regular: addEditRegularDetail.regular,
@@ -206,7 +204,6 @@ const HolidayAndLeaveManagement = () => {
     )
   }
   const handleAddRegularHoliday = () => {
-    console.log('addHolidayDetail', addEditRegularDetail)
     let data = {
       occasion: addEditRegularDetail.occasion.toString(),
       regular: addEditRegularDetail.regular,
@@ -253,7 +250,6 @@ const HolidayAndLeaveManagement = () => {
     )
   }
   const UpdateHolidayFunc = () => {
-    console.log('addHolidayDetail', addHolidayDetail)
     let data = {
       date: addHolidayDetail?.date,
       occasion: addHolidayDetail?.occasion,

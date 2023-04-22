@@ -72,7 +72,6 @@ const SideBar = () => {
   }, [])
 
   const handleNavItemClick = (path, name) => {
-    console.log('Printing Edit icon')
     navigate(path)
     setActivePage(name)
     setPath(path)
@@ -84,7 +83,6 @@ const SideBar = () => {
     setPath(pathName)
 
     socket.on('notification', function (result) {
-      console.log(result?.data?.heading)
       setNotificationSnackbar({
         ...notificationSnackbar,
         status: true,

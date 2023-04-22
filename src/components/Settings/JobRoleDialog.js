@@ -69,7 +69,6 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
           <Autocomplete
             options={jobRoleList?.roles}
             onChange={(e, value) => {
-              console.log(value)
               setJobRoleDetail({ ...jobRoleDetail, parentId: value.id })
             }}
             getOptionLabel={option => option?.name}

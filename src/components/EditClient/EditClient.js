@@ -133,7 +133,6 @@ const EditClient = () => {
   //   setFilteredProductList(productlist)
   // }, [userDetail?.inquiryfor])
   const EditClient = () => {
-    console.log('userDetail', userDetail)
     if (
       userDetail.clientName !== '' &&
       (userDetail.email || userDetail.contactNo) &&
@@ -159,8 +158,6 @@ const EditClient = () => {
         reference_name: userDetail?.referenceName,
       }
       let path = window.location.pathname
-      console.log('Printing Path of ', path)
-      console.log('Printing ', path.split('/').pop())
       path = path.split('/').pop()
       EditClientDetail(
         path,

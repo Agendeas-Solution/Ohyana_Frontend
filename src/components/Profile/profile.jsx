@@ -6,7 +6,6 @@ const Profile = () => {
   useEffect(() => {
     let path = window.location.pathname
     setPathName(path)
-    console.log('Printing Path of ', path)
   })
   return (
     <>

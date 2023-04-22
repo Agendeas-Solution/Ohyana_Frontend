@@ -25,7 +25,6 @@ const EditReminderDialog = ({ editReminderDetail, handleClose }) => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleEditReminder = () => {
-    console.log('Add Reminder', clientReminderDetail)
     if (
       clientReminderDetail.description !== '' &&
       clientReminderDetail.date !== '' &&

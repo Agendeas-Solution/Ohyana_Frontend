@@ -63,11 +63,6 @@ const EditProfile = () => {
   const handleChange = prop => event => {
     setUserDetail({ ...userDetail, [prop]: event.target.value })
   }
-  useEffect(() => {
-    console.log('Printing userDetail', userDetail.birthDate)
-    // //
-  }, [userDetail])
-
   const SaveProfile = () => {
     let data = {
       name: userDetail.employeeName,
@@ -76,8 +71,6 @@ const EditProfile = () => {
       gender: userDetail.gender,
       birthDay: userDetail.birthDate,
     }
-    console.log('Printing Data', data)
-
     EditAdminProfile(
       data,
       res => {
@@ -91,7 +84,6 @@ const EditProfile = () => {
         }
       },
       err => {
-        console.log('Printing Err', err)
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,

@@ -75,9 +75,7 @@ const AddClient = () => {
           setCountryList(res.data)
         }
       },
-      err => {
-        console.log('Printing ', err)
-      },
+      err => {},
     )
   }, [])
   // useEffect(() => {

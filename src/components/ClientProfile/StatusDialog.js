@@ -66,7 +66,6 @@ const StatusDialog = ({
     } else {
       formData.append('callNotReceived', addStatusDetail.callNotReceived)
     }
-    console.log(formData)
     AddClientStatus(
       formData,
       res => {
@@ -89,7 +88,6 @@ const StatusDialog = ({
   const addFile = e => {
     e.preventDefault()
     if (e.target.files[0]) {
-      console.log(e.target.files)
       setAddStatusDetail({
         ...addStatusDetail,
         audio: URL.createObjectURL(e.target.files[0]),
@@ -112,7 +110,6 @@ const StatusDialog = ({
 
   const handleUpload = () => {
     // TODO: handle the upload logic here
-    console.log('Uploading file:', audioFile.name)
   }
 
   const handleSelectFile = () => {

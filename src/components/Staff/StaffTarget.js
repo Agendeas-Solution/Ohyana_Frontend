@@ -16,8 +16,6 @@ import { GetTargetList } from '../../services/apiservices/teamcall'
 import SetTargetDialog from './SetTargetDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 let path = window.location.pathname
-console.log('Printing Path of ', path)
-console.log('Printing ', path.split('/').pop())
 path = path.split('/').pop()
 
 const StaffTarget = () => {
@@ -93,7 +91,6 @@ const StaffTarget = () => {
                 views={['month', 'year']}
                 value={selectMonth}
                 onChange={selectMonth => {
-                  console.log(`inside Onchange: ${selectMonth.format('MMM')}`)
                   setSelectMonth(selectMonth)
                 }}
                 renderInput={params => (

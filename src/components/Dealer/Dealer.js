@@ -31,7 +31,6 @@ const Dealer = () => {
   })
   useEffect(() => {
     let path = window.location.pathname
-    console.log('Printing Path of ', path)
     path = path.split('/').pop()
     GetDealerList(
       parseInt(path),

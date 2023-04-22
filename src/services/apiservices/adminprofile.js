@@ -13,10 +13,8 @@ export const GetAdminProfile = async (value, onSuccess, onError) => {
     const { data } = await axiosInstance.get(`/profile`, {
       headers: { ...defaultHeaders },
     })
-    console.log('Printing data of GetAdminProfile', data)
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log('Got error while calling API - GetAdminProfile', err)
     onError && onError(err)
   }
 }
@@ -26,10 +24,8 @@ export const GetCompanyProfile = async (value, onSuccess, onError) => {
     const { data } = await axiosInstance.get(`/company`, {
       headers: { ...defaultHeaders },
     })
-    console.log('Printing data of GetCompanyProfile', data)
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log('Got error while calling API - GetCompanyProfile', err)
     onError && onError(err)
   }
 }
@@ -39,10 +35,8 @@ export const GetNotification = async (value, onSuccess, onError) => {
     const { data } = await axiosInstance.get(`/notification`, {
       headers: { ...defaultHeaders },
     })
-    console.log('Printing data of GetNotification', data)
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log('Got error while calling API - GetNotification', err)
     onError && onError(err)
   }
 }
@@ -53,10 +47,8 @@ export const GetSentNotification = async (value, onSuccess, onError) => {
     const { data } = await axiosInstance.get(`/notification?sent=true`, {
       headers: { ...defaultHeaders },
     })
-    console.log('Printing data of GetSentNotification', data)
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log('Got error while calling API - GetSentNotification', err)
     onError && onError(err)
   }
 }
@@ -87,15 +79,9 @@ export const GetAdminAppointmentOrReminder = async (
         headers: { ...defaultHeaders },
       },
     )
-    console.log('Printing data of GetAdminAppointmentOrReminder', data)
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log(
-      'Got error while calling API - GetAdminAppointmentOrReminder',
-      err,
-    )
     onError && onError(err)
-    // ////
   }
 }
 export const GetAdminDepartmentList = async (value, onSuccess, onError) => {

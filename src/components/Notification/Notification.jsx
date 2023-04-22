@@ -67,7 +67,6 @@ const Notification = () => {
     GetSentNotification(
       {},
       res => {
-        console.log(res)
         setNotificationSentDetail(res?.data?.notifications)
         setLoader(false)
       },
