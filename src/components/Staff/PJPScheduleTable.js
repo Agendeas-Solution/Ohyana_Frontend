@@ -24,18 +24,12 @@ const PJPScheduleTable = ({ pjpList, completedDialog, setCompletedDialog }) => {
     <>
       {pjpList.length > 0 ? (
         <TableContainer
-          className="pjp_table_height"
+          className="pjp_table_height pjp_all_detail"
           component={Paper}
-          sx={{
-            boxShadow: 'none',
-            borderTop: 'none',
-            overflowY: 'auto',
-          }}
         >
           <Table
             stickyHeader
             aria-label="sticky table"
-            // sx={{ minWidth: 650 }}
             className="table_heading"
           >
             <TableHead>

@@ -176,7 +176,7 @@ const Orders = () => {
             open={openDrawer}
           >
             <DrawerHeader className="drawer_header_section">
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box className="filter_main_heading">
                 <IconButton
                   sx={{
                     ...(openDrawer && { display: 'flex' }),
@@ -187,9 +187,9 @@ const Orders = () => {
                   onClick={handleDrawerClose}
                 >
                   {theme.direction === 'rtl' ? (
-                    <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                    <ChevronLeftIcon className="chevron_icon" />
                   ) : (
-                    <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                    <ChevronRightIcon className="chevron_icon" />
                   )}
                 </IconButton>
                 <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>

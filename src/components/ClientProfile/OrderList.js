@@ -36,13 +36,8 @@ const OrderList = () => {
     <>
       {/* {orderList.length > 0 ? ( */}
       <TableContainer
-        className="client_table_height mt-1"
+        className="client_table_height client_detail_table set_box_shadow"
         component={Paper}
-        sx={{
-          boxShadow: 'none',
-          border: '1px solid #e5e5e5',
-          overflowY: 'auto',
-        }}
       >
         {orderList.length > 0 ? (
           <Table

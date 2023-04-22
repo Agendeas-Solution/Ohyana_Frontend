@@ -166,6 +166,7 @@ textarea:focus {
   color: #8e8e8e;
 }
 
+
 .custom_tab_background {
   box-shadow: none !important;
   background-color: #f1f2f6 !important;
@@ -486,6 +487,7 @@ textarea:focus {
   flex-direction: row;
   width: 80%;
   justify-content: space-between;
+  // justify-content: flex-start;
   margin: 0 auto;
 }
 
@@ -969,18 +971,22 @@ button {
 
 .first_box {
   background-color: #E6DFF1;
+  white-space: nowrap;
 }
 
 .second_box {
   background-color: #EDE9F2;
+  white-space: nowrap;
 }
 
 .third_box {
   background-color: #E5E6EB;
+  white-space: nowrap ;
 }
 
 .fourth_box {
   background-color: #EAE6EF;
+  white-space: nowrap ;
 }
 
 .team_header {
@@ -1016,6 +1022,23 @@ button {
 
 .expenses_table_height {
   height: 55vh;
+  box-shadow: none !important;
+}
+
+.expenses_main_table {
+  border: 1px solid #e5e5e5;
+  border-top: none;
+  overflow-y: auto;
+}
+
+.leave_and_holiday_main_table {
+  width: 70%;
+  margin: 6px;
+}
+
+.attendance_present_table {
+  border: 1px solid #e5e5e5;
+  border-top: none;
 }
 
 .orders_table_height {
@@ -1071,6 +1094,11 @@ button {
 
 .staff_tablecell:hover {
   cursor: pointer;
+}
+
+.staff_tablecell {
+  background-color: #FFFFFF;
+  border-bottom: 2px solid black
 }
 
 .present_leave_data {
@@ -1411,4 +1439,93 @@ button {
 .pagination_style {
   margin: 20px auto;
   float: right;
+}
+
+.customers_list_page_buttons {
+  display: flex !important;
+  padding: 0px !important;
+  justify-content: center !important;
+}
+
+.customer_list_table {
+  padding: 0px !important;
+}
+
+.set_box_shadow {
+  box-shadow: none !important;
+}
+
+.add_client_section {
+  height: 83vh; 
+  overflow-y: auto;
+}
+
+.filter_icon {
+  display: flex !important;
+  padding: 0 !important;
+  margin: 0 0 0 10px !important;
+}
+
+.filter_main_heading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.filter_body_section {
+  display: flex; 
+  flex-direction: column; 
+  margin: 10px;
+}
+
+.filter_body_inner_section {
+  margin: 10px !important;
+}
+
+.chevron_icon {
+  font-size: 30px !important;
+}
+
+.client_status_buttons {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.client_detail_table {
+  border: 1px solid #e5e5e5;
+  overflow-y: auto;
+}
+
+.client_profile_main_section {
+  width: 70%; 
+  overflow: scroll;
+}
+
+.staff_target_table {
+  border: 1px solid #e5e5e5;
+  border-top: none;
+}
+
+.staff_point_table {
+  box-shadow: none !important;
+  border-top: none !important;
+  overflow-y: auto !important;
+  overflow-x: scroll !important;
+  margin-top: 6px;
+}
+
+.task_header_section {
+  display: flex;
+  align-items: center;
+}
+
+.description_text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  line-height: 1.4 !important;
+  max-height: 4.8em;
 }

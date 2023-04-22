@@ -7,7 +7,7 @@ const ProfileTable = ({ clientProfileDetail }) => {
   return (
     <>
       <Box className="client_profile_detail">
-        <Box sx={{ width: '70%', overflow: 'scroll' }}>
+        <Box className="client_profile_main_section">
           <Box className="userdetail_root">
             <Typography variant="span">Inquiry Date</Typography>
             <Typography variant="span">
@@ -17,7 +17,6 @@ const ProfileTable = ({ clientProfileDetail }) => {
           <Box className="userdetail_root">
             <Typography variant="span">Client stage</Typography>
             <Box sx={{ maxWidth: '50%' }}>
-              {' '}
               {CLIENT.STAGE.find(e => e.id == clientProfileDetail?.stage).stage}
             </Box>
           </Box>

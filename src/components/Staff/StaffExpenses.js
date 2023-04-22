@@ -109,9 +109,7 @@ const StaffExpenses = () => {
               <Typography>{expensesData?.pending || '-'}</Typography>
             </Box>
             <Box className="statistics_box fourth_box">
-              <Typography sx={{ whiteSpace: 'nowrap' }}>
-                Payment Done
-              </Typography>
+              <Typography>Payment Done</Typography>
               <Typography>{expensesData?.paymentDone || '-'}</Typography>
             </Box>
           </Box>
@@ -134,14 +132,8 @@ const StaffExpenses = () => {
           </LocalizationProvider>
         </Box>
         <TableContainer
-          className="expenses_table_height mt-2"
+          className="expenses_table_height expenses_main_table"
           component={Paper}
-          sx={{
-            boxShadow: 'none',
-            border: '1px solid #e5e5e5',
-            borderTop: 'none',
-            overflowY: 'auto',
-          }}
         >
           {expenseList.length > 0 ? (
             <Table
@@ -158,7 +150,6 @@ const StaffExpenses = () => {
                   <TableCell>Approval</TableCell>
                   <TableCell>Payment</TableCell>
                   <TableCell>Document</TableCell>
-                  {/* <TableCell>Approval</TableCell> */}
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
@@ -216,24 +207,14 @@ const StaffExpenses = () => {
                             <Typography>-</Typography>
                           ) : (
                             <Box>
-                              {/* <Button
-                                sx={{ marginRight: '10px' }}
-                                onClick={() =>
-                                  handlePaymentStatusUpdate(row?.id)
-                                }
-                                className="border_button"
-                              >
-                                Update
-                              </Button> */}
                               <Button
                                 onClick={() => {
                                   setOpenStaffExpenses({
                                     status: true,
                                     data: row,
                                   })
-                                }
+                                }}
                                 className="border_button"
-
                               >
                                 View
                               </Button>

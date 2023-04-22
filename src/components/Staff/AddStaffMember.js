@@ -121,6 +121,24 @@ const AddStaffMember = () => {
     <>
       <Box className="main_section" sx={{ overflow: 'hidden', padding: '0px' }}>
         <Box sx={{ height: '83vh', overflowY: 'auto' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              marginRight: '10px',
+            }}
+            // className="input_field_row"
+          >
+            <Button
+              onClick={handleAddEmployee}
+              variant="contained"
+              className="edit_page_save_button"
+            >
+              Save
+            </Button>
+          </Box>
+
+          {/* Employee Name && Select job type */}
           <Box className="input_field_row">
             <Box className="input_fields">
               <TextField
@@ -255,18 +273,6 @@ const AddStaffMember = () => {
                 variant="outlined"
               />
             </Box>
-          </Box>
-          <Box
-            sx={{ display: 'flex', justifyContent: 'flex-end' }}
-            className="input_field_row"
-          >
-            <Button
-              onClick={handleAddEmployee}
-              variant="contained"
-              className="edit_page_save_button"
-            >
-              Save
-            </Button>
           </Box>
         </Box>
       </Box>

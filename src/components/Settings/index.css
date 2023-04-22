@@ -227,18 +227,6 @@ input[type='radio']:focus {
   color: #2e3591 !important;
 }
 
-.job_role_description {
-  /* font-size: 13px; */
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  white-space: normal;
-  line-height: 1.4 !important;
-  max-height: 4.8em;
-}
-
 .job_role_list tbody tr {
   padding: 5px;
   border: 1px solid #e5e5e5;
@@ -262,4 +250,3 @@ input[type='radio']:focus {
 .table_row_top_align {
   vertical-align: baseline !important;
 }
-

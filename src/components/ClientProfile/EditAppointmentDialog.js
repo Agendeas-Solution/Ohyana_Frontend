@@ -159,8 +159,8 @@ const EditAppointmentDialog = ({
                 className="dialogue_input_fields"
                 placeholder={
                   clientAppointmentDetail?.appointed_member > 0
-                    ? ''
-                    : 'Add Member'
+                    ? 'Add Member'
+                    : ''
                 }
               />
             )}

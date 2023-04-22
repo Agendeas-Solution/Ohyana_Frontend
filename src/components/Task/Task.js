@@ -178,12 +178,7 @@ const Task = () => {
           </Typography>
         </Box>
 
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
+        <Box className="task_header_section">
           <FormControl variant="outlined">
             <OutlinedInput
               className="search_field"
@@ -207,12 +202,11 @@ const Task = () => {
             + Task
           </Button>
           <IconButton
+            className="filter_icon"
             edge="end"
             onClick={handleDrawerOpen}
             sx={{
               ...(openDrawer && { display: 'flex' }),
-              padding: '0',
-              margin: '0 0 0 10px',
             }}
           >
             <img src={FilterIcon} alt="" />
@@ -230,22 +224,16 @@ const Task = () => {
           open={openDrawer}
         >
           <DrawerHeader className="drawer_header_section">
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
-            >
+            <Box className="filter_main_heading">
               <IconButton
                 sx={{ color: '#2e3591', padding: '0px' }}
                 disableRipple={true}
                 onClick={handleDrawerClose}
               >
                 {theme.direction === 'rtl' ? (
-                  <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                  <ChevronLeftIcon className="chevron_icon" />
                 ) : (
-                  <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                  <ChevronRightIcon className="chevron_icon" />
                 )}
               </IconButton>
 
@@ -264,7 +252,9 @@ const Task = () => {
               </Button>
             </Box>
           </DrawerHeader>
+
           <Divider />
+
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <LocalizationProvider
               dateAdapter={AdapterDateFns}
