@@ -167,77 +167,6 @@ const ExpenseList = () => {
           </Button>
         </Box>
 
-        {/* <Box className="left_team_profile_section">
-          <TableContainer>
-            <Table className="expense_list">
-              <TableHead className="client_profile_table_header">
-                <TableRow>
-                  <TableCell align="left">Sr No.</TableCell>
-                  <TableCell align="left">Name</TableCell>
-                  <TableCell align="left">Description</TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableHead>
-
-              <Divider orientation="vertical" variant="middle" flexItem />
-
-              <TableBody>
-                {expenseList.length > 0 &&
-                  expenseList?.map((data, index) => (
-                    <React.Fragment key={index}>
-                      <TableRow
-                        // sx={{ padding: '20px' }}
-                        className="job_role_list"
-                        key={data.id}
-                      >
-                        <TableCell>{index + 1}</TableCell>
-                        <TableCell>{data.name || '-'}</TableCell>
-                        <TableCell
-                          align="left"
-                          className="job_role_description"
-                        >
-                          {data.description || '-'}
-                        </TableCell>
-
-                        <TableCell align="left">
-                          <img
-                            onClick={() =>
-                              setAddExpenseType({
-                                ...addExpenseType,
-                                status: true,
-                                expenseId: data.id,
-                                name: data.name,
-                                description: data.description,
-                              })
-                            }
-                            className="me-3 p-2"
-                            src={EditIcon}
-                            alt=""
-                          />
-                          <img
-                            className="iconn ms-2"
-                            onClick={() => {
-                              setDeletexpenseListDialog({
-                                ...deletexpenseListDialog,
-                                status: true,
-                                id: data.id,
-                              })
-                            }}
-                            src={DeleteIcon}
-                            alt=""
-                          />
-                        </TableCell>
-                      </TableRow>
-                      <Divider
-                        sx={{ height: '24px', borderColor: 'transparent' }}
-                      />
-                    </React.Fragment>
-                  ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box> */}
-
         <Box>
           <TableContainer>
             <Table>
@@ -250,17 +179,11 @@ const ExpenseList = () => {
                 </TableRow>
               </TableHead>
 
-              {/* <Divider orientation="vertical" variant="middle" flexItem /> */}
-
               <TableBody>
                 {expenseList.length > 0 &&
                   expenseList?.map((data, index) => (
                     <React.Fragment key={index}>
                       <TableRow
-                        // sx={{
-                        //   border: '1px solid black',
-                        //   backgroundColor: 'lightgray',
-                        // }}
                         style={{
                           border: '1px solid black',
                           padding: '5rem',
@@ -269,15 +192,7 @@ const ExpenseList = () => {
                       >
                         <TableCell>{index + 1}</TableCell>
                         <TableCell>{data.name || '-'}</TableCell>
-                        <TableCell
-                          className="job_role_description"
-                          // sx={{
-                          //   maxHeight: '5em',
-                          //   overflow: 'hidden',
-                          //   textOverflow: 'ellipsis',
-                          //   whiteSpace: 'nowrap',
-                          // }}
-                        >
+                        <TableCell className="job_role_description">
                           {data.description || '-'}
                         </TableCell>
 

@@ -171,7 +171,22 @@ const AddClient = () => {
   return (
     <>
       <Box className="main_section" sx={{ overflow: 'hidden', padding: '0px' }}>
-        <Box sx={{ height: '83vh', overflowY: 'auto' }}>
+        <Box className="add_client_section">
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              marginRight: '10px',
+            }}
+          >
+            <Button
+              onClick={handleAddClient}
+              variant="contained"
+              className="edit_page_save_button"
+            >
+              Save
+            </Button>
+          </Box>
           {/* Client Name &&  Business Name*/}
           <Box className="input_field_row">
             <Box className="input_fields">
@@ -366,8 +381,7 @@ const AddClient = () => {
               </Box>
             )}
           </Box>
-          {/* Save Button */}
-          <Box
+          {/* <Box
             sx={{ display: 'flex', justifyContent: 'flex-end' }}
             className="input_field_row"
           >
@@ -378,7 +392,7 @@ const AddClient = () => {
             >
               Save
             </Button>
-          </Box>
+          </Box> */}
         </Box>
       </Box>
       {/* <ErrorSnackbar /> */}

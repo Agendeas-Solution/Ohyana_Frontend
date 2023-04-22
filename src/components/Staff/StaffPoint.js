@@ -143,14 +143,8 @@ const StaffPoint = () => {
           </Box>
 
           <TableContainer
-            className="expenses_table_height mt-2"
+            className="expenses_table_height staff_point_table"
             component={Paper}
-            sx={{
-              boxShadow: 'none',
-              borderTop: 'none',
-              overflowY: 'auto',
-              overflowX: 'scroll',
-            }}
           >
             {pointsData.length > 0 ? (
               <Table

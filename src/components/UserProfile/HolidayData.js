@@ -25,9 +25,7 @@ const HolidayData = ({ holidayList }) => {
     <>
       <Box className="common_row align-items-start leave_data_main">
         <TableContainer
-          className="expenses_table_height"
-          // sx={{ width: '700px', boxShadow: 'none', margin: '20px' }}
-          sx={{ width: '70%', boxShadow: 'none', margin: '6px' }}
+          className="expenses_table_height leave_and_holiday_main_table"
           component={Paper}
         >
           <Table

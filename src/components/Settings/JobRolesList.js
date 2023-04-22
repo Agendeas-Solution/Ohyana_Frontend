@@ -118,7 +118,7 @@ const JobRolesList = () => {
           <TableContainer>
             <Table className="job_role_list">
               <TableHead className="client_profile_table_header">
-                <TableRow sx={{}}>
+                <TableRow>
                   <TableCell align="left">Sr. No.</TableCell>
                   <TableCell align="left">Job Role</TableCell>
                   <TableCell align="left">Senior Post</TableCell>
@@ -143,7 +143,7 @@ const JobRolesList = () => {
                         <TableCell className="table_row_top_align">
                           {data.name || '-'}
                         </TableCell>
-                        <TableCell className="job_role_description">
+                        <TableCell className="description_text">
                           {data.description || '-'}
                         </TableCell>
                         <TableCell align="left">
@@ -161,7 +161,6 @@ const JobRolesList = () => {
                       <Divider
                         sx={{ height: '24px', borderColor: 'transparent' }}
                       />
-                      {/* {index < staffDetailList.length - 1 && <Box my={2} />} */}
                     </React.Fragment>
                   ))}
               </TableBody>

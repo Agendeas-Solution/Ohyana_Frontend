@@ -216,7 +216,6 @@ const Premium = () => {
               }}
             />
             <Typography
-              // sx={{ paddingBottom: "13px" }}
               className="plan_pricing_name main_heading"
               variant="span"
             >

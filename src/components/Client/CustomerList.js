@@ -47,12 +47,11 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
   return (
     <>
       <TableContainer
-        sx={{ boxShadow: 'none !important' }}
-        className="orders_table_height"
+        className="orders_table_height set_box_shadow"
         component={Paper}
       >
         <Table
-          sx={{ padding: '0px !important' }}
+          className="customer_list_table"
           stickyHeader
           aria-label="simple table"
         >
@@ -80,13 +79,7 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
                 <TableCell>
                   {moment(row.createdAt).format('DD-MM-YYYY')}
                 </TableCell>
-                <TableCell
-                  sx={{
-                    display: 'flex',
-                    padding: '0px',
-                    justifyContent: 'center',
-                  }}
-                >
+                <TableCell className="customers_list_page_buttons">
                   {row.teamId === null ? (
                     <Button
                       onClick={() => {

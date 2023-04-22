@@ -89,45 +89,14 @@ const Dashboard = () => {
             </Box>
 
             <Box className="common_row">
-              <Box
-                className="platform_data_detail"
-                sx={{
-                  justifyContent: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  width: '100%',
-                  marginRight: '8px',
-                  marginLeft: '8px',
-                }}
-              >
-                <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                  <Box
-                    className="inquiry_detail_box"
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'start',
-                      marginRight: '40px',
-                    }}
-                  >
+              <Box className="platform_data_detail">
+                <Box className="inquiry_sub_heading">
+                  <Box className="inquiry_detail_box inquiry_detail_left_part">
                     <Box className="inquiry_from_name">
-                      <Box
-                        sx={{
-                          backgroundColor: '#FFAB00',
-                          height: '10px',
-                          width: '10px',
-                          marginRight: '10px',
-                        }}
-                      ></Box>
+                      <Box className="inquiries_bullet_point" />
                     </Box>
 
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginTop: '3px',
-                        width: '100%',
-                      }}
-                    >
+                    <Box className="inquiries_inner_section">
                       <Typography>IndiaMart</Typography>
                       <Box className="inquiry_row">
                         <Typography variant="span">
@@ -145,32 +114,12 @@ const Dashboard = () => {
                     </Box>
                   </Box>
 
-                  <Box
-                    className="inquiry_detail_box"
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'start',
-                    }}
-                  >
+                  <Box className="inquiry_detail_box inquiry_detail_right_part">
                     <Box className="inquiry_from_name">
-                      <Box
-                        sx={{
-                          backgroundColor: '#FFAB00',
-                          height: '10px',
-                          width: '10px',
-                          marginRight: '10px',
-                        }}
-                      ></Box>
+                      <Box className="inquiries_bullet_point"></Box>
                     </Box>
 
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginTop: '3px',
-                        width: '100%',
-                      }}
-                    >
+                    <Box className="inquiries_inner_section">
                       <Typography>Website</Typography>
                       <Box className="inquiry_row">
                         <Typography variant="span">
@@ -190,39 +139,17 @@ const Dashboard = () => {
                 </Box>
 
                 <Box
+                  className="inquiry_sub_heading"
                   sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
                     marginTop: '12px',
                   }}
                 >
-                  <Box
-                    className="inquiry_detail_box"
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'start',
-                      marginRight: '40px',
-                    }}
-                  >
+                  <Box className="inquiry_detail_box inquiry_detail_left_part">
                     <Box className="inquiry_from_name">
-                      <Box
-                        sx={{
-                          backgroundColor: '#FFAB00',
-                          height: '10px',
-                          width: '10px',
-                          marginRight: '10px',
-                        }}
-                      ></Box>
+                      <Box className="inquiries_bullet_point"></Box>
                     </Box>
 
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginTop: '3px',
-                        width: '100%',
-                      }}
-                    >
+                    <Box className="inquiries_inner_section">
                       <Typography>From PJP</Typography>
                       <Box className="inquiry_row">
                         <Typography variant="span">
@@ -239,32 +166,12 @@ const Dashboard = () => {
                     </Box>
                   </Box>
 
-                  <Box
-                    className="inquiry_detail_box"
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'start',
-                    }}
-                  >
+                  <Box className="inquiry_detail_box inquiry_detail_right_part">
                     <Box className="inquiry_from_name">
-                      <Box
-                        sx={{
-                          backgroundColor: '#FFAB00',
-                          height: '10px',
-                          width: '10px',
-                          marginRight: '10px',
-                        }}
-                      ></Box>
+                      <Box className="inquiries_bullet_point"></Box>
                     </Box>
 
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginTop: '3px',
-                        width: '100%',
-                      }}
-                    >
+                    <Box className="inquiries_inner_section">
                       <Typography>Others</Typography>
                       <Box className="inquiry_row">
                         <Typography variant="span">
@@ -409,7 +316,7 @@ const Dashboard = () => {
             </Button>
           </Box>
 
-          <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+          <TableContainer component={Paper} className="set_box_shadow">
             <Table sx={{ minWidth: 650 }}>
               <TableHead className="team_overview_table_heading">
                 <TableRow>
@@ -435,8 +342,7 @@ const Dashboard = () => {
                         <TableCell className="d-flex flex-row align-items-center">
                           <Stack direction="row" spacing={2}>
                             <Avatar
-                              className="me-2"
-                              sx={{ width: 40, height: 40 }}
+                              sx={{ marginRight: '10px' }}
                               src={
                                 data?.imgUrl
                                   ? data?.imgUrl
@@ -486,7 +392,7 @@ const Dashboard = () => {
               View All {'>'}{' '}
             </Button>
           </Box>
-          <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+          <TableContainer component={Paper} className="set_box_shadow">
             <Table sx={{ minWidth: 650 }}>
               <TableHead className="team_overview_table_heading">
                 <TableRow>

@@ -82,12 +82,7 @@ const StaffTarget = () => {
             </Box>
           </Box>
 
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'start',
-            }}
-          >
+          <Box>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 views={['month', 'year']}
@@ -118,20 +113,14 @@ const StaffTarget = () => {
         </Box>
 
         <TableContainer
-          className="expenses_table_height mt-2"
+          className="expenses_table_height staff_target_table"
           component={Paper}
-          sx={{
-            boxShadow: 'none',
-            border: '1px solid #e5e5e5',
-            borderTop: 'none',
-            overflowY: 'auto',
-          }}
         >
           {targetList.length > 0 ? (
             <Table
               stickyHeader
               aria-label="sticky table"
-              sx={{ minWidth: 690, marginLeft: '-10px' }}
+              sx={{ minWidth: 690 }}
               className="table_heading"
             >
               <TableHead>

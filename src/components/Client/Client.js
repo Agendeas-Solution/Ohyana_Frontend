@@ -319,11 +319,7 @@ const Client = () => {
           <IconButton
             edge="end"
             onClick={handleDrawerOpen}
-            sx={{
-              display: 'flex',
-              padding: '0',
-              margin: '0 0 0 10px',
-            }}
+            className="filter_icon"
           >
             <img src={FilterIcon} alt="" />
           </IconButton>
@@ -340,26 +336,21 @@ const Client = () => {
           anchor="right"
         >
           <DrawerHeader className="drawer_header_section">
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
-            >
+            <Box className="filter_main_heading">
               <IconButton
                 sx={{ color: '#2e3591', padding: '0px' }}
                 disableRipple={true}
                 onClick={handleDrawerClose}
               >
                 {theme.direction === 'rtl' ? (
-                  <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                  <ChevronLeftIcon className="chevron_icon" />
                 ) : (
-                  <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                  <ChevronRightIcon className="chevron_icon" />
                 )}
               </IconButton>
               <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
             </Box>
+
             <Box>
               <Button onClick={handleClearAllFilter}>Reset</Button>
               <Button
@@ -371,11 +362,11 @@ const Client = () => {
               </Button>
             </Box>
           </DrawerHeader>
+
           <Divider />
-          <Box
-            sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}
-          >
-            <FormControl sx={{ margin: '10px' }}>
+
+          <Box className="filter_body_section">
+            <FormControl className="filter_body_inner_section">
               <InputLabel>Client Type</InputLabel>
               <Select
                 label="Client Stage"
@@ -389,7 +380,8 @@ const Client = () => {
                 })}
               </Select>
             </FormControl>
-            <FormControl sx={{ margin: '10px' }}>
+
+            <FormControl className="filter_body_inner_section">
               <InputLabel>Select City</InputLabel>
               <Select
                 label="Select City"
@@ -408,7 +400,8 @@ const Client = () => {
                   })}
               </Select>
             </FormControl>
-            <FormControl sx={{ margin: '10px' }}>
+
+            <FormControl className="filter_body_inner_section">
               <InputLabel>Select State</InputLabel>
               <Select
                 label="Select State"

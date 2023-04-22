@@ -53,3 +53,25 @@
     margin: 10px 5px auto 5px;
   }
 }
+
+.report_tab_heading {
+  color: #2e3591;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.report_tab_heading_option {
+  width: 200px;
+}
+
+.report_tab_main_section {
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+}
+
+.product_bullet_point {
+  background-color: #ffab00;
+  height: 10px;
+  width: 10px;
+  margin-right: 10px;
+}

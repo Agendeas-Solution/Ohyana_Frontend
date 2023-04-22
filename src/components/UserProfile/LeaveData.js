@@ -24,17 +24,14 @@ const LeaveData = ({ leaveList }) => {
     <>
       <Box className="common_row align-items-start leave_data_main">
         <TableContainer
-          className="expenses_table_height"
-          sx={{ width: '70%', boxShadow: 'none', margin: '6px' }}
+          className="expenses_table_height leave_and_holiday_main_table"
           component={Paper}
         >
           <Table
             stickyHeader
             aria-label="sticky table"
             className="table_heading custom_table"
-            // sx={{ marginLeft: '-10px' }}
           >
-            {/* <TableHead className="team_overview_table_heading"> */}
             <TableHead>
               <TableRow>
                 <TableCell align="left">Date</TableCell>
@@ -71,16 +68,14 @@ const LeaveData = ({ leaveList }) => {
           </Table>
         </TableContainer>
 
-        <Box sx={{ margin: '16px' }}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Grid item xs={12} md={6}>
-              <CalendarPicker
-                date={date}
-                onChange={newDate => setDate(newDate)}
-              />
-            </Grid>
-          </LocalizationProvider>
-        </Box>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Grid item xs={12} md={6}>
+            <CalendarPicker
+              date={date}
+              onChange={newDate => setDate(newDate)}
+            />
+          </Grid>
+        </LocalizationProvider>
       </Box>
     </>
   )

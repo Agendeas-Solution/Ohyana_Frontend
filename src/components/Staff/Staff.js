@@ -197,12 +197,7 @@ const Staff = () => {
                 Detail
               </Typography>
             </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
+            <Box className="staff_header">
               <FormControl variant="outlined">
                 <OutlinedInput
                   className="search_field"
@@ -233,10 +228,9 @@ const Staff = () => {
               <IconButton
                 edge="end"
                 onClick={handleDrawerOpen}
+                className="filter_icon"
                 sx={{
                   ...(open && { display: 'flex' }),
-                  padding: '0',
-                  margin: '0 0 0 10px',
                 }}
               >
                 <img src={FilterIcon} alt="" />
@@ -255,22 +249,16 @@ const Staff = () => {
               open={open}
             >
               <DrawerHeader className="drawer_header_section">
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}
-                >
+                <Box className="filter_main_heading">
                   <IconButton
                     sx={{ color: '#2e3591', padding: '0px' }}
                     disableRipple={true}
                     onClick={handleDrawerClose}
                   >
                     {theme.direction === 'rtl' ? (
-                      <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                      <ChevronLeftIcon className="chevron_icon" />
                     ) : (
-                      <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                      <ChevronRightIcon className="chevron_icon" />
                     )}
                   </IconButton>
                   <Typography sx={{ fontSize: '22px', paddingRight: '0px' }}>
@@ -288,10 +276,14 @@ const Staff = () => {
                   </Button>
                 </Box>
               </DrawerHeader>
+
               <Divider />
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <FormControl sx={{ margin: '5px 15px' }}>
-                  <FormLabel sx={{ margin: '0px 5px' }}>Team Type</FormLabel>
+
+              <Box className="filter_body_section">
+                <FormControl className="filter_body_inner_section">
+                  <FormLabel className="filter_body_inner_heading">
+                    Team Type
+                  </FormLabel>
                   <RadioGroup
                     value={queryParams.teamType}
                     onChange={e => {
@@ -315,8 +307,11 @@ const Staff = () => {
                     </Box>
                   </RadioGroup>
                 </FormControl>
-                <FormControl sx={{ margin: '5px 15px' }}>
-                  <FormLabel sx={{ margin: '0px 5px' }}>Result for</FormLabel>
+
+                <FormControl className="filter_body_inner_section">
+                  <FormLabel className="filter_body_inner_heading">
+                    Result for
+                  </FormLabel>
                   <RadioGroup
                     value={queryParams.attendanceType}
                     onChange={e => {
@@ -340,6 +335,7 @@ const Staff = () => {
                     </Box>
                   </RadioGroup>
                 </FormControl>
+
                 <FormControl sx={{ margin: '10px 20px' }}>
                   <InputLabel>Job Role</InputLabel>
                   <Select
@@ -360,6 +356,7 @@ const Staff = () => {
               </Box>
             </Drawer>
           </Box>
+
           <Box className="left_team_profile_section">
             <TableContainer>
               <Table className="team_member_table">
@@ -389,24 +386,10 @@ const Staff = () => {
                         className="staff_tablecell"
                         key={row.id}
                         onClick={() => teamLeaderDetails(row?.id)}
-                        sx={{
-                          backgroundColor: '#FFFFFF',
-                          borderBottom: '2px solid black',
-                        }}
                       >
-                        <TableCell
-                          sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            flexDirection: 'row',
-                            fontSize: '15px',
-                            float: 'left',
-                          }}
-                        >
+                        <TableCell className="staff_inner_name_tablecell">
                           <Avatar
-                            className="me-2"
-                            sx={{ width: 40, height: 40 }}
+                            sx={{ marginRight: '10px' }}
                             src="/static/images/avatar/1.jpg"
                           />
                           <Typography>{row.name}</Typography>
@@ -416,10 +399,7 @@ const Staff = () => {
                         </TableCell>
                         <TableCell align="left">{row.points || '-'}</TableCell>
                       </TableRow>
-                      <Divider
-                        sx={{ height: '12px', borderColor: 'transparent' }}
-                      />
-                      {/* {index < staffDetailList.length - 1 && <Box my={2} />} */}
+                      <Divider className="divider_style" />
                     </React.Fragment>
                   ))}
                 </TableBody>
@@ -430,7 +410,7 @@ const Staff = () => {
       </Box>
 
       <Box className="right_panel">
-        <Box sx={{ width: '100%', padding: '0px 8px' }}>
+        <Box className="staff_right_main_header_section">
           <Box className="user_profile_header_Section">
             <Box className="username_profile_Section">
               <AccountCircleRoundedIcon className="user_profile_icon" />
@@ -455,16 +435,7 @@ const Staff = () => {
             </Button>
           </Box>
 
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              alignItems: 'start',
-              padding: '0px 15px',
-            }}
-          >
+          <Box className="staff_right_main_detail_section">
             <Box className="profile_detail_row">
               <Typography className="profile_lable" variant="span">
                 Contact

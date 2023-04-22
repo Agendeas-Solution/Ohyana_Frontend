@@ -218,7 +218,6 @@ const UserProfile = () => {
                   Present
                 </Button>
                 <Button
-                  // sx={{ marginLeft: '0px', marginRight: '0' }}
                   className={
                     activeTab === 'leave'
                       ? 'active_button'
