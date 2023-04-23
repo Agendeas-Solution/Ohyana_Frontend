@@ -2,8 +2,8 @@ import React from 'react'
 import { Box, Typography } from '@mui/material'
 import moment from 'moment'
 import { CLIENT } from '../../constants'
-
 const ProfileTable = ({ clientProfileDetail }) => {
+  debugger
   return (
     <>
       <Box className="client_profile_detail">
@@ -56,7 +56,7 @@ const ProfileTable = ({ clientProfileDetail }) => {
           <Box className="userdetail_root">
             <Typography variant="span">City</Typography>
             <Typography variant="span">
-              {clientProfileDetail?.country?.name || '-'}
+              {clientProfileDetail?.city || '-'}
             </Typography>
           </Box>
           <Box className="userdetail_root">
@@ -67,18 +67,6 @@ const ProfileTable = ({ clientProfileDetail }) => {
           </Box>
           <Box className="userdetail_root">
             <Typography variant="span">Country</Typography>
-            <Typography variant="span">
-              {clientProfileDetail?.country?.name || '-'}
-            </Typography>
-          </Box>
-          <Box className="userdetail_root">
-            <Typography variant="span">Country 1</Typography>
-            <Typography variant="span">
-              {clientProfileDetail?.country?.name || '-'}
-            </Typography>
-          </Box>
-          <Box className="userdetail_root">
-            <Typography variant="span">Country 2</Typography>
             <Typography variant="span">
               {clientProfileDetail?.country?.name || '-'}
             </Typography>

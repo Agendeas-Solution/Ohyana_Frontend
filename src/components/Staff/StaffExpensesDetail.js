@@ -11,8 +11,6 @@ const StaffExpensesDetail = ({
   paymentVerification,
   setPaymentVerification,
 }) => {
-  const [approvalDialog, setApprovalDialog] = useState(false)
-
   return (
     <>
       <Dialog
@@ -32,12 +30,14 @@ const StaffExpensesDetail = ({
                 //   setApprovalDialog(true)
                 // }}
                 // onClick={openApprovalDialog}
-                onClick={() =>
+                onClick={() => {
                   setOpenApprovalDialog({
                     ...openApprovalDialog,
                     status: true,
+                    teamExpenseId: openStaffExpenses.data.id,
                   })
-                }
+                  debugger
+                }}
                 className="common_button expenses_details_heading"
               >
                 Approve
@@ -101,7 +101,6 @@ const StaffExpensesDetail = ({
                   </Typography>
                 </Box>
               </Box>
-
               <Box className="single_expenses_data">
                 <Typography className="expenses_detail_sub_heading">
                   Approve By
@@ -112,7 +111,6 @@ const StaffExpensesDetail = ({
                   </Typography>
                 </Box>
               </Box>
-
               <Box className="expenses_data">
                 <Typography className="expenses_detail_sub_heading">
                   Payment Status
@@ -125,10 +123,12 @@ const StaffExpensesDetail = ({
               </Box>
               <Box className="common_button">
                 <Button
+                  disabled={openStaffExpenses?.data?.status !== 'APPROVED'}
                   onClick={() =>
                     setPaymentVerification({
                       ...paymentVerification,
                       status: true,
+                      teamExpenseId: openStaffExpenses.data.id,
                     })
                   }
                   sx={{ backgroundColor: 'white' }}
@@ -138,7 +138,6 @@ const StaffExpensesDetail = ({
                 </Button>
               </Box>
             </Box>
-
             {/* RIGHT SECTION STARTS */}
             <Box className="expenses_right_section">
               <Box className="document_section">
@@ -147,7 +146,6 @@ const StaffExpensesDetail = ({
                 </Typography>
                 <PictureAsPdfIcon />
               </Box>
-
               <Box className="expenses_detailed_portion">
                 <Typography className="expenses_detail_sub_heading">
                   Expenses Detail
@@ -158,9 +156,7 @@ const StaffExpensesDetail = ({
                   </Typography>
                 </Box>
               </Box>
-
               <Divider width="100%" />
-
               <Box className="expenses_approval_rejection_portion">
                 <Typography className="expenses_detail_sub_heading">
                   Approval / Rejection Detail
