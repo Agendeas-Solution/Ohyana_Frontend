@@ -190,6 +190,7 @@ const TaskDetail = () => {
           <Typography className="task_card_heading" variant="span">
             {taskDetail?.title || '-'}
           </Typography>
+
           <Box>
             <Button
               onClick={() => {
@@ -204,6 +205,7 @@ const TaskDetail = () => {
             >
               <EditRoundedIcon />
             </Button>
+
             <Button
               onClick={() =>
                 setDeleteTaskDialog({
@@ -218,12 +220,14 @@ const TaskDetail = () => {
             </Button>
           </Box>
         </Box>
+
         <Box className="checklist_duedate_section" sx={{ overflowY: 'hidden' }}>
           <Box className="checklist_section">
             <Box sx={{ padding: '0px 15px' }}>
               <Typography sx={{ color: '#8E8E8E' }} variant="span">
                 Checklist
               </Typography>
+
               <Slider
                 value={taskRatio || 0}
                 step={1}
@@ -234,11 +238,12 @@ const TaskDetail = () => {
                 className="task_slider"
               />
             </Box>
+
             <Box
               sx={{
                 overflowY: 'auto',
                 height: '100%',
-                paddingBottom: '80px',
+                paddingBottom: '20px',
                 paddingLeft: '15px',
               }}
             >
@@ -252,6 +257,7 @@ const TaskDetail = () => {
                             sx={{
                               display: 'flex',
                               alignItems: 'flex-start',
+                              marginBottom: '10px',
                             }}
                             control={
                               <Checkbox
@@ -280,6 +286,7 @@ const TaskDetail = () => {
                     }
                   })}
               </FormGroup>
+
               <Box sx={{ marginBottom: '10px', marginRight: '15px' }}>
                 <TextField
                   sx={{ width: '100%', margin: '10px 0px' }}
@@ -303,6 +310,7 @@ const TaskDetail = () => {
                   </Button>
                 </Box>
               </Box>
+
               {completedTask.length > 0 && (
                 <Typography className="completed_heading" variant="span">
                   Completed

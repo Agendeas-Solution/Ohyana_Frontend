@@ -31,6 +31,7 @@ const AddPJPDialog = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [options, setOptions] = useState([])
+
   useEffect(() => {
     let data = {
       size: 10,
@@ -50,6 +51,7 @@ const AddPJPDialog = ({
       },
     )
   }, [searchQuery])
+
   return (
     <>
       <Dialog open={addPJPDetail.dialogStatus} onClose={handleCloseDialog}>
@@ -57,7 +59,9 @@ const AddPJPDialog = ({
           <Typography className="dialogue_heading">Add PJP</Typography>
 
           <FormControl>
-            <InputLabel>Client Type</InputLabel>
+            <InputLabel className="dialogue_input_fields">
+              Client Type
+            </InputLabel>
             <Select
               label="Select Client"
               className="dialogue_input_fields"
@@ -71,24 +75,6 @@ const AddPJPDialog = ({
               })}
             </Select>
           </FormControl>
-
-          {/* <Autocomplete
-            disablePortal
-            options={options}
-            value={addPJPDetail?.clientId}
-            onChange={(e, value) => {
-              setAddPJPDetail({ ...addPJPDetail, clientId: value?.id })
-            }}
-            getOptionLabel={option => option?.name}
-            renderInput={params => (
-              <TextField
-                {...params}
-                label="Select Client"
-                placeholder="Select Client"
-                className="dialogue_input_fields"
-              />
-            )}
-          /> */}
 
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker

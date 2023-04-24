@@ -237,6 +237,7 @@ const Staff = () => {
               </IconButton>
               {/* </Toolbar> */}
             </Box>
+
             <Drawer
               sx={{
                 width: 2,
@@ -262,7 +263,7 @@ const Staff = () => {
                     )}
                   </IconButton>
                   <Typography sx={{ fontSize: '22px', paddingRight: '0px' }}>
-                    Filter By
+                    Filter Byyy
                   </Typography>
                 </Box>
                 <Box>
@@ -308,7 +309,7 @@ const Staff = () => {
                   </RadioGroup>
                 </FormControl>
 
-                <FormControl sx={{ margin: '10px 20px' }}>
+                <FormControl sx={{ margin: '10px 16px' }}>
                   <InputLabel>Result for</InputLabel>
                   <Select
                     label="Result for"
@@ -328,7 +329,7 @@ const Staff = () => {
                   </Select>
                 </FormControl>
 
-                <FormControl sx={{ margin: '10px 20px' }}>
+                <FormControl sx={{ margin: '10px 16px' }}>
                   <InputLabel>Job Role</InputLabel>
                   <Select
                     label="Job Role"

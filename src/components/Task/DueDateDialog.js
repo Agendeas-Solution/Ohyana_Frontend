@@ -26,7 +26,9 @@ const DueDateDialog = ({
         onClose={handleDueDateDialogClose}
       >
         <Box className="dialogue_main_section">
-          <DialogTitle className="dialogue_heading">Edit Due Date</DialogTitle>
+          <DialogTitle className="dialogue_heading">
+            Change Due Date
+          </DialogTitle>
 
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
