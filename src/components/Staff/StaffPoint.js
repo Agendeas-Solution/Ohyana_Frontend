@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Typography, Button, TextField, Pagination } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Button,
+  TextField,
+  Pagination,
+  Divider,
+} from '@mui/material'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -89,18 +96,28 @@ const StaffPoint = () => {
     <>
       <Box className="point_section">
         <Box className="point_left_section">
-          <Box className="inner_point_left_section p-2">
+          <Box className="inner_point_left_section p-2 staff_point_table">
             <Typography className="left_panel_heading p-2" variant="span">
               Point Rules
             </Typography>
             {pointRule.length > 0 &&
               pointRule.map(data => {
                 return (
-                  <Box className="common_row p-2 mt-1">
-                    <Typography variant="span">{data?.name || '-'}</Typography>
-                    <Typography variant="span">
-                      {data?.points ?? '-'}
-                    </Typography>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      overflowY: 'auto',
+                    }}
+                  >
+                    <Box className="common_row p-2 mt-1">
+                      <Typography variant="span">
+                        {data?.name || '-'}
+                      </Typography>
+                      <Typography variant="span">
+                        {data?.points ?? '-'}
+                      </Typography>
+                    </Box>
                   </Box>
                 )
               })}
@@ -112,17 +129,19 @@ const StaffPoint = () => {
             <Typography className="right_panel_heading" variant="span">
               Total Points : {totalPoints}
             </Typography>
+
             <Box>
               <Button
                 onClick={() => setAddAppreciationDialogControl(true)}
-                className="appreciation_btn"
+                className="staff_common_button"
               >
                 + Appreciation
               </Button>
-            </Box>
-            <Box className="points_date_filter ">
+
+              {/* <Box className="points_date_filter "> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
+                  className="staff_date"
                   views={['month', 'year']}
                   value={selectMonth}
                   onChange={newValue => {
@@ -130,6 +149,7 @@ const StaffPoint = () => {
                   }}
                   renderInput={params => (
                     <TextField
+                      sx={{ width: '175px', marginLeft: '10px' }}
                       placeholder="Year and Month"
                       {...params}
                       helperText={null}
@@ -138,7 +158,10 @@ const StaffPoint = () => {
                 />
               </LocalizationProvider>
             </Box>
+            {/* </Box> */}
           </Box>
+
+          {/* <Divider sx={{ width: '10%', border: '1px solid #c4c4c4' }} /> */}
 
           <TableContainer
             className="expenses_table_height staff_point_table"

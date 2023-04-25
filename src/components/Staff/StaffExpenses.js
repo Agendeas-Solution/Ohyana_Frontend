@@ -171,6 +171,7 @@ const StaffExpenses = () => {
           </Box>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
+              className="staff_date"
               views={['month', 'year']}
               value={selectMonth}
               onChange={selectMonth => {

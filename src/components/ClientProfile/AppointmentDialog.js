@@ -124,18 +124,18 @@ const AppointmentDialog = ({
           />
 
           <FormControl className="dialogue_input_fields">
-            <InputLabel>Appoinment For</InputLabel>
+            <InputLabel>Appointment For</InputLabel>
             <Select
-              label="Appoinment For"
+              label="Appointment For"
               value={clientAppointmentDetail?.appointment_unit}
-              onChange={(e, value) => {
+              onChange={e => {
                 setClientAppointmentDetail({
                   ...clientAppointmentDetail,
-                  appointment_unit: value,
+                  appointment_unit: e.target.value,
                 })
               }}
             >
-              <MenuItem value="Ofiice">Ofiice</MenuItem>
+              <MenuItem value="Office">Ofiice</MenuItem>
               <MenuItem value="Factory">Factory</MenuItem>
             </Select>
           </FormControl>
