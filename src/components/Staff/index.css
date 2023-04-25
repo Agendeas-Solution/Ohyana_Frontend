@@ -133,6 +133,8 @@
 
 .point_right_section {
   width: 60%;
+  /* height: 100%; */
+  overflow-y: hidden;
 }
 
 .point_data_heading {
