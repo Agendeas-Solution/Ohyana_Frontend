@@ -26,8 +26,6 @@ const DeleteProductDialog = ({
           handleGetAdminProduct()
           handleClose()
           setSuccessSnackbar({
-
-            
             ...successSnackbar,
             status: true,
             message: res.message,
@@ -46,7 +44,7 @@ const DeleteProductDialog = ({
   return (
     <>
       <Dialog open={deleteProductDialogControl.status} onClose={handleClose}>
-      <Box className="dialogue_main_section">
+        <Box className="dialogue_main_section">
           <DeleteOutlinedIcon className="dialogue_delete_Icon" />
           <Typography className="dialogue_heading">Delete Product</Typography>
           <Typography className="dialogue_description">
@@ -71,8 +69,6 @@ const DeleteProductDialog = ({
             </Button>
           </DialogActions>
         </Box>
-      
-       
       </Dialog>
     </>
   )
