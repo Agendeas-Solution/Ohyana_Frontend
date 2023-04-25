@@ -128,11 +128,11 @@ const EditAppointmentDialog = ({
               onChange={(e, value) => {
                 setClientAppointmentDetail({
                   ...clientAppointmentDetail,
-                  appointment_unit: value,
+                  appointment_unit: e.target.value,
                 })
               }}
             >
-              <MenuItem value="Ofiice">Office</MenuItem>
+              <MenuItem value="Office">Office</MenuItem>
               <MenuItem value="Factory">Factory</MenuItem>
             </Select>
           </FormControl>
@@ -144,7 +144,7 @@ const EditAppointmentDialog = ({
             onChange={(e, value) => {
               setClientAppointmentDetail({
                 ...clientAppointmentDetail,
-                appointed_member: value,
+                appointed_member: e.target.value,
               })
             }}
             getOptionLabel={option => option?.name}
@@ -162,7 +162,6 @@ const EditAppointmentDialog = ({
               />
             )}
           />
-
           <TextField
             className="dialogue_input_fields"
             multiline
@@ -180,7 +179,6 @@ const EditAppointmentDialog = ({
               })
             }}
           />
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"

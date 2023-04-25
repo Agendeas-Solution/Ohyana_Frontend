@@ -39,6 +39,7 @@ const PaymentDetailDialog = ({
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Payment Detail</Typography>
 
+
           <Box className="order_payment_details">
             <FormControl className="filter_body_inner_section">
               <FormLabel sx={{ marginBottom: '10px', color: '#000000' }}>
@@ -46,6 +47,7 @@ const PaymentDetailDialog = ({
               </FormLabel>
 
               <RadioGroup
+
                 row
                 value={paymentDetail.status}
                 onChange={e => {
@@ -55,6 +57,7 @@ const PaymentDetailDialog = ({
                   })
                 }}
               >
+
                 <Box>
                   <FormControlLabel
                     sx={{
@@ -67,6 +70,7 @@ const PaymentDetailDialog = ({
                     label="Pending"
                   />
                   <FormControlLabel
+
                     sx={{
                       backgroundColor: '#f1f2f6',
                       borderRadius: '5px',
@@ -82,6 +86,7 @@ const PaymentDetailDialog = ({
           </Box>
 
           <Box>
+
             <Typography sx={{ marginLeft: '5px' }}>Method</Typography>
             <Autocomplete
               value={paymentDetail.method}

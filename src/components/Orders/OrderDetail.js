@@ -22,6 +22,7 @@ import {
   UpdatePaymentStatus,
 } from '../../services/apiservices/orderDetail'
 import moment from 'moment'
+import NoResultFound from '../ErrorComponent/NoResultFound'
 import DispatchOrderDialog from './DispatchOrderDialog'
 
 const steps = ['Shipping', 'Dispatch', 'Delivered']
@@ -287,23 +288,72 @@ const OrderDetail = () => {
           </Box>
         </Box>
 
-        <TableContainer
-          component={Paper}
-          sx={{ boxShadow: 'none', marginTop: 2 }}
-        >
-          <Table sx={{ minWidth: 250 }}>
-            <TableHead className="team_overview_table_heading">
-              <TableRow>
-                <TableCell></TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell align="right">Quantity</TableCell>
-                <TableCell align="right">Total Amount</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {orderItems.length > 0 &&
-                orderItems.map(data => {
+          <Box className="order_tracking">
+            <Box className="order_tracking_heading align-items-center mb-4">
+              <Typography className="common_sub_heading" variant="span">
+                Order Tracking
+              </Typography>
+              <Button
+                variant="contained"
+                sx={{
+                  background: '#fff',
+                  color: '#2E3591',
+                  marginRight: '10px',
+                }}
+              >
+                Dispatch
+              </Button>
+            </Box>
+
+            <Box className="common_row mb-3 mx-2">
+              <Typography className="order_desc_subheading" variant="span">
+                Date
+              </Typography>
+              <Typography variant="span">
+                {moment(orderDetail?.date).format('DD-MM-YYYY hh:mm A')}
+              </Typography>
+            </Box>
+
+            <Box className="common_row align-items-start mb-3 mx-2">
+              <Typography className="order_desc_subheading" variant="span">
+                Address
+              </Typography>
+              <Typography className="text-right" variant="span">
+                {orderDetail?.client?.address}
+              </Typography>
+            </Box>
+
+            <Box sx={{ width: '100%', marginBottom: '8px' }}>
+              <Stepper
+                activeStep={handleActiveStep(orderDetail?.orderTrackingStatus)}
+                alternativeLabel
+              >
+                {steps.map(label => (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+            </Box>
+          </Box>
+        </Box>
+        {orderItems.length > 0 ? (
+          <TableContainer
+            component={Paper}
+            sx={{ boxShadow: 'none', marginTop: 2 }}
+          >
+            <Table sx={{ minWidth: 250 }}>
+              <TableHead className="team_overview_table_heading">
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell align="right">Quantity</TableCell>
+                  <TableCell align="right">Total Amount</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {orderItems.map(data => {
                   return (
                     <TableRow
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -329,9 +379,12 @@ const OrderDetail = () => {
                     </TableRow>
                   )
                 })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <NoResultFound />
+        )}
         <PaymentDetailDialog
           handleClosePaymentDialog={handleClosePaymentDialog}
           openPaymentDetailDialog={openPaymentDetailDialog}
