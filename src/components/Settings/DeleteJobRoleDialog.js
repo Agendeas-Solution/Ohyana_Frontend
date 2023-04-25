@@ -1,13 +1,5 @@
 import React, { useContext } from 'react'
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Typography,
-  Box,
-} from '@mui/material'
+import { Dialog, DialogActions, Button, Typography, Box } from '@mui/material'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteRounded'
 import { DeleteJobRole } from '../../services/apiservices/staffDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'

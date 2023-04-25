@@ -76,23 +76,26 @@ const Statistics = () => {
                 Team
               </Button>
             </Box>
-            <Autocomplete
-              sx={{ width: '150px' }}
-              disablePortal
-              options={daterange}
-              disableClearable
-              value={selectedPeriod}
-              onChange={(e, value) => {
-                setSelectedPeriod(value)
-              }}
-              renderInput={params => (
-                <TextField
-                  // className="common_dropdown"
-                  {...params}
-                  label="1 Mon"
-                />
-              )}
-            />
+
+
+            <Box sx={{ height: '50px' }}>
+              <Autocomplete
+                sx={{ width: 150 }}
+                disablePortal
+                options={daterange}
+                value={selectedPeriod}
+                onChange={(e, value) => {
+                  setSelectedPeriod(value)
+                }}
+                renderInput={params => (
+                  <TextField
+                    // className="common_dropdown"
+                    {...params}
+                    label="1 Mon"
+                  />
+                )}
+              />
+            </Box>
           </Box>
         </Box>
         {activeTab === 'product' && (

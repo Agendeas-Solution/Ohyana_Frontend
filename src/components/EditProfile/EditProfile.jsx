@@ -103,6 +103,7 @@ const EditProfile = () => {
           </Box>
 
           <Box className="edit_profile_detail_section">
+
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
@@ -158,6 +159,7 @@ const EditProfile = () => {
                       ...userDetail,
                       contactNo: e.target.value,
                     })
+
                   }}
                   value={userDetail.contactNo}
                   variant="outlined"
@@ -189,6 +191,7 @@ const EditProfile = () => {
             >
               Save
             </Button>
+
           </Box>
         </Box>
       </Box>

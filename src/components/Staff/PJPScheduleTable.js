@@ -30,7 +30,7 @@ const PJPScheduleTable = ({ pjpList, completedDialog, setCompletedDialog }) => {
           <Table
             stickyHeader
             aria-label="sticky table"
-            className="table_heading"
+            className="table_heading custom_table"
           >
             <TableHead>
               <TableRow>
