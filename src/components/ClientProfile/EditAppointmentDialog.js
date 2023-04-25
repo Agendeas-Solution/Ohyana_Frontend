@@ -120,10 +120,10 @@ const EditAppointmentDialog = ({
           />
 
           <FormControl className="dialogue_input_fields">
-            <InputLabel>Appoinment For</InputLabel>
+            <InputLabel>Appointment For</InputLabel>
             <Select
               filterSelectedOptions
-              label="Appoinment For"
+              label="Appointment For"
               value={clientAppointmentDetail?.appointment_unit}
               onChange={(e, value) => {
                 setClientAppointmentDetail({
@@ -132,7 +132,7 @@ const EditAppointmentDialog = ({
                 })
               }}
             >
-              <MenuItem value="Ofiice">Ofiice</MenuItem>
+              <MenuItem value="Ofiice">Office</MenuItem>
               <MenuItem value="Factory">Factory</MenuItem>
             </Select>
           </FormControl>
@@ -169,6 +169,7 @@ const EditAppointmentDialog = ({
             label="Description"
             autoComplete="off"
             minRows={3}
+            maxRows={3}
             value={clientAppointmentDetail.description}
             placeholder="Description Here..."
             onChange={e => {

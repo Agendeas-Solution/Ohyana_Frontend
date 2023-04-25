@@ -56,6 +56,9 @@
   margin-top: 10px;
   margin-right: 10px;
   overflow-y: hidden;
+  display: grid;
+  /* height: 100%; */
+  margin-bottom: 80px;
 }
 
 .task_details_section {
@@ -128,4 +131,5 @@
 
 .completed_heading {
   color: #8e8e8e;
+  /* margin-bottom: 10px; */
 }

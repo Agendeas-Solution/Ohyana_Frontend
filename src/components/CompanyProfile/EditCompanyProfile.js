@@ -188,6 +188,7 @@ const EditCompanyProfile = () => {
               autoComplete="off"
               label="CRM Key"
               minRows={3}
+              maxRows={3}
               onChange={e => {
                 setCompanyDetail({ ...companyDetail, crmKey: e.target.value })
               }}

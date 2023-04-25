@@ -49,6 +49,7 @@ const StaffExpensesApprovalDialog = ({
             autoComplete="off"
             multiline
             minRows={3}
+            maxRows={3}
           />
           <DialogActions>
             <Button

@@ -109,6 +109,17 @@ textarea:focus {
   display: flex;
   flex-direction: column;
   margin: 20px;
+  // margin-top: 20px;
+  // margin-bottom: 20px;
+}
+
+.edit_profile_input_fields {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  // margin: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .product_profile_icon {
@@ -178,9 +189,9 @@ textarea:focus {
 
 .common_sub_heading {
   display: flex;
-  color: #8e8e8e;
+  // color: #8e8e8e;
   letter-spacing: 0.05rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .common_description_text {
@@ -328,6 +339,23 @@ textarea:focus {
   align-items: center;
 }
 
+.pjp_dialogue_main_section {
+  // margin: 10px 10px 5px 10px;
+  width: 450px;
+  display: flex;
+  text-align: 'center' !important;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pjp_detail_header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
+
 .dialogue_delete_Icon {
   border-radius: 50%;
   color: white;
@@ -367,6 +395,16 @@ textarea:focus {
 .dialogue_bottom_button {
   box-shadow: none !important;
   width: 300px !important;
+  height: 45px !important;
+  background-color: #2E3591 !important;
+  font-size: 18px !important;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.leave_approval_button {
+  box-shadow: none !important;
+  width: 180px !important;
   height: 45px !important;
   background-color: #2E3591 !important;
   font-size: 18px !important;
@@ -629,6 +667,18 @@ button {
   background-color: #f1f2f6 !important;
   color: #2e3591 !important;
   margin: 4px !important;
+  height: 40px !important;
+  font-size: 16px !important;
+  border-radius: 3px;
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}
+
+.staff_common_button {
+  box-shadow: none !important;
+  background-color: #f1f2f6 !important;
+  color: #2e3591 !important;
+  // margin: 4px !important;
   height: 40px !important;
   font-size: 16px !important;
   border-radius: 3px;
@@ -1091,6 +1141,12 @@ button {
   font-weight: 600;
 }
 
+.pjp_detail_table_heading {
+  font-weight: 600;
+  padding: 10px;
+}
+
+
 .tablecell_height {
   line-height: 3 !important;
 }
@@ -1502,6 +1558,7 @@ button {
 .client_profile_main_section {
   width: 70%; 
   overflow: scroll;
+  padding: 10px;
 }
 
 .staff_target_table {
@@ -1531,4 +1588,8 @@ button {
   white-space: normal;
   line-height: 1.4 !important;
   max-height: 4.8em;
+}
+
+.staff_date div:first-child{
+  height: 40px;
 }

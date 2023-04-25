@@ -299,6 +299,7 @@ const AddProduct = props => {
               label="Description"
               placeholder="Description Here..."
               minRows={3}
+              maxRows={3}
               autoComplete="off"
               variant="outlined"
               value={productDetail.description}

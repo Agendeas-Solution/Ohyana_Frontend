@@ -44,6 +44,7 @@
 .order_description_right_section {
   display: flex;
   width: 10%;
+  /* margin-right: 10px; */
 }
 .invoice_button {
   background-color: #fff !important;
@@ -54,7 +55,8 @@
   padding: 2px;
 }
 .order_desc_subheading {
-  font-weight: 600;
+  /* font-weight: 600; */
+  color: #8e8e8e;
 }
 .order_tracking_payment_detail {
   width: 100%;

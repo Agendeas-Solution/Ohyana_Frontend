@@ -86,7 +86,7 @@ const OrderDetail = () => {
   return (
     <>
       <Box className="main_section">
-        <Box className="order_description">
+        {/* <Box className="order_description">
           <Box className="order_description_left_section">
             <Box className="common_row mb-4">
               <Typography className="order_desc_subheading" variant="span">
@@ -142,9 +142,88 @@ const OrderDetail = () => {
               <ReceiptRoundedIcon />
             </Button>
           </Box>
-        </Box>
+        </Box> */}
 
         <Box className="order_tracking_payment_detail mt-2">
+          <Box className="payment_detail">
+            <Box className="payment_detail_heading align-items-center">
+              <Typography className="common_sub_heading" variant="span">
+                Order Summary
+              </Typography>
+              <Button
+                variant="contained"
+                sx={{
+                  background: '#fff',
+                  color: '#2E3591',
+                  marginRight: '10px',
+                }}
+                // className="invoice_button"
+              >
+                <ReceiptRoundedIcon />
+              </Button>
+            </Box>
+
+            <Box className="common_row mb-3 mx-2">
+              <Typography className="order_desc_subheading" variant="span">
+                Order Id
+              </Typography>
+              <Typography variant="span">{orderDetail?.id}</Typography>
+            </Box>
+
+            <Box className="common_row mb-3 mx-2">
+              <Typography className="order_desc_subheading" variant="span ">
+                Order For
+              </Typography>
+              <Typography variant="span">
+                {orderDetail?.client?.name}
+              </Typography>
+            </Box>
+
+            <Box className="common_row mb-3 mx-2">
+              <Typography className="order_desc_subheading" variant="span">
+                Total
+              </Typography>
+              <Typography variant="span">{orderDetail?.order_total}</Typography>
+            </Box>
+
+            <Box className="payment_detail_heading align-items-center">
+              <Typography className="common_sub_heading" variant="span">
+                Payment Detail
+              </Typography>
+              <Button
+                onClick={handleOpenPaymentDialog}
+                variant="contained"
+                sx={{
+                  background: '#fff',
+                  color: '#2E3591',
+                  marginRight: '10px',
+                }}
+              >
+                Update
+              </Button>
+            </Box>
+
+            <Box className="common_row mb-3 mx-2">
+              <Typography className="order_desc_subheading" variant="span">
+                Status
+              </Typography>
+              <Typography className="pe-3" variant="span">
+                {orderDetail?.paymentStatus?.charAt(0)?.toUpperCase() +
+                  orderDetail?.paymentStatus?.toLowerCase()?.substr(1)}
+              </Typography>
+            </Box>
+
+            <Box className="common_row mb-3 mx-2">
+              <Typography className="order_desc_subheading" variant="span">
+                Method
+              </Typography>
+              <Typography className="pe-3" variant="span">
+                {orderDetail?.paymentMethod?.charAt(0)?.toUpperCase() +
+                  orderDetail?.paymentMethod?.toLowerCase()?.substr(1)}
+              </Typography>
+            </Box>
+          </Box>
+
           <Box className="order_tracking">
             <Box className="order_tracking_heading align-items-center mb-4">
               <Typography className="common_sub_heading" variant="span">
@@ -161,6 +240,25 @@ const OrderDetail = () => {
                 Dispatch
               </Button>
             </Box>
+
+            <Box className="common_row mb-3 mx-2">
+              <Typography className="order_desc_subheading" variant="span">
+                Date
+              </Typography>
+              <Typography variant="span">
+                {moment(orderDetail?.date).format('DD-MM-YYYY hh:mm A')}
+              </Typography>
+            </Box>
+
+            <Box className="common_row align-items-start mb-3 mx-2">
+              <Typography className="order_desc_subheading" variant="span">
+                Address
+              </Typography>
+              <Typography className="text-right" variant="span">
+                {orderDetail?.client?.address}
+              </Typography>
+            </Box>
+
             <Box sx={{ width: '100%', marginBottom: '8px' }}>
               <Stepper
                 activeStep={handleActiveStep(orderDetail?.orderTrackingStatus)}
@@ -172,44 +270,6 @@ const OrderDetail = () => {
                   </Step>
                 ))}
               </Stepper>
-            </Box>
-          </Box>
-
-          <Box className="payment_detail">
-            <Box className="payment_detail_heading align-items-center">
-              <Typography className="common_sub_heading" variant="span">
-                Payment Detail
-              </Typography>
-              <Button
-                onClick={handleOpenPaymentDialog}
-                variant="contained"
-                sx={{
-                  background: '#fff',
-                  color: '#2E3591',
-                  marginRight: '10px',
-                }}
-              >
-                {' '}
-                Update
-              </Button>
-            </Box>
-            <Box className="common_row mb-3 mx-2">
-              <Typography className="order_desc_subheading" variant="span">
-                Status
-              </Typography>
-              <Typography className="pe-3" variant="span">
-                {orderDetail?.paymentStatus?.charAt(0)?.toUpperCase() +
-                  orderDetail?.paymentStatus?.toLowerCase()?.substr(1)}
-              </Typography>
-            </Box>
-            <Box className="common_row mb-3 mx-2">
-              <Typography className="order_desc_subheading" variant="span">
-                Method
-              </Typography>
-              <Typography className="pe-3" variant="span">
-                {orderDetail?.paymentMethod?.charAt(0)?.toUpperCase() +
-                  orderDetail?.paymentMethod?.toLowerCase()?.substr(1)}
-              </Typography>
             </Box>
           </Box>
         </Box>

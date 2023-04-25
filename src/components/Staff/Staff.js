@@ -237,6 +237,7 @@ const Staff = () => {
               </IconButton>
               {/* </Toolbar> */}
             </Box>
+
             <Drawer
               sx={{
                 width: 2,
@@ -308,11 +309,10 @@ const Staff = () => {
                   </RadioGroup>
                 </FormControl>
 
-                <FormControl className="filter_body_inner_section">
-                  <FormLabel className="filter_body_inner_heading">
-                    Result for
-                  </FormLabel>
-                  <RadioGroup
+                <FormControl sx={{ margin: '10px 16px' }}>
+                  <InputLabel>Result for</InputLabel>
+                  <Select
+                    label="Result for"
                     value={queryParams.attendanceType}
                     onChange={e => {
                       setQueryParams({
@@ -321,22 +321,15 @@ const Staff = () => {
                       })
                     }}
                   >
-                    <Box className="checkbox_section">
-                      {attendanceTypeList.map(data => {
-                        return (
-                          <FormControlLabel
-                            className="checkbox_background_color"
-                            value={data.type}
-                            control={<Radio />}
-                            label={data.typeName}
-                          />
-                        )
-                      })}
-                    </Box>
-                  </RadioGroup>
+                    {attendanceTypeList.map(data => {
+                      return (
+                        <MenuItem value={data.type}>{data.typeName}</MenuItem>
+                      )
+                    })}
+                  </Select>
                 </FormControl>
 
-                <FormControl sx={{ margin: '10px 20px' }}>
+                <FormControl sx={{ margin: '10px 16px' }}>
                   <InputLabel>Job Role</InputLabel>
                   <Select
                     label="Job Role"
