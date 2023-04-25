@@ -14,7 +14,7 @@ const ProductGraph = ({ selectedPeriod }) => {
   // const [selectedProduct, se] = useState()
   useEffect(() => {
     GetProductReport(
-      { selectedPeriod: selectedPeriod },
+      { period: selectedPeriod },
       res => {
         setGraphData(res?.data)
       },

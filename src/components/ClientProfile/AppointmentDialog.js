@@ -20,7 +20,7 @@ import { AddAdminClientAppointmentDetail } from '../../services/apiservices/clie
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import './index.css'
-import { GetAllStaffList } from '../../services/apiservices/staffDetail.js'
+import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail.js'
 const AppointmentDialog = ({
   clientProfileDetail,
   handleAppointmentClose,
@@ -42,8 +42,8 @@ const AppointmentDialog = ({
     'Office',
   ])
   useEffect(() => {
-    GetAllStaffList(
-      {},
+    GetAdminStaffDetailList(
+      { admin: true },
       res => {
         setStaffDetailList(res.data)
       },

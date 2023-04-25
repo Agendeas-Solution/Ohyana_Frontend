@@ -2,10 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Tabs, Tab, Box, Button, Grid, Typography } from '@mui/material'
 import './index.css'
 import AddRoundedIcon from '@mui/icons-material/AddRounded'
-import {
-  GetNotification,
-  GetSentNotification,
-} from '../../services/apiservices/adminprofile'
+import { GetNotification } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
@@ -64,8 +61,8 @@ const Notification = () => {
   }, [deleteRemainderDialog])
   useEffect(() => {
     setLoader(true)
-    GetSentNotification(
-      {},
+    GetNotification(
+      { sent: true },
       res => {
         setNotificationSentDetail(res?.data?.notifications)
         setLoader(false)

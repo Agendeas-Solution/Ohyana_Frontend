@@ -288,7 +288,7 @@ const Department = () => {
   }
   useEffect(() => {
     GetSingleRole(
-      parseInt(path),
+      { roleId: parseInt(path) },
       res => {
         if (res.success) {
           setJobRoleList(res.data)

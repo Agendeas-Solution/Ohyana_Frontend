@@ -12,7 +12,6 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import {
   GetAllHoliday,
   GetAllLeaveType,
-  GetAllRegularHoliday,
 } from '../../services/apiservices/holiday'
 import './index.css'
 import {
@@ -82,7 +81,7 @@ const HolidayAndLeaveManagement = () => {
   }
   const handleGetAllHoliday = () => {
     GetAllHoliday(
-      {},
+      { type: 'occasional' },
       res => {
         setHolidayList(res?.data)
       },
@@ -96,8 +95,8 @@ const HolidayAndLeaveManagement = () => {
     )
   }
   const handleGetRegularAllHoliday = () => {
-    GetAllRegularHoliday(
-      {},
+    GetAllHoliday(
+      { type: 'regular' },
       res => {
         setRegularHolidayList(res?.data)
       },

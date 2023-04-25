@@ -34,6 +34,7 @@ const ViewProductDialog = ({
   useEffect(() => {
     GetProductDetail(
       viewProductDialog?.id,
+      {},
       res => {
         setProductDetail(res?.data)
       },
@@ -53,8 +54,8 @@ const ViewProductDialog = ({
   }
   const handleProductQuantityUpdate = () => {
     UpdateProductQuantity(
-      productDetail?.quantity,
       viewProductDialog?.id,
+      { quantity: parseInt(productDetail?.quantity) },
       res => {
         handleClose()
       },

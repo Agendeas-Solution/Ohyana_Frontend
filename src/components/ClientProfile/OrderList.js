@@ -21,7 +21,7 @@ const OrderList = () => {
     let path = window.location.pathname
     path = path.split('/').pop()
     GetSingleClientOrderList(
-      parseInt(path),
+      { clientId: parseInt(path) },
       res => {
         setOrderList(res.data.orders)
       },

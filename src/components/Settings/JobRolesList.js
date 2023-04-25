@@ -79,7 +79,6 @@ const JobRolesList = () => {
   })
 
   useEffect(() => {
-    // GetAddEditAdminRole(
     GetAdminRole(
       {},
       res => {
