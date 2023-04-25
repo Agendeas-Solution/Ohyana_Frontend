@@ -61,6 +61,7 @@ const PoorContact = ({
               label="Description"
               autoComplete="off"
               minRows={3}
+              maxRows={3}
               placeholder="reason of late inquiry"
               value={addPoorContact.description}
               onChange={e =>
@@ -78,6 +79,7 @@ const PoorContact = ({
               label="Description"
               autoComplete="off"
               minRows={3}
+              maxRows={3}
               placeholder="reason of late inquiry"
               value={addPoorContact.description}
               onChange={e =>

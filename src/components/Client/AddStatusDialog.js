@@ -86,6 +86,7 @@ const AddStatusDialog = ({
             autoComplete="off"
             placeholder="Description Here..."
             minRows={3}
+            maxRows={3}
             value={addStatusDetail.description}
             onChange={e => {
               setAddStatusDetail({

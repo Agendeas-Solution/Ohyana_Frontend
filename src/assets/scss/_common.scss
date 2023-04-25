@@ -101,11 +101,13 @@ textarea:focus {
   display: flex;
 }
 
-.input_fields {
+.edit_profile_input_fields {
   width: 40%;
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  // margin: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .product_profile_icon {
@@ -143,12 +145,6 @@ textarea:focus {
   color: red;
 }
 
-.userprofile_dummy_icon {
-  height: 140px !important;
-  width: 140px !important;
-  color: #f1f2f6 !important;
-}
-
 .user_profile_icon {
   height: 90px !important;
   width: 90px !important;
@@ -174,9 +170,9 @@ textarea:focus {
 
 .common_sub_heading {
   display: flex;
-  color: #8e8e8e;
+  // color: #8e8e8e;
   letter-spacing: 0.05rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .common_description_text {
@@ -225,6 +221,15 @@ textarea:focus {
   width: 100%;
   padding-bottom: 10px;
   border-bottom: 1px solid #c4c4c4;
+}
+
+.pofile_edit_section {
+  height: 83vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: space-around;
 }
 
 .table_heading tr th {
@@ -508,12 +513,30 @@ textarea:focus {
 }
 
 .input_field_row {
+  width: 100%;
+  background-color: 1px solid black;
   display: flex;
   flex-direction: row;
-  width: 80%;
-  justify-content: space-between;
-  // justify-content: flex-start;
-  margin: 0 auto;
+  justify-content: start;
+}
+.edit_profile_image_section {
+  width: 10%;
+  display: flex;
+  margin: 20px;
+  justify-content: flex-end;
+}
+
+.edit_profile_detail_section {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.input_fields {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
 
 .input_field_label {
@@ -709,12 +732,12 @@ button {
 }
 
 .edit_page_save_button {
-  margin-top: 20px !important;
+  margin: 20px !important;
   background-color: #2e3591 !important;
-  width: 200px;
+  width: 225px;
   text-transform: capitalize !important;
   font-size: 17px !important;
-  padding: 7px !important;
+  padding: 10px !important;
 }
 
 .login_submit_button_root {

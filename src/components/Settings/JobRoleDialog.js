@@ -90,6 +90,7 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
             autoComplete="off"
             multiline
             minRows={3}
+            maxRows={3}
             value={jobRoleDetail.description}
             onChange={e => {
               setJobRoleDetail({

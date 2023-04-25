@@ -14,6 +14,9 @@ import {
   FormLabel,
   RadioGroup,
   Radio,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material'
 import './index.css'
 
@@ -27,91 +30,85 @@ const PaymentDetailDialog = ({
     status: '',
     method: '',
   })
+
+  const [options, setOptions] = useState([])
+
   return (
     <>
       <Dialog open={openPaymentDetailDialog} onClose={handleClosePaymentDialog}>
-        <DialogTitle
-          sx={{ fontWeight: '600', fontSize: '24px' }}
-          className="row justify-content-center font-weight-bold"
-        >
-          Payment Detail
-        </DialogTitle>
-        <Box className="my-2 mx-5">
-          <div className="row">
-            <div className="col-md-12">
-              <FormControl>
-                <FormLabel className="mb-1">Status</FormLabel>
-                <RadioGroup
-                  row
-                  value={paymentDetail.status}
-                  onChange={e => {
-                    setPaymentDetail({
-                      ...paymentDetail,
-                      status: e.target.value,
-                    })
-                  }}
-                >
+        <Box className="dialogue_main_section">
+          <Typography className="dialogue_heading">Payment Detail</Typography>
+
+          <Box className="filter_body_section">
+            <FormControl className="filter_body_inner_section">
+              <FormLabel className="filter_body_inner_heading">
+                Status
+              </FormLabel>
+
+              <RadioGroup
+                // className="radio_button"
+                row
+                value={paymentDetail.status}
+                onChange={e => {
+                  setPaymentDetail({
+                    ...paymentDetail,
+                    status: e.target.value,
+                  })
+                }}
+              >
+                <Box className="checkbox_section">
                   <FormControlLabel
-                    className="checkbox_button"
+                    // sx={{
+                    //   backgroundColor: '#f1f2f6',
+                    //   borderRadius: '5px',
+                    //   // width: '50%',
+                    // }}
+                    className="checkbox_background_color"
                     value="PENDING"
                     control={<Radio />}
                     label="Pending"
                   />
                   <FormControlLabel
-                    className="checkbox_button"
+                    className="checkbox_background_color"
+                    // sx={{ backgroundColor: '#f1f2f6', borderRadius: '5px' }}
                     value="CONFIRMED"
                     control={<Radio />}
                     label="Confirmed"
                   />
-                </RadioGroup>
-              </FormControl>
-            </div>
-          </div>
+                </Box>
+              </RadioGroup>
+            </FormControl>
+          </Box>
+
+          <Box>
+            <Typography variant="span">Method</Typography>
+            <Autocomplete
+              value={paymentDetail.method}
+              onChange={(e, value) =>
+                setPaymentDetail({ ...paymentDetail, method: value })
+              }
+              options={paymentMethodList}
+              renderInput={params => (
+                <TextField
+                  className="dialogue_input_fields"
+                  sx={{ fontSize: '15px' }}
+                  {...params}
+                  placeholder="Select Payment Method"
+                />
+              )}
+            />
+          </Box>
+
+          <DialogActions className="m-auto">
+            <Button
+              variant="contained"
+              className="dialogue_bottom_button"
+              onClick={() => handleUpdatePaymentStatus(paymentDetail)}
+            >
+              Save
+            </Button>
+          </DialogActions>
         </Box>
-        <Box className="my-2 mx-5">
-          <Typography className="col-md-12" variant="span">
-            Method
-          </Typography>
-          <Autocomplete
-            // disablePortal
-            value={paymentDetail.method}
-            onChange={(e, value) =>
-              setPaymentDetail({ ...paymentDetail, method: value })
-            }
-            options={paymentMethodList}
-            sx={{
-              height: 45,
-              width: 350,
-              border: '1px solid #E5E5E5',
-              borderRadius: '5px',
-              marginBottom: '10px',
-            }}
-            renderInput={params => (
-              <TextField
-                sx={{ fontSize: '15px' }}
-                {...params}
-                placeholder="Select Payment Method"
-              />
-            )}
-          />
-        </Box>
-        <DialogActions className="m-auto">
-          <Button
-            // sx={{ paddingRight: '15px', paddingLeft: '15px' }}
-            variant="contained"
-            className="save_btn"
-            onClick={() => handleUpdatePaymentStatus(paymentDetail)}
-          >
-            Save
-          </Button>
-          {/* <Button
-            className="cancel-btn"
-            autoFocus
-            onClick={handleClosePaymentDialog}
-          >
-            Cancel
-          </Button> */}
-        </DialogActions>
       </Dialog>
     </>
   )

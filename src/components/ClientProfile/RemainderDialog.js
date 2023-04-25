@@ -101,6 +101,7 @@ const RemainderDialog = ({
             label="Description"
             autoComplete="off"
             minRows={3}
+            maxRows={3}
             placeholder="Description Here..."
             value={clientReminderDetail.description}
             onChange={e => {

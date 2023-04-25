@@ -57,6 +57,7 @@ const CloseStatusDialog = ({
             autoComplete="off"
             placeholder="Reason Here..."
             minRows={3}
+            maxRows={3}
             value={closeStatusDialogControl.description}
             onChange={e =>
               setCloseStatusDialogControl({
