@@ -34,6 +34,7 @@ const AddProduct = props => {
     parseInt(path) &&
       GetProductDetail(
         parseInt(path),
+        {},
         res => {
           setProductDetail({
             ...productDetail,

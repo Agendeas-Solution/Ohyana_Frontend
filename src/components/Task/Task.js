@@ -27,15 +27,14 @@ import moment from 'moment'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import './index.css'
-import {
-  GetAllMemberList,
-  AssignMemberParticularTask,
-} from '../../services/apiservices/task'
+import { AssignMemberParticularTask } from '../../services/apiservices/task'
 import { styled, useTheme } from '@mui/material/styles'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail'
+
 const drawerWidth = 350
 const CreateTaskDialog = React.lazy(() => import('./CreateTaskDialog'))
 const AssignMemberDialog = React.lazy(() => import('./AssignMemberDialog'))
@@ -131,7 +130,7 @@ const Task = () => {
     handleTaskList()
   }, [searchQuery])
   useEffect(() => {
-    GetAllMemberList(
+    GetAdminStaffDetailList(
       {},
       res => {
         setMemberList(res.data)

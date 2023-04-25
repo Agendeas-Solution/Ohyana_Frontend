@@ -104,6 +104,7 @@ const ClientProfile = () => {
     path = path.split('/').pop()
     GetAdminClientProfileDetail(
       parseInt(path),
+      {},
       res => {
         if (res.success) {
           setClientProfileDetail(res?.data)
@@ -119,6 +120,7 @@ const ClientProfile = () => {
   const handleAdminClienStatusDetail = () => {
     GetAdminClientStatusDetail(
       parseInt(path),
+      {},
       res => {
         if (res.success) {
           setClientStatusList(res?.data)
@@ -135,6 +137,7 @@ const ClientProfile = () => {
     value === '2' &&
       GetAdminClientReminderDetail(
         parseInt(path),
+        {},
         res => {
           if (res.success) {
             setClientReminderList(res.data)
@@ -147,6 +150,7 @@ const ClientProfile = () => {
     value === '3' &&
       GetAdminClientAppointmentDetail(
         parseInt(path),
+        {},
         res => {
           if (res.success) {
             setClientAppointmentList(res.data)

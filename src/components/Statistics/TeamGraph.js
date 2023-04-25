@@ -23,7 +23,7 @@ const TeamGraph = ({ selectedPeriod }) => {
   })
   useEffect(() => {
     GetTeamReport(
-      { selectedPeriod: selectedPeriod },
+      { period: selectedPeriod, comparison: 'points' },
       res => {
         setGraphData(res?.data)
       },

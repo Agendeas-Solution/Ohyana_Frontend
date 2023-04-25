@@ -24,7 +24,7 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded'
 import { useNavigate } from 'react-router-dom'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import {
-  GetAdminClientDetail,
+  GetAllClients,
   DeleteClientDetail,
   GetCityList,
   GetStateList,
@@ -193,7 +193,8 @@ const Client = () => {
     // return () => socket.disconnect();
     // const socket = io("http://159.89.165.83");
     socket.on('client_list', data => {
-      GetAdminClientDetail(
+      console.log('Printing Connections', data)
+      GetAllClients(
         data,
         res => {
           if (res?.success) {
@@ -232,7 +233,7 @@ const Client = () => {
       data['stage'] = clientStage
     }
     setClientLoader(true)
-    GetAdminClientDetail(
+    GetAllClients(
       data,
       res => {
         if (res?.success) {

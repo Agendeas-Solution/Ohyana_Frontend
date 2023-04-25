@@ -17,7 +17,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { EditAdminClientAppointmentDetail } from '../../services/apiservices/clientDetail'
-import { GetAllStaffList } from '../../services/apiservices/staffDetail.js'
+import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail.js'
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 
@@ -42,8 +42,8 @@ const EditAppointmentDialog = ({
     'Office',
   ])
   useEffect(() => {
-    GetAllStaffList(
-      {},
+    GetAdminStaffDetailList(
+      { admin: true },
       res => {
         setStaffDetailList(res.data)
       },
