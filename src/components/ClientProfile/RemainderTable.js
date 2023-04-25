@@ -39,19 +39,14 @@ const RemainderTable = ({ clientReminderList }) => {
   return (
     <>
       <TableContainer
-        className="client_table_height mt-1"
+        className="client_table_height client_detail_table set_box_shadow"
         component={Paper}
-        sx={{
-          boxShadow: 'none',
-          border: '1px solid #e5e5e5',
-          overflowY: 'auto',
-        }}
       >
         {clientReminderList.length > 0 ? (
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            sx={{ minWidth: 690, padding: '0px !important' }}
             className="table_heading"
           >
             <TableHead className="client_profile_table_header">
@@ -76,19 +71,27 @@ const RemainderTable = ({ clientReminderList }) => {
                     '&:last-child td,th': { border: 0 },
                   }}
                 >
-                  <TableCell scope="row">{index + 1}</TableCell>
-                  <TableCell>{row.team.name}</TableCell>
-                  <TableCell>{row.team.role.name}</TableCell>
-                  <TableCell>
+                  <TableCell scope="row" className="table_row_top_align">
+                    {index + 1}
+                  </TableCell>
+                  <TableCell className="table_row_top_align">
+                    {row.team.name}
+                  </TableCell>
+                  <TableCell className="table_row_top_align">
+                    {row.team.role.name}
+                  </TableCell>
+                  <TableCell className="table_row_top_align">
                     {moment(row?.date).format('DD-MM-YYYY')}
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="table_row_top_align">
                     {moment(row.time, 'hh:mm:ss').format('LT')}
                   </TableCell>
-                  <TableCell>{row.description}</TableCell>
+                  <TableCell className="description_text">
+                    {row.description}
+                  </TableCell>
                   <TableCell>
                     <Button
-                      className="client_profile_edit_button"
+                      className="border_button"
                       onClick={() => {
                         handleEditReminder(row)
                       }}

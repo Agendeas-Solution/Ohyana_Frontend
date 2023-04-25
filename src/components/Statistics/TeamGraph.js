@@ -53,7 +53,6 @@ const TeamGraph = ({ selectedPeriod }) => {
           circular: true,
         }
       })
-    console.log('Printing userData', userData, datga)
     graphData &&
       setUserData({
         ...userData,
@@ -66,19 +65,17 @@ const TeamGraph = ({ selectedPeriod }) => {
       <Box className=" graph_section team_graph">
         <Box className="common_row mb-3">
           <Box>
-            <Typography
-              variant="span"
-              sx={{ color: '#2E3591', fontSize: '20px', fontWeight: '600' }}
-            >
+            <Typography variant="span" className="report_tab_heading">
               Overall
             </Typography>
           </Box>
 
           <Box sx={{ display: 'flex' }}>
             <Autocomplete
+              className="report_tab_heading_option"
               disablePortal
               options={top100Films}
-              sx={{ width: '200px', marginRight: '10px' }}
+              sx={{ marginRight: '10px' }}
               renderInput={params => (
                 <TextField
                   className="common_dropdown"
@@ -88,9 +85,10 @@ const TeamGraph = ({ selectedPeriod }) => {
               )}
             />
             <Autocomplete
+              className="report_tab_heading_option"
               disablePortal
               options={top100Films}
-              sx={{ width: '200px', marginRight: '10px' }}
+              sx={{ marginRight: '10px' }}
               renderInput={params => (
                 <TextField
                   className="common_dropdown"
@@ -100,9 +98,9 @@ const TeamGraph = ({ selectedPeriod }) => {
               )}
             />
             <Autocomplete
+              className="report_tab_heading_option"
               disablePortal
               options={top100Films}
-              sx={{ width: '200px' }}
               renderInput={params => (
                 <TextField
                   className="common_dropdown"
@@ -113,22 +111,16 @@ const TeamGraph = ({ selectedPeriod }) => {
             />
           </Box>
         </Box>
-        <Box
-          sx={{
-            border: '1px solid #E5E5E5',
-            borderRadius: '5px',
-            // margin: '3px',
-          }}
-          className="me-3"
-        >
+
+        <Box className="report_tab_main_section">
           {userData?.datasets && <BarChart chartData={userData} />}
         </Box>
-        <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+
+        <TableContainer component={Paper} className="set_box_shadow">
           <Table
             sx={{
               maxWidth: 300,
               marginTop: '20px',
-              // border: '1px solid black',
             }}
           >
             <TableHead className="team_overview_table_heading">

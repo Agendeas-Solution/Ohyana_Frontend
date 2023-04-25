@@ -16,8 +16,6 @@ import { GetTargetList } from '../../services/apiservices/teamcall'
 import SetTargetDialog from './SetTargetDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 let path = window.location.pathname
-console.log('Printing Path of ', path)
-console.log('Printing ', path.split('/').pop())
 path = path.split('/').pop()
 
 const StaffTarget = () => {
@@ -38,7 +36,6 @@ const StaffTarget = () => {
   const [targetList, setTargetList] = useState([])
 
   useEffect(() => {
-    // debugger
     let data = {
       month: moment(selectMonth.$d).month() + 1,
       year: moment(selectMonth.$d).format('YYYY'),
@@ -83,18 +80,12 @@ const StaffTarget = () => {
             </Box>
           </Box>
 
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'start',
-            }}
-          >
+          <Box>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 views={['month', 'year']}
                 value={selectMonth}
                 onChange={selectMonth => {
-                  console.log(`inside Onchange: ${selectMonth.format('MMM')}`)
                   setSelectMonth(selectMonth)
                 }}
                 renderInput={params => (
@@ -119,20 +110,14 @@ const StaffTarget = () => {
         </Box>
 
         <TableContainer
-          className="expenses_table_height mt-2"
+          className="expenses_table_height staff_target_table"
           component={Paper}
-          sx={{
-            boxShadow: 'none',
-            border: '1px solid #e5e5e5',
-            borderTop: 'none',
-            overflowY: 'auto',
-          }}
         >
           {targetList.length > 0 ? (
             <Table
               stickyHeader
               aria-label="sticky table"
-              sx={{ minWidth: 690, marginLeft: '-10px' }}
+              sx={{ minWidth: 690 }}
               className="table_heading"
             >
               <TableHead>

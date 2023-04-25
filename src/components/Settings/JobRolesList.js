@@ -98,16 +98,12 @@ const JobRolesList = () => {
   return (
     <>
       <div className="main_section">
-        <Box className="job_role_title mb-3">
-          {/* <Typography variant="span" className="ms-2"> */}
-          <Typography
-            sx={{ color: '#8E8E8E', fontSize: '18px' }}
-            variant="span"
-          >
+        <Box className="main_section_header" sx={{ borderBottom: 'none' }}>
+          <Typography className="task_card_heading" variant="span">
             Job Roles
           </Typography>
           <Button
-            className="background_col_btn"
+            className="primary_color_button"
             onClick={() => {
               setJobRoleDialogControl(true)
             }}
@@ -117,17 +113,11 @@ const JobRolesList = () => {
           </Button>
         </Box>
 
-        <Divider
-          sx={{ borderColor: '#8E8E8E' }}
-          orientation="horizontal"
-          width="100%"
-        />
-
         <Box className="left_team_profile_section">
           <TableContainer>
             <Table className="job_role_list">
               <TableHead className="client_profile_table_header">
-                <TableRow sx={{ backgroundColor: '#f1f2f6' }}>
+                <TableRow>
                   <TableCell align="left">Sr. No.</TableCell>
                   <TableCell align="left">Job Role</TableCell>
                   <TableCell align="left">Senior Post</TableCell>
@@ -142,15 +132,17 @@ const JobRolesList = () => {
                 {jobRoleList?.roles &&
                   jobRoleList?.roles.map((data, index) => (
                     <React.Fragment key={index}>
-                      <TableRow
-                        // className="appointment_notification"
-                        className="job_role_list"
-                        key={data.id}
-                      >
-                        <TableCell>{index + 1}</TableCell>
-                        <TableCell>{data.name || '-'}</TableCell>
-                        <TableCell align="left">{data.name || '-'}</TableCell>
-                        <TableCell className="job_role_description">
+                      <TableRow className="job_role_list " key={data.id}>
+                        <TableCell className="table_row_top_align">
+                          {index + 1}
+                        </TableCell>
+                        <TableCell className="table_row_top_align">
+                          {data.name || '-'}
+                        </TableCell>
+                        <TableCell className="table_row_top_align">
+                          {data.name || '-'}
+                        </TableCell>
+                        <TableCell className="description_text">
                           {data.description || '-'}
                         </TableCell>
                         <TableCell align="left">
@@ -168,7 +160,6 @@ const JobRolesList = () => {
                       <Divider
                         sx={{ height: '24px', borderColor: 'transparent' }}
                       />
-                      {/* {index < staffDetailList.length - 1 && <Box my={2} />} */}
                     </React.Fragment>
                   ))}
               </TableBody>

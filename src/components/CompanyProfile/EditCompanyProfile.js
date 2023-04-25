@@ -71,7 +71,6 @@ const EditCompanyProfile = () => {
       crmKey: companyDetail.crmKey,
       // businessType: companyDetail.businessType, city: companyDetail.city, country: companyDetail.country
     }
-    console.log('Printing Data', data)
     editCompanyProfile(
       data,
       res => {
@@ -85,7 +84,6 @@ const EditCompanyProfile = () => {
         }
       },
       err => {
-        console.log('Printing Err', err)
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,

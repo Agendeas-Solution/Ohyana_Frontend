@@ -101,8 +101,6 @@ const ClientProfile = () => {
   // let navigate = useNavigate()
   useEffect(() => {
     let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
     GetAdminClientProfileDetail(
       parseInt(path),
@@ -408,22 +406,18 @@ const ClientProfile = () => {
                 ) : null}
               </Box>
             </Box>
+
             <TabPanel sx={{ padding: '0px' }} value="1">
               <TableContainer
-                className="client_table_height mt-1"
+                className="client_table_height client_detail_table set_box_shadow"
                 component={Paper}
-                sx={{
-                  boxShadow: 'none',
-                  border: '1px solid #e5e5e5',
-                  overflowY: 'auto',
-                }}
               >
                 {clientStatusList.length > 0 ? (
                   <Table
                     stickyHeader
                     aria-label="sticky table"
-                    sx={{ minWidth: 690, marginLeft: '-10px' }}
-                    className="table_heading "
+                    sx={{ minWidth: 690, padding: '0px !important' }}
+                    className="table_heading"
                   >
                     {/* <TableHead className="client_profile_table_header"> */}
                     <TableHead>
@@ -458,20 +452,21 @@ const ClientProfile = () => {
                           <TableCell className="status_description">
                             {row?.description}
                           </TableCell>
-                          <TableCell>
+                          <TableCell className="client_status_buttons">
                             <Button
+                              sx={{ marginRight: '10px' }}
                               onClick={() => {
                                 handleViewClientStatus(
                                   row,
                                   clientProfileDetail.id,
                                 )
                               }}
-                              className="client_profile_edit_button m-1"
+                              className="border_button"
                             >
                               View
                             </Button>
                             <Button
-                              className="client_profile_edit_button"
+                              className="border_button"
                               onClick={() => {
                                 handleEditClientStatus(
                                   row,
@@ -497,7 +492,7 @@ const ClientProfile = () => {
             <TabPanel sx={{ padding: '0px' }} value="3">
               <AppointmentTable clientAppointmentList={clientAppointmentList} />
             </TabPanel>
-            <TabPanel sx={{ paddingTop: '15px' }} value="4">
+            <TabPanel sx={{ padding: '0px' }} value="4">
               <ProfileTable clientProfileDetail={clientProfileDetail} />
             </TabPanel>
             <TabPanel sx={{ padding: '0px' }} value="5">

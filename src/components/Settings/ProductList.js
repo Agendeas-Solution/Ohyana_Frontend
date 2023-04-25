@@ -123,7 +123,6 @@ const ProductList = () => {
             {AdminProductList &&
               AdminProductList.map(row => {
                 let image_url = `${process.env.REACT_APP_API_CALL_URL}/file/${row?.imageUrl}`
-                console.log(image_url)
                 return (
                   <>
                     <Box

@@ -29,8 +29,6 @@ const RemainderDialog = ({
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const handleAddReminder = () => {
-    console.log('Add Reminder', clientReminderDetail)
-
     if (
       clientReminderDetail.description !== '' &&
       clientReminderDetail.date !== '' &&
@@ -58,38 +56,44 @@ const RemainderDialog = ({
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add Reminder</Typography>
 
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              disablePast
-              inputFormat="dd/MM/yyyy"
-              value={clientReminderDetail.date}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                disablePast
+                inputFormat="dd/MM/yyyy"
+                value={clientReminderDetail.date}
+                onChange={e => {
+                  setClientReminderDetail({
+                    ...clientReminderDetail,
+                    date: moment(e).format('YYYY-MM-DD'),
+                  })
+                }}
+                renderInput={params => (
+                  // <TextField {...params} className="dialogue_input_fields" />
+                  <TextField
+                    {...params}
+                    sx={{ width: '55%', margin: '14px 14px' }}
+                  />
+                )}
+                PopperProps={{
+                  placement: 'bottom-start', // Set placement to 'bottom-start'
+                }}
+              />
+            </LocalizationProvider>
+
+            <TextField
+              // className="dialogue_input_fields"
+              sx={{ width: '45%', margin: '14px 14px' }}
+              type="time"
+              value={clientReminderDetail.time}
               onChange={e => {
                 setClientReminderDetail({
                   ...clientReminderDetail,
-                  date: moment(e).format('YYYY-MM-DD'),
+                  time: e.target.value,
                 })
               }}
-              renderInput={params => (
-                <TextField {...params} className="dialogue_input_fields" />
-              )}
-              PopperProps={{
-                placement: 'bottom-start', // Set placement to 'bottom-start'
-              }}
             />
-          </LocalizationProvider>
-
-          <TextField
-            className="dialogue_input_fields"
-            label="Select Time"
-            type="time"
-            value={clientReminderDetail.time}
-            onChange={e => {
-              setClientReminderDetail({
-                ...clientReminderDetail,
-                time: e.target.value,
-              })
-            }}
-          />
+          </Box>
 
           <TextField
             className="dialogue_input_fields"

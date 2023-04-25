@@ -65,7 +65,6 @@ const Header = () => {
               {ActivePage}
             </Typography>
           </Box>
-
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
             <MenuItem
               onClick={() => {
@@ -80,7 +79,6 @@ const Header = () => {
               Logout
             </MenuItem>
           </Menu>
-
           <Box
             sx={{
               display: 'flex',
@@ -91,7 +89,6 @@ const Header = () => {
               variant="span"
               sx={{ marginRight: '10px', color: '#2E3591' }}
             />
-
             <Stack
               sx={{
                 display: 'flex',

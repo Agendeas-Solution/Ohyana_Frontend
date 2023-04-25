@@ -116,7 +116,6 @@ const PJPDetail = () => {
     if (filterPJP.pjpStatus !== '' && filterPJP.pjpStatus !== null) {
       data['statusType'] = filterPJP.pjpStatus
     }
-    debugger
     GetPJPList(
       data,
       res => {
@@ -204,23 +203,17 @@ const PJPDetail = () => {
             open={open}
             anchor="right"
           >
-            <DrawerHeader
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <DrawerHeader className="drawer_header_section">
+              <Box className="filter_main_heading">
                 <IconButton
                   sx={{ color: '#2e3591' }}
                   disableRipple={true}
                   onClick={handleDrawerClose}
                 >
                   {theme.direction === 'rtl' ? (
-                    <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                    <ChevronLeftIcon className="chevron_icon" />
                   ) : (
-                    <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                    <ChevronRightIcon className="chevron_icon" />
                   )}
                 </IconButton>
 
@@ -235,9 +228,7 @@ const PJPDetail = () => {
             </DrawerHeader>
             <Divider />
 
-            <Box
-              sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}
-            >
+            <Box className="filter_body_section">
               <FormControl sx={{ margin: '10px' }}>
                 <FormLabel
                   sx={{ color: '#000000' }}

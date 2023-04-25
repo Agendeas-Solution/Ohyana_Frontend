@@ -75,9 +75,7 @@ const AddClient = () => {
           setCountryList(res.data)
         }
       },
-      err => {
-        console.log('Printing ', err)
-      },
+      err => {},
     )
   }, [])
   // useEffect(() => {
@@ -170,213 +168,229 @@ const AddClient = () => {
   }
   return (
     <>
-      <Box className="main_section">
-        {/* Client Name &&  Business Name*/}
-        <Box className="input_field_row">
-          <Box className="input_fields">
-            <TextField
-              label="Client Name"
-              onChange={e => {
-                setUserDetail({ ...userDetail, clientName: e.target.value })
-              }}
-              value={userDetail.clientName}
-              variant="outlined"
-            />
+      <Box className="main_section" sx={{ overflow: 'hidden', padding: '0px' }}>
+        <Box className="add_client_section">
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              marginRight: '10px',
+            }}
+          >
+            <Button
+              onClick={handleAddClient}
+              variant="contained"
+              className="edit_page_save_button"
+            >
+              Save
+            </Button>
           </Box>
-
-          <Box className="input_fields">
-            <TextField
-              label="Business Name"
-              onChange={e => {
-                setUserDetail({ ...userDetail, business: e.target.value })
-              }}
-              value={userDetail.business}
-              variant="outlined"
-            />
-          </Box>
-        </Box>
-
-        {/* Contact No. &&  Investment Scale*/}
-        <Box className="input_field_row">
-          <Box className="input_fields">
-            <TextField
-              label="Contact No"
-              onChange={e => {
-                setUserDetail({ ...userDetail, contactNo: e.target.value })
-              }}
-              value={userDetail.contactNo}
-              variant="outlined"
-            />
-          </Box>
-
-          <Box className="input_fields">
-            <TextField
-              label="Investment Scale "
-              onChange={e => {
-                setUserDetail({
-                  ...userDetail,
-                  max_invesment_amount: e.target.value,
-                })
-              }}
-              value={userDetail.max_invesment_amount}
-              variant="outlined"
-            />
-          </Box>
-        </Box>
-
-        {/* Email && Address*/}
-        <Box className="input_field_row">
-          <Box className="input_fields">
-            <TextField
-              label="Email"
-              onChange={e => {
-                setUserDetail({ ...userDetail, email: e.target.value })
-              }}
-              value={userDetail.email}
-              variant="outlined"
-            />
-          </Box>
-          <Box className="input_fields">
-            <TextField
-              autocomplete="off"
-              label="Address"
-              onChange={e => {
-                setUserDetail({ ...userDetail, address: e.target.value })
-              }}
-              value={userDetail.address}
-              variant="outlined"
-            />
-          </Box>
-        </Box>
-
-        {/* Client Type & City*/}
-        <Box className="input_field_row">
-          <Box className="input_fields">
-            <FormControl>
-              <InputLabel>Client Type</InputLabel>
-              <Select
-                label="Client Type"
-                value={userDetail.clientType}
-                onChange={e => {
-                  setUserDetail({ ...userDetail, clientType: e.target.value })
-                }}
-              >
-                <MenuItem value="true">Domestic</MenuItem>
-                <MenuItem value="false">International</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-
-          <Box className="input_fields">
-            <TextField
-              label="City"
-              onChange={e => {
-                setUserDetail({ ...userDetail, city: e.target.value })
-              }}
-              value={userDetail.city}
-              variant="outlined"
-            />
-          </Box>
-        </Box>
-        {/* Country & State*/}
-        <Box className="input_field_row">
-          <Box className="input_fields">
-            <Autocomplete
-              disablePortal
-              options={countryList}
-              value={userDetail?.country}
-              onChange={(e, value) => {
-                setUserDetail({ ...userDetail, country: value })
-              }}
-              getOptionLabel={option => option?.name}
-              renderInput={params => (
-                <TextField {...params} label="Select Country" />
-              )}
-            />
-          </Box>
-
-          <Box className="input_fields">
-            <TextField
-              label="State"
-              onChange={e => {
-                setUserDetail({ ...userDetail, state: e.target.value })
-              }}
-              value={userDetail.state}
-              variant="outlined"
-            />
-          </Box>
-        </Box>
-
-        {/* Reference Name*/}
-        <Box className="input_field_row">
-          <Box className="input_fields">
-            <FormControl>
-              <InputLabel>Reference</InputLabel>
-              <Select
-                label="Reference"
-                value={userDetail.reference}
-                onChange={e => {
-                  setUserDetail({
-                    ...userDetail,
-                    reference: e.target.value,
-                    referenceName: '',
-                  })
-                }}
-              >
-                <MenuItem value="DIGITAL">Digital</MenuItem>
-                <MenuItem value="OFFICE">Office</MenuItem>
-                <MenuItem value="OTHER">Other</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-          {userDetail.reference === 'OTHER' && (
+          {/* Client Name &&  Business Name*/}
+          <Box className="input_field_row">
             <Box className="input_fields">
               <TextField
-                label="Reference Name"
+                label="Client Name"
                 onChange={e => {
-                  setUserDetail({
-                    ...userDetail,
-                    referenceName: e.target.value,
-                  })
+                  setUserDetail({ ...userDetail, clientName: e.target.value })
                 }}
-                value={userDetail.referenceName}
+                value={userDetail.clientName}
                 variant="outlined"
               />
             </Box>
-          )}
-          {userDetail.reference === 'DIGITAL' && (
+
+            <Box className="input_fields">
+              <TextField
+                label="Business Name"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, business: e.target.value })
+                }}
+                value={userDetail.business}
+                variant="outlined"
+              />
+            </Box>
+          </Box>
+
+          {/* Contact No. &&  Investment Scale*/}
+          <Box className="input_field_row">
+            <Box className="input_fields">
+              <TextField
+                label="Contact No"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, contactNo: e.target.value })
+                }}
+                value={userDetail.contactNo}
+                variant="outlined"
+              />
+            </Box>
+
+            <Box className="input_fields">
+              <TextField
+                label="Investment Scale "
+                onChange={e => {
+                  setUserDetail({
+                    ...userDetail,
+                    max_invesment_amount: e.target.value,
+                  })
+                }}
+                value={userDetail.max_invesment_amount}
+                variant="outlined"
+              />
+            </Box>
+          </Box>
+
+          {/* Email && Address*/}
+          <Box className="input_field_row">
+            <Box className="input_fields">
+              <TextField
+                label="Email"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, email: e.target.value })
+                }}
+                value={userDetail.email}
+                variant="outlined"
+              />
+            </Box>
+            <Box className="input_fields">
+              <TextField
+                autocomplete="off"
+                label="Address"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, address: e.target.value })
+                }}
+                value={userDetail.address}
+                variant="outlined"
+              />
+            </Box>
+          </Box>
+
+          {/* Client Type & City*/}
+          <Box className="input_field_row">
             <Box className="input_fields">
               <FormControl>
-                <InputLabel>Reference Name</InputLabel>
+                <InputLabel>Client Type</InputLabel>
+                <Select
+                  label="Client Type"
+                  value={userDetail.clientType}
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, clientType: e.target.value })
+                  }}
+                >
+                  <MenuItem value="true">Domestic</MenuItem>
+                  <MenuItem value="false">International</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+
+            <Box className="input_fields">
+              <TextField
+                label="City"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, city: e.target.value })
+                }}
+                value={userDetail.city}
+                variant="outlined"
+              />
+            </Box>
+          </Box>
+          {/* Country & State*/}
+          <Box className="input_field_row">
+            <Box className="input_fields">
+              <Autocomplete
+                disablePortal
+                options={countryList}
+                value={userDetail?.country}
+                onChange={(e, value) => {
+                  setUserDetail({ ...userDetail, country: value })
+                }}
+                getOptionLabel={option => option?.name}
+                renderInput={params => (
+                  <TextField {...params} label="Select Country" />
+                )}
+              />
+            </Box>
+
+            <Box className="input_fields">
+              <TextField
+                label="State"
+                onChange={e => {
+                  setUserDetail({ ...userDetail, state: e.target.value })
+                }}
+                value={userDetail.state}
+                variant="outlined"
+              />
+            </Box>
+          </Box>
+
+          {/* Reference Name*/}
+          <Box className="input_field_row">
+            <Box className="input_fields">
+              <FormControl>
+                <InputLabel>Reference</InputLabel>
                 <Select
                   label="Reference"
-                  value={userDetail.referenceName}
+                  value={userDetail.reference}
+                  onChange={e => {
+                    setUserDetail({
+                      ...userDetail,
+                      reference: e.target.value,
+                      referenceName: '',
+                    })
+                  }}
+                >
+                  <MenuItem value="DIGITAL">Digital</MenuItem>
+                  <MenuItem value="OFFICE">Office</MenuItem>
+                  <MenuItem value="OTHER">Other</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            {userDetail.reference === 'OTHER' && (
+              <Box className="input_fields">
+                <TextField
+                  label="Reference Name"
                   onChange={e => {
                     setUserDetail({
                       ...userDetail,
                       referenceName: e.target.value,
                     })
                   }}
-                >
-                  <MenuItem value="INDIAMART">IndiaMart</MenuItem>
-                  <MenuItem value="WEBSITE">Website</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-          )}
-        </Box>
-        {/* Save Button */}
-        <Box
-          sx={{ display: 'flex', justifyContent: 'flex-end' }}
-          className="input_field_row"
-        >
-          <Button
-            onClick={handleAddClient}
-            variant="contained"
-            className="edit_page_save_button"
+                  value={userDetail.referenceName}
+                  variant="outlined"
+                />
+              </Box>
+            )}
+            {userDetail.reference === 'DIGITAL' && (
+              <Box className="input_fields">
+                <FormControl>
+                  <InputLabel>Reference Name</InputLabel>
+                  <Select
+                    label="Reference"
+                    value={userDetail.referenceName}
+                    onChange={e => {
+                      setUserDetail({
+                        ...userDetail,
+                        referenceName: e.target.value,
+                      })
+                    }}
+                  >
+                    <MenuItem value="INDIAMART">IndiaMart</MenuItem>
+                    <MenuItem value="WEBSITE">Website</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            )}
+          </Box>
+          {/* <Box
+            sx={{ display: 'flex', justifyContent: 'flex-end' }}
+            className="input_field_row"
           >
-            Save
-          </Button>
+            <Button
+              onClick={handleAddClient}
+              variant="contained"
+              className="edit_page_save_button"
+            >
+              Save
+            </Button>
+          </Box> */}
         </Box>
       </Box>
       {/* <ErrorSnackbar /> */}

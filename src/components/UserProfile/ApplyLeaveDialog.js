@@ -2,12 +2,10 @@ import React, { useState, useEffect, useContext } from 'react'
 import {
   Dialog,
   Box,
-  DialogContent,
   DialogActions,
   Button,
   Typography,
   TextField,
-  Autocomplete,
   FormControl,
   InputLabel,
   Select,
@@ -18,7 +16,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { GetAllLeaveType, ApplyLeave } from '../../services/apiservices/holiday'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-
 import moment from 'moment'
 const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
   const [leaveType, setLeaveType] = useState([])
@@ -91,14 +88,12 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
               }}
             />
           </LocalizationProvider>
-
           <FormControl className="dialogue_input_fields">
             <InputLabel>Leave Type</InputLabel>
             <Select
               label="Leave Type"
               value={leaveDetail?.leaveType}
               onChange={(e, value) => {
-                console.log(value)
                 setLeaveDetail({ ...leaveDetail, leaveType: e.target.value })
               }}
             >
@@ -107,7 +102,6 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
               })}
             </Select>
           </FormControl>
-
           <DialogActions>
             <Button
               className="dialogue_bottom_button"

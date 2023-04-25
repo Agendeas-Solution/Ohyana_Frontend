@@ -19,7 +19,6 @@ const AssignMemberDialog = ({
   member,
   setMember,
 }) => {
-  console.log(memberList)
   return (
     <>
       <Dialog open={openMemberDialog} onClose={handleCloseMemberDialog}>
@@ -30,7 +29,6 @@ const AssignMemberDialog = ({
             options={memberList}
             value={member?.email}
             onChange={(e, value) => {
-              console.log(value)
               setMember(value)
             }}
             getOptionLabel={memberList => memberList?.email}

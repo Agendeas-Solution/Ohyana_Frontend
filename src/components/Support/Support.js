@@ -25,7 +25,6 @@ const Support = () => {
       {},
       res => {
         setComplainList(res.data)
-        console.log(res.data)
       },
       err => {},
     )

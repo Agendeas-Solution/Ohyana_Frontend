@@ -13,7 +13,6 @@ const ForgotPasswordEmail = () => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleForgotPassword = () => {
-    console.log(userDetail.email)
     ForgotPassword(
       { email: userDetail.email },
       res => {

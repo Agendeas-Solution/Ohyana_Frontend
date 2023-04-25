@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Box, Typography, Button, TextField } from '@mui/material'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import Table from '@mui/material/Table'
@@ -22,6 +21,9 @@ import NoResultFound from '../ErrorComponent/NoResultFound'
 import StaffExpensesDetail from './StaffExpensesDetail'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 
+import StaffExpensesApprovalDialog from './StaffExpensesApprovalDialog'
+import StaffPaymentVerificationDialog from './StaffPaymentVerificationDialog'
+
 const StaffExpenses = () => {
   const [dateRange, setDateRange] = useState({
     startDate: '',
@@ -40,10 +42,23 @@ const StaffExpenses = () => {
     status: false,
     id: '',
   })
+  const [openApprovalDialog, setOpenApprovalDialog] = useState({
+    status: false,
+  })
+  const [paymentVerification, setPaymentVerification] = useState({
+    status: false,
+  })
 
   const handleClose = () => {
     setOpenStaffExpenses({ ...openStaffExpenses, status: false })
   }
+  const handleCloseApprovalDialog = () => {
+    setOpenApprovalDialog({ ...openApprovalDialog, status: false })
+  }
+  const handleClosePaymentVerificationDialog = () => {
+    setPaymentVerification({ ...paymentVerification, status: false })
+  }
+
   useEffect(() => {
     let data = {
       month: moment(selectMonth.$d).month() + 1,
@@ -94,9 +109,7 @@ const StaffExpenses = () => {
               <Typography>{expensesData?.pending || '-'}</Typography>
             </Box>
             <Box className="statistics_box fourth_box">
-              <Typography sx={{ whiteSpace: 'nowrap' }}>
-                Payment Done
-              </Typography>
+              <Typography>Payment Done</Typography>
               <Typography>{expensesData?.paymentDone || '-'}</Typography>
             </Box>
           </Box>
@@ -119,21 +132,15 @@ const StaffExpenses = () => {
           </LocalizationProvider>
         </Box>
         <TableContainer
-          className="expenses_table_height mt-2"
+          className="expenses_table_height expenses_main_table"
           component={Paper}
-          sx={{
-            boxShadow: 'none',
-            border: '1px solid #e5e5e5',
-            borderTop: 'none',
-            overflowY: 'auto',
-          }}
         >
           {expenseList.length > 0 ? (
             <Table
               stickyHeader
               aria-label="sticky table"
-              sx={{ minWidth: 690, marginLeft: '-10px' }}
-              className="table_heading "
+              sx={{ minWidth: 690 }}
+              className="table_heading custom_table"
             >
               <TableHead>
                 <TableRow>
@@ -143,8 +150,7 @@ const StaffExpenses = () => {
                   <TableCell>Approval</TableCell>
                   <TableCell>Payment</TableCell>
                   <TableCell>Document</TableCell>
-                  {/* <TableCell>Approval</TableCell> */}
-                  <TableCell>Payment</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -202,21 +208,13 @@ const StaffExpenses = () => {
                           ) : (
                             <Box>
                               <Button
-                                onClick={() =>
-                                  handlePaymentStatusUpdate(row?.id)
-                                }
-                                className="common_button"
-                              >
-                                Update
-                              </Button>
-                              <Button
-                                onClick={() =>
+                                onClick={() => {
                                   setOpenStaffExpenses({
                                     status: true,
-                                    id: row.id,
+                                    data: row,
                                   })
-                                }
-                                className="common_button"
+                                }}
+                                className="border_button"
                               >
                                 View
                               </Button>
@@ -236,6 +234,20 @@ const StaffExpenses = () => {
           openStaffExpenses={openStaffExpenses}
           closeStaffExpenses={handleClose}
           setOpenStaffExpenses={setOpenStaffExpenses}
+          openApprovalDialog={openApprovalDialog}
+          setOpenApprovalDialog={setOpenApprovalDialog}
+          paymentVerification={paymentVerification}
+          setPaymentVerification={setPaymentVerification}
+        />
+        <StaffExpensesApprovalDialog
+          openApprovalDialog={openApprovalDialog}
+          closeApprovalDialog={handleCloseApprovalDialog}
+          // setOpenApprovalDialog={setOpenApprovalDialog}
+        />
+        <StaffPaymentVerificationDialog
+          paymentVerification={paymentVerification}
+          closePaymentVerification={handleClosePaymentVerificationDialog}
+          setPaymentVerification={setPaymentVerification}
         />
       </Box>
     </>

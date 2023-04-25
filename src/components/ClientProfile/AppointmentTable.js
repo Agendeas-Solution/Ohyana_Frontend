@@ -45,19 +45,14 @@ const AppointmentTable = ({ clientAppointmentList }) => {
   return (
     <>
       <TableContainer
-        className="client_table_height mt-1"
+        className="client_table_height client_detail_table set_box_shadow"
         component={Paper}
-        sx={{
-          boxShadow: 'none',
-          border: '1px solid #e5e5e5',
-          overflowY: 'auto',
-        }}
       >
         {clientAppointmentList.length > 0 ? (
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            sx={{ minWidth: 690, padding: '0px !important' }}
             className="table_heading"
           >
             <TableHead className="client_profile_table_header">
@@ -95,7 +90,7 @@ const AppointmentTable = ({ clientAppointmentList }) => {
                     <TableCell>{row.appointment_unit}</TableCell>
                     <TableCell>
                       <Button
-                        className="client_profile_edit_button"
+                        className="border_button"
                         onClick={() => {
                           handleAppointmentReminder(row)
                         }}

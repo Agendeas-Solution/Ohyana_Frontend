@@ -184,20 +184,21 @@ input[type='radio']:focus {
 
 .dialog_product_image {
   height: 240px;
-  width: 100%;
-  /* width: 230px; */
+  /* width: 100%; */
+  width: 240px;
   background: #f1f2f6;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   border-radius: 5px;
 }
 
 .product_dialog_right_section {
   display: flex;
   flex-direction: column;
-  width: 55%;
+  width: 53%;
+  /* margin-left: 16px; */
 }
 
 .department_list_section {
@@ -226,26 +227,26 @@ input[type='radio']:focus {
   color: #2e3591 !important;
 }
 
-.job_role_description {
-  /* font-size: 13px; */
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  white-space: normal;
-  line-height: 1.4 !important;
-  max-height: 4.8em;
-}
-.background_col_btn {
-  background-color: #2e3591 !important;
-  box-shadow: none;
-}
 .job_role_list tbody tr {
+  padding: 5px;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
 }
+
 .product_dialog_heading {
   font-size: 25px;
   font-weight: 600;
+}
+
+.update_button_section {
+  /* background-color: #f1f2f6; */
+  width: 240px;
+  border-radius: 5px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+}
+
+.table_row_top_align {
+  vertical-align: baseline !important;
 }

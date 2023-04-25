@@ -62,8 +62,6 @@ const StaffAttendance = () => {
 
   useEffect(() => {
     let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
     activeTab === 'present' &&
       GetStaffAttendanceList(

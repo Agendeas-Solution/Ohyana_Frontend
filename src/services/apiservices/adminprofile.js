@@ -93,6 +93,26 @@ export const GetSingleRole = async (value, onSuccess, onError) => {
 export const UpdateClockInOut = async (value, onSuccess, onError) => {
   await handleApiPutCall(`/clockin-out`, value, onSuccess, onError)
 }
+export const UpdateRoleExpensePermissions = async (
+  value,
+  onSuccess,
+  onError,
+) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.put(`/expense/permissions`, value, {
+      headers: { ...defaultHeaders },
+    })
+    console.log('Printing data of UpdateRoleExpensePermissions', data)
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log(
+      'Got error while calling API - UpdateRoleExpensePermissions',
+      err,
+    )
+    onError && onError(err)
+  }
+}
 export const CreateJobRole = async (value, onSuccess, onError) => {
   await handleApiPostCall(`/role`, value, onSuccess, onError)
 }

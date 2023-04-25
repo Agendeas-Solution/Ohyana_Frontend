@@ -66,7 +66,6 @@ const ClientStatusCloseDialog = ({
     )
   }, [])
   const handleAddNotification = () => {
-    console.log('Add Notification', addNotificationDetail)
     AddNotificationDetail(
       addNotificationDetail,
       res => {
@@ -104,7 +103,6 @@ const ClientStatusCloseDialog = ({
               className="align-items-center d-flex justify-content-center  w-100"
               options={departmentList}
               onChange={(e, value) => {
-                console.log(value)
                 setAddNotificationDetail({
                   ...addNotificationDetail,
                   departmentId: value?.id,

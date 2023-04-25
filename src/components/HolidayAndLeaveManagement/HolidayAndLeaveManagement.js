@@ -129,7 +129,6 @@ const HolidayAndLeaveManagement = () => {
     setAddHolidayDetail({ ...addHolidayDetail, status: false })
   }
   const SetHoliday = () => {
-    console.log('addHolidayDetail', addHolidayDetail)
     let data = addHolidayDetail
     delete data.status
     delete data?.id
@@ -173,7 +172,6 @@ const HolidayAndLeaveManagement = () => {
     })
   }
   const handleUpdateRegularHoliday = () => {
-    console.log('addHolidayDetail', addEditRegularDetail)
     let data = {
       occasion: addEditRegularDetail.occasion.toString(),
       regular: addEditRegularDetail.regular,
@@ -205,7 +203,6 @@ const HolidayAndLeaveManagement = () => {
     )
   }
   const handleAddRegularHoliday = () => {
-    console.log('addHolidayDetail', addEditRegularDetail)
     let data = {
       occasion: addEditRegularDetail.occasion.toString(),
       regular: addEditRegularDetail.regular,
@@ -252,7 +249,6 @@ const HolidayAndLeaveManagement = () => {
     )
   }
   const UpdateHolidayFunc = () => {
-    console.log('addHolidayDetail', addHolidayDetail)
     let data = {
       date: addHolidayDetail?.date,
       occasion: addHolidayDetail?.occasion,
@@ -485,21 +481,14 @@ const HolidayAndLeaveManagement = () => {
               </Button>
             </Box>
 
-            <TableContainer
-              component={Paper}
-              // sx={{
-              //   boxShadow: 'none',
-              //   border: '1px solid #e5e5e5',
-              //   overflowY: 'auto',
-              // }}
-            >
+            <TableContainer component={Paper}>
               <Table
                 className="table_heading"
                 stickyHeader
                 aria-label="sticky table"
               >
                 <TableHead className="leave_holidays_table_header">
-                  <TableRow sx={{ backgroundColor: 'red' }}>
+                  <TableRow>
                     <TableCell>Type</TableCell>
                     <TableCell>Total</TableCell>
                     <TableCell></TableCell>
@@ -519,7 +508,6 @@ const HolidayAndLeaveManagement = () => {
                           <TableCell>{row.duration}</TableCell>
                           <TableCell>
                             <EditRoundedIcon
-                              // sx={{ marginLeft: '1rem' }}
                               onClick={() => {
                                 setAddLeaveDialog({
                                   ...addLeaveDialog,

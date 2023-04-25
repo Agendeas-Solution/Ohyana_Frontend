@@ -25,6 +25,7 @@ import {
   EditJobRole,
   GetSingleRole,
   UpdateClockInOut,
+  UpdateRoleExpensePermissions,
 } from '../../services/apiservices/adminprofile'
 import {
   UpdatePermission,
@@ -122,6 +123,8 @@ const Department = () => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state
   const [expensePolicy, setExpensePolicy] = useState()
   const [expensePermissions, setExpensePermissions] = useState()
+  let path = window.location.pathname
+  path = path.split('/').pop()
   useEffect(() => {
     jobRoleList.id &&
       getUserPermissions(
@@ -159,8 +162,30 @@ const Department = () => {
               accessSetting: staffPermission?.accessSetting,
             },
           })
-          setExpensePolicy(res?.data?.expensePolicies)
-          setExpensePermissions(res?.data?.expensePermissions)
+
+          // expensePermissions.foreach(e=>{
+          //   const isIdExist = expensePolicies.find(el=> el.expenseId == e.id)
+          //   return {
+          //         expenseId: expense.expenseId,
+          //         id: category.id,
+          //         name: category.name,
+          //         amount: expense.amount
+          //         isChecked : isIdExist ? true : false
+          //       };
+
+          // })
+          let mergedArray = res?.data?.expensePolicies.map(expense => {
+            let category = res?.data?.expensePermissions.find(
+              cat => cat.expenseId === expense.id,
+            )
+            return {
+              expenseId: expense?.id,
+              name: expense?.name,
+              amount: category?.amount || 0,
+              isChecked: category ? true : false,
+            }
+          })
+          setExpensePolicy(mergedArray)
         },
         err => {},
       )
@@ -262,10 +287,6 @@ const Department = () => {
     }
   }
   useEffect(() => {
-    let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
-    path = path.split('/').pop()
     GetSingleRole(
       { roleId: parseInt(path) },
       res => {
@@ -283,17 +304,52 @@ const Department = () => {
     editJobRoleDialogControl.status,
   ])
 
-  useEffect(() => {
-    console.log('expanded', expanded)
-  }, [expanded])
-
+  const handleCheckboxChange = index => {
+    const updatedPolicy = [...expensePolicy]
+    updatedPolicy[index].isChecked = !updatedPolicy[index].isChecked
+    setExpensePolicy(updatedPolicy)
+  }
+  const handleAmountChange = (index, value) => {
+    const updatedPolicy = [...expensePolicy]
+    updatedPolicy[index].amount = value
+    setExpensePolicy(updatedPolicy)
+  }
+  const handleExpenseManagement = () => {
+    let data = {
+      roleId: path,
+    }
+    let policy = expensePolicy.filter(data => {
+      if (data.isChecked) {
+        return data
+      }
+    })
+    data['expensePolicies'] = policy.map(data => {
+      return { id: data.expenseId, amount: data.amount }
+    })
+    debugger
+    UpdateRoleExpensePermissions(
+      data,
+      res => {
+        if (res.success) {
+          setSuccessSnackbar({
+            ...successSnackbar,
+            message: res.message,
+            status: true,
+          })
+        }
+      },
+      err => {
+        console.log(err)
+      },
+    )
+  }
   return (
     <>
       <Box
         className="main_section"
         sx={{ overflowY: 'hidden', padding: '0px' }}
       >
-        <Box className="task_heading" sx={{ padding: '10px' }}>
+        <Box className="main_section_header" sx={{ padding: '10px' }}>
           <Typography className="task_card_heading" variant="span">
             {jobRoleList.name || '-'}
           </Typography>
@@ -445,50 +501,45 @@ const Department = () => {
                 <AccordionDetails>
                   <FormGroup>
                     {expensePolicy &&
-                      expensePolicy.map(data => (
-                        <Box
-                          sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            marginBottom: '10px',
-                          }}
-                        >
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                checked={expenseManagement?.travelChecked}
-                                className="check_box_color"
-                                onChange={e => {
-                                  setExpenseManagement({
-                                    ...expenseManagement,
-                                    travelChecked: e.target.checked,
-                                  })
-                                }}
-                              />
-                            }
-                            label={data?.name}
-                          />
-                          <TextField
-                            sx={{ width: '150px' }}
-                            label="Max Amount"
-                            placeholder="Max Amount"
-                            type="number"
-                            value={expenseManagement?.travelAmount}
-                            onChange={e =>
-                              setExpenseManagement({
-                                ...expenseManagement,
-                                travelAmount: e.target.value,
-                              })
-                            }
-                          />
-                        </Box>
-                      ))}
+                      expensePolicy.map((data, index) => {
+                        return (
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                              marginBottom: '10px',
+                            }}
+                          >
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  checked={data?.isChecked}
+                                  className="check_box_color"
+                                  onChange={() => handleCheckboxChange(index)}
+                                />
+                              }
+                              label={data?.name}
+                            />
+                            <TextField
+                              sx={{ width: '150px' }}
+                              label="Max Amount"
+                              placeholder="Max Amount"
+                              type="number"
+                              value={data?.amount}
+                              onChange={e =>
+                                handleAmountChange(index, e.target.value)
+                              }
+                            />
+                          </Box>
+                        )
+                      })}
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                       <Button
                         // disabled={!expenseManagement?.hotelChecked}
                         className="Accordion_button"
                         variant="contained"
+                        onClick={handleExpenseManagement}
                       >
                         Save
                       </Button>
@@ -783,7 +834,6 @@ const Department = () => {
                       options={clientType}
                       value={clientType[accessControl?.client?.clientStage]}
                       onChange={(e, value) => {
-                        console.log(value)
                         setAccessControl({
                           ...accessControl,
                           client: {

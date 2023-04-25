@@ -19,8 +19,6 @@ const OrderList = () => {
   const navigate = useNavigate()
   useEffect(() => {
     let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
     GetSingleClientOrderList(
       { clientId: parseInt(path) },
@@ -36,19 +34,14 @@ const OrderList = () => {
     <>
       {/* {orderList.length > 0 ? ( */}
       <TableContainer
-        className="client_table_height mt-1"
+        className="client_table_height client_detail_table set_box_shadow"
         component={Paper}
-        sx={{
-          boxShadow: 'none',
-          border: '1px solid #e5e5e5',
-          overflowY: 'auto',
-        }}
       >
         {orderList.length > 0 ? (
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            sx={{ minWidth: 690, padding: '0px !important' }}
             className="table_heading"
           >
             <TableHead className="client_profile_table_header">
@@ -91,7 +84,7 @@ const OrderList = () => {
                         onClick={() => {
                           navigate(`/orderDetail/${orderData?.id}`)
                         }}
-                        className="common_button"
+                        className="border_button"
                       >
                         View
                       </Button>

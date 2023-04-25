@@ -13,8 +13,6 @@ const ProductGraph = ({ selectedPeriod }) => {
   const [cityList, setCityList] = useState([])
   // const [selectedProduct, se] = useState()
   useEffect(() => {
-    console.log('selectedPerid', selectedPeriod)
-    debugger
     GetProductReport(
       { period: selectedPeriod },
       res => {
@@ -81,18 +79,17 @@ const ProductGraph = ({ selectedPeriod }) => {
       <Box className="graph_detail_section">
         <Box className="graph_section">
           <Box className="common_row mb-3">
-            <Typography
-              sx={{ color: '#2E3591', fontSize: '20px', fontWeight: '600' }}
-              variant="span"
-            >
+            <Typography className="report_tab_heading" variant="span">
               Overall
             </Typography>
+
             <Box sx={{ display: 'flex' }}>
               <Autocomplete
+                className="report_tab_heading_option"
                 disablePortal
                 options={cityList}
                 getOptionLabel={option => option}
-                sx={{ width: '200px', marginRight: '10px' }}
+                sx={{ marginRight: '10px' }}
                 renderInput={params => (
                   <TextField
                     className="common_dropdown"
@@ -102,10 +99,11 @@ const ProductGraph = ({ selectedPeriod }) => {
                 )}
               />
               <Autocomplete
+                className="report_tab_heading_option"
                 disablePortal
                 options={productList}
                 getOptionLabel={option => option.name}
-                sx={{ width: '200px', marginRight: '10px' }}
+                sx={{ marginRight: '10px' }}
                 renderInput={params => (
                   <TextField {...params} label="Product" />
                 )}
@@ -113,7 +111,6 @@ const ProductGraph = ({ selectedPeriod }) => {
               <Autocomplete
                 disablePortal
                 options={top100Films}
-                sx={{ width: '200px' }}
                 renderInput={params => (
                   <TextField
                     className="common_dropdown"
@@ -124,27 +121,15 @@ const ProductGraph = ({ selectedPeriod }) => {
               />
             </Box>
           </Box>
-          <Box
-            sx={{
-              border: '1px solid #E5E5E5',
-              borderRadius: '5px',
-              margin: '1px',
-            }}
-          >
+
+          <Box className="report_tab_main_section">
             {userData.datasets && <LineChart chartData={userData} />}
           </Box>
         </Box>
         <Box className="detail_section">
           <Box className=" product_data">
             <Box className="product_name">
-              <Box
-                sx={{
-                  backgroundColor: '#FFAB00',
-                  height: '10px',
-                  width: '10px',
-                  marginRight: '10px',
-                }}
-              ></Box>
+              <Box className="product_bullet_point"></Box>
               <Typography variant="span">Pasta Masala Penne</Typography>
             </Box>
             <Box className="sales_parameter">
@@ -156,14 +141,7 @@ const ProductGraph = ({ selectedPeriod }) => {
           </Box>
           <Box className=" product_data">
             <Box className="product_name">
-              <Box
-                sx={{
-                  backgroundColor: '#FFAB00',
-                  height: '10px',
-                  width: '10px',
-                  marginRight: '10px',
-                }}
-              ></Box>
+              <Box className="product_bullet_point"></Box>
               <Typography variant="span">Pasta Masala Penne</Typography>
             </Box>
             <Box className="sales_parameter">
@@ -175,14 +153,7 @@ const ProductGraph = ({ selectedPeriod }) => {
           </Box>
           <Box className=" product_data">
             <Box className="product_name">
-              <Box
-                sx={{
-                  backgroundColor: '#FFAB00',
-                  height: '10px',
-                  width: '10px',
-                  marginRight: '10px',
-                }}
-              ></Box>
+              <Box className="product_bullet_point"></Box>
               <Typography variant="span">Pasta Masala Penne</Typography>
             </Box>
             <Box className="sales_parameter">

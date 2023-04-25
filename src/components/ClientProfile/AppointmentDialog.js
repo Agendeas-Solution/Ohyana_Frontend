@@ -51,7 +51,6 @@ const AppointmentDialog = ({
     )
   }, [])
   const handleAddAppointment = () => {
-    console.log('Add Reminder', clientAppointmentDetail)
     if (
       clientAppointmentDetail.description !== '' &&
       clientAppointmentDetail.date !== '' &&
@@ -62,7 +61,6 @@ const AppointmentDialog = ({
           clientAppointmentDetail?.appointed_member.map(item => item?.id),
         ),
       ]
-      console.log(clientAppointmentDetail)
       AddAdminClientAppointmentDetail(
         clientAppointmentDetail,
         res => {
@@ -131,7 +129,6 @@ const AppointmentDialog = ({
               label="Appoinment For"
               value={clientAppointmentDetail?.appointment_unit}
               onChange={(e, value) => {
-                console.log(value)
                 setClientAppointmentDetail({
                   ...clientAppointmentDetail,
                   appointment_unit: value,
@@ -148,7 +145,6 @@ const AppointmentDialog = ({
             options={staffDetailList}
             value={clientAppointmentDetail?.appointed_member}
             onChange={(e, value) => {
-              console.log(value)
               setClientAppointmentDetail({
                 ...clientAppointmentDetail,
                 appointed_member: value,

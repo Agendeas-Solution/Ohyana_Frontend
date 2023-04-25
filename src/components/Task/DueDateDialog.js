@@ -21,13 +21,13 @@ const DueDateDialog = ({
 }) => {
   return (
     <>
-      {' '}
       <Dialog
         open={dueDateDialogControl.status}
         onClose={handleDueDateDialogClose}
       >
-        <Box className="popup_section">
-          <DialogTitle className="popup_heading">Edit Due Date</DialogTitle>
+        <Box className="dialogue_main_section">
+          <DialogTitle className="dialogue_heading">Edit Due Date</DialogTitle>
+
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               inputFormat="dd/MM/yyyy"
@@ -40,7 +40,7 @@ const DueDateDialog = ({
                 })
               }}
               renderInput={params => (
-                <TextField {...params} className="popup_section_input_fields" />
+                <TextField {...params} className="dialogue_input_fields" />
               )}
               PopperProps={{
                 placement: 'bottom-start',
@@ -48,9 +48,9 @@ const DueDateDialog = ({
             />
           </LocalizationProvider>
 
-          <DialogActions sx={{ padding: '0px', margin: '0px' }}>
+          <DialogActions>
             <Button
-              className="popup_section_bottom_button"
+              className="dialogue_bottom_button"
               variant="contained"
               onClick={handleEditDueDate}
             >

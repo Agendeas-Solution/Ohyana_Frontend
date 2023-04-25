@@ -13,8 +13,8 @@ import {
 } from '@mui/material'
 import { CreateJobRole } from '../../services/apiservices/adminprofile'
 import moment from 'moment'
-
 import { Context as ContextSnackbar } from '../../context/pageContext'
+
 const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
   const [jobRoleDetail, setJobRoleDetail] = useState({
     name: '',
@@ -69,7 +69,6 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
           <Autocomplete
             options={jobRoleList?.roles}
             onChange={(e, value) => {
-              console.log(value)
               setJobRoleDetail({ ...jobRoleDetail, parentId: value.id })
             }}
             getOptionLabel={option => option?.name}

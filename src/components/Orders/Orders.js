@@ -73,16 +73,16 @@ const Orders = () => {
   }))
   const handleOrderList = () => {
     let data = { page: currentPage, size: rowsPerPage }
-    if (queryParams.delivery !== '' && queryParams.delivery !== null) {
+    if (queryParams.delivery !== '' && queryParams.delivery) {
       data['delivery'] = queryParams.delivery
     }
-    if (queryParams.payment !== '' && queryParams.payment !== null) {
+    if (queryParams.payment !== '' && queryParams.payment) {
       data['payment'] = queryParams.payment
     }
-    if (queryParams.date !== '' && queryParams.date !== null) {
+    if (queryParams.date !== '' && queryParams.date) {
       data['date'] = queryParams.date
     }
-    if (queryParams.searchQuery !== '' && queryParams.searchQuery !== null) {
+    if (queryParams.searchQuery !== '' && queryParams.searchQuery) {
       data['searchQuery'] = queryParams.searchQuery
     }
     GetSingleClientOrderList(
@@ -95,7 +95,6 @@ const Orders = () => {
             ? Math.ceil(res?.data?.totalPage / rowsPerPage)
             : null
         setNumbersToDisplayOnPagination(pages)
-        debugger
       },
       err => {
         console.log('Printing OrderList Error', err)
@@ -105,7 +104,7 @@ const Orders = () => {
   }
   useEffect(() => {
     handleOrderList()
-  }, [queryParams.searchQuery, currentPage])
+  }, [queryParams, currentPage])
   const handleDrawerOpen = () => {
     setOpen(true)
   }
@@ -177,7 +176,7 @@ const Orders = () => {
             open={openDrawer}
           >
             <DrawerHeader className="drawer_header_section">
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box className="filter_main_heading">
                 <IconButton
                   sx={{
                     ...(openDrawer && { display: 'flex' }),
@@ -188,9 +187,9 @@ const Orders = () => {
                   onClick={handleDrawerClose}
                 >
                   {theme.direction === 'rtl' ? (
-                    <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                    <ChevronLeftIcon className="chevron_icon" />
                   ) : (
-                    <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                    <ChevronRightIcon className="chevron_icon" />
                   )}
                 </IconButton>
                 <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
@@ -308,7 +307,7 @@ const Orders = () => {
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            sx={{ minWidth: 690, padding: '0px !important' }}
             // className="table_heading "
           >
             <TableHead>
@@ -366,7 +365,7 @@ const Orders = () => {
           </Table>
         </TableContainer>
         <Pagination
-          className="mt-3"
+          className="pagination_style"
           boundaryCount={0}
           siblingCount={0}
           size="small"

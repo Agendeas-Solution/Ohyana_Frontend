@@ -27,7 +27,7 @@ const Login = () => {
           if (res.success) {
             setAuthorize(true)
             setFlagLoader(false)
-            navigate('/profile')
+            navigate('/dashboard')
             socket.emit('join', { email: userDetail?.email })
           } else {
             if (res?.data?.error) {

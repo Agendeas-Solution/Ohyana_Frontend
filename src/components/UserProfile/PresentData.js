@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
-import ProfileImg from '../../assets/img/profile_logo.png'
+import React, { useState, useContext } from 'react'
 import {
   Box,
   Tab,
@@ -12,14 +11,8 @@ import {
   Button,
   TablePagination,
 } from '@mui/material'
-import TabList from '@mui/lab/TabList'
 import TableBody from '@mui/material/TableBody'
-import { useNavigate } from 'react-router-dom'
-import { Context as AuthContext } from '../../context/authContext/authContext'
-import TabPanel from '@mui/lab/TabPanel'
-import TabContext from '@mui/lab/TabContext'
 import moment from 'moment'
-import styled from '@emotion/styled'
 import './index.css'
 
 const PresentData = ({ staffAttendanceList }) => {
@@ -38,26 +31,15 @@ const PresentData = ({ staffAttendanceList }) => {
 
   return (
     <>
-      {/* <Box className="common_row w-100 align-items-start present_data_main "> */}
-      {/* <Paper sx={{ width: '100%', boxShadow: 'none' }}> */}
       <TableContainer
-        // sx={{
-        //   maxHeight: '48vh',
-        //   overflowX: 'hidden',
-        // }}
-        className="expenses_table_height"
+        className="expenses_table_height attendance_present_table"
         component={Paper}
-        sx={{
-          boxShadow: 'none',
-          border: '1px solid #e5e5e5',
-          borderTop: 'none',
-        }}
       >
         <Table
           stickyHeader
           aria-label="sticky table"
-          sx={{ minWidth: 690, marginLeft: '-10px' }}
-          className="table_heading"
+          sx={{ minWidth: 690 }}
+          className="table_heading custom_table"
         >
           <TableHead>
             <TableRow>
@@ -100,8 +82,6 @@ const PresentData = ({ staffAttendanceList }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      {/* </Paper> */}
-      {/* </Box> */}
     </>
   )
 }

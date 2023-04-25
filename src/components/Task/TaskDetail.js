@@ -20,13 +20,10 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import { EditTaskName, EditDueDate } from '../../services/apiservices/task'
 import DeleteTaskDialog from './DeleteTaskDialog'
 import DueDateDialog from './DueDateDialog'
-
 const EditDescriptionDialog = React.lazy(() =>
   import('./EditDescriptionDialog'),
 )
-
 const EditTitleDialog = React.lazy(() => import('./EditTitleDialog'))
-
 const TaskDetail = () => {
   const [taskDetail, setTaskDetail] = useState([])
   const [checkLists, setCheckLists] = useState([])
@@ -63,8 +60,6 @@ const TaskDetail = () => {
   }
   const navigate = useNavigate()
   let path = window.location.pathname
-  console.log('Printing Path of ', path)
-  console.log('Printing ', path.split('/').pop())
   path = path.split('/').pop()
   const handleSingleTaskDetail = () => {
     GetSingleTaskDetail(
@@ -79,7 +74,6 @@ const TaskDetail = () => {
       },
     )
   }
-
   useEffect(() => {
     handleSingleTaskDetail()
   }, [])
@@ -190,48 +184,47 @@ const TaskDetail = () => {
       )
     }
   }, [checkLists, countDoneTask])
-
   return (
     <>
       <Box className="main_section">
-        <Box className="task_heading">
+        <Box className="main_section_header">
           <Typography className="task_card_heading" variant="span">
             {taskDetail?.title || '-'}
           </Typography>
           <Box>
-            <Button className="profile_header_button">
-              <EditRoundedIcon
-                onClick={() => {
-                  setEditTaskNameDialog({
-                    ...editTaskNameDialog,
-                    status: true,
-                    id: taskDetail?.id,
-                    taskName: taskDetail?.title,
-                  })
-                }}
-              />
+            <Button
+              onClick={() => {
+                setEditTaskNameDialog({
+                  ...editTaskNameDialog,
+                  status: true,
+                  id: taskDetail?.id,
+                  taskName: taskDetail?.title,
+                })
+              }}
+              className="profile_header_button"
+            >
+              <EditRoundedIcon />
             </Button>
-            <Button className="profile_header_button">
-              <DeleteOutlineRoundedIcon
-                onClick={() =>
-                  setDeleteTaskDialog({
-                    ...deleteTaskDialog,
-                    status: true,
-                    id: taskDetail.id,
-                  })
-                }
-              />
+            <Button
+              onClick={() =>
+                setDeleteTaskDialog({
+                  ...deleteTaskDialog,
+                  status: true,
+                  id: taskDetail.id,
+                })
+              }
+              className="profile_header_button"
+            >
+              <DeleteOutlineRoundedIcon />
             </Button>
           </Box>
         </Box>
-
         <Box className="checklist_duedate_section" sx={{ overflowY: 'hidden' }}>
           <Box className="checklist_section">
             <Box sx={{ padding: '0px 15px' }}>
               <Typography sx={{ color: '#8E8E8E' }} variant="span">
                 Checklist
               </Typography>
-
               <Slider
                 value={taskRatio || 0}
                 step={1}
@@ -242,7 +235,6 @@ const TaskDetail = () => {
                 className="task_slider"
               />
             </Box>
-
             <Box
               sx={{
                 overflowY: 'auto',
@@ -289,7 +281,6 @@ const TaskDetail = () => {
                     }
                   })}
               </FormGroup>
-
               <Box sx={{ marginBottom: '10px', marginRight: '15px' }}>
                 <TextField
                   sx={{ width: '100%', margin: '10px 0px' }}
@@ -313,13 +304,11 @@ const TaskDetail = () => {
                   </Button>
                 </Box>
               </Box>
-
               {completedTask.length > 0 && (
                 <Typography className="completed_heading" variant="span">
                   Completed
                 </Typography>
               )}
-
               <Box sx={{ marginLeft: '15px' }}>
                 <FormGroup className="completed_task_list">
                   {checkLists &&
@@ -353,24 +342,24 @@ const TaskDetail = () => {
               </Box>
             </Box>
           </Box>
-
           <Box className="task_details_section">
             <Box sx={{ marginBottom: '10px' }}>
               <Box className="common_row">
                 <Typography className="common_sub_heading" variant="span">
                   Due Date
                 </Typography>
-                <Button variant="filled" className="white_button">
-                  <CalendarMonthRoundedIcon
-                    onClick={() => {
-                      setDueDateDialogControl({
-                        ...dueDateDialogControl,
-                        status: true,
-                        id: taskDetail.id,
-                      })
-                    }}
-                    sx={{ color: '#2E3591' }}
-                  />
+                <Button
+                  onClick={() => {
+                    setDueDateDialogControl({
+                      ...dueDateDialogControl,
+                      status: true,
+                      id: taskDetail.id,
+                    })
+                  }}
+                  variant="filled"
+                  className="white_button"
+                >
+                  <CalendarMonthRoundedIcon sx={{ color: '#2E3591' }} />
                 </Button>
               </Box>
               <Typography variant="span" className="common_description_text">
@@ -385,12 +374,10 @@ const TaskDetail = () => {
                 {taskDetail?.description || '-'}
               </Typography>
             </Box>
-
             <Box sx={{ margin: '10px 0px' }}>
               <Typography className="common_sub_heading" variant="span">
                 Assigned Member
               </Typography>
-
               {taskDetail?.team?.email ? (
                 <Box className="d-flex" sx={{ marginTop: '5px' }}>
                   <Typography className="name_chip" variant="span">
@@ -407,12 +394,10 @@ const TaskDetail = () => {
                 </Typography>
               )}
             </Box>
-
             <Box sx={{ margin: '10px 0px' }}>
               <Typography className="common_sub_heading" variant="span">
                 Task Create By
               </Typography>
-
               <Box
                 className="d-flex"
                 sx={{
@@ -433,7 +418,6 @@ const TaskDetail = () => {
             </Box>
           </Box>
         </Box>
-
         <EditDescriptionDialog
           editDescriptionDialog={editDescriptionDialog}
           setEditDescriptionDialog={setEditDescriptionDialog}

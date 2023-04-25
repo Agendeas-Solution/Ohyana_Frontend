@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import {
   Box,
   Typography,
@@ -23,8 +23,11 @@ import StarPerformer from '../../assets/img/star_performer.png'
 import SecondStarPerformer from '../../assets/img/second_star_performer.png'
 import { AttendanceStatus } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 const DashboardEmployee = () => {
   const [salesInquiry, setSalesInquiry] = useState()
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const navigate = useNavigate()
   let path = window.location.pathname
   path = path.split('/').pop()
@@ -43,16 +46,38 @@ const DashboardEmployee = () => {
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
-      res => {},
-      err => {},
+      res => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+      },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err.response.data.error,
+        })
+      },
     )
   }
   const updateCheckListStatus = id => {
     UpdateCheckListItemStatus(
       [id, path],
-      res => {},
+      res => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+      },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err.response.data.error,
+        })
       },
     )
   }
@@ -287,10 +312,9 @@ const DashboardEmployee = () => {
             </Box> */}
           </Box>
         </Box>
-
         <Box className="common_row">
           <Box className="my_task_section">
-            <Box className="my_task_heading">
+            <Box className="my_main_section_header">
               <Typography className="bottom_left_panel_heading" variant="span">
                 My Task
               </Typography>
@@ -308,7 +332,6 @@ const DashboardEmployee = () => {
                 {moment(salesInquiry?.tasks?.due_date).format('DD-MM-YYYY')}
               </Typography>
             </Box>
-
             <FormGroup>
               {salesInquiry?.tasks?.checklists &&
                 salesInquiry?.tasks?.checklists.map(data => {
@@ -338,7 +361,6 @@ const DashboardEmployee = () => {
                   )
                 })}
             </FormGroup>
-
             {/* <FormGroup>
               {salesInquiry?.tasks?.checklists && salesInquiry?.tasks?.checklists.map((data) => {
                 debugger;
@@ -359,7 +381,6 @@ const DashboardEmployee = () => {
               })}
             </FormGroup> */}
           </Box>
-
           <Box className="point_table_section">
             <Box className="point_table_heading">
               <Typography className="bottom_right_panel_heading" variant="span">
@@ -405,7 +426,7 @@ const DashboardEmployee = () => {
         </Box>
         <Box className="common_row">
           <Box className="star_performers_section">
-            <Box className="my_task_heading">
+            <Box className="my_main_section_header">
               <Typography className="bottom_left_panel_heading" variant="span">
                 Star Performers
               </Typography>
