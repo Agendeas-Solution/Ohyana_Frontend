@@ -54,6 +54,7 @@ const CompletedPJPDialog = ({
             autoComplete="off"
             label="Detail"
             minRows={3}
+            maxRows={3}
             placeholder="Detail Here..."
             value={completedDialog.description}
             onChange={e => {

@@ -43,6 +43,7 @@ const EditTitleDialog = ({
             autoComplete="off"
             label="Description"
             minRows={3}
+            maxRows={3}
             value={editTaskNameDialog.description}
             onChange={e => {
               setEditTaskNameDialog({

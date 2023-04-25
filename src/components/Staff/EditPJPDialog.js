@@ -93,6 +93,7 @@ const EditPJPDialog = ({
             autoComplete="off"
             label="Detail"
             minRows={3}
+            maxRows={3}
             placeholder="Detail Here..."
             value={pJPDetail.description}
             onChange={e => {

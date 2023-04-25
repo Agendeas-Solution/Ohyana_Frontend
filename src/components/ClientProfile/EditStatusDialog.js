@@ -52,6 +52,7 @@ const EditStatusDialog = ({ editStatusDialog, handleStatusClose }) => {
             label="Description"
             autoComplete="off"
             minRows={3}
+            maxRows={3}
             placeholder="Description Here..."
             value={editStatusDetail?.description}
             onChange={e =>

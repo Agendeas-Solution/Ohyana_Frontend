@@ -109,6 +109,17 @@ textarea:focus {
   display: flex;
   flex-direction: column;
   margin: 20px;
+  // margin-top: 20px;
+  // margin-bottom: 20px;
+}
+
+.edit_profile_input_fields {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  // margin: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .product_profile_icon {
@@ -178,9 +189,9 @@ textarea:focus {
 
 .common_sub_heading {
   display: flex;
-  color: #8e8e8e;
+  // color: #8e8e8e;
   letter-spacing: 0.05rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .common_description_text {
