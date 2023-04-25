@@ -19,7 +19,7 @@ const ApproveLeaveDialog = ({
   return (
     <>
       <Dialog open={approveLeave.status} onClose={handleCloseDialog}>
-        <div className="px-3 pt-3 text-center">
+        <Box className="px-3 pt-3 text-center">
           <CheckCircleRoundedIcon
             sx={{
               color: '#2E3591',
@@ -27,9 +27,11 @@ const ApproveLeaveDialog = ({
               width: '50px',
             }}
           />
-          <h2>Leave Approval</h2>
-        </div>
-        <DialogContent>
+          <Typography sx={{ fontSize: '24px', fontWeight: '600' }}>
+            Leave Approval
+          </Typography>
+        </Box>
+        <DialogContent className="text-center">
           <Typography variant="span">
             Are You Sure to Give approval Of This Leave ?
           </Typography>
@@ -40,12 +42,17 @@ const ApproveLeaveDialog = ({
         >
           <Button
             variant="contained"
-            className="ok-btn"
+            className="leave_approval_button"
             onClick={handleGrantLeave}
           >
             Ok
           </Button>
-          <Button onClick={handleCloseDialog} className="cancel-btn" autoFocus>
+          <Button
+            variant="contained"
+            onClick={handleCloseDialog}
+            className="leave_approval_button"
+            autoFocus
+          >
             Cancel
           </Button>
         </DialogActions>

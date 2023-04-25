@@ -69,7 +69,7 @@ const PJPDetail = () => {
     setAddPJPDetail({ ...addPJPDetail, dialogStatus: false })
   }
   const handleCloseCompletedDialog = () => {
-    setCompletedDialog({ ...completedDialog, status: true })
+    setCompletedDialog({ ...completedDialog, status: false })
   }
   const handleAddCompletePJPStatus = () => {
     let data = completedDialog
@@ -80,7 +80,7 @@ const PJPDetail = () => {
         if (res.success) {
           setSuccessSnackbar({
             ...successSnackbar,
-            message: res.message,
+            message: res?.message,
             status: true,
           })
         }
@@ -129,9 +129,11 @@ const PJPDetail = () => {
       },
     )
   }
+
   useEffect(() => {
     handleGetPJPList()
   }, [value])
+
   const handleAddPJPDetail = () => {
     let pjpDetail = addPJPDetail
     delete pjpDetail.dialogStatus
@@ -229,37 +231,38 @@ const PJPDetail = () => {
             <Divider />
 
             <Box className="filter_body_section">
-              <FormControl sx={{ margin: '10px' }}>
+              <FormControl className="filter_body_inner_section">
                 <FormLabel
-                  sx={{ color: '#000000' }}
-                  className="mb-2"
-                  id="demo-row-radio-buttons-group-label"
+                  className="filter_body_inner_heading"
+                  // id="demo-row-radio-buttons-group-label"
                 >
                   PJP Is
                 </FormLabel>
                 <RadioGroup
-                  row
+                  // row
                   value={filterPJP.pjpStatus}
                   onChange={e => {
                     setFilterPJP({ ...filterPJP, pjpStatus: e.target.value })
                   }}
                 >
-                  {statusTypeList.map(data => {
-                    return (
-                      <FormControlLabel
-                        className="checkbox_background_color"
-                        value={data.value}
-                        control={<Radio />}
-                        label={data.type}
-                      />
-                    )
-                  })}
+                  <Box className="checkbox_section">
+                    {statusTypeList.map(data => {
+                      return (
+                        <FormControlLabel
+                          className="checkbox_background_color"
+                          value={data.value}
+                          control={<Radio />}
+                          label={data.type}
+                        />
+                      )
+                    })}
+                  </Box>
                 </RadioGroup>
               </FormControl>
 
               <TextField
-                sx={{ margin: '10px' }}
-                className="mb-4"
+                sx={{ margin: '10px 16px' }}
+                // className="mb-4"
                 id="outlined-basic"
                 label="Location"
                 variant="outlined"
@@ -281,7 +284,7 @@ const PJPDetail = () => {
                       variant="outlined"
                       {...params}
                       label="Date"
-                      sx={{ margin: '10px' }}
+                      sx={{ margin: '10px 16px' }}
                     />
                   )}
                   PopperProps={{
@@ -319,8 +322,8 @@ const PJPDetail = () => {
       />
       <CompletedPJPDialog
         completedDialog={completedDialog}
-        handleCloseCompletedDialog={handleCloseCompletedDialog}
         setCompletedDialog={setCompletedDialog}
+        handleCloseCompletedDialog={handleCloseCompletedDialog}
         handleAddCompletePJPStatus={handleAddCompletePJPStatus}
       />
     </>

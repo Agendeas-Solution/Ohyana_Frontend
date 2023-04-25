@@ -83,6 +83,7 @@ const StaffTarget = () => {
           <Box>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
+                className="staff_date"
                 views={['month', 'year']}
                 value={selectMonth}
                 onChange={selectMonth => {
@@ -90,7 +91,10 @@ const StaffTarget = () => {
                 }}
                 renderInput={params => (
                   <TextField
-                    sx={{ width: '175px', marginRight: '10px' }}
+                    sx={{
+                      width: '175px',
+                      marginRight: '10px',
+                    }}
                     {...params}
                     helperText={null}
                   />
@@ -101,7 +105,7 @@ const StaffTarget = () => {
               />
             </LocalizationProvider>
             <Button
-              className="common_button"
+              className="staff_common_button"
               onClick={() => setTargetDetail({ ...targetDetail, status: true })}
             >
               + Set Target

@@ -9,6 +9,7 @@ import {
   Dialog,
   DialogTitle,
   TextareaAutosize,
+  FormControl,
 } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -69,63 +70,41 @@ const EditPJPDialog = ({
   return (
     <>
       <Dialog open={editPJPDetail.status} onClose={handleEditPJPCloseDialog}>
-        <Box>
-          <DialogTitle
-            sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px' }}
-          >
-            Create PJP
-          </DialogTitle>
-          <DialogContent>
-            <Box>
-              <div className="row my-4">
-                <div className="col-md-6">
-                  <Typography variant="span">Date of Visit</Typography>
-                </div>
-                <div className="col-md-12  ">
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DatePicker
-                      className={`w-100`}
-                      disablePast
-                      inputFormat="dd/MM/yyyy"
-                      value={pJPDetail.date}
-                      onChange={e => {
-                        setPJPDetail({ ...pJPDetail, date: e })
-                      }}
-                      renderInput={params => (
-                        <TextField className={`w-100`} {...params} />
-                      )}
-                    />
-                  </LocalizationProvider>
-                </div>
-              </div>
-            </Box>
+        <Box className="dialogue_main_section">
+          <Typography className="dialogue_heading">Create PJP</Typography>
 
-            <Box>
-              <div className="row my-4">
-                <div className="col-md-6">
-                  <Typography variant="span">Detail</Typography>
-                </div>
-                <div className="col-md-12">
-                  <TextareaAutosize
-                    style={{ width: 160, borderRadius: '5px' }}
-                    placeholder="Detail Here..."
-                    className="w-100"
-                    value={pJPDetail.description}
-                    onChange={e => {
-                      setPJPDetail({
-                        ...pJPDetail,
-                        description: e.target.value,
-                      })
-                    }}
-                  />
-                </div>
-              </div>
-            </Box>
-          </DialogContent>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              inputFormat="dd/MM/yyyy"
+              disablePast
+              value={pJPDetail.date}
+              onChange={e => {
+                setPJPDetail({ ...pJPDetail, date: e })
+              }}
+              renderInput={params => (
+                <TextField {...params} className="dialogue_input_fields" />
+              )}
+            />
+          </LocalizationProvider>
 
-          <DialogActions className="m-auto">
+          <TextField
+            className="dialogue_input_fields"
+            multiline
+            autoComplete="off"
+            label="Detail"
+            minRows={3}
+            placeholder="Detail Here..."
+            value={pJPDetail.description}
+            onChange={e => {
+              setPJPDetail({
+                ...pJPDetail,
+                description: e.target.value,
+              })
+            }}
+          />
+          <DialogActions>
             <Button
-              sx={{ alignContent: 'center', alignItems: 'center' }}
+              className="dialogue_bottom_button"
               variant="contained"
               onClick={handleEditPJPDetail}
             >
