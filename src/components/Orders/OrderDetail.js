@@ -288,114 +288,111 @@ const OrderDetail = () => {
           </Box>
         </Box>
 
-          <Box className="order_tracking">
-            <Box className="order_tracking_heading align-items-center mb-4">
-              <Typography className="common_sub_heading" variant="span">
-                Order Tracking
-              </Typography>
-              <Button
-                variant="contained"
-                sx={{
-                  background: '#fff',
-                  color: '#2E3591',
-                  marginRight: '10px',
-                }}
-              >
-                Dispatch
-              </Button>
-            </Box>
+        <Box className="order_tracking">
+          <Box className="order_tracking_heading align-items-center mb-4">
+            <Typography className="common_sub_heading" variant="span">
+              Order Tracking
+            </Typography>
+            <Button
+              variant="contained"
+              sx={{
+                background: '#fff',
+                color: '#2E3591',
+                marginRight: '10px',
+              }}
+            >
+              Dispatch
+            </Button>
+          </Box>
 
-            <Box className="common_row mb-3 mx-2">
-              <Typography className="order_desc_subheading" variant="span">
-                Date
-              </Typography>
-              <Typography variant="span">
-                {moment(orderDetail?.date).format('DD-MM-YYYY hh:mm A')}
-              </Typography>
-            </Box>
+          <Box className="common_row mb-3 mx-2">
+            <Typography className="order_desc_subheading" variant="span">
+              Date
+            </Typography>
+            <Typography variant="span">
+              {moment(orderDetail?.date).format('DD-MM-YYYY hh:mm A')}
+            </Typography>
+          </Box>
 
-            <Box className="common_row align-items-start mb-3 mx-2">
-              <Typography className="order_desc_subheading" variant="span">
-                Address
-              </Typography>
-              <Typography className="text-right" variant="span">
-                {orderDetail?.client?.address}
-              </Typography>
-            </Box>
+          <Box className="common_row align-items-start mb-3 mx-2">
+            <Typography className="order_desc_subheading" variant="span">
+              Address
+            </Typography>
+            <Typography className="text-right" variant="span">
+              {orderDetail?.client?.address}
+            </Typography>
+          </Box>
 
-            <Box sx={{ width: '100%', marginBottom: '8px' }}>
-              <Stepper
-                activeStep={handleActiveStep(orderDetail?.orderTrackingStatus)}
-                alternativeLabel
-              >
-                {steps.map(label => (
-                  <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
-                  </Step>
-                ))}
-              </Stepper>
-            </Box>
+          <Box sx={{ width: '100%', marginBottom: '8px' }}>
+            <Stepper
+              activeStep={handleActiveStep(orderDetail?.orderTrackingStatus)}
+              alternativeLabel
+            >
+              {steps.map(label => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
           </Box>
         </Box>
-        {orderItems.length > 0 ? (
-          <TableContainer
-            component={Paper}
-            sx={{ boxShadow: 'none', marginTop: 2 }}
-          >
-            <Table sx={{ minWidth: 250 }}>
-              <TableHead className="team_overview_table_heading">
-                <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Price</TableCell>
-                  <TableCell align="right">Quantity</TableCell>
-                  <TableCell align="right">Total Amount</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {orderItems.map(data => {
-                  return (
-                    <TableRow
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell align="right">
-                        <img
-                          style={{
-                            border: '1px solid #E5E5E5',
-                            borderRadius: '5px',
-                            padding: '4px',
-                          }}
-                          src={SampleProduct}
-                        />
-                      </TableCell>
-                      <TableCell align="right">{data?.product?.name}</TableCell>
-                      <TableCell align="right">
-                        {data?.product?.price}
-                      </TableCell>
-                      <TableCell align="right">{data?.quantity}</TableCell>
-                      <TableCell align="right">
-                        {data?.product?.price * data?.quantity}
-                      </TableCell>
-                    </TableRow>
-                  )
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        ) : (
-          <NoResultFound />
-        )}
-        <PaymentDetailDialog
-          handleClosePaymentDialog={handleClosePaymentDialog}
-          openPaymentDetailDialog={openPaymentDetailDialog}
-          paymentMethodList={paymentMethodList}
-          handleUpdatePaymentStatus={handleUpdatePaymentStatus}
-        />
-        <DispatchOrderDialog
-          openDispatchOrder={openDispatchOrder}
-          handleCloseDispatchDialog={handleCloseDispatchDialog}
-        />
       </Box>
+      {orderItems.length > 0 ? (
+        <TableContainer
+          component={Paper}
+          sx={{ boxShadow: 'none', marginTop: 2 }}
+        >
+          <Table sx={{ minWidth: 250 }}>
+            <TableHead className="team_overview_table_heading">
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Price</TableCell>
+                <TableCell align="right">Quantity</TableCell>
+                <TableCell align="right">Total Amount</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {orderItems.map(data => {
+                return (
+                  <TableRow
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell align="right">
+                      <img
+                        style={{
+                          border: '1px solid #E5E5E5',
+                          borderRadius: '5px',
+                          padding: '4px',
+                        }}
+                        src={SampleProduct}
+                      />
+                    </TableCell>
+                    <TableCell align="right">{data?.product?.name}</TableCell>
+                    <TableCell align="right">{data?.product?.price}</TableCell>
+                    <TableCell align="right">{data?.quantity}</TableCell>
+                    <TableCell align="right">
+                      {data?.product?.price * data?.quantity}
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <NoResultFound />
+      )}
+      <PaymentDetailDialog
+        handleClosePaymentDialog={handleClosePaymentDialog}
+        openPaymentDetailDialog={openPaymentDetailDialog}
+        paymentMethodList={paymentMethodList}
+        handleUpdatePaymentStatus={handleUpdatePaymentStatus}
+      />
+      <DispatchOrderDialog
+        openDispatchOrder={openDispatchOrder}
+        handleCloseDispatchDialog={handleCloseDispatchDialog}
+      />
     </>
   )
 }
