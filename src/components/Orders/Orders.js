@@ -154,6 +154,7 @@ const Orders = () => {
               }
             />
           </FormControl>
+
           <IconButton
             edge="end"
             onClick={handleDrawerOpen}
@@ -165,9 +166,12 @@ const Orders = () => {
           >
             <img src={FilterIcon} alt="" />
           </IconButton>
+
           <Drawer
             onClose={handleDrawerClose}
             sx={{
+              width: 2,
+              flexShrink: 0,
               '& .MuiDrawer-paper': {
                 width: drawerWidth,
               },
@@ -178,11 +182,12 @@ const Orders = () => {
             <DrawerHeader className="drawer_header_section">
               <Box className="filter_main_heading">
                 <IconButton
-                  sx={{
-                    ...(openDrawer && { display: 'flex' }),
-                    padding: '0',
-                    margin: '0 0 0 0px',
-                  }}
+                  // sx={{
+                  //   ...(openDrawer && { display: 'flex' }),
+                  //   padding: '0',
+                  //   // margin: '0 0 0 0px',
+                  // }}
+                  sx={{ color: '#2e3591', padding: '0px' }}
                   disableRipple={true}
                   onClick={handleDrawerClose}
                 >
@@ -192,12 +197,10 @@ const Orders = () => {
                     <ChevronRightIcon className="chevron_icon" />
                   )}
                 </IconButton>
-                <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
+                <Typography sx={{ fontSize: '22px' }}>Filter By</Typography>
               </Box>
               <Box>
-                <Button onClick={handleClearAllFilter} className="text_button">
-                  Reset
-                </Button>
+                <Button onClick={handleClearAllFilter}>Reset</Button>
                 <Button
                   onClick={handleApplyFilter}
                   className="common_button"
@@ -207,62 +210,57 @@ const Orders = () => {
                 </Button>
               </Box>
             </DrawerHeader>
+
             <Divider />
-            <Box
-              sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}
-            >
-              <FormControl>
-                <FormLabel
-                  sx={{ color: '#000000' }}
-                  className="mb-2"
-                  id="demo-row-radio-buttons-group-label"
-                >
+
+            <Box className="filter_body_section">
+              <FormControl className="filter_body_inner_section">
+                <FormLabel className="filter_body_inner_heading">
                   Delivery
                 </FormLabel>
                 <RadioGroup
-                  row
                   value={queryParams.delivery}
                   onChange={e => {
                     setQueryParams({ ...queryParams, delivery: e.target.value })
                   }}
                 >
-                  {deliveryStatusList.map(data => {
-                    return (
-                      <FormControlLabel
-                        className="checkbox_background_color"
-                        value={data.value}
-                        control={<Radio />}
-                        label={data.type}
-                      />
-                    )
-                  })}
+                  <Box className="checkbox_section">
+                    {deliveryStatusList.map(data => {
+                      return (
+                        <FormControlLabel
+                          className="checkbox_background_color"
+                          value={data.value}
+                          control={<Radio />}
+                          label={data.type}
+                        />
+                      )
+                    })}
+                  </Box>
                 </RadioGroup>
               </FormControl>
 
-              <FormControl>
-                <FormLabel
-                  sx={{ color: '#000000' }}
-                  id="demo-row-radio-buttons-group-label"
-                >
+              <FormControl className="filter_body_inner_section">
+                <FormLabel className="filter_body_inner_heading">
                   Payment
                 </FormLabel>
                 <RadioGroup
-                  row
                   value={queryParams.payment}
                   onChange={e => {
                     setQueryParams({ ...queryParams, payment: e.target.value })
                   }}
                 >
-                  {paymentStatusList.map(data => {
-                    return (
-                      <FormControlLabel
-                        className="checkbox_background_color"
-                        value={data.value}
-                        control={<Radio />}
-                        label={data.type}
-                      />
-                    )
-                  })}
+                  <Box className="checkbox_section">
+                    {paymentStatusList.map(data => {
+                      return (
+                        <FormControlLabel
+                          className="checkbox_background_color"
+                          value={data.value}
+                          control={<Radio />}
+                          label={data.type}
+                        />
+                      )
+                    })}
+                  </Box>
                 </RadioGroup>
               </FormControl>
 

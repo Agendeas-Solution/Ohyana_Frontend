@@ -208,7 +208,7 @@ const AddStaffMember = () => {
             <Box className="input_fields">
               <TextField
                 autoComplete="off"
-                type="number"
+                type="tel"
                 label="Contact No"
                 onChange={e => {
                   setUserDetail({ ...userDetail, contactNo: e.target.value })
@@ -269,6 +269,7 @@ const AddStaffMember = () => {
                 onChange={e => {
                   setUserDetail({ ...userDetail, password: e.target.value })
                 }}
+                type="password"
                 value={userDetail.password}
                 variant="outlined"
               />

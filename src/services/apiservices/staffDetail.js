@@ -98,7 +98,36 @@ export const StatusUpdate = async (id, value, onSuccess, onError) => {
     onError,
   )
 }
+export const ApproveExpense = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.patch(`/team/approve/expense`, value, {
+      headers: { ...defaultHeaders },
+    })
 
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log(err)
+    onError && onError(err)
+  }
+}
+export const PaymentStatus = async (value, onSuccess, onError) => {
+  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
+  try {
+    const { data } = await axiosInstance.patch(
+      `/team/approve/expense/payment`,
+      value,
+      {
+        headers: { ...defaultHeaders },
+      },
+    )
+
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    console.log(err)
+    onError && onError(err)
+  }
+}
 export const GetUsersAttendanceList = async (value, onSuccess, onError) => {
   await handleApiGetCall(`/attendanceofall`, value, onSuccess, onError)
 }

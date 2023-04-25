@@ -6,7 +6,9 @@ import {
   DialogActions,
   Button,
   Typography,
+  Box,
 } from '@mui/material'
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 import { DeleteAdminProduct } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const DeleteProductDialog = ({
@@ -24,6 +26,8 @@ const DeleteProductDialog = ({
           handleGetAdminProduct()
           handleClose()
           setSuccessSnackbar({
+
+            
             ...successSnackbar,
             status: true,
             message: res.message,
@@ -42,23 +46,33 @@ const DeleteProductDialog = ({
   return (
     <>
       <Dialog open={deleteProductDialogControl.status} onClose={handleClose}>
-        <DialogTitle>Delete Product</DialogTitle>
-        <DialogContent>
-          <Typography variant="span">
-            Are You Sure you want to Delete this Product ?
+      <Box className="dialogue_main_section">
+          <DeleteOutlinedIcon className="dialogue_delete_Icon" />
+          <Typography className="dialogue_heading">Delete Product</Typography>
+          <Typography className="dialogue_description">
+            Are you sure, you want to delete this product?
           </Typography>
-        </DialogContent>
-        <DialogActions className="m-auto">
-          <Button
-            variant="contained"
-            onClick={() => handleDelete(deleteProductDialogControl.id)}
-          >
-            Ok
-          </Button>
-          <Button className="cancel-btn" onClick={handleClose} autoFocus>
-            Cancel
-          </Button>
-        </DialogActions>
+          <DialogActions>
+            <Button
+              className="dialogue_button_positive"
+              variant="contained"
+              onClick={() => handleDelete(deleteProductDialogControl.id)}
+              autoFocus
+            >
+              Ok
+            </Button>
+            <Button
+              className="dialogue_button_nagative"
+              variant="contained"
+              onClick={handleClose}
+              autoFocus
+            >
+              Cancel
+            </Button>
+          </DialogActions>
+        </Box>
+      
+       
       </Dialog>
     </>
   )
