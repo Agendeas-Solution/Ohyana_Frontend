@@ -30,7 +30,7 @@ import { useNavigate } from 'react-router-dom'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import moment from 'moment'
-import { GetAllClientOrderList } from '../../services/apiservices/orderDetail'
+import { GetSingleClientOrderList } from '../../services/apiservices/orderDetail'
 import { styled, useTheme } from '@mui/material/styles'
 import {
   DatePicker,
@@ -85,7 +85,7 @@ const Orders = () => {
     if (queryParams.searchQuery !== '' && queryParams.searchQuery) {
       data['searchQuery'] = queryParams.searchQuery
     }
-    GetAllClientOrderList(
+    GetSingleClientOrderList(
       data,
       res => {
         setOrderList(res?.data?.orders)

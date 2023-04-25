@@ -15,7 +15,10 @@ import {
   Select,
   MenuItem,
 } from '@mui/material'
-import { GetAddEditAdminRole } from '../../services/apiservices/adminprofile'
+import {
+  GetAddEditAdminRole,
+  GetAdminRole,
+} from '../../services/apiservices/adminprofile'
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const EditJobRoleDialog = ({
@@ -29,8 +32,8 @@ const EditJobRoleDialog = ({
   const [jobRoleList, setJobRoleList] = useState({})
   const [seniorName, setSeniorName] = useState('')
   useEffect(() => {
-    GetAddEditAdminRole(
-      {},
+    GetAdminRole(
+      { selection: true },
       res => {
         if (res.success) {
           setJobRoleList({

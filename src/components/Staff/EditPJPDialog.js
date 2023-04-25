@@ -16,7 +16,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import './index.css'
 import {
-  GetAdminClientDetail,
+  GetAllClients,
   UpdatePJPDetail,
 } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
@@ -41,7 +41,7 @@ const EditPJPDialog = ({
     if (searchQuery !== '') {
       data['searchQuery'] = searchQuery
     }
-    GetAdminClientDetail(
+    GetAllClients(
       data,
       res => {
         if (res?.success) {

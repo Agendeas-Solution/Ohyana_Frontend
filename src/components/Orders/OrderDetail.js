@@ -44,6 +44,7 @@ const OrderDetail = () => {
   useEffect(() => {
     GetOrderDetail(
       parseInt(path),
+      {},
       res => {
         setOrderDetail(res.data.orderDetail)
         setOrderItems(res.data.orderDetail.order_items)

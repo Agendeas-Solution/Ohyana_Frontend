@@ -67,6 +67,7 @@ const EditClient = () => {
     )
     GetAdminClientProfileDetail(
       parseInt(path),
+      {},
       res => {
         if (res.success) {
           setUserDetail({
