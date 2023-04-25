@@ -122,6 +122,7 @@ const EditReminderDialog = ({ editReminderDetail, handleClose }) => {
             autoComplete="off"
             placeholder="Description Here..."
             minRows={3}
+            maxRows={3}
             onChange={e => {
               setClientReminderDetail({
                 ...clientReminderDetail,

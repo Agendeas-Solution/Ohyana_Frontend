@@ -172,6 +172,7 @@ const AppointmentDialog = ({
             label="Description"
             autoComplete="off"
             minRows={3}
+            maxRows={3}
             placeholder="Description Here..."
             value={clientAppointmentDetail.description}
             onChange={e => {

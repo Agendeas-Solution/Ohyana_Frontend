@@ -263,7 +263,7 @@ const Staff = () => {
                     )}
                   </IconButton>
                   <Typography sx={{ fontSize: '22px', paddingRight: '0px' }}>
-                    Filter Byyy
+                    Filter By
                   </Typography>
                 </Box>
                 <Box>
