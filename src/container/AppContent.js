@@ -39,6 +39,7 @@ import JobRolesList from '../components/Settings/JobRolesList'
 import ExpenseList from '../components/Expense/ExpenseList'
 import ClientOrders from '../components/Orders/ClientOrders'
 import MyCart from '../components/Orders/MyCart'
+import Integrations from '../components/Integrations/Integrations'
 const socket = io('http://192.168.1.65:9009')
 
 const AppContent = () => {
@@ -145,7 +146,7 @@ const AppContent = () => {
             )} */}
 
             <Route path="/expenselist" element={<ExpenseList />} />
-
+            <Route path="/integrations" element={<Integrations />} />
             <Route path="/jobrolelist" element={<JobRolesList />}></Route>
             <Route path="/jobroleaccess/:id" element={<Department />}></Route>
             {permissions?.viewProduct && (

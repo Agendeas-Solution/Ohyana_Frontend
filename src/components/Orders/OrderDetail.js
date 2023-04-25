@@ -22,6 +22,8 @@ import {
   UpdatePaymentStatus,
 } from '../../services/apiservices/orderDetail'
 import moment from 'moment'
+import DispatchOrderDialog from './DispatchOrderDialog'
+
 const steps = ['Shipping', 'Dispatch', 'Delivered']
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const PaymentDetailDialog = React.lazy(() => import('./PaymentDetailDialog'))
@@ -38,6 +40,7 @@ const OrderDetail = () => {
     'OTHER',
   ])
   const [openPaymentDetailDialog, setOpenPaymentDetailDialog] = useState(false)
+  const [openDispatchOrder, setOpenDispatchOrder] = useState(false)
   let path = window.location.pathname
   path = path.split('/').pop()
   useEffect(() => {
@@ -65,6 +68,14 @@ const OrderDetail = () => {
   const handleClosePaymentDialog = () => {
     setOpenPaymentDetailDialog(false)
   }
+
+  const handleOpenDispatchDialog = () => {
+    setOpenDispatchOrder(true)
+  }
+  const handleCloseDispatchDialog = () => {
+    setOpenDispatchOrder(false)
+  }
+
   const handleUpdatePaymentStatus = paymentDetail => {
     UpdatePaymentStatus(
       {
@@ -230,6 +241,7 @@ const OrderDetail = () => {
                 Order Tracking
               </Typography>
               <Button
+                onClick={handleOpenDispatchDialog}
                 variant="contained"
                 sx={{
                   background: '#fff',
@@ -324,6 +336,10 @@ const OrderDetail = () => {
           openPaymentDetailDialog={openPaymentDetailDialog}
           paymentMethodList={paymentMethodList}
           handleUpdatePaymentStatus={handleUpdatePaymentStatus}
+        />
+        <DispatchOrderDialog
+          openDispatchOrder={openDispatchOrder}
+          handleCloseDispatchDialog={handleCloseDispatchDialog}
         />
       </Box>
     </>

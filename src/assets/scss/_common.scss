@@ -1074,7 +1074,8 @@ button {
 }
 
 .expenses_table_height {
-  height: 55vh;
+  // height: 55vh;
+  height: 72%;
   box-shadow: none !important;
 }
 
@@ -1102,7 +1103,7 @@ button {
 .pjp_table_height {
   height: 59vh;
   width: 100% !important;
-  margin-top: 6px;
+  // margin-top: 6px;
 }
 
 .client_table_height {
@@ -1535,6 +1536,13 @@ button {
   display: flex; 
   flex-direction: column; 
   margin: 10px;
+}
+
+.order_payment_details {
+  display: flex; 
+  flex-direction: column; 
+  margin: 10px;
+  width: 100% !important;
 }
 
 .filter_body_inner_section {
