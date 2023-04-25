@@ -6,6 +6,7 @@ import ProductIcon from '../../assets/img/Product.svg'
 import PremiumIcon from '../../assets/img/Premium.svg'
 import LeaveAndHolidayIcon from '../../assets/img/Leave_and_Holiday.svg'
 import ExpensePolicyIcon from '../../assets/img/Expense_Policy.svg'
+import IntegrationsIcon from '../../assets/img/Integrations.svg'
 
 import { useNavigate } from 'react-router-dom'
 import { Context as AuthContext } from '../../context/authContext/authContext'
@@ -92,6 +93,20 @@ const Settings = () => {
             alt="DepartmentIcon"
           />
           <Typography variant="span">Expense Policy</Typography>
+        </Box>
+        <Box
+          className="setting_cards-list"
+          onClick={() => {
+            // navigate("/departmentlist");
+            navigate('/integrations')
+          }}
+        >
+          <img
+            className="expense_icon"
+            src={IntegrationsIcon}
+            alt="DepartmentIcon"
+          />
+          <Typography variant="span">Integrations</Typography>
         </Box>
         {/* <Box
           className="setting_cards-list"

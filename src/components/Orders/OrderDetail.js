@@ -23,6 +23,8 @@ import {
 } from '../../services/apiservices/orderDetail'
 import moment from 'moment'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import DispatchOrderDialog from './DispatchOrderDialog'
+
 const steps = ['Shipping', 'Dispatch', 'Delivered']
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const PaymentDetailDialog = React.lazy(() => import('./PaymentDetailDialog'))
@@ -39,6 +41,7 @@ const OrderDetail = () => {
     'OTHER',
   ])
   const [openPaymentDetailDialog, setOpenPaymentDetailDialog] = useState(false)
+  const [openDispatchOrder, setOpenDispatchOrder] = useState(false)
   let path = window.location.pathname
   path = path.split('/').pop()
   useEffect(() => {
@@ -67,6 +70,14 @@ const OrderDetail = () => {
   const handleClosePaymentDialog = () => {
     setOpenPaymentDetailDialog(false)
   }
+
+  const handleOpenDispatchDialog = () => {
+    setOpenDispatchOrder(true)
+  }
+  const handleCloseDispatchDialog = () => {
+    setOpenDispatchOrder(false)
+  }
+
   const handleUpdatePaymentStatus = paymentDetail => {
     UpdatePaymentStatus(
       {
@@ -232,6 +243,57 @@ const OrderDetail = () => {
                 Order Tracking
               </Typography>
               <Button
+                onClick={handleOpenDispatchDialog}
+                variant="contained"
+                sx={{
+                  background: '#fff',
+                  color: '#2E3591',
+                  marginRight: '10px',
+                }}
+              >
+                Dispatch
+              </Button>
+            </Box>
+
+            <Box className="common_row mb-3 mx-2">
+              <Typography className="order_desc_subheading" variant="span">
+                Date
+              </Typography>
+              <Typography variant="span">
+                {moment(orderDetail?.date).format('DD-MM-YYYY hh:mm A')}
+              </Typography>
+            </Box>
+
+            <Box className="common_row align-items-start mb-3 mx-2">
+              <Typography className="order_desc_subheading" variant="span">
+                Address
+              </Typography>
+              <Typography className="text-right" variant="span">
+                {orderDetail?.client?.address}
+              </Typography>
+            </Box>
+
+            <Box sx={{ width: '100%', marginBottom: '8px' }}>
+              <Stepper
+                activeStep={handleActiveStep(orderDetail?.orderTrackingStatus)}
+                alternativeLabel
+              >
+                {steps.map(label => (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+            </Box>
+          </Box>
+        </Box>
+
+          <Box className="order_tracking">
+            <Box className="order_tracking_heading align-items-center mb-4">
+              <Typography className="common_sub_heading" variant="span">
+                Order Tracking
+              </Typography>
+              <Button
                 variant="contained"
                 sx={{
                   background: '#fff',
@@ -328,6 +390,10 @@ const OrderDetail = () => {
           openPaymentDetailDialog={openPaymentDetailDialog}
           paymentMethodList={paymentMethodList}
           handleUpdatePaymentStatus={handleUpdatePaymentStatus}
+        />
+        <DispatchOrderDialog
+          openDispatchOrder={openDispatchOrder}
+          handleCloseDispatchDialog={handleCloseDispatchDialog}
         />
       </Box>
     </>
