@@ -25,6 +25,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { TEAM } from '../../constants'
+import ProfileImage from '../../assets/img/Profile_Image.svg'
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const AddStaffMember = () => {
   const [userDetail, setUserDetail] = useState({
@@ -119,16 +120,154 @@ const AddStaffMember = () => {
   }
   return (
     <>
-      <Box className="main_section" sx={{ overflow: 'hidden', padding: '0px' }}>
-        <Box sx={{ height: '83vh', overflowY: 'auto' }}>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              marginRight: '10px',
-            }}
-            // className="input_field_row"
-          >
+      <Box className="main_section">
+        <Box className="pofile_edit_section">
+          <Box className="edit_profile_image_section">
+            <img src={ProfileImage} alt="profile" />
+          </Box>
+          <Box className="edit_profile_detail_section">
+            {/* Employee Name && Select job type */}
+            <Box className="input_field_row">
+              <Box className="input_fields">
+                <TextField
+                  label="Employee Name"
+                  onChange={e => {
+                    setUserDetail({
+                      ...userDetail,
+                      employeeName: e.target.value,
+                    })
+                  }}
+                  value={userDetail.employeeName}
+                  variant="outlined"
+                />
+              </Box>
+              <Box className="input_fields">
+                <FormControl>
+                  <InputLabel>Select Job Type</InputLabel>
+                  <Select
+                    label="Select Job Type"
+                    value={userDetail?.jobType}
+                    onChange={e => {
+                      setUserDetail({ ...userDetail, jobType: e.target.value })
+                    }}
+                  >
+                    {TEAM.JOBTYPE.map(data => {
+                      return <MenuItem value={data?.id}>{data?.type}</MenuItem>
+                    })}
+                  </Select>
+                </FormControl>
+              </Box>
+            </Box>
+
+            {/* Email &&  Job Role  */}
+            <Box className="input_field_row">
+              <Box className="input_fields">
+                <TextField
+                  autoComplete="off"
+                  label="Email"
+                  type="email"
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, email: e.target.value })
+                  }}
+                  value={userDetail.email}
+                  variant="outlined"
+                />
+              </Box>
+              <Box className="input_fields">
+                <FormControl>
+                  <InputLabel>Select jobRole</InputLabel>
+                  <Select
+                    label="Select Job Role"
+                    value={userDetail?.jobRole}
+                    onChange={e => {
+                      setUserDetail({ ...userDetail, jobRole: e.target.value })
+                    }}
+                  >
+                    {employeeJobRole &&
+                      employeeJobRole.map(data => {
+                        return (
+                          <MenuItem value={data?.id}>{data?.name}</MenuItem>
+                        )
+                      })}
+                  </Select>
+                </FormControl>
+              </Box>
+            </Box>
+
+            <Box className="input_field_row">
+              <Box className="input_fields">
+                <TextField
+                  autoComplete="off"
+                  type="tel"
+                  label="Contact No"
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, contactNo: e.target.value })
+                  }}
+                  value={userDetail.contactNo}
+                  variant="outlined"
+                />
+              </Box>
+              <Box className="input_fields">
+                <TextField
+                  autoComplete="off"
+                  label="State"
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, state: e.target.value })
+                  }}
+                  value={userDetail.state}
+                  variant="outlined"
+                />
+              </Box>
+            </Box>
+
+            {/* Gender*/}
+            <Box className="input_field_row">
+              <Box className="input_fields">
+                <FormControl>
+                  <InputLabel>Select Gender</InputLabel>
+                  <Select
+                    label="Select Gender"
+                    value={userDetail?.gender}
+                    onChange={e => {
+                      setUserDetail({ ...userDetail, gender: e.target.value })
+                    }}
+                  >
+                    <MenuItem value="Male">Male</MenuItem>
+                    <MenuItem value="Female">Female</MenuItem>
+                    <MenuItem value="Other">Other</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              <Box className="input_fields">
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    inputFormat="dd/MM/yyyy"
+                    value={userDetail.birthDate}
+                    onChange={e => {
+                      setUserDetail({ ...userDetail, birthDate: e })
+                    }}
+                    renderInput={params => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+              </Box>
+            </Box>
+
+            {/* Password*/}
+            <Box className="input_field_row" sx={{ width: '50%' }}>
+              <Box className="input_fields">
+                <TextField
+                  autoComplete="off"
+                  label="Password"
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, password: e.target.value })
+                  }}
+                  type="password"
+                  value={userDetail.password}
+                  variant="outlined"
+                />
+              </Box>
+            </Box>
+
             <Button
               onClick={handleAddEmployee}
               variant="contained"
@@ -136,144 +275,6 @@ const AddStaffMember = () => {
             >
               Save
             </Button>
-          </Box>
-
-          {/* Employee Name && Select job type */}
-          <Box className="input_field_row">
-            <Box className="input_fields">
-              <TextField
-                label="Employee Name"
-                onChange={e => {
-                  setUserDetail({
-                    ...userDetail,
-                    employeeName: e.target.value,
-                  })
-                }}
-                value={userDetail.employeeName}
-                variant="outlined"
-              />
-            </Box>
-            <Box className="input_fields">
-              <FormControl>
-                <InputLabel>Select Job Type</InputLabel>
-                <Select
-                  label="Select Job Type"
-                  value={userDetail?.jobType}
-                  onChange={e => {
-                    setUserDetail({ ...userDetail, jobType: e.target.value })
-                  }}
-                >
-                  {TEAM.JOBTYPE.map(data => {
-                    return <MenuItem value={data?.id}>{data?.type}</MenuItem>
-                  })}
-                </Select>
-              </FormControl>
-            </Box>
-          </Box>
-
-          {/* Email &&  Job Role  */}
-          <Box className="input_field_row">
-            <Box className="input_fields">
-              <TextField
-                autoComplete="off"
-                label="Email"
-                type="email"
-                onChange={e => {
-                  setUserDetail({ ...userDetail, email: e.target.value })
-                }}
-                value={userDetail.email}
-                variant="outlined"
-              />
-            </Box>
-            <Box className="input_fields">
-              <FormControl>
-                <InputLabel>Select jobRole</InputLabel>
-                <Select
-                  label="Select Job Role"
-                  value={userDetail?.jobRole}
-                  onChange={e => {
-                    setUserDetail({ ...userDetail, jobRole: e.target.value })
-                  }}
-                >
-                  {employeeJobRole &&
-                    employeeJobRole.map(data => {
-                      return <MenuItem value={data?.id}>{data?.name}</MenuItem>
-                    })}
-                </Select>
-              </FormControl>
-            </Box>
-          </Box>
-
-          <Box className="input_field_row">
-            <Box className="input_fields">
-              <TextField
-                autoComplete="off"
-                type="tel"
-                label="Contact No"
-                onChange={e => {
-                  setUserDetail({ ...userDetail, contactNo: e.target.value })
-                }}
-                value={userDetail.contactNo}
-                variant="outlined"
-              />
-            </Box>
-            <Box className="input_fields">
-              <TextField
-                autoComplete="off"
-                label="State"
-                onChange={e => {
-                  setUserDetail({ ...userDetail, state: e.target.value })
-                }}
-                value={userDetail.state}
-                variant="outlined"
-              />
-            </Box>
-          </Box>
-
-          {/* Gender*/}
-          <Box className="input_field_row">
-            <Box className="input_fields">
-              <FormControl>
-                <InputLabel>Select Gender</InputLabel>
-                <Select
-                  label="Select Gender"
-                  value={userDetail?.gender}
-                  onChange={e => {
-                    setUserDetail({ ...userDetail, gender: e.target.value })
-                  }}
-                >
-                  <MenuItem value="Male">Male</MenuItem>
-                  <MenuItem value="Female">Female</MenuItem>
-                  <MenuItem value="Other">Other</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            <Box className="input_fields">
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  inputFormat="dd/MM/yyyy"
-                  value={userDetail.birthDate}
-                  onChange={e => {
-                    setUserDetail({ ...userDetail, birthDate: e })
-                  }}
-                  renderInput={params => <TextField {...params} />}
-                />
-              </LocalizationProvider>
-            </Box>
-          </Box>
-          <Box className="input_field_row">
-            <Box className="input_fields">
-              <TextField
-                autoComplete="off"
-                label="Password"
-                onChange={e => {
-                  setUserDetail({ ...userDetail, password: e.target.value })
-                }}
-                type="password"
-                value={userDetail.password}
-                variant="outlined"
-              />
-            </Box>
           </Box>
         </Box>
       </Box>

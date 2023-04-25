@@ -16,6 +16,7 @@ import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import IconButton from '@mui/material/IconButton'
 import ProfileImage from '../../assets/img/Profile_Image.svg'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import './index.css'
 import {
   EditAdminProfile,
@@ -96,15 +97,12 @@ const EditProfile = () => {
   return (
     <>
       <Box className="main_section">
-        <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
-          <Box variant="span" sx={{ width: '10%' }}>
-            <img
-              src={ProfileImage}
-              className="user_profile_icon"
-              alt="profile"
-            />
+        <Box className="pofile_edit_section">
+          <Box className="edit_profile_image_section">
+            <img src={ProfileImage} alt="profile" />
           </Box>
-          <Box sx={{ width: '90%' }}>
+
+          <Box className="edit_profile_detail_section">
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
@@ -130,10 +128,14 @@ const EditProfile = () => {
                       setUserDetail({ ...userDetail, birthDate: e })
                     }}
                     renderInput={params => <TextField {...params} />}
+                    PopperProps={{
+                      placement: 'bottom-start', // Set placement to 'bottom-start'
+                    }}
                   />
                 </LocalizationProvider>
               </Box>
             </Box>
+
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
@@ -152,47 +154,41 @@ const EditProfile = () => {
                   type="number"
                   autoComplete="off"
                   onChange={e => {
-                    setUserDetail({ ...userDetail, contactNo: e.target.value })
+                    setUserDetail({
+                      ...userDetail,
+                      contactNo: e.target.value,
+                    })
                   }}
                   value={userDetail.contactNo}
                   variant="outlined"
                 />
               </Box>
             </Box>
-            <Box className="input_field_row">
-              <Box className="input_fields">
-                <FormControl>
-                  <InputLabel>Select Gender</InputLabel>
-                  <Select
-                    label="Select Gender"
-                    value={userDetail.gender}
-                    className="w-100"
-                    onChange={e => {
-                      setUserDetail({ ...userDetail, gender: e.target.value })
-                    }}
-                  >
-                    <MenuItem value="Male">Male</MenuItem>
-                    <MenuItem value="Female">Female</MenuItem>
-                    <MenuItem value="Other">Female</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
+
+            <Box className="input_fields" sx={{ width: '50%' }}>
+              <FormControl>
+                <InputLabel>Select Gender</InputLabel>
+                <Select
+                  label="Select Gender"
+                  value={userDetail.gender}
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, gender: e.target.value })
+                  }}
+                >
+                  <MenuItem value="Male">Male</MenuItem>
+                  <MenuItem value="Female">Female</MenuItem>
+                  <MenuItem value="Other">Female</MenuItem>
+                </Select>
+              </FormControl>
             </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'flex-start',
-              }}
-              className="input_field_row"
+
+            <Button
+              className="edit_page_save_button"
+              onClick={SaveProfile}
+              variant="contained"
             >
-              <Button
-                onClick={SaveProfile}
-                variant="contained"
-                className="edit_page_save_button"
-              >
-                Save
-              </Button>
-            </Box>
+              Save
+            </Button>
           </Box>
         </Box>
       </Box>
