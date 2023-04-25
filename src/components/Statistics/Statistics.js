@@ -76,11 +76,11 @@ const Statistics = () => {
                 Team
               </Button>
             </Box>
-
             <Autocomplete
               sx={{ width: '150px' }}
               disablePortal
               options={daterange}
+              disableClearable
               value={selectedPeriod}
               onChange={(e, value) => {
                 setSelectedPeriod(value)

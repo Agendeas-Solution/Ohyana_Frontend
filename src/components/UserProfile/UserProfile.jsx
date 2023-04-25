@@ -8,11 +8,12 @@ import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
 import './index.css'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
-import { AttendanceStatus } from '../../services/apiservices/staffDetail'
 import {
-  GetAdminAttendanceList,
-  GetAdminLeaveList,
-} from '../../services/apiservices/adminprofile'
+  GetHolidayList,
+  AttendanceStatus,
+  GetStaffAttendanceList,
+  GetStaffLeaveList,
+} from '../../services/apiservices/staffDetail'
 import ApplyLeaveDialog from './ApplyLeaveDialog'
 import { GetAllHoliday } from '../../services/apiservices/holiday'
 const PresentData = React.lazy(() => import('./PresentData'))
@@ -52,8 +53,8 @@ const UserProfile = () => {
   useEffect(() => {
     activeTab === 'present' &&
       value === 'Attendance' &&
-      GetAdminAttendanceList(
-        userDetail?.id,
+      GetStaffAttendanceList(
+        {},
         res => {
           if (res.success) {
             setStaffAttendanceList(res?.data)
@@ -63,8 +64,8 @@ const UserProfile = () => {
       )
     activeTab === 'leave' &&
       value === 'Attendance' &&
-      GetAdminLeaveList(
-        userDetail?.id,
+      GetStaffLeaveList(
+        {},
         res => {
           if (res.success) {
             setLeaveList(res?.data)

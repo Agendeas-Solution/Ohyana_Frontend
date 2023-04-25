@@ -8,9 +8,11 @@ import {
   FormControlLabel,
   FormLabel,
   IconButton,
+  InputLabel,
   MenuItem,
   Radio,
   RadioGroup,
+  Select,
   TextField,
   Typography,
 } from '@mui/material'
@@ -25,6 +27,12 @@ import {
   CreatePJP,
   CompletePJPStatus,
 } from '../../services/apiservices/teamcall'
+import {
+  GetAdminClientDetail,
+  DeleteClientDetail,
+  GetCityList,
+  GetStateList,
+} from '../../services/apiservices/clientDetail'
 import moment from 'moment'
 import AddPJPDialog from './AddPJPDialog'
 import { Context as ContextSnackbar } from '../../context/pageContext'
@@ -43,12 +51,18 @@ const PJPDetail = () => {
   path = path.split('/').pop()
   const [value, setValue] = useState('TODAY')
   const [pjpList, setPjpList] = useState([])
+  const [cityList, setCityList] = useState([])
+  const [stateList, setStateList] = useState([])
   const [open, setOpen] = useState(false)
   const [addPJPDetail, setAddPJPDetail] = useState({
     dialogStatus: false,
     date: '',
     clientId: '',
     description: '',
+  })
+  const [selectedCityState, setSelectedCityState] = useState({
+    city: '',
+    state: '',
   })
   const [completedDialog, setCompletedDialog] = useState({
     status: false,
@@ -93,6 +107,14 @@ const PJPDetail = () => {
   const handleApplyFilter = () => {
     handleGetPJPList()
   }
+  const handleClearAllFilter = () => {
+    setFilterPJP({
+      pjpStatus: null,
+      date: '',
+    })
+    setSelectedCityState({ city: '', state: '' })
+    handleGetPJPList()
+  }
   // const getLocation = () => {
   //   if (!window.navigator.geolocation) {
   //   } else {
@@ -113,8 +135,14 @@ const PJPDetail = () => {
       teamId: path,
       day: value,
     }
-    if (filterPJP.pjpStatus !== '' && filterPJP.pjpStatus !== null) {
+    if (filterPJP.pjpStatus !== '' && filterPJP.pjpStatus) {
       data['statusType'] = filterPJP.pjpStatus
+    }
+    if (selectedCityState.city !== '' && selectedCityState.city) {
+      data['city'] = selectedCityState.city
+    }
+    if (selectedCityState.state !== '' && selectedCityState.state) {
+      data['state'] = selectedCityState.state
     }
     GetPJPList(
       data,
@@ -132,7 +160,38 @@ const PJPDetail = () => {
 
   useEffect(() => {
     handleGetPJPList()
-  }, [value])
+  }, [value, selectedCityState])
+  const handleCityList = () => {
+    GetCityList(
+      {},
+      res => {
+        if (res?.success) {
+          setCityList(res.data)
+        }
+      },
+      err => {
+        console.log(err)
+      },
+    )
+  }
+  const handleStateList = () => {
+    GetStateList(
+      {},
+      res => {
+        if (res?.success) {
+          setStateList(res.data)
+        }
+      },
+      err => {
+        console.log(err)
+      },
+    )
+  }
+
+  useEffect(() => {
+    handleCityList()
+    handleStateList()
+  }, [])
 
   const handleAddPJPDetail = () => {
     let pjpDetail = addPJPDetail
@@ -260,14 +319,43 @@ const PJPDetail = () => {
                 </RadioGroup>
               </FormControl>
 
-              <TextField
-                sx={{ margin: '10px 16px' }}
-                // className="mb-4"
-                id="outlined-basic"
-                label="Location"
-                variant="outlined"
-                placeholder="Enter Location"
-              />
+              <FormControl className="filter_body_inner_section">
+                <InputLabel>Select City</InputLabel>
+                <Select
+                  label="Select City"
+                  value={selectedCityState.city}
+                  onChange={e => {
+                    setSelectedCityState({
+                      ...selectedCityState,
+                      city: e.target.value,
+                    })
+                  }}
+                >
+                  {cityList &&
+                    cityList.map(data => {
+                      return <MenuItem value={data}>{data}</MenuItem>
+                    })}
+                </Select>
+              </FormControl>
+
+              <FormControl className="filter_body_inner_section">
+                <InputLabel>Select State</InputLabel>
+                <Select
+                  label="Select State"
+                  value={selectedCityState.state}
+                  onChange={e => {
+                    setSelectedCityState({
+                      ...selectedCityState,
+                      state: e.target.value,
+                    })
+                  }}
+                >
+                  {stateList &&
+                    stateList.map(data => {
+                      return <MenuItem value={data}>{data}</MenuItem>
+                    })}
+                </Select>
+              </FormControl>
 
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker

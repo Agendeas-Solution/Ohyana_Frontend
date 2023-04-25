@@ -64,6 +64,7 @@ const TaskDetail = () => {
   const handleSingleTaskDetail = () => {
     GetSingleTaskDetail(
       path,
+      {},
       res => {
         setTaskDetail(res?.data)
         setCheckLists(res?.data?.checklists)

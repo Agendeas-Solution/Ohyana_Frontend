@@ -27,15 +27,14 @@ import moment from 'moment'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import './index.css'
-import {
-  GetAllMemberList,
-  AssignMemberParticularTask,
-} from '../../services/apiservices/task'
+import { AssignMemberParticularTask } from '../../services/apiservices/task'
 import { styled, useTheme } from '@mui/material/styles'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail'
+
 const drawerWidth = 350
 const CreateTaskDialog = React.lazy(() => import('./CreateTaskDialog'))
 const AssignMemberDialog = React.lazy(() => import('./AssignMemberDialog'))
@@ -104,16 +103,15 @@ const Task = () => {
   }
   const handleTaskList = () => {
     let data = {}
-    if (searchQuery !== '') {
+    if (searchQuery !== '' && searchQuery) {
       data['searchQuery'] = searchQuery
     }
-    if (filterTask.due_date !== '') {
+    if (filterTask.due_date !== '' && filterTask.due_date) {
       data['due_date'] = filterTask.due_date
     }
-    if (filterTask.teamId !== '') {
+    if (filterTask.teamId !== '' && filterTask.teamId) {
       data['teamId'] = filterTask.teamId
     }
-
     GetTaskList(
       data,
       res => {
@@ -129,9 +127,9 @@ const Task = () => {
   }
   useEffect(() => {
     handleTaskList()
-  }, [searchQuery])
+  }, [searchQuery, filterTask])
   useEffect(() => {
-    GetAllMemberList(
+    GetAdminStaffDetailList(
       {},
       res => {
         setMemberList(res.data)
@@ -177,7 +175,6 @@ const Task = () => {
             Overview
           </Typography>
         </Box>
-
         <Box className="task_header_section">
           <FormControl variant="outlined">
             <OutlinedInput
@@ -212,7 +209,6 @@ const Task = () => {
             <img src={FilterIcon} alt="" />
           </IconButton>
         </Box>
-
         <Drawer
           onClose={handleDrawerClose}
           sx={{
@@ -236,7 +232,6 @@ const Task = () => {
                   <ChevronRightIcon className="chevron_icon" />
                 )}
               </IconButton>
-
               <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
             </Box>
             <Box>
@@ -252,9 +247,7 @@ const Task = () => {
               </Button>
             </Box>
           </DrawerHeader>
-
           <Divider />
-
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <LocalizationProvider
               dateAdapter={AdapterDateFns}
@@ -300,7 +293,6 @@ const Task = () => {
           </Box>
         </Drawer>
       </Box>
-
       <Box className="below_main_tab_section">
         <Box className="inner_container">
           {taskList.length > 0 ? (

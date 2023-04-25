@@ -22,4 +22,5 @@ export const TEAM = {
     { type: 'UpComing', value: 'UPCOMING' },
     { type: 'Completed', value: 'COMPLETED' },
   ],
+  COMPARISONTYPE: ['points', 'expense'],
 }

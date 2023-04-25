@@ -288,7 +288,7 @@ const Department = () => {
   }
   useEffect(() => {
     GetSingleRole(
-      parseInt(path),
+      { roleId: parseInt(path) },
       res => {
         if (res.success) {
           setJobRoleList(res.data)
@@ -397,7 +397,7 @@ const Department = () => {
                 Post Description
               </Typography>
               <Typography variant="span">
-                {jobRoleList?.senior?.description || '-'}
+                {jobRoleList?.description || '-'}
               </Typography>
             </Box>
           </Box>

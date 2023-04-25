@@ -17,7 +17,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { EditAdminClientAppointmentDetail } from '../../services/apiservices/clientDetail'
-import { GetAllStaffList } from '../../services/apiservices/staffDetail.js'
+import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail.js'
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 
@@ -42,8 +42,8 @@ const EditAppointmentDialog = ({
     'Office',
   ])
   useEffect(() => {
-    GetAllStaffList(
-      {},
+    GetAdminStaffDetailList(
+      { admin: true },
       res => {
         setStaffDetailList(res.data)
       },
@@ -128,11 +128,11 @@ const EditAppointmentDialog = ({
               onChange={(e, value) => {
                 setClientAppointmentDetail({
                   ...clientAppointmentDetail,
-                  appointment_unit: value,
+                  appointment_unit: e.target.value,
                 })
               }}
             >
-              <MenuItem value="Ofiice">Office</MenuItem>
+              <MenuItem value="Office">Office</MenuItem>
               <MenuItem value="Factory">Factory</MenuItem>
             </Select>
           </FormControl>
@@ -144,7 +144,7 @@ const EditAppointmentDialog = ({
             onChange={(e, value) => {
               setClientAppointmentDetail({
                 ...clientAppointmentDetail,
-                appointed_member: value,
+                appointed_member: e.target.value,
               })
             }}
             getOptionLabel={option => option?.name}
@@ -162,7 +162,6 @@ const EditAppointmentDialog = ({
               />
             )}
           />
-
           <TextField
             className="dialogue_input_fields"
             multiline
@@ -180,7 +179,6 @@ const EditAppointmentDialog = ({
               })
             }}
           />
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"

@@ -657,6 +657,9 @@ button {
   border-radius: 3px;
   font-weight: '600';
 }
+.custom_text_button:hover {
+  cursor: pointer;
+}
 
 .text_button {
   color: #2e3591 !important;
@@ -678,7 +681,9 @@ button {
   padding-left: 6px !important;
   padding-right: 6px !important;
 }
-
+.common_button:hover {
+  cursor: pointer;
+}
 .staff_common_button {
   box-shadow: none !important;
   background-color: #f1f2f6 !important;

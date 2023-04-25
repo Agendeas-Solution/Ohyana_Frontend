@@ -22,6 +22,7 @@ import {
   UpdatePaymentStatus,
 } from '../../services/apiservices/orderDetail'
 import moment from 'moment'
+import NoResultFound from '../ErrorComponent/NoResultFound'
 const steps = ['Shipping', 'Dispatch', 'Delivered']
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const PaymentDetailDialog = React.lazy(() => import('./PaymentDetailDialog'))
@@ -43,6 +44,7 @@ const OrderDetail = () => {
   useEffect(() => {
     GetOrderDetail(
       parseInt(path),
+      {},
       res => {
         setOrderDetail(res.data.orderDetail)
         setOrderItems(res.data.orderDetail.order_items)
@@ -273,24 +275,23 @@ const OrderDetail = () => {
             </Box>
           </Box>
         </Box>
-
-        <TableContainer
-          component={Paper}
-          sx={{ boxShadow: 'none', marginTop: 2 }}
-        >
-          <Table sx={{ minWidth: 250 }}>
-            <TableHead className="team_overview_table_heading">
-              <TableRow>
-                <TableCell></TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell align="right">Quantity</TableCell>
-                <TableCell align="right">Total Amount</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {orderItems.length > 0 &&
-                orderItems.map(data => {
+        {orderItems.length > 0 ? (
+          <TableContainer
+            component={Paper}
+            sx={{ boxShadow: 'none', marginTop: 2 }}
+          >
+            <Table sx={{ minWidth: 250 }}>
+              <TableHead className="team_overview_table_heading">
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell align="right">Quantity</TableCell>
+                  <TableCell align="right">Total Amount</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {orderItems.map(data => {
                   return (
                     <TableRow
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -316,9 +317,12 @@ const OrderDetail = () => {
                     </TableRow>
                   )
                 })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <NoResultFound />
+        )}
         <PaymentDetailDialog
           handleClosePaymentDialog={handleClosePaymentDialog}
           openPaymentDetailDialog={openPaymentDetailDialog}
