@@ -49,7 +49,7 @@ const Orders = () => {
   const [openDrawer, setOpen] = useState(false)
   const [totalResult, setTotalresult] = useState()
   const [currentPage, setCurrentPage] = useState(1)
-  const [rowsPerPage, setRowsPerPage] = useState(2)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
   const [deliveryStatusList, setDeliveryStatusList] = useState(
     ORDER.DELIVERYSTATUS,
   )

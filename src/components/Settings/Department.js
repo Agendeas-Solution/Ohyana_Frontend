@@ -397,7 +397,7 @@ const Department = () => {
                 Post Description
               </Typography>
               <Typography variant="span">
-                {jobRoleList?.senior?.description || '-'}
+                {jobRoleList?.description || '-'}
               </Typography>
             </Box>
           </Box>

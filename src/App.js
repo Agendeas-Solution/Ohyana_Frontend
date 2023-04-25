@@ -46,7 +46,6 @@ const App = () => {
       clearLoginToken()
     })
   }, [])
-
   return (
     <>
       <BrowserRouter>

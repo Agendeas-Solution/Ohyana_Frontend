@@ -40,12 +40,9 @@ export const GetProductReport = async (value, onSuccess, onError) => {
 export const GetTeamReport = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
-    const { data } = await axiosInstance.get(
-      `/report/team?period=${value.selectedPeriod}&comparison=points`,
-      {
-        headers: { ...defaultHeaders },
-      },
-    )
+    const { data } = await axiosInstance.post(`/report/team`, value, {
+      headers: { ...defaultHeaders },
+    })
     console.log('Printing data of GetProductReport', data)
     onSuccess && onSuccess(data)
   } catch (err) {
