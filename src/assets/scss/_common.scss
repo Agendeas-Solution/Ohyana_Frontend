@@ -3,7 +3,6 @@
   background: #555;
 }
 
-
 html {
   font-size: 100%;
 }
@@ -38,7 +37,6 @@ html {
   border: none !important;
 
   .sidebar_icon_root {
-
     // background-color: #2e3591;
     svg {
       color: #f1f1f1;
@@ -70,7 +68,6 @@ tr td {
 table {
   padding-left: 10px !important;
 }
-
 
 textarea:focus {
   outline: unset !important;
@@ -166,7 +163,6 @@ textarea:focus {
   color: #8e8e8e;
 }
 
-
 .custom_tab_background {
   box-shadow: none !important;
   background-color: #f1f2f6 !important;
@@ -184,7 +180,7 @@ textarea:focus {
 }
 
 .common_description_text {
-  font-Size: 15px;
+  font-size: 15px;
   margin-top: 5px;
   display: flex;
   letter-spacing: 0.04rem;
@@ -357,10 +353,9 @@ textarea:focus {
   border-radius: 50%;
   color: white;
   font-size: 70px !important;
-  background-color: #2E3591 !important;
+  background-color: #2e3591 !important;
   padding: 8px;
 }
-
 
 .dialogue_input_fields {
   display: flex;
@@ -385,7 +380,7 @@ textarea:focus {
   box-shadow: none !important;
   width: 300px !important;
   height: 45px !important;
-  background-color: #2E3591 !important;
+  background-color: #2e3591 !important;
   font-size: 18px !important;
   font-weight: 600;
   text-transform: capitalize;
@@ -395,7 +390,7 @@ textarea:focus {
   box-shadow: none !important;
   width: 180px !important;
   height: 45px !important;
-  background-color: #2E3591 !important;
+  background-color: #2e3591 !important;
   font-size: 18px !important;
   font-weight: 600;
   text-transform: capitalize;
@@ -459,8 +454,8 @@ textarea:focus {
   font-weight: 600;
   background-color: #f1f2f6;
   border: none;
-  padding-top: 10px ;
-  padding-bottom: 10px ;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .status_description {
@@ -488,7 +483,7 @@ textarea:focus {
 .common_icon {
   color: #2e3591;
 }
-.common_icon:hover{
+.common_icon:hover {
   cursor: pointer;
 }
 
@@ -585,7 +580,6 @@ textarea:focus {
   margin-bottom: 10px;
 }
 
-
 .login_copyright_root {
   color: #000000;
   font-size: 17px;
@@ -602,7 +596,6 @@ button {
   justify-content: space-between !important;
   align-items: center;
 }
-
 
 .tab_btn {
   background-color: #f1f2f6 !important;
@@ -641,6 +634,9 @@ button {
   border-radius: 3px;
   font-weight: '600';
 }
+.custom_text_button:hover {
+  cursor: pointer;
+}
 
 .text_button {
   color: #2e3591 !important;
@@ -662,7 +658,9 @@ button {
   padding-left: 6px !important;
   padding-right: 6px !important;
 }
-
+.common_button:hover {
+  cursor: pointer;
+}
 .staff_common_button {
   box-shadow: none !important;
   background-color: #f1f2f6 !important;
@@ -725,7 +723,7 @@ button {
   justify-content: center;
 }
 
-.product_buttons>svg {
+.product_buttons > svg {
   background-color: #ffffff;
   margin-left: 10px;
   height: 35px;
@@ -750,7 +748,6 @@ button {
   text-transform: capitalize !important;
   color: #2e3591 !important;
   padding-left: 0px;
-  
 }
 
 .add_product_button {
@@ -839,7 +836,6 @@ button {
   width: 100%;
 }
 
-
 .sidebar_icon_root {
   width: 20%;
   display: flex;
@@ -848,20 +844,17 @@ button {
   margin-right: 10px;
 }
 
-
 .search_field {
   padding: 0px !important;
   margin-right: 10px;
   height: 40px;
   background-color: #fff !important;
   text-transform: capitalize !important;
-
 }
 
 .search_field fieldset {
   border: none !important;
 }
-
 
 .access_control_box {
   border: 1px solid #e5e5e5;
@@ -946,7 +939,6 @@ button {
   }
 }
 
-
 .main_tab_section {
   display: flex;
   flex-direction: column;
@@ -999,7 +991,6 @@ button {
   padding: 10px;
 }
 
-
 .staff_statistics_box_heading {
   margin: 15px 10px 0px 10px !important;
 }
@@ -1012,23 +1003,23 @@ button {
 }
 
 .first_box {
-  background-color: #E6DFF1;
+  background-color: #e6dff1;
   white-space: nowrap;
 }
 
 .second_box {
-  background-color: #EDE9F2;
+  background-color: #ede9f2;
   white-space: nowrap;
 }
 
 .third_box {
-  background-color: #E5E6EB;
-  white-space: nowrap ;
+  background-color: #e5e6eb;
+  white-space: nowrap;
 }
 
 .fourth_box {
-  background-color: #EAE6EF;
-  white-space: nowrap ;
+  background-color: #eae6ef;
+  white-space: nowrap;
 }
 
 .team_header {
@@ -1135,7 +1126,6 @@ button {
   padding: 10px;
 }
 
-
 .tablecell_height {
   line-height: 3 !important;
 }
@@ -1145,8 +1135,8 @@ button {
 }
 
 .staff_tablecell {
-  background-color: #FFFFFF;
-  border-bottom: 2px solid black
+  background-color: #ffffff;
+  border-bottom: 2px solid black;
 }
 
 .present_leave_data {
@@ -1172,7 +1162,8 @@ button {
   border: 1px solid #e5e5e5;
 }
 
-.profile_header_button, .product_detail_buttons {
+.profile_header_button,
+.product_detail_buttons {
   padding: 0px 10px !important;
   box-shadow: none !important;
   background-color: #f1f2f6 !important;
@@ -1268,7 +1259,7 @@ button {
 
 .my_cart_product_photo {
   width: 35%;
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   border-radius: 5px;
   // height: 25%;
 }
@@ -1300,7 +1291,6 @@ button {
   overflow-x: hidden;
   border-radius: 5px;
 }
-
 
 .point_left_section {
   width: 40%;
@@ -1381,12 +1371,12 @@ button {
 }
 
 .expenses_detail_sub_heading {
-  color: #8E8E8E;
+  color: #8e8e8e;
   padding-bottom: 6px;
 }
 
 .document_section {
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
@@ -1436,7 +1426,7 @@ button {
   // height: 34.5rem;
 }
 
-@media(max-width: 1250px) {
+@media (max-width: 1250px) {
   html {
     font-size: 100%;
   }
@@ -1449,7 +1439,7 @@ button {
   }
 }
 
-@media(max-width: 1250px) {
+@media (max-width: 1250px) {
   .graph_section {
     display: flex;
     flex-direction: column;
@@ -1469,13 +1459,13 @@ button {
   }
 }
 
-@media(max-width: 800px) {
+@media (max-width: 800px) {
   html {
     font-size: 80%;
   }
 }
 
-.table_description tbody tr td{
+.table_description tbody tr td {
   -webkit-line-clamp: 3 !important;
   max-height: 3em !important;
   overflow: hidden;
@@ -1504,7 +1494,7 @@ button {
 }
 
 .add_client_section {
-  height: 83vh; 
+  height: 83vh;
   overflow-y: auto;
 }
 
@@ -1521,8 +1511,8 @@ button {
 }
 
 .filter_body_section {
-  display: flex; 
-  flex-direction: column; 
+  display: flex;
+  flex-direction: column;
   margin: 10px;
 }
 
@@ -1545,7 +1535,7 @@ button {
 }
 
 .client_profile_main_section {
-  width: 70%; 
+  width: 70%;
   overflow: scroll;
   padding: 10px;
 }
@@ -1579,6 +1569,6 @@ button {
   max-height: 4.8em;
 }
 
-.staff_date div:first-child{
+.staff_date div:first-child {
   height: 40px;
 }

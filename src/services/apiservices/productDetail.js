@@ -1,4 +1,4 @@
-import { handleApiGetCall } from './api-manager'
+import { handleApiGetCall, handleApiPostCall } from './api-manager'
 
 export const GetProductDetail = async (id, value, onSuccess, onError) => {
   await handleApiGetCall(`/product/${id}`, value, onSuccess, onError)
@@ -9,5 +9,5 @@ export const GetProductReport = async (value, onSuccess, onError) => {
 }
 
 export const GetTeamReport = async (value, onSuccess, onError) => {
-  await handleApiGetCall(`/report/team`, value, onSuccess, onError)
+  await handleApiPostCall(`/report/team`, value, onSuccess, onError)
 }

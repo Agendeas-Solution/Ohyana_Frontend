@@ -1,5 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Typography, Autocomplete, TextField, Button } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Autocomplete,
+  TextField,
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  ListItemText,
+  Checkbox,
+  OutlinedInput,
+} from '@mui/material'
 import './index.css'
 import { UserData } from './Data'
 import LineChart from './LineChart'
@@ -14,22 +27,75 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import BarChart from './BarChart'
 import { GetTeamReport } from '../../services/apiservices/productDetail'
-
+import { GetAdminRole } from '../../services/apiservices/adminprofile'
+import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail'
+import { TEAM } from '../../constants'
 const TeamGraph = ({ selectedPeriod }) => {
   const top100Films = [{ label: 'The Shawshank Redemption', year: 1994 }]
   const [graphData, setGraphData] = useState()
-  const [userData, setUserData] = useState({
-    // labels: UserData.map((data) => data.year),
-  })
+  const [userData, setUserData] = useState({})
+  const [jobRoleList, setJobRoleList] = useState([])
+  const [selectedJobRole, setSelectedJobRole] = useState('')
+  const [teamMembersList, setTeamMembersList] = useState([])
+  const [selectedTeamMembers, setSelectedTeamMembers] = useState([])
+  const [comparisonList, setComparisonList] = useState(TEAM.COMPARISONTYPE)
+  const [selectedComparison, setSelectedComparison] = useState('points')
+  const handleChange = event => {
+    const { value } = event.target
+    const selectedMembers = value.map(id =>
+      teamMembersList.find(name => name.id === id),
+    )
+    setSelectedTeamMembers(selectedMembers)
+    console.log('Selected Member:', selectedMembers)
+  }
+  const handleJobRole = () => {
+    GetAdminRole(
+      {},
+      res => {
+        setJobRoleList(res.data)
+      },
+      err => {},
+    )
+  }
   useEffect(() => {
+    let data = {
+      selectedPeriod: selectedPeriod,
+      comparison: selectedComparison,
+    }
+    if (parseInt(selectedJobRole)) {
+      data['roleId'] = parseInt(selectedJobRole)
+    }
+    if (selectedTeamMembers.length > 0) {
+      data['teamIds'] = selectedTeamMembers.map(member => member.id)
+    }
     GetTeamReport(
-      { period: selectedPeriod, comparison: 'points' },
+      data,
       res => {
         setGraphData(res?.data)
       },
       err => {},
     )
-  }, [selectedPeriod])
+    handleJobRole()
+  }, [selectedPeriod, selectedTeamMembers, selectedComparison])
+  const handleGetTeamMemberList = () => {
+    let data = {}
+    if (parseInt(selectedJobRole)) {
+      data['roleId'] = selectedJobRole
+    }
+    GetAdminStaffDetailList(
+      data,
+      res => {
+        setTeamMembersList(res.data)
+      },
+      err => {
+        setTeamMembersList([])
+      },
+    )
+  }
+  useEffect(() => {
+    handleGetTeamMemberList()
+  }, [selectedJobRole])
+
   useEffect(() => {
     let color = []
     if (graphData) {
@@ -41,7 +107,7 @@ const TeamGraph = ({ selectedPeriod }) => {
       graphData &&
       graphData.map((value, index) => {
         let a = []
-        a[index] = value.points
+        a[index] = selectedComparison === 'points' ? value.points : value.amount
         return {
           data: a,
           label: value?.name,
@@ -53,6 +119,7 @@ const TeamGraph = ({ selectedPeriod }) => {
           circular: true,
         }
       })
+    debugger
     graphData &&
       setUserData({
         ...userData,
@@ -69,9 +136,23 @@ const TeamGraph = ({ selectedPeriod }) => {
               Overall
             </Typography>
           </Box>
-
           <Box sx={{ display: 'flex' }}>
-            <Autocomplete
+            <FormControl className="filter_body_inner_section">
+              <InputLabel>comparison</InputLabel>
+              <Select
+                className="report_tab_heading_option"
+                label="Select comparison "
+                value={selectedComparison}
+                onChange={e => {
+                  setSelectedComparison(e.target.value)
+                }}
+              >
+                {comparisonList.map(data => {
+                  return <MenuItem value={data}>{data}</MenuItem>
+                })}
+              </Select>
+            </FormControl>
+            {/* <Autocomplete
               className="report_tab_heading_option"
               disablePortal
               options={top100Films}
@@ -83,39 +164,57 @@ const TeamGraph = ({ selectedPeriod }) => {
                   label="Performance"
                 />
               )}
-            />
-            <Autocomplete
-              className="report_tab_heading_option"
-              disablePortal
-              options={top100Films}
-              sx={{ marginRight: '10px' }}
-              renderInput={params => (
-                <TextField
-                  className="common_dropdown"
-                  {...params}
-                  label="Jr. Sales Person"
-                />
-              )}
-            />
-            <Autocomplete
-              className="report_tab_heading_option"
-              disablePortal
-              options={top100Films}
-              renderInput={params => (
-                <TextField
-                  className="common_dropdown"
-                  {...params}
-                  label="Benedict Cumberbatch"
-                />
-              )}
-            />
+            /> */}
+            <FormControl className="filter_body_inner_section">
+              <InputLabel>Client Type</InputLabel>
+              <Select
+                className="report_tab_heading_option"
+                label="Select Client Type"
+                value={selectedJobRole}
+                onChange={e => {
+                  setSelectedJobRole(e.target.value)
+                  debugger
+                }}
+              >
+                {jobRoleList.map(data => {
+                  return <MenuItem value={data.id}>{data.name}</MenuItem>
+                })}
+              </Select>
+            </FormControl>
+            <FormControl className="filter_body_inner_section">
+              <InputLabel>Team Member</InputLabel>
+              <Select
+                className="report_tab_heading_option"
+                label="Select Team Member"
+                multiple
+                value={selectedTeamMembers.map(member => member.id)}
+                onChange={handleChange}
+                input={<OutlinedInput label="Team Member" />}
+                renderValue={selected =>
+                  selected
+                    .map(
+                      id => teamMembersList.find(name => name.id === id).name,
+                    )
+                    .join(', ')
+                }
+              >
+                {teamMembersList.map(member => (
+                  <MenuItem key={member.id} value={member.id}>
+                    <Checkbox
+                      checked={selectedTeamMembers.some(
+                        tag => tag.id === member.id,
+                      )}
+                    />
+                    <ListItemText primary={member.name} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Box>
         </Box>
-
         <Box className="report_tab_main_section">
           {userData?.datasets && <BarChart chartData={userData} />}
         </Box>
-
         <TableContainer component={Paper} className="set_box_shadow">
           <Table
             sx={{
