@@ -217,7 +217,7 @@ const Staff = () => {
               </FormControl>
 
               <Button
-                onClick={() => navigate('/addstaffmember')}
+                onClick={() => navigate('/addeditstaff')}
                 className="main_tab_button"
                 variant="span"
               >

@@ -3,7 +3,6 @@ import { Box, Typography } from '@mui/material'
 import moment from 'moment'
 import { CLIENT } from '../../constants'
 const ProfileTable = ({ clientProfileDetail }) => {
-  debugger
   return (
     <>
       <Box className="client_profile_detail">

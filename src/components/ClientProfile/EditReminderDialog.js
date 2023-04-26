@@ -56,7 +56,6 @@ const EditReminderDialog = ({ editReminderDetail, handleClose }) => {
       <Dialog open={editReminderDetail.status} onClose={handleClose}>
         <Box className="dialogue_main_section">
           <DialogTitle className="dialogue_heading">Reminder</DialogTitle>
-
           {/* <DialogContent> */}
           {/* <Box>
               <div className="row">
@@ -83,7 +82,6 @@ const EditReminderDialog = ({ editReminderDetail, handleClose }) => {
                 </div>
               </div>
             </Box> */}
-
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               inputFormat="dd/MM/yyyy"

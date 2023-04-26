@@ -18,7 +18,11 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import InputAdornment from '@mui/material/InputAdornment'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import { AddEmployee } from '../../services/apiservices/staffDetail'
+import {
+  AddEmployee,
+  EditEmployee,
+  GetAdminStaffProfileDetail,
+} from '../../services/apiservices/staffDetail'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
@@ -37,27 +41,17 @@ const AddStaffMember = () => {
     birthDate: '',
     state: '',
     jobType: '',
-    password: '',
   })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
-  const [departmentList, setDepartmentList] = useState([])
   const [employeeJobRole, setEmployeeJobRole] = useState([])
+  let path = window.location.pathname
+  path = path.split('/').pop()
   const navigate = useNavigate()
   const handleChange = prop => event => {
     setUserDetail({ ...userDetail, [prop]: event.target.value })
   }
-  useEffect(() => {
-    GetAdminDepartmentList(
-      {},
-      res => {
-        if (res?.success) {
-          setDepartmentList(res?.data?.department)
-        }
-      },
-      err => {},
-    )
-  }, [])
+
   useEffect(() => {
     {
       GetAdminRole(
@@ -73,13 +67,37 @@ const AddStaffMember = () => {
       )
     }
   }, [])
+  useEffect(() => {
+    parseInt(path) &&
+      GetAdminStaffProfileDetail(
+        parseInt(path),
+        res => {
+          if (res.success) {
+            setUserDetail({
+              ...userDetail,
+              name: res.data.name,
+              contact_number: res.data.contact_number,
+              roleId: res.data.role.id,
+              email: res.data.email,
+              birthDay: res.data.birthDay,
+              gender: res.data.gender,
+              state: res.data.state,
+              jobType: res.data.jobType,
+              id: res.data.id,
+            })
+          }
+        },
+        err => {
+          console.log('Printing ', err)
+        },
+      )
+  }, [])
   const handleAddEmployee = () => {
     if (
       userDetail.employeeName !== '' &&
       userDetail.email !== '' &&
       userDetail.jobRole !== '' &&
       userDetail.contactNo &&
-      userDetail.password !== '' &&
       userDetail.birthDate !== '' &&
       userDetail.gender !== '' &&
       userDetail.jobType !== ''
@@ -93,27 +111,52 @@ const AddStaffMember = () => {
         birthDay: userDetail.birthDate,
         state: userDetail.state,
         jobType: userDetail.jobType,
-        password: userDetail.password,
       }
+      if (parseInt(path)) {
+        employeeDetail['id'] = userDetail.id
+      }
+      {
+        parseInt(path)
+          ? EditEmployee(
+              employeeDetail,
+              res => {
+                if (res.success) {
+                  setSuccessSnackbar({
+                    ...successSnackbar,
+                    status: true,
+                    message: res.message,
+                  })
+                  navigate('/staff')
+                }
+              },
 
-      AddEmployee(
-        employeeDetail,
-        res => {
-          navigate('/staff')
-          setSuccessSnackbar({
-            ...successSnackbar,
-            status: true,
-            message: res.data.message,
-          })
-        },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err.response.data.error,
-          })
-        },
-      )
+              err => {
+                setErrorSnackbar({
+                  ...errorSnackbar,
+                  status: true,
+                  message: err.response.data.message,
+                })
+              },
+            )
+          : AddEmployee(
+              employeeDetail,
+              res => {
+                navigate('/staff')
+                setSuccessSnackbar({
+                  ...successSnackbar,
+                  status: true,
+                  message: res.message,
+                })
+              },
+              err => {
+                setErrorSnackbar({
+                  ...errorSnackbar,
+                  status: true,
+                  message: err.response.data.message,
+                })
+              },
+            )
+      }
     } else {
       console.log(userDetail)
     }
@@ -253,7 +296,7 @@ const AddStaffMember = () => {
             </Box>
 
             {/* Password*/}
-            <Box className="input_field_row" sx={{ width: '50%' }}>
+            {/* <Box className="input_field_row" sx={{ width: '50%' }}>
               <Box className="input_fields">
                 <TextField
                   autoComplete="off"
@@ -266,7 +309,7 @@ const AddStaffMember = () => {
                   variant="outlined"
                 />
               </Box>
-            </Box>
+            </Box> */}
 
             <Button
               onClick={handleAddEmployee}

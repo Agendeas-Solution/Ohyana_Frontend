@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from '@mui/material'
+import { Button, Pagination } from '@mui/material'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -12,7 +12,15 @@ import NoResultFound from '../ErrorComponent/NoResultFound'
 import './index.css'
 import { Box } from '@mui/system'
 
-const PJPScheduleTable = ({ pjpList, completedDialog, setCompletedDialog }) => {
+const PJPScheduleTable = ({
+  pjpList,
+  completedDialog,
+  setCompletedDialog,
+  numbersToDisplayOnPagination,
+  currentPage,
+  setCurrentPage,
+  rowsPerPage,
+}) => {
   const [pjpDetailDialog, setPJPDetailDialog] = useState({
     status: false,
     id: '',
@@ -22,16 +30,12 @@ const PJPScheduleTable = ({ pjpList, completedDialog, setCompletedDialog }) => {
   }
   return (
     <>
-      {pjpList.length > 0 ? (
+      {pjpList?.pjps && pjpList?.pjps.length > 0 ? (
         <TableContainer
           className="pjp_table_height pjp_all_detail"
           component={Paper}
         >
-          <Table
-            stickyHeader
-            aria-label="sticky table"
-            className="table_heading"
-          >
+          <Table stickyHeader className="table_heading">
             <TableHead>
               <TableRow>
                 <TableCell>Sr No.</TableCell>
@@ -46,7 +50,7 @@ const PJPScheduleTable = ({ pjpList, completedDialog, setCompletedDialog }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {pjpList.map((pjpData, index) => {
+              {pjpList?.pjps.map((pjpData, index) => {
                 return (
                   <TableRow
                     hover
@@ -104,6 +108,18 @@ const PJPScheduleTable = ({ pjpList, completedDialog, setCompletedDialog }) => {
               })}
             </TableBody>
           </Table>
+          <Pagination
+            className="pagination_style"
+            boundaryCount={0}
+            siblingCount={0}
+            size="small"
+            shape="rounded"
+            count={numbersToDisplayOnPagination}
+            page={currentPage}
+            onChange={(e, value) => {
+              setCurrentPage(value)
+            }}
+          />
         </TableContainer>
       ) : (
         <Box sx={{ height: '60vh' }}>

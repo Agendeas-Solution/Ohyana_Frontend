@@ -43,7 +43,6 @@ const ProductGraph = ({ selectedPeriod }) => {
     if (selectedProductList.length > 0) {
       data['productIds'] = selectedProductList
     }
-    debugger
     GetProductReport(
       data,
       res => {
@@ -62,7 +61,6 @@ const ProductGraph = ({ selectedPeriod }) => {
       {},
       res => {
         setCityList(res?.data)
-        debugger
       },
       err => {},
     )
