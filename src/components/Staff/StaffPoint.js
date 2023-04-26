@@ -27,10 +27,7 @@ import NoResultFound from '../ErrorComponent/NoResultFound'
 import AddAppreciationDialog from './AddAppreciationDialog'
 const StaffPoint = () => {
   const [pointRule, setPointRule] = useState([])
-  const [selectMonth, setSelectMonth] = useState({
-    $M: moment().month(),
-    $y: moment().year(),
-  })
+  const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [totalPage, setTotalPage] = useState(1)
   const [totalPoints, setTotalPoints] = useState(null)
@@ -149,12 +146,19 @@ const StaffPoint = () => {
                   }}
                   renderInput={params => (
                     <TextField
-                      sx={{ width: '175px', marginLeft: '10px' }}
-                      placeholder="Year and Month"
                       {...params}
+                      sx={{
+                        width: '180px',
+                        marginLeft: '10px',
+                        border: 'none',
+                      }}
+                      placeholder="Year and Month"
                       helperText={null}
                     />
                   )}
+                  PopperProps={{
+                    placement: 'bottom-start', // Set placement to 'bottom-start'
+                  }}
                 />
               </LocalizationProvider>
             </Box>

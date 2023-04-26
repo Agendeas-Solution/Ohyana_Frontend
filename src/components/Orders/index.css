@@ -64,14 +64,18 @@
   justify-content: space-between;
 }
 .order_tracking {
-  width: 49%;
-  background-color: #f1f2f6;
+  width: 66%;
+  /* background-color: #f1f2f6; */
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
   padding: 10px;
   border-radius: 5px;
 }
 .payment_detail {
-  width: 49%;
-  background-color: #f1f2f6;
+  width: 33%;
+  /* background-color: #f1f2f6; */
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
   padding: 10px;
   border-radius: 5px;
 }

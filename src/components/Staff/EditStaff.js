@@ -115,7 +115,6 @@
 //   const handleMouseDownPassword = event => {
 //     event.preventDefault()
 //   }
-
 //   const handleAddEmployee = () => {
 //     if (
 //       userDetail.employeeName !== '' &&

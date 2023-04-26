@@ -31,6 +31,7 @@ import DeleteLeaveDialog from './DeleteLeaveDialog'
 import DeleteHolidayDialog from './DeleteHolidayDialog'
 import { LEAVEHOLIDAY } from '../../constants/leaveHolidayConstant'
 import AddEditRegularHolidayDialog from './AddEditRegularHolidayDialog'
+import moment from 'moment'
 const HolidayAndLeaveManagement = () => {
   const [date, setDate] = React.useState(dayjs())
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -47,7 +48,7 @@ const HolidayAndLeaveManagement = () => {
   const [daysList, setDaysList] = useState(LEAVEHOLIDAY.WEEKDAYS)
 
   const [addHolidayDetail, setAddHolidayDetail] = useState({
-    date: '',
+    date: moment().format('LL'),
     duration: '',
     occasion: '',
     regular: false,

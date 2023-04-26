@@ -10,9 +10,14 @@ import {
 import { GetPJPDetail } from '../../services/apiservices/teamcall'
 import './index.css'
 import EditPJPDialog from './EditPJPDialog'
+import moment from 'moment'
 
 const PJPDetailDialog = ({ pjpDetailDialog, handleCloseDialog }) => {
-  const [pjpDetail, setPJPDetail] = useState({})
+  const [pjpDetail, setPJPDetail] = useState({
+    id: '',
+    date: moment().format('LL'),
+    description: '',
+  })
   const [editPJPDetail, setEditPJPDetail] = useState({
     status: false,
   })

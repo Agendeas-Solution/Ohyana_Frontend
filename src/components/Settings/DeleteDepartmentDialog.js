@@ -40,7 +40,7 @@ const DeleteDepartmentDialog = ({
         </DialogTitle>
         <DialogContent>
           <Typography variant="span">
-            Are You Sure you want to delete this Department ?
+            Are you sure to delete this Department ?
           </Typography>
         </DialogContent>
         <DialogActions className="m-auto">

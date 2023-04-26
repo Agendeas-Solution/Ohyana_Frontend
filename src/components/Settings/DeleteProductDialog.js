@@ -48,7 +48,7 @@ const DeleteProductDialog = ({
           <DeleteOutlinedIcon className="dialogue_delete_Icon" />
           <Typography className="dialogue_heading">Delete Product</Typography>
           <Typography className="dialogue_description">
-            Are you sure, you want to delete this product?
+            Are you sure to delete this product?
           </Typography>
           <DialogActions>
             <Button
