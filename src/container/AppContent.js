@@ -18,8 +18,6 @@ import StaffProfile from '../components/Staff/StaffProfile'
 import AddStaffMember from '../components/Staff/AddStaffMember'
 import Settings from '../components/Settings/Settings'
 import ProductList from '../components/Settings/ProductList'
-import EditClient from '../components/EditClient/EditClient'
-import EditStaff from '../components/Staff/EditStaff'
 import CompanyProfile from '../components/CompanyProfile/CompanyProfile'
 import Premium from '../components/Premium/Premium'
 import HolidayAndLeaveManagement from '../components/HolidayAndLeaveManagement/HolidayAndLeaveManagement'
@@ -92,13 +90,11 @@ const AppContent = () => {
               ></Route>
             )}
             {permissions?.editClient && (
-              <Route path="/editclient/:id" element={<EditClient />}></Route>
+              <Route path="/addeditclient/:id" element={<AddClient />}></Route>
             )}
-            {permissions?.editStaff && (
-              <Route path="/editstaff/:id" element={<EditStaff />}></Route>
-            )}
+
             {permissions?.editClient && (
-              <Route path="/addclient" element={<AddClient />}></Route>
+              <Route path="/addeditclient" element={<AddClient />}></Route>
             )}
             {permissions?.staffMenu && (
               <Route path="/staff" element={<Staff />}></Route>
@@ -112,9 +108,12 @@ const AppContent = () => {
             <Route path="*" element={<Login />}></Route>
             {permissions?.editStaff && (
               <Route
-                path="/addstaffmember"
+                path="/addeditstaff/:id"
                 element={<AddStaffMember />}
               ></Route>
+            )}
+            {permissions?.editStaff && (
+              <Route path="/addeditstaff" element={<AddStaffMember />}></Route>
             )}
             <Route path="/task" element={<Task />}></Route>
             <Route path="/dealer" element={<Dealer />}></Route>

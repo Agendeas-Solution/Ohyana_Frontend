@@ -72,7 +72,6 @@ const EditPJPDialog = ({
       <Dialog open={editPJPDetail.status} onClose={handleEditPJPCloseDialog}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Create PJP</Typography>
-
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               inputFormat="dd/MM/yyyy"
@@ -86,7 +85,6 @@ const EditPJPDialog = ({
               )}
             />
           </LocalizationProvider>
-
           <TextField
             className="dialogue_input_fields"
             multiline

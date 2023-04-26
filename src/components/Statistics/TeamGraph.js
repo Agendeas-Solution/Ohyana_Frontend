@@ -59,7 +59,7 @@ const TeamGraph = ({ selectedPeriod }) => {
   }
   useEffect(() => {
     let data = {
-      selectedPeriod: selectedPeriod,
+      period: selectedPeriod,
       comparison: selectedComparison,
     }
     if (parseInt(selectedJobRole)) {
@@ -119,7 +119,6 @@ const TeamGraph = ({ selectedPeriod }) => {
           circular: true,
         }
       })
-    debugger
     graphData &&
       setUserData({
         ...userData,
@@ -173,7 +172,6 @@ const TeamGraph = ({ selectedPeriod }) => {
                 value={selectedJobRole}
                 onChange={e => {
                   setSelectedJobRole(e.target.value)
-                  debugger
                 }}
               >
                 {jobRoleList.map(data => {

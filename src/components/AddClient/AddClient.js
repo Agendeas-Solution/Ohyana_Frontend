@@ -16,9 +16,13 @@ import './index.css'
 import {
   GetAdminProductList,
   AddClientDetail,
+  EditClientDetail,
 } from '../../services/apiservices/adminprofile'
 import { useNavigate } from 'react-router-dom'
-import { GetCountryList } from '../../services/apiservices/clientDetail'
+import {
+  GetAdminClientProfileDetail,
+  GetCountryList,
+} from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import ProfileImage from '../../assets/img/Profile_Image.svg'
 // const ErrorSnackbar = lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
@@ -49,26 +53,41 @@ const AddClient = () => {
     setUserDetail({ ...userDetail, [prop]: event.target.value })
   }
 
-  // const theme = createTheme({
-  //   props: {
-  //     MuiTextField: {
-  //       variant: 'outlined',
-  //     },
-  //   },
-  // })
+  let path = window.location.pathname
+  path = path.split('/').pop()
 
   useEffect(() => {
-    // GetAdminProductList(
-    //   {},
-    //   res => {
-    //     if (res.success) {
-    //       setAdminProductList(res?.data?.products)
-    //     }
-    //   },
-    //   err => {
-    //     console.log('Printing Error', err)
-    //   },
-    // )
+    parseInt(path) &&
+      GetAdminClientProfileDetail(
+        parseInt(path),
+        {},
+        res => {
+          if (res.success) {
+            setUserDetail({
+              ...userDetail,
+              clientName: res.data.name,
+              reference: res.data.reference,
+              email: res.data?.email,
+              max_invesment_amount: res.data?.max_invesment_amount,
+              contactNo: res.data?.contact_number,
+              country: res.data?.country,
+              state: res.data?.state,
+              address: res.data?.address,
+              city: res.data?.city,
+              business: res.data?.business,
+              clientType: res.data?.isInternational,
+              referenceName: res.data?.reference_name,
+            })
+          }
+        },
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
+      )
     GetCountryList(
       {},
       res => {
@@ -122,6 +141,7 @@ const AddClient = () => {
       userDetail.clientName !== '' &&
       (userDetail.email || userDetail.contactNo) &&
       userDetail.reference &&
+      userDetail.referenceName &&
       userDetail.clientType !== '' &&
       userDetail.state !== '' &&
       userDetail.city !== '' &&
@@ -141,24 +161,50 @@ const AddClient = () => {
         city: userDetail.city,
         reference_name: userDetail?.referenceName,
       }
-      AddClientDetail(
-        clientDetail,
-        res => {
-          navigate('/client')
-          setSuccessSnackbar({
-            ...successSnackbar,
-            status: true,
-            message: res.data.message,
-          })
-        },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err.response.data.error,
-          })
-        },
-      )
+      let path = window.location.pathname
+      path = path.split('/').pop()
+      {
+        parseInt(path)
+          ? EditClientDetail(
+              path,
+              clientDetail,
+              res => {
+                if (res.success) {
+                  navigate(`/clientprofile/${path}`)
+                  setSuccessSnackbar({
+                    ...successSnackbar,
+                    status: true,
+                    message: res.data.message,
+                  })
+                }
+              },
+              err => {
+                setErrorSnackbar({
+                  ...errorSnackbar,
+                  status: true,
+                  message: err?.response?.data?.message,
+                })
+              },
+            )
+          : AddClientDetail(
+              clientDetail,
+              res => {
+                navigate('/client')
+                setSuccessSnackbar({
+                  ...successSnackbar,
+                  status: true,
+                  message: res.data.message,
+                })
+              },
+              err => {
+                setErrorSnackbar({
+                  ...errorSnackbar,
+                  status: true,
+                  message: err.response.data.error,
+                })
+              },
+            )
+      }
     } else {
       setErrorSnackbar({
         ...errorSnackbar,

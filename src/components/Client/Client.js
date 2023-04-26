@@ -3,8 +3,6 @@ import {
   Tabs,
   Tab,
   Box,
-  Autocomplete,
-  TextField,
   Pagination,
   Button,
   Dialog,
@@ -307,7 +305,7 @@ const Client = () => {
             <Button
               className="main_tab_button"
               onClick={() => {
-                navigate('/addclient')
+                navigate('/addeditclient')
               }}
             >
               + New Clients

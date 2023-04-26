@@ -326,7 +326,6 @@ const Department = () => {
     data['expensePolicies'] = policy.map(data => {
       return { id: data.expenseId, amount: data.amount }
     })
-    debugger
     UpdateRoleExpensePermissions(
       data,
       res => {
@@ -401,7 +400,6 @@ const Department = () => {
               </Typography>
             </Box>
           </Box>
-
           <Box
             sx={{
               width: '100%',

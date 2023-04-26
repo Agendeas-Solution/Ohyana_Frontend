@@ -1,10 +1,11 @@
-import React, { useState, useContext, lazy } from 'react'
+import React, { useState, useContext, lazy, useEffect } from 'react'
 import { Box, Typography, TextField, Button } from '@mui/material'
 import './index.css'
 import { login } from '../../services/apiservices/login'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+import { Context as ContextActivePage } from '../../context/pageContext'
 import Logo from '../../assets/img/Ohyana Logo Blue.svg'
 import { socket } from '../../App'
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
@@ -14,10 +15,23 @@ const Login = () => {
     email: '',
     password: '',
   })
+  const { setActivePage } = useContext(ContextActivePage)
   const { errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setErrorSnackbar } = useContext(ContextSnackbar)
   const navigate = useNavigate()
   const [errorMessage, setErrorMessage] = useState('')
+  const [path, setPath] = useState(null)
+  useEffect(() => {
+    let pathName = localStorage.getItem('path')
+    setPath(pathName)
+  }, [])
+  const handleNavItemClick = (path, name) => {
+    navigate(path)
+    setActivePage(name)
+    setPath(path)
+    localStorage.setItem('path', path)
+  }
+
   const userlogin = () => {
     if (userDetail.email !== '' && userDetail.password !== '') {
       setFlagLoader(true)
@@ -27,7 +41,7 @@ const Login = () => {
           if (res.success) {
             setAuthorize(true)
             setFlagLoader(false)
-            navigate('/dashboard')
+            handleNavItemClick('/dashboard', 'Dashboard')
             socket.emit('join', { email: userDetail?.email })
           } else {
             if (res?.data?.error) {

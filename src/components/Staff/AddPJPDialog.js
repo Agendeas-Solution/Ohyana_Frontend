@@ -57,13 +57,12 @@ const AddPJPDialog = ({
       <Dialog open={addPJPDetail.dialogStatus} onClose={handleCloseDialog}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add PJP</Typography>
-
           <FormControl>
             <InputLabel className="dialogue_input_fields">
-              Client Type
+              Client Name
             </InputLabel>
             <Select
-              label="Select Client"
+              label="Select Client Name"
               className="dialogue_input_fields"
               value={addPJPDetail?.clientId}
               onChange={e => {
@@ -75,7 +74,6 @@ const AddPJPDialog = ({
               })}
             </Select>
           </FormControl>
-
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               inputFormat="dd/MM/yyyy"
@@ -91,7 +89,6 @@ const AddPJPDialog = ({
               }}
             />
           </LocalizationProvider>
-
           <TextField
             className="dialogue_input_fields"
             multiline
@@ -108,7 +105,6 @@ const AddPJPDialog = ({
               })
             }}
           />
-
           <DialogActions>
             <Button
               className="dialogue_bottom_button"
