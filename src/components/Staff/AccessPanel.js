@@ -128,14 +128,14 @@ const AccessPanel = () => {
   }
   return (
     <div>
-      <Box className="row accessMenus_checkbox">
+      <Box className="row accessMenu_section">
         <Box className="col-md-12">
           <Typography variant="span">
             Select the menu you want to give access to.
           </Typography>
         </Box>
         {permissions.accessClient && (
-          <Box className="d-flex col-md-3 align-items-center justify-content-between row access_checkbox">
+          <Box className="d-flex col-md-3 align-items-center justify-content-between row access_box">
             <Box className="col-md-10 ">
               <img style={{ marginRight: '5px' }} src={ClientIcon} alt="" />
               <Typography variant="span">Clients</Typography>
@@ -173,7 +173,7 @@ const AccessPanel = () => {
         )}
         <Box className="col-md-1"></Box>
         {permissions.accessStaff && (
-          <Box className="d-flex col-md-3 align-items-center justify-content-between row access_checkbox">
+          <Box className="d-flex col-md-3 align-items-center justify-content-between row access_box">
             <Box className="col-md-10 ">
               <img style={{ marginRight: '5px' }} src={StaffIcon} alt="" />
               <Typography variant="span">Staff</Typography>
@@ -211,7 +211,7 @@ const AccessPanel = () => {
         )}
         <Box className="col-md-1"></Box>
         {permissions.accessSetting && (
-          <Box className="d-flex col-md-3 align-items-center justify-content-between row access_checkbox">
+          <Box className="d-flex col-md-3 align-items-center justify-content-between row access_box">
             <Box className="col-md-10 ">
               <img style={{ marginRight: '5px' }} src={SettingIcon} alt="" />
               <Typography variant="span">Setting</Typography>
