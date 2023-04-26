@@ -26,7 +26,7 @@ const DeleteHolidayDialog = ({
           <DeleteOutlinedIcon className="dialogue_delete_Icon" />
           <Typography className="dialogue_heading">Delete Holiday</Typography>
           <Typography className="dialogue_description">
-            Are you sure, you want to delete this Holiday?
+            Are you sure to delete this Holiday?
           </Typography>
           <DialogActions>
             <Button

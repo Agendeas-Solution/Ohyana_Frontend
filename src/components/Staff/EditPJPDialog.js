@@ -20,6 +20,7 @@ import {
   UpdatePJPDetail,
 } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
+
 const EditPJPDialog = ({
   editPJPDetail,
   setEditPJPDetail,
@@ -31,7 +32,8 @@ const EditPJPDialog = ({
   const [options, setOptions] = useState([])
   const [pJPDetail, setPJPDetail] = useState({
     pjpId: pjpDetail?.id,
-    date: pjpDetail?.date,
+    // date: pjpDetail?.date,
+    date: moment().format('LL'),
     description: pjpDetail?.description,
   })
   useEffect(() => {
