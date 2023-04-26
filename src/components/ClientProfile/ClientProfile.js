@@ -324,7 +324,7 @@ const ClientProfile = () => {
             {permissions?.editClient && (
               <EditRoundedIcon
                 onClick={() => {
-                  navigate(`/editclient/${clientProfileDetail.id}`)
+                  navigate(`/addeditclient/${clientProfileDetail.id}`)
                 }}
               />
             )}
