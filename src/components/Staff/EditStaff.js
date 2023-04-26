@@ -194,7 +194,7 @@ const EditStaff = () => {
               </Box>
               <Box className="input_fields">
                 <FormControl>
-                  <InputLabel>Select jobRole</InputLabel>
+                  <InputLabel>Select Job Role</InputLabel>
                   <Select
                     label="Select Job Role"
                     value={userDetail?.roleId}

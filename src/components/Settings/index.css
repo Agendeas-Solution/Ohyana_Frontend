@@ -229,7 +229,7 @@ input[type='radio']:focus {
 
 .job_role_list tbody tr {
   padding: 5px;
-  border: 1px solid #e5e5e5;
+  /* border: 1px solid #e5e5e5; */
   border-radius: 5px;
 }
 
@@ -245,8 +245,4 @@ input[type='radio']:focus {
   height: 40px;
   display: flex;
   flex-direction: row;
-}
-
-.table_row_top_align {
-  vertical-align: baseline !important;
 }

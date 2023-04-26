@@ -118,11 +118,11 @@ const JobRolesList = () => {
             <Table className="job_role_list">
               <TableHead className="client_profile_table_header">
                 <TableRow>
-                  <TableCell align="left">Sr. No.</TableCell>
-                  <TableCell align="left">Job Role</TableCell>
-                  <TableCell align="left">Senior Post</TableCell>
-                  <TableCell align="left">Description</TableCell>
-                  <TableCell align="left"></TableCell>
+                  <TableCell>Sr. No.</TableCell>
+                  <TableCell>Job Role</TableCell>
+                  <TableCell>Senior Post</TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
 
@@ -145,13 +145,13 @@ const JobRolesList = () => {
                         <TableCell className="description_text">
                           {data.description || '-'}
                         </TableCell>
-                        <TableCell align="left">
+                        <TableCell>
                           <Button
                             variant="outlined"
                             onClick={() =>
                               navigate(`/jobroleaccess/${data.id}`)
                             }
-                            className="job_role_btn"
+                            className="button_color"
                           >
                             View
                           </Button>

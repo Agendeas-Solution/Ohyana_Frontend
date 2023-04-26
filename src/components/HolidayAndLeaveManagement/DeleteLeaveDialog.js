@@ -28,7 +28,7 @@ const DeleteLeaveDialog = ({
             Delete Leave Type
           </Typography>
           <Typography className="dialogue_description">
-            Are you sure, you want to delete this Leave Type?
+            Are you sure to delete this Leave Type?
           </Typography>
           <DialogActions className="m-auto">
             <Button

@@ -33,7 +33,7 @@ const ApproveLeaveDialog = ({
         </Box>
         <DialogContent className="text-center">
           <Typography variant="span">
-            Are You Sure to Give approval Of This Leave ?
+            Are you sure to give approval of this Leave ?
           </Typography>
         </DialogContent>
         <DialogActions

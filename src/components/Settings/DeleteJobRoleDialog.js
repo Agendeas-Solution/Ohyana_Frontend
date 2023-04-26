@@ -39,7 +39,7 @@ const DeleteJobRoleDialog = ({ deleteJobRoleDialogControl, handleClose }) => {
           <Typography className="dialogue_heading">Delete Job Role</Typography>
 
           <Typography className="dialogue_description">
-            Are You Sure, you want to delete this Job Role ?
+            Are you sure to delete this Job Role ?
           </Typography>
 
           <DialogActions>

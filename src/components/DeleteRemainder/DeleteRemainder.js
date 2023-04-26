@@ -11,7 +11,7 @@ const DeleteRemainder = ({ deleteRemainderDialog, CloseDeleteRemainder }) => {
             <img src={DeleteIcon} alt="deleteicon" />
             <Typography variant="h5">Delete Remainder</Typography>
             <Typography variant="span">
-              Are You Sure you want to delete this Remainder?
+              Are you sure to delete this Remainder?
             </Typography>
           </Box>
           <DialogActions>

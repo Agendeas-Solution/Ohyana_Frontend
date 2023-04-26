@@ -462,11 +462,13 @@ const ClientProfile = () => {
                                 )
                               }}
                               className="border_button"
+                              // className="button_color"
                             >
                               View
                             </Button>
                             <Button
                               className="border_button"
+                              // className="button_color"
                               onClick={() => {
                                 handleEditClientStatus(
                                   row,

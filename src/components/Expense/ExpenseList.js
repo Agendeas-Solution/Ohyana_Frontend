@@ -13,7 +13,11 @@ import {
   Table,
   makeStyles,
 } from '@mui/material'
+import './index.css'
 import DeleteIcon from '../../assets/img/Delete_Icon.svg'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
+import EditWithBorderRound from '../../assets/img/edit_with_border_round.svg'
+import DeleteWithBorderRound from '../../assets/img/delete_with_border_round.svg'
 import EditIcon from '../../assets/img/Edit_Icon.svg'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as AuthContext } from '../../context/authContext/authContext'
@@ -164,37 +168,50 @@ const ExpenseList = () => {
           </Button>
         </Box>
 
-        <Box>
+        <Box className="left_team_profile_section">
           <TableContainer>
-            <Table>
+            <Table className="job_role_list">
               <TableHead className="client_profile_table_header">
                 <TableRow>
                   <TableCell>Sr No.</TableCell>
                   <TableCell>Name</TableCell>
                   <TableCell>Description</TableCell>
                   <TableCell></TableCell>
+                  {/* <TableCell></TableCell> */}
                 </TableRow>
               </TableHead>
+
+              <Divider orientation="vertical" variant="middle" flexItem />
 
               <TableBody>
                 {expenseList.length > 0 &&
                   expenseList?.map((data, index) => (
                     <React.Fragment key={index}>
                       <TableRow
-                        style={{
-                          border: '1px solid black',
-                          padding: '5rem',
-                        }}
+                        // style={{
+                        //   border: '1px solid black',
+                        //   padding: '5rem',
+                        // }}
+                        className="job_role_list "
                         key={data.id}
                       >
-                        <TableCell>{index + 1}</TableCell>
-                        <TableCell>{data.name || '-'}</TableCell>
-                        <TableCell className="job_role_description">
+                        <TableCell className="table_row_top_align">
+                          {index + 1}
+                        </TableCell>
+                        <TableCell className="table_row_top_align">
+                          {data.name || '-'}
+                        </TableCell>
+                        <TableCell className="description_text">
                           {data.description || '-'}
                         </TableCell>
 
                         <TableCell>
-                          <img
+                          <Button
+                            sx={{
+                              marginRight: '10px',
+                              color: '#2E3591',
+                              borderColor: '#2E3591',
+                            }}
                             onClick={() =>
                               setAddExpenseType({
                                 ...addExpenseType,
@@ -204,9 +221,14 @@ const ExpenseList = () => {
                                 description: data.description,
                               })
                             }
-                            src={EditIcon}
-                          />
-                          <img
+                            className="button_color"
+                            variant="outlined"
+                          >
+                            Edit
+                          </Button>
+                          <Button
+                            className="button_color"
+                            variant="outlined"
                             onClick={() => {
                               setDeletexpenseListDialog({
                                 ...deletexpenseListDialog,
@@ -214,8 +236,9 @@ const ExpenseList = () => {
                                 id: data.id,
                               })
                             }}
-                            src={DeleteIcon}
-                          />
+                          >
+                            Delete
+                          </Button>
                         </TableCell>
                       </TableRow>
                       <Divider

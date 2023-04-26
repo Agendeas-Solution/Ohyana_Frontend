@@ -231,7 +231,7 @@ const EditClient = () => {
 
               <Box className="input_fields">
                 <TextField
-                  label="Investment Scale "
+                  label="Investment Scale"
                   onChange={e => {
                     setUserDetail({
                       ...userDetail,
