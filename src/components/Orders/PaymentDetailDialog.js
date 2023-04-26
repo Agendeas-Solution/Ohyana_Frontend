@@ -39,14 +39,15 @@ const PaymentDetailDialog = ({
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Payment Detail</Typography>
 
-          <Box className="filter_body_section">
+
+          <Box className="order_payment_details">
             <FormControl className="filter_body_inner_section">
-              <FormLabel className="filter_body_inner_heading">
+              <FormLabel sx={{ marginBottom: '10px', color: '#000000' }}>
                 Status
               </FormLabel>
 
               <RadioGroup
-                // className="radio_button"
+
                 row
                 value={paymentDetail.status}
                 onChange={e => {
@@ -56,21 +57,25 @@ const PaymentDetailDialog = ({
                   })
                 }}
               >
-                <Box className="checkbox_section">
+
+                <Box>
                   <FormControlLabel
-                    // sx={{
-                    //   backgroundColor: '#f1f2f6',
-                    //   borderRadius: '5px',
-                    //   // width: '50%',
-                    // }}
-                    className="checkbox_background_color"
+                    sx={{
+                      backgroundColor: '#f1f2f6',
+                      borderRadius: '5px',
+                      paddingRight: '35px',
+                    }}
                     value="PENDING"
                     control={<Radio />}
                     label="Pending"
                   />
                   <FormControlLabel
-                    className="checkbox_background_color"
-                    // sx={{ backgroundColor: '#f1f2f6', borderRadius: '5px' }}
+
+                    sx={{
+                      backgroundColor: '#f1f2f6',
+                      borderRadius: '5px',
+                      paddingRight: '35px',
+                    }}
                     value="CONFIRMED"
                     control={<Radio />}
                     label="Confirmed"
@@ -81,7 +86,8 @@ const PaymentDetailDialog = ({
           </Box>
 
           <Box>
-            <Typography variant="span">Method</Typography>
+
+            <Typography sx={{ marginLeft: '5px' }}>Method</Typography>
             <Autocomplete
               value={paymentDetail.method}
               onChange={(e, value) =>

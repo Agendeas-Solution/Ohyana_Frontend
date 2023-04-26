@@ -32,8 +32,8 @@ const StaffAttendancePresent = ({ staffAttendanceList }) => {
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
-            className="table_heading"
+            sx={{ minWidth: 690 }}
+            className="table_heading custom_table"
           >
             <TableHead>
               <TableRow>

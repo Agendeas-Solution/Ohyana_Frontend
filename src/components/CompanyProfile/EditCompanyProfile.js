@@ -219,6 +219,7 @@ const EditCompanyProfile = () => {
             >
               Save
             </Button>
+
           </Box>
         </Box>
       </Box>
