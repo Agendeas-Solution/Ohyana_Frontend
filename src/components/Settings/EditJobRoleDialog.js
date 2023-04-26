@@ -80,7 +80,7 @@ const EditJobRoleDialog = ({
               <Typography variant="span">Who is the senior ?</Typography>
             </div>
             <FormControl>
-              <InputLabel>Select jobRole</InputLabel>
+              <InputLabel>Select Job Role</InputLabel>
               <Select
                 label="Select Job Role"
                 value={editJobRoleDialogControl?.parentId}

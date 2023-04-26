@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext, lazy } from 'react'
 import {
-  Typography,
   Box,
   TextField,
   InputLabel,
@@ -10,11 +9,6 @@ import {
   MenuItem,
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputAdornment from '@mui/material/InputAdornment'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import IconButton from '@mui/material/IconButton'
 import ProfileImage from '../../assets/img/Profile_Image.svg'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import './index.css'
@@ -26,6 +20,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+import Uploader from '../Uploader/Uploader'
 
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const SuccessSnackbar = React.lazy(() =>
@@ -98,12 +93,16 @@ const EditProfile = () => {
     <>
       <Box className="main_section">
         <Box className="pofile_edit_section">
-          <Box className="edit_profile_image_section">
-            <img src={ProfileImage} alt="profile" />
+          <Box className="edit_my_profile_image_section">
+            <img className="image_style" src={ProfileImage} alt="profile" />
+            {/* <Button className="common_button">Upload</Button> */}
+            <Button className="common_button">
+              <Uploader />
+            </Button>
+            {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
           </Box>
-
+          {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
           <Box className="edit_profile_detail_section">
-
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
@@ -159,7 +158,6 @@ const EditProfile = () => {
                       ...userDetail,
                       contactNo: e.target.value,
                     })
-
                   }}
                   value={userDetail.contactNo}
                   variant="outlined"
@@ -191,7 +189,6 @@ const EditProfile = () => {
             >
               Save
             </Button>
-
           </Box>
         </Box>
       </Box>

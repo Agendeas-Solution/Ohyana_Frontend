@@ -203,6 +203,16 @@ const OrderDetail = () => {
               <Typography className="common_sub_heading" variant="span">
                 Payment Detail
               </Typography>
+            </Box>
+
+            <Box className="common_row mb-3 mx-2">
+              <Typography className="order_desc_subheading" variant="span">
+                Status
+              </Typography>
+              <Typography className="pe-3" variant="span">
+                {orderDetail?.paymentStatus?.charAt(0)?.toUpperCase() +
+                  orderDetail?.paymentStatus?.toLowerCase()?.substr(1)}
+              </Typography>
               <Button
                 onClick={handleOpenPaymentDialog}
                 variant="contained"
@@ -214,16 +224,6 @@ const OrderDetail = () => {
               >
                 Update
               </Button>
-            </Box>
-
-            <Box className="common_row mb-3 mx-2">
-              <Typography className="order_desc_subheading" variant="span">
-                Status
-              </Typography>
-              <Typography className="pe-3" variant="span">
-                {orderDetail?.paymentStatus?.charAt(0)?.toUpperCase() +
-                  orderDetail?.paymentStatus?.toLowerCase()?.substr(1)}
-              </Typography>
             </Box>
 
             <Box className="common_row mb-3 mx-2">
@@ -288,7 +288,7 @@ const OrderDetail = () => {
           </Box>
         </Box>
 
-        <Box className="order_tracking">
+        {/* <Box className="order_tracking">
           <Box className="order_tracking_heading align-items-center mb-4">
             <Typography className="common_sub_heading" variant="span">
               Order Tracking
@@ -335,7 +335,7 @@ const OrderDetail = () => {
               ))}
             </Stepper>
           </Box>
-        </Box>
+        </Box> */}
       </Box>
       {orderItems.length > 0 ? (
         <TableContainer

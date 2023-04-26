@@ -43,7 +43,6 @@ const ProductGraph = ({ selectedPeriod }) => {
     if (selectedProductList.length > 0) {
       data['productIds'] = selectedProductList
     }
-    debugger
     GetProductReport(
       data,
       res => {
@@ -62,7 +61,6 @@ const ProductGraph = ({ selectedPeriod }) => {
       {},
       res => {
         setCityList(res?.data)
-        debugger
       },
       err => {},
     )
@@ -109,12 +107,12 @@ const ProductGraph = ({ selectedPeriod }) => {
     <>
       <Box className="graph_detail_section">
         <Box className="graph_section">
-          <Box className="common_row mb-3">
+          <Box className="common_row">
             <Typography className="report_tab_heading" variant="span">
               Overall
             </Typography>
 
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <FormControl className="filter_body_inner_section">
                 <InputLabel>Select City</InputLabel>
                 <Select
@@ -158,6 +156,7 @@ const ProductGraph = ({ selectedPeriod }) => {
                 </Select>
               </FormControl>
               <Autocomplete
+                className="filter_body_inner_section"
                 disablePortal
                 options={top100Films}
                 renderInput={params => (

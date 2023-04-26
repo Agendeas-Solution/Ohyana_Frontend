@@ -24,7 +24,7 @@ const AddAppreciationDialog = ({
             Give Appreciation
           </Typography>
           <Typography className="dialogue_description">
-            Are you sure, you want to Give Appreciation ?
+            Are you sure to Give Appreciation ?
           </Typography>
           <DialogActions className="m-auto">
             <Button

@@ -2,12 +2,9 @@ import React, { useState, useEffect } from 'react'
 import {
   Dialog,
   Box,
-  DialogContent,
   DialogActions,
   Button,
   TextField,
-  Typography,
-  TextareaAutosize,
   DialogTitle,
 } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'

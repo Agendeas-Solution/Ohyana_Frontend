@@ -55,7 +55,6 @@ const RemainderDialog = ({
       <Dialog open={remainderDialog} onClose={handleClose}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add Reminder</Typography>
-
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker

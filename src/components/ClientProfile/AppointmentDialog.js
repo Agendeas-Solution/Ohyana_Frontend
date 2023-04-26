@@ -68,7 +68,7 @@ const AppointmentDialog = ({
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
-            message: res.data.message,
+            message: res.message,
           })
           setClientAppointmentDetail({
             ...clientAppointmentDetail,
@@ -90,7 +90,6 @@ const AppointmentDialog = ({
       <Dialog open={appointmentDialog} onClose={handleAppointmentClose}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add Appointment</Typography>
-
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               disablePast
@@ -110,7 +109,6 @@ const AppointmentDialog = ({
               }}
             />
           </LocalizationProvider>
-
           <TextField
             className="dialogue_input_fields"
             value={clientAppointmentDetail.time}
@@ -122,7 +120,6 @@ const AppointmentDialog = ({
               })
             }}
           />
-
           <FormControl className="dialogue_input_fields">
             <InputLabel>Appointment For</InputLabel>
             <Select
@@ -135,11 +132,10 @@ const AppointmentDialog = ({
                 })
               }}
             >
-              <MenuItem value="Office">Ofiice</MenuItem>
+              <MenuItem value="Office">Office</MenuItem>
               <MenuItem value="Factory">Factory</MenuItem>
             </Select>
           </FormControl>
-
           <Autocomplete
             filterSelectedOptions
             options={staffDetailList}
@@ -157,15 +153,9 @@ const AppointmentDialog = ({
                 {...params}
                 label="Add Member"
                 className="dialogue_input_fields"
-                placeholder={
-                  clientAppointmentDetail?.appointed_member.length > 0
-                    ? ''
-                    : 'Add Member'
-                }
               />
             )}
           />
-
           <TextField
             className="dialogue_input_fields"
             multiline
@@ -183,7 +173,6 @@ const AppointmentDialog = ({
               })
             }}
           />
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"

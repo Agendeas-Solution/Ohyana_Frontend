@@ -326,7 +326,6 @@ const Department = () => {
     data['expensePolicies'] = policy.map(data => {
       return { id: data.expenseId, amount: data.amount }
     })
-    debugger
     UpdateRoleExpensePermissions(
       data,
       res => {
@@ -408,6 +407,7 @@ const Department = () => {
                 margin: '5px 10px 10px 10px',
               }}
             >
+
               <Accordion
                 sx={{
                   padding: '0px',

@@ -25,7 +25,7 @@ const DeleteExpenseTypeDialog = ({
             Delete Expense Type
           </Typography>
           <Typography className="dialogue_description">
-            Are you sure, you want to Delete this Expense Type ?
+            Are you sure to Delete this Expense Type ?
           </Typography>
           <DialogActions className="m-auto">
             <Button

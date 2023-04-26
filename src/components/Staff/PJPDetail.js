@@ -74,6 +74,12 @@ const PJPDetail = () => {
     pjpStatus: '',
     date: '',
   })
+  const [numbersToDisplayOnPagination, setNumbersToDisplayOnPagination] =
+    useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [rowsPerPage, setRowsPerPage] = useState(2)
+  // const [pageNumber, setPageNumber] = useState(1)
+  const [totalResult, setTotalresult] = useState(null)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleChange = (event, newValue) => {
@@ -134,6 +140,8 @@ const PJPDetail = () => {
     let data = {
       teamId: path,
       day: value,
+      page: currentPage,
+      size: rowsPerPage,
     }
     if (filterPJP.pjpStatus !== '' && filterPJP.pjpStatus) {
       data['statusType'] = filterPJP.pjpStatus
@@ -148,7 +156,13 @@ const PJPDetail = () => {
       data,
       res => {
         if (res.success) {
-          setPjpList(res?.data?.pjps)
+          setPjpList(res?.data)
+          setTotalresult(res?.data?.totalPage)
+          let pages =
+            res?.data?.totalPage > 0
+              ? Math.ceil(res?.data?.totalPage / rowsPerPage)
+              : null
+          setNumbersToDisplayOnPagination(pages)
         }
       },
       err => {
@@ -160,7 +174,7 @@ const PJPDetail = () => {
 
   useEffect(() => {
     handleGetPJPList()
-  }, [value, selectedCityState])
+  }, [value, selectedCityState, currentPage])
   const handleCityList = () => {
     GetCityList(
       {},
@@ -384,7 +398,13 @@ const PJPDetail = () => {
           </Drawer>
 
           <TabPanel sx={{ padding: '0px' }} value="TODAY">
-            <PJPScheduleTable pjpList={pjpList} />
+            <PJPScheduleTable
+              pjpList={pjpList}
+              numbersToDisplayOnPagination={numbersToDisplayOnPagination}
+              currentPage={currentPage}
+              rowsPerPage={rowsPerPage}
+              setCurrentPage={setCurrentPage}
+            />
           </TabPanel>
           {/* <TabPanel value="TOMORROW">
             <PJPScheduleTable pjpList={pjpList} />
@@ -396,6 +416,10 @@ const PJPDetail = () => {
           >
             <PJPScheduleTable
               pjpList={pjpList}
+              numbersToDisplayOnPagination={numbersToDisplayOnPagination}
+              currentPage={currentPage}
+              rowsPerPage={rowsPerPage}
+              setCurrentPage={setCurrentPage}
               completedDialog={completedDialog}
               setCompletedDialog={setCompletedDialog}
             />

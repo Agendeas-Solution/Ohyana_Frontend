@@ -36,7 +36,6 @@ const StaffExpensesDetail = ({
                     status: true,
                     teamExpenseId: openStaffExpenses.data.id,
                   })
-                  debugger
                 }}
                 className="common_button expenses_details_heading"
               >

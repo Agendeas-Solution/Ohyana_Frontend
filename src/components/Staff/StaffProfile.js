@@ -73,7 +73,7 @@ const StaffProfile = () => {
               <Button variant="contained" className="profile_header_button">
                 <EditRoundedIcon
                   onClick={() => {
-                    navigate(`/editstaff/${adminProfileDetail.id}`)
+                    navigate(`/addeditstaff/${adminProfileDetail.id}`)
                   }}
                 />
               </Button>
