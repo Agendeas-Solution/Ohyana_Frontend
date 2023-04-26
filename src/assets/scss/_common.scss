@@ -151,7 +151,18 @@ textarea:focus {
   color: #f1f2f6 !important;
 }
 
-.check_box_color {
+.access_box_form_control {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.access_checkbox {
+  padding: 10px 0px !important;
+  color: #2e3591 !important;
+}
+
+.expanse_checkbox {
+  padding: 10px 8px !important;
   color: #2e3591 !important;
 }
 
@@ -220,7 +231,7 @@ textarea:focus {
   justify-content: space-between;
   width: 100%;
   padding-bottom: 10px;
-  border-bottom: 1px solid #c4c4c4;
+  // border-bottom: 1px solid #c4c4c4;
 }
 
 .pofile_edit_section {
@@ -795,11 +806,6 @@ button {
   box-shadow: none !important;
 }
 
-.access_control_box {
-  margin: 5px;
-  width: 48%;
-}
-
 .user_profile_header_Section {
   display: flex;
   flex-direction: row;
@@ -880,31 +886,47 @@ button {
 }
 
 .access_control_box {
-  border: 1px solid #e5e5e5;
-  border-radius: 5px;
-  // height: auto;
+  width: 49%;
   display: flex;
   flex-direction: column;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  padding: 5px 10px !important;
+  margin: 10px 0px !important;
+}
+
+.detail_access_control_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .access_control {
   margin-right: 10%;
 }
 
-.access_checkbox {
+.access_box {
+  width: 24%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   background-color: #f1f2f6;
+  align-items: center;
+  padding: 5px 10px;
   border-radius: 5px;
-  margin-right: 10px;
-  margin-left: 10px;
-  width: 23%;
+  margin: 10px 0px;
 }
 
-.accessMenus_checkbox {
+.accessMenu_section {
   display: flex;
   flex-direction: column;
   border: 1px solid #f1f2f6;
   padding: 10px;
   margin: 5px 10px;
+}
+
+.access_box_name {
+  margin-left: 10px !important;
 }
 
 .inner_statistics_data_section {
@@ -1541,8 +1563,8 @@ button {
 }
 
 .order_payment_details {
-  display: flex; 
-  flex-direction: column; 
+  display: flex;
+  flex-direction: column;
   margin: 10px;
   width: 100% !important;
 }

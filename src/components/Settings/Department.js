@@ -381,7 +381,7 @@ const Department = () => {
           </Box>
         </Box>
 
-        <Box sx={{ height: '100%', overflowY: 'auto' }}>
+        <Box sx={{ height: '84%', overflowY: 'auto' }}>
           <Box className="post_detail">
             <Box className="post_name">
               <Typography sx={{ color: '#8E8E8E' }} variant="span">
@@ -402,17 +402,19 @@ const Department = () => {
             </Box>
           </Box>
 
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'row',
-              padding: '5px 10px',
-            }}
-          >
-            <Box sx={{ width: '100%', marginRight: '5px' }}>
+          <Box>
+            <Box
+              sx={{
+                margin: '5px 10px 10px 10px',
+              }}
+            >
               <Accordion
-                sx={{ boxShadow: 'none', border: '1px solid #E5E6EB' }}
+                sx={{
+                  padding: '0px',
+                  margin: '0px',
+                  boxShadow: 'none',
+                  border: '1px solid #E5E6EB',
+                }}
                 expanded={expanded.officeTimeManagement}
                 onChange={() => {
                   setExpanded({
@@ -425,52 +427,70 @@ const Department = () => {
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography>Office Time Management</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails
+                  sx={{
+                    padding: ' 10px 20px',
+                    margin: '0px',
+                  }}
+                >
                   <Box
                     sx={{
+                      width: '100%',
                       display: 'flex',
+                      flexDirection: 'row',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      marginBottom: '10px',
+                      marginBottom: '5px',
                     }}
                   >
-                    <Typography>Clock In</Typography>
-                    <TextField
-                      className="set_date_time_bg"
-                      type="time"
-                      value={jobRoleList?.clockIn}
-                      onChange={e => {
-                        setJobRoleList({
-                          ...jobRoleList,
-                          clockIn: e.target.value,
-                        })
+                    <Box
+                      sx={{
+                        width: '48%',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginBottom: '10px',
                       }}
-                    />
-                  </Box>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      margin: '10px 0px',
-                    }}
-                  >
-                    <Typography>Clock Out</Typography>
-                    <TextField
-                      className="set_date_time_bg"
-                      type="time"
-                      value={jobRoleList?.clockOut}
-                      onChange={e => {
-                        setJobRoleList({
-                          ...jobRoleList,
-                          clockOut: e.target.value,
-                        })
+                    >
+                      <Typography>Clock In</Typography>
+                      <TextField
+                        className="set_date_time_bg"
+                        type="time"
+                        value={jobRoleList?.clockIn}
+                        onChange={e => {
+                          setJobRoleList({
+                            ...jobRoleList,
+                            clockIn: e.target.value,
+                          })
+                        }}
+                      />
+                    </Box>
+                    <Box
+                      sx={{
+                        width: '48%',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        margin: '10px 0px',
                       }}
-                    />
+                    >
+                      <Typography>Clock Out</Typography>
+                      <TextField
+                        className="set_date_time_bg"
+                        type="time"
+                        value={jobRoleList?.clockOut}
+                        onChange={e => {
+                          setJobRoleList({
+                            ...jobRoleList,
+                            clockOut: e.target.value,
+                          })
+                        }}
+                      />
+                    </Box>
                   </Box>
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <Button
-                      className="Accordion_button"
+                      className="primary_color_button"
                       onClick={handleUpdateClockInOut}
                       variant="contained"
                     >
@@ -480,7 +500,11 @@ const Department = () => {
                 </AccordionDetails>
               </Accordion>
             </Box>
-            <Box sx={{ width: '100%', marginRight: '5px' }}>
+            <Box
+              sx={{
+                margin: '10px',
+              }}
+            >
               <Accordion
                 sx={{
                   boxShadow: 'none',
@@ -498,14 +522,28 @@ const Department = () => {
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography>Expense Management</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
-                  <FormGroup>
+                <AccordionDetails
+                  sx={{
+                    padding: ' 10px 20px',
+                  }}
+                >
+                  <FormGroup
+                    sx={{
+                      display: 'flex',
+                      width: '100%',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}
+                  >
                     {expensePolicy &&
                       expensePolicy.map((data, index) => {
                         return (
                           <Box
                             sx={{
                               display: 'flex',
+                              width: '48%',
+                              flexDirection: 'row',
+                              flexWrap: 'wrap',
                               justifyContent: 'space-between',
                               alignItems: 'center',
                               marginBottom: '10px',
@@ -514,8 +552,8 @@ const Department = () => {
                             <FormControlLabel
                               control={
                                 <Checkbox
+                                  className="expanse_checkbox"
                                   checked={data?.isChecked}
-                                  className="check_box_color"
                                   onChange={() => handleCheckboxChange(index)}
                                 />
                               }
@@ -534,12 +572,20 @@ const Department = () => {
                           </Box>
                         )
                       })}
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Box
+                      sx={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                      }}
+                    >
                       <Button
-                        // disabled={!expenseManagement?.hotelChecked}
-                        className="Accordion_button"
-                        variant="contained"
+                        sx={{
+                          marginTop: '5px',
+                        }}
+                        className="primary_color_button"
                         onClick={handleExpenseManagement}
+                        variant="contained"
                       >
                         Save
                       </Button>
@@ -550,28 +596,47 @@ const Department = () => {
             </Box>
           </Box>
 
-          <Box className="accessMenus_checkbox">
-            <Typography variant="span">
-              Select the menu you want to give access to.
-            </Typography>
-
-            {/* <Box className="col-md-1"></Box> */}
-            {permissions.accessClient && (
-              <Box
-                sx={{ marginRight: '30px' }}
-                className="d-flex m-2 align-items-center justify-content-between row access_checkbox"
+          <Box className="accessMenu_section">
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Typography variant="span">
+                Select the menu you want to give access to.
+              </Typography>
+              <Button
+                className="primary_color_button"
+                variant="contained"
+                onClick={handleUserPermissions}
               >
-                <Box className="col-md-10">
-                  <img style={{ marginRight: '1px' }} src={ClientIcon} alt="" />
-                  <Typography sx={{ paddingLeft: '8px' }} variant="span">
-                    Clients
-                  </Typography>
-                </Box>
-                <Box className="col-md-2">
+                Save
+              </Button>
+            </Box>
+
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+            >
+              {permissions.accessClient && (
+                <Box className="access_box">
+                  <Box>
+                    <img src={ClientIcon} alt="" />
+                    <Typography className="access_box_name" variant="span">
+                      Clients
+                    </Typography>
+                  </Box>
                   <FormControlLabel
+                    className="access_box_form_control"
                     control={
                       <Checkbox
-                        className="check_box_color"
+                        className="access_checkbox"
                         checked={accessControl.clientControl}
                         onChange={e => {
                           if (e.target.checked === false) {
@@ -597,21 +662,21 @@ const Department = () => {
                     }
                   />
                 </Box>
-              </Box>
-            )}
-            {permissions.accessStaff && (
-              <Box className="d-flex m-2 align-items-center justify-content-between row access_checkbox">
-                <Box className="col-md-10 ">
-                  <img style={{ marginRight: '1px' }} src={StaffIcon} alt="" />
-                  <Typography sx={{ paddingLeft: '8px' }} variant="span">
-                    Staff
-                  </Typography>
-                </Box>
-                <Box className="col-md-2 ">
+              )}
+
+              {permissions.accessStaff && (
+                <Box className="access_box">
+                  <Box>
+                    <img src={StaffIcon} alt="" />
+                    <Typography className="access_box_name" variant="span">
+                      Staff
+                    </Typography>
+                  </Box>
                   <FormControlLabel
+                    className="access_box_form_control"
                     control={
                       <Checkbox
-                        className="check_box_color"
+                        className="access_checkbox"
                         checked={accessControl.staffControl}
                         onChange={e => {
                           if (e.target.checked === false) {
@@ -637,26 +702,22 @@ const Department = () => {
                     }
                   />
                 </Box>
-              </Box>
-            )}
-            {/* <Box className="col-md-1"></Box> */}
-            {permissions.accessSetting && (
-              <Box className="d-flex m-2 align-items-center justify-content-between row access_checkbox">
-                <Box className="col-md-10 ">
-                  <img
-                    style={{ marginRight: '1px' }}
-                    src={SettingIcon}
-                    alt=""
-                  />
-                  <Typography sx={{ paddingLeft: '8px' }} variant="span">
-                    Setting
-                  </Typography>
-                </Box>
-                <Box className="col-md-2 ">
+              )}
+
+              {permissions.accessSetting && (
+                <Box className="access_box">
+                  <Box>
+                    <img src={SettingIcon} alt="" />
+                    <Typography className="access_box_name" variant="span">
+                      Setting
+                    </Typography>
+                  </Box>
+
                   <FormControlLabel
+                    className="access_box_form_control"
                     control={
                       <Checkbox
-                        className="check_box_color"
+                        className="access_checkbox"
                         checked={accessControl.settingControl}
                         onChange={e => {
                           if (e.target.checked === false) {
@@ -685,26 +746,22 @@ const Department = () => {
                     }
                   />
                 </Box>
-              </Box>
-            )}
-            {/* <Box className="col-md-1"></Box> */}
-            {permissions.accessSetting && (
-              <Box className="d-flex m-2 align-items-center justify-content-between row access_checkbox">
-                <Box className="col-md-10">
-                  <img
-                    style={{ marginRight: '1px' }}
-                    src={StatisticsIcon}
-                    alt=""
-                  />
-                  <Typography sx={{ paddingLeft: '3px' }} variant="span">
-                    Statistics
-                  </Typography>
-                </Box>
-                <Box className="col-md-2">
+              )}
+
+              {permissions.accessSetting && (
+                <Box className="access_box">
+                  <Box>
+                    <img src={StatisticsIcon} alt="" />
+                    <Typography className="access_box_name" variant="span">
+                      Statistics
+                    </Typography>
+                  </Box>
+
                   <FormControlLabel
+                    className="access_box_form_control"
                     control={
                       <Checkbox
-                        className="check_box_color"
+                        className="access_checkbox"
                         checked={accessControl.settingControl}
                         onChange={e => {
                           if (e.target.checked === false) {
@@ -733,393 +790,368 @@ const Department = () => {
                     }
                   />
                 </Box>
-              </Box>
-            )}
-            {/* <Box className="col-md-1"></Box> */}
-          </Box>
-          <Box className="row access_control">
-            {accessControl.clientControl && permissions.accessClient && (
-              <Box className="access_control_box p-2  col-md-5 mb-2">
-                <Typography className="heading_access_box" variant="span">
-                  Clients Control
-                </Typography>
-                <Box className="row  ">
-                  <Box className="d-flex col-md-8 align-items-center">
+              )}
+            </Box>
+
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+              }}
+            >
+              {accessControl.clientControl && permissions.accessClient && (
+                <Box className="access_control_box">
+                  <Typography className="heading_access_box" variant="span">
+                    Clients Control
+                  </Typography>
+
+                  <Box className="detail_access_control_box">
                     <Typography variant="span">
                       Can Edit a Client Detail ?{' '}
                     </Typography>
+
+                    <Checkbox
+                      className="access_checkbox"
+                      disableRipple
+                      checked={accessControl?.client?.editClient}
+                      onChange={e => {
+                        setAccessControl({
+                          ...accessControl,
+                          client: {
+                            ...accessControl.client,
+                            editClient: e.target.checked,
+                          },
+                        })
+                      }}
+                    />
                   </Box>
-                  <Checkbox
-                    disableRipple
-                    className="col-md-4 check_box_color"
-                    checked={accessControl?.client?.editClient}
-                    onChange={e => {
-                      setAccessControl({
-                        ...accessControl,
-                        client: {
-                          ...accessControl.client,
-                          editClient: e.target.checked,
-                        },
-                      })
-                    }}
-                  />
-                </Box>
-                <Box className="row  ">
-                  <Box className="d-flex col-md-8 align-items-center">
+
+                  <Box className="detail_access_control_box">
                     <Typography variant="span">
                       Can View a Client Detail ?{' '}
                     </Typography>
+
+                    <Checkbox
+                      className="access_checkbox"
+                      disableRipple
+                      checked={accessControl?.client?.viewClient}
+                      onChange={e => {
+                        setAccessControl({
+                          ...accessControl,
+                          client: {
+                            ...accessControl.client,
+                            viewClient: e.target.checked,
+                          },
+                        })
+                      }}
+                    />
                   </Box>
-                  <Checkbox
-                    disableRipple
-                    className="col-md-4 check_box_color"
-                    checked={accessControl?.client?.viewClient}
-                    onChange={e => {
-                      setAccessControl({
-                        ...accessControl,
-                        client: {
-                          ...accessControl.client,
-                          viewClient: e.target.checked,
-                        },
-                      })
-                    }}
-                  />
-                </Box>
-                <Box className="row">
-                  <Box className="d-flex col-md-8 align-items-center">
+
+                  <Box className="detail_access_control_box">
                     <Typography variant="span">
                       Can Delete a Client Detail ?{' '}
                     </Typography>
+
+                    <Checkbox
+                      className="access_checkbox"
+                      disableRipple
+                      checked={accessControl?.client?.deleteClient}
+                      onChange={e => {
+                        setAccessControl({
+                          ...accessControl,
+                          client: {
+                            ...accessControl.client,
+                            deleteClient: e.target.checked,
+                          },
+                        })
+                      }}
+                    />
                   </Box>
-                  <Checkbox
-                    disableRipple
-                    className="col-md-4 check_box_color"
-                    checked={accessControl?.client?.deleteClient}
-                    onChange={e => {
-                      setAccessControl({
-                        ...accessControl,
-                        client: {
-                          ...accessControl.client,
-                          deleteClient: e.target.checked,
-                        },
-                      })
-                    }}
-                  />
-                </Box>
-                <Box className="row">
-                  <Box className="d-flex col-md-8 align-items-center">
+
+                  <Box className="detail_access_control_box">
                     <Typography variant="span">
                       Give Access to Client ?{' '}
                     </Typography>
+
+                    <Checkbox
+                      className="access_checkbox"
+                      disableRipple
+                      checked={accessControl?.client?.accessClient}
+                      onChange={e => {
+                        setAccessControl({
+                          ...accessControl,
+                          client: {
+                            ...accessControl.client,
+                            accessClient: e.target.checked,
+                          },
+                        })
+                      }}
+                    />
                   </Box>
-                  <Checkbox
-                    disableRipple
-                    className="col-md-4 check_box_color"
-                    checked={accessControl?.client?.accessClient}
-                    onChange={e => {
-                      setAccessControl({
-                        ...accessControl,
-                        client: {
-                          ...accessControl.client,
-                          accessClient: e.target.checked,
-                        },
-                      })
-                    }}
-                  />
-                </Box>
-                <Box>
-                  <Box className="row col-md-12">
-                    <Autocomplete
-                      className="align-items-center d-flex justify-content-center me-2 w-100"
-                      options={clientType}
+
+                  <FormControl className="client_type_select">
+                    <InputLabel>Select Client Type</InputLabel>
+                    <Select
+                      label="Select Client Type"
                       value={clientType[accessControl?.client?.clientStage]}
                       onChange={(e, value) => {
                         setAccessControl({
                           ...accessControl,
                           client: {
                             ...accessControl.client,
-                            clientStage: value?.id,
+                            clientStage: e.target.value,
                           },
                         })
                       }}
-                      getOptionLabel={option => option.stage}
-                      renderInput={params => (
-                        <TextField
-                          className="client_type_select"
-                          {...params}
-                          placeholder="Select Client Type"
-                        />
-                      )}
-                    />
-                  </Box>
+                    >
+                      {clientType.map(data => {
+                        return <MenuItem value={data.id}>{data.stage}</MenuItem>
+                      })}
+                    </Select>
+                  </FormControl>
                 </Box>
-              </Box>
-            )}
-            {/* <Box className="col-md-2"></Box> */}
-            {accessControl?.staffControl && permissions.accessStaff && (
-              <Box className="access_control_box p-2 col-md-5 mb-2">
-                <Typography className="heading_access_box" variant="span">
-                  Staff Control
-                </Typography>
-                <Box className="row">
-                  <Box className="d-flex col-md-8 align-items-center">
+              )}
+
+              {accessControl?.staffControl && permissions.accessStaff && (
+                <Box className="access_control_box">
+                  <Typography className="heading_access_box" variant="span">
+                    Staff Control
+                  </Typography>
+
+                  <Box className="detail_access_control_box">
                     <Typography variant="span">
                       Can View a Staff Detail ?{' '}
                     </Typography>
-                  </Box>
-                  <Checkbox
-                    disableRipple
-                    className="col-md-4 check_box_color"
-                    checked={accessControl?.staff?.viewStaff}
-                    onChange={e => {
-                      setAccessControl({
-                        ...accessControl,
-                        staff: {
-                          ...accessControl.staff,
-                          viewStaff: e.target.checked,
-                        },
-                      })
-                    }}
-                  />
-                </Box>
-                <Box className="row">
-                  <Box className="d-flex col-md-8 align-items-center">
-                    <Typography variant="span">
-                      Can Edit a Staff Detail ?{' '}
-                    </Typography>
-                  </Box>
-                  <Checkbox
-                    disableRipple
-                    className="col-md-4 check_box_color"
-                    checked={accessControl?.staff?.editStaff}
-                    onChange={e => {
-                      setAccessControl({
-                        ...accessControl,
-                        staff: {
-                          ...accessControl.staff,
-                          editStaff: e.target.checked,
-                        },
-                      })
-                    }}
-                  />
-                </Box>
-                <Box className="row">
-                  <Box className="d-flex col-md-8 align-items-center">
-                    <Typography variant="span">
-                      Can Delete a Staff Detail ?{' '}
-                    </Typography>
-                  </Box>
-                  <Checkbox
-                    disableRipple
-                    className="col-md-4 check_box_color"
-                    checked={accessControl?.staff?.deleteStaff}
-                    onChange={e => {
-                      setAccessControl({
-                        ...accessControl,
-                        staff: {
-                          ...accessControl.staff,
-                          deleteStaff: e.target.checked,
-                        },
-                      })
-                    }}
-                  />
-                </Box>
-                {permissions.accessStaff && (
-                  <Box className="row">
-                    <Box className="d-flex col-md-8 align-items-center">
-                      <Typography variant="span">
-                        Give Access to Staff ?{' '}
-                      </Typography>
-                    </Box>
                     <Checkbox
+                      className="access_checkbox"
                       disableRipple
-                      className="col-md-4 check_box_color"
-                      checked={accessControl?.staff?.accessStaff}
+                      checked={accessControl?.staff?.viewStaff}
                       onChange={e => {
                         setAccessControl({
                           ...accessControl,
                           staff: {
                             ...accessControl.staff,
-                            accessStaff: e.target.checked,
+                            viewStaff: e.target.checked,
                           },
                         })
                       }}
                     />
                   </Box>
-                )}
-              </Box>
-            )}
-            {accessControl.settingControl && permissions.accessSetting && (
-              <Box className="access_control_box p-2 mb-2 col-md-5">
-                <Typography className="heading_access_box" variant="span">
-                  Setting Control
-                </Typography>
-                <Box className="row">
-                  <Box className="d-flex col-md-8 align-items-center">
-                    <Typography variant="span">
-                      Can View Department ?{' '}
-                    </Typography>
-                  </Box>
-                  <Checkbox
-                    disableRipple
-                    className="col-md-4 check_box_color"
-                    checked={accessControl?.setting?.viewRole}
-                    onChange={e => {
-                      setAccessControl({
-                        ...accessControl,
-                        setting: {
-                          ...accessControl.setting,
-                          viewRole: e.target.checked,
-                        },
-                      })
-                    }}
-                  />
-                </Box>
-                <Box className="row">
-                  <Box className="d-flex col-md-8 align-items-center">
-                    <Typography variant="span">
-                      Can Edit Department ?{' '}
-                    </Typography>
-                  </Box>
-                  <Checkbox
-                    disableRipple
-                    className="col-md-4 check_box_color"
-                    checked={accessControl?.setting?.editRole}
-                    onChange={e => {
-                      setAccessControl({
-                        ...accessControl,
-                        setting: {
-                          ...accessControl.setting,
-                          editRole: e.target.checked,
-                        },
-                      })
-                    }}
-                  />
-                </Box>
 
-                <Box className="row">
-                  <Box className="d-flex col-md-8 align-items-center">
+                  <Box className="detail_access_control_box">
                     <Typography variant="span">
-                      Can Delete Department ?{' '}
+                      Can Edit a Staff Detail ?{' '}
                     </Typography>
-                  </Box>
-                  <Checkbox
-                    disableRipple
-                    className="col-md-4 check_box_color"
-                    checked={accessControl?.setting?.deleteRole}
-                    onChange={e => {
-                      setAccessControl({
-                        ...accessControl,
-                        setting: {
-                          ...accessControl.setting,
-                          deleteRole: e.target.checked,
-                        },
-                      })
-                    }}
-                  />
-                </Box>
-                <Box className="row">
-                  <Box className="d-flex col-md-8 align-items-center">
-                    <Typography variant="span">Can View Product ? </Typography>
-                  </Box>
-                  <Checkbox
-                    disableRipple
-                    className="col-md-4 check_box_color"
-                    checked={accessControl?.setting?.viewProduct}
-                    onChange={e => {
-                      setAccessControl({
-                        ...accessControl,
-                        setting: {
-                          ...accessControl.setting,
-                          viewProduct: e.target.checked,
-                        },
-                      })
-                    }}
-                  />
-                </Box>
-                <Box className="row">
-                  <Box className="d-flex col-md-8 align-items-center">
-                    <Typography variant="span">Can Edit Product ? </Typography>
-                  </Box>
-                  <Checkbox
-                    disableRipple
-                    className="col-md-4 check_box_color"
-                    checked={accessControl?.setting?.editProduct}
-                    onChange={e => {
-                      setAccessControl({
-                        ...accessControl,
-                        setting: {
-                          ...accessControl.setting,
-                          editProduct: e.target.checked,
-                        },
-                      })
-                    }}
-                  />
-                </Box>
-                <Box className="row">
-                  <Box className="d-flex col-md-8 align-items-center">
-                    <Typography variant="span">
-                      Can Delete Product ?{' '}
-                    </Typography>
-                  </Box>
-                  <Checkbox
-                    disableRipple
-                    className="col-md-4 check_box_color"
-                    checked={accessControl?.setting?.deleteProduct}
-                    onChange={e => {
-                      setAccessControl({
-                        ...accessControl,
-                        setting: {
-                          ...accessControl.setting,
-                          deleteProduct: e.target.checked,
-                        },
-                      })
-                    }}
-                  />
-                </Box>
-                {permissions.accessSetting && (
-                  <Box className="row">
-                    <Box className="d-flex col-md-8 align-items-center">
-                      <Typography variant="span">
-                        Give Access to Setting ?{' '}
-                      </Typography>
-                    </Box>
                     <Checkbox
+                      className="access_checkbox"
                       disableRipple
-                      className="col-md-4 check_box_color"
-                      checked={accessControl?.setting?.accessSetting}
+                      checked={accessControl?.staff?.editStaff}
+                      onChange={e => {
+                        setAccessControl({
+                          ...accessControl,
+                          staff: {
+                            ...accessControl.staff,
+                            editStaff: e.target.checked,
+                          },
+                        })
+                      }}
+                    />
+                  </Box>
+
+                  <Box className="detail_access_control_box">
+                    <Typography variant="span">
+                      Can Delete a Staff Detail ?{' '}
+                    </Typography>
+
+                    <Checkbox
+                      className="access_checkbox"
+                      disableRipple
+                      checked={accessControl?.staff?.deleteStaff}
+                      onChange={e => {
+                        setAccessControl({
+                          ...accessControl,
+                          staff: {
+                            ...accessControl.staff,
+                            deleteStaff: e.target.checked,
+                          },
+                        })
+                      }}
+                    />
+                  </Box>
+
+                  {permissions.accessStaff && (
+                    <Box className="detail_access_control_box">
+                      <Typography variant="span">
+                        Give Access to Staff ?{' '}
+                      </Typography>
+                      <Checkbox
+                        className="access_checkbox"
+                        disableRipple
+                        checked={accessControl?.staff?.accessStaff}
+                        onChange={e => {
+                          setAccessControl({
+                            ...accessControl,
+                            staff: {
+                              ...accessControl.staff,
+                              accessStaff: e.target.checked,
+                            },
+                          })
+                        }}
+                      />
+                    </Box>
+                  )}
+                </Box>
+              )}
+
+              {accessControl.settingControl && permissions.accessSetting && (
+                <Box className="access_control_box">
+                  <Typography className="heading_access_box" variant="span">
+                    Setting Control
+                  </Typography>
+
+                  <Box className="detail_access_control_box">
+                    <Typography variant="span">Can View Job role ? </Typography>
+                    <Checkbox
+                      className="access_checkbox"
+                      disableRipple
+                      checked={accessControl?.setting?.viewRole}
                       onChange={e => {
                         setAccessControl({
                           ...accessControl,
                           setting: {
                             ...accessControl.setting,
-                            accessSetting: e.target.checked,
+                            viewRole: e.target.checked,
                           },
                         })
                       }}
                     />
                   </Box>
-                )}
-              </Box>
-            )}
+
+                  <Box className="detail_access_control_box">
+                    <Typography variant="span">Can Edit Job role ? </Typography>
+
+                    <Checkbox
+                      className="access_checkbox"
+                      disableRipple
+                      checked={accessControl?.setting?.editRole}
+                      onChange={e => {
+                        setAccessControl({
+                          ...accessControl,
+                          setting: {
+                            ...accessControl.setting,
+                            editRole: e.target.checked,
+                          },
+                        })
+                      }}
+                    />
+                  </Box>
+
+                  <Box className="detail_access_control_box">
+                    <Typography variant="span">
+                      Can Delete Job role ?{' '}
+                    </Typography>
+                    <Checkbox
+                      className="access_checkbox"
+                      disableRipple
+                      checked={accessControl?.setting?.deleteRole}
+                      onChange={e => {
+                        setAccessControl({
+                          ...accessControl,
+                          setting: {
+                            ...accessControl.setting,
+                            deleteRole: e.target.checked,
+                          },
+                        })
+                      }}
+                    />
+                  </Box>
+
+                  <Box className="detail_access_control_box">
+                    <Typography variant="span">Can View Product ? </Typography>
+                    <Checkbox
+                      className="access_checkbox"
+                      disableRipple
+                      checked={accessControl?.setting?.viewProduct}
+                      onChange={e => {
+                        setAccessControl({
+                          ...accessControl,
+                          setting: {
+                            ...accessControl.setting,
+                            viewProduct: e.target.checked,
+                          },
+                        })
+                      }}
+                    />
+                  </Box>
+
+                  <Box className="detail_access_control_box">
+                    <Typography variant="span">Can Edit Product ? </Typography>
+
+                    <Checkbox
+                      className="access_checkbox"
+                      disableRipple
+                      checked={accessControl?.setting?.editProduct}
+                      onChange={e => {
+                        setAccessControl({
+                          ...accessControl,
+                          setting: {
+                            ...accessControl.setting,
+                            editProduct: e.target.checked,
+                          },
+                        })
+                      }}
+                    />
+                  </Box>
+
+                  <Box className="detail_access_control_box">
+                    <Typography variant="span">
+                      Can Delete Product ?{' '}
+                    </Typography>
+
+                    <Checkbox
+                      className="access_checkbox"
+                      disableRipple
+                      checked={accessControl?.setting?.deleteProduct}
+                      onChange={e => {
+                        setAccessControl({
+                          ...accessControl,
+                          setting: {
+                            ...accessControl.setting,
+                            deleteProduct: e.target.checked,
+                          },
+                        })
+                      }}
+                    />
+                  </Box>
+
+                  {permissions.accessSetting && (
+                    <Box className="detail_access_control_box">
+                      <Typography variant="span">
+                        Give Access to Setting ?{' '}
+                      </Typography>
+                      <Checkbox
+                        className="access_checkbox"
+                        disableRipple
+                        checked={accessControl?.setting?.accessSetting}
+                        onChange={e => {
+                          setAccessControl({
+                            ...accessControl,
+                            setting: {
+                              ...accessControl.setting,
+                              accessSetting: e.target.checked,
+                            },
+                          })
+                        }}
+                      />
+                    </Box>
+                  )}
+                </Box>
+              )}
+            </Box>
           </Box>
-          <Box className="mb-1 row">
-            <Button
-              sx={{ width: '15px' }}
-              className="mt-2"
-              variant="contained"
-              onClick={handleUserPermissions}
-            >
-              Save
-            </Button>
-          </Box>
-          {/* </div> */}
         </Box>
-        {/* <JobRoleDialog
-          jobRoleList={jobRoleList}
-          jobRoleDialogControl={jobRoleDialogControl}
-          handleClose={handleClose}
-        /> */}
 
         <EditJobRoleDialog
           editJobRoleDialogControl={editJobRoleDialogControl}
