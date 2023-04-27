@@ -45,7 +45,7 @@ const AddStatusDialog = ({
       data,
       res => {
         setAddStatus({ ...addStatus, status: false })
-        // setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
+        // setSuccessSnackbar({ ...successSnackbar, status: true, message: res.message })
       },
       err => {
         // setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.error })

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import {
   Box,
   Button,
@@ -13,47 +13,16 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { EditAdminClientReminderDetail } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
-import { Context as ContextSnackbar } from '../../context/pageContext'
-const EditReminderDialog = ({ editReminderDetail, handleClose }) => {
-  const [clientReminderDetail, setClientReminderDetail] = useState({
-    description: editReminderDetail?.description,
-    date: editReminderDetail?.date,
-    time: editReminderDetail.time,
-    reminderId: editReminderDetail?.id,
-  })
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
-  const handleEditReminder = () => {
-    if (
-      clientReminderDetail.description !== '' &&
-      clientReminderDetail.date !== '' &&
-      clientReminderDetail.time !== ''
-    ) {
-      EditAdminClientReminderDetail(
-        clientReminderDetail,
-        res => {
-          handleClose()
-          setSuccessSnackbar({
-            ...successSnackbar,
-            status: true,
-            message: res.data.message,
-          })
-        },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err.response.data.error,
-          })
-        },
-      )
-    }
-  }
+const EditReminderDialog = ({
+  handleClose,
+  handleEditReminder,
+  remainderDialog,
+  setRemainderDialog,
+}) => {
   return (
     <>
-      <Dialog open={editReminderDetail.status} onClose={handleClose}>
+      <Dialog open={remainderDialog.status} onClose={handleClose}>
         <Box className="dialogue_main_section">
           <DialogTitle className="dialogue_heading">Reminder</DialogTitle>
           {/* <DialogContent> */}
@@ -87,10 +56,10 @@ const EditReminderDialog = ({ editReminderDetail, handleClose }) => {
               inputFormat="dd/MM/yyyy"
               disablePast
               label="Date"
-              value={clientReminderDetail.date}
+              value={remainderDialog.date}
               onChange={e => {
-                setClientReminderDetail({
-                  ...clientReminderDetail,
+                setRemainderDialog({
+                  ...remainderDialog,
                   date: moment(e).format('YYYY-MM-DD'),
                 })
               }}
@@ -103,16 +72,15 @@ const EditReminderDialog = ({ editReminderDetail, handleClose }) => {
           <TextField
             label="Time"
             onChange={e => {
-              setClientReminderDetail({
-                ...clientReminderDetail,
+              setRemainderDialog({
+                ...remainderDialog,
                 time: e.target.value,
               })
             }}
-            value={clientReminderDetail.time}
+            value={remainderDialog.time}
             className="dialogue_input_fields"
             type="time"
           />
-
           <TextField
             className="dialogue_input_fields"
             multiline
@@ -122,12 +90,12 @@ const EditReminderDialog = ({ editReminderDetail, handleClose }) => {
             minRows={3}
             maxRows={3}
             onChange={e => {
-              setClientReminderDetail({
-                ...clientReminderDetail,
+              setRemainderDialog({
+                ...remainderDialog,
                 description: e.target.value,
               })
             }}
-            value={clientReminderDetail.description}
+            value={remainderDialog.description}
           />
 
           <DialogActions>

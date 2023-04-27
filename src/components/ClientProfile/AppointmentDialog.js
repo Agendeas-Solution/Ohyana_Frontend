@@ -24,23 +24,11 @@ import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail.
 const AppointmentDialog = ({
   clientProfileDetail,
   handleAppointmentClose,
-  appointmentDialog,
+  appointmentDialogControl,
+  setAppointmentDialogControl,
+  handleAddEditAppointment,
 }) => {
-  const [clientAppointmentDetail, setClientAppointmentDetail] = useState({
-    date: '',
-    time: '',
-    description: '',
-    appointed_member: [],
-    clientId: clientProfileDetail?.id,
-    appointment_unit: '',
-  })
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const [staffDetailList, setStaffDetailList] = useState([])
-  const [appointmentPlaceList, setAppointmentPlaceList] = useState([
-    'Factory',
-    'Office',
-  ])
   useEffect(() => {
     GetAdminStaffDetailList(
       { admin: true },
@@ -50,54 +38,22 @@ const AppointmentDialog = ({
       err => {},
     )
   }, [])
-  const handleAddAppointment = () => {
-    if (
-      clientAppointmentDetail.description !== '' &&
-      clientAppointmentDetail.date !== '' &&
-      clientAppointmentDetail.time !== ''
-    ) {
-      clientAppointmentDetail['appointed_member'] = [
-        ...new Set(
-          clientAppointmentDetail?.appointed_member.map(item => item?.id),
-        ),
-      ]
-      AddAdminClientAppointmentDetail(
-        clientAppointmentDetail,
-        res => {
-          handleAppointmentClose()
-          setSuccessSnackbar({
-            ...successSnackbar,
-            status: true,
-            message: res.message,
-          })
-          setClientAppointmentDetail({
-            ...clientAppointmentDetail,
-            date: '',
-            time: '',
-            description: '',
-            appointed_member: [],
-            appointment_unit: '',
-          })
-        },
-        err => {
-          console.log('Error :', err)
-        },
-      )
-    }
-  }
   return (
     <>
-      <Dialog open={appointmentDialog} onClose={handleAppointmentClose}>
+      <Dialog
+        open={appointmentDialogControl.status}
+        onClose={handleAppointmentClose}
+      >
         <Box className="dialogue_main_section">
-          <Typography className="dialogue_heading">Add Appointment</Typography>
+          <Typography className="dialogue_heading">Appointment</Typography>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               disablePast
               inputFormat="dd/MM/yyyy"
-              value={clientAppointmentDetail.date}
+              value={appointmentDialogControl.date}
               onChange={e => {
-                setClientAppointmentDetail({
-                  ...clientAppointmentDetail,
+                setAppointmentDialogControl({
+                  ...appointmentDialogControl,
                   date: moment(e).format('YYYY-MM-DD'),
                 })
               }}
@@ -105,17 +61,17 @@ const AppointmentDialog = ({
                 <TextField {...params} className="dialogue_input_fields" />
               )}
               PopperProps={{
-                placement: 'bottom-start', // Set placement to 'bottom-start'
+                placement: 'bottom-start',
               }}
             />
           </LocalizationProvider>
           <TextField
             className="dialogue_input_fields"
-            value={clientAppointmentDetail.time}
+            value={appointmentDialogControl.time}
             type="time"
             onChange={e => {
-              setClientAppointmentDetail({
-                ...clientAppointmentDetail,
+              setAppointmentDialogControl({
+                ...appointmentDialogControl,
                 time: e.target.value,
               })
             }}
@@ -124,10 +80,10 @@ const AppointmentDialog = ({
             <InputLabel>Appointment For</InputLabel>
             <Select
               label="Appointment For"
-              value={clientAppointmentDetail?.appointment_unit}
+              value={appointmentDialogControl?.appointment_unit}
               onChange={e => {
-                setClientAppointmentDetail({
-                  ...clientAppointmentDetail,
+                setAppointmentDialogControl({
+                  ...appointmentDialogControl,
                   appointment_unit: e.target.value,
                 })
               }}
@@ -139,10 +95,10 @@ const AppointmentDialog = ({
           <Autocomplete
             filterSelectedOptions
             options={staffDetailList}
-            value={clientAppointmentDetail?.appointed_member}
+            value={appointmentDialogControl?.appointed_member}
             onChange={(e, value) => {
-              setClientAppointmentDetail({
-                ...clientAppointmentDetail,
+              setAppointmentDialogControl({
+                ...appointmentDialogControl,
                 appointed_member: value,
               })
             }}
@@ -164,12 +120,11 @@ const AppointmentDialog = ({
             minRows={3}
             maxRows={3}
             placeholder="Description Here..."
-            value={clientAppointmentDetail.description}
+            value={appointmentDialogControl.description}
             onChange={e => {
-              setClientAppointmentDetail({
-                ...clientAppointmentDetail,
+              setAppointmentDialogControl({
+                ...appointmentDialogControl,
                 description: e.target.value,
-                clientId: clientProfileDetail?.id,
               })
             }}
           />
@@ -177,9 +132,9 @@ const AppointmentDialog = ({
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={handleAddAppointment}
+              onClick={handleAddEditAppointment}
             >
-              Add
+              Save
             </Button>
             <Button
               className="dialogue_button_nagative"

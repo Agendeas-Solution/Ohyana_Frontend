@@ -170,7 +170,7 @@
 //             setSuccessSnackbar({
 //               ...successSnackbar,
 //               status: true,
-//               message: res.data.message,
+//               message: res.message,
 //             })
 //           }
 //         },
@@ -228,7 +228,6 @@
 //                   variant="outlined"
 //                 />
 //               </Box>
-
 
 //               <Box className="input_fields">
 //                 <TextField

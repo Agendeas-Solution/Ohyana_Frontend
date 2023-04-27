@@ -4,6 +4,7 @@ import Logo from '../../assets/img/Ohyana Logo Blue.svg'
 import { ResetPassword } from '../../services/apiservices/login'
 import { useSearchParams } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+import { useNavigate } from 'react-router-dom'
 const SuccessSnackbar = React.lazy(() =>
   import('../SuccessSnackbar/SuccessSnackbar'),
 )
@@ -13,6 +14,7 @@ const ForgetPassword = () => {
     newPassword: '',
     confirmPassword: '',
   })
+  const navigate = useNavigate()
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
 
@@ -25,17 +27,18 @@ const ForgetPassword = () => {
         user,
         { password: password.newPassword },
         res => {
+          navigate('/login')
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
-            message: res.data.message,
+            message: res.message,
           })
         },
         err => {
           setErrorSnackbar({
             ...errorSnackbar,
             status: true,
-            message: err.response.data.error,
+            message: err.response.data.message,
           })
         },
       )

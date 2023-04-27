@@ -26,7 +26,7 @@ const StageDialog = ({ clientProfileDetail, handleClose, stageDialog }) => {
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
       },
       err => {},
