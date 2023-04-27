@@ -129,7 +129,7 @@ const TeamGraph = ({ selectedPeriod }) => {
   return (
     <>
       <Box className=" graph_section team_graph">
-        <Box className="common_row mb-3">
+        <Box className="detail_row mb-3">
           <Box>
             <Typography variant="span" className="report_tab_heading">
               Overall

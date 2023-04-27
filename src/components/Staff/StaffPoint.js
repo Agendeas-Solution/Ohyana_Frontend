@@ -107,7 +107,7 @@ const StaffPoint = () => {
                       overflowY: 'auto',
                     }}
                   >
-                    <Box className="common_row p-2 mt-1">
+                    <Box className="detail_row p-2 mt-1">
                       <Typography variant="span">
                         {data?.name || '-'}
                       </Typography>
