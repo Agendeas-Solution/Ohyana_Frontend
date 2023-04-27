@@ -379,7 +379,7 @@ const Department = () => {
             </Button>
           </Box>
         </Box>
-
+        <Divider sx={{ margin: '0px 10px' }} />
         <Box sx={{ height: '84%', overflowY: 'auto' }}>
           <Box className="post_detail">
             <Box className="post_name">
@@ -401,198 +401,175 @@ const Department = () => {
             </Box>
           </Box>
 
-          <Box>
+          <Box className="accessMenu_section">
             <Box
               sx={{
-                margin: '5px 10px 10px 10px',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
               }}
             >
-              <Accordion
+              <Typography sx={{ color: '#8E8E8E' }} variant="span">
+                Office Time Management
+              </Typography>
+              <Button
+                className="primary_color_button"
+                variant="contained"
+                onClick={handleUpdateClockInOut}
+              >
+                Save
+              </Button>
+            </Box>
+            <Box
+              sx={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginTop: '15px',
+                marginBottom: '5px',
+              }}
+            >
+              <Box
                 sx={{
-                  padding: '0px',
-                  margin: '0px',
-                  boxShadow: 'none',
-                  border: '1px solid #E5E6EB',
-                }}
-                expanded={expanded.officeTimeManagement}
-                onChange={() => {
-                  setExpanded({
-                    ...expanded,
-                    officeTimeManagement: !expanded.officeTimeManagement,
-                    expenseManagement: expanded.expenseManagement,
-                  })
+                  width: '48%',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography>Office Time Management</Typography>
-                </AccordionSummary>
-                <AccordionDetails
+                <Typography>Clock In</Typography>
+                <TextField
+                  className="set_date_time_bg"
+                  type="time"
+                  value={jobRoleList?.clockIn}
+                  onChange={e => {
+                    setJobRoleList({
+                      ...jobRoleList,
+                      clockIn: e.target.value,
+                    })
+                  }}
+                />
+              </Box>
+              <Box
+                sx={{
+                  width: '48%',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <Typography>Clock Out</Typography>
+                <TextField
+                  className="set_date_time_bg"
+                  type="time"
+                  value={jobRoleList?.clockOut}
+                  onChange={e => {
+                    setJobRoleList({
+                      ...jobRoleList,
+                      clockOut: e.target.value,
+                    })
+                  }}
+                />
+              </Box>
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              margin: '10px',
+            }}
+          >
+            <Accordion
+              sx={{
+                boxShadow: 'none',
+                border: '1px solid #E5E6EB',
+              }}
+              expanded={expanded.expenseManagement}
+              onChange={() => {
+                setExpanded({
+                  ...expanded,
+                  expenseManagement: !expanded.expenseManagement,
+                  officeTimeManagement: expanded.officeTimeManagement,
+                })
+              }}
+            >
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography>Expense Management</Typography>
+              </AccordionSummary>
+              <AccordionDetails
+                sx={{
+                  padding: ' 10px 20px',
+                }}
+              >
+                <FormGroup
                   sx={{
-                    padding: ' 10px 20px',
-                    margin: '0px',
+                    display: 'flex',
+                    width: '100%',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
                   }}
                 >
+                  {expensePolicy &&
+                    expensePolicy.map((data, index) => {
+                      return (
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            width: '48%',
+                            flexDirection: 'row',
+                            flexWrap: 'wrap',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            marginBottom: '10px',
+                          }}
+                        >
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                className="expanse_checkbox"
+                                checked={data?.isChecked}
+                                onChange={() => handleCheckboxChange(index)}
+                              />
+                            }
+                            label={data?.name}
+                          />
+                          <TextField
+                            sx={{ width: '150px' }}
+                            label="Max Amount"
+                            placeholder="Max Amount"
+                            type="number"
+                            value={data?.amount}
+                            onChange={e =>
+                              handleAmountChange(index, e.target.value)
+                            }
+                          />
+                        </Box>
+                      )
+                    })}
                   <Box
                     sx={{
                       width: '100%',
                       display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginBottom: '5px',
+                      justifyContent: 'flex-end',
                     }}
                   >
-                    <Box
-                      sx={{
-                        width: '48%',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        marginBottom: '10px',
-                      }}
-                    >
-                      <Typography>Clock In</Typography>
-                      <TextField
-                        className="set_date_time_bg"
-                        type="time"
-                        value={jobRoleList?.clockIn}
-                        onChange={e => {
-                          setJobRoleList({
-                            ...jobRoleList,
-                            clockIn: e.target.value,
-                          })
-                        }}
-                      />
-                    </Box>
-                    <Box
-                      sx={{
-                        width: '48%',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        margin: '10px 0px',
-                      }}
-                    >
-                      <Typography>Clock Out</Typography>
-                      <TextField
-                        className="set_date_time_bg"
-                        type="time"
-                        value={jobRoleList?.clockOut}
-                        onChange={e => {
-                          setJobRoleList({
-                            ...jobRoleList,
-                            clockOut: e.target.value,
-                          })
-                        }}
-                      />
-                    </Box>
-                  </Box>
-                  <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <Button
+                      sx={{
+                        marginTop: '5px',
+                      }}
                       className="primary_color_button"
-                      onClick={handleUpdateClockInOut}
+                      onClick={handleExpenseManagement}
                       variant="contained"
                     >
                       Save
                     </Button>
                   </Box>
-                </AccordionDetails>
-              </Accordion>
-            </Box>
-            <Box
-              sx={{
-                margin: '10px',
-              }}
-            >
-              <Accordion
-                sx={{
-                  boxShadow: 'none',
-                  border: '1px solid #E5E6EB',
-                }}
-                expanded={expanded.expenseManagement}
-                onChange={() => {
-                  setExpanded({
-                    ...expanded,
-                    expenseManagement: !expanded.expenseManagement,
-                    officeTimeManagement: expanded.officeTimeManagement,
-                  })
-                }}
-              >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography>Expense Management</Typography>
-                </AccordionSummary>
-                <AccordionDetails
-                  sx={{
-                    padding: ' 10px 20px',
-                  }}
-                >
-                  <FormGroup
-                    sx={{
-                      display: 'flex',
-                      width: '100%',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    {expensePolicy &&
-                      expensePolicy.map((data, index) => {
-                        return (
-                          <Box
-                            sx={{
-                              display: 'flex',
-                              width: '48%',
-                              flexDirection: 'row',
-                              flexWrap: 'wrap',
-                              justifyContent: 'space-between',
-                              alignItems: 'center',
-                              marginBottom: '10px',
-                            }}
-                          >
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  className="expanse_checkbox"
-                                  checked={data?.isChecked}
-                                  onChange={() => handleCheckboxChange(index)}
-                                />
-                              }
-                              label={data?.name}
-                            />
-                            <TextField
-                              sx={{ width: '150px' }}
-                              label="Max Amount"
-                              placeholder="Max Amount"
-                              type="number"
-                              value={data?.amount}
-                              onChange={e =>
-                                handleAmountChange(index, e.target.value)
-                              }
-                            />
-                          </Box>
-                        )
-                      })}
-                    <Box
-                      sx={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'flex-end',
-                      }}
-                    >
-                      <Button
-                        sx={{
-                          marginTop: '5px',
-                        }}
-                        className="primary_color_button"
-                        onClick={handleExpenseManagement}
-                        variant="contained"
-                      >
-                        Save
-                      </Button>
-                    </Box>
-                  </FormGroup>
-                </AccordionDetails>
-              </Accordion>
-            </Box>
+                </FormGroup>
+              </AccordionDetails>
+            </Accordion>
           </Box>
 
           <Box className="accessMenu_section">

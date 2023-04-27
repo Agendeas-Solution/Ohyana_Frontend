@@ -90,7 +90,7 @@ const CompanyProfile = () => {
               {companyDetail?.GSTIN || '-'}
             </Typography>
           </Box>
-          <Box className="companyDetail_root common_row p-3">
+          <Box className="companyDetail_root detail_row p-3">
             <Typography className="" variant="span">
               Business Type:
             </Typography>

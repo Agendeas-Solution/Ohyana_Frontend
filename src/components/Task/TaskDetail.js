@@ -352,7 +352,7 @@ const TaskDetail = () => {
           </Box>
           <Box className="task_details_section">
             <Box sx={{ marginBottom: '10px' }}>
-              <Box className="common_row">
+              <Box className="detail_row">
                 <Typography className="common_sub_heading" variant="span">
                   Due Date
                 </Typography>

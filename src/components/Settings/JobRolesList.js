@@ -147,11 +147,11 @@ const JobRolesList = () => {
                         </TableCell>
                         <TableCell>
                           <Button
+                            className="button_color"
                             variant="outlined"
                             onClick={() =>
                               navigate(`/jobroleaccess/${data.id}`)
                             }
-                            className="button_color"
                           >
                             View
                           </Button>

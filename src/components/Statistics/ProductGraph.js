@@ -107,7 +107,7 @@ const ProductGraph = ({ selectedPeriod }) => {
     <>
       <Box className="graph_detail_section">
         <Box className="graph_section">
-          <Box className="common_row">
+          <Box className="detail_row">
             <Typography className="report_tab_heading" variant="span">
               Overall
             </Typography>

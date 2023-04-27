@@ -10,12 +10,14 @@ import {
   TableHead,
   TableRow,
   Typography,
+  Divider,
 } from '@mui/material'
 import ReceiptRoundedIcon from '@mui/icons-material/ReceiptRounded'
 import './index.css'
 import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
+import StepContent from '@mui/material/StepContent'
 import SampleProduct from '../../assets/img/sample_product.png'
 import {
   GetOrderDetail,
@@ -25,9 +27,29 @@ import moment from 'moment'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import DispatchOrderDialog from './DispatchOrderDialog'
 
-const steps = ['Shipping', 'Dispatch', 'Delivered']
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const PaymentDetailDialog = React.lazy(() => import('./PaymentDetailDialog'))
+
+const steps = [
+  {
+    label: 'Shipping',
+    description: `For each ad campaign that you create, you can control how much
+              you're willing to spend on clicks and conversions, which networks
+              and geographical locations you want your ads to show on, and more.`,
+  },
+  {
+    label: 'Dispatch',
+    description:
+      'An ad group contains one or more ads which target a shared set of keywords.',
+  },
+  {
+    label: 'Delivered',
+    description: `Try out different ad text to see what brings in the most customers,
+              and learn how to enhance your ads using features like ad extensions.
+              If you run into any problems with your ads, find out how to tell if
+              they're running and how to resolve approval issues.`,
+  },
+]
 
 const OrderDetail = () => {
   const [orderDetail, setOrderDetail] = useState([])
@@ -57,13 +79,27 @@ const OrderDetail = () => {
       },
     )
   }, [])
-  const handleActiveStep = Status => {
-    steps.map((stepName, index) => {
-      if (stepName !== Status) {
-        return index + 1
-      }
-    })
+
+  const [activeStep, setActiveStep] = React.useState(0)
+
+  const handleNext = () => {
+    setActiveStep(prevActiveStep => prevActiveStep + 1)
   }
+
+  const handleBack = () => {
+    setActiveStep(prevActiveStep => prevActiveStep - 1)
+  }
+
+  const handleReset = () => {
+    setActiveStep(0)
+  }
+  // const handleActiveStep = Status => {
+  //   steps.map((stepName, index) => {
+  //     if (stepName !== Status) {
+  //       return index + 1
+  //     }
+  //   })
+  // }
   const handleOpenPaymentDialog = () => {
     setOpenPaymentDetailDialog(true)
   }
@@ -98,16 +134,43 @@ const OrderDetail = () => {
 
   return (
     <>
-      <Box className="main_section">
-        {/* <Box className="order_description">
-          <Box className="order_description_left_section">
-            <Box className="common_row mb-4">
+      <Box className="main_section" sx={{ overflow: 'hidden' }}>
+        <Box
+          className="payment_detail"
+          sx={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            borderRadius: '5px',
+            border: 'none',
+            background: ' #f1f2f6',
+            padding: '10px',
+            marginBottom: '15px',
+          }}
+        >
+          <Box
+            sx={{
+              width: '48%',
+            }}
+          >
+            <Box className="payment_detail_heading">
+              <Typography className="common_sub_heading" variant="span">
+                Order Summary
+              </Typography>
+              <Button className="white_buttons" variant="contained">
+                <ReceiptRoundedIcon />
+              </Button>
+            </Box>
+
+            <Box className="order_detail_row">
               <Typography className="order_desc_subheading" variant="span">
                 Order Id
               </Typography>
               <Typography variant="span">{orderDetail?.id}</Typography>
             </Box>
-            <Box className="common_row mb-4">
+
+            <Box className="order_detail_row">
               <Typography className="order_desc_subheading" variant="span ">
                 Order For
               </Typography>
@@ -115,7 +178,8 @@ const OrderDetail = () => {
                 {orderDetail?.client?.name}
               </Typography>
             </Box>
-            <Box className="common_row mb-4">
+
+            {/* <Box className="detail_row">
               <Typography className="order_desc_subheading" variant="span">
                 Date
               </Typography>
@@ -123,266 +187,213 @@ const OrderDetail = () => {
                 {moment(orderDetail?.date).format('DD-MM-YYYY hh:mm A')}
               </Typography>
             </Box>
-          </Box>
 
-          <Box className="order_description_middle_section">
-            <Box className="common_row mb-4">
-              <Typography className="order_desc_subheading" variant="span">
-                Total
-              </Typography>
-              <Typography variant="span">{orderDetail?.order_total}</Typography>
-            </Box>
-            <Box className="common_row mb-4">
-              <Typography className="order_desc_subheading" variant="span">
-                City & State
-              </Typography>
-              <Typography variant="span">
-                {orderDetail?.client?.city + ',' + orderDetail?.client?.state}
-              </Typography>
-            </Box>
-            <Box className="common_row align-items-start mb-4">
+            <Box className="detail_row">
               <Typography className="order_desc_subheading" variant="span">
                 Address
               </Typography>
               <Typography className="text-right" variant="span">
                 {orderDetail?.client?.address}
               </Typography>
-            </Box>
+            </Box> */}
           </Box>
-
-          <Box className="order_description_right_section mt-3">
-            <Button className="invoice_button">
-              <ReceiptRoundedIcon />
-            </Button>
-          </Box>
-        </Box> */}
-
-        <Box className="order_tracking_payment_detail mt-2">
-          <Box className="payment_detail">
-            <Box className="payment_detail_heading align-items-center">
-              <Typography className="common_sub_heading" variant="span">
-                Order Summary
-              </Typography>
-              <Button
-                variant="contained"
-                sx={{
-                  background: '#fff',
-                  color: '#2E3591',
-                  marginRight: '10px',
-                }}
-                // className="invoice_button"
-              >
-                <ReceiptRoundedIcon />
-              </Button>
-            </Box>
-
-            <Box className="common_row mb-3 mx-2">
-              <Typography className="order_desc_subheading" variant="span">
-                Order Id
-              </Typography>
-              <Typography variant="span">{orderDetail?.id}</Typography>
-            </Box>
-
-            <Box className="common_row mb-3 mx-2">
-              <Typography className="order_desc_subheading" variant="span ">
-                Order For
-              </Typography>
-              <Typography variant="span">
-                {orderDetail?.client?.name}
-              </Typography>
-            </Box>
-
-            <Box className="common_row mb-3 mx-2">
-              <Typography className="order_desc_subheading" variant="span">
-                Total
-              </Typography>
-              <Typography variant="span">{orderDetail?.order_total}</Typography>
-            </Box>
-
-            <Box className="payment_detail_heading align-items-center">
+          <Divider
+            sx={{ borderColor: '#8E8E8E' }}
+            orientation="vertical"
+            variant="middle"
+            flexItem
+          />
+          <Box
+            // className="payment_detail"
+            // sx={{
+            //   width: '49.5%',
+            // }}
+            sx={{
+              width: '48%',
+            }}
+          >
+            <Box className="payment_detail_heading">
               <Typography className="common_sub_heading" variant="span">
                 Payment Detail
               </Typography>
-            </Box>
-
-            <Box className="common_row mb-3 mx-2">
-              <Typography className="order_desc_subheading" variant="span">
-                Status
-              </Typography>
-              <Typography className="pe-3" variant="span">
-                {orderDetail?.paymentStatus?.charAt(0)?.toUpperCase() +
-                  orderDetail?.paymentStatus?.toLowerCase()?.substr(1)}
-              </Typography>
               <Button
+                className="white_buttons"
                 onClick={handleOpenPaymentDialog}
                 variant="contained"
-                sx={{
-                  background: '#fff',
-                  color: '#2E3591',
-                  marginRight: '10px',
-                }}
               >
                 Update
               </Button>
             </Box>
 
-            <Box className="common_row mb-3 mx-2">
+            <Box className="order_detail_row">
+              <Typography className="order_desc_subheading" variant="span">
+                Total
+              </Typography>
+              <Typography variant="span">{orderDetail?.order_total}</Typography>
+            </Box>
+
+            <Box className="order_detail_row">
+              <Typography className="order_desc_subheading" variant="span">
+                Status
+              </Typography>
+              <Typography variant="span">
+                {orderDetail?.paymentStatus?.charAt(0)?.toUpperCase() +
+                  orderDetail?.paymentStatus?.toLowerCase()?.substr(1)}
+              </Typography>
+            </Box>
+
+            <Box className="order_detail_row">
               <Typography className="order_desc_subheading" variant="span">
                 Method
               </Typography>
-              <Typography className="pe-3" variant="span">
+              <Typography variant="span">
                 {orderDetail?.paymentMethod?.charAt(0)?.toUpperCase() +
-                  orderDetail?.paymentMethod?.toLowerCase()?.substr(1)}
+                  orderDetail?.paymentMethod?.toLowerCase()?.substr(1) || '-'}
               </Typography>
             </Box>
           </Box>
-
-          <Box className="order_tracking">
-            <Box className="order_tracking_heading align-items-center mb-4">
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Box
+            className="payment_detail"
+            sx={{
+              width: '35%',
+            }}
+            // sx={{
+            //   width: '35%',
+            //   padding: '10px',
+            //   borderRadius: '5px',
+            //   background: ' #f1f2f6',
+            // }}
+          >
+            <Box className="payment_detail_heading">
               <Typography className="common_sub_heading" variant="span">
                 Order Tracking
               </Typography>
               <Button
+                className="common_button"
                 onClick={handleOpenDispatchDialog}
                 variant="contained"
-                sx={{
-                  background: '#fff',
-                  color: '#2E3591',
-                  marginRight: '10px',
-                }}
               >
                 Dispatch
               </Button>
             </Box>
 
-            <Box className="common_row mb-3 mx-2">
-              <Typography className="order_desc_subheading" variant="span">
-                Date
-              </Typography>
-              <Typography variant="span">
-                {moment(orderDetail?.date).format('DD-MM-YYYY hh:mm A')}
-              </Typography>
-            </Box>
-
-            <Box className="common_row align-items-start mb-3 mx-2">
-              <Typography className="order_desc_subheading" variant="span">
-                Address
-              </Typography>
-              <Typography className="text-right" variant="span">
-                {orderDetail?.client?.address}
-              </Typography>
-            </Box>
-
-            <Box sx={{ width: '100%', marginBottom: '8px' }}>
-              <Stepper
-                activeStep={handleActiveStep(orderDetail?.orderTrackingStatus)}
-                alternativeLabel
-              >
-                {steps.map(label => (
-                  <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
+            <Box sx={{ marginTop: '15px' }}>
+              <Stepper activeStep={activeStep} orientation="vertical">
+                {steps.map((step, index) => (
+                  <Step key={step.label}>
+                    <StepLabel
+                      optional={
+                        index === 2 ? (
+                          <Typography variant="caption">Last step</Typography>
+                        ) : null
+                      }
+                    >
+                      {step.label}
+                    </StepLabel>
+                    <StepContent>
+                      <Typography>{step.description}</Typography>
+                      <Box sx={{ mb: 2 }}>
+                        <div>
+                          <Button
+                            variant="contained"
+                            onClick={handleNext}
+                            sx={{ mt: 1, mr: 1 }}
+                          >
+                            {index === steps.length - 1 ? 'Finish' : 'Continue'}
+                          </Button>
+                          <Button
+                            disabled={index === 0}
+                            onClick={handleBack}
+                            sx={{ mt: 1, mr: 1 }}
+                          >
+                            Back
+                          </Button>
+                        </div>
+                      </Box>
+                    </StepContent>
                   </Step>
                 ))}
               </Stepper>
+              {activeStep === steps.length && (
+                <Paper square elevation={0} sx={{ p: 3 }}>
+                  <Typography>
+                    All steps completed - you&apos;re finished
+                  </Typography>
+                  <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+                    Reset
+                  </Button>
+                </Paper>
+              )}
             </Box>
           </Box>
-        </Box>
-
-        {/* <Box className="order_tracking">
-          <Box className="order_tracking_heading align-items-center mb-4">
-            <Typography className="common_sub_heading" variant="span">
-              Order Tracking
-            </Typography>
-            <Button
-              variant="contained"
-              sx={{
-                background: '#fff',
-                color: '#2E3591',
-                marginRight: '10px',
-              }}
+          <Box
+            sx={{
+              width: '63%',
+            }}
+          >
+            <TableContainer
+              className="client_table_height client_detail_table set_box_shadow"
+              component={Paper}
             >
-              Dispatch
-            </Button>
-          </Box>
-
-          <Box className="common_row mb-3 mx-2">
-            <Typography className="order_desc_subheading" variant="span">
-              Date
-            </Typography>
-            <Typography variant="span">
-              {moment(orderDetail?.date).format('DD-MM-YYYY hh:mm A')}
-            </Typography>
-          </Box>
-
-          <Box className="common_row align-items-start mb-3 mx-2">
-            <Typography className="order_desc_subheading" variant="span">
-              Address
-            </Typography>
-            <Typography className="text-right" variant="span">
-              {orderDetail?.client?.address}
-            </Typography>
-          </Box>
-
-          <Box sx={{ width: '100%', marginBottom: '8px' }}>
-            <Stepper
-              activeStep={handleActiveStep(orderDetail?.orderTrackingStatus)}
-              alternativeLabel
-            >
-              {steps.map(label => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-          </Box>
-        </Box> */}
-      </Box>
-      {orderItems.length > 0 ? (
-        <TableContainer
-          component={Paper}
-          sx={{ boxShadow: 'none', marginTop: 2 }}
-        >
-          <Table sx={{ minWidth: 250 }}>
-            <TableHead className="team_overview_table_heading">
-              <TableRow>
-                <TableCell></TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell align="right">Quantity</TableCell>
-                <TableCell align="right">Total Amount</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {orderItems.map(data => {
-                return (
-                  <TableRow
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell align="right">
-                      <img
-                        style={{
-                          border: '1px solid #E5E5E5',
-                          borderRadius: '5px',
-                          padding: '4px',
-                        }}
-                        src={SampleProduct}
-                      />
-                    </TableCell>
-                    <TableCell align="right">{data?.product?.name}</TableCell>
-                    <TableCell align="right">{data?.product?.price}</TableCell>
-                    <TableCell align="right">{data?.quantity}</TableCell>
-                    <TableCell align="right">
-                      {data?.product?.price * data?.quantity}
-                    </TableCell>
+              <Table
+                stickyHeader
+                aria-label="sticky table"
+                sx={{ minWidth: 690, padding: '0px !important' }}
+                className="table_heading"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell></TableCell>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Price</TableCell>
+                    <TableCell>Quantity</TableCell>
+                    <TableCell>Total Amount</TableCell>
                   </TableRow>
-                )
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      ) : (
-        <NoResultFound />
-      )}
+                </TableHead>
+                <TableBody>
+                  {orderDetail?.order_items &&
+                    orderDetail?.order_items.map(data => {
+                      return (
+                        <TableRow
+                          sx={{
+                            '&:last-child td,th': { border: 0 },
+                          }}
+                        >
+                          <TableCell align="right">
+                            <img
+                              style={{
+                                border: '1px solid #E5E5E5',
+                                borderRadius: '5px',
+                                padding: '4px',
+                              }}
+                              src={SampleProduct}
+                            />
+                          </TableCell>
+                          <TableCell>{data?.name || '-'}</TableCell>
+                          <TableCell>{data?.price || '-'}</TableCell>
+                          <TableCell>{data?.quantity || '-'}</TableCell>
+                          <TableCell>
+                            {data?.price * data?.quantity || 0}
+                          </TableCell>
+                        </TableRow>
+                      )
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Box>
+        </Box>
+      </Box>
+
       <PaymentDetailDialog
         handleClosePaymentDialog={handleClosePaymentDialog}
         openPaymentDetailDialog={openPaymentDetailDialog}
