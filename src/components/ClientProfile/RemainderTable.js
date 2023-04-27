@@ -15,7 +15,11 @@ import moment from 'moment'
 import EditReminderDialog from './EditReminderDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 
-const RemainderTable = ({ clientReminderList }) => {
+const RemainderTable = ({
+  clientReminderList,
+  remainderDialog,
+  setRemainderDialog,
+}) => {
   const [editReminderDetail, setEditReminderDetail] = useState({
     description: '',
     date: '',
@@ -24,8 +28,8 @@ const RemainderTable = ({ clientReminderList }) => {
     id: null,
   })
   const handleEditReminder = row => {
-    setEditReminderDetail({
-      ...editReminderDetail,
+    setRemainderDialog({
+      ...remainderDialog,
       description: row.description,
       date: row.date,
       time: row.time,
@@ -33,9 +37,7 @@ const RemainderTable = ({ clientReminderList }) => {
       status: true,
     })
   }
-  const handleClose = () => {
-    setEditReminderDetail({ ...editReminderDetail, status: false })
-  }
+
   return (
     <>
       <TableContainer
@@ -107,12 +109,6 @@ const RemainderTable = ({ clientReminderList }) => {
           <NoResultFound />
         )}
       </TableContainer>
-      {editReminderDetail.status === true && (
-        <EditReminderDialog
-          handleClose={handleClose}
-          editReminderDetail={editReminderDetail}
-        />
-      )}
     </>
   )
 }

@@ -1,5 +1,14 @@
 import React, { useState, useContext, lazy, useEffect } from 'react'
-import { Box, Typography, TextField, Button } from '@mui/material'
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  FormControl,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+} from '@mui/material'
 import './index.css'
 import { login } from '../../services/apiservices/login'
 import { Context as AuthContext } from '../../context/authContext/authContext'
@@ -8,6 +17,8 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as ContextActivePage } from '../../context/pageContext'
 import Logo from '../../assets/img/Ohyana Logo Blue.svg'
 import { socket } from '../../App'
+import InputLabel from '@mui/material/InputLabel'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const Login = () => {
   const { setAuthorize, setFlagLoader } = useContext(AuthContext)
@@ -18,6 +29,11 @@ const Login = () => {
   const { setActivePage } = useContext(ContextActivePage)
   const { errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setErrorSnackbar } = useContext(ContextSnackbar)
+  const [showPassword, setShowPassword] = useState(false)
+  const handleClickShowPassword = () => setShowPassword(show => !show)
+  const handleMouseDownPassword = event => {
+    event.preventDefault()
+  }
   const navigate = useNavigate()
   const [errorMessage, setErrorMessage] = useState('')
   const [path, setPath] = useState(null)
@@ -53,7 +69,7 @@ const Login = () => {
           setErrorSnackbar({
             ...errorSnackbar,
             status: true,
-            message: resError.response.data.error,
+            message: resError.response.data.message,
           })
           setFlagLoader(false)
         },
@@ -72,12 +88,10 @@ const Login = () => {
         <Box className="company_logo">
           <img src={Logo} alt="Company logo" />
         </Box>
-
         <Box className="login_form">
           <Typography className="login_heading" variant="span">
             Welcome To Ohyana.
           </Typography>
-
           <form
             onSubmit={e => {
               e.preventDefault()
@@ -94,9 +108,31 @@ const Login = () => {
                 setUserDetail({ ...userDetail, email: e.target.value })
               }}
             />
-
-            <Box sx={{ width: '100%', margin: '18px 0px' }}>
-              <TextField
+            <Box sx={{ width: '100%' }}>
+              <FormControl sx={{ width: '100%' }} variant="outlined">
+                <InputLabel>Password</InputLabel>
+                <OutlinedInput
+                  sx={{ width: '100%' }}
+                  type={showPassword ? 'password' : 'text'}
+                  value={userDetail.password}
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, password: e.target.value })
+                  }}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
+              </FormControl>
+              {/* <TextField
                 sx={{ width: '100%' }}
                 label="password"
                 variant="outlined"
@@ -105,8 +141,7 @@ const Login = () => {
                 onChange={e => {
                   setUserDetail({ ...userDetail, password: e.target.value })
                 }}
-              />
-
+              /> */}
               <Typography className="login_forget_password_root" variant="span">
                 <Button
                   sx={{ padding: '5px 0px' }}
@@ -117,7 +152,6 @@ const Login = () => {
                 </Button>
               </Typography>
             </Box>
-
             <Button
               className="dialogue_bottom_button"
               onClick={userlogin}
@@ -128,7 +162,6 @@ const Login = () => {
             </Button>
           </form>
         </Box>
-
         <Typography className="login_copyright_root" variant="span">
           {new Date().getFullYear()} © Ohyana.
         </Typography>

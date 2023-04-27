@@ -36,7 +36,6 @@ const PJPScheduleTable = ({
           component={Paper}
         >
           <Table stickyHeader className="table_heading">
-
             <TableHead>
               <TableRow>
                 <TableCell>Sr No.</TableCell>

@@ -29,7 +29,7 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
-            message: res.data.message,
+            message: res.message,
           })
         }
       },
@@ -38,7 +38,7 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
-          message: err.response.data.error,
+          message: err.response.data.message,
         })
       },
     )

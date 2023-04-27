@@ -26,7 +26,7 @@ const DeleteDepartmentDialog = ({
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
       },
       err => {},
