@@ -88,7 +88,7 @@ const Dashboard = () => {
               </Typography>
             </Box>
 
-            <Box className="common_row">
+            <Box className="detail_row">
               <Box className="platform_data_detail">
                 <Box className="inquiry_sub_heading">
                   <Box className="inquiry_detail_box inquiry_detail_left_part">

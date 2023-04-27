@@ -312,7 +312,7 @@ const DashboardEmployee = () => {
             </Box> */}
           </Box>
         </Box>
-        <Box className="common_row">
+        <Box className="detail_row">
           <Box className="my_task_section">
             <Box className="my_main_section_header">
               <Typography className="bottom_left_panel_heading" variant="span">
@@ -424,7 +424,7 @@ const DashboardEmployee = () => {
             </TableContainer>
           </Box>
         </Box>
-        <Box className="common_row">
+        <Box className="detail_row">
           <Box className="star_performers_section">
             <Box className="my_main_section_header">
               <Typography className="bottom_left_panel_heading" variant="span">

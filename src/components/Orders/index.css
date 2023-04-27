@@ -54,8 +54,17 @@
   border-radius: 3px;
   padding: 2px;
 }
+
+.order_detail_row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  align-items: center;
+  margin: 20px 5px;
+}
 .order_desc_subheading {
-  /* font-weight: 600; */
+  width: 25% !important;
   color: #8e8e8e;
 }
 .order_tracking_payment_detail {
@@ -72,8 +81,7 @@
   border-radius: 5px;
 }
 .payment_detail {
-  width: 33%;
-  /* background-color: #f1f2f6; */
+  width: 100%;
   background-color: #ffffff;
   border: 1px solid #e5e5e5;
   padding: 10px;
@@ -87,12 +95,13 @@
 .css-z7uhs0-MuiStepConnector-line {
   border-top-style: dashed !important ;
 }
+
 .payment_detail_heading {
   display: flex;
   justify-content: space-between;
-  padding: 8px 0 0 10px;
-  margin-bottom: 16px;
+  align-items: center;
 }
+
 .order_section {
   display: flex;
   flex-direction: row;
