@@ -34,7 +34,7 @@ const AddEditDepartmentDialog = ({
             setSuccessSnackbar({
               ...successSnackbar,
               status: true,
-              message: res.data.message,
+              message: res.message,
             })
           }
         },
@@ -49,7 +49,7 @@ const AddEditDepartmentDialog = ({
             setSuccessSnackbar({
               ...successSnackbar,
               status: true,
-              message: res.data.message,
+              message: res.message,
             })
           }
         },

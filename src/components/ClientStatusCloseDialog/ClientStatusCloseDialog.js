@@ -73,14 +73,14 @@ const ClientStatusCloseDialog = ({
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
       },
       err => {
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
-          message: err.response.data.error,
+          message: err.response.data.message,
         })
         CloseDeleteRemainder()
       },

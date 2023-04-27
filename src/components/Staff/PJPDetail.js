@@ -291,24 +291,19 @@ const PJPDetail = () => {
                     <ChevronRightIcon className="chevron_icon" />
                   )}
                 </IconButton>
-
                 <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
               </Box>
               <Box>
                 <Button onClick={handleApplyFilter} variant="contained">
                   Apply
                 </Button>
-                <Button>Clear All</Button>
+                <Button onClick={handleClearAllFilter}>Clear All</Button>
               </Box>
             </DrawerHeader>
             <Divider />
-
             <Box className="filter_body_section">
               <FormControl className="filter_body_inner_section">
-                <FormLabel
-                  className="filter_body_inner_heading"
-                  // id="demo-row-radio-buttons-group-label"
-                >
+                <FormLabel className="filter_body_inner_heading">
                   PJP Is
                 </FormLabel>
                 <RadioGroup
@@ -332,7 +327,6 @@ const PJPDetail = () => {
                   </Box>
                 </RadioGroup>
               </FormControl>
-
               <FormControl className="filter_body_inner_section">
                 <InputLabel>Select City</InputLabel>
                 <Select
@@ -351,7 +345,6 @@ const PJPDetail = () => {
                     })}
                 </Select>
               </FormControl>
-
               <FormControl className="filter_body_inner_section">
                 <InputLabel>Select State</InputLabel>
                 <Select
@@ -370,7 +363,6 @@ const PJPDetail = () => {
                     })}
                 </Select>
               </FormControl>
-
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   inputFormat="dd/MM/yyyy"

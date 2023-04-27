@@ -29,7 +29,6 @@ import {
   InputLabel,
 } from '@mui/material'
 import './index.css'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import FilterIcon from '../../assets/img/Filter.svg'

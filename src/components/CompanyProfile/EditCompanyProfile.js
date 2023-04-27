@@ -88,7 +88,7 @@ const EditCompanyProfile = () => {
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
-          message: err.response.data.error,
+          message: err.response.data.message,
         })
       },
     )
@@ -219,7 +219,6 @@ const EditCompanyProfile = () => {
             >
               Save
             </Button>
-
           </Box>
         </Box>
       </Box>

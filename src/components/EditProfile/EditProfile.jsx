@@ -84,7 +84,7 @@ const EditProfile = () => {
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
-          message: err.response.data.error,
+          message: err.response.data.message,
         })
       },
     )
