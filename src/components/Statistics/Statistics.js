@@ -1,5 +1,16 @@
 import React, { useState } from 'react'
-import { Box, Typography, Autocomplete, TextField, Button } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Autocomplete,
+  TextField,
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Divider,
+} from '@mui/material'
 import './index.css'
 import moment from 'moment'
 const BarChart = React.lazy(() => import('./BarChart'))
@@ -8,47 +19,39 @@ const ProductGraph = React.lazy(() => import('./ProductGraph'))
 const LineChart = React.lazy(() => import('./LineChart'))
 const Statistics = () => {
   const [value, setValue] = React.useState('1')
-  const [selectedPeriod, setSelectedPeriod] = useState('days-7')
+
   const [daterange, setDateRange] = useState([
-    'days-7',
-    'days-30',
-    'days-90',
-    `month-${moment().format('MMMM')}`,
-    `month-${moment().subtract(1, 'months').format('MMMM')}`,
-    `month-${moment().subtract(2, 'months').format('MMMM')}`,
-    `year-${moment().format(' YYYY')}`,
+    '7 days',
+    '30 days',
+    '90 days',
+    `${moment().format('MMMM')}`,
+    `${moment().subtract(1, 'months').format('MMMM')}`,
+    `${moment().subtract(2, 'months').format('MMMM')}`,
+    `${moment().format(' YYYY')}`,
   ])
+  const [selectedPeriod, setSelectedPeriod] = useState(daterange[0])
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
   const [activeTab, setActiveTab] = useState('product')
   return (
     <>
-      <Box className="main_section">
-        <Box className="statistics_title">
-          <Box>
-            <Typography
-              sx={{ fontSize: '22px', fontWeight: '500' }}
-              variant="span"
-            >
-              Product
-            </Typography>
-          </Box>
+      <Box
+        className="main_section"
+        sx={{ overflowY: 'hidden', padding: '0px' }}
+      >
+        <Box className="header_section">
+          <Typography className="sub_heading" variant="span">
+            Product
+          </Typography>
           <Box
             sx={{
               display: 'flex',
               alignItems: 'center',
-              marginBottom: '10px',
+              flexDirection: 'row',
             }}
           >
-            <Box
-              sx={{
-                background: '#F1F2F6',
-                borderRadius: '5px',
-                height: '35px',
-                marginRight: '10px',
-              }}
-            >
+            <Box sx={{ marginRight: '10px' }}>
               <Button
                 className={
                   activeTab === 'product'
@@ -77,30 +80,32 @@ const Statistics = () => {
               </Button>
             </Box>
 
-            <Box sx={{ height: '50px' }}>
-              <Autocomplete
-                sx={{ width: 150 }}
-                disablePortal
-                options={daterange}
+            <FormControl>
+              <InputLabel> Select Time</InputLabel>
+              <Select
+                sx={{ width: '125px', height: '40px' }}
+                label=" Select Time"
                 value={selectedPeriod}
                 onChange={(e, value) => {
-                  setSelectedPeriod(value)
+                  setSelectedPeriod(e.target.value)
                 }}
-                renderInput={params => (
-                  <TextField
-                    // className="common_dropdown"
-                    {...params}
-                    label="1 Mon"
-                  />
-                )}
-              />
-            </Box>
+              >
+                {daterange.map(data => {
+                  return <MenuItem value={data}>{data}</MenuItem>
+                })}
+              </Select>
+            </FormControl>
           </Box>
         </Box>
-        {activeTab === 'product' && (
-          <ProductGraph selectedPeriod={selectedPeriod} />
-        )}
-        {activeTab === 'team' && <TeamGraph selectedPeriod={selectedPeriod} />}
+        <Divider sx={{ margin: '10px' }} />
+        <Box>
+          {activeTab === 'product' && (
+            <ProductGraph selectedPeriod={selectedPeriod} />
+          )}
+          {activeTab === 'team' && (
+            <TeamGraph selectedPeriod={selectedPeriod} />
+          )}
+        </Box>
       </Box>
     </>
   )
