@@ -5,8 +5,6 @@ import {
   Box,
   Pagination,
   Button,
-  Dialog,
-  DialogActions,
   Typography,
   FormControl,
   OutlinedInput,
@@ -17,8 +15,6 @@ import {
 } from '@mui/material'
 import './index.css'
 import { socket } from '../../App'
-import DeleteIcon from '../../assets/img/delete.png'
-import AddRoundedIcon from '@mui/icons-material/AddRounded'
 import { useNavigate } from 'react-router-dom'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import {
@@ -38,6 +34,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import FilterIcon from '../../assets/img/Filter.svg'
 import { styled, useTheme } from '@mui/material/styles'
 import { CLIENT } from '../../constants'
+import { Oval } from 'react-loader-spinner'
 const drawerWidth = 350
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const NoResultFound = React.lazy(() =>
@@ -77,7 +74,6 @@ const Client = () => {
   const [clientLoader, setClientLoader] = useState(false)
   const [clientType, setClientType] = useState(CLIENT.STAGE)
   const [searchQuery, setSearchQuery] = useState('')
-
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -126,7 +122,6 @@ const Client = () => {
       },
     )
   }
-
   useEffect(() => {
     handleCityList()
     handleStateList()
@@ -311,7 +306,6 @@ const Client = () => {
               + New Clients
             </Button>
           )}
-
           <IconButton
             edge="end"
             onClick={handleDrawerOpen}
@@ -320,7 +314,6 @@ const Client = () => {
             <img src={FilterIcon} alt="" />
           </IconButton>
         </Box>
-
         <Drawer
           onClose={handleDrawerClose}
           sx={{
@@ -346,7 +339,6 @@ const Client = () => {
               </IconButton>
               <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
             </Box>
-
             <Box>
               <Button onClick={handleClearAllFilter}>Reset</Button>
               <Button
@@ -358,9 +350,7 @@ const Client = () => {
               </Button>
             </Box>
           </DrawerHeader>
-
           <Divider />
-
           <Box className="filter_body_section">
             <FormControl className="filter_body_inner_section">
               <InputLabel>Client Type</InputLabel>
@@ -376,7 +366,6 @@ const Client = () => {
                 })}
               </Select>
             </FormControl>
-
             <FormControl className="filter_body_inner_section">
               <InputLabel>Select City</InputLabel>
               <Select
@@ -395,7 +384,6 @@ const Client = () => {
                   })}
               </Select>
             </FormControl>
-
             <FormControl className="filter_body_inner_section">
               <InputLabel>Select State</InputLabel>
               <Select

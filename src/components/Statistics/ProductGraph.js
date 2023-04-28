@@ -111,7 +111,6 @@ const ProductGraph = ({ selectedPeriod }) => {
             <Typography className="report_tab_heading" variant="span">
               Overall
             </Typography>
-
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <FormControl className="filter_body_inner_section">
                 <InputLabel>Select City</InputLabel>

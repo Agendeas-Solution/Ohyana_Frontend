@@ -22,7 +22,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import './index.css'
 import { GetAllClients } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
-
 const AddPJPDialog = ({
   addPJPDetail,
   handleCloseDialog,
@@ -31,7 +30,6 @@ const AddPJPDialog = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [options, setOptions] = useState([])
-
   useEffect(() => {
     let data = {
       size: 10,
@@ -51,6 +49,9 @@ const AddPJPDialog = ({
       },
     )
   }, [searchQuery])
+  useEffect(() => {
+    addPJPDetail.pjpId && setSearchQuery(addPJPDetail.clientId.name)
+  }, [])
 
   return (
     <>
@@ -58,21 +59,28 @@ const AddPJPDialog = ({
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add PJP</Typography>
           <FormControl>
-            <InputLabel className="dialogue_input_fields">
-              Client Name
-            </InputLabel>
-            <Select
-              label="Select Client Name"
-              className="dialogue_input_fields"
-              value={addPJPDetail?.clientId}
-              onChange={e => {
-                setAddPJPDetail({ ...addPJPDetail, clientId: e.target.value })
+            <Autocomplete
+              filterSelectedOptions
+              options={options}
+              disabled={addPJPDetail?.pjpId}
+              value={addPJPDetail?.clientId || null}
+              onChange={(e, value) => {
+                setAddPJPDetail({ ...addPJPDetail, clientId: value })
               }}
-            >
-              {options.map(data => {
-                return <MenuItem value={data.id}>{data.name}</MenuItem>
-              })}
-            </Select>
+              onInputChange={e => {
+                if (e?.target?.value !== '' && e?.target?.value) {
+                  setSearchQuery(e.target.value)
+                }
+              }}
+              getOptionLabel={option => option?.name}
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  label="Add Client Name"
+                  className="dialogue_input_fields"
+                />
+              )}
+            />
           </FormControl>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
@@ -85,7 +93,7 @@ const AddPJPDialog = ({
                 <TextField {...params} className="dialogue_input_fields" />
               )}
               PopperProps={{
-                placement: 'bottom-start', // Set placement to 'bottom-start'
+                placement: 'bottom-start',
               }}
             />
           </LocalizationProvider>

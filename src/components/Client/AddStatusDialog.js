@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import {
   Dialog,
-  DialogTitle,
-  DialogContent,
   DialogActions,
   Button,
   Typography,
   Box,
-  TextareaAutosize,
-  Autocomplete,
   TextField,
   FormControl,
   InputLabel,
@@ -40,7 +36,6 @@ const AddStatusDialog = ({
       callNotReceived: true,
       followUpType: addStatusDetail?.followUpType,
     }
-
     AddClientStatus(
       data,
       res => {

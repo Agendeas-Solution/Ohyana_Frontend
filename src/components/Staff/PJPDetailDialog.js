@@ -12,7 +12,12 @@ import './index.css'
 import EditPJPDialog from './EditPJPDialog'
 import moment from 'moment'
 
-const PJPDetailDialog = ({ pjpDetailDialog, handleCloseDialog }) => {
+const PJPDetailDialog = ({
+  pjpDetailDialog,
+  handleCloseDialog,
+  addPJPDetail,
+  setAddPJPDetail,
+}) => {
   const [pjpDetail, setPJPDetail] = useState({
     id: '',
     date: moment().format('LL'),
@@ -54,7 +59,17 @@ const PJPDetailDialog = ({ pjpDetailDialog, handleCloseDialog }) => {
             <Box sx={{ padding: '15px 20px' }} variant="span">
               <Button
                 className="common_button"
-                onClick={handleEditPJPOpenDialog}
+                onClick={() => {
+                  setAddPJPDetail({
+                    ...addPJPDetail,
+                    clientId: pjpDetail.client,
+                    date: pjpDetail.date,
+                    description: pjpDetail.description,
+                    dialogStatus: true,
+                    pjpId: pjpDetail.id,
+                  })
+                  debugger
+                }}
               >
                 Edit
               </Button>
@@ -124,7 +139,7 @@ const PJPDetailDialog = ({ pjpDetailDialog, handleCloseDialog }) => {
           </DialogContent>
         </Box>
       </Dialog>
-      {pjpDetail.status && (
+      {/* {pjpDetail.status && (
         <EditPJPDialog
           editPJPDetail={editPJPDetail}
           setEditPJPDetail={setEditPJPDetail}
@@ -132,7 +147,7 @@ const PJPDetailDialog = ({ pjpDetailDialog, handleCloseDialog }) => {
           pjpDetail={pjpDetail}
           handlePJPDetail={handlePJPDetail}
         />
-      )}
+      )} */}
     </>
   )
 }
