@@ -10,6 +10,9 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material'
 const AssignMemberDialog = ({
   handleCloseMemberDialog,
@@ -19,18 +22,17 @@ const AssignMemberDialog = ({
   member,
   setMember,
 }) => {
-  console.log(memberList)
   return (
     <>
       <Dialog open={openMemberDialog} onClose={handleCloseMemberDialog}>
         <Box className="dialogue_main_section">
-          <Typography className="dialogue_heading">Assign Mmber</Typography>
-          <Autocomplete
+          <Typography className="dialogue_heading">Assign Member</Typography>
+
+          {/* <Autocomplete
             disablePortal
             options={memberList}
             value={member?.email}
             onChange={(e, value) => {
-              console.log(value)
               setMember(value)
             }}
             getOptionLabel={memberList => memberList?.email}
@@ -42,7 +44,23 @@ const AssignMemberDialog = ({
                 placeholder="Search Members"
               />
             )}
-          />
+          /> */}
+
+          <FormControl className="dialogue_input_fields">
+            <InputLabel>Select Members</InputLabel>
+            <Select
+              label="Select Members"
+              value={member?.memberList}
+              onChange={(e, value) => {
+                setMember(value)
+              }}
+            >
+              {memberList.map(data => {
+                return <MenuItem value={data.email}>{data.email}</MenuItem>
+              })}
+            </Select>
+          </FormControl>
+
           <DialogActions sx={{ marginTop: '15px' }}>
             <Button
               className="dialogue_button_positive"

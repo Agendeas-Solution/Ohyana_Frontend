@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Box, Typography, Button, TextField } from '@mui/material'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import Table from '@mui/material/Table'
@@ -17,41 +16,56 @@ import {
   GetExpenseList,
   PaymentStatusUpdate,
   StatusUpdate,
+  ApproveExpense,
+  PaymentStatus,
 } from '../../services/apiservices/staffDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import StaffExpensesDetail from './StaffExpensesDetail'
+import { Context as AuthContext } from '../../context/authContext/authContext'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+import StaffExpensesApprovalDialog from './StaffExpensesApprovalDialog'
+import StaffPaymentVerificationDialog from './StaffPaymentVerificationDialog'
 
 const StaffExpenses = () => {
-  const [dateRange, setDateRange] = useState({
-    startDate: '',
-    endDate: '',
-    // defaultDate: moment().format('dd/mm/yyyy'),
-  })
+  const { flagLoader, permissions } = useContext(AuthContext).state
   const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const [value, setValue] = useState('1')
   const [expenseList, setExpenseList] = useState([])
   const [expensesData, setExpensesData] = useState([])
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-
-  const [openStaffExpenses, setOpenStaffExpenses] = useState(false)
-
-  const handleOpen = () => {
-    setOpenStaffExpenses(true)
-  }
+  const [openStaffExpenses, setOpenStaffExpenses] = useState({
+    status: false,
+    id: '',
+  })
+  const [openApprovalDialog, setOpenApprovalDialog] = useState({
+    status: false,
+    amount: '',
+    description: '',
+    teamExpenseid: '',
+  })
+  const [paymentVerification, setPaymentVerification] = useState({
+    status: false,
+  })
 
   const handleClose = () => {
-    setOpenStaffExpenses(false)
+    setOpenStaffExpenses({ ...openStaffExpenses, status: false })
+  }
+  const handleCloseApprovalDialog = () => {
+    setOpenApprovalDialog({ ...openApprovalDialog, status: false })
+  }
+  const handleClosePaymentVerificationDialog = () => {
+    setPaymentVerification({ ...paymentVerification, status: false })
   }
 
   useEffect(() => {
-    let path = window.location.pathname
-    path = path.split('/').pop()
     let data = {
       month: moment(selectMonth.$d).month() + 1,
       year: moment(selectMonth.$d).format('YYYY'),
-      teamId: parseInt(path),
+      teamId: permissions?.roleId,
     }
     GetExpenseList(
       data,
@@ -79,7 +93,60 @@ const StaffExpenses = () => {
       err => {},
     )
   }
-
+  const handleExpenseApproval = () => {
+    let data = {
+      amount: openApprovalDialog.amount,
+      description: openApprovalDialog.description,
+      teamExpenseid: openApprovalDialog.teamExpenseId,
+    }
+    ApproveExpense(
+      data,
+      res => {
+        handleCloseApprovalDialog()
+        setOpenApprovalDialog({
+          amount: '',
+          description: '',
+          teamExpenseid: '',
+        })
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+      },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err.response.data.message,
+        })
+      },
+    )
+  }
+  const handlePaymentStatus = () => {
+    let data = {
+      teamExpenseid: paymentVerification.teamExpenseId,
+      status: 'DONE',
+    }
+    PaymentStatus(
+      data,
+      res => {
+        handleClosePaymentVerificationDialog()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+      },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err.response.data.message,
+        })
+      },
+    )
+  }
   return (
     <>
       <Box className="target_section">
@@ -98,18 +165,16 @@ const StaffExpenses = () => {
               <Typography>{expensesData?.pending || '-'}</Typography>
             </Box>
             <Box className="statistics_box fourth_box">
-              <Typography className="" sx={{ whiteSpace: 'nowrap' }}>
-                Payment Done
-              </Typography>
+              <Typography>Payment Done</Typography>
               <Typography>{expensesData?.paymentDone || '-'}</Typography>
             </Box>
           </Box>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
+              className="staff_date"
               views={['month', 'year']}
               value={selectMonth}
               onChange={selectMonth => {
-                console.log(`inside Onchange: ${selectMonth.format('MMM')}`)
                 setSelectMonth(selectMonth)
               }}
               renderInput={params => (
@@ -124,21 +189,15 @@ const StaffExpenses = () => {
           </LocalizationProvider>
         </Box>
         <TableContainer
-          className="expenses_table_height mt-2"
+          className="expenses_table_height expenses_main_table"
           component={Paper}
-          sx={{
-            boxShadow: 'none',
-            border: '1px solid #e5e5e5',
-            borderTop: 'none',
-            overflowY: 'auto',
-          }}
         >
           {expenseList.length > 0 ? (
             <Table
               stickyHeader
               aria-label="sticky table"
-              sx={{ minWidth: 690, marginLeft: '-10px' }}
-              className="table_heading "
+              sx={{ minWidth: 690 }}
+              className="table_heading custom_table"
             >
               <TableHead>
                 <TableRow>
@@ -148,8 +207,7 @@ const StaffExpenses = () => {
                   <TableCell>Approval</TableCell>
                   <TableCell>Payment</TableCell>
                   <TableCell>Document</TableCell>
-                  {/* <TableCell>Approval</TableCell> */}
-                  <TableCell>Payment</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -202,26 +260,23 @@ const StaffExpenses = () => {
                         )}
                       </TableCell> */}
                         <TableCell>
-                          {row?.payment_status === 'DONE' ? (
+                          {/* {row?.payment_status === 'DONE' ? (
                             <Typography>-</Typography>
-                          ) : (
-                            <Box>
-                              <Button
-                                onClick={() =>
-                                  handlePaymentStatusUpdate(row?.id)
-                                }
-                                className="common_button"
-                              >
-                                Update
-                              </Button>
-                              <Button
-                                onClick={handleOpen}
-                                className="common_button"
-                              >
-                                Vieww
-                              </Button>
-                            </Box>
-                          )}
+                          ) : ( */}
+                          <Box>
+                            <Button
+                              onClick={() => {
+                                setOpenStaffExpenses({
+                                  status: true,
+                                  data: row,
+                                })
+                              }}
+                              className="border_button"
+                            >
+                              View
+                            </Button>
+                          </Box>
+                          {/* )} */}
                         </TableCell>
                       </TableRow>
                     )
@@ -233,8 +288,25 @@ const StaffExpenses = () => {
           )}
         </TableContainer>
         <StaffExpensesDetail
-          closeStaffExpenses={handleClose}
           openStaffExpenses={openStaffExpenses}
+          closeStaffExpenses={handleClose}
+          setOpenStaffExpenses={setOpenStaffExpenses}
+          openApprovalDialog={openApprovalDialog}
+          setOpenApprovalDialog={setOpenApprovalDialog}
+          paymentVerification={paymentVerification}
+          setPaymentVerification={setPaymentVerification}
+        />
+        <StaffExpensesApprovalDialog
+          openApprovalDialog={openApprovalDialog}
+          closeApprovalDialog={handleCloseApprovalDialog}
+          setOpenApprovalDialog={setOpenApprovalDialog}
+          handleExpenseApproval={handleExpenseApproval}
+        />
+        <StaffPaymentVerificationDialog
+          paymentVerification={paymentVerification}
+          closePaymentVerification={handleClosePaymentVerificationDialog}
+          setPaymentVerification={setPaymentVerification}
+          handlePaymentStatus={handlePaymentStatus}
         />
       </Box>
     </>

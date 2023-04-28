@@ -36,8 +36,6 @@ const Complaint = () => {
   }
   useEffect(() => {
     let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
     GetComplaintDetail(
       parseInt(path),
@@ -54,8 +52,6 @@ const Complaint = () => {
   }, [])
   const handleAddStatus = () => {
     let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
     setTicketAnswer({ ...ticketAnswer, id: path })
     AddStatusInComplaint(
@@ -65,7 +61,7 @@ const Complaint = () => {
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
-            message: res.data.message,
+            message: res.message,
           })
         }
       },
@@ -76,8 +72,6 @@ const Complaint = () => {
   }
   const handleCloseTicket = () => {
     let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
     CloseTicket(
       path,

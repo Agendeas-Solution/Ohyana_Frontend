@@ -15,16 +15,10 @@ import Paper from '@mui/material/Paper'
 import { GetTargetList } from '../../services/apiservices/teamcall'
 import SetTargetDialog from './SetTargetDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
-let path = window.location.pathname
-console.log('Printing Path of ', path)
-console.log('Printing ', path.split('/').pop())
-path = path.split('/').pop()
 
 const StaffTarget = () => {
-  const [dateRange, setDateRange] = useState({
-    startDate: '',
-    endDate: '',
-  })
+  let path = window.location.pathname
+  path = path.split('/').pop()
   // const [selectMonth, setSelectMonth] = useState({
   //   $M: moment().month(),
   //   $y: moment().year(),
@@ -36,9 +30,7 @@ const StaffTarget = () => {
     id: path,
   })
   const [targetList, setTargetList] = useState([])
-
   useEffect(() => {
-    // debugger
     let data = {
       month: moment(selectMonth.$d).month() + 1,
       year: moment(selectMonth.$d).format('YYYY'),
@@ -82,24 +74,21 @@ const StaffTarget = () => {
               <Typography variant="span">24</Typography>
             </Box>
           </Box>
-
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'start',
-            }}
-          >
+          <Box>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
+                className="staff_date"
                 views={['month', 'year']}
                 value={selectMonth}
                 onChange={selectMonth => {
-                  console.log(`inside Onchange: ${selectMonth.format('MMM')}`)
                   setSelectMonth(selectMonth)
                 }}
                 renderInput={params => (
                   <TextField
-                    sx={{ width: '175px', marginRight: '10px' }}
+                    sx={{
+                      width: '175px',
+                      marginRight: '10px',
+                    }}
                     {...params}
                     helperText={null}
                   />
@@ -110,29 +99,22 @@ const StaffTarget = () => {
               />
             </LocalizationProvider>
             <Button
-              className="common_button"
+              className="staff_common_button"
               onClick={() => setTargetDetail({ ...targetDetail, status: true })}
             >
               + Set Target
             </Button>
           </Box>
         </Box>
-
         <TableContainer
-          className="expenses_table_height mt-2"
+          className="expenses_table_height staff_target_table"
           component={Paper}
-          sx={{
-            boxShadow: 'none',
-            border: '1px solid #e5e5e5',
-            borderTop: 'none',
-            overflowY: 'auto',
-          }}
         >
           {targetList.length > 0 ? (
             <Table
               stickyHeader
               aria-label="sticky table"
-              sx={{ minWidth: 690, marginLeft: '-10px' }}
+              sx={{ minWidth: 690 }}
               className="table_heading"
             >
               <TableHead>
@@ -146,7 +128,6 @@ const StaffTarget = () => {
                   <TableCell align="left">Target</TableCell>
                 </TableRow>
               </TableHead>
-
               <TableBody>
                 {targetList.map(targetData => {
                   return (
@@ -193,7 +174,6 @@ const StaffTarget = () => {
             <NoResultFound />
           )}
         </TableContainer>
-
         {targetDetail.status && (
           <SetTargetDialog
             targetDetail={targetDetail}

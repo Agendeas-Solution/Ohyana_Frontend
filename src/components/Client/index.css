@@ -11,7 +11,7 @@
   border: 1px solid #e5e5e5;
 }
 
-.client_section .css-bs0oga-MuiPaper-root-MuiTableContainer-root {
+.client_section {
   width: 96% !important;
   margin: 0 auto !important;
   background-color: #fff;
@@ -99,6 +99,8 @@
 }
 
 .client_type_select {
+  width: 100%;
+  margin: 10px 0px !important;
   border: 1px solid #e5e5e5;
 }
 

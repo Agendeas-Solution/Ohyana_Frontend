@@ -16,7 +16,7 @@ const Poll = () => {
         </Box>
         <Box className="poll_question_section">
           <Box className="poll_question">
-            <Box className="common_row">
+            <Box className="detail_row">
               <Typography variant="span">
                 Why did you choose our product?
               </Typography>

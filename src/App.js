@@ -40,14 +40,12 @@ const App = () => {
       socket.emit('join', { email: localStorage.getItem('userEmail') })
     })
     socket.on('connect', () => {
-      console.log('Successfully connected to server')
       socket.emit('join', { email: localStorage.getItem('userEmail') })
     })
     socket.on('permissionChanged', () => {
       clearLoginToken()
     })
   }, [])
-
   return (
     <>
       <BrowserRouter>

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { Box, Typography, Rating } from '@mui/material'
+import React from 'react'
+import { Box, Typography } from '@mui/material'
 
-const StaffDetail = props => {
+const StaffDetail = ({ adminProfileDetail }) => {
   return (
     <>
       <Box className="companyDetail">
@@ -10,7 +10,7 @@ const StaffDetail = props => {
             Contact No.:
           </Typography>
           <Typography variant="span">
-            {props?.adminProfileDetail?.contact_number || '-'}
+            {adminProfileDetail?.contact_number || '-'}
           </Typography>
         </Box>
         <Box className="companyDetail_root p-3">
@@ -18,7 +18,7 @@ const StaffDetail = props => {
             Senior Post:
           </Typography>
           <Typography variant="span">
-            {props?.adminProfileDetail?.role?.name || '-'}
+            {adminProfileDetail?.role?.name || '-'}
           </Typography>
         </Box>
         <Box className="companyDetail_root p-3">
@@ -26,15 +26,7 @@ const StaffDetail = props => {
             Email:
           </Typography>
           <Typography variant="span">
-            {props?.adminProfileDetail?.email || '-'}
-          </Typography>
-        </Box>
-        <Box className="companyDetail_root  p-3">
-          <Typography variant="span" className=" profile_data_lable">
-            Password:
-          </Typography>
-          <Typography variant="span">
-            {props?.adminProfileDetail?.password || '-'}
+            {adminProfileDetail?.email || '-'}
           </Typography>
         </Box>
         <Box className="companyDetail_root  p-3">
@@ -42,7 +34,7 @@ const StaffDetail = props => {
             Birthdate
           </Typography>
           <Typography variant="span">
-            {props?.adminProfileDetail?.birthday || '-'}
+            {adminProfileDetail?.birthday || '-'}
           </Typography>
         </Box>
         <Box className="companyDetail_root  p-3">
@@ -50,7 +42,7 @@ const StaffDetail = props => {
             Gender
           </Typography>
           <Typography variant="span">
-            {props?.adminProfileDetail?.gender || '-'}
+            {adminProfileDetail?.gender || '-'}
           </Typography>
         </Box>
       </Box>

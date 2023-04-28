@@ -8,9 +8,11 @@ import {
   FormControlLabel,
   FormLabel,
   IconButton,
+  InputLabel,
   MenuItem,
   Radio,
   RadioGroup,
+  Select,
   TextField,
   Typography,
 } from '@mui/material'
@@ -25,6 +27,12 @@ import {
   CreatePJP,
   CompletePJPStatus,
 } from '../../services/apiservices/teamcall'
+import {
+  GetAdminClientDetail,
+  DeleteClientDetail,
+  GetCityList,
+  GetStateList,
+} from '../../services/apiservices/clientDetail'
 import moment from 'moment'
 import AddPJPDialog from './AddPJPDialog'
 import { Context as ContextSnackbar } from '../../context/pageContext'
@@ -43,12 +51,18 @@ const PJPDetail = () => {
   path = path.split('/').pop()
   const [value, setValue] = useState('TODAY')
   const [pjpList, setPjpList] = useState([])
+  const [cityList, setCityList] = useState([])
+  const [stateList, setStateList] = useState([])
   const [open, setOpen] = useState(false)
   const [addPJPDetail, setAddPJPDetail] = useState({
     dialogStatus: false,
     date: '',
     clientId: '',
     description: '',
+  })
+  const [selectedCityState, setSelectedCityState] = useState({
+    city: '',
+    state: '',
   })
   const [completedDialog, setCompletedDialog] = useState({
     status: false,
@@ -60,6 +74,12 @@ const PJPDetail = () => {
     pjpStatus: '',
     date: '',
   })
+  const [numbersToDisplayOnPagination, setNumbersToDisplayOnPagination] =
+    useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [rowsPerPage, setRowsPerPage] = useState(2)
+  // const [pageNumber, setPageNumber] = useState(1)
+  const [totalResult, setTotalresult] = useState(null)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleChange = (event, newValue) => {
@@ -69,7 +89,7 @@ const PJPDetail = () => {
     setAddPJPDetail({ ...addPJPDetail, dialogStatus: false })
   }
   const handleCloseCompletedDialog = () => {
-    setCompletedDialog({ ...completedDialog, status: true })
+    setCompletedDialog({ ...completedDialog, status: false })
   }
   const handleAddCompletePJPStatus = () => {
     let data = completedDialog
@@ -80,7 +100,7 @@ const PJPDetail = () => {
         if (res.success) {
           setSuccessSnackbar({
             ...successSnackbar,
-            message: res.message,
+            message: res?.message,
             status: true,
           })
         }
@@ -91,6 +111,14 @@ const PJPDetail = () => {
     )
   }
   const handleApplyFilter = () => {
+    handleGetPJPList()
+  }
+  const handleClearAllFilter = () => {
+    setFilterPJP({
+      pjpStatus: null,
+      date: '',
+    })
+    setSelectedCityState({ city: '', state: '' })
     handleGetPJPList()
   }
   // const getLocation = () => {
@@ -112,16 +140,29 @@ const PJPDetail = () => {
     let data = {
       teamId: path,
       day: value,
+      page: currentPage,
+      size: rowsPerPage,
     }
-    if (filterPJP.pjpStatus !== '' && filterPJP.pjpStatus !== null) {
+    if (filterPJP.pjpStatus !== '' && filterPJP.pjpStatus) {
       data['statusType'] = filterPJP.pjpStatus
     }
-    debugger
+    if (selectedCityState.city !== '' && selectedCityState.city) {
+      data['city'] = selectedCityState.city
+    }
+    if (selectedCityState.state !== '' && selectedCityState.state) {
+      data['state'] = selectedCityState.state
+    }
     GetPJPList(
       data,
       res => {
         if (res.success) {
-          setPjpList(res?.data?.pjps)
+          setPjpList(res?.data)
+          setTotalresult(res?.data?.totalPage)
+          let pages =
+            res?.data?.totalPage > 0
+              ? Math.ceil(res?.data?.totalPage / rowsPerPage)
+              : null
+          setNumbersToDisplayOnPagination(pages)
         }
       },
       err => {
@@ -130,9 +171,42 @@ const PJPDetail = () => {
       },
     )
   }
+
   useEffect(() => {
     handleGetPJPList()
-  }, [value])
+  }, [value, selectedCityState, currentPage])
+  const handleCityList = () => {
+    GetCityList(
+      {},
+      res => {
+        if (res?.success) {
+          setCityList(res.data)
+        }
+      },
+      err => {
+        console.log(err)
+      },
+    )
+  }
+  const handleStateList = () => {
+    GetStateList(
+      {},
+      res => {
+        if (res?.success) {
+          setStateList(res.data)
+        }
+      },
+      err => {
+        console.log(err)
+      },
+    )
+  }
+
+  useEffect(() => {
+    handleCityList()
+    handleStateList()
+  }, [])
+
   const handleAddPJPDetail = () => {
     let pjpDetail = addPJPDetail
     delete pjpDetail.dialogStatus
@@ -204,77 +278,91 @@ const PJPDetail = () => {
             open={open}
             anchor="right"
           >
-            <DrawerHeader
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <DrawerHeader className="drawer_header_section">
+              <Box className="filter_main_heading">
                 <IconButton
                   sx={{ color: '#2e3591' }}
                   disableRipple={true}
                   onClick={handleDrawerClose}
                 >
                   {theme.direction === 'rtl' ? (
-                    <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                    <ChevronLeftIcon className="chevron_icon" />
                   ) : (
-                    <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                    <ChevronRightIcon className="chevron_icon" />
                   )}
                 </IconButton>
-
                 <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
               </Box>
               <Box>
                 <Button onClick={handleApplyFilter} variant="contained">
                   Apply
                 </Button>
-                <Button>Clear All</Button>
+                <Button onClick={handleClearAllFilter}>Clear All</Button>
               </Box>
             </DrawerHeader>
             <Divider />
-
-            <Box
-              sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}
-            >
-              <FormControl sx={{ margin: '10px' }}>
-                <FormLabel
-                  sx={{ color: '#000000' }}
-                  className="mb-2"
-                  id="demo-row-radio-buttons-group-label"
-                >
+            <Box className="filter_body_section">
+              <FormControl className="filter_body_inner_section">
+                <FormLabel className="filter_body_inner_heading">
                   PJP Is
                 </FormLabel>
                 <RadioGroup
-                  row
+                  // row
                   value={filterPJP.pjpStatus}
                   onChange={e => {
                     setFilterPJP({ ...filterPJP, pjpStatus: e.target.value })
                   }}
                 >
-                  {statusTypeList.map(data => {
-                    return (
-                      <FormControlLabel
-                        className="checkbox_background_color"
-                        value={data.value}
-                        control={<Radio />}
-                        label={data.type}
-                      />
-                    )
-                  })}
+                  <Box className="checkbox_section">
+                    {statusTypeList.map(data => {
+                      return (
+                        <FormControlLabel
+                          className="checkbox_background_color"
+                          value={data.value}
+                          control={<Radio />}
+                          label={data.type}
+                        />
+                      )
+                    })}
+                  </Box>
                 </RadioGroup>
               </FormControl>
-
-              <TextField
-                sx={{ margin: '10px' }}
-                className="mb-4"
-                id="outlined-basic"
-                label="Location"
-                variant="outlined"
-                placeholder="Enter Location"
-              />
-
+              <FormControl className="filter_body_inner_section">
+                <InputLabel>Select City</InputLabel>
+                <Select
+                  label="Select City"
+                  value={selectedCityState.city}
+                  onChange={e => {
+                    setSelectedCityState({
+                      ...selectedCityState,
+                      city: e.target.value,
+                    })
+                  }}
+                >
+                  {cityList &&
+                    cityList.map(data => {
+                      return <MenuItem value={data}>{data}</MenuItem>
+                    })}
+                </Select>
+              </FormControl>
+              <FormControl className="filter_body_inner_section">
+                <InputLabel>Select State</InputLabel>
+                <Select
+                  label="Select State"
+                  value={selectedCityState.state}
+                  onChange={e => {
+                    setSelectedCityState({
+                      ...selectedCityState,
+                      state: e.target.value,
+                    })
+                  }}
+                >
+                  {stateList &&
+                    stateList.map(data => {
+                      return <MenuItem value={data}>{data}</MenuItem>
+                    })}
+                </Select>
+              </FormControl>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   inputFormat="dd/MM/yyyy"
@@ -290,7 +378,7 @@ const PJPDetail = () => {
                       variant="outlined"
                       {...params}
                       label="Date"
-                      sx={{ margin: '10px' }}
+                      sx={{ margin: '10px 16px' }}
                     />
                   )}
                   PopperProps={{
@@ -302,7 +390,13 @@ const PJPDetail = () => {
           </Drawer>
 
           <TabPanel sx={{ padding: '0px' }} value="TODAY">
-            <PJPScheduleTable pjpList={pjpList} />
+            <PJPScheduleTable
+              pjpList={pjpList}
+              numbersToDisplayOnPagination={numbersToDisplayOnPagination}
+              currentPage={currentPage}
+              rowsPerPage={rowsPerPage}
+              setCurrentPage={setCurrentPage}
+            />
           </TabPanel>
           {/* <TabPanel value="TOMORROW">
             <PJPScheduleTable pjpList={pjpList} />
@@ -314,6 +408,10 @@ const PJPDetail = () => {
           >
             <PJPScheduleTable
               pjpList={pjpList}
+              numbersToDisplayOnPagination={numbersToDisplayOnPagination}
+              currentPage={currentPage}
+              rowsPerPage={rowsPerPage}
+              setCurrentPage={setCurrentPage}
               completedDialog={completedDialog}
               setCompletedDialog={setCompletedDialog}
             />
@@ -328,8 +426,8 @@ const PJPDetail = () => {
       />
       <CompletedPJPDialog
         completedDialog={completedDialog}
-        handleCloseCompletedDialog={handleCloseCompletedDialog}
         setCompletedDialog={setCompletedDialog}
+        handleCloseCompletedDialog={handleCloseCompletedDialog}
         handleAddCompletePJPStatus={handleAddCompletePJPStatus}
       />
     </>

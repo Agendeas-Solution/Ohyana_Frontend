@@ -8,8 +8,16 @@ import {
   TableHead,
   TableRow,
   TableCell,
+  TableBody,
+  TableContainer,
+  Table,
+  makeStyles,
 } from '@mui/material'
+import './index.css'
 import DeleteIcon from '../../assets/img/Delete_Icon.svg'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
+import EditWithBorderRound from '../../assets/img/edit_with_border_round.svg'
+import DeleteWithBorderRound from '../../assets/img/delete_with_border_round.svg'
 import EditIcon from '../../assets/img/Edit_Icon.svg'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as AuthContext } from '../../context/authContext/authContext'
@@ -27,6 +35,7 @@ const ExpenseType = React.lazy(() => import('./ExpenseType'))
 
 const ExpenseList = () => {
   let navigate = useNavigate()
+
   const { flagLoader, permissions } = useContext(AuthContext).state
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -35,8 +44,6 @@ const ExpenseList = () => {
     id: null,
   })
   let path = window.location.pathname
-  console.log('Printing Path of ', path)
-  console.log('Printing ', path.split('/').pop())
   path = path.split('/').pop()
   const [addExpenseType, setAddExpenseType] = useState({
     expenseId: null,
@@ -81,7 +88,6 @@ const ExpenseList = () => {
         }
       },
       err => {
-        console.log(err)
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
@@ -140,12 +146,14 @@ const ExpenseList = () => {
   }
   return (
     <>
-      <div className="main_section">
-        <Box className="job_role_title mb-3">
-          <Typography variant="span" className="ms-2">
+      <Box className="main_section">
+        <Box className="main_section_header" sx={{ borderBottom: 'none' }}>
+          <Typography className="task_card_heading" variant="span">
             Expense List
           </Typography>
           <Button
+            className="primary_color_button"
+            variant="contained"
             onClick={() =>
               setAddExpenseType({
                 ...addExpenseType,
@@ -155,108 +163,107 @@ const ExpenseList = () => {
                 description: '',
               })
             }
-            variant="contained"
           >
             + Expense Type
           </Button>
         </Box>
-        <Divider
-          sx={{ borderColor: '#8E8E8E' }}
-          orientation="horizontal"
-          // variant="middle"
-          width="100%"
-          // flexItem
-        />
-        <Box sx={{ marginTop: '19px', width: 'initial' }}>
-          <Box
-            sx={{
-              backgroundColor: '#F1F2F6',
-              marginBottom: '20px',
-              borderRadius: '6px',
-            }}
-          >
-            <TableHead
-              sx={{ paddingTop: '5px' }}
-              className="client_profile_table_header"
-            >
-              <TableRow>
-                <TableCell sx={{ paddingRight: '4px' }}></TableCell>
-                <TableCell sx={{ paddingRight: '68px' }}>Sr No.</TableCell>
-                <TableCell sx={{ paddingRight: '70px' }} align="left">
-                  Name
-                </TableCell>
-                <TableCell sx={{ paddingLeft: '75px' }} align="center">
-                  Description
-                </TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableHead>
-          </Box>
+
+        <Box className="left_team_profile_section">
+          <TableContainer>
+            <Table className="job_role_list">
+              <TableHead className="client_profile_table_header">
+                <TableRow>
+                  <TableCell>Sr No.</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell></TableCell>
+                  {/* <TableCell></TableCell> */}
+                </TableRow>
+              </TableHead>
+
+              <Divider orientation="vertical" variant="middle" flexItem />
+
+              <TableBody>
+                {expenseList.length > 0 &&
+                  expenseList?.map((data, index) => (
+                    <React.Fragment key={index}>
+                      <TableRow
+                        // style={{
+                        //   border: '1px solid black',
+                        //   padding: '5rem',
+                        // }}
+                        className="job_role_list "
+                        key={data.id}
+                      >
+                        <TableCell className="table_row_top_align">
+                          {index + 1}
+                        </TableCell>
+                        <TableCell className="table_row_top_align">
+                          {data.name || '-'}
+                        </TableCell>
+                        <TableCell className="description_text">
+                          {data.description || '-'}
+                        </TableCell>
+
+                        <TableCell>
+                          <Button
+                            sx={{
+                              marginRight: '10px',
+                              color: '#2E3591',
+                              borderColor: '#2E3591',
+                            }}
+                            onClick={() =>
+                              setAddExpenseType({
+                                ...addExpenseType,
+                                status: true,
+                                expenseId: data.id,
+                                name: data.name,
+                                description: data.description,
+                              })
+                            }
+                            className="button_color"
+                            variant="outlined"
+                          >
+                            Edit
+                          </Button>
+                          <Button
+                            className="button_color"
+                            variant="outlined"
+                            onClick={() => {
+                              setDeletexpenseListDialog({
+                                ...deletexpenseListDialog,
+                                status: true,
+                                id: data.id,
+                              })
+                            }}
+                          >
+                            Delete
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                      <Divider
+                        sx={{ height: '24px', borderColor: 'transparent' }}
+                      />
+                    </React.Fragment>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Box>
-        {expenseList.length > 0 &&
-          expenseList?.map((data, index) => {
-            return (
-              <Box className="appointment_notification">
-                <Grid
-                  container
-                  spacing={2}
-                  className="align-items-center d-flex justify-content-center"
-                >
-                  <Grid item xs={1}>
-                    <Typography variant="span">{index + 1}</Typography>
-                  </Grid>
-                  <Grid item xs={2}>
-                    <Typography variant="span">{data.name}</Typography>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Typography variant="span">{data.description}</Typography>
-                  </Grid>
-                  <Grid display="inline-flex" item xs={6}>
-                    <img
-                      onClick={() =>
-                        setAddExpenseType({
-                          ...addExpenseType,
-                          status: true,
-                          expenseId: data.id,
-                          name: data.name,
-                          description: data.description,
-                        })
-                      }
-                      className="me-3 p-2"
-                      src={EditIcon}
-                      alt=""
-                    />
-                    <img
-                      className="iconn ms-2"
-                      onClick={() => {
-                        setDeletexpenseListDialog({
-                          ...deletexpenseListDialog,
-                          status: true,
-                          id: data.id,
-                        })
-                      }}
-                      src={DeleteIcon}
-                      alt=""
-                    />
-                  </Grid>
-                </Grid>
-              </Box>
-            )
-          })}
-        <ExpenseType
-          addExpenseType={addExpenseType}
-          handleCloseDialog={handleCloseDialog}
-          setAddExpenseType={setAddExpenseType}
-          handleAddExpenses={handleAddExpenses}
-          handleEditExpenses={handleEditExpenses}
-        />
-        <DeleteExpenseTypeDialog
-          deletexpenseListDialog={deletexpenseListDialog}
-          setDeletexpenseListDialog={setDeletexpenseListDialog}
-          handleCloseDialog={handleCloseDialog}
-          handleDelete={handleDelete}
-        />
-      </div>
+      </Box>
+      <ExpenseType
+        addExpenseType={addExpenseType}
+        handleCloseDialog={handleCloseDialog}
+        setAddExpenseType={setAddExpenseType}
+        handleAddExpenses={handleAddExpenses}
+        handleEditExpenses={handleEditExpenses}
+      />
+      <DeleteExpenseTypeDialog
+        deletexpenseListDialog={deletexpenseListDialog}
+        setDeletexpenseListDialog={setDeletexpenseListDialog}
+        handleCloseDialog={handleCloseDialog}
+        handleDelete={handleDelete}
+      />
     </>
   )
 }

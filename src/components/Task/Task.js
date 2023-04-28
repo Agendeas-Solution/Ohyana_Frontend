@@ -27,15 +27,13 @@ import moment from 'moment'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import './index.css'
-import {
-  GetAllMemberList,
-  AssignMemberParticularTask,
-} from '../../services/apiservices/task'
+import { AssignMemberParticularTask } from '../../services/apiservices/task'
 import { styled, useTheme } from '@mui/material/styles'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail'
 
 const drawerWidth = 350
 const CreateTaskDialog = React.lazy(() => import('./CreateTaskDialog'))
@@ -60,7 +58,7 @@ const Task = () => {
   const [createTask, setCreateTask] = useState({
     title: '',
     description: '',
-    due_date: '2023-03-31',
+    due_date: moment().format(''),
   })
   const [memberList, setMemberList] = useState([])
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
@@ -105,16 +103,15 @@ const Task = () => {
   }
   const handleTaskList = () => {
     let data = {}
-    if (searchQuery !== '') {
+    if (searchQuery !== '' && searchQuery) {
       data['searchQuery'] = searchQuery
     }
-    if (filterTask.due_date !== '') {
+    if (filterTask.due_date !== '' && filterTask.due_date) {
       data['due_date'] = filterTask.due_date
     }
-    if (filterTask.teamId !== '') {
+    if (filterTask.teamId !== '' && filterTask.teamId) {
       data['teamId'] = filterTask.teamId
     }
-
     GetTaskList(
       data,
       res => {
@@ -130,9 +127,9 @@ const Task = () => {
   }
   useEffect(() => {
     handleTaskList()
-  }, [searchQuery])
+  }, [searchQuery, filterTask])
   useEffect(() => {
-    GetAllMemberList(
+    GetAdminStaffDetailList(
       {},
       res => {
         setMemberList(res.data)
@@ -178,13 +175,7 @@ const Task = () => {
             Overview
           </Typography>
         </Box>
-
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
+        <Box className="task_header_section">
           <FormControl variant="outlined">
             <OutlinedInput
               className="search_field"
@@ -208,18 +199,16 @@ const Task = () => {
             + Task
           </Button>
           <IconButton
+            className="filter_icon"
             edge="end"
             onClick={handleDrawerOpen}
             sx={{
               ...(openDrawer && { display: 'flex' }),
-              padding: '0',
-              margin: '0 0 0 10px',
             }}
           >
             <img src={FilterIcon} alt="" />
           </IconButton>
         </Box>
-
         <Drawer
           onClose={handleDrawerClose}
           sx={{
@@ -231,25 +220,18 @@ const Task = () => {
           open={openDrawer}
         >
           <DrawerHeader className="drawer_header_section">
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
-            >
+            <Box className="filter_main_heading">
               <IconButton
                 sx={{ color: '#2e3591', padding: '0px' }}
                 disableRipple={true}
                 onClick={handleDrawerClose}
               >
                 {theme.direction === 'rtl' ? (
-                  <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                  <ChevronLeftIcon className="chevron_icon" />
                 ) : (
-                  <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                  <ChevronRightIcon className="chevron_icon" />
                 )}
               </IconButton>
-
               <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
             </Box>
             <Box>
@@ -311,7 +293,6 @@ const Task = () => {
           </Box>
         </Drawer>
       </Box>
-
       <Box className="below_main_tab_section">
         <Box className="inner_container">
           {taskList.length > 0 ? (

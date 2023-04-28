@@ -10,6 +10,7 @@ import PresentData from './PresentData'
 import LeaveData from './LeaveData'
 import HolidayData from './HolidayData'
 import './index.css'
+
 const AttendanceData = () => {
   const navigate = useNavigate()
   const [value, setValue] = useState('Profile')
@@ -46,15 +47,15 @@ const AttendanceData = () => {
             </Box>
           )}
         </Box>
-        <TabPanel value="1">
+        <TabPanel sx={{ padding: '0' }} value="1">
           <PresentData />
         </TabPanel>
         <TabPanel value="2">
           <LeaveData />
         </TabPanel>
-        <TabPanel value="3">
+        {/* <TabPanel value="3">
           <HolidayData />
-        </TabPanel>
+        </TabPanel> */}
       </TabContext>
     </>
   )

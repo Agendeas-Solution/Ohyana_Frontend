@@ -54,13 +54,32 @@ const PoorContact = ({
               />
             </RadioGroup>
           </FormControl>
-          {addPoorContact.flag !== 'true' && (
+          {addPoorContact.flag !== 'true' ? (
             <TextField
               className="dialogue_input_fields"
               multiline
               label="Description"
               autoComplete="off"
               minRows={3}
+              maxRows={3}
+              placeholder="reason of late inquiry"
+              value={addPoorContact.description}
+              onChange={e =>
+                setAddPoorContact({
+                  ...addPoorContact,
+                  description: e.target.value,
+                })
+              }
+            />
+          ) : (
+            <TextField
+              disabled
+              className="dialogue_input_fields"
+              multiline
+              label="Description"
+              autoComplete="off"
+              minRows={3}
+              maxRows={3}
               placeholder="reason of late inquiry"
               value={addPoorContact.description}
               onChange={e =>

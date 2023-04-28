@@ -17,7 +17,10 @@ import {
   GetAdminRole,
   AddNotificationDetail,
 } from '../../services/apiservices/adminprofile'
-const ClientStatusCloseDialog = props => {
+const ClientStatusCloseDialog = ({
+  CloseDeleteRemainder,
+  deleteRemainderDialog,
+}) => {
   const [addNotificationDetail, setAddNotificationDetail] = useState({
     heading: '',
     description: '',
@@ -63,33 +66,29 @@ const ClientStatusCloseDialog = props => {
     )
   }, [])
   const handleAddNotification = () => {
-    console.log('Add Notification', addNotificationDetail)
     AddNotificationDetail(
       addNotificationDetail,
       res => {
-        props.CloseDeleteRemainder()
+        CloseDeleteRemainder()
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
       },
       err => {
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
-          message: err.response.data.error,
+          message: err.response.data.message,
         })
-        props.CloseDeleteRemainder()
+        CloseDeleteRemainder()
       },
     )
   }
   return (
     <>
-      <Dialog
-        open={props.deleteRemainderDialog}
-        onClose={props.CloseDeleteRemainder}
-      >
+      <Dialog open={deleteRemainderDialog} onClose={CloseDeleteRemainder}>
         <div className="px-3 py-3">
           <h3>Set Notification</h3>
         </div>
@@ -104,7 +103,6 @@ const ClientStatusCloseDialog = props => {
               className="align-items-center d-flex justify-content-center  w-100"
               options={departmentList}
               onChange={(e, value) => {
-                console.log(value)
                 setAddNotificationDetail({
                   ...addNotificationDetail,
                   departmentId: value?.id,
@@ -221,7 +219,7 @@ const ClientStatusCloseDialog = props => {
           </Button>
           <Button
             className="cancel-btn"
-            onClick={props.CloseDeleteRemainder}
+            onClick={CloseDeleteRemainder}
             autoFocus
           >
             Cancel

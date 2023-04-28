@@ -12,10 +12,10 @@ import {
 import { EditClientStatus } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 
-const EditStatusDialog = props => {
+const EditStatusDialog = ({ editStatusDialog, handleStatusClose }) => {
   const [editStatusDetail, setEditStatusDetail] = useState({
-    description: props?.editStatusDialog?.description,
-    statusId: props?.editStatusDialog?.statusId,
+    description: editStatusDialog?.description,
+    statusId: editStatusDialog?.statusId,
   })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -24,18 +24,18 @@ const EditStatusDialog = props => {
     EditClientStatus(
       editStatusDetail,
       res => {
-        props.handleStatusClose()
+        handleStatusClose()
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
       },
       err => {
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
-          message: err.response.data.error,
+          message: err.response.data.message,
         })
       },
     )
@@ -43,10 +43,7 @@ const EditStatusDialog = props => {
 
   return (
     <>
-      <Dialog
-        open={props.editStatusDialog.status}
-        onClose={props.handleStatusClose}
-      >
+      <Dialog open={editStatusDialog.status} onClose={handleStatusClose}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Update Status</Typography>
           <TextField
@@ -55,6 +52,7 @@ const EditStatusDialog = props => {
             label="Description"
             autoComplete="off"
             minRows={3}
+            maxRows={3}
             placeholder="Description Here..."
             value={editStatusDetail?.description}
             onChange={e =>
@@ -76,7 +74,7 @@ const EditStatusDialog = props => {
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={props.handleStatusClose}
+              onClick={handleStatusClose}
             >
               Cancel
             </Button>

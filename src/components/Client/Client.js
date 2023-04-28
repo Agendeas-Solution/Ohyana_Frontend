@@ -3,8 +3,6 @@ import {
   Tabs,
   Tab,
   Box,
-  Autocomplete,
-  TextField,
   Pagination,
   Button,
   Dialog,
@@ -24,7 +22,7 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded'
 import { useNavigate } from 'react-router-dom'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import {
-  GetAdminClientDetail,
+  GetAllClients,
   DeleteClientDetail,
   GetCityList,
   GetStateList,
@@ -47,7 +45,6 @@ const NoResultFound = React.lazy(() =>
 )
 const CustomerList = React.lazy(() => import('./CustomerList'))
 const BusinessCard = React.lazy(() => import('./BusinessCard'))
-
 const Client = () => {
   const theme = useTheme()
   // const socket = io("http://159.89.165.83", { transports: ["websocket"] });
@@ -135,7 +132,6 @@ const Client = () => {
     handleStateList()
   }, [])
   useEffect(() => {
-    console.log(clientType)
     let value = clientType.filter(data => {
       if (data.id <= permissions?.clientStageAccess) {
         return data
@@ -156,7 +152,7 @@ const Client = () => {
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
       },
       err => {},
@@ -196,7 +192,7 @@ const Client = () => {
     // const socket = io("http://159.89.165.83");
     socket.on('client_list', data => {
       console.log('Printing Connections', data)
-      GetAdminClientDetail(
+      GetAllClients(
         data,
         res => {
           if (res?.success) {
@@ -235,7 +231,7 @@ const Client = () => {
       data['stage'] = clientStage
     }
     setClientLoader(true)
-    GetAdminClientDetail(
+    GetAllClients(
       data,
       res => {
         if (res?.success) {
@@ -309,7 +305,7 @@ const Client = () => {
             <Button
               className="main_tab_button"
               onClick={() => {
-                navigate('/addclient')
+                navigate('/addeditclient')
               }}
             >
               + New Clients
@@ -319,11 +315,7 @@ const Client = () => {
           <IconButton
             edge="end"
             onClick={handleDrawerOpen}
-            sx={{
-              display: 'flex',
-              padding: '0',
-              margin: '0 0 0 10px',
-            }}
+            className="filter_icon"
           >
             <img src={FilterIcon} alt="" />
           </IconButton>
@@ -340,26 +332,21 @@ const Client = () => {
           anchor="right"
         >
           <DrawerHeader className="drawer_header_section">
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
-            >
+            <Box className="filter_main_heading">
               <IconButton
                 sx={{ color: '#2e3591', padding: '0px' }}
                 disableRipple={true}
                 onClick={handleDrawerClose}
               >
                 {theme.direction === 'rtl' ? (
-                  <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                  <ChevronLeftIcon className="chevron_icon" />
                 ) : (
-                  <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                  <ChevronRightIcon className="chevron_icon" />
                 )}
               </IconButton>
               <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
             </Box>
+
             <Box>
               <Button onClick={handleClearAllFilter}>Reset</Button>
               <Button
@@ -371,11 +358,11 @@ const Client = () => {
               </Button>
             </Box>
           </DrawerHeader>
+
           <Divider />
-          <Box
-            sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}
-          >
-            <FormControl sx={{ margin: '10px' }}>
+
+          <Box className="filter_body_section">
+            <FormControl className="filter_body_inner_section">
               <InputLabel>Client Type</InputLabel>
               <Select
                 label="Client Stage"
@@ -389,7 +376,8 @@ const Client = () => {
                 })}
               </Select>
             </FormControl>
-            <FormControl sx={{ margin: '10px' }}>
+
+            <FormControl className="filter_body_inner_section">
               <InputLabel>Select City</InputLabel>
               <Select
                 label="Select City"
@@ -403,12 +391,12 @@ const Client = () => {
               >
                 {cityList &&
                   cityList.map(data => {
-                    console.log('Printing Data', data)
                     return <MenuItem value={data}>{data}</MenuItem>
                   })}
               </Select>
             </FormControl>
-            <FormControl sx={{ margin: '10px' }}>
+
+            <FormControl className="filter_body_inner_section">
               <InputLabel>Select State</InputLabel>
               <Select
                 label="Select State"
@@ -422,7 +410,6 @@ const Client = () => {
               >
                 {stateList &&
                   stateList.map(data => {
-                    console.log('Printing Data', data)
                     return <MenuItem value={data}>{data}</MenuItem>
                   })}
               </Select>
@@ -430,7 +417,6 @@ const Client = () => {
           </Box>
         </Drawer>
       </Box>
-
       <Box className="body_section_paddingless_pagination">
         {value === 'business_card' ? (
           <BusinessCard clientDetails={clientDetails} />
@@ -440,18 +426,20 @@ const Client = () => {
             ViewClientDetail={ViewClientDetail}
           />
         )}
-        <Pagination
-          className="mt-3"
-          boundaryCount={0}
-          siblingCount={0}
-          size="small"
-          shape="rounded"
-          count={numbersToDisplayOnPagination}
-          page={currentPage}
-          onChange={(e, value) => {
-            setCurrentPage(value)
-          }}
-        />
+        <Box>
+          <Pagination
+            className="pagination_style"
+            boundaryCount={0}
+            siblingCount={0}
+            size="small"
+            shape="rounded"
+            count={numbersToDisplayOnPagination}
+            page={currentPage}
+            onChange={(e, value) => {
+              setCurrentPage(value)
+            }}
+          />
+        </Box>
       </Box>
     </Box>
   )

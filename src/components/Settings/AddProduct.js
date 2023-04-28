@@ -29,13 +29,12 @@ const AddProduct = props => {
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const navigate = useNavigate()
   let path = window.location.pathname
-  console.log('Printing Path of ', path)
-  console.log('Printing ', path.split('/').pop())
   path = path.split('/').pop()
   useEffect(() => {
     parseInt(path) &&
       GetProductDetail(
         parseInt(path),
+        {},
         res => {
           setProductDetail({
             ...productDetail,
@@ -301,6 +300,7 @@ const AddProduct = props => {
               label="Description"
               placeholder="Description Here..."
               minRows={3}
+              maxRows={3}
               autoComplete="off"
               variant="outlined"
               value={productDetail.description}

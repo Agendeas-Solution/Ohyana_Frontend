@@ -17,7 +17,6 @@ const ClientProfileTable = props => {
   const ViewClientDetail = () => {
     let domain = window.location.host
     let protocol = window.location.protocol
-    console.log('printing protocol', protocol)
     window.location.replace(`${protocol}//${domain}/clientprofile`)
   }
   return (
@@ -37,7 +36,7 @@ const ClientProfileTable = props => {
           <TableCell align="left">{props.row.description}</TableCell>
           <TableCell align="left">
             <Button
-              className="client_profile_edit_button"
+              className="border_button"
               onClick={() => {
                 ViewClientDetail()
               }}

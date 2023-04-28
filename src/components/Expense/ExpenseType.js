@@ -45,6 +45,7 @@ const ExpenseType = ({
             autoComplete="off"
             label="Description"
             minRows={3}
+            maxRows={3}
             value={addExpenseType.description}
             onChange={e => {
               setAddExpenseType({

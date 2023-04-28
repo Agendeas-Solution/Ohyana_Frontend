@@ -19,31 +19,24 @@ const cardListReducer = (state, action) => {
   }
 }
 const setActivePage = dispatch => async data => {
-  console.log('Printing Fullscreen flag', data)
-
   dispatch({
     type: 'setActivePage',
     payload: data,
   })
 }
 const setEditAppointmentDialogFlag = dispatch => async data => {
-  console.log('Printing flag', data)
-
   dispatch({
     type: 'setEditAppointmentDialogFlag',
     payload: data,
   })
 }
 const setEditRemainderDialogFlag = dispatch => async data => {
-  console.log('Printing  flag', data)
-
   dispatch({
     type: 'setEditRemainderDialogFlag',
     payload: data,
   })
 }
 const setSuccessSnackbar = dispatch => async data => {
-  console.log('Printing  flag', data)
   dispatch({
     type: 'setSuccessSnackbar',
     payload: data,
@@ -51,7 +44,6 @@ const setSuccessSnackbar = dispatch => async data => {
 }
 
 const setErrorSnackbar = dispatch => async data => {
-  console.log('Printing  flag', data)
   dispatch({
     type: 'setErrorSnackbar',
     payload: data,
@@ -59,7 +51,6 @@ const setErrorSnackbar = dispatch => async data => {
 }
 
 const setNotificationSnackbar = dispatch => async data => {
-  console.log('Printing  flag', data)
   dispatch({
     type: 'setNotificationSnackbar',
     payload: data,

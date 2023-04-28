@@ -11,53 +11,35 @@ import {
 } from '@mui/material'
 import './index.css'
 import moment from 'moment'
-import EditAppointmentDialog from './EditAppointmentDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
-
-const AppointmentTable = ({ clientAppointmentList }) => {
-  const [editClientAppointmentDetail, setEditClientAppointmentDetail] =
-    useState({
-      date: '',
-      time: '',
-      description: '',
-      appointed_member: [],
-      appointment_unit: 'plant',
-      appointmentId: null,
-      status: false,
-    })
+const AppointmentTable = ({
+  clientAppointmentList,
+  appointmentDialogControl,
+  setAppointmentDialogControl,
+}) => {
   const handleAppointmentReminder = row => {
-    setEditClientAppointmentDetail({
-      ...editClientAppointmentDetail,
+    setAppointmentDialogControl({
+      ...appointmentDialogControl,
       date: row.date,
       time: row.time,
       description: row.description,
       status: true,
       appointmentId: row.id,
       appointed_member: row.teams,
-    })
-  }
-  const handleAppointmentClose = () => {
-    setEditClientAppointmentDetail({
-      ...editClientAppointmentDetail,
-      status: false,
+      appointment_unit: row.appointment_unit,
     })
   }
   return (
     <>
       <TableContainer
-        className="client_table_height mt-1"
+        className="client_table_height client_detail_table set_box_shadow"
         component={Paper}
-        sx={{
-          boxShadow: 'none',
-          border: '1px solid #e5e5e5',
-          overflowY: 'auto',
-        }}
       >
         {clientAppointmentList.length > 0 ? (
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            sx={{ minWidth: 690, padding: '0px !important' }}
             className="table_heading"
           >
             <TableHead className="client_profile_table_header">
@@ -95,7 +77,7 @@ const AppointmentTable = ({ clientAppointmentList }) => {
                     <TableCell>{row.appointment_unit}</TableCell>
                     <TableCell>
                       <Button
-                        className="client_profile_edit_button"
+                        className="border_button"
                         onClick={() => {
                           handleAppointmentReminder(row)
                         }}
@@ -111,12 +93,6 @@ const AppointmentTable = ({ clientAppointmentList }) => {
           <NoResultFound />
         )}
       </TableContainer>
-      {editClientAppointmentDetail.status === true && (
-        <EditAppointmentDialog
-          handleAppointmentClose={handleAppointmentClose}
-          editClientAppointmentDetail={editClientAppointmentDetail}
-        />
-      )}
     </>
   )
 }

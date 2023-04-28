@@ -34,16 +34,18 @@ const AddStatusDialog = ({
   })
   const [followUpType, setFollowUpType] = useState(CLIENT.FOLLOWUP)
   const AddStatus = e => {
+    let data = {
+      description: addStatusDetail?.description,
+      clientId: addStatusDetail?.clientId,
+      callNotReceived: true,
+      followUpType: addStatusDetail?.followUpType,
+    }
+
     AddClientStatus(
-      {
-        description: addStatusDetail?.description,
-        clientId: addStatusDetail?.clientId,
-        callNotReceived: true,
-        followUpType: addStatusDetail?.followUpType,
-      },
+      data,
       res => {
         setAddStatus({ ...addStatus, status: false })
-        // setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
+        // setSuccessSnackbar({ ...successSnackbar, status: true, message: res.message })
       },
       err => {
         // setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.error })
@@ -58,7 +60,6 @@ const AddStatusDialog = ({
       >
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add Status</Typography>
-
           <FormControl className="dialogue_input_fields">
             <InputLabel>Conversation Type</InputLabel>
             <Select
@@ -85,6 +86,7 @@ const AddStatusDialog = ({
             autoComplete="off"
             placeholder="Description Here..."
             minRows={3}
+            maxRows={3}
             value={addStatusDetail.description}
             onChange={e => {
               setAddStatusDetail({

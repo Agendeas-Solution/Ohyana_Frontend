@@ -81,7 +81,7 @@
   height: 250px;
 }
 
-.my_task_heading {
+.my_main_section_header {
   display: flex;
   justify-content: space-between;
   /* border-bottom: 1px solid #e5e5e5; */

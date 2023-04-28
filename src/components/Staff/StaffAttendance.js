@@ -62,8 +62,6 @@ const StaffAttendance = () => {
 
   useEffect(() => {
     let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
     activeTab === 'present' &&
       GetStaffAttendanceList(
@@ -98,19 +96,19 @@ const StaffAttendance = () => {
             <Box className="statistics_box first_box">
               <Typography variant="span">Total Days</Typography>
               <Typography variant="span">
-                {staffAttendanceList?.totalDays}
+                {staffAttendanceList?.totalDays || '-'}
               </Typography>
             </Box>
             <Box className="statistics_box second_box">
               <Typography variant="span">Absent Days</Typography>
               <Typography variant="span">
-                {staffAttendanceList?.absentDays}
+                {staffAttendanceList?.absentDays || '-'}
               </Typography>
             </Box>
             <Box className="statistics_box third_box">
               <Typography variant="span">Late Days</Typography>
               <Typography variant="span">
-                {staffAttendanceList?.lateDays}
+                {staffAttendanceList?.lateDays || '-'}
               </Typography>
             </Box>
           </Box>
@@ -123,6 +121,7 @@ const StaffAttendance = () => {
           >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
+                className="staff_date"
                 views={['month', 'year']}
                 value={selectMonth}
                 onChange={selectMonth => {

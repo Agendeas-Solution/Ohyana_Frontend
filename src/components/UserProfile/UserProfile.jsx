@@ -1,23 +1,9 @@
-import React, { useEffect, useState, useContext, lazy } from 'react'
-import {
-  Typography,
-  Box,
-  TextField,
-  Tabs,
-  Button,
-  Tab,
-  Table,
-  TableCell,
-  TableContainer,
-  Paper,
-  TableRow,
-  TableHead,
-} from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { Typography, Box, Tabs, Button, Tab } from '@mui/material'
 import StaffExpenses from '../Staff/StaffExpenses'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import { useNavigate } from 'react-router-dom'
 import { GetAdminProfile } from '../../services/apiservices/adminprofile'
-import { Context as AuthContext } from '../../context/authContext/authContext'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
 import './index.css'
@@ -25,28 +11,17 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import {
   GetHolidayList,
   AttendanceStatus,
+  GetStaffAttendanceList,
+  GetStaffLeaveList,
 } from '../../services/apiservices/staffDetail'
-import {
-  GetAdminAttendanceList,
-  GetAdminLeaveList,
-} from '../../services/apiservices/adminprofile'
 import ApplyLeaveDialog from './ApplyLeaveDialog'
 import { GetAllHoliday } from '../../services/apiservices/holiday'
-import { Context as ContextSnackbar } from '../../context/pageContext'
-
-const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
-const SuccessSnackbar = React.lazy(() =>
-  import('../SuccessSnackbar/SuccessSnackbar'),
-)
-
 const PresentData = React.lazy(() => import('./PresentData'))
 const LeaveData = React.lazy(() => import('./LeaveData'))
 const HolidayData = React.lazy(() => import('./HolidayData'))
 const UserProfile = () => {
   const navigate = useNavigate()
   const [value, setValue] = useState('Profile')
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
@@ -78,8 +53,8 @@ const UserProfile = () => {
   useEffect(() => {
     activeTab === 'present' &&
       value === 'Attendance' &&
-      GetAdminAttendanceList(
-        userDetail?.id,
+      GetStaffAttendanceList(
+        {},
         res => {
           if (res.success) {
             setStaffAttendanceList(res?.data)
@@ -89,8 +64,8 @@ const UserProfile = () => {
       )
     activeTab === 'leave' &&
       value === 'Attendance' &&
-      GetAdminLeaveList(
-        userDetail?.id,
+      GetStaffLeaveList(
+        {},
         res => {
           if (res.success) {
             setLeaveList(res?.data)
@@ -103,7 +78,6 @@ const UserProfile = () => {
       GetAllHoliday(
         userDetail?.id,
         res => {
-          console.log({ res })
           if (res.success) {
             setHolidayList(res?.data)
           }
@@ -155,7 +129,6 @@ const UserProfile = () => {
             <Button className="profile_header_button">
               <EditRoundedIcon
                 onClick={() => {
-                  console.log('Printing Edit icon')
                   navigate('/editprofile')
                 }}
               />
@@ -218,7 +191,6 @@ const UserProfile = () => {
                   Present
                 </Button>
                 <Button
-                  // sx={{ marginLeft: '0px', marginRight: '0' }}
                   className={
                     activeTab === 'leave'
                       ? 'active_button'

@@ -18,10 +18,17 @@
 }
 
 .platform_data_detail {
-  /* width: 65%; */
   display: flex;
-  /* justify-content: space-between; */
-  /* margin-bottom: 6px; */
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  margin-right: 8px;
+  margin-left: 8px;
+}
+
+.inquiry_sub_heading {
+  display: flex;
+  flex-direction: row;
 }
 
 .inquiry_from_name {
@@ -48,6 +55,31 @@
 .inquiry_detail_box {
   width: 50%;
   margin-bottom: 8px;
+}
+
+.inquiry_detail_left_part {
+  display: flex;
+  align-items: flex-start;
+  margin-right: 40px;
+}
+
+.inquiry_detail_right_part {
+  display: flex;
+  align-items: flex-start;
+}
+
+.inquiries_inner_section {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3px;
+  width: 100%;
+}
+
+.inquiries_bullet_point {
+  background-color: #ffab00;
+  height: 10px;
+  width: 10px;
+  margin-right: 10px;
 }
 
 .doughnut_chart_inquiry {
@@ -130,6 +162,7 @@
     justify-content: space-between;
     align-items: center;
   }
+
   .sales_statistics_heading {
     text-align: center;
   }

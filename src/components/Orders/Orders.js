@@ -30,7 +30,7 @@ import { useNavigate } from 'react-router-dom'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import moment from 'moment'
-import { GetAllClientOrderList } from '../../services/apiservices/orderDetail'
+import { GetSingleClientOrderList } from '../../services/apiservices/orderDetail'
 import { styled, useTheme } from '@mui/material/styles'
 import {
   DatePicker,
@@ -49,7 +49,7 @@ const Orders = () => {
   const [openDrawer, setOpen] = useState(false)
   const [totalResult, setTotalresult] = useState()
   const [currentPage, setCurrentPage] = useState(1)
-  const [rowsPerPage, setRowsPerPage] = useState(2)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
   const [deliveryStatusList, setDeliveryStatusList] = useState(
     ORDER.DELIVERYSTATUS,
   )
@@ -73,19 +73,19 @@ const Orders = () => {
   }))
   const handleOrderList = () => {
     let data = { page: currentPage, size: rowsPerPage }
-    if (queryParams.delivery !== '' && queryParams.delivery !== null) {
+    if (queryParams.delivery !== '' && queryParams.delivery) {
       data['delivery'] = queryParams.delivery
     }
-    if (queryParams.payment !== '' && queryParams.payment !== null) {
+    if (queryParams.payment !== '' && queryParams.payment) {
       data['payment'] = queryParams.payment
     }
-    if (queryParams.date !== '' && queryParams.date !== null) {
+    if (queryParams.date !== '' && queryParams.date) {
       data['date'] = queryParams.date
     }
-    if (queryParams.searchQuery !== '' && queryParams.searchQuery !== null) {
+    if (queryParams.searchQuery !== '' && queryParams.searchQuery) {
       data['searchQuery'] = queryParams.searchQuery
     }
-    GetAllClientOrderList(
+    GetSingleClientOrderList(
       data,
       res => {
         setOrderList(res?.data?.orders)
@@ -95,7 +95,6 @@ const Orders = () => {
             ? Math.ceil(res?.data?.totalPage / rowsPerPage)
             : null
         setNumbersToDisplayOnPagination(pages)
-        debugger
       },
       err => {
         console.log('Printing OrderList Error', err)
@@ -105,7 +104,7 @@ const Orders = () => {
   }
   useEffect(() => {
     handleOrderList()
-  }, [queryParams.searchQuery, currentPage])
+  }, [queryParams, currentPage])
   const handleDrawerOpen = () => {
     setOpen(true)
   }
@@ -155,6 +154,7 @@ const Orders = () => {
               }
             />
           </FormControl>
+
           <IconButton
             edge="end"
             onClick={handleDrawerOpen}
@@ -166,9 +166,12 @@ const Orders = () => {
           >
             <img src={FilterIcon} alt="" />
           </IconButton>
+
           <Drawer
             onClose={handleDrawerClose}
             sx={{
+              width: 2,
+              flexShrink: 0,
               '& .MuiDrawer-paper': {
                 width: drawerWidth,
               },
@@ -177,28 +180,27 @@ const Orders = () => {
             open={openDrawer}
           >
             <DrawerHeader className="drawer_header_section">
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box className="filter_main_heading">
                 <IconButton
-                  sx={{
-                    ...(openDrawer && { display: 'flex' }),
-                    padding: '0',
-                    margin: '0 0 0 0px',
-                  }}
+                  // sx={{
+                  //   ...(openDrawer && { display: 'flex' }),
+                  //   padding: '0',
+                  //   // margin: '0 0 0 0px',
+                  // }}
+                  sx={{ color: '#2e3591', padding: '0px' }}
                   disableRipple={true}
                   onClick={handleDrawerClose}
                 >
                   {theme.direction === 'rtl' ? (
-                    <ChevronLeftIcon sx={{ fontSize: '30px' }} />
+                    <ChevronLeftIcon className="chevron_icon" />
                   ) : (
-                    <ChevronRightIcon sx={{ fontSize: '30px' }} />
+                    <ChevronRightIcon className="chevron_icon" />
                   )}
                 </IconButton>
-                <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
+                <Typography sx={{ fontSize: '22px' }}>Filter By</Typography>
               </Box>
               <Box>
-                <Button onClick={handleClearAllFilter} className="text_button">
-                  Reset
-                </Button>
+                <Button onClick={handleClearAllFilter}>Reset</Button>
                 <Button
                   onClick={handleApplyFilter}
                   className="common_button"
@@ -208,62 +210,57 @@ const Orders = () => {
                 </Button>
               </Box>
             </DrawerHeader>
+
             <Divider />
-            <Box
-              sx={{ display: 'flex', flexDirection: 'column', margin: '10px' }}
-            >
-              <FormControl>
-                <FormLabel
-                  sx={{ color: '#000000' }}
-                  className="mb-2"
-                  id="demo-row-radio-buttons-group-label"
-                >
+
+            <Box className="filter_body_section">
+              <FormControl className="filter_body_inner_section">
+                <FormLabel className="filter_body_inner_heading">
                   Delivery
                 </FormLabel>
                 <RadioGroup
-                  row
                   value={queryParams.delivery}
                   onChange={e => {
                     setQueryParams({ ...queryParams, delivery: e.target.value })
                   }}
                 >
-                  {deliveryStatusList.map(data => {
-                    return (
-                      <FormControlLabel
-                        className="checkbox_background_color"
-                        value={data.value}
-                        control={<Radio />}
-                        label={data.type}
-                      />
-                    )
-                  })}
+                  <Box className="checkbox_section">
+                    {deliveryStatusList.map(data => {
+                      return (
+                        <FormControlLabel
+                          className="checkbox_background_color"
+                          value={data.value}
+                          control={<Radio />}
+                          label={data.type}
+                        />
+                      )
+                    })}
+                  </Box>
                 </RadioGroup>
               </FormControl>
 
-              <FormControl>
-                <FormLabel
-                  sx={{ color: '#000000' }}
-                  id="demo-row-radio-buttons-group-label"
-                >
+              <FormControl className="filter_body_inner_section">
+                <FormLabel className="filter_body_inner_heading">
                   Payment
                 </FormLabel>
                 <RadioGroup
-                  row
                   value={queryParams.payment}
                   onChange={e => {
                     setQueryParams({ ...queryParams, payment: e.target.value })
                   }}
                 >
-                  {paymentStatusList.map(data => {
-                    return (
-                      <FormControlLabel
-                        className="checkbox_background_color"
-                        value={data.value}
-                        control={<Radio />}
-                        label={data.type}
-                      />
-                    )
-                  })}
+                  <Box className="checkbox_section">
+                    {paymentStatusList.map(data => {
+                      return (
+                        <FormControlLabel
+                          className="checkbox_background_color"
+                          value={data.value}
+                          control={<Radio />}
+                          label={data.type}
+                        />
+                      )
+                    })}
+                  </Box>
                 </RadioGroup>
               </FormControl>
 
@@ -308,7 +305,7 @@ const Orders = () => {
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            sx={{ minWidth: 690, padding: '0px !important' }}
             // className="table_heading "
           >
             <TableHead>
@@ -366,7 +363,7 @@ const Orders = () => {
           </Table>
         </TableContainer>
         <Pagination
-          className="mt-3"
+          className="pagination_style"
           boundaryCount={0}
           siblingCount={0}
           size="small"

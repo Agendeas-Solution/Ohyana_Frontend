@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Typography, Button, TextField, Pagination } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Button,
+  TextField,
+  Pagination,
+  Divider,
+} from '@mui/material'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -17,20 +24,18 @@ import {
 } from '../../services/apiservices/pointDetail'
 import moment from 'moment'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import AddAppreciationDialog from './AddAppreciationDialog'
 const StaffPoint = () => {
   const [pointRule, setPointRule] = useState([])
-  const [selectMonth, setSelectMonth] = useState({
-    $M: moment().month(),
-    $y: moment().year(),
-  })
+  const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [totalPage, setTotalPage] = useState(1)
   const [totalPoints, setTotalPoints] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [pointsData, setPointsData] = useState([])
+  const [addAppreciationDialogControl, setAddAppreciationDialogControl] =
+    useState(false)
   let path = window.location.pathname
-  console.log('Printing Path of ', path)
-  console.log('Printing ', path.split('/').pop())
   path = path.split('/').pop()
   useEffect(() => {
     GetPointRule(
@@ -76,27 +81,40 @@ const StaffPoint = () => {
       parseInt(path),
       res => {
         handleGetPointTeamMember()
+        handleAddAppreciationDialogClose()
       },
       err => {},
     )
   }
-
+  const handleAddAppreciationDialogClose = () => {
+    setAddAppreciationDialogControl(false)
+  }
   return (
     <>
       <Box className="point_section">
         <Box className="point_left_section">
-          <Box className="inner_point_left_section p-2">
+          <Box className="inner_point_left_section p-2 staff_point_table">
             <Typography className="left_panel_heading p-2" variant="span">
               Point Rules
             </Typography>
             {pointRule.length > 0 &&
               pointRule.map(data => {
                 return (
-                  <Box className="common_row p-2 mt-1">
-                    <Typography variant="span">{data?.name || '-'}</Typography>
-                    <Typography variant="span">
-                      {data?.points ?? '-'}
-                    </Typography>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      overflowY: 'auto',
+                    }}
+                  >
+                    <Box className="detail_row p-2 mt-1">
+                      <Typography variant="span">
+                        {data?.name || '-'}
+                      </Typography>
+                      <Typography variant="span">
+                        {data?.points ?? '-'}
+                      </Typography>
+                    </Box>
                   </Box>
                 )
               })}
@@ -108,14 +126,19 @@ const StaffPoint = () => {
             <Typography className="right_panel_heading" variant="span">
               Total Points : {totalPoints}
             </Typography>
+
             <Box>
-              <Button onClick={handleAppreciation} className="appreciation_btn">
+              <Button
+                onClick={() => setAddAppreciationDialogControl(true)}
+                className="staff_common_button"
+              >
                 + Appreciation
               </Button>
-            </Box>
-            <Box className="points_date_filter ">
+
+              {/* <Box className="points_date_filter "> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
+                  className="staff_date"
                   views={['month', 'year']}
                   value={selectMonth}
                   onChange={newValue => {
@@ -123,27 +146,30 @@ const StaffPoint = () => {
                   }}
                   renderInput={params => (
                     <TextField
-                      placeholder="Year and Month"
                       {...params}
+                      sx={{
+                        width: '180px',
+                        marginLeft: '10px',
+                        border: 'none',
+                      }}
+                      placeholder="Year and Month"
                       helperText={null}
                     />
                   )}
+                  PopperProps={{
+                    placement: 'bottom-start', // Set placement to 'bottom-start'
+                  }}
                 />
               </LocalizationProvider>
             </Box>
             {/* </Box> */}
           </Box>
 
+          {/* <Divider sx={{ width: '10%', border: '1px solid #c4c4c4' }} /> */}
+
           <TableContainer
-            className="expenses_table_height mt-2"
+            className="expenses_table_height staff_point_table"
             component={Paper}
-            sx={{
-              boxShadow: 'none',
-              // border: '1px solid #e5e5e5',
-              borderTop: 'none',
-              overflowY: 'auto',
-              overflowX: 'scroll',
-            }}
           >
             {pointsData.length > 0 ? (
               <Table
@@ -197,6 +223,11 @@ const StaffPoint = () => {
               setCurrentPage(value)
             }}
           /> */}
+          <AddAppreciationDialog
+            handleAppreciation={handleAppreciation}
+            addAppreciationDialogControl={addAppreciationDialogControl}
+            handleAddAppreciationDialogClose={handleAddAppreciationDialogClose}
+          />
         </Box>
       </Box>
     </>

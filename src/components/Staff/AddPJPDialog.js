@@ -20,7 +20,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import './index.css'
-import { GetAdminClientDetail } from '../../services/apiservices/clientDetail'
+import { GetAllClients } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
 
 const AddPJPDialog = ({
@@ -31,6 +31,7 @@ const AddPJPDialog = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [options, setOptions] = useState([])
+
   useEffect(() => {
     let data = {
       size: 10,
@@ -38,7 +39,7 @@ const AddPJPDialog = ({
     if (searchQuery !== '') {
       data['searchQuery'] = searchQuery
     }
-    GetAdminClientDetail(
+    GetAllClients(
       data,
       res => {
         if (res?.success) {
@@ -50,16 +51,18 @@ const AddPJPDialog = ({
       },
     )
   }, [searchQuery])
+
   return (
     <>
       <Dialog open={addPJPDetail.dialogStatus} onClose={handleCloseDialog}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add PJP</Typography>
-
           <FormControl>
-            <InputLabel>Client Type</InputLabel>
+            <InputLabel className="dialogue_input_fields">
+              Client Name
+            </InputLabel>
             <Select
-              label="Select Client"
+              label="Select Client Name"
               className="dialogue_input_fields"
               value={addPJPDetail?.clientId}
               onChange={e => {
@@ -71,25 +74,6 @@ const AddPJPDialog = ({
               })}
             </Select>
           </FormControl>
-
-          {/* <Autocomplete
-            disablePortal
-            options={options}
-            value={addPJPDetail?.clientId}
-            onChange={(e, value) => {
-              setAddPJPDetail({ ...addPJPDetail, clientId: value?.id })
-            }}
-            getOptionLabel={option => option?.name}
-            renderInput={params => (
-              <TextField
-                {...params}
-                label="Select Client"
-                placeholder="Select Client"
-                className="dialogue_input_fields"
-              />
-            )}
-          /> */}
-
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               inputFormat="dd/MM/yyyy"
@@ -105,13 +89,13 @@ const AddPJPDialog = ({
               }}
             />
           </LocalizationProvider>
-
           <TextField
             className="dialogue_input_fields"
             multiline
             autoComplete="off"
             label="Detail"
             minRows={3}
+            maxRows={3}
             placeholder="Detail Here..."
             value={addPJPDetail.description}
             onChange={e => {
@@ -121,7 +105,6 @@ const AddPJPDialog = ({
               })
             }}
           />
-
           <DialogActions>
             <Button
               className="dialogue_bottom_button"

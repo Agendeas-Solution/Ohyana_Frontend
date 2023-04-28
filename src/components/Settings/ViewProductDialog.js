@@ -21,6 +21,8 @@ import {
   DeleteAdminProduct,
   UpdateProductQuantity,
 } from '../../services/apiservices/adminprofile'
+import { AccountCircle } from '@mui/icons-material'
+
 const ViewProductDialog = ({
   viewProductDialog,
   handleClose,
@@ -32,6 +34,7 @@ const ViewProductDialog = ({
   useEffect(() => {
     GetProductDetail(
       viewProductDialog?.id,
+      {},
       res => {
         setProductDetail(res?.data)
       },
@@ -42,7 +45,6 @@ const ViewProductDialog = ({
     DeleteAdminProduct(
       viewProductDialog?.id,
       res => {
-        console.log('Printing Response', res.data)
         handleClose()
       },
       err => {
@@ -52,10 +54,9 @@ const ViewProductDialog = ({
   }
   const handleProductQuantityUpdate = () => {
     UpdateProductQuantity(
-      productDetail?.quantity,
       viewProductDialog?.id,
+      { quantity: parseInt(productDetail?.quantity) },
       res => {
-        console.log('Printing Response UpdateProductQuantity', res.data)
         handleClose()
       },
       err => {
@@ -65,13 +66,20 @@ const ViewProductDialog = ({
   }
   return (
     <>
-      <Dialog open={viewProductDialog.status} onClose={handleClose}>
-        <DialogTitle className="common_row">
-          <Typography variant="span">{productDetail?.name}</Typography>
+      <Dialog
+        open={viewProductDialog.status}
+        onClose={handleClose}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle className="detail_row">
+          <Typography className="product_dialog_heading" variant="span">
+            {productDetail?.name}
+          </Typography>
           <Box>
             <Button
               onClick={() => navigate(`/editproduct/${viewProductDialog?.id}`)}
-              className="common_button"
+              className="product_detail_buttons"
             >
               <EditRoundedIcon />
             </Button>
@@ -83,48 +91,75 @@ const ViewProductDialog = ({
                   id: viewProductDialog?.id,
                 })
               }
-              className="common_button"
+              className="product_detail_buttons"
             >
               <DeleteRoundedIcon />
             </Button>
           </Box>
         </DialogTitle>
-        <Divider />
+
+        <Divider
+          sx={{ borderColor: '#C4C4C4' }}
+          orientation="horizontal"
+          width="100%"
+        />
+
         <DialogContent>
           <Box className="product_dialog_detail_section">
             <Box className="product_dialog_left_Section">
               <Box className="dialog_product_image">
                 <img src={SampleProduct} alt="" />
               </Box>
-              <TextField
-                size="small"
-                value={productDetail?.quantity}
-                onChange={e =>
-                  setProductDetail({
-                    ...productDetail,
-                    quantity: e.target.value,
-                  })
-                }
-                placeholder="Number"
-              />
-              <Button onClick={handleProductQuantityUpdate} variant="contained">
-                Stock
-              </Button>
+
+              <Box className="update_button_section">
+                <TextField
+                  // variant="standard"
+                  variant="outlined"
+                  label="Current Stock"
+                  // InputProps={{
+                  //   disableUnderline: true,
+                  //   style: { textAlign: 'center' },
+                  // }}
+                  // sx={{
+                  //   width: '37%',
+                  // }}
+                  size="small"
+                  value={productDetail?.quantity}
+                  onChange={e =>
+                    setProductDetail({
+                      ...productDetail,
+                      quantity: e.target.value,
+                    })
+                  }
+                  placeholder="Quantity"
+                />
+                <Button
+                  sx={{ backgroundColor: '#2E3591', marginLeft: '5px' }}
+                  size="large"
+                  onClick={handleProductQuantityUpdate}
+                  variant="contained"
+                >
+                  Update
+                </Button>
+              </Box>
+              {/* <Button onClick={handleProductQuantityUpdate} variant="contained">
+                Update Stock
+              </Button> */}
             </Box>
             <Box className="product_dialog_right_section">
-              <Box className="common_row mb-1">
+              <Box className="detail_row product_detail_dia_right_section">
                 <Typography className="common_heading" variant="span">
                   Id
                 </Typography>
                 <Typography variant="span">{productDetail?.id}</Typography>
               </Box>
-              <Box className="common_row mb-1">
+              <Box className="detail_row product_detail_dia_right_section">
                 <Typography className="common_heading" variant="span">
                   Price
                 </Typography>
                 <Typography variant="span">{productDetail?.price}</Typography>
               </Box>
-              <Box className="common_row mb-1">
+              <Box className="detail_row product_detail_dia_right_section">
                 <Typography className="common_heading" variant="span">
                   Material Type
                 </Typography>
@@ -132,13 +167,13 @@ const ViewProductDialog = ({
                   {productDetail?.materialType}
                 </Typography>
               </Box>
-              <Box className="common_row mb-1">
+              <Box className="detail_row product_detail_dia_right_section">
                 <Typography className="common_heading" variant="span">
                   Weight
                 </Typography>
                 <Typography variant="span">{productDetail?.weight}</Typography>
               </Box>
-              <Box className="row mb-1">
+              <Box className="row product_detail_dia_right_section">
                 <Typography className="common_heading" variant="span">
                   Description
                 </Typography>

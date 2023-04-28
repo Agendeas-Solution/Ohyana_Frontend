@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState, Suspense } from 'react'
+import React, { useContext, useEffect, Suspense } from 'react'
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom'
-import { Box } from '@mui/material'
 import Cookie from 'js-cookie'
 import { clearLoginToken } from '../services/storage'
 import { io } from 'socket.io-client'
@@ -17,12 +16,8 @@ import Department from '../components/Settings/Department'
 import Staff from '../components/Staff/Staff'
 import StaffProfile from '../components/Staff/StaffProfile'
 import AddStaffMember from '../components/Staff/AddStaffMember'
-import Calendar from '../components/Calendar/Calendar'
 import Settings from '../components/Settings/Settings'
-import DepartmentList from '../components/Settings/DepartmentList'
 import ProductList from '../components/Settings/ProductList'
-import EditClient from '../components/EditClient/EditClient'
-import EditStaff from '../components/Staff/EditStaff'
 import CompanyProfile from '../components/CompanyProfile/CompanyProfile'
 import Premium from '../components/Premium/Premium'
 import HolidayAndLeaveManagement from '../components/HolidayAndLeaveManagement/HolidayAndLeaveManagement'
@@ -42,11 +37,12 @@ import JobRolesList from '../components/Settings/JobRolesList'
 import ExpenseList from '../components/Expense/ExpenseList'
 import ClientOrders from '../components/Orders/ClientOrders'
 import MyCart from '../components/Orders/MyCart'
+import Integrations from '../components/Integrations/Integrations'
 const socket = io('http://192.168.1.65:9009')
 
 const AppContent = () => {
   const { setPermissions } = useContext(AuthContext)
-  const { authorize, flagLoader, permissions } = useContext(AuthContext).state
+  const { permissions } = useContext(AuthContext).state
   const ProtectedRoutes = () => {
     return Cookie.get('userToken') ? <Outlet /> : <Navigate to="/login" />
   }
@@ -57,7 +53,6 @@ const AppContent = () => {
       socket.emit('join', { email: localStorage.getItem('userEmail') })
     })
     socket.on('connect', () => {
-      console.log('Successfully connected to server')
       socket.emit('join', { email: localStorage.getItem('userEmail') })
     })
     socket.on('permissionChanged', () => {
@@ -95,13 +90,11 @@ const AppContent = () => {
               ></Route>
             )}
             {permissions?.editClient && (
-              <Route path="/editclient/:id" element={<EditClient />}></Route>
+              <Route path="/addeditclient/:id" element={<AddClient />}></Route>
             )}
-            {permissions?.editStaff && (
-              <Route path="/editstaff/:id" element={<EditStaff />}></Route>
-            )}
+
             {permissions?.editClient && (
-              <Route path="/addclient" element={<AddClient />}></Route>
+              <Route path="/addeditclient" element={<AddClient />}></Route>
             )}
             {permissions?.staffMenu && (
               <Route path="/staff" element={<Staff />}></Route>
@@ -115,14 +108,16 @@ const AppContent = () => {
             <Route path="*" element={<Login />}></Route>
             {permissions?.editStaff && (
               <Route
-                path="/addstaffmember"
+                path="/addeditstaff/:id"
                 element={<AddStaffMember />}
               ></Route>
+            )}
+            {permissions?.editStaff && (
+              <Route path="/addeditstaff" element={<AddStaffMember />}></Route>
             )}
             <Route path="/task" element={<Task />}></Route>
             <Route path="/dealer" element={<Dealer />}></Route>
             <Route path="/taskdetail/:id" element={<TaskDetail />}></Route>
-            <Route path="/calendar" element={<Calendar />}></Route>
             <Route path="/report" element={<Statistics />}></Route>
             <Route path="/support" element={<Support />}></Route>
             <Route path="/complaint/:id" element={<Complaint />}></Route>
@@ -150,7 +145,7 @@ const AppContent = () => {
             )} */}
 
             <Route path="/expenselist" element={<ExpenseList />} />
-
+            <Route path="/integrations" element={<Integrations />} />
             <Route path="/jobrolelist" element={<JobRolesList />}></Route>
             <Route path="/jobroleaccess/:id" element={<Department />}></Route>
             {permissions?.viewProduct && (

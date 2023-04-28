@@ -44,7 +44,7 @@ const ViewBusinessCardDetail = ({
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
         handleDialogClose()
       },
@@ -54,7 +54,7 @@ const ViewBusinessCardDetail = ({
   return (
     <div>
       <Dialog open={viewBusinessCardDialog.status} onClose={handleDialogClose}>
-        <Box className="common_row">
+        <Box className="detail_row">
           {' '}
           <Typography className="business_detail_dialog_title" variant="span">
             Card Detail
@@ -81,7 +81,7 @@ const ViewBusinessCardDetail = ({
         <DialogContent>
           <Box className="business_card_dialog_section">
             <img className="business_card" src={imageLink} alt="" />
-            <Box className="common_row">
+            <Box className="detail_row">
               <Typography className="text-align-center fw-bold" variant="span">
                 Added By:{' '}
               </Typography>
@@ -89,7 +89,7 @@ const ViewBusinessCardDetail = ({
                 {businessDetail?.team?.name}{' '}
               </Typography>
             </Box>
-            <Box className="common_row">
+            <Box className="detail_row">
               <Typography
                 className="text-align-center fw-bo  ld"
                 variant="span"

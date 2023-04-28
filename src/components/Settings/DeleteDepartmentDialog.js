@@ -11,19 +11,22 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import { DeleteDepartment } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-const DeleteDepartmentDialog = props => {
+const DeleteDepartmentDialog = ({
+  deleteDepartmentDialogControl,
+  handleClose,
+}) => {
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const navigate = useNavigate()
   const handleDeleteDepartment = () => {
     DeleteDepartment(
-      props.deleteDepartmentDialogControl.id,
+      deleteDepartmentDialogControl.id,
       res => {
         navigate('/departmentlist')
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
       },
       err => {},
@@ -31,23 +34,20 @@ const DeleteDepartmentDialog = props => {
   }
   return (
     <>
-      <Dialog
-        open={props.deleteDepartmentDialogControl.status}
-        onClose={props.handleClose}
-      >
+      <Dialog open={deleteDepartmentDialogControl.status} onClose={handleClose}>
         <DialogTitle>
           <DeleteRoundedIcon className="edit_icon_profile" />
         </DialogTitle>
         <DialogContent>
           <Typography variant="span">
-            Are You Sure you want to delete this Department ?
+            Are you sure to delete this Department ?
           </Typography>
         </DialogContent>
         <DialogActions className="m-auto">
           <Button variant="contained" onClick={handleDeleteDepartment}>
             Ok
           </Button>
-          <Button className="cancel-btn" onClick={props.handleClose} autoFocus>
+          <Button className="cancel-btn" onClick={handleClose} autoFocus>
             Cancel
           </Button>
         </DialogActions>

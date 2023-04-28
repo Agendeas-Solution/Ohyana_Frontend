@@ -4,19 +4,11 @@ import {
   Typography,
   Button,
   TextField,
-  DialogContent,
   DialogActions,
   Dialog,
-  Autocomplete,
-  CircularProgress,
-  DialogTitle,
-  TextareaAutosize,
 } from '@mui/material'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import './index.css'
-import moment from 'moment'
+
 const CompletedPJPDialog = ({
   completedDialog,
   handleCloseCompletedDialog,
@@ -29,13 +21,10 @@ const CompletedPJPDialog = ({
         open={completedDialog.status}
         onClose={handleCloseCompletedDialog}
       >
-        <Box>
-          <DialogTitle
-            sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px' }}
-          >
-            Completed PJP
-          </DialogTitle>
-          <DialogContent>
+        <Box className="dialogue_main_section">
+          <Typography className="dialogue_heading">Completed PJP</Typography>
+
+          {/* <DialogContent>
             <Box>
               <Box className="row my-4">
                 <Box className="col-md-6">
@@ -57,18 +46,34 @@ const CompletedPJPDialog = ({
                 </Box>
               </Box>
             </Box>
-          </DialogContent>
-          <DialogActions className="m-auto">
+          </DialogContent> */}
+
+          <TextField
+            className="dialogue_input_fields"
+            multiline
+            autoComplete="off"
+            label="Detail"
+            minRows={3}
+            maxRows={3}
+            placeholder="Detail Here..."
+            value={completedDialog.description}
+            onChange={e => {
+              setCompletedDialog({
+                ...completedDialog,
+                description: e.target.value,
+              })
+            }}
+          />
+
+          <DialogActions>
             <Button
-              sx={{ alignContent: 'center', alignItems: 'center' }}
+              // sx={{ alignContent: 'center', alignItems: 'center' }}
+              className="dialogue_bottom_button"
               variant="contained"
               onClick={handleAddCompletePJPStatus}
             >
               Save
             </Button>
-            {/* <Button className="cancel-btn" onClick={handleClose} autoFocus>
-            Cancel
-          </Button> */}
           </DialogActions>
         </Box>
       </Dialog>

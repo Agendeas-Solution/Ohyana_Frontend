@@ -23,14 +23,19 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 import { CLIENT } from '../../constants/clientConstant'
 import { Folder } from '@mui/icons-material'
 var a
-const StatusDialog = props => {
+const StatusDialog = ({
+  clientProfileDetail,
+  handleStatusClose,
+  statusDialog,
+}) => {
   const [audioFile, setAudioFile] = useState(null)
   const inputRef = useRef(null)
   const [addStatusDetail, setAddStatusDetail] = useState({
-    clientId: props.clientProfileDetail.id,
+    clientId: clientProfileDetail.id,
     description: '',
     audio: {},
     callNotReceived: false,
+    followUpType: '',
   })
   const [followUpType, setFollowUpType] = useState(CLIENT.FOLLOWUP)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
@@ -54,28 +59,28 @@ const StatusDialog = props => {
     const formData = new FormData()
     formData.append('clientId', addStatusDetail.clientId)
     formData.append('description', addStatusDetail.description)
+    formData.append('followUpType', addStatusDetail.followUpType)
     if (addStatusDetail.callNotReceived === false) {
       formData.append('audio', blob)
       formData.append('callNotReceived', addStatusDetail.callNotReceived)
     } else {
       formData.append('callNotReceived', addStatusDetail.callNotReceived)
     }
-    console.log(formData)
     AddClientStatus(
       formData,
       res => {
-        props.handleStatusClose()
+        handleStatusClose()
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
       },
       err => {
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
-          message: err.response.data.error,
+          message: err.response.data.message,
         })
       },
     )
@@ -83,7 +88,6 @@ const StatusDialog = props => {
   const addFile = e => {
     e.preventDefault()
     if (e.target.files[0]) {
-      console.log(e.target.files)
       setAddStatusDetail({
         ...addStatusDetail,
         audio: URL.createObjectURL(e.target.files[0]),
@@ -106,7 +110,6 @@ const StatusDialog = props => {
 
   const handleUpload = () => {
     // TODO: handle the upload logic here
-    console.log('Uploading file:', audioFile.name)
   }
 
   const handleSelectFile = () => {
@@ -115,7 +118,7 @@ const StatusDialog = props => {
 
   return (
     <>
-      <Dialog open={props.statusDialog} onClose={props.handleStatusClose}>
+      <Dialog open={statusDialog} onClose={handleStatusClose}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add Status</Typography>
 
@@ -128,7 +131,7 @@ const StatusDialog = props => {
                 setAddStatusDetail({
                   ...addStatusDetail,
                   followUpType: e.target.value,
-                  clientId: props.clientProfileDetail.id,
+                  clientId: clientProfileDetail.id,
                 })
               }
             >
@@ -145,12 +148,13 @@ const StatusDialog = props => {
             autoComplete="off"
             placeholder="Description Here..."
             minRows={3}
+            maxRows={3}
             value={addStatusDetail.description}
             onChange={e =>
               setAddStatusDetail({
                 ...addStatusDetail,
                 description: e.target.value,
-                clientId: props.clientProfileDetail.id,
+                clientId: clientProfileDetail.id,
               })
             }
           />
@@ -206,7 +210,7 @@ const StatusDialog = props => {
             <Button
               className="dialogue_button_nagative"
               variant="contained"
-              onClick={props.handleStatusClose}
+              onClick={handleStatusClose}
             >
               Cancel
             </Button>

@@ -21,7 +21,7 @@ const DeleteTaskDialog = ({
           <DeleteOutlinedIcon className="dialogue_delete_Icon" />
           <Typography className="dialogue_heading">Delete Task</Typography>
           <Typography className="dialogue_description">
-            Are you sure, you want to delete this task?
+            Are you sure to delete this task?
           </Typography>
           <DialogActions>
             <Button

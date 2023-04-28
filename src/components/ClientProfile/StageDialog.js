@@ -13,22 +13,20 @@ import {
 import { EditClientStage } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { CLIENT } from '../../constants'
-const StageDialog = props => {
-  const [stageStatus, setStageStatus] = useState(
-    props?.clientProfileDetail?.stage,
-  )
+const StageDialog = ({ clientProfileDetail, handleClose, stageDialog }) => {
+  const [stageStatus, setStageStatus] = useState(clientProfileDetail?.stage)
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const handleChangeStage = () => {
     EditClientStage(
-      props?.clientProfileDetail?.id,
+      clientProfileDetail?.id,
       { stage: stageStatus },
       res => {
-        props.handleClose()
+        handleClose()
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
-          message: res.data.message,
+          message: res.message,
         })
       },
       err => {},
@@ -36,7 +34,7 @@ const StageDialog = props => {
   }
   return (
     <>
-      <Dialog open={props.stageDialog} onClose={props.handleClose}>
+      <Dialog open={stageDialog} onClose={handleClose}>
         <div className="px-3 pt-3 m-auto">
           <h3>Set Position</h3>
         </div>
@@ -50,7 +48,7 @@ const StageDialog = props => {
                     onChange={e => {
                       setStageStatus(parseInt(e.target.value))
                     }}
-                    defaultValue={props?.clientProfileDetail?.stage}
+                    defaultValue={clientProfileDetail?.stage}
                     column
                   >
                     {CLIENT.STAGE.map(stage => {
@@ -72,7 +70,7 @@ const StageDialog = props => {
           <Button variant="contained" onClick={handleChangeStage}>
             Ok
           </Button>
-          <Button variant="contained" onClick={props.handleClose}>
+          <Button variant="contained" onClick={handleClose}>
             Cancel
           </Button>
         </DialogActions>

@@ -38,16 +38,6 @@
   color: #8e8e8e;
 }
 
-.task_heading {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #c4c4c4;
-}
-
 .checklist_duedate_section {
   height: 100%;
   display: flex;
@@ -66,6 +56,9 @@
   margin-top: 10px;
   margin-right: 10px;
   overflow-y: hidden;
+  display: grid;
+  /* height: 100%; */
+  margin-bottom: 80px;
 }
 
 .task_details_section {
@@ -138,4 +131,5 @@
 
 .completed_heading {
   color: #8e8e8e;
+  /* margin-bottom: 10px; */
 }

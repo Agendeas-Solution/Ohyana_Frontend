@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Typography, Autocomplete, TextField } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Autocomplete,
+  TextField,
+  OutlinedInput,
+  InputLabel,
+  FormControl,
+  Select,
+  ListItemText,
+  Checkbox,
+  MenuItem,
+} from '@mui/material'
 import './index.css'
 import { UserData } from './Data'
 import LineChart from './LineChart'
@@ -10,13 +22,29 @@ import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 const ProductGraph = ({ selectedPeriod }) => {
   const [graphData, setGraphData] = useState()
   const [productList, setProductList] = useState([])
+  const [selectedProductList, setSelectedProductList] = useState([])
   const [cityList, setCityList] = useState([])
-  // const [selectedProduct, se] = useState()
+  const [selectedCity, setSelectedCity] = useState('')
+  const handleChange = event => {
+    const { value } = event.target
+    const selectedProduct = value.map(id =>
+      productList.find(name => name.id === id),
+    )
+    setSelectedProductList(selectedProduct)
+    console.log('Selected Product:', selectedProduct)
+  }
   useEffect(() => {
-    console.log('selectedPerid', selectedPeriod)
-    debugger
+    let data = {
+      period: selectedPeriod,
+    }
+    if (selectedCity) {
+      data['cities'] = [selectedCity]
+    }
+    if (selectedProductList.length > 0) {
+      data['productIds'] = selectedProductList
+    }
     GetProductReport(
-      { selectedPeriod: selectedPeriod },
+      data,
       res => {
         setGraphData(res?.data)
       },
@@ -39,7 +67,7 @@ const ProductGraph = ({ selectedPeriod }) => {
   }, [selectedPeriod])
   const top100Films = [
     { label: 'The Shawshank Redemption', year: 1994 },
-    { label: 'The Shawshank Redemption', year: 1994 },
+    { label: 'The Shawshank s', year: 1995 },
   ]
   const [userData, setUserData] = useState({
     labels: UserData.map(data => data.year),
@@ -74,46 +102,63 @@ const ProductGraph = ({ selectedPeriod }) => {
     // console.log("Printing xlables", xlabels);
     // ;
     datga && setUserData({ ...userData, datasets: datga })
-    debugger
   }, [graphData])
   return (
     <>
       <Box className="graph_detail_section">
         <Box className="graph_section">
-          <Box className="common_row mb-3">
-            <Typography
-              sx={{ color: '#2E3591', fontSize: '20px', fontWeight: '600' }}
-              variant="span"
-            >
+          <Box className="detail_row">
+            <Typography className="report_tab_heading" variant="span">
               Overall
             </Typography>
-            <Box sx={{ display: 'flex' }}>
+
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <FormControl className="filter_body_inner_section">
+                <InputLabel>Select City</InputLabel>
+                <Select
+                  className="report_tab_heading_option"
+                  label="Select City "
+                  value={selectedCity}
+                  onChange={e => {
+                    setSelectedCity(e.target.value)
+                  }}
+                >
+                  {cityList.map(data => {
+                    return <MenuItem value={data}>{data}</MenuItem>
+                  })}
+                </Select>
+              </FormControl>
+              <FormControl className="filter_body_inner_section">
+                <InputLabel>Select Product</InputLabel>
+                <Select
+                  className="report_tab_heading_option"
+                  label="Select Product"
+                  multiple
+                  value={selectedProductList.map(product => product.id)}
+                  onChange={handleChange}
+                  input={<OutlinedInput label="Product" />}
+                  renderValue={selected =>
+                    selected
+                      .map(id => productList.find(name => name.id === id).name)
+                      .join(', ')
+                  }
+                >
+                  {productList.map(product => (
+                    <MenuItem key={product.id} value={product.id}>
+                      <Checkbox
+                        checked={selectedProductList.some(
+                          tag => tag.id === product.id,
+                        )}
+                      />
+                      <ListItemText primary={product.name} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
               <Autocomplete
-                disablePortal
-                options={cityList}
-                getOptionLabel={option => option}
-                sx={{ width: '200px', marginRight: '10px' }}
-                renderInput={params => (
-                  <TextField
-                    className="common_dropdown"
-                    {...params}
-                    label="City"
-                  />
-                )}
-              />
-              <Autocomplete
-                disablePortal
-                options={productList}
-                getOptionLabel={option => option.name}
-                sx={{ width: '200px', marginRight: '10px' }}
-                renderInput={params => (
-                  <TextField {...params} label="Product" />
-                )}
-              />
-              <Autocomplete
+                className="filter_body_inner_section"
                 disablePortal
                 options={top100Films}
-                sx={{ width: '200px' }}
                 renderInput={params => (
                   <TextField
                     className="common_dropdown"
@@ -124,27 +169,14 @@ const ProductGraph = ({ selectedPeriod }) => {
               />
             </Box>
           </Box>
-          <Box
-            sx={{
-              border: '1px solid #E5E5E5',
-              borderRadius: '5px',
-              margin: '1px',
-            }}
-          >
+          <Box className="report_tab_main_section">
             {userData.datasets && <LineChart chartData={userData} />}
           </Box>
         </Box>
         <Box className="detail_section">
           <Box className=" product_data">
             <Box className="product_name">
-              <Box
-                sx={{
-                  backgroundColor: '#FFAB00',
-                  height: '10px',
-                  width: '10px',
-                  marginRight: '10px',
-                }}
-              ></Box>
+              <Box className="product_bullet_point"></Box>
               <Typography variant="span">Pasta Masala Penne</Typography>
             </Box>
             <Box className="sales_parameter">
@@ -156,14 +188,7 @@ const ProductGraph = ({ selectedPeriod }) => {
           </Box>
           <Box className=" product_data">
             <Box className="product_name">
-              <Box
-                sx={{
-                  backgroundColor: '#FFAB00',
-                  height: '10px',
-                  width: '10px',
-                  marginRight: '10px',
-                }}
-              ></Box>
+              <Box className="product_bullet_point"></Box>
               <Typography variant="span">Pasta Masala Penne</Typography>
             </Box>
             <Box className="sales_parameter">
@@ -175,14 +200,7 @@ const ProductGraph = ({ selectedPeriod }) => {
           </Box>
           <Box className=" product_data">
             <Box className="product_name">
-              <Box
-                sx={{
-                  backgroundColor: '#FFAB00',
-                  height: '10px',
-                  width: '10px',
-                  marginRight: '10px',
-                }}
-              ></Box>
+              <Box className="product_bullet_point"></Box>
               <Typography variant="span">Pasta Masala Penne</Typography>
             </Box>
             <Box className="sales_parameter">

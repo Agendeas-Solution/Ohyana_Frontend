@@ -1,8 +1,11 @@
-.input_fields input {
-  /* padding: 5px; */
-  width: 275px;
+.image_style {
+  border-radius: 50%;
 }
 
-/* fieldset {
-  display: none;
-} */
+.edit_my_profile_image_section {
+  width: 10%;
+  display: flex;
+  margin: 20px;
+  justify-content: flex-end;
+  flex-direction: column;
+}

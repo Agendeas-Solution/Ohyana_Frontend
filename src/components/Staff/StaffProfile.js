@@ -32,8 +32,6 @@ const StaffProfile = () => {
   }
   useEffect(() => {
     let path = window.location.pathname
-    console.log('Printing Path of ', path)
-    console.log('Printing ', path.split('/').pop())
     path = path.split('/').pop()
 
     value === '1' &&
@@ -75,7 +73,7 @@ const StaffProfile = () => {
               <Button variant="contained" className="profile_header_button">
                 <EditRoundedIcon
                   onClick={() => {
-                    navigate(`/editstaff/${adminProfileDetail.id}`)
+                    navigate(`/addeditstaff/${adminProfileDetail.id}`)
                   }}
                 />
               </Button>
@@ -115,7 +113,7 @@ const StaffProfile = () => {
               <StaffTarget />
             </TabPanel>
             <TabPanel sx={{ padding: '0' }} value="5">
-              <StaffExpenses />
+              <StaffExpenses adminProfileDetail={adminProfileDetail} />
             </TabPanel>
             <TabPanel sx={{ padding: '0' }} value="6">
               <StaffPoint />

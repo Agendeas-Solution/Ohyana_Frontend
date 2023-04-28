@@ -2,19 +2,16 @@ import React from 'react'
 import { Dialog, DialogActions, Button, Box, Typography } from '@mui/material'
 import DeleteIcon from '../../assets/img/delete.png'
 import './index.css'
-const DeleteRemainder = props => {
+const DeleteRemainder = ({ deleteRemainderDialog, CloseDeleteRemainder }) => {
   return (
     <>
-      <Dialog
-        open={props.deleteRemainderDialog}
-        onClose={props.CloseDeleteRemainder}
-      >
+      <Dialog open={deleteRemainderDialog} onClose={CloseDeleteRemainder}>
         <Box className="delete_remainder_dialog">
           <Box className="delete_remainder_content">
             <img src={DeleteIcon} alt="deleteicon" />
             <Typography variant="h5">Delete Remainder</Typography>
             <Typography variant="span">
-              Are You Sure you want to delete this Remainder?
+              Are you sure to delete this Remainder?
             </Typography>
           </Box>
           <DialogActions>
@@ -26,7 +23,7 @@ const DeleteRemainder = props => {
                 textTransform: 'capitalize',
               }}
               variant="contained"
-              onClick={props.CloseDeleteRemainder}
+              onClick={CloseDeleteRemainder}
               autoFocus
             >
               Delete

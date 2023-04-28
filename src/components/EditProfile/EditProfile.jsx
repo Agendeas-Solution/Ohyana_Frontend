@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext, lazy } from 'react'
 import {
-  Typography,
   Box,
   TextField,
   InputLabel,
@@ -10,11 +9,8 @@ import {
   MenuItem,
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputAdornment from '@mui/material/InputAdornment'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import IconButton from '@mui/material/IconButton'
+import ProfileImage from '../../assets/img/Profile_Image.svg'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import './index.css'
 import {
   EditAdminProfile,
@@ -24,6 +20,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+import Uploader from '../Uploader/Uploader'
 
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const SuccessSnackbar = React.lazy(() =>
@@ -63,11 +60,6 @@ const EditProfile = () => {
   const handleChange = prop => event => {
     setUserDetail({ ...userDetail, [prop]: event.target.value })
   }
-  useEffect(() => {
-    console.log('Printing userDetail', userDetail.birthDate)
-    // //
-  }, [userDetail])
-
   const SaveProfile = () => {
     let data = {
       name: userDetail.employeeName,
@@ -76,8 +68,6 @@ const EditProfile = () => {
       gender: userDetail.gender,
       birthDay: userDetail.birthDate,
     }
-    console.log('Printing Data', data)
-
     EditAdminProfile(
       data,
       res => {
@@ -91,11 +81,10 @@ const EditProfile = () => {
         }
       },
       err => {
-        console.log('Printing Err', err)
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
-          message: err.response.data.error,
+          message: err.response.data.message,
         })
       },
     )
@@ -103,87 +92,104 @@ const EditProfile = () => {
   return (
     <>
       <Box className="main_section">
-        <Box className="input_field_row">
-          <Box className="input_fields">
-            <TextField
-              label="Employee Name"
-              autoComplete="off"
-              onChange={e => {
-                setUserDetail({ ...userDetail, employeeName: e.target.value })
-              }}
-              value={userDetail.employeeName}
-              variant="outlined"
-            />
+        <Box className="pofile_edit_section">
+          <Box className="edit_my_profile_image_section">
+            <img className="image_style" src={ProfileImage} alt="profile" />
+            {/* <Button className="common_button">Upload</Button> */}
+            <Button className="common_button">
+              <Uploader />
+            </Button>
+            {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
           </Box>
-          <Box className="input_fields">
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                label="Select Birth Date"
-                inputFormat="dd/MM/yyyy"
-                value={userDetail.birthDate}
-                onChange={e => {
-                  setUserDetail({ ...userDetail, birthDate: e })
-                }}
-                renderInput={params => <TextField {...params} />}
-              />
-            </LocalizationProvider>
+          {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
+          <Box className="edit_profile_detail_section">
+            <Box className="input_field_row">
+              <Box className="input_fields">
+                <TextField
+                  label="Employee Name"
+                  autoComplete="off"
+                  onChange={e => {
+                    setUserDetail({
+                      ...userDetail,
+                      employeeName: e.target.value,
+                    })
+                  }}
+                  value={userDetail.employeeName}
+                  variant="outlined"
+                />
+              </Box>
+              <Box className="input_fields">
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    label="Select Birth Date"
+                    inputFormat="dd/MM/yyyy"
+                    value={userDetail.birthDate}
+                    onChange={e => {
+                      setUserDetail({ ...userDetail, birthDate: e })
+                    }}
+                    renderInput={params => <TextField {...params} />}
+                    PopperProps={{
+                      placement: 'bottom-start', // Set placement to 'bottom-start'
+                    }}
+                  />
+                </LocalizationProvider>
+              </Box>
+            </Box>
+
+            <Box className="input_field_row">
+              <Box className="input_fields">
+                <TextField
+                  label="Email"
+                  autoComplete="off"
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, email: e.target.value })
+                  }}
+                  value={userDetail.email}
+                  variant="outlined"
+                />
+              </Box>
+              <Box className="input_fields">
+                <TextField
+                  label="Contact No"
+                  type="number"
+                  autoComplete="off"
+                  onChange={e => {
+                    setUserDetail({
+                      ...userDetail,
+                      contactNo: e.target.value,
+                    })
+                  }}
+                  value={userDetail.contactNo}
+                  variant="outlined"
+                />
+              </Box>
+            </Box>
+
+            <Box className="input_fields" sx={{ width: '50%' }}>
+              <FormControl>
+                <InputLabel>Select Gender</InputLabel>
+                <Select
+                  label="Select Gender"
+                  value={userDetail.gender}
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, gender: e.target.value })
+                  }}
+                >
+                  <MenuItem value="Male">Male</MenuItem>
+                  <MenuItem value="Female">Female</MenuItem>
+                  <MenuItem value="Other">Female</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+
+            <Button
+              className="edit_page_save_button"
+              onClick={SaveProfile}
+              variant="contained"
+            >
+              Save
+            </Button>
           </Box>
-        </Box>
-        <Box className="input_field_row">
-          <Box className="input_fields">
-            <TextField
-              label="Email"
-              autoComplete="off"
-              onChange={e => {
-                setUserDetail({ ...userDetail, email: e.target.value })
-              }}
-              value={userDetail.email}
-              variant="outlined"
-            />
-          </Box>
-          <Box className="input_fields">
-            <TextField
-              label="Contact No"
-              type="number"
-              autoComplete="off"
-              onChange={e => {
-                setUserDetail({ ...userDetail, contactNo: e.target.value })
-              }}
-              value={userDetail.contactNo}
-              variant="outlined"
-            />
-          </Box>
-        </Box>
-        <Box className="input_field_row">
-          <Box className="input_fields">
-            <FormControl>
-              <InputLabel>Select Gender</InputLabel>
-              <Select
-                label="Select Gender"
-                value={userDetail.gender}
-                className="w-100"
-                onChange={e => {
-                  setUserDetail({ ...userDetail, gender: e.target.value })
-                }}
-              >
-                <MenuItem value="Male">Male</MenuItem>
-                <MenuItem value="Female">Female</MenuItem>
-                <MenuItem value="Other">Female</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-        </Box>
-        <Box
-          sx={{ display: 'flex', justifyContent: 'flex-end' }}
-          className="input_field_row"
-        >
-          <Button
-            onClick={SaveProfile}
-            variant="contained"
-            className="edit_page_save_button"
-          >
-            Save
-          </Button>
         </Box>
       </Box>
       <ErrorSnackbar />

@@ -16,6 +16,7 @@ import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { CustomerTake } from '../../services/apiservices/clientDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import { Box } from '@mui/system'
 
 const CustomerList = ({ clientDetails, ViewClientDetail }) => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
@@ -28,7 +29,7 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
-            message: res.data.message,
+            message: res.message,
           })
         }
       },
@@ -37,7 +38,7 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,
-          message: err.response.data.error,
+          message: err.response.data.message,
         })
       },
     )
@@ -46,19 +47,14 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
   return (
     <>
       <TableContainer
-        className="orders_table_height"
+        className="orders_table_height set_box_shadow"
         component={Paper}
-        sx={{
-          boxShadow: 'none',
-          border: '1px solid #e5e5e5',
-          overflowY: 'auto',
-        }}
       >
         {clientDetails.length > 0 ? (
           <Table
+            className="customer_list_table"
             stickyHeader
-            aria-label="sticky table"
-            sx={{ minWidth: 690, marginLeft: '-10px' }}
+            aria-label="simple table"
           >
             <TableHead>
               <TableRow>
@@ -69,43 +65,22 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
                 <TableCell>State</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell></TableCell>
-                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {clientDetails.map((row, index) => (
-                <TableRow
-                  key={row.id}
-                  hover
-                  role="checkbox"
-                  tabIndex={-1}
-                  sx={{
-                    '&:last-child td,th': { border: 0 },
-                  }}
-                >
-                  <TableCell
-                    className="tablecell_height"
-                    scope="row"
-                    sx={{ maxWidth: '150px' }}
-                  >
+                <TableRow key={row.id} hover role="checkbox" tabIndex={-1}>
+                  <TableCell className="tablecell_height" scope="row">
                     {row.id}
                   </TableCell>
-                  <TableCell sx={{ maxWidth: '150px' }}>
-                    {row.name ?? '-'}
-                  </TableCell>
-                  <TableCell sx={{ maxWidth: '150px' }}>
-                    {row.business ?? '-'}
-                  </TableCell>
-                  <TableCell sx={{ maxWidth: '150px' }}>
-                    {row.contact_number ?? '-'}
-                  </TableCell>
-                  <TableCell sx={{ maxWidth: '150px' }}>
-                    {row.state?.name ?? '-'}
-                  </TableCell>
-                  <TableCell sx={{ maxWidth: '150px' }}>
+                  <TableCell>{row.name ?? '-'}</TableCell>
+                  <TableCell>{row.business ?? '-'}</TableCell>
+                  <TableCell>{row.contact_number ?? '-'}</TableCell>
+                  <TableCell>{row.state ?? '-'}</TableCell>
+                  <TableCell>
                     {moment(row.createdAt).format('DD-MM-YYYY')}
                   </TableCell>
-                  <TableCell sx={{ maxWidth: '150px' }}>
+                  <TableCell className="customers_list_page_buttons">
                     {row.teamId === null ? (
                       <Button
                         onClick={() => {

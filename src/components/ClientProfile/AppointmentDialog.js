@@ -20,87 +20,40 @@ import { AddAdminClientAppointmentDetail } from '../../services/apiservices/clie
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import './index.css'
-import { GetAllStaffList } from '../../services/apiservices/staffDetail.js'
+import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail.js'
 const AppointmentDialog = ({
   clientProfileDetail,
   handleAppointmentClose,
-  appointmentDialog,
+  appointmentDialogControl,
+  setAppointmentDialogControl,
+  handleAddEditAppointment,
 }) => {
-  const [clientAppointmentDetail, setClientAppointmentDetail] = useState({
-    date: '',
-    time: '',
-    description: '',
-    appointed_member: [],
-    clientId: clientProfileDetail?.id,
-    appointment_unit: '',
-  })
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const [staffDetailList, setStaffDetailList] = useState([])
-  const [appointmentPlaceList, setAppointmentPlaceList] = useState([
-    'Factory',
-    'Office',
-  ])
   useEffect(() => {
-    GetAllStaffList(
-      {},
+    GetAdminStaffDetailList(
+      { admin: true },
       res => {
         setStaffDetailList(res.data)
       },
       err => {},
     )
   }, [])
-  const handleAddAppointment = () => {
-    console.log('Add Reminder', clientAppointmentDetail)
-    if (
-      clientAppointmentDetail.description !== '' &&
-      clientAppointmentDetail.date !== '' &&
-      clientAppointmentDetail.time !== ''
-    ) {
-      clientAppointmentDetail['appointed_member'] = [
-        ...new Set(
-          clientAppointmentDetail?.appointed_member.map(item => item?.id),
-        ),
-      ]
-      console.log(clientAppointmentDetail)
-      AddAdminClientAppointmentDetail(
-        clientAppointmentDetail,
-        res => {
-          handleAppointmentClose()
-          setSuccessSnackbar({
-            ...successSnackbar,
-            status: true,
-            message: res.data.message,
-          })
-          setClientAppointmentDetail({
-            ...clientAppointmentDetail,
-            date: '',
-            time: '',
-            description: '',
-            appointed_member: [],
-            appointment_unit: '',
-          })
-        },
-        err => {
-          console.log('Error :', err)
-        },
-      )
-    }
-  }
   return (
     <>
-      <Dialog open={appointmentDialog} onClose={handleAppointmentClose}>
+      <Dialog
+        open={appointmentDialogControl.status}
+        onClose={handleAppointmentClose}
+      >
         <Box className="dialogue_main_section">
-          <Typography className="dialogue_heading">Add Appointment</Typography>
-
+          <Typography className="dialogue_heading">Appointment</Typography>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               disablePast
               inputFormat="dd/MM/yyyy"
-              value={clientAppointmentDetail.date}
+              value={appointmentDialogControl.date}
               onChange={e => {
-                setClientAppointmentDetail({
-                  ...clientAppointmentDetail,
+                setAppointmentDialogControl({
+                  ...appointmentDialogControl,
                   date: moment(e).format('YYYY-MM-DD'),
                 })
               }}
@@ -108,49 +61,44 @@ const AppointmentDialog = ({
                 <TextField {...params} className="dialogue_input_fields" />
               )}
               PopperProps={{
-                placement: 'bottom-start', // Set placement to 'bottom-start'
+                placement: 'bottom-start',
               }}
             />
           </LocalizationProvider>
-
           <TextField
             className="dialogue_input_fields"
-            value={clientAppointmentDetail.time}
+            value={appointmentDialogControl.time}
             type="time"
             onChange={e => {
-              setClientAppointmentDetail({
-                ...clientAppointmentDetail,
+              setAppointmentDialogControl({
+                ...appointmentDialogControl,
                 time: e.target.value,
               })
             }}
           />
-
           <FormControl className="dialogue_input_fields">
-            <InputLabel>Appoinment For</InputLabel>
+            <InputLabel>Appointment For</InputLabel>
             <Select
-              label="Appoinment For"
-              value={clientAppointmentDetail?.appointment_unit}
-              onChange={(e, value) => {
-                console.log(value)
-                setClientAppointmentDetail({
-                  ...clientAppointmentDetail,
-                  appointment_unit: value,
+              label="Appointment For"
+              value={appointmentDialogControl?.appointment_unit}
+              onChange={e => {
+                setAppointmentDialogControl({
+                  ...appointmentDialogControl,
+                  appointment_unit: e.target.value,
                 })
               }}
             >
-              <MenuItem value="Ofiice">Ofiice</MenuItem>
+              <MenuItem value="Office">Office</MenuItem>
               <MenuItem value="Factory">Factory</MenuItem>
             </Select>
           </FormControl>
-
           <Autocomplete
             filterSelectedOptions
             options={staffDetailList}
-            value={clientAppointmentDetail?.appointed_member}
+            value={appointmentDialogControl?.appointed_member}
             onChange={(e, value) => {
-              console.log(value)
-              setClientAppointmentDetail({
-                ...clientAppointmentDetail,
+              setAppointmentDialogControl({
+                ...appointmentDialogControl,
                 appointed_member: value,
               })
             }}
@@ -161,39 +109,32 @@ const AppointmentDialog = ({
                 {...params}
                 label="Add Member"
                 className="dialogue_input_fields"
-                placeholder={
-                  clientAppointmentDetail?.appointed_member.length > 0
-                    ? ''
-                    : 'Add Member'
-                }
               />
             )}
           />
-
           <TextField
             className="dialogue_input_fields"
             multiline
             label="Description"
             autoComplete="off"
             minRows={3}
+            maxRows={3}
             placeholder="Description Here..."
-            value={clientAppointmentDetail.description}
+            value={appointmentDialogControl.description}
             onChange={e => {
-              setClientAppointmentDetail({
-                ...clientAppointmentDetail,
+              setAppointmentDialogControl({
+                ...appointmentDialogControl,
                 description: e.target.value,
-                clientId: clientProfileDetail?.id,
               })
             }}
           />
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={handleAddAppointment}
+              onClick={handleAddEditAppointment}
             >
-              Ok
+              Save
             </Button>
             <Button
               className="dialogue_button_nagative"

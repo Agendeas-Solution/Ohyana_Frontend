@@ -123,7 +123,7 @@ const Premium = () => {
             </Typography>
             <Button
               sx={{ marginBottom: '18px', fontSize: '20px' }}
-              className="choose_plan_button p-1"
+              className="common_button"
               variant="contained"
             >
               Choose Plan
@@ -203,7 +203,7 @@ const Premium = () => {
             </Typography>
             <Button
               sx={{ marginBottom: '18px', fontSize: '20px' }}
-              className="choose_plan_button p-1"
+              className="common_button"
               variant="contained"
             >
               Choose Plan
@@ -216,7 +216,6 @@ const Premium = () => {
               }}
             />
             <Typography
-              // sx={{ paddingBottom: "13px" }}
               className="plan_pricing_name main_heading"
               variant="span"
             >

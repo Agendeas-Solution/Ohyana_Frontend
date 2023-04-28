@@ -9,13 +9,15 @@ import {
   Typography,
   TextField,
   TextareaAutosize,
-  Autocomplete,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
 } from '@mui/material'
-import { GetAddEditAdminRole } from '../../services/apiservices/adminprofile'
+import {
+  GetAddEditAdminRole,
+  GetAdminRole,
+} from '../../services/apiservices/adminprofile'
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const EditJobRoleDialog = ({
@@ -29,8 +31,8 @@ const EditJobRoleDialog = ({
   const [jobRoleList, setJobRoleList] = useState({})
   const [seniorName, setSeniorName] = useState('')
   useEffect(() => {
-    GetAddEditAdminRole(
-      {},
+    GetAdminRole(
+      { selection: true },
       res => {
         if (res.success) {
           setJobRoleList({
@@ -78,7 +80,7 @@ const EditJobRoleDialog = ({
               <Typography variant="span">Who is the senior ?</Typography>
             </div>
             <FormControl>
-              <InputLabel>Select jobRole</InputLabel>
+              <InputLabel>Select Job Role</InputLabel>
               <Select
                 label="Select Job Role"
                 value={editJobRoleDialogControl?.parentId}

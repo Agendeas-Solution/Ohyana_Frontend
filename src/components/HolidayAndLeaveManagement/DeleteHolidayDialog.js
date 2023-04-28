@@ -6,7 +6,9 @@ import {
   DialogActions,
   Button,
   Typography,
+  Box,
 } from '@mui/material'
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 import { DeleteAdminProduct } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const DeleteHolidayDialog = ({
@@ -20,24 +22,30 @@ const DeleteHolidayDialog = ({
         open={deleteHolidayDialogControl.status}
         onClose={handleHolidayDeleteDialog}
       >
-        <DialogTitle>Delete Holiday</DialogTitle>
-        <DialogContent>
-          <Typography variant="span">
-            Are You Sure you want to Delete this Holiday ?
+        <Box className="dialogue_main_section">
+          <DeleteOutlinedIcon className="dialogue_delete_Icon" />
+          <Typography className="dialogue_heading">Delete Holiday</Typography>
+          <Typography className="dialogue_description">
+            Are you sure to delete this Holiday?
           </Typography>
-        </DialogContent>
-        <DialogActions className="m-auto">
-          <Button variant="contained" onClick={handleDeleteHoliday}>
-            Ok
-          </Button>
-          <Button
-            className="cancel-btn"
-            onClick={handleHolidayDeleteDialog}
-            autoFocus
-          >
-            Cancel
-          </Button>
-        </DialogActions>
+          <DialogActions>
+            <Button
+              className="dialogue_button_positive"
+              variant="contained"
+              onClick={handleDeleteHoliday}
+              autoFocus
+            >
+              Delete
+            </Button>
+            <Button
+              className="dialogue_button_nagative"
+              onClick={handleHolidayDeleteDialog}
+              autoFocus
+            >
+              Cancel
+            </Button>
+          </DialogActions>
+        </Box>
       </Dialog>
     </>
   )
