@@ -66,14 +66,6 @@ table {
   border-radius: 5px;
 }
 
-.header_section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 5px;
-  padding: 5px 10px;
-}
-
 .leave_holiday_buttons {
   background: #f1f2f6 !important;
   color: #2e3591 !important;

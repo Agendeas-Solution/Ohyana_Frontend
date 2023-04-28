@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
+  Box,
   Paper,
   Table,
   TableBody,
@@ -71,7 +72,9 @@ const StaffAttendancePresent = ({ staffAttendanceList }) => {
             </TableBody>
           </Table>
         ) : (
-          <NoResultFound />
+          <Box className="client_table_height mt-2">
+            <NoResultFound />
+          </Box>
         )}
       </TableContainer>
     </>

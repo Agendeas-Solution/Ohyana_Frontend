@@ -98,43 +98,6 @@ const AddClient = () => {
       err => {},
     )
   }, [])
-  // useEffect(() => {
-  //   GetAdminProductList(
-  //     {},
-  //     res => {
-  //       if (res.success) {
-  //         setAdminProductList(res?.data?.products)
-  //         const inquiry_type = [
-  //           ...new Set(userDetail?.product.map(item => item?.type)),
-  //         ]
-  //         if (inquiry_type.length > 1) {
-  //           setUserDetail({ ...userDetail, inquiryfor: 'BOTH' })
-  //         } else if (inquiry_type.length > 0 && inquiry_type.length < 2) {
-  //           setUserDetail({ ...userDetail, inquiryfor: inquiry_type[0] })
-  //         }
-  //       }
-  //     },
-  //     err => {
-  //       console.log('Printing Error', err)
-  //     },
-  //   )
-
-  //   let productlist = []
-  //   if (userDetail.inquiryfor === 'BOTH') {
-  //     productlist = adminProductList.map(value => {
-  //       return value
-  //     })
-  //   } else if (userDetail.inquiryfor === 'PRODUCT') {
-  //     productlist = adminProductList.map(value => {
-  //       return value.type === 'PRODUCT' && value
-  //     })
-  //   } else if (userDetail.inquiryfor === 'MACHINE') {
-  //     productlist = adminProductList.map(value => {
-  //       return value.type === 'MACHINE' && value
-  //     })
-  //   }
-  //   setFilteredProductList(productlist)
-  // }, [userDetail?.inquiryfor])
 
   const handleAddClient = () => {
     if (
@@ -220,6 +183,7 @@ const AddClient = () => {
           <Box className="edit_profile_image_section">
             <img src={ProfileImage} alt="profile" />
           </Box>
+
           <Box className="edit_profile_detail_section">
             {/* Client Name &&  Business Name*/}
             <Box className="input_field_row">

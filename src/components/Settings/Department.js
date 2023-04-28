@@ -348,7 +348,7 @@ const Department = () => {
         className="main_section"
         sx={{ overflowY: 'hidden', padding: '0px' }}
       >
-        <Box className="main_section_header" sx={{ padding: '10px' }}>
+        <Box className="header_section">
           <Typography className="task_card_heading" variant="span">
             {jobRoleList.name || '-'}
           </Typography>

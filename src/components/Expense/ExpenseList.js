@@ -187,14 +187,7 @@ const ExpenseList = () => {
                 {expenseList.length > 0 &&
                   expenseList?.map((data, index) => (
                     <React.Fragment key={index}>
-                      <TableRow
-                        // style={{
-                        //   border: '1px solid black',
-                        //   padding: '5rem',
-                        // }}
-                        className="job_role_list "
-                        key={data.id}
-                      >
+                      <TableRow className="job_role_list " key={data.id}>
                         <TableCell className="table_row_top_align">
                           {index + 1}
                         </TableCell>
