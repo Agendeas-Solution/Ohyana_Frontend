@@ -20,6 +20,7 @@ import { GetProductReport } from '../../services/apiservices/productDetail'
 import { GetCityList } from '../../services/apiservices/clientDetail'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 const ProductGraph = ({ selectedPeriod }) => {
+  const [comparison, setComparison] = useState()
   const [graphData, setGraphData] = useState()
   const [productList, setProductList] = useState([])
   const [selectedProductList, setSelectedProductList] = useState([])
@@ -105,111 +106,71 @@ const ProductGraph = ({ selectedPeriod }) => {
   }, [graphData])
   return (
     <>
-      <Box className="graph_detail_section">
-        <Box className="graph_section">
-          <Box className="detail_row">
-            <Typography className="report_tab_heading" variant="span">
-              Overall
-            </Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <FormControl className="filter_body_inner_section">
-                <InputLabel>Select City</InputLabel>
-                <Select
-                  className="report_tab_heading_option"
-                  label="Select City "
-                  value={selectedCity}
-                  onChange={e => {
-                    setSelectedCity(e.target.value)
-                  }}
-                >
-                  {cityList.map(data => {
-                    return <MenuItem value={data}>{data}</MenuItem>
-                  })}
-                </Select>
-              </FormControl>
-              <FormControl className="filter_body_inner_section">
-                <InputLabel>Select Product</InputLabel>
-                <Select
-                  className="report_tab_heading_option"
-                  label="Select Product"
-                  multiple
-                  value={selectedProductList.map(product => product.id)}
-                  onChange={handleChange}
-                  input={<OutlinedInput label="Product" />}
-                  renderValue={selected =>
-                    selected
-                      .map(id => productList.find(name => name.id === id).name)
-                      .join(', ')
-                  }
-                >
-                  {productList.map(product => (
-                    <MenuItem key={product.id} value={product.id}>
-                      <Checkbox
-                        checked={selectedProductList.some(
-                          tag => tag.id === product.id,
-                        )}
-                      />
-                      <ListItemText primary={product.name} />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <Autocomplete
-                className="filter_body_inner_section"
-                disablePortal
-                options={top100Films}
-                renderInput={params => (
-                  <TextField
-                    className="common_dropdown"
-                    {...params}
-                    label="City"
-                  />
-                )}
-              />
-            </Box>
-          </Box>
-          <Box className="report_tab_main_section">
-            {userData.datasets && <LineChart chartData={userData} />}
+      <Box>
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '10px',
+          }}
+        >
+          <Typography variant="span">Overall</Typography>
+
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <FormControl sx={{ width: '200px', marginLeft: '10px' }}>
+              <InputLabel>Compare</InputLabel>
+              <Select
+                label="Select City "
+                value={comparison}
+                onChange={e => {
+                  setComparison(e.target.value)
+                }}
+              >
+                <MenuItem value="true">Product</MenuItem>
+                <MenuItem value="false">City</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl sx={{ width: '200px', marginLeft: '10px' }}>
+              <InputLabel>Select Product</InputLabel>
+              <Select
+                label="Select Product"
+                multiple
+                value={selectedProductList.map(product => product.id)}
+                onChange={handleChange}
+                renderValue={selected =>
+                  selected
+                    .map(id => productList.find(name => name.id === id).name)
+                    .join(', ')
+                }
+              >
+                {productList.map(product => (
+                  <MenuItem key={product.id} value={product.id}>
+                    <Checkbox
+                      checked={selectedProductList.some(
+                        tag => tag.id === product.id,
+                      )}
+                    />
+                    <ListItemText primary={product.name} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Autocomplete
+              sx={{ width: '200px', marginLeft: '10px' }}
+              disablePortal
+              options={cityList}
+              value={selectedCity}
+              getOptionLabel={option => option}
+              onChange={(e, value) => {
+                setSelectedCity(value)
+              }}
+              renderInput={params => <TextField {...params} label="City" />}
+            />
           </Box>
         </Box>
-        <Box className="detail_section">
-          <Box className=" product_data">
-            <Box className="product_name">
-              <Box className="product_bullet_point"></Box>
-              <Typography variant="span">Pasta Masala Penne</Typography>
-            </Box>
-            <Box className="sales_parameter">
-              <Typography variant="span">2500 Pc </Typography>
-              <Typography className="bg-white rounded p-1 m-2" variant="span">
-                <TrendingUpRoundedIcon className="common_icon" /> 5%
-              </Typography>
-            </Box>
-          </Box>
-          <Box className=" product_data">
-            <Box className="product_name">
-              <Box className="product_bullet_point"></Box>
-              <Typography variant="span">Pasta Masala Penne</Typography>
-            </Box>
-            <Box className="sales_parameter">
-              <Typography variant="span">2500 Pc </Typography>
-              <Typography className="bg-white rounded p-1 m-2" variant="span">
-                <TrendingUpRoundedIcon className="common_icon" /> 5%
-              </Typography>
-            </Box>
-          </Box>
-          <Box className=" product_data">
-            <Box className="product_name">
-              <Box className="product_bullet_point"></Box>
-              <Typography variant="span">Pasta Masala Penne</Typography>
-            </Box>
-            <Box className="sales_parameter">
-              <Typography variant="span">2500 Pc </Typography>
-              <Typography className="bg-white rounded p-1 m-2" variant="span">
-                <TrendingUpRoundedIcon className="common_icon" /> 5%
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
+        <Box>{userData.datasets && <LineChart chartData={userData} />}</Box>
       </Box>
     </>
   )

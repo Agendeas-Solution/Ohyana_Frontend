@@ -641,6 +641,14 @@ button {
   text-transform: capitalize !important;
 }
 
+.header_section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+  padding: 5px 10px;
+}
+
 .drawer_header_section {
   display: flex !important;
   flex-direction: row;
@@ -1159,13 +1167,13 @@ button {
 }
 
 .client_table_height {
-  height: 68vh;
+  height: 80vh;
 }
 
 .graph_section {
   display: flex;
   flex-direction: column;
-  width: 70%;
+
   margin: 10px 8px auto 5px;
 }
 
