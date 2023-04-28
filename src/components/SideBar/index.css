@@ -43,8 +43,8 @@
   color: #f1f1f1;
 }
 
-@media (max-width: 1250px) {
+/* @media (max-width: 900px) {
   .page_name_root {
     display: none;
   }
-}
+} */

@@ -266,9 +266,9 @@
   padding: 10px;
 }
 
-@media (max-width: 1250px) {
+/* @media (max-width: 900px) {
   .profile_detail_row {
     display: flex;
     justify-content: space-between;
   }
-}
+} */
