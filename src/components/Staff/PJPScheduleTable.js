@@ -20,6 +20,8 @@ const PJPScheduleTable = ({
   currentPage,
   setCurrentPage,
   rowsPerPage,
+  addPJPDetail,
+  setAddPJPDetail,
 }) => {
   const [pjpDetailDialog, setPJPDetailDialog] = useState({
     status: false,
@@ -128,6 +130,8 @@ const PJPScheduleTable = ({
       )}
       {pjpDetailDialog.status && (
         <PJPDetailDialog
+          addPJPDetail={addPJPDetail}
+          setAddPJPDetail={setAddPJPDetail}
           pjpDetailDialog={pjpDetailDialog}
           handleCloseDialog={handleCloseDialog}
           setPJPDetailDialog={setPJPDetailDialog}
