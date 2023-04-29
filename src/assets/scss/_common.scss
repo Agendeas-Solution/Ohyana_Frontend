@@ -567,6 +567,13 @@ textarea:focus {
   padding: 20px;
 }
 
+.register_input_fields {
+  width: 99%;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 30px 20px 0px !important;
+}
+
 .input_field_label {
   margin-bottom: 5px !important;
   margin-top: 20px !important;
@@ -1543,8 +1550,8 @@ button {
 //     display: flex;
 //     flex-direction: column;
 //     justify-content: space-between;
-//     align-items: center;      
-//   } 
+//     align-items: center;
+//   }
 // }
 
 // @media(max-width: 900px){
@@ -1565,7 +1572,6 @@ button {
 //     padding: 10px;
 //   }
 // }
-
 
 .table_description tbody tr td {
   -webkit-line-clamp: 3 !important;
