@@ -77,26 +77,19 @@ const ProductGraph = ({ selectedPeriod }) => {
     let datga =
       graphData &&
       graphData.map(value => {
+        const colors = '#' + Math.floor(Math.random() * 16777215).toString(16)
         return {
           data: value?.orders.map(a1 => a1.quantity),
           label: value?.name,
-          backgroundColor: [
-            'rgba(75,192,192,1)',
-            '#ecf0f1',
-            '#50AF95',
-            '#f3ba2f',
-            '#2a71d0',
-          ],
-          borderColor: [
-            'rgba(75,192,192,1)',
-            '#ecf0f1',
-            '#50AF95',
-            '#f3ba2f',
-            '#2a71d0',
-          ],
+          backgroundColor: colors,
+          borderColor: colors,
           borderWidth: 2,
+          barThickness: 20,
+          borderSkipped: 'middle',
+          circular: true,
         }
       })
+
     // let xlabels = graphData && graphData.map((data) => {
     //     return data?.orders.map((a1) => a1.date)
     // })
@@ -170,7 +163,9 @@ const ProductGraph = ({ selectedPeriod }) => {
             />
           </Box>
         </Box>
-        <Box>{userData.datasets && <LineChart chartData={userData} />}</Box>
+        <Box sx={{ height: '65vh !important' }}>
+          {userData.datasets && <LineChart chartData={userData} />}
+        </Box>
       </Box>
     </>
   )

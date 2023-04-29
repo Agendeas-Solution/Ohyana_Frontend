@@ -97,12 +97,12 @@ const TeamGraph = ({ selectedPeriod }) => {
       graphData.map((value, index) => {
         let a = []
         a[index] = selectedComparison === 'points' ? value.points : value.amount
+        const colors = '#' + Math.floor(Math.random() * 16777215).toString(16)
         return {
           data: a,
           label: value?.name,
-          backgroundColor:
-            '#' + Math.floor(Math.random() * 16777215).toString(16),
-          borderWidth: 1,
+          backgroundColor: colors,
+          borderWidth: 0,
           barThickness: 20,
           borderSkipped: 'middle',
           circular: true,
@@ -191,7 +191,7 @@ const TeamGraph = ({ selectedPeriod }) => {
             </FormControl>
           </Box>
         </Box>
-        <Box sx={{ height: '70%' }}>
+        <Box sx={{ height: '65vh !important' }}>
           {userData?.datasets && <BarChart chartData={userData} />}
         </Box>
       </Box>

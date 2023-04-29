@@ -28,8 +28,6 @@ import {
   CompletePJPStatus,
 } from '../../services/apiservices/teamcall'
 import {
-  GetAdminClientDetail,
-  DeleteClientDetail,
   GetCityList,
   GetStateList,
   UpdatePJPDetail,
@@ -45,7 +43,6 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { TEAM } from '../../constants/teamConstant'
 const drawerWidth = 350
-
 const PJPDetail = () => {
   const theme = useTheme()
   let path = window.location.pathname
@@ -210,9 +207,9 @@ const PJPDetail = () => {
     )
   }
   useEffect(() => {
-    handleCityList()
-    handleStateList()
-  }, [])
+    open && handleCityList()
+    open && handleStateList()
+  }, [open])
 
   const handleAddPJPDetail = () => {
     let data = {
