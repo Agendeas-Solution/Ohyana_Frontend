@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import DonutChart from 'react-donut-chart'
 import { Box, Typography, Button, Divider } from '@mui/material'
 import './index.css'
@@ -20,26 +20,46 @@ import {
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { TEAM } from '../../constants'
-
+import { Context as ContextSnackbar } from '../../context/pageContext'
 const Dashboard = () => {
   const navigate = useNavigate()
   const [inquiryData, setInquiryData] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   useEffect(() => {
     GetInquiryAnalytics(
       {},
       res => {
         setInquiryData(res.data.data)
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }, [])
 
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
-      res => {},
-      err => {},
+      res => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+      },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
 
