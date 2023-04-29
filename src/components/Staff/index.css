@@ -96,11 +96,6 @@
   color: #121f3e !important;
 }
 
-/* Success Dialog End */
-.access_control_box:nth-of-type(odd) {
-  /* margin-right: 10%; */
-}
-
 .expenses_data_row {
   display: flex;
   flex-direction: row;
@@ -274,7 +269,6 @@
     justify-content: space-between;
   }
 } */
-}
 
 .filter_body_section {
   display: flex;

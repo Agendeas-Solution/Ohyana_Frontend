@@ -12,6 +12,7 @@ import {
   Divider,
 } from '@mui/material'
 import './index.css'
+import { REPORT } from '../../constants'
 import moment from 'moment'
 const BarChart = React.lazy(() => import('./BarChart'))
 const TeamGraph = React.lazy(() => import('./TeamGraph'))
@@ -20,16 +21,8 @@ const LineChart = React.lazy(() => import('./LineChart'))
 const Statistics = () => {
   const [value, setValue] = React.useState('1')
 
-  const [daterange, setDateRange] = useState([
-    '7 days',
-    '30 days',
-    '90 days',
-    `${moment().format('MMMM')}`,
-    `${moment().subtract(1, 'months').format('MMMM')}`,
-    `${moment().subtract(2, 'months').format('MMMM')}`,
-    `${moment().format(' YYYY')}`,
-  ])
-  const [selectedPeriod, setSelectedPeriod] = useState(daterange[0])
+  const [daterange, setDateRange] = useState(REPORT.PERIODSELECTOR)
+  const [selectedPeriod, setSelectedPeriod] = useState(daterange[0].type)
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
@@ -91,7 +84,7 @@ const Statistics = () => {
                 }}
               >
                 {daterange.map(data => {
-                  return <MenuItem value={data}>{data}</MenuItem>
+                  return <MenuItem value={data.type}>{data.value}</MenuItem>
                 })}
               </Select>
             </FormControl>
