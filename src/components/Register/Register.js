@@ -77,48 +77,57 @@ const Register = () => {
           <img className="Logo_img" src={Logo} alt="" />
         </Box>
         <Box className="register_right_section">
+          <Typography variant="span">Welcome To Ohyana.</Typography>
           <Typography
-            sx={{
-              color: 'black',
-              fontWeight: '600',
-              fontSize: '20px',
-              marginBottom: '10px',
-            }}
-            variant="span"
-          >
-            Welcome To Ohyana.
-          </Typography>
-          <Typography
-            sx={{ color: '#8E8E8E', fontSize: '14px', marginBottom: '40px' }}
+            sx={{ color: '#8E8E8E', fontSize: '12px', marginBottom: '30px' }}
             variant="span"
           >
             Let’s get Registered in Ohyana and get 14-days Free Triae to manage
             a business.
           </Typography>
-
-          <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}
-            >
+          <Box className="register_textfield">
+            <Box className="textfield">
+              <Typography variant="span">Name</Typography>
               <TextField
-                className="register_input_fields"
-                label="Name"
-                placeholder="Name"
                 value={registerData?.name}
                 onChange={e => {
                   setRegisterData({ ...registerData, name: e.target.value })
                 }}
+                placeholder="Name"
                 variant="outlined"
               />
+            </Box>
+            <Box className="textfield">
+              <Typography variant="span">Email</Typography>
+              <FormControl variant="outlined">
+                <OutlinedInput
+                  placeholder="Email"
+                  type={'email'}
+                  value={registerData?.email}
+                  onChange={e => {
+                    setRegisterData({ ...registerData, email: e.target.value })
+                  }}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      {
+                        <Button
+                          onClick={handleSentOtp}
+                          className="verify_button"
+                          variant="contained"
+                        >
+                          Verify
+                        </Button>
+                      }
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+            </Box>
+          </Box>
+          <Box className="register_textfield">
+            <Box className="textfield">
+              <Typography variant="span">Company Name</Typography>
               <TextField
-                className="register_input_fields"
-                label="Company Name"
-                placeholder="Company Name"
-                variant="outlined"
                 value={registerData?.companyName}
                 onChange={e => {
                   setRegisterData({
@@ -126,78 +135,39 @@ const Register = () => {
                     companyName: e.target.value,
                   })
                 }}
+                placeholder="Company Name"
+                variant="outlined"
               />
             </Box>
-            <Box className="input_field_row">
-              <TextField
-                className="register_input_fields"
-                label="Email"
-                type={'email'}
-                value={registerData?.email}
-                onChange={e => {
-                  setRegisterData({ ...registerData, email: e.target.value })
-                }}
-                InputProps={{
-                  readOnly: true,
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Button
-                        sx={{
-                          margin: '0px',
-                          backgroundColor: '#2E3591',
-                          boxShadow: 'none',
-                        }}
-                        variant="contained"
-                        onClick={handleSentOtp}
-                      >
-                        Verify
-                      </Button>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-
-              <TextField
-                className="register_input_fields"
-                label="Password"
+            <Box className="textfield">
+              <Typography variant="span">Password</Typography>
+              <OutlinedInput
+                placeholder="Password"
+                autoFocus
+                autoComplete={false}
                 type={values.showPassword ? 'text' : 'password'}
                 value={registerData?.password}
                 onChange={e => {
-                  setRegisterData({
-                    ...registerData,
-                    password: e.target.value,
-                  })
+                  setRegisterData({ ...registerData, password: e.target.value })
                 }}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        sx={{
-                          margin: '0px',
-                          color: '#2E3591',
-                          boxShadow: 'none',
-                        }}
-                        variant="contained"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {values.showPassword ? (
-                          <Visibility />
-                        ) : (
-                          <VisibilityOff />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
               />
             </Box>
-            <Box className="input_field_row" sx={{ width: '50%' }}>
+          </Box>
+          <Box className="register_textfield">
+            <Box className="textfield">
+              <Typography variant="span">Contact No</Typography>
               <TextField
-                className="register_input_fields"
-                label="Contact No"
-                placeholder="ContactNo"
                 type="number"
                 value={registerData?.contact_number}
                 onChange={e => {
@@ -206,9 +176,40 @@ const Register = () => {
                     contact_number: e.target.value,
                   })
                 }}
+                placeholder="ContactNo"
                 variant="outlined"
               />
             </Box>
+
+            <Box className="textfield">
+              <Typography variant="span">OTP</Typography>
+              <FormControl variant="outlined">
+                <OutlinedInput
+                  type={'number'}
+                  value={otpValue.value}
+                  onChange={e => {
+                    setOtpValue({ ...otpValue, value: e.target.value })
+                  }}
+                  placeholder="Enter OTP"
+                  endAdornment={
+                    <InputAdornment position="end">
+                      {
+                        <Button
+                          onClick={handleOtp}
+                          className="verify_button"
+                          variant="contained"
+                        >
+                          Verify
+                        </Button>
+                      }
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+            </Box>
+          </Box>
+
+          <Box className="term_and_condition">
             <FormGroup>
               <FormControlLabel
                 control={
@@ -218,19 +219,13 @@ const Register = () => {
               />
             </FormGroup>
           </Box>
-          <Box className="term_and_condition">
-            <Button
-              sx={{
-                margin: '0px',
-                backgroundColor: '#2E3591',
-                boxShadow: 'none',
-              }}
-              onClick={handleRegister}
-              variant="contained"
-            >
-              Next
-            </Button>
-          </Box>
+          <Button
+            onClick={handleRegister}
+            className="next_button"
+            variant="contained"
+          >
+            Next
+          </Button>
         </Box>
       </Box>
     </>
