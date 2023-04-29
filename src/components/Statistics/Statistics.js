@@ -10,10 +10,12 @@ import {
   Select,
   MenuItem,
   Divider,
+  Tab,
 } from '@mui/material'
 import './index.css'
 import { REPORT } from '../../constants'
 import moment from 'moment'
+import { TabContext, TabList, TabPanel } from '@mui/lab'
 const BarChart = React.lazy(() => import('./BarChart'))
 const TeamGraph = React.lazy(() => import('./TeamGraph'))
 const ProductGraph = React.lazy(() => import('./ProductGraph'))
@@ -29,22 +31,17 @@ const Statistics = () => {
   const [activeTab, setActiveTab] = useState('product')
   return (
     <>
-      <Box
-        className="main_section"
-        sx={{ overflowY: 'hidden', padding: '0px' }}
-      >
-        <Box className="header_section">
-          <Typography className="sub_heading" variant="span">
-            Product
-          </Typography>
+      <Box className="main_tab_section">
+        <Box className="tab_header ">
           <Box
             sx={{
               display: 'flex',
-              alignItems: 'center',
-              flexDirection: 'row',
+              // alignItems: 'center',
+              width: '100%',
+              flexDirection: 'column',
             }}
           >
-            <Box sx={{ marginRight: '10px' }}>
+            {/* <Box sx={{ marginRight: '10px' }}>
               <Button
                 className={
                   activeTab === 'product'
@@ -71,34 +68,54 @@ const Statistics = () => {
               >
                 Team
               </Button>
-            </Box>
+            </Box> */}
 
-            <FormControl>
-              <InputLabel> Select Time</InputLabel>
-              <Select
-                sx={{ width: '125px', height: '40px' }}
-                label=" Select Time"
-                value={selectedPeriod}
-                onChange={(e, value) => {
-                  setSelectedPeriod(e.target.value)
-                }}
-              >
-                {daterange.map(data => {
-                  return <MenuItem value={data.type}>{data.value}</MenuItem>
-                })}
-              </Select>
-            </FormControl>
+            <TabContext value={value}>
+              <Box className="tab_row">
+                <TabList
+                  sx={{ borderBottom: '1px solid #F1F2F6' }}
+                  className="client_profile_tab mb-2"
+                  onChange={handleChange}
+                >
+                  <Tab label="Product" value="1" />
+                  <Tab label="Team" value="2" />
+                </TabList>
+                <FormControl>
+                  <InputLabel> Select Time</InputLabel>
+                  <Select
+                    sx={{ width: '125px', height: '40px' }}
+                    label=" Select Time"
+                    value={selectedPeriod}
+                    onChange={(e, value) => {
+                      setSelectedPeriod(e.target.value)
+                    }}
+                  >
+                    {daterange.map(data => {
+                      return <MenuItem value={data.type}>{data.value}</MenuItem>
+                    })}
+                  </Select>
+                </FormControl>
+              </Box>
+              <Box className="below_main_tab_section">
+                <TabPanel sx={{ padding: '0' }} value="1">
+                  <ProductGraph selectedPeriod={selectedPeriod} />
+                </TabPanel>
+                <TabPanel sx={{ padding: '0' }} value="2">
+                  <TeamGraph selectedPeriod={selectedPeriod} />
+                </TabPanel>
+              </Box>
+            </TabContext>
           </Box>
         </Box>
         <Divider sx={{ margin: '10px' }} />
-        <Box>
+        {/* <Box>
           {activeTab === 'product' && (
             <ProductGraph selectedPeriod={selectedPeriod} />
           )}
           {activeTab === 'team' && (
             <TeamGraph selectedPeriod={selectedPeriod} />
           )}
-        </Box>
+        </Box> */}
       </Box>
     </>
   )

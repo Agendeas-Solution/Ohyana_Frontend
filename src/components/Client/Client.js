@@ -123,9 +123,13 @@ const Client = () => {
     )
   }
   useEffect(() => {
-    handleCityList()
-    handleStateList()
-  }, [])
+    if (open && cityList.length === 0) {
+      handleCityList()
+    }
+    if (open && stateList.length === 0) {
+      handleStateList()
+    }
+  }, [open])
   useEffect(() => {
     let value = clientType.filter(data => {
       if (data.id <= permissions?.clientStageAccess) {

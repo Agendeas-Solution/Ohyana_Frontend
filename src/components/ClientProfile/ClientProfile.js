@@ -231,7 +231,6 @@ const ClientProfile = () => {
   }
   useEffect(() => {
     value === '1' && handleAdminClienStatusDetail()
-
     value === '2' && handleReminderDetail()
     value === '3' && handleAppointmentDetail()
   }, [value, statusDialog, callDialog])
