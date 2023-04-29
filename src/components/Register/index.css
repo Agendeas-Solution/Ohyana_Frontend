@@ -1,5 +1,5 @@
 .register_section {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   display: flex;
   position: relative;
@@ -8,10 +8,16 @@
 .register_left_section {
   background-color: #2e3591;
   width: 40%;
+  height: 100vh;
   display: flex;
   text-align: center;
   justify-content: center;
   align-items: center;
+}
+
+.Logo_img {
+  width: 200px;
+  height: 100px;
 }
 
 .register_right_section {
@@ -19,11 +25,15 @@
   display: flex;
   flex-direction: column;
   padding: 30px 30px 10px 30px;
+  height: 100%;
 }
 
-.Logo_img {
-  width: 200px;
-  height: 100px;
+.register_right_section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  width: 45%;
+  justify-content: space-between;
 }
 
 .register_textfield {
