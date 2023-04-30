@@ -15,13 +15,13 @@ import {
 import './index.css'
 import { UserData } from './Data'
 import LineChart from './LineChart'
-import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import { GetProductReport } from '../../services/apiservices/productDetail'
 import { GetCityList } from '../../services/apiservices/clientDetail'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 const ProductGraph = ({ selectedPeriod }) => {
   const [comparison, setComparison] = useState()
-  const [graphData, setGraphData] = useState()
+  // const [graphData, setGraphData] = useState([])
+  const [graphData, setGraphData] = useState({})
   const [productList, setProductList] = useState([])
   const [selectedProductList, setSelectedProductList] = useState([])
   const [cityList, setCityList] = useState([])
@@ -71,16 +71,26 @@ const ProductGraph = ({ selectedPeriod }) => {
     { label: 'The Shawshank s', year: 1995 },
   ]
   const [userData, setUserData] = useState({
-    labels: UserData.map(data => data.year),
+    labels: graphData.data && Object.keys(graphData.data),
   })
   useEffect(() => {
     let datga =
-      graphData &&
-      graphData.map(value => {
+      graphData.label &&
+      graphData.label.map(value => {
         const colors = '#' + Math.floor(Math.random() * 16777215).toString(16)
         return {
-          data: value?.orders.map(a1 => a1.quantity),
-          label: value?.name,
+          data: Object.entries(graphData.data)
+            .map(([key, product], i) => {
+              return product.reduce((acc, productDetail) => {
+                if (value.id === productDetail.productId) {
+                  acc.push(productDetail.quantity)
+                }
+                return acc
+              }, [])
+            })
+            .flat()
+            .filter(count => count !== undefined && count !== []),
+          label: value.name,
           backgroundColor: colors,
           borderColor: colors,
           borderWidth: 2,
@@ -89,12 +99,8 @@ const ProductGraph = ({ selectedPeriod }) => {
           circular: true,
         }
       })
-
-    // let xlabels = graphData && graphData.map((data) => {
-    //     return data?.orders.map((a1) => a1.date)
-    // })
-    // console.log("Printing xlables", xlabels);
-    // ;
+    console.log(datga)
+    debugger
     datga && setUserData({ ...userData, datasets: datga })
   }, [graphData])
   return (
