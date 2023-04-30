@@ -15,17 +15,18 @@ import {
 import './index.css'
 import { UserData } from './Data'
 import LineChart from './LineChart'
-import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import { GetProductReport } from '../../services/apiservices/productDetail'
 import { GetCityList } from '../../services/apiservices/clientDetail'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 const ProductGraph = ({ selectedPeriod }) => {
   const [comparison, setComparison] = useState()
-  const [graphData, setGraphData] = useState()
+  // const [graphData, setGraphData] = useState([])
+  const [graphData, setGraphData] = useState({})
   const [productList, setProductList] = useState([])
   const [selectedProductList, setSelectedProductList] = useState([])
   const [cityList, setCityList] = useState([])
   const [selectedCity, setSelectedCity] = useState('')
+  const [userData, setUserData] = useState({})
   const handleChange = event => {
     const { value } = event.target
     const selectedProduct = value.map(id =>
@@ -34,6 +35,10 @@ const ProductGraph = ({ selectedPeriod }) => {
     setSelectedProductList(selectedProduct)
     console.log('Selected Product:', selectedProduct)
   }
+  useEffect(() => {
+    console.log('graphData', userData)
+    debugger
+  }, [userData])
   useEffect(() => {
     let data = {
       period: selectedPeriod,
@@ -70,17 +75,25 @@ const ProductGraph = ({ selectedPeriod }) => {
     { label: 'The Shawshank Redemption', year: 1994 },
     { label: 'The Shawshank s', year: 1995 },
   ]
-  const [userData, setUserData] = useState({
-    labels: UserData.map(data => data.year),
-  })
+
   useEffect(() => {
     let datga =
-      graphData &&
-      graphData.map(value => {
+      graphData.label &&
+      graphData.label.map(value => {
         const colors = '#' + Math.floor(Math.random() * 16777215).toString(16)
         return {
-          data: value?.orders.map(a1 => a1.quantity),
-          label: value?.name,
+          data: Object.entries(graphData.data)
+            .map(([key, product], i) => {
+              return product.reduce((acc, productDetail) => {
+                if (value.id === productDetail.productId) {
+                  acc.push(productDetail.quantity)
+                }
+                return acc
+              }, [])
+            })
+            .flat()
+            .filter(count => count !== undefined && count !== []),
+          label: value.name,
           backgroundColor: colors,
           borderColor: colors,
           borderWidth: 2,
@@ -89,13 +102,14 @@ const ProductGraph = ({ selectedPeriod }) => {
           circular: true,
         }
       })
-
-    // let xlabels = graphData && graphData.map((data) => {
-    //     return data?.orders.map((a1) => a1.date)
-    // })
-    // console.log("Printing xlables", xlabels);
-    // ;
-    datga && setUserData({ ...userData, datasets: datga })
+    console.log(datga)
+    datga &&
+      setUserData({
+        ...userData,
+        datasets: datga,
+        labels: graphData.label && Object.keys(graphData.data),
+      })
+    debugger
   }, [graphData])
   return (
     <>
@@ -110,7 +124,6 @@ const ProductGraph = ({ selectedPeriod }) => {
           }}
         >
           <Typography variant="span">Overall</Typography>
-
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <FormControl sx={{ width: '200px', marginLeft: '10px' }}>
               <InputLabel>Compare</InputLabel>

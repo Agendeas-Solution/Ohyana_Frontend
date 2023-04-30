@@ -80,7 +80,11 @@ const ViewBusinessCardDetail = ({
         </Box>
         <DialogContent>
           <Box className="business_card_dialog_section">
-            <img className="business_card" src={imageLink} alt="" />
+            <img
+              className="business_card"
+              src={businessDetail?.imageUrl}
+              alt=""
+            />
             <Box className="detail_row">
               <Typography className="text-align-center fw-bold" variant="span">
                 Added By:{' '}

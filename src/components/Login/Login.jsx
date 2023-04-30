@@ -29,7 +29,7 @@ const Login = () => {
   const { setActivePage } = useContext(ContextActivePage)
   const { errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setErrorSnackbar } = useContext(ContextSnackbar)
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(true)
   const handleClickShowPassword = () => setShowPassword(show => !show)
   const handleMouseDownPassword = event => {
     event.preventDefault()
