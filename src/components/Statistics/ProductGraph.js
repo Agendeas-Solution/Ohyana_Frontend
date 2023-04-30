@@ -26,6 +26,7 @@ const ProductGraph = ({ selectedPeriod }) => {
   const [selectedProductList, setSelectedProductList] = useState([])
   const [cityList, setCityList] = useState([])
   const [selectedCity, setSelectedCity] = useState('')
+  const [userData, setUserData] = useState({})
   const handleChange = event => {
     const { value } = event.target
     const selectedProduct = value.map(id =>
@@ -34,6 +35,10 @@ const ProductGraph = ({ selectedPeriod }) => {
     setSelectedProductList(selectedProduct)
     console.log('Selected Product:', selectedProduct)
   }
+  useEffect(() => {
+    console.log('graphData', userData)
+    debugger
+  }, [userData])
   useEffect(() => {
     let data = {
       period: selectedPeriod,
@@ -70,9 +75,7 @@ const ProductGraph = ({ selectedPeriod }) => {
     { label: 'The Shawshank Redemption', year: 1994 },
     { label: 'The Shawshank s', year: 1995 },
   ]
-  const [userData, setUserData] = useState({
-    labels: graphData.data && Object.keys(graphData.data),
-  })
+
   useEffect(() => {
     let datga =
       graphData.label &&
@@ -100,8 +103,13 @@ const ProductGraph = ({ selectedPeriod }) => {
         }
       })
     console.log(datga)
+    datga &&
+      setUserData({
+        ...userData,
+        datasets: datga,
+        labels: graphData.label && Object.keys(graphData.data),
+      })
     debugger
-    datga && setUserData({ ...userData, datasets: datga })
   }, [graphData])
   return (
     <>
@@ -116,7 +124,6 @@ const ProductGraph = ({ selectedPeriod }) => {
           }}
         >
           <Typography variant="span">Overall</Typography>
-
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <FormControl sx={{ width: '200px', marginLeft: '10px' }}>
               <InputLabel>Compare</InputLabel>

@@ -17,7 +17,9 @@ const options = {
       },
     },
     y: {
+      min: 0,
       ticks: {
+        beginAtZero: true,
         font: {
           size: 13, // set font size for y-axis label
         },

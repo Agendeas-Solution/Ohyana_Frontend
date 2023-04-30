@@ -1,26 +1,21 @@
 import React, { useState, useRef } from 'react'
-
 const Uploader = () => {
   const [image, setImage] = useState('')
   const inputFile = useRef(null)
-
   const handleFileUpload = e => {
     const { files } = e.target
     if (files && files.length) {
       const filename = files[0].name
-
       var parts = filename.split('.')
       const fileType = parts[parts.length - 1]
-      console.log('fileType', fileType) //ex: zip, rar, jpg, svg etc.
-
+      console.log('fileType', fileType)
       setImage(files[0])
+      debugger
     }
   }
-
   const onButtonClick = () => {
     inputFile.current.click()
   }
-
   console.log('imageimage', image)
   return (
     <div>

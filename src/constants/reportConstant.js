@@ -4,7 +4,10 @@ export const REPORT = {
     { value: '7 days', type: 'day-7' },
     { value: '30 days', type: 'day-30' },
     { value: '90 Days', type: 'day-90' },
-    { value: `${moment().format('MMMM')}`, type: `${moment().format('MMMM')}` },
+    {
+      value: `${moment().format('MMMM')}`,
+      type: `month-${moment().format('MMMM')}`,
+    },
     {
       value: `${moment().subtract(1, 'months').format('MMMM')}`,
       type: `month-${moment().subtract(1, 'months').format('MMMM')}`,
