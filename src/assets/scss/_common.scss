@@ -87,12 +87,11 @@ textarea:focus {
 
 .company_logo {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 0px 5px 0px;
+  justify-content: start;
+  padding: 15px;
 
   img {
-    width: 9rem;
+    width: 7rem;
   }
 }
 
@@ -567,24 +566,16 @@ textarea:focus {
   padding: 20px;
 }
 
+.register_input_fields {
+  width: 48% !important;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0px 20px 0px !important;
+}
+
 .input_field_label {
   margin-bottom: 5px !important;
   margin-top: 20px !important;
-}
-
-.edit_profile_section {
-  margin-top: 1.5rem !important;
-  display: flex;
-  background: #fff;
-  width: 100%;
-  padding: 20px;
-  margin: 0 auto;
-  border-radius: 5px;
-  overflow: auto;
-  flex-direction: column;
-  justify-content: space-evenly;
-  height: 85%;
-  padding: 0.4rem;
 }
 
 .holiday_inner_class {
@@ -592,29 +583,57 @@ textarea:focus {
 }
 
 .login_page {
-  height: 100vh !important;
+  height: 100% !important;
   display: flex;
-  background: #f1f2f6;
+  background: white;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login_form_section {
+  height: 92vh;
+  padding-top: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+}
+
+.login_form_body {
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.login_form {
+.login_form_box {
+  width: 32%;
   display: flex;
   justify-content: center;
   flex-direction: column !important;
   align-items: center;
-  background: #ffffff;
+  border: 1px solid #e5e5e5;
   border-radius: 10px;
-  padding: 10px 20px 15px 20px;
-  margin: 5px 10px;
+  padding: 10px 25px 15px 25px;
+  margin: 20px;
 }
 
 .login_heading {
-  font-size: 22px;
-  text-align: left;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
   width: 100%;
+  padding: 10px;
+  letter-spacing: 0.1rem;
+}
+
+.login_footer {
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  background: #f1f2f6;
+  margin: 20px 10px;
+  padding: 20px;
 }
 
 .login_email_root {
@@ -1543,8 +1562,8 @@ button {
 //     display: flex;
 //     flex-direction: column;
 //     justify-content: space-between;
-//     align-items: center;      
-//   } 
+//     align-items: center;
+//   }
 // }
 
 // @media(max-width: 900px){
@@ -1565,7 +1584,6 @@ button {
 //     padding: 10px;
 //   }
 // }
-
 
 .table_description tbody tr td {
   -webkit-line-clamp: 3 !important;
