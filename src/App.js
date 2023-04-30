@@ -50,26 +50,16 @@ const App = () => {
     <>
       <BrowserRouter>
         <Suspense>
-          <div className="d-flex">
-            <div className={'w-100'}>
-              <Routes>
-                <Route
-                  exact
-                  path="/login"
-                  name="Login Page"
-                  element={<Login />}
-                />
-                <Route
-                  path="/resetpassword"
-                  element={<ForgetPassword />}
-                ></Route>
-                <Route
-                  path="/forgotpassword"
-                  element={<ForgotPasswordEmail />}
-                ></Route>
-                <Route path="/signup" element={<SignUp />}></Route>
-                <Route path="/register" element={<Register />}></Route>
-                {/* <Route
+          <Routes>
+            <Route exact path="/login" name="Login Page" element={<Login />} />
+            <Route path="/resetpassword" element={<ForgetPassword />}></Route>
+            <Route
+              path="/forgotpassword"
+              element={<ForgotPasswordEmail />}
+            ></Route>
+            <Route path="/signup" element={<SignUp />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            {/* <Route
                     exact
                     path="/changePassword"
                     name="Change Password"
@@ -99,11 +89,9 @@ const App = () => {
                     name="Page 500"
                     element={<Page500 />}
                   /> */}
-                {/* <Route exact path="/lock" name="Lock" element={<Lock />} /> */}
-                <Route path="*" element={<DefaultLayout />} />
-              </Routes>
-            </div>
-          </div>
+            {/* <Route exact path="/lock" name="Lock" element={<Lock />} /> */}
+            <Route path="*" element={<DefaultLayout />} />
+          </Routes>
         </Suspense>
       </BrowserRouter>
     </>

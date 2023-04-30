@@ -88,83 +88,93 @@ const Login = () => {
         <Box className="company_logo">
           <img src={Logo} alt="Company logo" />
         </Box>
-        <Box className="login_form">
-          <Typography className="login_heading" variant="span">
-            Welcome To Ohyana.
-          </Typography>
-          <form
-            onSubmit={e => {
-              e.preventDefault()
-              userlogin()
-            }}
-          >
-            <TextField
-              sx={{ width: '100%', margin: '18px 0px' }}
-              label="Email"
-              type="email"
-              value={userDetail.email}
-              variant="outlined"
-              onChange={e => {
-                setUserDetail({ ...userDetail, email: e.target.value })
-              }}
-            />
-            <Box sx={{ width: '100%' }}>
-              <FormControl sx={{ width: '100%' }} variant="outlined">
-                <InputLabel>Password</InputLabel>
-                <OutlinedInput
+
+        <Box className="login_form_section">
+          <Box className="login_form_body">
+            <Box className="login_form_box">
+              <Typography className="login_heading" variant="span">
+                Welcome To Ohyana
+              </Typography>
+              <Box sx={{ width: '100%', padding: '30px 20px 20px 20px' }}>
+                <TextField
                   sx={{ width: '100%' }}
+                  label="Email"
+                  type="email"
+                  value={userDetail.email}
+                  variant="outlined"
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, email: e.target.value })
+                  }}
+                />
+              </Box>
+              <Box sx={{ width: '100%', padding: '20px 20px 0px 20px' }}>
+                <TextField
+                  sx={{ width: '100%' }}
+                  label="Password"
                   type={showPassword ? 'password' : 'text'}
                   value={userDetail.password}
                   onChange={e => {
                     setUserDetail({ ...userDetail, password: e.target.value })
                   }}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Password"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          sx={{
+                            margin: '0px',
+                            color: '#2E3591',
+                            boxShadow: 'none',
+                          }}
+                          variant="contained"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
-              </FormControl>
-              {/* <TextField
-                sx={{ width: '100%' }}
-                label="password"
-                variant="outlined"
-                type="password"
-                value={userDetail.password}
-                onChange={e => {
-                  setUserDetail({ ...userDetail, password: e.target.value })
-                }}
-              /> */}
-              <Typography className="login_forget_password_root" variant="span">
-                <Button
-                  sx={{ padding: '5px 0px' }}
-                  onClick={() => navigate('/forgotpassword')}
+              </Box>
+              <Box sx={{ width: '100%', padding: '3px 20px 0px 20px' }}>
+                <Typography
+                  className="login_forget_password_root"
+                  variant="span"
                 >
-                  {' '}
-                  Forgotten password ?{' '}
+                  <Button
+                    sx={{ padding: '5px 0px' }}
+                    onClick={() => navigate('/forgotpassword')}
+                  >
+                    Forgotten password ?
+                  </Button>
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '100%',
+                  padding: '20px 20px 5px 20px',
+                }}
+              >
+                <Button
+                  className="dialogue_bottom_button"
+                  onClick={userlogin}
+                  variant="contained"
+                  type="submit"
+                >
+                  Submit
                 </Button>
-              </Typography>
+              </Box>
             </Box>
-            <Button
-              className="dialogue_bottom_button"
-              onClick={userlogin}
-              variant="contained"
-              type="submit"
-            >
-              Submit
-            </Button>
-          </form>
+          </Box>
+          <Box className="login_footer">
+            <Typography className="login_copyright_root" variant="span">
+              {new Date().getFullYear()} © Ohyana.
+            </Typography>
+          </Box>
         </Box>
-        <Typography className="login_copyright_root" variant="span">
-          {new Date().getFullYear()} © Ohyana.
-        </Typography>
       </Box>
       <ErrorSnackbar />
     </>

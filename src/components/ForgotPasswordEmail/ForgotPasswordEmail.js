@@ -37,35 +37,50 @@ const ForgotPasswordEmail = () => {
         <Box className="company_logo">
           <img src={Logo} alt="Company logo" />
         </Box>
-        <Box className="login_form">
-          <Typography className="login_heading" variant="span">
-            Forgot Password
-          </Typography>
 
-          <TextField
-            sx={{ width: '100%', margin: '18px 0px' }}
-            label="Email"
-            type="email"
-            autoComplete={true}
-            value={userDetail.email}
-            variant="outlined"
-            onChange={e => {
-              setUserDetail({ ...userDetail, email: e.target.value })
-            }}
-          />
-
-          <Button
-            className="dialogue_bottom_button"
-            onClick={handleForgotPassword}
-            variant="contained"
-          >
-            Get Link
-          </Button>
+        <Box className="login_form_section">
+          <Box className="login_form_body">
+            <Box className="login_form_box">
+              <Typography className="login_heading" variant="span">
+                Forgot Password
+              </Typography>
+              <Box sx={{ width: '100%', padding: '30px 20px 20px 20px' }}>
+                <TextField
+                  sx={{ width: '100%' }}
+                  label="Email"
+                  type="email"
+                  autoComplete={true}
+                  value={userDetail.email}
+                  variant="outlined"
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, email: e.target.value })
+                  }}
+                />
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '100%',
+                  padding: '20px 20px 5px 20px',
+                }}
+              >
+                <Button
+                  className="dialogue_bottom_button"
+                  onClick={handleForgotPassword}
+                  variant="contained"
+                >
+                  Get Link
+                </Button>
+              </Box>
+            </Box>
+          </Box>
+          <Box className="login_footer">
+            <Typography className="login_copyright_root" variant="span">
+              {new Date().getFullYear()} © Ohyana.
+            </Typography>
+          </Box>
         </Box>
-
-        <Typography className="login_copyright_root" variant="span">
-          {new Date().getFullYear()} © Ohyana.
-        </Typography>
       </Box>
       <SuccessSnackbar />
       <ErrorSnackbar />
