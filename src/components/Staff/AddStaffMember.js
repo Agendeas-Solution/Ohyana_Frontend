@@ -13,11 +13,6 @@ import {
   GetAdminDepartmentList,
   GetAdminRole,
 } from '../../services/apiservices/adminprofile'
-import IconButton from '@mui/material/IconButton'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputAdornment from '@mui/material/InputAdornment'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import {
   AddEmployee,
   EditEmployee,
@@ -30,7 +25,9 @@ import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { TEAM } from '../../constants'
 import ProfileImage from '../../assets/img/Profile_Image.svg'
+import Uploader from '../Uploader/Uploader'
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
+
 const AddStaffMember = () => {
   const [userDetail, setUserDetail] = useState({
     employeeName: '',
@@ -165,8 +162,11 @@ const AddStaffMember = () => {
     <>
       <Box className="main_section">
         <Box className="pofile_edit_section">
-          <Box className="edit_profile_image_section">
+          <Box className="edit_my_profile_image_section">
             <img src={ProfileImage} alt="profile" />
+            <Button className="common_button">
+              <Uploader />
+            </Button>
           </Box>
           <Box className="edit_profile_detail_section">
             {/* Employee Name && Select job type */}
@@ -218,7 +218,7 @@ const AddStaffMember = () => {
               </Box>
               <Box className="input_fields">
                 <FormControl>
-                  <InputLabel>Select jobRole</InputLabel>
+                  <InputLabel>Select Job Role</InputLabel>
                   <Select
                     label="Select Job Role"
                     value={userDetail?.jobRole}
