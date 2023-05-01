@@ -88,7 +88,7 @@ const RemainderTable = ({
                   <TableCell className="table_row_top_align">
                     {moment(row.time, 'hh:mm:ss').format('LT')}
                   </TableCell>
-                  <TableCell className="description_text">
+                  <TableCell className="description_text text-wrap">
                     {row.description}
                   </TableCell>
                   <TableCell>
