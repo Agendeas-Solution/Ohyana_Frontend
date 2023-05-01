@@ -31,6 +31,15 @@ import {
 const DeleteExpenseTypeDialog = React.lazy(() =>
   import('./DeleteExpenseTypeDialog'),
 )
+
+const styles = {
+  tableHeading: {
+    whiteSpace: 'nowrap',
+  },
+  tableCell: {
+    whiteSpace: 'wrap !important',
+  },
+}
 const ExpenseType = React.lazy(() => import('./ExpenseType'))
 
 const ExpenseList = () => {
@@ -167,8 +176,8 @@ const ExpenseList = () => {
             + Expense Type
           </Button>
         </Box>
-
-        <Box className="left_team_profile_section">
+        <Divider />
+        <Box className="left_team_profile_section" sx={{ marginTop: '10px' }}>
           <TableContainer>
             <Table className="job_role_list">
               <TableHead className="client_profile_table_header">
@@ -194,44 +203,46 @@ const ExpenseList = () => {
                         <TableCell className="table_row_top_align">
                           {data.name || '-'}
                         </TableCell>
-                        <TableCell className="description_text">
+                        <TableCell className="text-wrap">
                           {data.description || '-'}
                         </TableCell>
 
                         <TableCell>
-                          <Button
-                            sx={{
-                              marginRight: '10px',
-                              color: '#2E3591',
-                              borderColor: '#2E3591',
-                            }}
-                            onClick={() =>
-                              setAddExpenseType({
-                                ...addExpenseType,
-                                status: true,
-                                expenseId: data.id,
-                                name: data.name,
-                                description: data.description,
-                              })
-                            }
-                            className="button_color"
-                            variant="outlined"
+                          <Box
+                            sx={{ display: 'flex', justifyContent: 'center' }}
                           >
-                            Edit
-                          </Button>
-                          <Button
-                            className="button_color"
-                            variant="outlined"
-                            onClick={() => {
-                              setDeletexpenseListDialog({
-                                ...deletexpenseListDialog,
-                                status: true,
-                                id: data.id,
-                              })
-                            }}
-                          >
-                            Delete
-                          </Button>
+                            <Button
+                              sx={{
+                                marginRight: '10px',
+                              }}
+                              onClick={() =>
+                                setAddExpenseType({
+                                  ...addExpenseType,
+                                  status: true,
+                                  expenseId: data.id,
+                                  name: data.name,
+                                  description: data.description,
+                                })
+                              }
+                              className="button_color"
+                              variant="outlined"
+                            >
+                              Edit
+                            </Button>
+                            <Button
+                              className="button_color"
+                              variant="outlined"
+                              onClick={() => {
+                                setDeletexpenseListDialog({
+                                  ...deletexpenseListDialog,
+                                  status: true,
+                                  id: data.id,
+                                })
+                              }}
+                            >
+                              Delete
+                            </Button>
+                          </Box>
                         </TableCell>
                       </TableRow>
                       <Divider
