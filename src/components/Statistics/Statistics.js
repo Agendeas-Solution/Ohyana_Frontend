@@ -93,7 +93,12 @@ const Statistics = () => {
             </>
           )}
           <Select
-            sx={{ width: '130px', height: '40px', background: 'white' }}
+            sx={{
+              marginRight: 'px',
+              width: '130px',
+              height: '40px',
+              background: 'white',
+            }}
             value={selectedPeriod}
             onChange={(e, value) => {
               setSelectedPeriod(e.target.value)
