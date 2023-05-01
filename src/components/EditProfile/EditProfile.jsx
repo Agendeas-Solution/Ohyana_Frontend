@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, lazy } from 'react'
+import React, { useEffect, useState, useContext, lazy, useRef } from 'react'
 import {
   Box,
   TextField,
@@ -21,12 +21,13 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import Uploader from '../Uploader/Uploader'
-
+import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded'
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const SuccessSnackbar = React.lazy(() =>
   import('../SuccessSnackbar/SuccessSnackbar'),
 )
 const EditProfile = () => {
+  const inputFile = useRef(null)
   const [userDetail, setUserDetail] = useState({
     employeeName: '',
     email: '',
@@ -89,17 +90,24 @@ const EditProfile = () => {
       },
     )
   }
+
+  const onButtonClick = () => {
+    inputFile.current.click()
+  }
+
   return (
     <>
       <Box className="main_section">
         <Box className="pofile_edit_section">
-          <Box className="edit_my_profile_image_section">
+          <Box className="edit_myy_profile_image_section">
             <img className="image_style" src={ProfileImage} alt="profile" />
-            {/* <Button className="common_button">Upload</Button> */}
-            <Button className="common_button">
+            <Box className="inner_icon_style">
+              <CameraAltRoundedIcon fontSize="large" onClic={onButtonClick} />
+            </Box>
+
+            {/* <Button className="common_button">
               <Uploader />
-            </Button>
-            {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
+            </Button> */}
           </Box>
           {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
           <Box className="edit_profile_detail_section">

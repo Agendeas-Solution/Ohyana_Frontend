@@ -1,11 +1,4 @@
 .image_style {
+  position: relative;
   border-radius: 50%;
-}
-
-.edit_my_profile_image_section {
-  width: 10%;
-  display: flex;
-  margin: 20px;
-  justify-content: flex-end;
-  flex-direction: column;
 }
