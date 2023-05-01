@@ -5,7 +5,11 @@ import { DeleteJobRole } from '../../services/apiservices/staffDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { useNavigate } from 'react-router-dom'
 
-const DeleteJobRoleDialog = ({ deleteJobRoleDialogControl, handleClose }) => {
+const DeleteJobRoleDialog = ({
+  deleteJobRoleDialogControl,
+  handleClose,
+  handleSingleRole,
+}) => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const navigate = useNavigate()
@@ -14,7 +18,7 @@ const DeleteJobRoleDialog = ({ deleteJobRoleDialogControl, handleClose }) => {
       deleteJobRoleDialogControl.id,
       res => {
         handleClose()
-
+        handleSingleRole()
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,

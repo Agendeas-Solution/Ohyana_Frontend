@@ -378,11 +378,11 @@ const OrderDetail = () => {
                               src={SampleProduct}
                             />
                           </TableCell>
-                          <TableCell>{data?.name || '-'}</TableCell>
-                          <TableCell>{data?.price || '-'}</TableCell>
+                          <TableCell>{data?.product?.name || '-'}</TableCell>
+                          <TableCell>{data?.product?.price || '-'}</TableCell>
                           <TableCell>{data?.quantity || '-'}</TableCell>
                           <TableCell>
-                            {data?.price * data?.quantity || 0}
+                            {data?.product?.price * data?.quantity || 0}
                           </TableCell>
                         </TableRow>
                       )

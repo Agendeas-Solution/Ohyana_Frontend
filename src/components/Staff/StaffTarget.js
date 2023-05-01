@@ -30,7 +30,7 @@ const StaffTarget = () => {
     id: path,
   })
   const [targetList, setTargetList] = useState([])
-  useEffect(() => {
+  const handleGetTargetList = () => {
     let data = {
       month: moment(selectMonth.$d).month() + 1,
       year: moment(selectMonth.$d).format('YYYY'),
@@ -48,6 +48,9 @@ const StaffTarget = () => {
         setTargetList([])
       },
     )
+  }
+  useEffect(() => {
+    handleGetTargetList()
   }, [selectMonth])
   const handleCloseTargetDetailDialog = () => {
     setTargetDetail({ ...targetDetail, status: false })
@@ -56,7 +59,7 @@ const StaffTarget = () => {
     <>
       <Box className="target_section">
         <Box className="statistics_data_section">
-          <Box className="statistics_data">
+          {/* <Box className="statistics_data">
             <Box className="statistics_box first_box">
               <Typography variant="span">This Week</Typography>
               <Typography variant="span">15-07-2022</Typography>
@@ -73,7 +76,7 @@ const StaffTarget = () => {
               <Typography variant="span">Days Remain</Typography>
               <Typography variant="span">24</Typography>
             </Box>
-          </Box>
+          </Box> */}
           <Box>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
@@ -177,6 +180,7 @@ const StaffTarget = () => {
         {targetDetail.status && (
           <SetTargetDialog
             targetDetail={targetDetail}
+            handleGetTargetList={handleGetTargetList}
             handleCloseTargetDetailDialog={handleCloseTargetDetailDialog}
           />
         )}

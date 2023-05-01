@@ -18,7 +18,7 @@ import LineChart from './LineChart'
 import { GetProductReport } from '../../services/apiservices/productDetail'
 import { GetCityList } from '../../services/apiservices/clientDetail'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
-const ProductGraph = ({ selectedPeriod }) => {
+const ProductGraph = ({ selectedPeriod, customRange }) => {
   const [comparison, setComparison] = useState()
   // const [graphData, setGraphData] = useState([])
   const [graphData, setGraphData] = useState({})
@@ -36,10 +36,6 @@ const ProductGraph = ({ selectedPeriod }) => {
     console.log('Selected Product:', selectedProduct)
   }
   useEffect(() => {
-    console.log('graphData', userData)
-    debugger
-  }, [userData])
-  useEffect(() => {
     let data = {
       period: selectedPeriod,
     }
@@ -49,13 +45,33 @@ const ProductGraph = ({ selectedPeriod }) => {
     if (selectedProductList.length > 0) {
       data['productIds'] = selectedProductList
     }
-    GetProductReport(
-      data,
-      res => {
-        setGraphData(res?.data)
-      },
-      err => {},
-    )
+    if (selectedPeriod === 'custom') {
+      data['dateFrom'] = customRange.startDate
+      data['dateTo'] = customRange.endDate
+    }
+    if (
+      selectedPeriod === 'custom' &&
+      customRange.startDate !== '' &&
+      customRange.endDate !== ''
+    ) {
+      GetProductReport(
+        data,
+        res => {
+          setGraphData(res?.data)
+        },
+        err => {},
+      )
+    } else if (selectedPeriod !== 'custom') {
+      GetProductReport(
+        data,
+        res => {
+          setGraphData(res?.data)
+        },
+        err => {},
+      )
+    }
+  }, [selectedPeriod, customRange])
+  useEffect(() => {
     GetAdminProductList(
       {},
       res => {
@@ -70,12 +86,7 @@ const ProductGraph = ({ selectedPeriod }) => {
       },
       err => {},
     )
-  }, [selectedPeriod])
-  const top100Films = [
-    { label: 'The Shawshank Redemption', year: 1994 },
-    { label: 'The Shawshank s', year: 1995 },
-  ]
-
+  }, [])
   useEffect(() => {
     let datga =
       graphData.label &&
@@ -109,7 +120,6 @@ const ProductGraph = ({ selectedPeriod }) => {
         datasets: datga,
         labels: graphData.label && Object.keys(graphData.data),
       })
-    debugger
   }, [graphData])
   return (
     <>

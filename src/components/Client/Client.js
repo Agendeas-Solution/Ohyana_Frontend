@@ -416,6 +416,7 @@ const Client = () => {
           <CustomerList
             clientDetails={clientDetails}
             ViewClientDetail={ViewClientDetail}
+            getClientDetails={getClientDetails}
           />
         )}
         <Box>
