@@ -1,5 +1,14 @@
 import React, { useState, useContext, lazy, useEffect } from 'react'
-import { Box, Typography, TextField, Button } from '@mui/material'
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  FormControl,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+} from '@mui/material'
 import './index.css'
 import { login } from '../../services/apiservices/login'
 import { Context as AuthContext } from '../../context/authContext/authContext'
@@ -8,6 +17,8 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as ContextActivePage } from '../../context/pageContext'
 import Logo from '../../assets/img/Ohyana Logo Blue.svg'
 import { socket } from '../../App'
+import InputLabel from '@mui/material/InputLabel'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const Login = () => {
   const { setAuthorize, setFlagLoader } = useContext(AuthContext)
@@ -18,6 +29,11 @@ const Login = () => {
   const { setActivePage } = useContext(ContextActivePage)
   const { errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setErrorSnackbar } = useContext(ContextSnackbar)
+  const [showPassword, setShowPassword] = useState(true)
+  const handleClickShowPassword = () => setShowPassword(show => !show)
+  const handleMouseDownPassword = event => {
+    event.preventDefault()
+  }
   const navigate = useNavigate()
   const [errorMessage, setErrorMessage] = useState('')
   const [path, setPath] = useState(null)
@@ -53,7 +69,7 @@ const Login = () => {
           setErrorSnackbar({
             ...errorSnackbar,
             status: true,
-            message: resError.response.data.error,
+            message: resError.response.data.message,
           })
           setFlagLoader(false)
         },
@@ -73,65 +89,92 @@ const Login = () => {
           <img src={Logo} alt="Company logo" />
         </Box>
 
-        <Box className="login_form">
-          <Typography className="login_heading" variant="span">
-            Welcome To Ohyana.
-          </Typography>
-
-          <form
-            onSubmit={e => {
-              e.preventDefault()
-              userlogin()
-            }}
-          >
-            <TextField
-              sx={{ width: '100%', margin: '18px 0px' }}
-              label="Email"
-              type="email"
-              value={userDetail.email}
-              variant="outlined"
-              onChange={e => {
-                setUserDetail({ ...userDetail, email: e.target.value })
-              }}
-            />
-
-            <Box sx={{ width: '100%', margin: '18px 0px' }}>
-              <TextField
-                sx={{ width: '100%' }}
-                label="password"
-                variant="outlined"
-                type="password"
-                value={userDetail.password}
-                onChange={e => {
-                  setUserDetail({ ...userDetail, password: e.target.value })
-                }}
-              />
-
-              <Typography className="login_forget_password_root" variant="span">
-                <Button
-                  sx={{ padding: '5px 0px' }}
-                  onClick={() => navigate('/forgotpassword')}
-                >
-                  {' '}
-                  Forgotten password ?{' '}
-                </Button>
+        <Box className="login_form_section">
+          <Box className="login_form_body">
+            <Box className="login_form_box">
+              <Typography className="login_heading" variant="span">
+                Welcome To Ohyana
               </Typography>
+              <Box sx={{ width: '100%', padding: '30px 20px 20px 20px' }}>
+                <TextField
+                  sx={{ width: '100%' }}
+                  label="Email"
+                  type="email"
+                  value={userDetail.email}
+                  variant="outlined"
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, email: e.target.value })
+                  }}
+                />
+              </Box>
+              <Box sx={{ width: '100%', padding: '20px 20px 0px 20px' }}>
+                <TextField
+                  sx={{ width: '100%' }}
+                  label="Password"
+                  type={showPassword ? 'password' : 'text'}
+                  value={userDetail.password}
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, password: e.target.value })
+                  }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          sx={{
+                            margin: '0px',
+                            color: '#2E3591',
+                            boxShadow: 'none',
+                          }}
+                          variant="contained"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Box>
+              <Box sx={{ width: '100%', padding: '3px 20px 0px 20px' }}>
+                <Typography
+                  className="login_forget_password_root"
+                  variant="span"
+                >
+                  <Button
+                    sx={{ padding: '5px 0px' }}
+                    onClick={() => navigate('/forgotpassword')}
+                  >
+                    Forgotten password ?
+                  </Button>
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '100%',
+                  padding: '20px 20px 5px 20px',
+                }}
+              >
+                <Button
+                  className="dialogue_bottom_button"
+                  onClick={userlogin}
+                  variant="contained"
+                  type="submit"
+                >
+                  Submit
+                </Button>
+              </Box>
             </Box>
-
-            <Button
-              className="dialogue_bottom_button"
-              onClick={userlogin}
-              variant="contained"
-              type="submit"
-            >
-              Submit
-            </Button>
-          </form>
+          </Box>
+          <Box className="login_footer">
+            <Typography className="login_copyright_root" variant="span">
+              {new Date().getFullYear()} © Ohyana.
+            </Typography>
+          </Box>
         </Box>
-
-        <Typography className="login_copyright_root" variant="span">
-          {new Date().getFullYear()} © Ohyana.
-        </Typography>
       </Box>
       <ErrorSnackbar />
     </>

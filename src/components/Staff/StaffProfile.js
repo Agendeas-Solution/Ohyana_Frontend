@@ -12,6 +12,7 @@ import PlaceIcon from '@mui/icons-material/Place'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import { GetAdminStaffProfileDetail } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
+import AddAppreciationDialog from './AddAppreciationDialog'
 const PJPDetail = React.lazy(() => import('./PJPDetail'))
 const StaffTarget = React.lazy(() => import('./StaffTarget'))
 const StaffAttendance = React.lazy(() => import('./StaffAttendance'))
@@ -22,6 +23,14 @@ const ChangeRoleDialog = React.lazy(() => import('./ChangeRoleDialog'))
 
 const StaffProfile = () => {
   const [value, setValue] = useState('1')
+  let path = window.location.pathname
+  path = path.split('/').pop()
+  const [targetDetail, setTargetDetail] = useState({
+    status: false,
+    id: path,
+  })
+  const [addAppreciationDialogControl, setAddAppreciationDialogControl] =
+    useState(false)
   const { flagLoader, permissions } = useContext(AuthContext).state
   const [changeRoleDialogControl, setChangeRoleDialogControl] = useState(false)
   const [adminProfileDetail, setAdminProfileDetail] = useState({})
@@ -30,6 +39,7 @@ const StaffProfile = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
+
   useEffect(() => {
     let path = window.location.pathname
     path = path.split('/').pop()
@@ -85,10 +95,7 @@ const StaffProfile = () => {
           <TabContext value={value}>
             <Box className="tab_row">
               <TabList
-                sx={{
-                  borderBottom: '1px solid #F1F2F6',
-                  width: '100%',
-                }}
+                sx={{ borderBottom: '1px solid #F1F2F6' }}
                 className="client_profile_tab mb-2"
                 onChange={handleChange}
               >

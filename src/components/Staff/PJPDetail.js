@@ -28,10 +28,9 @@ import {
   CompletePJPStatus,
 } from '../../services/apiservices/teamcall'
 import {
-  GetAdminClientDetail,
-  DeleteClientDetail,
   GetCityList,
   GetStateList,
+  UpdatePJPDetail,
 } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
 import AddPJPDialog from './AddPJPDialog'
@@ -44,7 +43,6 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { TEAM } from '../../constants/teamConstant'
 const drawerWidth = 350
-
 const PJPDetail = () => {
   const theme = useTheme()
   let path = window.location.pathname
@@ -77,7 +75,7 @@ const PJPDetail = () => {
   const [numbersToDisplayOnPagination, setNumbersToDisplayOnPagination] =
     useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-  const [rowsPerPage, setRowsPerPage] = useState(2)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
   // const [pageNumber, setPageNumber] = useState(1)
   const [totalResult, setTotalresult] = useState(null)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
@@ -86,7 +84,14 @@ const PJPDetail = () => {
     setValue(newValue)
   }
   const handleCloseDialog = () => {
-    setAddPJPDetail({ ...addPJPDetail, dialogStatus: false })
+    setAddPJPDetail({
+      ...addPJPDetail,
+      dialogStatus: false,
+      pjpId: '',
+      date: '',
+      clientId: '',
+      description: '',
+    })
   }
   const handleCloseCompletedDialog = () => {
     setCompletedDialog({ ...completedDialog, status: false })
@@ -201,23 +206,66 @@ const PJPDetail = () => {
       },
     )
   }
-
   useEffect(() => {
-    handleCityList()
-    handleStateList()
-  }, [])
+    open && handleCityList()
+    open && handleStateList()
+  }, [open])
 
   const handleAddPJPDetail = () => {
-    let pjpDetail = addPJPDetail
-    delete pjpDetail.dialogStatus
-    CreatePJP(
-      pjpDetail,
-      res => {
-        handleCloseDialog()
-        setSuccessSnackbar({ ...successSnackbar, message: res?.message })
-      },
-      err => {},
-    )
+    let data = {
+      date: addPJPDetail.date,
+      description: addPJPDetail.description,
+    }
+    if (addPJPDetail.pjpId) {
+      data['pjpId'] = addPJPDetail.pjpId
+    } else {
+      data['clientId'] = addPJPDetail.clientId.id
+      data['teamId'] = parseInt(path)
+    }
+    debugger
+    addPJPDetail.pjpId
+      ? UpdatePJPDetail(
+          data,
+          res => {
+            if (res?.success) {
+              debugger
+              handleCloseDialog()
+              handleGetPJPList()
+              setSuccessSnackbar({
+                ...successSnackbar,
+                message: res?.message,
+                status: true,
+              })
+            }
+          },
+          err => {
+            console.log(err)
+            setErrorSnackbar({
+              ...errorSnackbar,
+              status: true,
+              message: err?.response?.data?.message,
+            })
+          },
+        )
+      : CreatePJP(
+          data,
+          res => {
+            handleCloseDialog()
+            handleGetPJPList()
+            setSuccessSnackbar({
+              ...successSnackbar,
+              message: res?.message,
+              status: true,
+            })
+          },
+          err => {
+            setErrorSnackbar({
+              ...errorSnackbar,
+              status: true,
+              message: err?.response?.data?.message,
+            })
+          },
+        )
   }
 
   const DrawerHeader = styled('div')(({ theme }) => ({
@@ -245,7 +293,6 @@ const PJPDetail = () => {
               <Tab label="Today" value="TODAY" />
               <Tab label="All" value="ALL" />
             </TabList>
-
             <Box className="button_and_filter">
               <Button
                 onClick={() =>
@@ -291,24 +338,19 @@ const PJPDetail = () => {
                     <ChevronRightIcon className="chevron_icon" />
                   )}
                 </IconButton>
-
                 <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
               </Box>
               <Box>
                 <Button onClick={handleApplyFilter} variant="contained">
                   Apply
                 </Button>
-                <Button>Clear All</Button>
+                <Button onClick={handleClearAllFilter}>Clear All</Button>
               </Box>
             </DrawerHeader>
             <Divider />
-
             <Box className="filter_body_section">
               <FormControl className="filter_body_inner_section">
-                <FormLabel
-                  className="filter_body_inner_heading"
-                  // id="demo-row-radio-buttons-group-label"
-                >
+                <FormLabel className="filter_body_inner_heading">
                   PJP Is
                 </FormLabel>
                 <RadioGroup
@@ -332,7 +374,6 @@ const PJPDetail = () => {
                   </Box>
                 </RadioGroup>
               </FormControl>
-
               <FormControl className="filter_body_inner_section">
                 <InputLabel>Select City</InputLabel>
                 <Select
@@ -351,7 +392,6 @@ const PJPDetail = () => {
                     })}
                 </Select>
               </FormControl>
-
               <FormControl className="filter_body_inner_section">
                 <InputLabel>Select State</InputLabel>
                 <Select
@@ -370,7 +410,6 @@ const PJPDetail = () => {
                     })}
                 </Select>
               </FormControl>
-
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   inputFormat="dd/MM/yyyy"
@@ -422,6 +461,10 @@ const PJPDetail = () => {
               setCurrentPage={setCurrentPage}
               completedDialog={completedDialog}
               setCompletedDialog={setCompletedDialog}
+              addPJPDetail={addPJPDetail}
+              setAddPJPDetail={setAddPJPDetail}
+              handleCloseDialog={handleCloseDialog}
+              handleAddPJPDetail={handleAddPJPDetail}
             />
           </TabPanel>
         </TabContext>

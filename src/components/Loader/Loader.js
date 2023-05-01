@@ -1,11 +1,11 @@
 import React from 'react'
-import CircularProgress from '@mui/material/CircularProgress'
+import { Oval } from 'react-loader-spinner'
 import './index.css'
 const Loader = () => {
   return (
-    <div className="center_div">
-      <CircularProgress size="45px" id="loader" />
-    </div>
+    <>
+      <Oval color="#fff" height={50} width={50} />
+    </>
   )
 }
 

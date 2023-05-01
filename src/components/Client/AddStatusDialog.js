@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import {
   Dialog,
-  DialogTitle,
-  DialogContent,
   DialogActions,
   Button,
   Typography,
   Box,
-  TextareaAutosize,
-  Autocomplete,
   TextField,
   FormControl,
   InputLabel,
@@ -40,12 +36,11 @@ const AddStatusDialog = ({
       callNotReceived: true,
       followUpType: addStatusDetail?.followUpType,
     }
-
     AddClientStatus(
       data,
       res => {
         setAddStatus({ ...addStatus, status: false })
-        // setSuccessSnackbar({ ...successSnackbar, status: true, message: res.data.message })
+        // setSuccessSnackbar({ ...successSnackbar, status: true, message: res.message })
       },
       err => {
         // setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.error })

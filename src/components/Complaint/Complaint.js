@@ -61,7 +61,7 @@ const Complaint = () => {
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,
-            message: res.data.message,
+            message: res.message,
           })
         }
       },

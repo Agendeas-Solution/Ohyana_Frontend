@@ -11,35 +11,22 @@ import {
 } from '@mui/material'
 import './index.css'
 import moment from 'moment'
-import EditAppointmentDialog from './EditAppointmentDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
-
-const AppointmentTable = ({ clientAppointmentList }) => {
-  const [editClientAppointmentDetail, setEditClientAppointmentDetail] =
-    useState({
-      date: '',
-      time: '',
-      description: '',
-      appointed_member: [],
-      appointment_unit: 'plant',
-      appointmentId: null,
-      status: false,
-    })
+const AppointmentTable = ({
+  clientAppointmentList,
+  appointmentDialogControl,
+  setAppointmentDialogControl,
+}) => {
   const handleAppointmentReminder = row => {
-    setEditClientAppointmentDetail({
-      ...editClientAppointmentDetail,
+    setAppointmentDialogControl({
+      ...appointmentDialogControl,
       date: row.date,
       time: row.time,
       description: row.description,
       status: true,
       appointmentId: row.id,
       appointed_member: row.teams,
-    })
-  }
-  const handleAppointmentClose = () => {
-    setEditClientAppointmentDetail({
-      ...editClientAppointmentDetail,
-      status: false,
+      appointment_unit: row.appointment_unit,
     })
   }
   return (
@@ -106,12 +93,6 @@ const AppointmentTable = ({ clientAppointmentList }) => {
           <NoResultFound />
         )}
       </TableContainer>
-      {editClientAppointmentDetail.status === true && (
-        <EditAppointmentDialog
-          handleAppointmentClose={handleAppointmentClose}
-          editClientAppointmentDetail={editClientAppointmentDetail}
-        />
-      )}
     </>
   )
 }

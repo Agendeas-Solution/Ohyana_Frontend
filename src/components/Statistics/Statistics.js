@@ -1,107 +1,71 @@
 import React, { useState } from 'react'
-import { Box, Typography, Autocomplete, TextField, Button } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Autocomplete,
+  TextField,
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Divider,
+  Tab,
+  Tabs,
+} from '@mui/material'
 import './index.css'
+import { REPORT } from '../../constants'
 import moment from 'moment'
+import { TabContext, TabList, TabPanel } from '@mui/lab'
 const BarChart = React.lazy(() => import('./BarChart'))
 const TeamGraph = React.lazy(() => import('./TeamGraph'))
 const ProductGraph = React.lazy(() => import('./ProductGraph'))
 const LineChart = React.lazy(() => import('./LineChart'))
 const Statistics = () => {
   const [value, setValue] = React.useState('1')
-  const [selectedPeriod, setSelectedPeriod] = useState('days-7')
-  const [daterange, setDateRange] = useState([
-    'days-7',
-    'days-30',
-    'days-90',
-    `month-${moment().format('MMMM')}`,
-    `month-${moment().subtract(1, 'months').format('MMMM')}`,
-    `month-${moment().subtract(2, 'months').format('MMMM')}`,
-    `year-${moment().format(' YYYY')}`,
-  ])
+
+  const [daterange, setDateRange] = useState(REPORT.PERIODSELECTOR)
+  const [selectedPeriod, setSelectedPeriod] = useState(daterange[0].type)
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
   const [activeTab, setActiveTab] = useState('product')
   return (
     <>
-      <Box className="main_section">
-        <Box className="statistics_title">
-          <Box>
-            <Typography
-              sx={{ fontSize: '22px', fontWeight: '500' }}
-              variant="span"
-            >
-              Product
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              marginBottom: '10px',
+      <Box className="main_tab_section">
+        <Box className="tab_header ">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            textColor="secondary"
+            indicatorColor="secondary"
+            variant="scrollable"
+            scrollButtons="auto"
+          >
+            <Tab label="Product" value="1" />
+            <Tab label="Team" value="2" />
+          </Tabs>
+
+          <Select
+            sx={{ width: '130px', height: '40px', background: 'white' }}
+            value={selectedPeriod}
+            onChange={(e, value) => {
+              setSelectedPeriod(e.target.value)
             }}
           >
-            <Box
-              sx={{
-                background: '#F1F2F6',
-                borderRadius: '5px',
-                height: '35px',
-                marginRight: '10px',
-              }}
-            >
-              <Button
-                className={
-                  activeTab === 'product'
-                    ? 'active_button'
-                    : 'custom_tab_background'
-                }
-                onClick={() => {
-                  setActiveTab('product')
-                }}
-                variant="contained"
-              >
-                Product
-              </Button>
-              <Button
-                className={
-                  activeTab === 'team'
-                    ? 'active_button'
-                    : 'custom_tab_background'
-                }
-                onClick={() => {
-                  setActiveTab('team')
-                }}
-                variant="contained"
-              >
-                Team
-              </Button>
-            </Box>
-
-
-            <Box sx={{ height: '50px' }}>
-              <Autocomplete
-                sx={{ width: 150 }}
-                disablePortal
-                options={daterange}
-                value={selectedPeriod}
-                onChange={(e, value) => {
-                  setSelectedPeriod(value)
-                }}
-                renderInput={params => (
-                  <TextField
-                    // className="common_dropdown"
-                    {...params}
-                    label="1 Mon"
-                  />
-                )}
-              />
-            </Box>
-          </Box>
+            {daterange.map(data => {
+              return <MenuItem value={data.type}>{data.value}</MenuItem>
+            })}
+          </Select>
         </Box>
-        {activeTab === 'product' && (
-          <ProductGraph selectedPeriod={selectedPeriod} />
-        )}
-        {activeTab === 'team' && <TeamGraph selectedPeriod={selectedPeriod} />}
+
+        <Box className="below_main_tab_section">
+          {value === '1' ? (
+            <ProductGraph selectedPeriod={selectedPeriod} />
+          ) : (
+            <TeamGraph selectedPeriod={selectedPeriod} />
+          )}
+        </Box>
       </Box>
     </>
   )

@@ -72,7 +72,7 @@ const ViewProductDialog = ({
         fullWidth
         maxWidth="sm"
       >
-        <DialogTitle className="common_row">
+        <DialogTitle className="detail_row">
           <Typography className="product_dialog_heading" variant="span">
             {productDetail?.name}
           </Typography>
@@ -147,19 +147,19 @@ const ViewProductDialog = ({
               </Button> */}
             </Box>
             <Box className="product_dialog_right_section">
-              <Box className="common_row product_detail_dia_right_section">
+              <Box className="detail_row product_detail_dia_right_section">
                 <Typography className="common_heading" variant="span">
                   Id
                 </Typography>
                 <Typography variant="span">{productDetail?.id}</Typography>
               </Box>
-              <Box className="common_row product_detail_dia_right_section">
+              <Box className="detail_row product_detail_dia_right_section">
                 <Typography className="common_heading" variant="span">
                   Price
                 </Typography>
                 <Typography variant="span">{productDetail?.price}</Typography>
               </Box>
-              <Box className="common_row product_detail_dia_right_section">
+              <Box className="detail_row product_detail_dia_right_section">
                 <Typography className="common_heading" variant="span">
                   Material Type
                 </Typography>
@@ -167,7 +167,7 @@ const ViewProductDialog = ({
                   {productDetail?.materialType}
                 </Typography>
               </Box>
-              <Box className="common_row product_detail_dia_right_section">
+              <Box className="detail_row product_detail_dia_right_section">
                 <Typography className="common_heading" variant="span">
                   Weight
                 </Typography>

@@ -268,17 +268,12 @@
   padding: 10px;
 }
 
-.expenses_detailed_portion {
-  width: 100%;
-  margin-bottom: 15px;
-}
-
-@media (max-width: 1250px) {
+/* @media (max-width: 900px) {
   .profile_detail_row {
     display: flex;
     justify-content: space-between;
   }
-}
+} */
 
 .filter_body_section {
   display: flex;

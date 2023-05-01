@@ -35,7 +35,7 @@ const BusinessCard = ({ clientDetails }) => {
                   })
                 }
               >
-                <img src={CompanyIcon} alt="" />
+                <img src={data.imageUrl} alt="" />
                 {/* <Box className="business_card_left_section">
                             <img src={UserIcon} />
                         <img src={CompanyIcon} />

@@ -45,13 +45,13 @@ const MyCart = () => {
 
           <Box className="cart_header_section">
             <Box className="my_cart_header_section">
-              <Box className="common_row mb-4">
+              <Box className="detail_row mb-4">
                 <Typography className="order_desc_subheading" variant="span">
                   Date
                 </Typography>
                 <Typography variant="span">22 Aug 2023</Typography>
               </Box>
-              <Box className="common_row mb-4">
+              <Box className="detail_row mb-4">
                 <Typography className="order_desc_subheading" variant="span ">
                   Price
                 </Typography>

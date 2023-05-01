@@ -23,13 +23,16 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as ContextActivePage } from '../../context/pageContext'
-
 import {
   GetAdminClientProfileDetail,
   GetAdminClientStatusDetail,
   GetAdminClientReminderDetail,
   GetAdminClientAppointmentDetail,
   AddPoorContact,
+  EditAdminClientReminderDetail,
+  AddAdminClientReminderDetail,
+  AddAdminClientAppointmentDetail,
+  EditAdminClientAppointmentDetail,
 } from '../../services/apiservices/clientDetail'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import moment from 'moment'
@@ -41,6 +44,8 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import CloseStatusDialog from './CloseStatusDialog'
 import { Dashboard } from '@mui/icons-material'
+import EditReminderDialog from './EditReminderDialog'
+import StatusTable from './StatusTable'
 const EditStatusDialog = React.lazy(() => import('./EditStatusDialog'))
 const StageDialog = React.lazy(() => import('./StageDialog'))
 const OrderList = React.lazy(() => import('./OrderList'))
@@ -52,28 +57,38 @@ const AppointmentDialog = React.lazy(() => import('./AppointmentDialog'))
 const RemainderTable = React.lazy(() => import('./RemainderTable'))
 const AppointmentTable = React.lazy(() => import('./AppointmentTable'))
 const ProfileTable = React.lazy(() => import('./ProfileTable'))
-const RemainderDialog = React.lazy(() => import('./RemainderDialog'))
 const StatusDialog = React.lazy(() => import('./StatusDialog'))
-
 const ClientProfile = () => {
   const navigate = useNavigate()
   const [paths, setPaths] = useState(null)
   const { setActivePage } = useContext(ContextActivePage)
-
   const [value, setValue] = useState('1')
   const { flagLoader, permissions } = useContext(AuthContext).state
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
-  const [remainderDialog, setRemainderDialog] = useState(false)
+  const [remainderDialog, setRemainderDialog] = useState({
+    description: '',
+    date: '',
+    time: '',
+    status: false,
+    id: null,
+  })
   const [callDialog, setCallDialog] = useState(false)
   const [statusDialog, setStatusDialog] = useState(false)
-  const [appointmentDialog, setAppointmentDialog] = useState(false)
+  const [appointmentDialogControl, setAppointmentDialogControl] = useState({
+    status: false,
+    date: '',
+    time: '',
+    description: '',
+    appointed_member: [],
+    appointment_unit: '',
+    appointmentId: null,
+  })
   const [clientProfileDetail, setClientProfileDetail] = useState({})
   const [clientStatusList, setClientStatusList] = useState([])
   const [clientReminderList, setClientReminderList] = useState([])
   const [clientAppointmentList, setClientAppointmentList] = useState([])
   const [stageDialog, setStageDialog] = useState(false)
-
   const [editStatusDialog, setEditStatusDialog] = useState({
     clientId: null,
     description: '',
@@ -98,7 +113,6 @@ const ClientProfile = () => {
     clientId: null,
     description: '',
   })
-  // let navigate = useNavigate()
   useEffect(() => {
     let path = window.location.pathname
     path = path.split('/').pop()
@@ -131,38 +145,155 @@ const ClientProfile = () => {
       },
     )
   }
+  const handleReminderDetail = () => {
+    GetAdminClientReminderDetail(
+      parseInt(path),
+      {},
+      res => {
+        if (res.success) {
+          setClientReminderList(res.data)
+        }
+      },
+      err => {
+        console.log('Printing', err)
+      },
+    )
+  }
+  const handleAppointmentDetail = () => {
+    GetAdminClientAppointmentDetail(
+      parseInt(path),
+      {},
+      res => {
+        if (res.success) {
+          setClientAppointmentList(res.data)
+        }
+      },
+      err => {
+        console.log('Printing', err)
+      },
+    )
+  }
+  const handleAddEditAppointment = () => {
+    if (
+      appointmentDialogControl.description !== '' &&
+      appointmentDialogControl.date !== '' &&
+      appointmentDialogControl.time !== ''
+    ) {
+      appointmentDialogControl['appointed_member'] = [
+        ...new Set(
+          appointmentDialogControl?.appointed_member.map(item => item?.id),
+        ),
+      ]
+      let data = {
+        date: appointmentDialogControl.date,
+        time: appointmentDialogControl.time,
+        description: appointmentDialogControl.description,
+        appointed_member: appointmentDialogControl.appointed_member,
+        appointment_unit: appointmentDialogControl.appointment_unit,
+      }
+      if (parseInt(appointmentDialogControl.appointmentId)) {
+        data['appointmentId'] = appointmentDialogControl?.appointmentId
+      } else {
+        data['clientId'] = clientProfileDetail.id
+      }
+      parseInt(appointmentDialogControl.appointmentId)
+        ? EditAdminClientAppointmentDetail(
+            data,
+            res => {
+              handleAppointmentClose()
+              handleAppointmentDetail()
+              setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.message,
+              })
+            },
+            err => {
+              console.log('Error :', err)
+            },
+          )
+        : AddAdminClientAppointmentDetail(
+            data,
+            res => {
+              handleAppointmentClose()
+              handleAppointmentDetail()
+              setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.message,
+              })
+            },
+            err => {
+              console.log('Error :', err)
+            },
+          )
+    }
+  }
   useEffect(() => {
     value === '1' && handleAdminClienStatusDetail()
-
-    value === '2' &&
-      GetAdminClientReminderDetail(
-        parseInt(path),
-        {},
-        res => {
-          if (res.success) {
-            setClientReminderList(res.data)
-          }
-        },
-        err => {
-          console.log('Printing', err)
-        },
-      )
-    value === '3' &&
-      GetAdminClientAppointmentDetail(
-        parseInt(path),
-        {},
-        res => {
-          if (res.success) {
-            setClientAppointmentList(res.data)
-          }
-        },
-        err => {
-          console.log('Printing', err)
-        },
-      )
-  }, [value, statusDialog, appointmentDialog, remainderDialog, callDialog])
+    value === '2' && handleReminderDetail()
+    value === '3' && handleAppointmentDetail()
+  }, [value, statusDialog, callDialog])
   const handleChange = (event, newValue) => {
     setValue(newValue)
+  }
+  const handleEditReminder = () => {
+    if (
+      remainderDialog.description !== '' &&
+      remainderDialog.date !== '' &&
+      remainderDialog.time !== ''
+    ) {
+      let data = {
+        description: remainderDialog.description,
+        date: remainderDialog.date,
+        time: remainderDialog.time,
+      }
+      if (remainderDialog.id) {
+        data['reminderId'] = remainderDialog.id
+      } else if (clientProfileDetail.id) {
+        data['clientId'] = clientProfileDetail.id
+      }
+      debugger
+      parseInt(remainderDialog?.id) &&
+        EditAdminClientReminderDetail(
+          data,
+          res => {
+            handleClose()
+            handleReminderDetail()
+            setSuccessSnackbar({
+              ...successSnackbar,
+              status: true,
+              message: res.message,
+            })
+          },
+          err => {
+            setErrorSnackbar({
+              ...errorSnackbar,
+              status: true,
+              message: err.response.data.message,
+            })
+          },
+        )
+      AddAdminClientReminderDetail(
+        data,
+        res => {
+          handleClose()
+          handleReminderDetail()
+          setSuccessSnackbar({
+            ...successSnackbar,
+            status: true,
+            message: res.message,
+          })
+        },
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err.response.data.message,
+          })
+        },
+      )
+    }
   }
   const handleAddPoorContact = () => {
     let data = {}
@@ -202,12 +333,16 @@ const ClientProfile = () => {
       },
     )
   }
-  const handleClickOpen = () => {
-    setRemainderDialog(true)
-  }
 
   const handleClose = () => {
-    setRemainderDialog(false)
+    setRemainderDialog({
+      ...remainderDialog,
+      status: false,
+      description: '',
+      date: '',
+      time: '',
+      id: null,
+    })
     setStageDialog(false)
   }
 
@@ -246,11 +381,19 @@ const ClientProfile = () => {
     })
   }
   const handleAppointmentOpen = () => {
-    setAppointmentDialog(true)
-    // navigate('/clientorders')
+    setAppointmentDialogControl({ ...appointmentDialogControl, status: true })
   }
   const handleAppointmentClose = () => {
-    setAppointmentDialog(false)
+    setAppointmentDialogControl({
+      ...appointmentDialogControl,
+      status: false,
+      date: '',
+      time: '',
+      description: '',
+      appointed_member: [],
+      appointment_unit: '',
+      appointmentId: null,
+    })
   }
 
   const handleEditClientStatus = (row, clientid) => {
@@ -274,11 +417,6 @@ const ClientProfile = () => {
   const handleViewStatusDialogClose = () => {
     setViewClientStatus({ ...viewClientStatus, status: false })
   }
-
-  const handleOrderOpen = () => {
-    navigate('/clientorders')
-  }
-
   const handleClientOrdersClick = (path, name) => {
     navigate(path)
     setActivePage(name)
@@ -371,7 +509,9 @@ const ClientProfile = () => {
                 {value === '2' ? (
                   <>
                     <Button
-                      onClick={handleClickOpen}
+                      onClick={() =>
+                        setRemainderDialog({ ...remainderDialog, status: true })
+                      }
                       className="common_button"
                       variant="contained"
                     >
@@ -408,91 +548,27 @@ const ClientProfile = () => {
             </Box>
 
             <TabPanel sx={{ padding: '0px' }} value="1">
-              <TableContainer
-                className="client_table_height client_detail_table set_box_shadow"
-                component={Paper}
-              >
-                {clientStatusList.length > 0 ? (
-                  <Table
-                    stickyHeader
-                    aria-label="sticky table"
-                    sx={{ minWidth: 690, padding: '0px !important' }}
-                    className="table_heading"
-                  >
-                    {/* <TableHead className="client_profile_table_header"> */}
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Sr No.</TableCell>
-                        <TableCell>Status Added By</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Time</TableCell>
-                        <TableCell>Description</TableCell>
-                        <TableCell></TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {clientStatusList.map((row, index) => (
-                        <TableRow
-                          key={index}
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          sx={{
-                            '&:last-child td,th': { border: 0 },
-                          }}
-                        >
-                          <TableCell scope="row">{index + 1}</TableCell>
-                          <TableCell>{row?.team?.name}</TableCell>
-                          <TableCell>
-                            {moment(row?.date).format('LL')}
-                          </TableCell>
-                          <TableCell>
-                            {moment(row.time, 'hh:mm:ss').format('LT')}
-                          </TableCell>
-                          <TableCell className="status_description">
-                            {row?.description}
-                          </TableCell>
-                          <TableCell className="client_status_buttons">
-                            <Button
-                              sx={{ marginRight: '10px' }}
-                              onClick={() => {
-                                handleViewClientStatus(
-                                  row,
-                                  clientProfileDetail.id,
-                                )
-                              }}
-                              className="border_button"
-                              // className="button_color"
-                            >
-                              View
-                            </Button>
-                            <Button
-                              className="border_button"
-                              // className="button_color"
-                              onClick={() => {
-                                handleEditClientStatus(
-                                  row,
-                                  clientProfileDetail.id,
-                                )
-                              }}
-                            >
-                              Edit
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                ) : (
-                  <NoResultFound />
-                )}
-              </TableContainer>
+              <StatusTable
+                clientStatusList={clientStatusList}
+                clientProfileDetail={clientProfileDetail}
+                handleViewClientStatus={handleViewClientStatus}
+                handleEditClientStatus={handleEditClientStatus}
+              />
             </TabPanel>
             <TabPanel sx={{ padding: '0px' }} value="2">
-              <RemainderTable clientReminderList={clientReminderList} />
+              <RemainderTable
+                clientReminderList={clientReminderList}
+                remainderDialog={remainderDialog}
+                setRemainderDialog={setRemainderDialog}
+              />
             </TabPanel>
             <TabPanel sx={{ padding: '0px' }} value="3">
-              <AppointmentTable clientAppointmentList={clientAppointmentList} />
+              <AppointmentTable
+                appointmentDialogControl={appointmentDialogControl}
+                setAppointmentDialogControl={setAppointmentDialogControl}
+                handleAppointmentOpen={handleAppointmentOpen}
+                clientAppointmentList={clientAppointmentList}
+              />
             </TabPanel>
             <TabPanel sx={{ padding: '0px' }} value="4">
               <ProfileTable clientProfileDetail={clientProfileDetail} />
@@ -501,10 +577,13 @@ const ClientProfile = () => {
               <OrderList />
             </TabPanel>
           </TabContext>
-          <RemainderDialog
+
+          <EditReminderDialog
             remainderDialog={remainderDialog}
+            setRemainderDialog={setRemainderDialog}
             handleClose={handleClose}
             clientProfileDetail={clientProfileDetail}
+            handleEditReminder={handleEditReminder}
           />
           <StatusDialog
             clientProfileDetail={clientProfileDetail}
@@ -533,12 +612,6 @@ const ClientProfile = () => {
               editStatusDialog={editStatusDialog}
             />
           ) : null}
-          {/* {addPoorContact.status === true ? (
-            <PoorContact
-              handleCallClose={handleCallClose}
-              addPoorContact={addPoorContact}
-            />
-          ) : null} */}
           {viewClientStatus.status === true ? (
             <ViewClientStatusDialog
               handleViewStatusDialogClose={handleViewStatusDialogClose}
@@ -546,9 +619,11 @@ const ClientProfile = () => {
             />
           ) : null}
           <AppointmentDialog
-            appointmentDialog={appointmentDialog}
+            appointmentDialogControl={appointmentDialogControl}
             handleAppointmentClose={handleAppointmentClose}
             clientProfileDetail={clientProfileDetail}
+            setAppointmentDialogControl={setAppointmentDialogControl}
+            handleAddEditAppointment={handleAddEditAppointment}
           />
         </Box>
       </Box>

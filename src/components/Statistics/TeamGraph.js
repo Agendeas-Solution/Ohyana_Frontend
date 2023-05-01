@@ -14,17 +14,6 @@ import {
   OutlinedInput,
 } from '@mui/material'
 import './index.css'
-import { UserData } from './Data'
-import LineChart from './LineChart'
-import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
-import ProductGraph from './ProductGraph'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
 import BarChart from './BarChart'
 import { GetTeamReport } from '../../services/apiservices/productDetail'
 import { GetAdminRole } from '../../services/apiservices/adminprofile'
@@ -108,12 +97,12 @@ const TeamGraph = ({ selectedPeriod }) => {
       graphData.map((value, index) => {
         let a = []
         a[index] = selectedComparison === 'points' ? value.points : value.amount
+        const colors = '#' + Math.floor(Math.random() * 16777215).toString(16)
         return {
           data: a,
           label: value?.name,
-          backgroundColor:
-            '#' + Math.floor(Math.random() * 16777215).toString(16),
-          borderWidth: 1,
+          backgroundColor: colors,
+          borderWidth: 0,
           barThickness: 20,
           borderSkipped: 'middle',
           circular: true,
@@ -128,19 +117,24 @@ const TeamGraph = ({ selectedPeriod }) => {
   }, [graphData])
   return (
     <>
-      <Box className=" graph_section team_graph">
-        <Box className="common_row mb-3">
-          <Box>
-            <Typography variant="span" className="report_tab_heading">
-              Overall
-            </Typography>
-          </Box>
-          <Box sx={{ display: 'flex' }}>
-            <FormControl className="filter_body_inner_section">
-              <InputLabel>comparison</InputLabel>
+      <Box>
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '10px',
+          }}
+        >
+          <Typography variant="span">Overall</Typography>
+
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <FormControl sx={{ width: '200px', marginLeft: '10px' }}>
+              <InputLabel>Compare</InputLabel>
               <Select
                 className="report_tab_heading_option"
-                label="Select comparison "
+                label="Compare "
                 value={selectedComparison}
                 onChange={e => {
                   setSelectedComparison(e.target.value)
@@ -151,20 +145,7 @@ const TeamGraph = ({ selectedPeriod }) => {
                 })}
               </Select>
             </FormControl>
-            {/* <Autocomplete
-              className="report_tab_heading_option"
-              disablePortal
-              options={top100Films}
-              sx={{ marginRight: '10px' }}
-              renderInput={params => (
-                <TextField
-                  className="common_dropdown"
-                  {...params}
-                  label="Performance"
-                />
-              )}
-            /> */}
-            <FormControl className="filter_body_inner_section">
+            <FormControl sx={{ width: '200px', marginLeft: '10px' }}>
               <InputLabel>Client Type</InputLabel>
               <Select
                 className="report_tab_heading_option"
@@ -179,7 +160,7 @@ const TeamGraph = ({ selectedPeriod }) => {
                 })}
               </Select>
             </FormControl>
-            <FormControl className="filter_body_inner_section">
+            <FormControl sx={{ width: '200px', marginLeft: '10px' }}>
               <InputLabel>Team Member</InputLabel>
               <Select
                 className="report_tab_heading_option"
@@ -210,60 +191,9 @@ const TeamGraph = ({ selectedPeriod }) => {
             </FormControl>
           </Box>
         </Box>
-        <Box className="report_tab_main_section">
+        <Box sx={{ height: '65vh !important' }}>
           {userData?.datasets && <BarChart chartData={userData} />}
         </Box>
-        <TableContainer component={Paper} className="set_box_shadow">
-          <Table
-            sx={{
-              maxWidth: 300,
-              marginTop: '20px',
-            }}
-          >
-            <TableHead className="team_overview_table_heading">
-              <TableRow>
-                <TableCell>Sr No.</TableCell>
-                <TableCell>Team Member</TableCell>
-                <TableCell>Points</TableCell>
-                <TableCell align="left">Performance</TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{
-                  '&:last-child td, &:last-child th': { border: 0 },
-                }}
-              >
-                <TableCell>1</TableCell>
-                <TableCell>Benedict Cumberbatch</TableCell>
-                <TableCell>30</TableCell>
-                <TableCell>+ 4%</TableCell>
-                <TableCell>
-                  <Button
-                    // onClick={() => {
-                    //   navigate(`/orderDetail/${orderData?.id}`)
-                    // }}
-                    className="common_button"
-                  >
-                    View
-                  </Button>
-                </TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell>2</TableCell>
-                <TableCell> Rober Downey</TableCell>
-                <TableCell>20</TableCell>
-                <TableCell>- 2%</TableCell>
-                <TableCell>
-                  <Button className="common_button">View</Button>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
       </Box>
     </>
   )

@@ -15,14 +15,10 @@ import Paper from '@mui/material/Paper'
 import { GetTargetList } from '../../services/apiservices/teamcall'
 import SetTargetDialog from './SetTargetDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
-let path = window.location.pathname
-path = path.split('/').pop()
 
 const StaffTarget = () => {
-  const [dateRange, setDateRange] = useState({
-    startDate: '',
-    endDate: '',
-  })
+  let path = window.location.pathname
+  path = path.split('/').pop()
   // const [selectMonth, setSelectMonth] = useState({
   //   $M: moment().month(),
   //   $y: moment().year(),
@@ -34,7 +30,6 @@ const StaffTarget = () => {
     id: path,
   })
   const [targetList, setTargetList] = useState([])
-
   useEffect(() => {
     let data = {
       month: moment(selectMonth.$d).month() + 1,
@@ -79,7 +74,6 @@ const StaffTarget = () => {
               <Typography variant="span">24</Typography>
             </Box>
           </Box>
-
           <Box>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
@@ -112,7 +106,6 @@ const StaffTarget = () => {
             </Button>
           </Box>
         </Box>
-
         <TableContainer
           className="expenses_table_height staff_target_table"
           component={Paper}
@@ -135,7 +128,6 @@ const StaffTarget = () => {
                   <TableCell align="left">Target</TableCell>
                 </TableRow>
               </TableHead>
-
               <TableBody>
                 {targetList.map(targetData => {
                   return (
@@ -182,7 +174,6 @@ const StaffTarget = () => {
             <NoResultFound />
           )}
         </TableContainer>
-
         {targetDetail.status && (
           <SetTargetDialog
             targetDetail={targetDetail}

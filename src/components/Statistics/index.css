@@ -39,7 +39,7 @@
   width: 100%;
 }
 
-@media (max-width: 1250px) {
+/* @media (max-width: 900px) {
   .graph_detail_section {
     width: 100%;
     display: flex;
@@ -52,7 +52,7 @@
     flex-direction: row;
     margin: 10px 5px auto 5px;
   }
-}
+} */
 
 .report_tab_heading {
   color: #2e3591;

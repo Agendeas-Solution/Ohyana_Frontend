@@ -155,11 +155,7 @@
   background-color: #e5e5e5;
 }
 
-.expenses_parameter_bottom_border {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-@media (max-width: 1250px) {
+/* @media (max-width: 900px) {
   .sales_statistics {
     display: flex;
     flex-direction: column;
@@ -170,4 +166,4 @@
   .sales_statistics_heading {
     text-align: center;
   }
-}
+} */
