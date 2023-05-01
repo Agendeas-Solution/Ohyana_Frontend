@@ -76,7 +76,7 @@ const UserProfile = () => {
     activeTab === 'holiday' &&
       value === 'Attendance' &&
       GetAllHoliday(
-        userDetail?.id,
+        { type: 'occasional' },
         res => {
           if (res.success) {
             setHolidayList(res?.data)

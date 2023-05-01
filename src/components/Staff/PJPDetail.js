@@ -469,18 +469,23 @@ const PJPDetail = () => {
           </TabPanel>
         </TabContext>
       </Box>
-      <AddPJPDialog
-        addPJPDetail={addPJPDetail}
-        setAddPJPDetail={setAddPJPDetail}
-        handleCloseDialog={handleCloseDialog}
-        handleAddPJPDetail={handleAddPJPDetail}
-      />
-      <CompletedPJPDialog
-        completedDialog={completedDialog}
-        setCompletedDialog={setCompletedDialog}
-        handleCloseCompletedDialog={handleCloseCompletedDialog}
-        handleAddCompletePJPStatus={handleAddCompletePJPStatus}
-      />
+
+      {addPJPDetail.dialogStatus && (
+        <AddPJPDialog
+          addPJPDetail={addPJPDetail}
+          setAddPJPDetail={setAddPJPDetail}
+          handleCloseDialog={handleCloseDialog}
+          handleAddPJPDetail={handleAddPJPDetail}
+        />
+      )}
+      {completedDialog.status && (
+        <CompletedPJPDialog
+          completedDialog={completedDialog}
+          setCompletedDialog={setCompletedDialog}
+          handleCloseCompletedDialog={handleCloseCompletedDialog}
+          handleAddCompletePJPStatus={handleAddCompletePJPStatus}
+        />
+      )}
     </>
   )
 }

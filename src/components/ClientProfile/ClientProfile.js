@@ -483,7 +483,6 @@ const ClientProfile = () => {
                 <Tab label="Orders" value="5" />
                 <Tab label="Profile" value="4" />
               </TabList>
-
               <Box>
                 {value === '1' ? (
                   <>
