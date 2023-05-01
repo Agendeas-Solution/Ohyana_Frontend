@@ -95,20 +95,22 @@ const StaffAttendanceLeave = ({
                       <TableCell>{leaveList?.takenDays}</TableCell>
                       <TableCell>{leaveList?.remainDays}</TableCell>
                       <TableCell>{leaveList?.status}</TableCell>
-                      <TableCell>
-                        <Button
-                          className="common_button"
-                          onClick={() => {
-                            setApproveLeave({
-                              ...approveLeave,
-                              status: true,
-                              id: leaveList?.id,
-                            })
-                          }}
-                        >
-                          Approve
-                        </Button>
-                      </TableCell>
+                      {leaveList?.status === 'PENDING' && (
+                        <TableCell>
+                          <Button
+                            className="common_button"
+                            onClick={() => {
+                              setApproveLeave({
+                                ...approveLeave,
+                                status: true,
+                                id: leaveList?.id,
+                              })
+                            }}
+                          >
+                            Approve
+                          </Button>
+                        </TableCell>
+                      )}
                     </TableRow>
                   )
                 })}

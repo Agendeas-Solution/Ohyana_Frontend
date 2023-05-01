@@ -36,7 +36,7 @@ const PresentData = ({ staffAttendanceList }) => {
         className="expenses_table_height attendance_present_table"
         component={Paper}
       >
-        {staffAttendanceList.length > 0 ? (
+        {staffAttendanceList?.attendancePerUser.length > 0 ? (
           <Table
             stickyHeader
             aria-label="sticky table"

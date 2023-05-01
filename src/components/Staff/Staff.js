@@ -222,7 +222,6 @@ const Staff = () => {
               >
                 + Add Team
               </Button>
-
               {/* <Toolbar> */}
               <IconButton
                 edge="end"
@@ -236,7 +235,6 @@ const Staff = () => {
               </IconButton>
               {/* </Toolbar> */}
             </Box>
-
             <Drawer
               sx={{
                 width: 2,
@@ -247,6 +245,7 @@ const Staff = () => {
               }}
               anchor="right"
               open={open}
+              onClose={handleDrawerClose}
             >
               <DrawerHeader className="drawer_header_section">
                 <Box className="filter_main_heading">
@@ -276,9 +275,7 @@ const Staff = () => {
                   </Button>
                 </Box>
               </DrawerHeader>
-
               <Divider />
-
               <Box className="filter_body_section">
                 <FormControl className="filter_body_inner_section">
                   <FormLabel className="filter_body_inner_heading">

@@ -16,10 +16,6 @@ import StaffAttendanceLeave from './StaffAttendanceLeave'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const StaffAttendance = () => {
-  const [dateRange, setDateRange] = useState({
-    startDate: '',
-    endDate: '',
-  })
   const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -59,17 +55,17 @@ const StaffAttendance = () => {
   const handleCloseDialog = () => {
     setApproveLeave({ ...approveLeave, status: false })
   }
-
   useEffect(() => {
     let path = window.location.pathname
     path = path.split('/').pop()
+    let data = {
+      month: moment(selectMonth.$d).month() + 1,
+      year: moment(selectMonth.$d).format('YYYY'),
+      teamId: parseInt(path),
+    }
     activeTab === 'present' &&
       GetStaffAttendanceList(
-        {
-          month: selectMonth?.$M + 1,
-          year: selectMonth?.$y,
-          teamId: parseInt(path),
-        },
+        data,
         res => {
           setStaffAttendanceList(res?.data)
         },
@@ -77,11 +73,7 @@ const StaffAttendance = () => {
       )
     activeTab === 'leave' &&
       GetStaffLeaveList(
-        {
-          month: selectMonth?.$M + 1,
-          year: selectMonth?.$y,
-          teamId: parseInt(path),
-        },
+        data,
         res => {
           setStaffLeaveList(res?.data)
         },
@@ -112,7 +104,6 @@ const StaffAttendance = () => {
               </Typography>
             </Box>
           </Box>
-
           <Box
             sx={{
               display: 'flex',
@@ -125,7 +116,6 @@ const StaffAttendance = () => {
                 views={['month', 'year']}
                 value={selectMonth}
                 onChange={selectMonth => {
-                  console.log(`inside Onchange: ${selectMonth.format('MMM')}`)
                   setSelectMonth(selectMonth)
                 }}
                 renderInput={params => (
@@ -137,7 +127,7 @@ const StaffAttendance = () => {
                   />
                 )}
                 PopperProps={{
-                  placement: 'bottom-start', // Set placement to 'bottom-start'
+                  placement: 'bottom-start',
                 }}
               />
             </LocalizationProvider>

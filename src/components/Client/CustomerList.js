@@ -18,7 +18,11 @@ import { CustomerTake } from '../../services/apiservices/clientDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import { Box } from '@mui/system'
 
-const CustomerList = ({ clientDetails, ViewClientDetail }) => {
+const CustomerList = ({
+  clientDetails,
+  ViewClientDetail,
+  getClientDetails,
+}) => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleTakeCustomer = customerId => {
@@ -26,6 +30,7 @@ const CustomerList = ({ clientDetails, ViewClientDetail }) => {
       customerId,
       res => {
         if (res?.success) {
+          getClientDetails()
           setSuccessSnackbar({
             ...successSnackbar,
             status: true,

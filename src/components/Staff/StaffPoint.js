@@ -51,8 +51,8 @@ const StaffPoint = () => {
   const handleGetPointTeamMember = () => {
     GetPointTeamMember(
       {
-        month: selectMonth?.$M + 1,
-        year: selectMonth?.$y,
+        month: moment(selectMonth.$d).month() + 1,
+        year: moment(selectMonth.$d).format('YYYY'),
         size: rowsPerPage,
         page: currentPage,
         teamId: parseInt(path),
