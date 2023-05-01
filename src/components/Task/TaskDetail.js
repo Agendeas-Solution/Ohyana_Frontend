@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Box, Typography, Button, TextField, Checkbox } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Button,
+  TextField,
+  Checkbox,
+  Divider,
+} from '@mui/material'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded'
 import Slider from '@mui/material/Slider'
@@ -191,7 +198,6 @@ const TaskDetail = () => {
           <Typography className="task_card_heading" variant="span">
             {taskDetail?.title || '-'}
           </Typography>
-
           <Box>
             <Button
               onClick={() => {
@@ -221,7 +227,7 @@ const TaskDetail = () => {
             </Button>
           </Box>
         </Box>
-
+        <Divider />
         <Box className="checklist_duedate_section" sx={{ overflowY: 'hidden' }}>
           <Box className="checklist_section">
             <Box sx={{ padding: '0px 15px' }}>

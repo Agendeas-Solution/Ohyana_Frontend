@@ -97,23 +97,23 @@ const JobRolesList = () => {
 
   return (
     <>
-      <div className="main_section">
-        <Box className="main_section_header" sx={{ borderBottom: 'none' }}>
+      <Box className="main_section">
+        <Box className="main_header_section">
           <Typography className="task_card_heading" variant="span">
             Job Roles
           </Typography>
+
           <Button
             className="primary_color_button"
             onClick={() => {
               setJobRoleDialogControl(true)
             }}
-            variant="contained"
           >
             + Add Job Role
           </Button>
         </Box>
-
-        <Box className="left_team_profile_section">
+        <Divider />
+        <Box className="left_team_profile_section" sx={{ marginTop: '10px' }}>
           <TableContainer>
             <Table className="job_role_list">
               <TableHead className="client_profile_table_header">
@@ -132,17 +132,17 @@ const JobRolesList = () => {
                 {jobRoleList?.roles &&
                   jobRoleList?.roles.map((data, index) => (
                     <React.Fragment key={index}>
-                      <TableRow className="job_role_list " key={data.id}>
+                      <TableRow key={data.id}>
                         <TableCell className="table_row_top_align">
                           {index + 1}
                         </TableCell>
-                        <TableCell className="table_row_top_align">
+                        <TableCell className="table_row_top_align ">
                           {data.name || '-'}
                         </TableCell>
                         <TableCell className="table_row_top_align">
                           {data.name || '-'}
                         </TableCell>
-                        <TableCell className="description_text">
+                        <TableCell className="description_text text-wrap">
                           {data.description || '-'}
                         </TableCell>
                         <TableCell>
@@ -166,7 +166,7 @@ const JobRolesList = () => {
             </Table>
           </TableContainer>
         </Box>
-      </div>
+      </Box>
       <JobRoleDialog
         jobRoleList={jobRoleList}
         jobRoleDialogControl={jobRoleDialogControl}
