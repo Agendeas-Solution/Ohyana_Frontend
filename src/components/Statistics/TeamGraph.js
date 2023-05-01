@@ -67,8 +67,8 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
     }
     if (
       selectedPeriod === 'custom' &&
-      customRange.startDate !== '' &&
-      customRange.endDate !== ''
+      customRange.startDate &&
+      customRange.endDate
     ) {
       GetTeamReport(
         data,

@@ -19,11 +19,6 @@ import NoResultFound from '../ErrorComponent/NoResultFound'
 const StaffTarget = () => {
   let path = window.location.pathname
   path = path.split('/').pop()
-  // const [selectMonth, setSelectMonth] = useState({
-  //   $M: moment().month(),
-  //   $y: moment().year(),
-  //   defaultDate: moment().format('LL'),
-  // })
   const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const [targetDetail, setTargetDetail] = useState({
     status: false,
