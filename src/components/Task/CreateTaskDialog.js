@@ -63,7 +63,6 @@ const CreateTaskDialog = ({
             placeholder="Description here..."
             autoComplete="off"
             label="Description"
-            minRows={3}
             maxRows={3}
             value={createTask.description}
             onChange={e => {

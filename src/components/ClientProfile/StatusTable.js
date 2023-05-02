@@ -27,11 +27,10 @@ const StatusTable = ({
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, padding: '0px !important' }}
+            sx={{ minWidth: 700, padding: '0px !important' }}
             className="table_heading"
           >
-            {/* <TableHead className="client_profile_table_header"> */}
-            <TableHead>
+            <TableHead className="client_profile_table_header">
               <TableRow>
                 <TableCell>Sr No.</TableCell>
                 <TableCell>Status Added By</TableCell>
@@ -61,25 +60,15 @@ const StatusTable = ({
                   <TableCell className="status_description">
                     {row?.description}
                   </TableCell>
-                  <TableCell className="client_status_buttons">
+                  <TableCell className="table_buttons">
                     <Button
                       sx={{ marginRight: '10px' }}
                       onClick={() => {
                         handleViewClientStatus(row, clientProfileDetail.id)
                       }}
                       className="border_button"
-                      // className="button_color"
                     >
                       View
-                    </Button>
-                    <Button
-                      className="border_button"
-                      // className="button_color"
-                      onClick={() => {
-                        handleEditClientStatus(row, clientProfileDetail.id)
-                      }}
-                    >
-                      Edit
                     </Button>
                   </TableCell>
                 </TableRow>
