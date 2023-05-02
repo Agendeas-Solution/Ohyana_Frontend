@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Button,
   Checkbox,
@@ -14,13 +14,14 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import SnacksPhoto from '../../assets/img/SnacksPhoto.png'
 import InfoIcon from '@mui/icons-material/Info'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import DoneIcon from '@mui/icons-material/Done'
 import { Context as ContextActivePage } from '../../context/pageContext'
+import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 
 const ClientOrders = () => {
   const navigate = useNavigate()
   const { setActivePage } = useContext(ContextActivePage)
   const [path, setPath] = useState(null)
+  const [clientOrdersList, setClientOrdersList] = useState([])
 
   const handleClickOpen = () => {
     navigate('/mycart')
@@ -32,6 +33,28 @@ const ClientOrders = () => {
     setPath(path)
     localStorage.setItem('path', path)
   }
+
+  const handleCliendOrdersList = () => {
+    let data = {}
+
+    GetAdminProductList(
+      data,
+      res => {
+        debugger
+        if (res?.success) {
+          setClientOrdersList(res?.data)
+        }
+      },
+      err => {
+        console.log(err)
+        setClientOrdersList([])
+      },
+    )
+  }
+
+  useEffect(() => {
+    handleCliendOrdersList()
+  }, [])
 
   return (
     <>

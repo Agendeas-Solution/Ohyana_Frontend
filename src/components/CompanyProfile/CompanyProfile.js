@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { GetCompanyProfile } from '../../services/apiservices/companyprofile'
 import './index.css'
 import ProfileImage from '../../assets/img/Profile_Image.svg'
-import { AccountBoxSharp } from '@mui/icons-material'
+
 const CompanyProfile = () => {
   const navigate = useNavigate()
   const [companyDetail, setCompanyDetail] = useState({})

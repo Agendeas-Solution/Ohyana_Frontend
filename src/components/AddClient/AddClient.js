@@ -11,21 +11,30 @@ import {
   Autocomplete,
   createTheme,
   ThemeProvider,
+  Paper,
 } from '@mui/material'
 import './index.css'
+import { makeStyles } from '@mui/styles'
+
 import {
   GetAdminProductList,
   AddClientDetail,
   EditClientDetail,
 } from '../../services/apiservices/adminprofile'
 import { useNavigate } from 'react-router-dom'
+import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded'
+import image from '../../assets/img/profile_icon.svg'
+
 import {
   GetAdminClientProfileDetail,
   GetCountryList,
 } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import ProfileImage from '../../assets/img/Profile_Image.svg'
+import Uploader from '../Uploader/Uploader'
+import { PhotoCamera } from '@mui/icons-material'
 // const ErrorSnackbar = lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
+const useStyles = makeStyles({})
 
 const AddClient = () => {
   const [userDetail, setUserDetail] = useState({
@@ -124,6 +133,7 @@ const AddClient = () => {
         city: userDetail.city,
         reference_name: userDetail?.referenceName,
       }
+
       let path = window.location.pathname
       path = path.split('/').pop()
       {
@@ -176,13 +186,52 @@ const AddClient = () => {
       })
     }
   }
+
+  const [state, setState] = useState('')
+  const classes = useStyles()
+  const loadFile = event => {
+    if (event.target.files) {
+      setState(URL.createObjectURL(event.target.files[0]))
+      console.log(URL.createObjectURL(event.target.files[0]))
+    }
+  }
+
   return (
     <>
       <Box className="main_section" sx={{ overflow: 'hidden', padding: '0px' }}>
         <Box className="pofile_edit_section">
-          <Box className="edit_profile_image_section">
+          {/* <Box className="edit_my_profile_image_section">
             <img src={ProfileImage} alt="profile" />
-          </Box>
+            <Box className="inner_icon_style">
+              <CameraAltRoundedIcon fontSize="large" />
+            </Box>
+          </Box> */}
+          <Paper className="my_profile_upload_image">
+            <Box className="edit_myy_profile_image_section">
+              <input
+                type="file"
+                accept="image/*"
+                name="image"
+                id="file"
+                onChange={loadFile}
+                style={{ display: 'none', background: 'red' }}
+              />
+              <img
+                className="image_style"
+                src={state ? state : image}
+                // className={classes.image}
+                id="output"
+                // width="70"
+                // height="70"
+                alt="test"
+              />
+              <Box className="inner_icon_style">
+                <label htmlFor="file" style={{ cursor: 'pointer' }}>
+                  <PhotoCamera />
+                </label>
+              </Box>
+            </Box>
+          </Paper>
 
           <Box className="edit_profile_detail_section">
             {/* Client Name &&  Business Name*/}

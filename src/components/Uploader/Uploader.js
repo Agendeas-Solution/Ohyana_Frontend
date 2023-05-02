@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 const Uploader = () => {
   const [image, setImage] = useState('')
   const inputFile = useRef(null)
+
   const handleFileUpload = e => {
     const { files } = e.target
     if (files && files.length) {
@@ -16,7 +17,6 @@ const Uploader = () => {
   const onButtonClick = () => {
     inputFile.current.click()
   }
-  console.log('imageimage', image)
   return (
     <div>
       <input

@@ -34,7 +34,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import FilterIcon from '../../assets/img/Filter.svg'
 import { styled, useTheme } from '@mui/material/styles'
 import { CLIENT } from '../../constants'
-import { Oval } from 'react-loader-spinner'
 const drawerWidth = 350
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const NoResultFound = React.lazy(() =>
