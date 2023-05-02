@@ -162,16 +162,17 @@ const Staff = () => {
   }, [value, queryParams])
 
   useEffect(() => {
-    GetAdminRole(
-      {},
-      res => {
-        setJobRoleList(res.data)
-      },
-      err => {
-        console.log('Printing Error', err)
-      },
-    )
-  }, [])
+    open &&
+      GetAdminRole(
+        {},
+        res => {
+          setJobRoleList(res.data)
+        },
+        err => {
+          console.log('Printing Error', err)
+        },
+      )
+  }, [open])
 
   useEffect(() => {
     value === '2' &&

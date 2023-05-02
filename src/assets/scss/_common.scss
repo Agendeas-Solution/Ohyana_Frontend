@@ -203,7 +203,7 @@ textarea:focus {
 
 .main_section {
   display: flex;
-  height: 100%;
+  height: 92%;
   background-color: #fff;
   border-radius: 5px;
   padding: 10px;
@@ -1666,9 +1666,11 @@ button {
   font-size: 30px !important;
 }
 
-.client_status_buttons {
+.table_buttons {
   display: flex !important;
-  justify-content: center !important;
+  justify-content: flex-end !important;
+  flex-direction: row;
+  align-items: center !important;
 }
 
 .client_detail_table {

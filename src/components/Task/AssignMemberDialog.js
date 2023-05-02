@@ -50,13 +50,13 @@ const AssignMemberDialog = ({
             <InputLabel>Select Members</InputLabel>
             <Select
               label="Select Members"
-              value={member?.memberList}
+              value={member}
               onChange={(e, value) => {
-                setMember(value)
+                setMember(e.target.value)
               }}
             >
               {memberList.map(data => {
-                return <MenuItem value={data.email}>{data.email}</MenuItem>
+                return <MenuItem value={data.id}>{data.email}</MenuItem>
               })}
             </Select>
           </FormControl>
@@ -65,7 +65,7 @@ const AssignMemberDialog = ({
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={() => handleAssignMember(member.id)}
+              onClick={() => handleAssignMember(member)}
             >
               Ok
             </Button>

@@ -468,7 +468,6 @@ const ClientProfile = () => {
             )}
           </Button>
         </Box>
-
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={value}>
             <Box className="tab_row">

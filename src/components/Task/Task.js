@@ -134,7 +134,7 @@ const Task = () => {
   }, [searchQuery, filterTask])
 
   useEffect(() => {
-    open &&
+    ;(openDrawer || openMemberDialog) &&
       GetAdminStaffDetailList(
         {},
         res => {
@@ -142,7 +142,7 @@ const Task = () => {
         },
         err => {},
       )
-  }, [open])
+  }, [openDrawer, openMemberDialog])
 
   const handleCreateTask = () => {
     CreateTaskCall(
@@ -169,7 +169,13 @@ const Task = () => {
       { taskid: taskId, memberid: memberId },
       res => {
         setMember()
+        handleTaskList()
         handleCloseMemberDialog()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
       },
       err => {},
     )

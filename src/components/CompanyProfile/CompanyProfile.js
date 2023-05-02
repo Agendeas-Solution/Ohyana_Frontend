@@ -23,7 +23,6 @@ const CompanyProfile = () => {
       },
     )
   }, [])
-  // localStorage.setItem("userEmail", companyDetail?.member?.email)
   return (
     <>
       <Box className="main_section">
