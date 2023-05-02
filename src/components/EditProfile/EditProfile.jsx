@@ -37,7 +37,6 @@ const SuccessSnackbar = React.lazy(() =>
 const useStyles = makeStyles({})
 const EditProfile = () => {
   const inputFile = useRef(null)
-  const inputFile = useRef(null)
   const [userDetail, setUserDetail] = useState({
     employeeName: '',
     email: '',
@@ -148,7 +147,9 @@ const EditProfile = () => {
               <CameraAltRoundedIcon fontSize="large" color="white" />
             </form>
           </Box> */}
-          <Paper className="my_profile_upload_image">
+
+          {/* PRE-FINAL SOLUTION */}
+          {/* <Paper className="my_profile_upload_image">
             <Box className="edit_myy_profile_image_section">
               <input
                 type="file"
@@ -173,7 +174,9 @@ const EditProfile = () => {
                 </label>
               </Box>
             </Box>
-          </Paper>
+          </Paper> */}
+
+          <Uploader />
 
           {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
           <Box className="edit_profile_detail_section">
