@@ -28,5 +28,9 @@ export const REPORT = {
       value: `${moment().subtract(1, 'year').format('YYYY')}`,
       type: `year-${moment().subtract(1, 'year').format('YYYY')}`,
     },
+    {
+      value: 'Custom',
+      type: 'custom',
+    },
   ],
 }

@@ -16,7 +16,11 @@ import {
 import { SetTarget } from '../../services/apiservices/staffDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { TEAM } from '../../constants'
-const SetTargetDialog = ({ targetDetail, handleCloseTargetDetailDialog }) => {
+const SetTargetDialog = ({
+  targetDetail,
+  handleCloseTargetDetailDialog,
+  handleGetTargetList,
+}) => {
   const [feedbackDetail, setFeedBackDetail] = useState({
     type: '',
     period: '',
@@ -37,6 +41,7 @@ const SetTargetDialog = ({ targetDetail, handleCloseTargetDetailDialog }) => {
           message: res.message,
         })
         handleCloseTargetDetailDialog()
+        handleGetTargetList()
       },
       err => {
         console.log('Printing Feedback Error', err)

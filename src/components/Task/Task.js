@@ -62,7 +62,6 @@ const Task = () => {
   })
   const [memberList, setMemberList] = useState([])
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
-
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -135,14 +134,15 @@ const Task = () => {
   }, [searchQuery, filterTask])
 
   useEffect(() => {
-    GetAdminStaffDetailList(
-      {},
-      res => {
-        setMemberList(res.data)
-      },
-      err => {},
-    )
-  }, [])
+    open &&
+      GetAdminStaffDetailList(
+        {},
+        res => {
+          setMemberList(res.data)
+        },
+        err => {},
+      )
+  }, [open])
 
   const handleCreateTask = () => {
     CreateTaskCall(

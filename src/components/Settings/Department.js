@@ -276,6 +276,7 @@ const Department = () => {
         data,
         res => {
           handleClose()
+          handleSingleRole()
           setSuccessSnackbar({
             ...successSnackbar,
             message: res.message,
@@ -286,7 +287,7 @@ const Department = () => {
       )
     }
   }
-  useEffect(() => {
+  const handleSingleRole = () => {
     GetSingleRole(
       { roleId: parseInt(path) },
       res => {
@@ -298,11 +299,10 @@ const Department = () => {
         console.log(err)
       },
     )
-  }, [
-    deleteJobRoleDialogControl.status,
-    jobRoleDialogControl,
-    editJobRoleDialogControl.status,
-  ])
+  }
+  useEffect(() => {
+    handleSingleRole()
+  }, [])
 
   const handleCheckboxChange = index => {
     const updatedPolicy = [...expensePolicy]
@@ -1138,6 +1138,7 @@ const Department = () => {
         <DeleteJobRoleDialog
           deleteJobRoleDialogControl={deleteJobRoleDialogControl}
           handleClose={handleClose}
+          handleSingleRole={handleSingleRole}
         />
         <DeleteDepartmentDialog
           deleteDepartmentDialogControl={deleteDepartmentDialogControl}

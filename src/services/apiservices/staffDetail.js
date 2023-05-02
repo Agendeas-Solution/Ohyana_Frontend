@@ -24,7 +24,7 @@ export const GetAdminStaffProfileDetail = async (id, onSuccess, onError) => {
 }
 export const SetTarget = async (id, value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  await handleApiGetCall(`/target/${id}`, value, onSuccess, onError)
+  await handleApiPostCall(`/target/${id}`, value, onSuccess, onError)
 }
 
 export const AddEmployee = async (value, onSuccess, onError) => {

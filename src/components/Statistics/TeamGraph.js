@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Box,
   Typography,
-  Autocomplete,
-  TextField,
-  Button,
   FormControl,
   InputLabel,
   Select,
@@ -19,8 +16,8 @@ import { GetTeamReport } from '../../services/apiservices/productDetail'
 import { GetAdminRole } from '../../services/apiservices/adminprofile'
 import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail'
 import { TEAM } from '../../constants'
-const TeamGraph = ({ selectedPeriod }) => {
-  const top100Films = [{ label: 'The Shawshank Redemption', year: 1994 }]
+import { Context as ContextSnackbar } from '../../context/pageContext'
+const TeamGraph = ({ selectedPeriod, customRange }) => {
   const [graphData, setGraphData] = useState()
   const [userData, setUserData] = useState({})
   const [jobRoleList, setJobRoleList] = useState([])
@@ -29,13 +26,14 @@ const TeamGraph = ({ selectedPeriod }) => {
   const [selectedTeamMembers, setSelectedTeamMembers] = useState([])
   const [comparisonList, setComparisonList] = useState(TEAM.COMPARISONTYPE)
   const [selectedComparison, setSelectedComparison] = useState('points')
+  const { errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setErrorSnackbar } = useContext(ContextSnackbar)
   const handleChange = event => {
     const { value } = event.target
     const selectedMembers = value.map(id =>
       teamMembersList.find(name => name.id === id),
     )
     setSelectedTeamMembers(selectedMembers)
-    console.log('Selected Member:', selectedMembers)
   }
   const handleJobRole = () => {
     GetAdminRole(
@@ -43,7 +41,13 @@ const TeamGraph = ({ selectedPeriod }) => {
       res => {
         setJobRoleList(res.data)
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
   useEffect(() => {
@@ -57,13 +61,43 @@ const TeamGraph = ({ selectedPeriod }) => {
     if (selectedTeamMembers.length > 0) {
       data['teamIds'] = selectedTeamMembers.map(member => member.id)
     }
-    GetTeamReport(
-      data,
-      res => {
-        setGraphData(res?.data)
-      },
-      err => {},
-    )
+    if (selectedPeriod === 'custom') {
+      data['dateFrom'] = customRange.startDate
+      data['dateTo'] = customRange.endDate
+    }
+    if (
+      selectedPeriod === 'custom' &&
+      customRange.startDate &&
+      customRange.endDate
+    ) {
+      GetTeamReport(
+        data,
+        res => {
+          setGraphData(res?.data)
+        },
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
+      )
+    } else if (selectedPeriod !== 'custom') {
+      GetTeamReport(
+        data,
+        res => {
+          setGraphData(res?.data)
+        },
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
+      )
+    }
     handleJobRole()
   }, [selectedPeriod, selectedTeamMembers, selectedComparison])
   const handleGetTeamMemberList = () => {
@@ -78,6 +112,11 @@ const TeamGraph = ({ selectedPeriod }) => {
       },
       err => {
         setTeamMembersList([])
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }
