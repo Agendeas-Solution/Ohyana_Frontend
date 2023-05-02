@@ -15,7 +15,7 @@ import {
 import './index.css'
 import { UserData } from './Data'
 import LineChart from './LineChart'
-import { GetProductReport } from '../../services/apiservices/productDetail'
+import { GetCityProductReport } from '../../services/apiservices/productDetail'
 import { GetCityList } from '../../services/apiservices/clientDetail'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 const CityGraph = ({ selectedPeriod, customRange }) => {
@@ -49,7 +49,7 @@ const CityGraph = ({ selectedPeriod, customRange }) => {
       customRange.startDate &&
       customRange.endDate
     ) {
-      GetProductReport(
+      GetCityProductReport(
         data,
         res => {
           setGraphData(res?.data)
@@ -57,7 +57,7 @@ const CityGraph = ({ selectedPeriod, customRange }) => {
         err => {},
       )
     } else if (selectedPeriod !== 'custom') {
-      GetProductReport(
+      GetCityProductReport(
         data,
         res => {
           setGraphData(res?.data)
