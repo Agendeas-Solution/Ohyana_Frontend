@@ -16,6 +16,7 @@ import {
 import ProfileImage from '../../assets/img/Profile_Image.svg'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { GetCountryList } from '../../services/apiservices/clientDetail'
+import Uploader from '../Uploader/Uploader'
 const EditCompanyProfile = () => {
   const [companyDetail, setCompanyDetail] = useState({
     companyName: '',
@@ -98,8 +99,11 @@ const EditCompanyProfile = () => {
     <>
       <Box className="main_section">
         <Box className="pofile_edit_section">
-          <Box className="edit_profile_image_section">
+          <Box className="edit_my_profile_image_section">
             <img src={ProfileImage} alt="profile" />
+            {/* <Button className="common_button">
+              <Uploader />
+            </Button> */}
           </Box>
           <Box className="edit_profile_detail_section">
             {/* Company Name &&  City */}

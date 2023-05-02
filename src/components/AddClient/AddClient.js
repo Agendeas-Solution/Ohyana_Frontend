@@ -25,6 +25,7 @@ import {
 } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import ProfileImage from '../../assets/img/Profile_Image.svg'
+import Uploader from '../Uploader/Uploader'
 // const ErrorSnackbar = lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 
 const AddClient = () => {
@@ -180,8 +181,11 @@ const AddClient = () => {
     <>
       <Box className="main_section" sx={{ overflow: 'hidden', padding: '0px' }}>
         <Box className="pofile_edit_section">
-          <Box className="edit_profile_image_section">
+          <Box className="edit_my_profile_image_section">
             <img src={ProfileImage} alt="profile" />
+            <Button className="common_button">
+              <Uploader />
+            </Button>
           </Box>
 
           <Box className="edit_profile_detail_section">
