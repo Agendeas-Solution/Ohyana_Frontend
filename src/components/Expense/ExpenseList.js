@@ -186,7 +186,6 @@ const ExpenseList = () => {
                   <TableCell>Name</TableCell>
                   <TableCell>Description</TableCell>
                   <TableCell></TableCell>
-                  {/* <TableCell></TableCell> */}
                 </TableRow>
               </TableHead>
 
@@ -209,7 +208,7 @@ const ExpenseList = () => {
 
                         <TableCell>
                           <Box
-                            sx={{ display: 'flex', justifyContent: 'center' }}
+                            sx={{ display: 'flex', justifyContent: 'flex-end' }}
                           >
                             <Button
                               sx={{

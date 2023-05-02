@@ -1666,9 +1666,11 @@ button {
   font-size: 30px !important;
 }
 
-.client_status_buttons {
+.table_buttons {
   display: flex !important;
-  justify-content: center !important;
+  justify-content: flex-end !important;
+  flex-direction: row;
+  align-items: center !important;
 }
 
 .client_detail_table {

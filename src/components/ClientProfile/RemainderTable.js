@@ -48,13 +48,13 @@ const RemainderTable = ({
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, padding: '0px !important' }}
+            sx={{ minWidth: 700, padding: '0px !important' }}
             className="table_heading"
           >
             <TableHead className="client_profile_table_header">
               <TableRow>
                 <TableCell>Sr No.</TableCell>
-                <TableCell>Reminder Added By</TableCell>
+                <TableCell>Added By</TableCell>
                 <TableCell>Job Role</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell>Time</TableCell>
@@ -88,17 +88,21 @@ const RemainderTable = ({
                   <TableCell className="table_row_top_align">
                     {moment(row.time, 'hh:mm:ss').format('LT')}
                   </TableCell>
-                  <TableCell className="description_text">
+                  <TableCell className=" table_row_top_align text-wrap">
                     {row.description}
                   </TableCell>
-                  <TableCell>
+                  <TableCell className=" table_row_top_align table_buttons">
                     <Button
+                      sx={{ marginRight: '10px' }}
                       className="border_button"
                       onClick={() => {
                         handleEditReminder(row)
                       }}
                     >
                       Edit
+                    </Button>
+                    <Button className="border_button" onClick={() => {}}>
+                      Delete
                     </Button>
                   </TableCell>
                 </TableRow>

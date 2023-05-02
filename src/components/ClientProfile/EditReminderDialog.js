@@ -24,33 +24,7 @@ const EditReminderDialog = ({
     <>
       <Dialog open={remainderDialog.status} onClose={handleClose}>
         <Box className="dialogue_main_section">
-          <DialogTitle className="dialogue_heading">Reminder</DialogTitle>
-          {/* <DialogContent> */}
-          {/* <Box>
-              <div className="row">
-                <div className="col-md-12">
-                  <Typography variant="span">Date</Typography>
-                </div>
-                <div className="col-md-12">
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DatePicker
-                      disablePast
-                      inputFormat="dd/MM/yyyy"
-                      value={clientReminderDetail.date}
-                      onChange={e => {
-                        setClientReminderDetail({
-                          ...clientReminderDetail,
-                          date: moment(e).format('YYYY-MM-DD'),
-                        })
-                      }}
-                      renderInput={params => (
-                        <TextField className="w-100" {...params} />
-                      )}
-                    />
-                  </LocalizationProvider>
-                </div>
-              </div>
-            </Box> */}
+          <Typography className="dialogue_heading">Reminder</Typography>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               inputFormat="dd/MM/yyyy"
