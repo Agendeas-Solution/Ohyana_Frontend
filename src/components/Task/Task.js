@@ -134,14 +134,15 @@ const Task = () => {
   }, [searchQuery, filterTask])
 
   useEffect(() => {
-    GetAdminStaffDetailList(
-      {},
-      res => {
-        setMemberList(res.data)
-      },
-      err => {},
-    )
-  }, [])
+    open &&
+      GetAdminStaffDetailList(
+        {},
+        res => {
+          setMemberList(res.data)
+        },
+        err => {},
+      )
+  }, [open])
 
   const handleCreateTask = () => {
     CreateTaskCall(

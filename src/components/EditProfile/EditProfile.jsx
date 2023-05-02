@@ -37,6 +37,7 @@ const SuccessSnackbar = React.lazy(() =>
 const useStyles = makeStyles({})
 const EditProfile = () => {
   const inputFile = useRef(null)
+  const inputFile = useRef(null)
   const [userDetail, setUserDetail] = useState({
     employeeName: '',
     email: '',
