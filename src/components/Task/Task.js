@@ -85,14 +85,17 @@ const Task = () => {
   const handleClose = () => {
     setOpen(false)
   }
+
   const handleOpenMemberDialog = id => {
     setTaskId(id)
 
     setOpenMemberDialog(true)
   }
+
   const handleCloseMemberDialog = () => {
     setOpenMemberDialog(false)
   }
+
   const handleClearAllFilter = () => {
     setFilterTask({
       ...filterTask,
@@ -100,6 +103,7 @@ const Task = () => {
       teamId: '',
     })
   }
+
   const handleTaskList = () => {
     let data = {}
     if (searchQuery !== '' && searchQuery) {
@@ -124,11 +128,13 @@ const Task = () => {
       },
     )
   }
+
   useEffect(() => {
     handleTaskList()
   }, [searchQuery, filterTask])
+
   useEffect(() => {
-    open &&
+    ;(openDrawer || openMemberDialog) &&
       GetAdminStaffDetailList(
         {},
         res => {
@@ -136,7 +142,8 @@ const Task = () => {
         },
         err => {},
       )
-  }, [open])
+  }, [openDrawer, openMemberDialog])
+
   const handleCreateTask = () => {
     CreateTaskCall(
       createTask,
@@ -156,12 +163,19 @@ const Task = () => {
       },
     )
   }
+
   const handleAssignMember = memberId => {
     AssignMemberParticularTask(
       { taskid: taskId, memberid: memberId },
       res => {
         setMember()
+        handleTaskList()
         handleCloseMemberDialog()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
       },
       err => {},
     )
@@ -209,6 +223,7 @@ const Task = () => {
             <img src={FilterIcon} alt="" />
           </IconButton>
         </Box>
+
         <Drawer
           onClose={handleDrawerClose}
           sx={{
@@ -293,6 +308,7 @@ const Task = () => {
           </Box>
         </Drawer>
       </Box>
+
       <Box className="below_main_tab_section">
         <Box className="inner_container">
           {taskList.length > 0 ? (

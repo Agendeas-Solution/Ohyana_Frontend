@@ -15,35 +15,30 @@ import {
 import './index.css'
 import { UserData } from './Data'
 import LineChart from './LineChart'
-import { GetProductReport } from '../../services/apiservices/productDetail'
+import { GetCityProductReport } from '../../services/apiservices/productDetail'
 import { GetCityList } from '../../services/apiservices/clientDetail'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
-const ProductGraph = ({ selectedPeriod, customRange }) => {
-  const [comparison, setComparison] = useState()
-  // const [graphData, setGraphData] = useState([])
+const CityGraph = ({ selectedPeriod, customRange }) => {
   const [graphData, setGraphData] = useState({})
   const [productList, setProductList] = useState([])
-  const [selectedProductList, setSelectedProductList] = useState([])
+  const [selectedCityList, setSelectedCityList] = useState([])
   const [cityList, setCityList] = useState([])
-  const [selectedCity, setSelectedCity] = useState('')
+  const [selectedProduct, setSelectedProduct] = useState(null)
   const [userData, setUserData] = useState({})
   const handleChange = event => {
     const { value } = event.target
-    const selectedProduct = value.map(id =>
-      productList.find(name => name.id === id),
-    )
-    setSelectedProductList(selectedProduct)
-    console.log('Selected Product:', selectedProduct)
+    const selectedCity = value.map(id => cityList.find(name => name === id))
+    setSelectedCityList(selectedCity)
   }
   useEffect(() => {
     let data = {
       period: selectedPeriod,
     }
-    if (selectedCity) {
-      data['cities'] = [selectedCity]
+    if (selectedCityList.length > 0) {
+      data['cities'] = selectedCityList
     }
-    if (selectedProductList.length > 0) {
-      data['productIds'] = selectedProductList.map(data => data.id)
+    if (selectedProduct) {
+      data['productIds'] = selectedProduct
     }
     if (selectedPeriod === 'custom') {
       data['dateFrom'] = customRange.startDate
@@ -54,7 +49,7 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
       customRange.startDate &&
       customRange.endDate
     ) {
-      GetProductReport(
+      GetCityProductReport(
         data,
         res => {
           setGraphData(res?.data)
@@ -62,7 +57,7 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
         err => {},
       )
     } else if (selectedPeriod !== 'custom') {
-      GetProductReport(
+      GetCityProductReport(
         data,
         res => {
           setGraphData(res?.data)
@@ -70,7 +65,7 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
         err => {},
       )
     }
-  }, [selectedPeriod, customRange, selectedProductList, selectedCity])
+  }, [selectedPeriod, customRange, selectedProduct, selectedCityList])
   useEffect(() => {
     GetAdminProductList(
       {},
@@ -83,6 +78,7 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
       {},
       res => {
         setCityList(res?.data)
+        debugger
       },
       err => {},
     )
@@ -136,26 +132,24 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
           <Typography variant="span">Overall</Typography>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <FormControl sx={{ width: '200px', marginLeft: '10px' }}>
-              <InputLabel>Select Product</InputLabel>
+              <InputLabel>Select City</InputLabel>
               <Select
                 label="Select Product"
                 multiple
-                value={selectedProductList.map(product => product.id)}
+                value={selectedCityList.map(city => city)}
                 onChange={handleChange}
                 renderValue={selected =>
                   selected
-                    .map(id => productList.find(name => name.id === id).name)
-                    .join(', ')
+                    .map(id => cityList.find(name => name === id))
+                    .join(',')
                 }
               >
-                {productList.map(product => (
-                  <MenuItem key={product.id} value={product.id}>
+                {cityList.map(city => (
+                  <MenuItem key={city} value={city}>
                     <Checkbox
-                      checked={selectedProductList.some(
-                        tag => tag.id === product.id,
-                      )}
+                      checked={selectedCityList.some(tag => tag === city)}
                     />
-                    <ListItemText primary={product.name} />
+                    <ListItemText primary={city} />
                   </MenuItem>
                 ))}
               </Select>
@@ -163,13 +157,13 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
             <Autocomplete
               sx={{ width: '200px', marginLeft: '10px' }}
               disablePortal
-              options={cityList}
-              value={selectedCity}
-              getOptionLabel={option => option}
+              options={productList}
+              value={selectedProduct}
+              getOptionLabel={option => option.name}
               onChange={(e, value) => {
-                setSelectedCity(value)
+                setSelectedProduct(value)
               }}
-              renderInput={params => <TextField {...params} label="City" />}
+              renderInput={params => <TextField {...params} label="Product" />}
             />
           </Box>
         </Box>
@@ -181,4 +175,4 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
   )
 }
 
-export default ProductGraph
+export default CityGraph

@@ -8,16 +8,13 @@ import {
   Button,
   Select,
   MenuItem,
+  Paper,
 } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import {
   GetAdminDepartmentList,
   GetAdminRole,
 } from '../../services/apiservices/adminprofile'
-import IconButton from '@mui/material/IconButton'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputAdornment from '@mui/material/InputAdornment'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import {
   AddEmployee,
   EditEmployee,
@@ -29,8 +26,12 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { TEAM } from '../../constants'
-import ProfileImage from '../../assets/img/Profile_Image.svg'
+import image from '../../assets/img/profile_icon.svg'
+import { PhotoCamera } from '@mui/icons-material'
+
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
+const useStyles = makeStyles({})
+
 const AddStaffMember = () => {
   const [userDetail, setUserDetail] = useState({
     employeeName: '',
@@ -67,6 +68,7 @@ const AddStaffMember = () => {
       )
     }
   }, [])
+
   useEffect(() => {
     parseInt(path) &&
       GetAdminStaffProfileDetail(
@@ -161,13 +163,53 @@ const AddStaffMember = () => {
       console.log(userDetail)
     }
   }
+
+  const [state, setState] = useState('')
+  const classes = useStyles()
+  const loadFile = event => {
+    if (event.target.files) {
+      setState(URL.createObjectURL(event.target.files[0]))
+      console.log(URL.createObjectURL(event.target.files[0]))
+    }
+  }
+
   return (
     <>
       <Box className="main_section">
         <Box className="pofile_edit_section">
-          <Box className="edit_profile_image_section">
+          {/* <Box className="edit_my_profile_image_section">
             <img src={ProfileImage} alt="profile" />
-          </Box>
+            <Button className="common_button">
+              <Uploader />
+            </Button>
+          </Box> */}
+          <Paper className="my_profile_upload_image">
+            <Box className="edit_myy_profile_image_section">
+              <input
+                type="file"
+                accept="image/*"
+                name="image"
+                id="file"
+                onChange={loadFile}
+                style={{ display: 'none' }}
+              />
+              <img
+                className="image_style"
+                src={state ? state : image}
+                // className={classes.image}
+                id="output"
+                width="130"
+                height="130"
+                alt="test"
+              />
+              <Box className="inner_icon_style">
+                <label htmlFor="file" style={{ cursor: 'pointer' }}>
+                  <PhotoCamera />
+                </label>
+              </Box>
+            </Box>
+          </Paper>
+
           <Box className="edit_profile_detail_section">
             {/* Employee Name && Select job type */}
             <Box className="input_field_row">
@@ -218,7 +260,7 @@ const AddStaffMember = () => {
               </Box>
               <Box className="input_fields">
                 <FormControl>
-                  <InputLabel>Select jobRole</InputLabel>
+                  <InputLabel>Select Job Role</InputLabel>
                   <Select
                     label="Select Job Role"
                     value={userDetail?.jobRole}
