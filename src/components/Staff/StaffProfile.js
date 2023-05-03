@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Box, Typography, Button } from '@mui/material'
+import { Box, Typography, Button, TextField, IconButton } from '@mui/material'
 import './index.css'
 import Tab from '@mui/material/Tab'
 import TabContext from '@mui/lab/TabContext'
@@ -13,6 +13,11 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import { GetAdminStaffProfileDetail } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
 import AddAppreciationDialog from './AddAppreciationDialog'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import moment from 'moment'
+import Filter from '../../assets/img/Filter.svg'
+
 const PJPDetail = React.lazy(() => import('./PJPDetail'))
 const StaffTarget = React.lazy(() => import('./StaffTarget'))
 const StaffAttendance = React.lazy(() => import('./StaffAttendance'))
@@ -23,14 +28,37 @@ const ChangeRoleDialog = React.lazy(() => import('./ChangeRoleDialog'))
 
 const StaffProfile = () => {
   const [value, setValue] = useState('1')
+  const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
+
   let path = window.location.pathname
   path = path.split('/').pop()
   const [targetDetail, setTargetDetail] = useState({
     status: false,
     id: path,
   })
+
+  // PJP
+  const [open, setOpen] = useState(false)
+  const [addPJPDetail, setAddPJPDetail] = useState({
+    dialogStatus: false,
+    date: moment().format('LL'),
+    clientId: '',
+    description: '',
+  })
+  const handleDrawerOpen = () => {
+    setOpen(true)
+  }
+  const handleDrawerClose = () => {
+    setOpen(false)
+  }
+
+  // Attendance
+  const [activeTab, setActiveTab] = useState('present')
+
+  //Staff Points
   const [addAppreciationDialogControl, setAddAppreciationDialogControl] =
     useState(false)
+
   const { flagLoader, permissions } = useContext(AuthContext).state
   const [changeRoleDialogControl, setChangeRoleDialogControl] = useState(false)
   const [adminProfileDetail, setAdminProfileDetail] = useState({})
@@ -91,7 +119,12 @@ const StaffProfile = () => {
           </Box>
         </Box>
 
-        <Box sx={{ width: '100%', typography: 'body1' }}>
+        <Box
+          sx={{
+            width: '100%',
+            typography: 'body1',
+          }}
+        >
           <TabContext value={value}>
             <Box className="tab_row">
               <TabList
@@ -106,24 +139,236 @@ const StaffProfile = () => {
                 <Tab label="Points" value="6" />
                 <Tab label="Profile" value="4" />
               </TabList>
+
+              {value == '1' && (
+                <Box>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      className="staff_date"
+                      views={['month', 'year']}
+                      value={selectMonth}
+                      onChange={selectMonth => {
+                        setSelectMonth(selectMonth)
+                      }}
+                      renderInput={params => (
+                        <TextField
+                          sx={{
+                            width: '175px',
+                            marginRight: '10px',
+                          }}
+                          {...params}
+                          helperText={null}
+                        />
+                      )}
+                      PopperProps={{
+                        placement: 'bottom-start', // Set placement to 'bottom-start'
+                      }}
+                    />
+                  </LocalizationProvider>
+                  <Button
+                    className="staff_common_button"
+                    onClick={() =>
+                      setTargetDetail({ ...targetDetail, status: true })
+                    }
+                  >
+                    + Set Target
+                  </Button>
+                </Box>
+              )}
+
+              {value == '3' && (
+                <Box className="button_and_filter">
+                  <Button
+                    onClick={() =>
+                      setAddPJPDetail({ ...addPJPDetail, dialogStatus: true })
+                    }
+                    className="tab_btn p-2"
+                  >
+                    + Create
+                  </Button>
+                  <IconButton edge="end" onClick={handleDrawerOpen}>
+                    <img src={Filter} alt="" />
+                  </IconButton>
+                </Box>
+              )}
+
+              {value == '5' && (
+                <Box>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      className="staff_date"
+                      views={['month', 'year']}
+                      value={selectMonth}
+                      onChange={selectMonth => {
+                        setSelectMonth(selectMonth)
+                      }}
+                      renderInput={params => (
+                        <TextField
+                          sx={{ width: '175px', marginRight: '10px' }}
+                          placeholder="Year and Month"
+                          {...params}
+                          helperText={null}
+                        />
+                      )}
+                      PopperProps={{
+                        placement: 'bottom-start', // Set placement to 'bottom-start'
+                      }}
+                    />
+                  </LocalizationProvider>
+                </Box>
+              )}
+
+              {value == '2' && (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'start',
+                  }}
+                >
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      className="staff_date"
+                      views={['month', 'year']}
+                      value={selectMonth}
+                      onChange={selectMonth => {
+                        setSelectMonth(selectMonth)
+                      }}
+                      renderInput={params => (
+                        <TextField
+                          sx={{ width: '175px', marginRight: '10px' }}
+                          placeholder="Year and Month"
+                          {...params}
+                          helperText={null}
+                        />
+                      )}
+                      PopperProps={{
+                        placement: 'bottom-start',
+                      }}
+                    />
+                  </LocalizationProvider>
+                  <Box
+                    sx={{
+                      background: '#F1F2F6',
+                      borderRadius: '5px',
+                      height: '35px',
+                      display: 'flex',
+                      flexDirection: 'row',
+                    }}
+                  >
+                    <Button
+                      className={
+                        activeTab === 'present'
+                          ? 'active_button'
+                          : 'custom_tab_background'
+                      }
+                      onClick={() => {
+                        setActiveTab('present')
+                      }}
+                      variant="contained"
+                    >
+                      Present
+                    </Button>
+                    <Button
+                      className={
+                        activeTab === 'leave'
+                          ? 'active_button'
+                          : 'custom_tab_background'
+                      }
+                      onClick={() => {
+                        setActiveTab('leave')
+                      }}
+                      variant="contained"
+                    >
+                      Leave
+                    </Button>
+                  </Box>
+                </Box>
+              )}
+
+              {value == '6' && (
+                <Box>
+                  <Button
+                    onClick={() => setAddAppreciationDialogControl(true)}
+                    className="staff_common_button"
+                  >
+                    + Appreciation
+                  </Button>
+
+                  {/* <Box className="points_date_filter "> */}
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      className="staff_date"
+                      views={['month', 'year']}
+                      value={selectMonth}
+                      onChange={newValue => {
+                        setSelectMonth(newValue)
+                      }}
+                      renderInput={params => (
+                        <TextField
+                          {...params}
+                          sx={{
+                            width: '180px',
+                            marginLeft: '10px',
+                            border: 'none',
+                          }}
+                          placeholder="Year and Month"
+                          helperText={null}
+                        />
+                      )}
+                      PopperProps={{
+                        placement: 'bottom-start', // Set placement to 'bottom-start'
+                      }}
+                    />
+                  </LocalizationProvider>
+                </Box>
+              )}
             </Box>
+
             <TabPanel sx={{ padding: '0' }} value="4">
               <StaffDetail adminProfileDetail={adminProfileDetail} />
             </TabPanel>
             <TabPanel sx={{ padding: '0' }} value="2">
-              <StaffAttendance />
+              <StaffAttendance
+                selectMonth={selectMonth}
+                setSelectMonth={setSelectMonth}
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              />
             </TabPanel>
             <TabPanel sx={{ padding: '0' }} value="3">
-              <PJPDetail />
+              <PJPDetail
+                addPJPDetail={addPJPDetail}
+                setAddPJPDetail={setAddPJPDetail}
+                handleDrawerOpen={handleDrawerOpen}
+                handleDrawerClose={handleDrawerClose}
+                open={open}
+                setOpen={setOpen}
+              />
             </TabPanel>
             <TabPanel sx={{ padding: '0' }} value="1">
-              <StaffTarget />
+              <StaffTarget
+                selectMonth={selectMonth}
+                setSelectMonth={setSelectMonth}
+                targetDetail={targetDetail}
+                setTargetDetail={setTargetDetail}
+              />
             </TabPanel>
             <TabPanel sx={{ padding: '0' }} value="5">
-              <StaffExpenses adminProfileDetail={adminProfileDetail} />
+              <StaffExpenses
+                adminProfileDetail={adminProfileDetail}
+                selectMonth={selectMonth}
+                setSelectMonth={setSelectMonth}
+              />
             </TabPanel>
             <TabPanel sx={{ padding: '0' }} value="6">
-              <StaffPoint />
+              <StaffPoint
+                selectMonth={selectMonth}
+                setSelectMonth={setSelectMonth}
+                addAppreciationDialogControl={addAppreciationDialogControl}
+                setAddAppreciationDialogControl={
+                  setAddAppreciationDialogControl
+                }
+              />
             </TabPanel>
           </TabContext>
           <ChangeRoleDialog changeRoleDialogControl={changeRoleDialogControl} />

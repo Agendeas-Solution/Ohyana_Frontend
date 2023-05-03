@@ -51,7 +51,7 @@ const Task = () => {
   const theme = useTheme()
   const [member, setMember] = useState({})
   const [filterTask, setFilterTask] = useState({
-    due_date: '',
+    due_date: null,
     teamId: '',
   })
   const [searchQuery, setSearchQuery] = useState('')

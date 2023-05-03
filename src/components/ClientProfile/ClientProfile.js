@@ -68,7 +68,7 @@ const ClientProfile = () => {
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [remainderDialog, setRemainderDialog] = useState({
     description: '',
-    date: '',
+    date: moment(),
     time: '',
     status: false,
     id: null,
@@ -77,7 +77,7 @@ const ClientProfile = () => {
   const [statusDialog, setStatusDialog] = useState(false)
   const [appointmentDialogControl, setAppointmentDialogControl] = useState({
     status: false,
-    date: '',
+    date: moment(),
     time: '',
     description: '',
     appointed_member: [],

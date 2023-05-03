@@ -61,7 +61,7 @@ const Orders = () => {
   const [queryParams, setQueryParams] = useState({
     delivery: '',
     payment: '',
-    date: '',
+    date: null,
     searchQuery: '',
   })
   const DrawerHeader = styled('div')(({ theme }) => ({

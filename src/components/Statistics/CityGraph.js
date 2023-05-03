@@ -126,10 +126,9 @@ const CityGraph = ({ selectedPeriod, customRange }) => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            padding: '10px',
           }}
         >
-          <Typography variant="span">Overall</Typography>
+          <Typography variant="span">Overview</Typography>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <FormControl sx={{ width: '200px', marginLeft: '10px' }}>
               <InputLabel>Select City</InputLabel>

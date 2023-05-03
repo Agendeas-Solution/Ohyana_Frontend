@@ -40,12 +40,12 @@ const AddClient = () => {
   const [userDetail, setUserDetail] = useState({
     clientName: '',
     reference: '',
-    email: null,
-    contactNo: null,
+    email: '',
+    contactNo: '',
     clientType: '',
     country: null,
     inquiryfor: '',
-    max_invesment_amount: null,
+    max_invesment_amount: '',
     address: '',
     state: '',
     city: '',
@@ -206,7 +206,9 @@ const AddClient = () => {
               <CameraAltRoundedIcon fontSize="large" />
             </Box>
           </Box> */}
-          <Paper className="my_profile_upload_image">
+
+          {/* FINAL */}
+          {/* <Paper className="my_profile_upload_image">
             <Box className="edit_myy_profile_image_section">
               <input
                 type="file"
@@ -231,7 +233,9 @@ const AddClient = () => {
                 </label>
               </Box>
             </Box>
-          </Paper>
+          </Paper> */}
+
+          <Uploader />
 
           <Box className="edit_profile_detail_section">
             {/* Client Name &&  Business Name*/}
@@ -274,7 +278,7 @@ const AddClient = () => {
 
               <Box className="input_fields">
                 <TextField
-                  label="Investment Scale "
+                  label="Investment Scale"
                   onChange={e => {
                     setUserDetail({
                       ...userDetail,

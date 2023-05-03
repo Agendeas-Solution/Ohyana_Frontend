@@ -28,6 +28,8 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 import { TEAM } from '../../constants'
 import image from '../../assets/img/profile_icon.svg'
 import { PhotoCamera } from '@mui/icons-material'
+import Uploader from '../Uploader/Uploader'
+import moment from 'moment'
 
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const useStyles = makeStyles({})
@@ -39,7 +41,8 @@ const AddStaffMember = () => {
     jobRole: '',
     contactNo: '',
     gender: '',
-    birthDate: '',
+    // birthDate: '',
+    birthDate: moment(),
     state: '',
     jobType: '',
   })
@@ -183,7 +186,9 @@ const AddStaffMember = () => {
               <Uploader />
             </Button>
           </Box> */}
-          <Paper className="my_profile_upload_image">
+
+          {/* FINAL */}
+          {/* <Paper className="my_profile_upload_image">
             <Box className="edit_myy_profile_image_section">
               <input
                 type="file"
@@ -208,8 +213,9 @@ const AddStaffMember = () => {
                 </label>
               </Box>
             </Box>
-          </Paper>
+          </Paper> */}
 
+          <Uploader />
           <Box className="edit_profile_detail_section">
             {/* Employee Name && Select job type */}
             <Box className="input_field_row">
@@ -326,12 +332,16 @@ const AddStaffMember = () => {
               <Box className="input_fields">
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
+                    label="Select Birth Date"
                     inputFormat="dd/MM/yyyy"
                     value={userDetail.birthDate}
                     onChange={e => {
                       setUserDetail({ ...userDetail, birthDate: e })
                     }}
                     renderInput={params => <TextField {...params} />}
+                    PopperProps={{
+                      placement: 'bottom-start', // Set placement to 'bottom-start'
+                    }}
                   />
                 </LocalizationProvider>
               </Box>

@@ -1,20 +1,5 @@
 import React, { useState } from 'react'
-import {
-  Box,
-  Typography,
-  Autocomplete,
-  TextField,
-  Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Divider,
-  Tab,
-  Tabs,
-  IconButton,
-} from '@mui/material'
-import EventIcon from '@mui/icons-material/Event'
+import { Box, TextField, Select, MenuItem, Tab, Tabs } from '@mui/material'
 import './index.css'
 import { REPORT } from '../../constants'
 import moment from 'moment'
@@ -22,10 +7,8 @@ import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import CityGraph from './CityGraph'
-const BarChart = React.lazy(() => import('./BarChart'))
 const TeamGraph = React.lazy(() => import('./TeamGraph'))
 const ProductGraph = React.lazy(() => import('./ProductGraph'))
-const LineChart = React.lazy(() => import('./LineChart'))
 const Statistics = () => {
   const [value, setValue] = React.useState('1')
 
@@ -55,116 +38,82 @@ const Statistics = () => {
             <Tab label="City" value="3" />
           </Tabs>
           <Box
-          {selectedPeriod === 'custom' && (
-            <>
-              {' '}
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  disableFuture
-                  inputFormat="dd/MM/yyyy"
-                  value={customRange.startDate}
-                  onChange={e => {
-                    setCustomRange({
-                      ...customRange,
-                      startDate: moment(e).format('YYYY-MM-DD'),
-                    })
-                  }}
-                  renderInput={params => (
-                    <TextField placeholder="Start Date" {...params} />
-                  )}
-                  PopperProps={{
-                    placement: 'bottom-start',
-                  }}
-                />
-              </LocalizationProvider>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  disableFuture
-                  minDate={customRange.startDate}
-                  inputFormat="dd/MM/yyyy"
-                  label="End Date"
-                  value={customRange.endDate}
-                  onChange={e => {
-                    setCustomRange({
-                      ...customRange,
-                      endDate: moment(e).format('YYYY-MM-DD'),
-                    })
-                  }}
-                  renderInput={params => <TextField {...params} />}
-                  PopperProps={{
-                    placement: 'bottom-start',
-                  }}
-                />
-              </LocalizationProvider>
-            </>
-          )}
-          <Select
             sx={{
               display: 'flex',
               flexDirection: 'row',
             }}
           >
-            {selectedPeriod === 'custom' && (
-              <>
-                <Box sx={{ marginRight: '10px' }}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DatePicker
-                      className="staff_date"
-                      inputFormat="dd/MM/yyyy"
-                      value={customRange.startDate}
-                      onChange={e => {
-                        setCustomRange({
-                          ...customRange,
-                          startDate: moment(e).format('YYYY-MM-DD'),
-                        })
-                      }}
-                      renderInput={params => (
-                        <TextField
-                          sx={{
-                            width: '175px',
-                            background: 'white',
-                          }}
-                          placeholder="Start Date"
-                          {...params}
-                        />
-                      )}
-                      PopperProps={{
-                        placement: 'bottom-start',
-                      }}
-                    />
-                  </LocalizationProvider>
-                </Box>
-                <Box sx={{ marginRight: '10px' }}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DatePicker
-                      className="staff_date"
-                      disableFuture
-                      inputFormat="dd/MM/yyyy"
-                      value={customRange.endDate}
-                      onChange={e => {
-                        setCustomRange({
-                          ...customRange,
-                          endDate: moment(e).format('YYYY-MM-DD'),
-                        })
-                      }}
-                      renderInput={params => (
-                        <TextField
-                          placeholder="Start Date"
-                          sx={{
-                            width: '175px',
-                            background: 'white',
-                          }}
-                          {...params}
-                        />
-                      )}
-                      PopperProps={{
-                        placement: 'bottom-start',
-                      }}
-                    />
-                  </LocalizationProvider>
-                </Box>
-              </>
-            )}
+            <Box
+              sx={{
+                display: 'flex',
+                marginRight: '10PX',
+                flexDirection: 'row',
+              }}
+            >
+              {selectedPeriod === 'custom' && (
+                <>
+                  <Box sx={{ marginRight: '10px' }}>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DatePicker
+                        className="staff_date"
+                        inputFormat="dd/MM/yyyy"
+                        value={customRange.startDate}
+                        onChange={e => {
+                          setCustomRange({
+                            ...customRange,
+                            startDate: moment(e).format('YYYY-MM-DD'),
+                          })
+                        }}
+                        renderInput={params => (
+                          <TextField
+                            sx={{
+                              width: '175px',
+                              background: 'white',
+                            }}
+                            placeholder="Start Date"
+                            {...params}
+                          />
+                        )}
+                        PopperProps={{
+                          placement: 'bottom-start',
+                        }}
+                      />
+                    </LocalizationProvider>
+                  </Box>
+
+                  <Box>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DatePicker
+                        className="staff_date"
+                        inputFormat="dd/MM/yyyy"
+                        minDate={customRange.startDate}
+                        value={customRange.endDate}
+                        onChange={e => {
+                          setCustomRange({
+                            ...customRange,
+                            endDate: moment(e).format('YYYY-MM-DD'),
+                          })
+                        }}
+                        renderInput={params => (
+                          <TextField
+                            sx={{
+                              width: '175px',
+                              background: 'white',
+                            }}
+                            placeholder="End Date"
+                            {...params}
+                          />
+                        )}
+                        PopperProps={{
+                          placement: 'bottom-start',
+                        }}
+                      />
+                    </LocalizationProvider>
+                  </Box>
+                </>
+              )}
+            </Box>
+
             <Select
               sx={{
                 width: '130px',

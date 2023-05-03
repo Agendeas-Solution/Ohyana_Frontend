@@ -67,9 +67,9 @@ tr td {
   padding-bottom: 7px !important;
 }
 
-table {
-  padding-left: 10px !important;
-}
+// table {
+//   padding-left: 10px !important;
+// }
 
 textarea:focus {
   outline: unset !important;
@@ -1162,9 +1162,8 @@ button {
 }
 
 .expenses_table_height {
-  // height: 55vh;
-  height: 72%;
-  box-shadow: none !important;
+  height: 80vh;
+  // box-shadow: none !important;
 }
 
 .expenses_main_table {
@@ -1237,6 +1236,7 @@ button {
 
 .tablecell_height {
   line-height: 3 !important;
+  // vertical-align: baseline !important;
 }
 
 .staff_tablecell:hover {
