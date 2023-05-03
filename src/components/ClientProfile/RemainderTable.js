@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   Table,
   TableBody,
@@ -14,11 +14,14 @@ import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
 import EditReminderDialog from './EditReminderDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
-
+import DeleteReminderDialog from './DeleteReminderDialog'
+import { DeleteReminder } from '../../services/apiservices/adminprofile'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 const RemainderTable = ({
   clientReminderList,
   remainderDialog,
   setRemainderDialog,
+  handleReminderDetail,
 }) => {
   const [editReminderDetail, setEditReminderDetail] = useState({
     description: '',
@@ -27,6 +30,19 @@ const RemainderTable = ({
     status: false,
     id: null,
   })
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [deleteReminderDialogControl, setDeleteReminderDialogControl] =
+    useState({
+      status: false,
+      id: '',
+    })
+  const handleDeleteReminderDialogClose = () => {
+    setDeleteReminderDialogControl({
+      ...deleteReminderDialogControl,
+      status: false,
+    })
+  }
   const handleEditReminder = row => {
     setRemainderDialog({
       ...remainderDialog,
@@ -36,6 +52,28 @@ const RemainderTable = ({
       id: row.id,
       status: true,
     })
+  }
+  const handleDeleteReminder = () => {
+    DeleteReminder(
+      deleteReminderDialogControl.id,
+      res => {
+        handleDeleteReminderDialogClose()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+        handleReminderDetail()
+      },
+      err => {
+        console.log('Printing OrderList Error', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
+    )
   }
 
   return (
@@ -101,7 +139,16 @@ const RemainderTable = ({
                     >
                       Edit
                     </Button>
-                    <Button className="border_button" onClick={() => {}}>
+                    <Button
+                      className="border_button"
+                      onClick={() => {
+                        setDeleteReminderDialogControl({
+                          ...deleteReminderDialogControl,
+                          status: true,
+                          id: row.id,
+                        })
+                      }}
+                    >
                       Delete
                     </Button>
                   </TableCell>
@@ -113,6 +160,11 @@ const RemainderTable = ({
           <NoResultFound />
         )}
       </TableContainer>
+      <DeleteReminderDialog
+        deleteReminderDialogControl={deleteReminderDialogControl}
+        handleDeleteReminderDialogClose={handleDeleteReminderDialogClose}
+        handleDeleteReminder={handleDeleteReminder}
+      />
     </>
   )
 }

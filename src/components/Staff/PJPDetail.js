@@ -134,21 +134,7 @@ const PJPDetail = ({
     setSelectedCityState({ city: '', state: '' })
     handleGetPJPList()
   }
-  // const getLocation = () => {
-  //   if (!window.navigator.geolocation) {
-  //   } else {
-  //     window.navigator.geolocation.getCurrentPosition(
-  //       position => {
-  //         setAddPJPDetail({
-  //           ...addPJPDetail,
-  //           latitude: position.coords.latitude.toString(),
-  //           longitude: position.coords.longitude.toString(),
-  //         })
-  //       },
-  //       () => {},
-  //     )
-  //   }
-  // }
+
   const handleGetPJPList = () => {
     let data = {
       teamId: path,

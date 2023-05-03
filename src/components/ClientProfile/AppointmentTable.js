@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   Table,
   TableBody,
@@ -12,11 +12,23 @@ import {
 import './index.css'
 import moment from 'moment'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import DeleteAppoinmentDialog from './DeleteAppoinmentDialog'
+import { DeleteAppointment } from '../../services/apiservices/adminprofile'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+
 const AppointmentTable = ({
   clientAppointmentList,
   appointmentDialogControl,
   setAppointmentDialogControl,
+  handleAppointmentDetail,
 }) => {
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [deleteAppoinmentDialogControl, setDeleteAppointmentDialogControl] =
+    useState({
+      status: false,
+      id: '',
+    })
   const handleAppointmentReminder = row => {
     setAppointmentDialogControl({
       ...appointmentDialogControl,
@@ -27,6 +39,34 @@ const AppointmentTable = ({
       appointmentId: row.id,
       appointed_member: row.teams,
       appointment_unit: row.appointment_unit,
+    })
+  }
+  const handleDeleteAppointment = () => {
+    DeleteAppointment(
+      deleteAppoinmentDialogControl.id,
+      res => {
+        handleCloseAppointmentDialog()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+        handleAppointmentDetail()
+      },
+      err => {
+        console.log('Printing OrderList Error', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
+    )
+  }
+  const handleCloseAppointmentDialog = () => {
+    setDeleteAppointmentDialogControl({
+      ...deleteAppoinmentDialogControl,
+      status: false,
     })
   }
   return (
@@ -93,7 +133,16 @@ const AppointmentTable = ({
                       >
                         Edit
                       </Button>
-                      <Button className="border_button" onClick={() => {}}>
+                      <Button
+                        className="border_button"
+                        onClick={() => {
+                          setDeleteAppointmentDialogControl({
+                            ...deleteAppoinmentDialogControl,
+                            status: true,
+                            id: row.id,
+                          })
+                        }}
+                      >
                         Delete
                       </Button>
                     </TableCell>
@@ -105,6 +154,11 @@ const AppointmentTable = ({
           <NoResultFound />
         )}
       </TableContainer>
+      <DeleteAppoinmentDialog
+        deleteAppoinmentDialogControl={deleteAppoinmentDialogControl}
+        handleCloseAppointmentDialog={handleCloseAppointmentDialog}
+        handleDeleteAppointment={handleDeleteAppointment}
+      />
     </>
   )
 }
