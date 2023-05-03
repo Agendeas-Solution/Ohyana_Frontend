@@ -558,6 +558,7 @@ const ClientProfile = () => {
                 clientReminderList={clientReminderList}
                 remainderDialog={remainderDialog}
                 setRemainderDialog={setRemainderDialog}
+                handleReminderDetail={handleReminderDetail}
               />
             </TabPanel>
             <TabPanel sx={{ padding: '0px' }} value="3">
@@ -566,6 +567,7 @@ const ClientProfile = () => {
                 setAppointmentDialogControl={setAppointmentDialogControl}
                 handleAppointmentOpen={handleAppointmentOpen}
                 clientAppointmentList={clientAppointmentList}
+                handleAppointmentDetail={handleAppointmentDetail}
               />
             </TabPanel>
             <TabPanel sx={{ padding: '0px' }} value="4">
