@@ -15,12 +15,18 @@ import StaffAttendancePresent from './StaffAttendancePresent'
 import StaffAttendanceLeave from './StaffAttendanceLeave'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-const StaffAttendance = () => {
-  const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
+
+const StaffAttendance = ({
+  selectMonth,
+  setSelectMonth,
+  activeTab,
+  setActiveTab,
+}) => {
+  // const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [value, setValue] = useState('1')
-  const [activeTab, setActiveTab] = useState('present')
+  // const [activeTab, setActiveTab] = useState('present')
   const [staffAttendanceList, setStaffAttendanceList] = useState([])
   const [staffLeaveList, setStaffLeaveList] = useState([])
   const [approveLeave, setApproveLeave] = useState({
@@ -104,7 +110,8 @@ const StaffAttendance = () => {
               </Typography>
             </Box>
           </Box>
-          <Box
+
+          {/* <Box
             sx={{
               display: 'flex',
               alignItems: 'start',
@@ -167,7 +174,7 @@ const StaffAttendance = () => {
                 Leave
               </Button>
             </Box>
-          </Box>
+          </Box> */}
         </Box>
         {activeTab === 'present' && (
           <StaffAttendancePresent staffAttendanceList={staffAttendanceList} />

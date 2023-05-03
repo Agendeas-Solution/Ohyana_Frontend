@@ -28,6 +28,7 @@ import Uploader from '../Uploader/Uploader'
 import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded'
 import { PhotoCamera } from '@mui/icons-material'
 import image from '../../assets/img/profile_icon.svg'
+import moment from 'moment'
 
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const SuccessSnackbar = React.lazy(() =>
@@ -42,7 +43,7 @@ const EditProfile = () => {
     email: '',
     contactNo: '',
     gender: '',
-    birthDate: '',
+    birthDate: moment().format('LL'),
   })
   const [file, setFile] = useState(null)
 

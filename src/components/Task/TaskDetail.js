@@ -56,7 +56,7 @@ const TaskDetail = () => {
   })
   const [dueDateDialogControl, setDueDateDialogControl] = useState({
     status: false,
-    due_date: moment().format('LL'),
+    due_date: moment(),
     id: '',
   })
   const handleDueDateDialogClose = () => {

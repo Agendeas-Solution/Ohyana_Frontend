@@ -50,23 +50,17 @@ const StaffAttendanceLeave = ({
   return (
     <>
       <TableContainer
-        className="expenses_table_height mt-2"
+        className="eclient_table_height client_detail_table set_box_shadow mt-2"
         component={Paper}
-        sx={{
-          boxShadow: 'none',
-          border: '1px solid #e5e5e5',
-          borderTop: 'none',
-          overflowY: 'auto',
-        }}
       >
         {staffLeaveList.length > 0 ? (
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690 }}
-            className="table_heading custom_table"
+            sx={{ minWidth: 700, padding: '0px !important' }}
+            className="table_heading"
           >
-            <TableHead>
+            <TableHead className="client_profile_table_header">
               <TableRow>
                 <TableCell>Date</TableCell>
                 <TableCell>Leave Type</TableCell>
@@ -78,9 +72,10 @@ const StaffAttendanceLeave = ({
             </TableHead>
             <TableBody>
               {staffLeaveList &&
-                staffLeaveList.map(leaveList => {
+                staffLeaveList.map((leaveList, index) => {
                   return (
                     <TableRow
+                      key={index}
                       hover
                       role="checkbox"
                       tabIndex={-1}
@@ -88,15 +83,26 @@ const StaffAttendanceLeave = ({
                         '&:last-child td,th': { border: 0 },
                       }}
                     >
-                      <TableCell className="tablecell_height">
+                      <TableCell
+                        scope="row"
+                        className="tablecell_height table_row_top_align"
+                      >
                         {moment(leaveList?.date).format('DD/MM/YY')}
                       </TableCell>
-                      <TableCell>{leaveList?.leave?.type}</TableCell>
-                      <TableCell>{leaveList?.takenDays}</TableCell>
-                      <TableCell>{leaveList?.remainDays}</TableCell>
-                      <TableCell>{leaveList?.status}</TableCell>
+                      <TableCell className="table_row_top_align">
+                        {leaveList?.leave?.type}
+                      </TableCell>
+                      <TableCell className="table_row_top_align">
+                        {leaveList?.takenDays}
+                      </TableCell>
+                      <TableCell className="table_row_top_align">
+                        {leaveList?.remainDays}
+                      </TableCell>
+                      <TableCell className="table_row_top_align">
+                        {leaveList?.status}
+                      </TableCell>
                       {leaveList?.status === 'PENDING' && (
-                        <TableCell>
+                        <TableCell className="table_row_top_align">
                           <Button
                             className="common_button"
                             onClick={() => {

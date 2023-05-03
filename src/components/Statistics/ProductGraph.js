@@ -40,7 +40,7 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
       period: selectedPeriod,
     }
     if (selectedCity) {
-      data['cities'] = [selectedCity]
+      data['cities'] = selectedCity
     }
     if (selectedProductList.length > 0) {
       data['productIds'] = selectedProductList.map(data => data.id)
@@ -59,7 +59,9 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
         res => {
           setGraphData(res?.data)
         },
-        err => {},
+        err => {
+          setGraphData([])
+        },
       )
     } else if (selectedPeriod !== 'custom') {
       GetProductReport(
@@ -67,7 +69,9 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
         res => {
           setGraphData(res?.data)
         },
-        err => {},
+        err => {
+          setGraphData([])
+        },
       )
     }
   }, [selectedPeriod, customRange, selectedProductList, selectedCity])
@@ -88,37 +92,37 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
     )
   }, [])
   useEffect(() => {
-    let datga =
-      graphData.label &&
-      graphData.label.map(value => {
-        const colors = '#' + Math.floor(Math.random() * 16777215).toString(16)
-        return {
-          data: Object.entries(graphData.data)
-            .map(([key, product], i) => {
-              return product.reduce((acc, productDetail) => {
-                if (value.id === productDetail.productId) {
-                  acc.push(productDetail.quantity)
-                }
-                return acc
-              }, [])
-            })
-            .flat()
-            .filter(count => count !== undefined && count !== []),
-          label: value.name,
-          backgroundColor: colors,
-          borderColor: colors,
-          borderWidth: 2,
-          barThickness: 20,
-          borderSkipped: 'middle',
-          circular: true,
-        }
-      })
+    let datga = graphData.label
+      ? graphData.label.map(value => {
+          const colors = '#' + Math.floor(Math.random() * 16777215).toString(16)
+          return {
+            data: Object.entries(graphData.data)
+              .map(([key, product], i) => {
+                return product.reduce((acc, productDetail) => {
+                  if (value.id === productDetail.productId) {
+                    acc.push(productDetail.quantity)
+                  }
+                  return acc
+                }, [])
+              })
+              .flat()
+              .filter(count => count !== undefined && count !== []),
+            label: value.name,
+            backgroundColor: colors,
+            borderColor: colors,
+            borderWidth: 2,
+            barThickness: 20,
+            borderSkipped: 'middle',
+            circular: true,
+          }
+        })
+      : null
     console.log(datga)
     datga &&
       setUserData({
         ...userData,
         datasets: datga,
-        labels: graphData.label && Object.keys(graphData.data),
+        labels: graphData.label ? Object.keys(graphData.data) : null,
       })
   }, [graphData])
   return (
@@ -130,10 +134,9 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            padding: '10px',
           }}
         >
-          <Typography variant="span">Overall</Typography>
+          <Typography variant="span">Overview</Typography>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <FormControl sx={{ width: '200px', marginLeft: '10px' }}>
               <InputLabel>Select Product</InputLabel>
