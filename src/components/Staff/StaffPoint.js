@@ -25,16 +25,22 @@ import {
 import moment from 'moment'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import AddAppreciationDialog from './AddAppreciationDialog'
-const StaffPoint = () => {
+
+const StaffPoint = ({
+  selectMonth,
+  setSelectMonth,
+  addAppreciationDialogControl,
+  setAddAppreciationDialogControl,
+}) => {
   const [pointRule, setPointRule] = useState([])
-  const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
+  // const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [totalPage, setTotalPage] = useState(1)
   const [totalPoints, setTotalPoints] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [pointsData, setPointsData] = useState([])
-  const [addAppreciationDialogControl, setAddAppreciationDialogControl] =
-    useState(false)
+  // const [addAppreciationDialogControl, setAddAppreciationDialogControl] =
+  //   useState(false)
   let path = window.location.pathname
   path = path.split('/').pop()
   useEffect(() => {
@@ -127,7 +133,7 @@ const StaffPoint = () => {
               Total Points : {totalPoints}
             </Typography>
 
-            <Box>
+            {/* <Box>
               <Button
                 onClick={() => setAddAppreciationDialogControl(true)}
                 className="staff_common_button"
@@ -135,7 +141,6 @@ const StaffPoint = () => {
                 + Appreciation
               </Button>
 
-              {/* <Box className="points_date_filter "> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   className="staff_date"
@@ -161,7 +166,7 @@ const StaffPoint = () => {
                   }}
                 />
               </LocalizationProvider>
-            </Box>
+            </Box> */}
             {/* </Box> */}
           </Box>
 
@@ -197,11 +202,15 @@ const StaffPoint = () => {
                             '&:last-child td,th': { border: 0 },
                           }}
                         >
-                          <TableCell className="tablecell_height">
+                          <TableCell className="tablecell_height table_row_top_align">
                             {moment(data?.createdAt).format('l')}{' '}
                           </TableCell>
-                          <TableCell>{data?.point?.name || '-'}</TableCell>
-                          <TableCell>{data?.point?.points}</TableCell>
+                          <TableCell className="table_row_top_align">
+                            {data?.point?.name || '-'}
+                          </TableCell>
+                          <TableCell className="table_row_top_align">
+                            {data?.point?.points}
+                          </TableCell>
                         </TableRow>
                       )
                     })}

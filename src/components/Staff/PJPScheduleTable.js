@@ -34,11 +34,16 @@ const PJPScheduleTable = ({
     <>
       {pjpList?.pjps && pjpList?.pjps.length > 0 ? (
         <TableContainer
-          className="pjp_table_height pjp_all_detail"
+          className="client_table_height client_detail_table set_box_shadow"
           component={Paper}
         >
-          <Table stickyHeader className="table_heading">
-            <TableHead>
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            sx={{ minWidth: 700, padding: '0px !important' }}
+            className="table_heading"
+          >
+            <TableHead className="client_profile_table_header">
               <TableRow>
                 <TableCell>Sr No.</TableCell>
                 <TableCell>Date</TableCell>
@@ -55,6 +60,7 @@ const PJPScheduleTable = ({
               {pjpList?.pjps.map((pjpData, index) => {
                 return (
                   <TableRow
+                    key={index}
                     hover
                     role="checkbox"
                     tabIndex={-1}
@@ -62,18 +68,28 @@ const PJPScheduleTable = ({
                       '&:last-child td,th': { border: 0 },
                     }}
                   >
-                    <TableCell className="tablecell_height">
+                    <TableCell scope="row" className=" table_row_top_align">
                       {index + 1}
                     </TableCell>
-                    <TableCell>{pjpData?.date || '-'}</TableCell>
-                    <TableCell>{pjpData?.client?.name || '-'}</TableCell>
-                    <TableCell>{pjpData?.client?.business || '-'}</TableCell>
-                    <TableCell>
+                    <TableCell className="table_row_top_align">
+                      {pjpData?.date || '-'}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
+                      {pjpData?.client?.name || '-'}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
+                      {pjpData?.client?.business || '-'}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
                       {pjpData?.client?.contact_number || '-'}
                     </TableCell>
-                    <TableCell>{pjpData?.client?.city || '-'}</TableCell>
-                    <TableCell>{pjpData?.status || '-'}</TableCell>
-                    <TableCell>
+                    <TableCell className="table_row_top_align">
+                      {pjpData?.client?.city || '-'}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
+                      {pjpData?.status || '-'}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
                       {!pjpData?.is_completed ? (
                         <Button
                           onClick={() =>
@@ -91,7 +107,7 @@ const PJPScheduleTable = ({
                         '-'
                       )}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="table_row_top_align">
                       <Button
                         onClick={() =>
                           setPJPDetailDialog({

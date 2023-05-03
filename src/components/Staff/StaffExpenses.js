@@ -26,9 +26,9 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 import StaffExpensesApprovalDialog from './StaffExpensesApprovalDialog'
 import StaffPaymentVerificationDialog from './StaffPaymentVerificationDialog'
 
-const StaffExpenses = () => {
+const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
   const { flagLoader, permissions } = useContext(AuthContext).state
-  const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
+  // const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const [value, setValue] = useState('1')
   const [expenseList, setExpenseList] = useState([])
   const [expensesData, setExpensesData] = useState([])
@@ -149,166 +149,127 @@ const StaffExpenses = () => {
   }
   return (
     <>
-      <Box className="target_section">
-        <Box className="statistics_data_section">
-          <Box className="statistics_data">
-            <Box className="statistics_box first_box">
-              <Typography>Approved</Typography>
-              <Typography>{expensesData?.approved || '-'}</Typography>
-            </Box>
-            <Box className="statistics_box second_box">
-              <Typography>Rejected</Typography>
-              <Typography>{expensesData?.rejected || '-'}</Typography>
-            </Box>
-            <Box className="statistics_box third_box">
-              <Typography>Pending</Typography>
-              <Typography>{expensesData?.pending || '-'}</Typography>
-            </Box>
-            <Box className="statistics_box fourth_box">
-              <Typography>Payment Done</Typography>
-              <Typography>{expensesData?.paymentDone || '-'}</Typography>
-            </Box>
+      <Box className="statistics_data_section">
+        <Box className="statistics_data">
+          <Box className="statistics_box first_box">
+            <Typography>Approved</Typography>
+            <Typography>{expensesData?.approved || '-'}</Typography>
           </Box>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              className="staff_date"
-              views={['month', 'year']}
-              value={selectMonth}
-              onChange={selectMonth => {
-                setSelectMonth(selectMonth)
-              }}
-              renderInput={params => (
-                <TextField
-                  sx={{ width: '175px', marginRight: '10px' }}
-                  placeholder="Year and Month"
-                  {...params}
-                  helperText={null}
-                />
-              )}
-            />
-          </LocalizationProvider>
+          <Box className="statistics_box second_box">
+            <Typography>Rejected</Typography>
+            <Typography>{expensesData?.rejected || '-'}</Typography>
+          </Box>
+          <Box className="statistics_box third_box">
+            <Typography>Pending</Typography>
+            <Typography>{expensesData?.pending || '-'}</Typography>
+          </Box>
+          <Box className="statistics_box fourth_box">
+            <Typography>Payment Done</Typography>
+            <Typography>{expensesData?.paymentDone || '-'}</Typography>
+          </Box>
         </Box>
-        <TableContainer
-          className="expenses_table_height expenses_main_table"
-          component={Paper}
-        >
-          {expenseList.length > 0 ? (
-            <Table
-              stickyHeader
-              aria-label="sticky table"
-              sx={{ minWidth: 690 }}
-              className="table_heading custom_table"
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Type</TableCell>
-                  <TableCell>Apply</TableCell>
-                  <TableCell>Approval</TableCell>
-                  <TableCell>Payment</TableCell>
-                  <TableCell>Document</TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {expenseList &&
-                  expenseList.map(row => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        // key={attendanceList.id}
-                        sx={{
-                          '&:last-child td,th': { border: 0 },
-                        }}
-                      >
-                        <TableCell className="tablecell_height">
-                          {moment(row?.date).format('D/MM/YY')}
-                        </TableCell>
-                        <TableCell>{row?.name || '-'}</TableCell>
-                        <TableCell>{row?.amount || '-'}</TableCell>
-                        <TableCell>
-                          {row?.status === 'APPROVED'
-                            ? row?.approvalAmount
-                            : row?.status}
-                        </TableCell>
-                        <TableCell>{row?.payment_status || '-'}</TableCell>
-                        <TableCell>{row?.file || '-'}</TableCell>
-                        {/* <TableCell>
-                        {row?.status === 'APPROVED' || 'REJECTED' ? (
-                          row?.status
-                        ) : (
-                          <>
-                            <Button
-                              onClick={() =>
-                                handleStatusUpdate(row?.id, 'APPROVED')
-                              }
-                              className="common_button"
-                            >
-                              Approve
-                            </Button>
-                            <Button
-                              onClick={() =>
-                                handleStatusUpdate(row?.id, 'REJECTED')
-                              }
-                              className="common_button"
-                            >
-                              Reject
-                            </Button>
-                          </>
-                        )}
-                      </TableCell> */}
-                        <TableCell>
-                          {/* {row?.payment_status === 'DONE' ? (
-                            <Typography>-</Typography>
-                          ) : ( */}
-                          <Box>
-                            <Button
-                              onClick={() => {
-                                setOpenStaffExpenses({
-                                  status: true,
-                                  data: row,
-                                })
-                              }}
-                              className="border_button"
-                            >
-                              View
-                            </Button>
-                          </Box>
-                          {/* )} */}
-                        </TableCell>
-                      </TableRow>
-                    )
-                  })}
-              </TableBody>
-            </Table>
-          ) : (
-            <NoResultFound />
-          )}
-        </TableContainer>
-        <StaffExpensesDetail
-          openStaffExpenses={openStaffExpenses}
-          closeStaffExpenses={handleClose}
-          setOpenStaffExpenses={setOpenStaffExpenses}
-          openApprovalDialog={openApprovalDialog}
-          setOpenApprovalDialog={setOpenApprovalDialog}
-          paymentVerification={paymentVerification}
-          setPaymentVerification={setPaymentVerification}
-        />
-        <StaffExpensesApprovalDialog
-          openApprovalDialog={openApprovalDialog}
-          closeApprovalDialog={handleCloseApprovalDialog}
-          setOpenApprovalDialog={setOpenApprovalDialog}
-          handleExpenseApproval={handleExpenseApproval}
-        />
-        <StaffPaymentVerificationDialog
-          paymentVerification={paymentVerification}
-          closePaymentVerification={handleClosePaymentVerificationDialog}
-          setPaymentVerification={setPaymentVerification}
-          handlePaymentStatus={handlePaymentStatus}
-        />
       </Box>
+
+      <TableContainer
+        className="client_table_height client_detail_table set_box_shadow mt-2"
+        component={Paper}
+      >
+        {expenseList.length > 0 ? (
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            sx={{ minWidth: 700, padding: '0px !important' }}
+            className="table_heading"
+          >
+            <TableHead className="client_profile_table_header">
+              <TableRow>
+                <TableCell>Date</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Apply</TableCell>
+                <TableCell>Approval</TableCell>
+                <TableCell>Payment</TableCell>
+                <TableCell>Document</TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {expenseList &&
+                expenseList.map((row, index) => {
+                  return (
+                    <TableRow
+                      key={index}
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      sx={{
+                        '&:last-child td,th': { border: 0 },
+                      }}
+                    >
+                      <TableCell scope="row" className="table_row_top_align">
+                        {moment(row?.date).format('D/MM/YY')}
+                      </TableCell>
+                      <TableCell className="table_row_top_align">
+                        {row?.name || '-'}
+                      </TableCell>
+                      <TableCell className="table_row_top_align">
+                        {row?.amount || '-'}
+                      </TableCell>
+                      <TableCell className="table_row_top_align">
+                        {row?.status === 'APPROVED'
+                          ? row?.approvalAmount
+                          : row?.status}
+                      </TableCell>
+                      <TableCell className="table_row_top_align">
+                        {row?.payment_status || '-'}
+                      </TableCell>
+                      <TableCell className="table_row_top_align">
+                        {row?.file || '-'}
+                      </TableCell>
+                      <TableCell className="table_row_top_align">
+                        <Box>
+                          <Button
+                            onClick={() => {
+                              setOpenStaffExpenses({
+                                status: true,
+                                data: row,
+                              })
+                            }}
+                            className="border_button"
+                          >
+                            View
+                          </Button>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+            </TableBody>
+          </Table>
+        ) : (
+          <NoResultFound />
+        )}
+      </TableContainer>
+      <StaffExpensesDetail
+        openStaffExpenses={openStaffExpenses}
+        closeStaffExpenses={handleClose}
+        setOpenStaffExpenses={setOpenStaffExpenses}
+        openApprovalDialog={openApprovalDialog}
+        setOpenApprovalDialog={setOpenApprovalDialog}
+        paymentVerification={paymentVerification}
+        setPaymentVerification={setPaymentVerification}
+      />
+      <StaffExpensesApprovalDialog
+        openApprovalDialog={openApprovalDialog}
+        closeApprovalDialog={handleCloseApprovalDialog}
+        setOpenApprovalDialog={setOpenApprovalDialog}
+        handleExpenseApproval={handleExpenseApproval}
+      />
+      <StaffPaymentVerificationDialog
+        paymentVerification={paymentVerification}
+        closePaymentVerification={handleClosePaymentVerificationDialog}
+        setPaymentVerification={setPaymentVerification}
+        handlePaymentStatus={handlePaymentStatus}
+      />
     </>
   )
 }

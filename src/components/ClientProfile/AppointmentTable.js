@@ -105,17 +105,25 @@ const AppointmentTable = ({
                       '&:last-child td,th': { border: 0 },
                     }}
                   >
-                    <TableCell scope="row">{index + 1}</TableCell>
-                    <TableCell>{row.memberName}</TableCell>
-                    <TableCell>{row.memberRole}</TableCell>
-                    <TableCell>
+                    <TableCell scope="row" className="table_row_top_align">
+                      {index + 1}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
+                      {row.memberName}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
+                      {row.memberRole}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
                       {moment(row?.date).format('DD-MM-YYYY')}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="table_row_top_align">
                       {moment(row.time, 'hh:mm:ss').format('LT')}
                     </TableCell>
-                    <TableCell>{row.appointment_unit}</TableCell>
-                    <TableCell className="table_buttons">
+                    <TableCell className="table_row_top_align">
+                      {row.appointment_unit}
+                    </TableCell>
+                    <TableCell className="table_row_top_align table_buttons">
                       <Button
                         sx={{ marginRight: '10px' }}
                         className="border_button"
