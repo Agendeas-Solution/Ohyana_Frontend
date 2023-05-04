@@ -253,7 +253,6 @@ const ClientProfile = () => {
       } else if (clientProfileDetail.id) {
         data['clientId'] = clientProfileDetail.id
       }
-      debugger
       parseInt(remainderDialog?.id) &&
         EditAdminClientReminderDetail(
           data,

@@ -222,13 +222,11 @@ const PJPDetail = () => {
       data['clientId'] = addPJPDetail.clientId.id
       data['teamId'] = parseInt(path)
     }
-    debugger
     addPJPDetail.pjpId
       ? UpdatePJPDetail(
           data,
           res => {
             if (res?.success) {
-              debugger
               handleCloseDialog()
               handleGetPJPList()
               setSuccessSnackbar({

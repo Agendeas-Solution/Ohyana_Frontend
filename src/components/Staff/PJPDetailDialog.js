@@ -68,7 +68,6 @@ const PJPDetailDialog = ({
                     dialogStatus: true,
                     pjpId: pjpDetail.id,
                   })
-                  debugger
                 }}
               >
                 Edit

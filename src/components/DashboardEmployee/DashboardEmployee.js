@@ -363,7 +363,6 @@ const DashboardEmployee = () => {
             </FormGroup>
             {/* <FormGroup>
               {salesInquiry?.tasks?.checklists && salesInquiry?.tasks?.checklists.map((data) => {
-                debugger;
                 return (
                   <Box>
                     <FormControlLabel
@@ -386,7 +385,7 @@ const DashboardEmployee = () => {
               <Typography className="bottom_right_panel_heading" variant="span">
                 My Points
               </Typography>
-              <Button>View All ></Button>
+              <Button>View All {'>'}</Button>
             </Box>
             <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
               <Table sx={{ minWidth: 250 }}>

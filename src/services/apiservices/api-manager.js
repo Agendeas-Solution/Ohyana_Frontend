@@ -1,3 +1,4 @@
+import axios from 'axios'
 import axiosInstance from './axios'
 import Cookie from 'js-cookie'
 
@@ -71,6 +72,26 @@ export const handleApiDeleteCall = async (url, onSuccess, onError) => {
         Authorization: `Barear ${Cookie.get('userToken')}`,
       },
     })
+    onSuccess && onSuccess(data)
+  } catch (err) {
+    onError && onError(err)
+  }
+}
+
+export const handleApiCountryStateCityGetCall = async (
+  url,
+  onSuccess,
+  onError,
+) => {
+  try {
+    const { data } = await axios.get(
+      process.env.REACT_APP_COUNTRY_STATE_CITY_API_URL + url,
+      {
+        headers: {
+          'X-CSCAPI-KEY': process.env.REACT_APP_COUNTRY_STATE_CITY_API_KEY,
+        },
+      },
+    )
     onSuccess && onSuccess(data)
   } catch (err) {
     onError && onError(err)
