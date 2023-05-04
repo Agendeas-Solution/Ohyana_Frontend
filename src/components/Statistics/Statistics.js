@@ -113,88 +113,21 @@ const Statistics = () => {
                 </>
               )}
             </Box>
+
             <Select
               sx={{
-                display: 'flex',
-                flexDirection: 'row',
+                width: '130px',
+                height: '40px',
+                background: 'white',
+              }}
+              value={selectedPeriod}
+              onChange={(e, value) => {
+                setSelectedPeriod(e.target.value)
               }}
             >
-              {selectedPeriod === 'custom' && (
-                <>
-                  <Box sx={{ marginRight: '10px' }}>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <DatePicker
-                        className="staff_date"
-                        inputFormat="dd/MM/yyyy"
-                        value={customRange.startDate}
-                        onChange={e => {
-                          setCustomRange({
-                            ...customRange,
-                            startDate: moment(e).format('YYYY-MM-DD'),
-                          })
-                        }}
-                        renderInput={params => (
-                          <TextField
-                            sx={{
-                              width: '175px',
-                              background: 'white',
-                            }}
-                            placeholder="Start Date"
-                            {...params}
-                          />
-                        )}
-                        PopperProps={{
-                          placement: 'bottom-start',
-                        }}
-                      />
-                    </LocalizationProvider>
-                  </Box>
-                  <Box sx={{ marginRight: '10px' }}>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <DatePicker
-                        className="staff_date"
-                        disableFuture
-                        inputFormat="dd/MM/yyyy"
-                        value={customRange.endDate}
-                        onChange={e => {
-                          setCustomRange({
-                            ...customRange,
-                            endDate: moment(e).format('YYYY-MM-DD'),
-                          })
-                        }}
-                        renderInput={params => (
-                          <TextField
-                            placeholder="Start Date"
-                            sx={{
-                              width: '175px',
-                              background: 'white',
-                            }}
-                            {...params}
-                          />
-                        )}
-                        PopperProps={{
-                          placement: 'bottom-start',
-                        }}
-                      />
-                    </LocalizationProvider>
-                  </Box>
-                </>
-              )}
-              <Select
-                sx={{
-                  width: '130px',
-                  height: '40px',
-                  background: 'white',
-                }}
-                value={selectedPeriod}
-                onChange={(e, value) => {
-                  setSelectedPeriod(e.target.value)
-                }}
-              >
-                {daterange.map(data => {
-                  return <MenuItem value={data.type}>{data.value}</MenuItem>
-                })}
-              </Select>
+              {daterange.map(data => {
+                return <MenuItem value={data.type}>{data.value}</MenuItem>
+              })}
             </Select>
           </Box>
         </Box>
