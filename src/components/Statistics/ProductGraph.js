@@ -106,7 +106,9 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
         res => {
           setGraphData(res?.data)
         },
-        err => {},
+        err => {
+          setGraphData([])
+        },
       )
     } else if (selectedPeriod !== 'custom') {
       GetProductReport(
@@ -114,7 +116,9 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
         res => {
           setGraphData(res?.data)
         },
-        err => {},
+        err => {
+          setGraphData([])
+        },
       )
     }
   }, [selectedPeriod, customRange, selectedProductList, selectedCity])
@@ -157,7 +161,7 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
       setUserData({
         ...userData,
         datasets: datga,
-        labels: graphData.label && Object.keys(graphData.data),
+        labels: graphData.label ? Object.keys(graphData.data) : null,
       })
   }, [graphData])
 
@@ -174,10 +178,9 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            padding: '10px',
           }}
         >
-          <Typography variant="span">Overall</Typography>
+          <Typography variant="span">Overview</Typography>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <FormControl sx={{ width: '200px', marginLeft: '10px' }}>
               <InputLabel>Select Product</InputLabel>

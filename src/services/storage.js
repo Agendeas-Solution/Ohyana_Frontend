@@ -1,5 +1,4 @@
 import Cookie from 'js-cookie'
-import { socket } from '../App'
 export function setLoginToken(token) {
   Cookie.set('userToken', token, { expires: 1 })
 }

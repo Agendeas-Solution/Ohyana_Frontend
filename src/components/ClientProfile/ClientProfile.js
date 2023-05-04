@@ -68,7 +68,7 @@ const ClientProfile = () => {
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [remainderDialog, setRemainderDialog] = useState({
     description: '',
-    date: '',
+    date: moment(),
     time: '',
     status: false,
     id: null,
@@ -77,7 +77,7 @@ const ClientProfile = () => {
   const [statusDialog, setStatusDialog] = useState(false)
   const [appointmentDialogControl, setAppointmentDialogControl] = useState({
     status: false,
-    date: '',
+    date: moment(),
     time: '',
     description: '',
     appointed_member: [],
@@ -557,6 +557,7 @@ const ClientProfile = () => {
                 clientReminderList={clientReminderList}
                 remainderDialog={remainderDialog}
                 setRemainderDialog={setRemainderDialog}
+                handleReminderDetail={handleReminderDetail}
               />
             </TabPanel>
             <TabPanel sx={{ padding: '0px' }} value="3">
@@ -565,6 +566,7 @@ const ClientProfile = () => {
                 setAppointmentDialogControl={setAppointmentDialogControl}
                 handleAppointmentOpen={handleAppointmentOpen}
                 clientAppointmentList={clientAppointmentList}
+                handleAppointmentDetail={handleAppointmentDetail}
               />
             </TabPanel>
             <TabPanel sx={{ padding: '0px' }} value="4">

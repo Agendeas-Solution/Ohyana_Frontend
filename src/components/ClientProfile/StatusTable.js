@@ -51,16 +51,22 @@ const StatusTable = ({
                     '&:last-child td,th': { border: 0 },
                   }}
                 >
-                  <TableCell scope="row">{index + 1}</TableCell>
-                  <TableCell>{row?.team?.name}</TableCell>
-                  <TableCell>{moment(row?.date).format('LL')}</TableCell>
-                  <TableCell>
+                  <TableCell scope="row" className="table_row_top_align">
+                    {index + 1}
+                  </TableCell>
+                  <TableCell className="table_row_top_align">
+                    {row?.team?.name}
+                  </TableCell>
+                  <TableCell className="table_row_top_align">
+                    {moment(row?.date).format('LL')}
+                  </TableCell>
+                  <TableCell className="table_row_top_align">
                     {moment(row.time, 'hh:mm:ss').format('LT')}
                   </TableCell>
-                  <TableCell className="status_description">
+                  <TableCell className="table_row_top_align status_description">
                     {row?.description}
                   </TableCell>
-                  <TableCell className="table_buttons">
+                  <TableCell className="table_row_top_align">
                     <Button
                       sx={{ marginRight: '10px' }}
                       onClick={() => {

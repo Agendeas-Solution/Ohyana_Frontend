@@ -43,7 +43,15 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { TEAM } from '../../constants/teamConstant'
 const drawerWidth = 350
-const PJPDetail = () => {
+
+const PJPDetail = ({
+  addPJPDetail,
+  setAddPJPDetail,
+  handleDrawerOpen,
+  handleDrawerClose,
+  open,
+  setOpen,
+}) => {
   const theme = useTheme()
   let path = window.location.pathname
   path = path.split('/').pop()
@@ -51,13 +59,13 @@ const PJPDetail = () => {
   const [pjpList, setPjpList] = useState([])
   const [cityList, setCityList] = useState([])
   const [stateList, setStateList] = useState([])
-  const [open, setOpen] = useState(false)
-  const [addPJPDetail, setAddPJPDetail] = useState({
-    dialogStatus: false,
-    date: '',
-    clientId: '',
-    description: '',
-  })
+  // const [open, setOpen] = useState(false)
+  // const [addPJPDetail, setAddPJPDetail] = useState({
+  //   dialogStatus: false,
+  //   date: moment().format('LL'),
+  //   clientId: '',
+  //   description: '',
+  // })
   const [selectedCityState, setSelectedCityState] = useState({
     city: '',
     state: '',
@@ -70,7 +78,7 @@ const PJPDetail = () => {
   const [statusTypeList, setStatusTypeList] = useState(TEAM.STATUSTYPE)
   const [filterPJP, setFilterPJP] = useState({
     pjpStatus: '',
-    date: '',
+    date: moment().format('LL'),
   })
   const [numbersToDisplayOnPagination, setNumbersToDisplayOnPagination] =
     useState(0)
@@ -126,21 +134,7 @@ const PJPDetail = () => {
     setSelectedCityState({ city: '', state: '' })
     handleGetPJPList()
   }
-  // const getLocation = () => {
-  //   if (!window.navigator.geolocation) {
-  //   } else {
-  //     window.navigator.geolocation.getCurrentPosition(
-  //       position => {
-  //         setAddPJPDetail({
-  //           ...addPJPDetail,
-  //           latitude: position.coords.latitude.toString(),
-  //           longitude: position.coords.longitude.toString(),
-  //         })
-  //       },
-  //       () => {},
-  //     )
-  //   }
-  // }
+
   const handleGetPJPList = () => {
     let data = {
       teamId: path,
@@ -274,19 +268,19 @@ const PJPDetail = () => {
     ...theme.mixins.toolbar,
   }))
 
-  const handleDrawerOpen = () => {
-    setOpen(true)
-  }
+  // const handleDrawerOpen = () => {
+  //   setOpen(true)
+  // }
 
-  const handleDrawerClose = () => {
-    setOpen(false)
-  }
+  // const handleDrawerClose = () => {
+  //   setOpen(false)
+  // }
 
   return (
     <>
       <Box className="pjp_detail_main_box">
         <TabContext value={value}>
-          <Box className="tab_row client_pjp_tab">
+          {/* <Box className="tab_row client_pjp_tab">
             <TabList onChange={handleChange}>
               <Tab label="Today" value="TODAY" />
               <Tab label="All" value="ALL" />
@@ -300,18 +294,11 @@ const PJPDetail = () => {
               >
                 + Create
               </Button>
-              {/* <img
-                onClick={handleDrawerOpen}
-                className="filter_btn"
-                style={{ marginLeft: '12px' }}
-                src={Filter}
-                alt="Filter"
-              /> */}
               <IconButton edge="end" onClick={handleDrawerOpen}>
                 <img src={Filter} alt="" />
               </IconButton>
             </Box>
-          </Box>
+          </Box> */}
 
           <Drawer
             onClose={handleDrawerClose}

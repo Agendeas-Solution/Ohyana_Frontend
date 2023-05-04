@@ -75,13 +75,12 @@ export const EditCalendarAppointment = async (
 }
 
 export const DeleteAppointment = async (value, onSuccess, onError) => {
-  await handleApiDeleteCall(
-    `/appointmentOrReminder/${value}`,
-    onSuccess,
-    onError,
-  )
+  await handleApiDeleteCall(`/appointment/client/${value}`, onSuccess, onError)
 }
 
+export const DeleteReminder = async (value, onSuccess, onError) => {
+  await handleApiDeleteCall(`/reminder/client/${value}`, onSuccess, onError)
+}
 export const GetAdminRole = async (value, onSuccess, onError) => {
   await handleApiGetCall(`/role`, value, onSuccess, onError)
 }

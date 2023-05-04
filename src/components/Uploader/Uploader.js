@@ -69,23 +69,51 @@ const Uploader = () => {
     <div>
       <div
         style={{
-          width: '150px',
-          height: '150px',
+          width: '130px',
+          height: '130px',
+          margin: '15px 10px',
           borderRadius: '50%',
           overflow: 'hidden',
         }}
       >
         {image ? (
-          <AvatarEditor
-            ref={setEditor}
-            image={image}
-            width={150}
-            height={150}
-            border={0}
-            color={[255, 255, 255, 0.6]}
-            borderRadius={100}
-            scale={scale}
-          />
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <AvatarEditor
+              ref={setEditor}
+              image={image}
+              // width={140}
+              // height={140}
+              style={{
+                width: '100%',
+                height: '100%',
+              }}
+              border={0}
+              color={[255, 255, 255, 0.6]}
+              borderRadius={100}
+              scale={scale}
+            />
+            <input
+              type="file"
+              accept="image/*"
+              name="image"
+              id="file"
+              onChange={onFileChange}
+              style={{ display: 'none' }}
+            />
+            <Box className="inner_icon_style">
+              <label htmlFor="file" style={{ cursor: 'pointer' }}>
+                <PhotoCamera />
+              </label>
+            </Box>
+          </div>
         ) : (
           <div
             style={{
@@ -96,11 +124,19 @@ const Uploader = () => {
               justifyContent: 'center',
             }}
           >
-            {/* <Box className="inner_icon_style">
+            <input
+              type="file"
+              accept="image/*"
+              name="image"
+              id="file"
+              onChange={onFileChange}
+              style={{ display: 'none' }}
+            />
+            <Box className="inner_icon_style">
               <label htmlFor="file" style={{ cursor: 'pointer' }}>
                 <PhotoCamera />
               </label>
-            </Box> */}
+            </Box>
             <input
               id="file-input"
               type="file"
@@ -108,11 +144,15 @@ const Uploader = () => {
               onChange={onFileChange}
               style={{ display: 'none' }}
             />
-            <Box className="user_profile_icon">
-              <label htmlFor="file-input">
-                <AccountCircleRoundedIcon className="user_profile_icon" />
-              </label>
-            </Box>
+            <label htmlFor="file-input">
+              <AccountCircleRoundedIcon
+                sx={{
+                  height: '150px',
+                  width: '150px',
+                  color: '#f1f2f6',
+                }}
+              />
+            </label>
           </div>
         )}
       </div>
@@ -127,7 +167,7 @@ const Uploader = () => {
             value={scale}
             onChange={handleScaleChange}
           /> */}
-          <button onClick={handleSave}>Save</button>
+          {/* <button onClick={handleSave}>Save</button> */}
         </div>
       )}
     </div>
