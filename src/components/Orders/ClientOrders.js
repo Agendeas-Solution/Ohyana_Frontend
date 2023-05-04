@@ -40,7 +40,6 @@ const ClientOrders = () => {
     GetAdminProductList(
       data,
       res => {
-        debugger
         if (res?.success) {
           setClientOrdersList(res?.data)
         }
