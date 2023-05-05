@@ -15,8 +15,8 @@ import {
 } from '../../services/apiservices/companyprofile'
 import ProfileImage from '../../assets/img/Profile_Image.svg'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-import { GetCountryList } from '../../services/apiservices/clientDetail'
 import Uploader from '../Uploader/Uploader'
+import { GetCountryList } from '../../services/apiservices/country-state-city'
 const EditCompanyProfile = () => {
   const [companyDetail, setCompanyDetail] = useState({
     companyName: '',
@@ -55,8 +55,9 @@ const EditCompanyProfile = () => {
     GetCountryList(
       {},
       res => {
-        if (res.success) {
-          setCountryList(res.data)
+        if (res) {
+          setCountryList(res)
+          debugger
         }
       },
       err => {

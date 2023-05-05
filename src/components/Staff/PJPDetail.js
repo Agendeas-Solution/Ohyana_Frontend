@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import {
+  Autocomplete,
   Box,
   Button,
   Divider,
@@ -15,6 +16,7 @@ import {
   Select,
   TextField,
   Typography,
+  createFilterOptions,
 } from '@mui/material'
 import Tab from '@mui/material/Tab'
 import TabContext from '@mui/lab/TabContext'
@@ -29,7 +31,6 @@ import {
 } from '../../services/apiservices/teamcall'
 import {
   GetCityList,
-  GetStateList,
   UpdatePJPDetail,
 } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
@@ -42,6 +43,10 @@ import { styled, useTheme } from '@mui/material/styles'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { TEAM } from '../../constants/teamConstant'
+import {
+  GetCityByStates,
+  GetState,
+} from '../../services/apiservices/country-state-city'
 const drawerWidth = 350
 
 const PJPDetail = ({
@@ -55,20 +60,13 @@ const PJPDetail = ({
   const theme = useTheme()
   let path = window.location.pathname
   path = path.split('/').pop()
-  const [value, setValue] = useState('TODAY')
+  const [value, setValue] = useState('ALL')
   const [pjpList, setPjpList] = useState([])
   const [cityList, setCityList] = useState([])
   const [stateList, setStateList] = useState([])
-  // const [open, setOpen] = useState(false)
-  // const [addPJPDetail, setAddPJPDetail] = useState({
-  //   dialogStatus: false,
-  //   date: moment().format('LL'),
-  //   clientId: '',
-  //   description: '',
-  // })
   const [selectedCityState, setSelectedCityState] = useState({
-    city: '',
-    state: '',
+    city: null,
+    state: null,
   })
   const [completedDialog, setCompletedDialog] = useState({
     status: false,
@@ -84,7 +82,6 @@ const PJPDetail = ({
     useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
-  // const [pageNumber, setPageNumber] = useState(1)
   const [totalResult, setTotalresult] = useState(null)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -131,7 +128,7 @@ const PJPDetail = ({
       pjpStatus: null,
       date: '',
     })
-    setSelectedCityState({ city: '', state: '' })
+    setSelectedCityState({ city: null, state: null })
     handleGetPJPList()
   }
 
@@ -146,10 +143,10 @@ const PJPDetail = ({
       data['statusType'] = filterPJP.pjpStatus
     }
     if (selectedCityState.city !== '' && selectedCityState.city) {
-      data['city'] = selectedCityState.city
+      data['city_id'] = selectedCityState.city.id
     }
     if (selectedCityState.state !== '' && selectedCityState.state) {
-      data['state'] = selectedCityState.state
+      data['state_id'] = selectedCityState.state.id
     }
     GetPJPList(
       data,
@@ -175,28 +172,44 @@ const PJPDetail = ({
     handleGetPJPList()
   }, [value, selectedCityState, currentPage])
   const handleCityList = () => {
-    GetCityList(
-      {},
-      res => {
-        if (res?.success) {
-          setCityList(res.data)
-        }
-      },
-      err => {
-        console.log(err)
-      },
-    )
+    let data = selectedCityState?.state?.iso2
+      ? `IN/states/${selectedCityState?.state?.iso2}/cities`
+      : ''
+    selectedCityState?.state &&
+      GetCityByStates(
+        data,
+        res => {
+          const uniqueCity = res.reduce((acc, current) => {
+            const x = acc.find(item => item.name === current.name)
+            if (!x) {
+              return acc.concat([current])
+            } else {
+              return acc
+            }
+          }, [])
+          setCityList(uniqueCity)
+        },
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
+      )
   }
   const handleStateList = () => {
-    GetStateList(
+    GetState(
       {},
       res => {
-        if (res?.success) {
-          setStateList(res.data)
-        }
+        setStateList(res)
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }
@@ -204,7 +217,9 @@ const PJPDetail = ({
     open && handleCityList()
     open && handleStateList()
   }, [open])
-
+  useEffect(() => {
+    handleCityList()
+  }, [selectedCityState?.state])
   const handleAddPJPDetail = () => {
     let data = {
       date: addPJPDetail.date,
@@ -268,14 +283,10 @@ const PJPDetail = ({
     ...theme.mixins.toolbar,
   }))
 
-  // const handleDrawerOpen = () => {
-  //   setOpen(true)
-  // }
-
-  // const handleDrawerClose = () => {
-  //   setOpen(false)
-  // }
-
+  const filterOptions = createFilterOptions({
+    matchFrom: 'start',
+    stringify: option => option?.name,
+  })
   return (
     <>
       <Box className="pjp_detail_main_box">
@@ -359,25 +370,32 @@ const PJPDetail = ({
                   </Box>
                 </RadioGroup>
               </FormControl>
-              <FormControl className="filter_body_inner_section">
-                <InputLabel>Select City</InputLabel>
-                <Select
-                  label="Select City"
-                  value={selectedCityState.city}
-                  onChange={e => {
-                    setSelectedCityState({
-                      ...selectedCityState,
-                      city: e.target.value,
-                    })
-                  }}
-                >
-                  {cityList &&
-                    cityList.map(data => {
-                      return <MenuItem value={data}>{data}</MenuItem>
-                    })}
-                </Select>
-              </FormControl>
-              <FormControl className="filter_body_inner_section">
+              <Autocomplete
+                className="input_fields"
+                options={stateList}
+                disableClearable
+                filterOptions={filterOptions}
+                value={selectedCityState.state}
+                getOptionLabel={option => option.name}
+                onChange={(e, value) => {
+                  setSelectedCityState({ ...selectedCityState, state: value })
+                }}
+                renderInput={params => <TextField {...params} label="State" />}
+              />
+              <Autocomplete
+                className="input_fields"
+                options={cityList}
+                disableClearable
+                disabled={!selectedCityState?.state}
+                filterOptions={filterOptions}
+                value={selectedCityState.city}
+                getOptionLabel={option => option.name}
+                onChange={(e, value) => {
+                  setSelectedCityState({ ...selectedCityState, city: value })
+                }}
+                renderInput={params => <TextField {...params} label="City" />}
+              />
+              {/* <FormControl className="filter_body_inner_section">
                 <InputLabel>Select State</InputLabel>
                 <Select
                   label="Select State"
@@ -394,7 +412,7 @@ const PJPDetail = ({
                       return <MenuItem value={data}>{data}</MenuItem>
                     })}
                 </Select>
-              </FormControl>
+              </FormControl> */}
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   inputFormat="dd/MM/yyyy"
@@ -454,7 +472,6 @@ const PJPDetail = ({
           </TabPanel>
         </TabContext>
       </Box>
-
       {addPJPDetail.dialogStatus && (
         <AddPJPDialog
           addPJPDetail={addPJPDetail}
