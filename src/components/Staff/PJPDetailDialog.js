@@ -109,9 +109,13 @@ const PJPDetailDialog = ({
               <Typography className="profile_data_lable" variant="span">
                 City
               </Typography>
-              <Typography variant="span">
-                {pjpDetail?.client?.city || '-'}
+              <Typography variant="span">{pjpDetail?.city || '-'}</Typography>
+            </Box>
+            <Box className="companyDetail_root  p-2">
+              <Typography className="profile_data_lable" variant="span">
+                State
               </Typography>
+              <Typography variant="span">{pjpDetail?.state || '-'}</Typography>
             </Box>
             <Box className="companyDetail_root  p-2">
               <Typography className="profile_data_lable" variant="span">

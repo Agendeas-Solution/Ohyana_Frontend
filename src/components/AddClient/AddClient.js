@@ -12,6 +12,7 @@ import {
   createTheme,
   ThemeProvider,
   Paper,
+  createFilterOptions,
 } from '@mui/material'
 import './index.css'
 import { makeStyles } from '@mui/styles'
@@ -25,14 +26,17 @@ import { useNavigate } from 'react-router-dom'
 import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded'
 import image from '../../assets/img/profile_icon.svg'
 
-import {
-  GetAdminClientProfileDetail,
-  GetCountryList,
-} from '../../services/apiservices/clientDetail'
+import { GetAdminClientProfileDetail } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import ProfileImage from '../../assets/img/Profile_Image.svg'
 import Uploader from '../Uploader/Uploader'
 import { PhotoCamera } from '@mui/icons-material'
+import {
+  GetCityByStates,
+  GetCountryList,
+  GetStateByCountry,
+} from '../../services/apiservices/country-state-city'
+import { GetCity } from '../../services/apiservices/country-state-city'
 // const ErrorSnackbar = lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const useStyles = makeStyles({})
 
@@ -42,29 +46,74 @@ const AddClient = () => {
     reference: '',
     email: '',
     contactNo: '',
-    clientType: '',
-    country: null,
     inquiryfor: '',
     max_invesment_amount: '',
     address: '',
-    state: '',
-    city: '',
+    state: null,
+    city: null,
+    country: null,
     business: '',
     referenceName: '',
   })
-  const [adminProductList, setAdminProductList] = useState([])
   const [countryList, setCountryList] = useState([])
+  const [stateList, setStateList] = useState([])
+  const [cityList, setCityList] = useState([])
   const navigate = useNavigate()
-  const [filteredProductList, setFilteredProductList] = useState([])
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleChange = prop => event => {
     setUserDetail({ ...userDetail, [prop]: event.target.value })
   }
-
   let path = window.location.pathname
   path = path.split('/').pop()
-
+  const filterOptions = createFilterOptions({
+    matchFrom: 'start',
+    stringify: option => option?.name,
+  })
+  useEffect(() => {
+    let data = userDetail?.country?.iso2
+    userDetail?.country &&
+      GetStateByCountry(
+        data,
+        res => {
+          setStateList(res)
+        },
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
+      )
+  }, [userDetail?.country])
+  useEffect(() => {
+    let data = userDetail?.state?.iso2
+      ? `${userDetail?.country?.iso2}/states/${userDetail?.state?.iso2}/cities`
+      : ''
+    userDetail?.state &&
+      GetCityByStates(
+        data,
+        res => {
+          const uniqueCity = res.reduce((acc, current) => {
+            const x = acc.find(item => item.name === current.name)
+            if (!x) {
+              return acc.concat([current])
+            } else {
+              return acc
+            }
+          }, [])
+          setCityList(uniqueCity)
+        },
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
+      )
+  }, [userDetail?.state])
   useEffect(() => {
     parseInt(path) &&
       GetAdminClientProfileDetail(
@@ -79,12 +128,19 @@ const AddClient = () => {
               email: res.data?.email,
               max_invesment_amount: res.data?.max_invesment_amount,
               contactNo: res.data?.contact_number,
-              country: res.data?.country,
-              state: res.data?.state,
+              state: {
+                id: res.data.state_id,
+                name: res.data.state,
+                iso2: res.data.state_iso2,
+              },
+              city: { id: res.data.city_id, name: res.data.city },
+              country: {
+                id: res.data.country_id,
+                name: res.data.country,
+                iso2: res.data.country_iso2,
+              },
               address: res.data?.address,
-              city: res.data?.city,
               business: res.data?.business,
-              clientType: res.data?.isInternational,
               referenceName: res.data?.reference_name,
             })
           }
@@ -100,24 +156,31 @@ const AddClient = () => {
     GetCountryList(
       {},
       res => {
-        if (res.success) {
-          setCountryList(res.data)
+        if (res) {
+          setCountryList(res)
         }
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }, [])
 
   const handleAddClient = () => {
+    console.log('Printing UserDetail', userDetail)
+    debugger
     if (
       userDetail.clientName !== '' &&
       (userDetail.email || userDetail.contactNo) &&
       userDetail.reference &&
       userDetail.referenceName &&
-      userDetail.clientType !== '' &&
-      userDetail.state !== '' &&
-      userDetail.city !== '' &&
-      userDetail.country !== ''
+      userDetail.state &&
+      userDetail.city &&
+      userDetail?.country
     ) {
       let clientDetail = {
         name: userDetail.clientName,
@@ -125,15 +188,19 @@ const AddClient = () => {
         reference: userDetail.reference,
         business: userDetail.business,
         contact_number: userDetail.contactNo,
-        isInternational: userDetail.clientType,
-        state: userDetail.state,
+        state: userDetail.state.name,
+        city: userDetail.city.name,
+        city_id: userDetail.city.id,
+        state_id: userDetail.state.id,
+        state_iso2: userDetail.state.iso2,
+        country: userDetail.country.name,
+        country_id: userDetail.country.id,
+        country_iso2: userDetail.country.iso2,
         address: userDetail.address,
-        countryId: userDetail.country.id,
         max_invesment_amount: userDetail.max_invesment_amount,
-        city: userDetail.city,
         reference_name: userDetail?.referenceName,
       }
-
+      debugger
       let path = window.location.pathname
       path = path.split('/').pop()
       {
@@ -315,10 +382,8 @@ const AddClient = () => {
                 />
               </Box>
             </Box>
-
-            {/* Client Type & City*/}
             <Box className="input_field_row">
-              <Box className="input_fields">
+              {/* <Box className="input_fields">
                 <FormControl>
                   <InputLabel>Client Type</InputLabel>
                   <Select
@@ -335,51 +400,50 @@ const AddClient = () => {
                     <MenuItem value="false">International</MenuItem>
                   </Select>
                 </FormControl>
-              </Box>
-
-              <Box className="input_fields">
-                <TextField
-                  label="City"
-                  onChange={e => {
-                    setUserDetail({ ...userDetail, city: e.target.value })
-                  }}
-                  value={userDetail.city}
-                  variant="outlined"
-                />
-              </Box>
+              </Box> */}
+              <Autocomplete
+                className="input_fields"
+                disablePortal
+                disableClearable
+                options={countryList}
+                value={userDetail?.country}
+                onChange={(e, value) => {
+                  setUserDetail({ ...userDetail, country: value })
+                  debugger
+                }}
+                getOptionLabel={option => option?.name}
+                renderInput={params => (
+                  <TextField {...params} label="Select Country" />
+                )}
+              />
+              <Autocomplete
+                className="input_fields"
+                options={stateList}
+                disableClearable
+                disabled={!userDetail?.country}
+                filterOptions={filterOptions}
+                value={userDetail.state}
+                getOptionLabel={option => option.name}
+                onChange={(e, value) => {
+                  setUserDetail({ ...userDetail, state: value })
+                }}
+                renderInput={params => <TextField {...params} label="State" />}
+              />
             </Box>
-
-            {/* Country & State*/}
             <Box className="input_field_row">
-              <Box className="input_fields">
-                <Autocomplete
-                  disablePortal
-                  options={countryList}
-                  value={userDetail?.country}
-                  onChange={(e, value) => {
-                    setUserDetail({ ...userDetail, country: value })
-                  }}
-                  getOptionLabel={option => option?.name}
-                  renderInput={params => (
-                    <TextField {...params} label="Select Country" />
-                  )}
-                />
-              </Box>
-
-              <Box className="input_fields">
-                <TextField
-                  label="State"
-                  onChange={e => {
-                    setUserDetail({ ...userDetail, state: e.target.value })
-                  }}
-                  value={userDetail.state}
-                  variant="outlined"
-                />
-              </Box>
-            </Box>
-
-            {/* Reference Name*/}
-            <Box className="input_field_row">
+              <Autocomplete
+                className="input_fields"
+                options={cityList}
+                disableClearable
+                disabled={!userDetail?.state}
+                filterOptions={filterOptions}
+                value={userDetail.city}
+                getOptionLabel={option => option.name}
+                onChange={(e, value) => {
+                  setUserDetail({ ...userDetail, city: value })
+                }}
+                renderInput={params => <TextField {...params} label="City" />}
+              />
               <Box className="input_fields">
                 <FormControl>
                   <InputLabel>Reference</InputLabel>

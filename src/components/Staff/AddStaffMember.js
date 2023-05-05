@@ -9,6 +9,8 @@ import {
   Select,
   MenuItem,
   Paper,
+  Autocomplete,
+  createFilterOptions,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import {
@@ -30,6 +32,10 @@ import image from '../../assets/img/profile_icon.svg'
 import { PhotoCamera } from '@mui/icons-material'
 import Uploader from '../Uploader/Uploader'
 import moment from 'moment'
+import {
+  GetState,
+  GetStateByCountry,
+} from '../../services/apiservices/country-state-city'
 
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const useStyles = makeStyles({})
@@ -43,9 +49,10 @@ const AddStaffMember = () => {
     gender: '',
     // birthDate: '',
     birthDate: moment(),
-    state: '',
+    state: null,
     jobType: '',
   })
+  const [stateList, setStateList] = useState([])
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [employeeJobRole, setEmployeeJobRole] = useState([])
@@ -55,7 +62,25 @@ const AddStaffMember = () => {
   const handleChange = prop => event => {
     setUserDetail({ ...userDetail, [prop]: event.target.value })
   }
-
+  const filterOptions = createFilterOptions({
+    matchFrom: 'start',
+    stringify: option => option?.name,
+  })
+  useEffect(() => {
+    GetState(
+      {},
+      res => {
+        setStateList(res)
+      },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
+    )
+  }, [])
   useEffect(() => {
     {
       GetAdminRole(
@@ -80,13 +105,17 @@ const AddStaffMember = () => {
           if (res.success) {
             setUserDetail({
               ...userDetail,
-              name: res.data.name,
-              contact_number: res.data.contact_number,
-              roleId: res.data.role.id,
+              employeeName: res?.data?.name,
+              contactNo: res.data.contact_number,
+              jobRole: res.data.role.id,
               email: res.data.email,
-              birthDay: res.data.birthDay,
+              birthDate: res.data.birthDay,
               gender: res.data.gender,
-              state: res.data.state,
+              state: {
+                name: res?.data?.state,
+                id: res?.data?.state_id,
+                iso2: res?.data?.state_iso2,
+              },
               jobType: res.data.jobType,
               id: res.data.id,
             })
@@ -105,6 +134,7 @@ const AddStaffMember = () => {
       userDetail.contactNo &&
       userDetail.birthDate !== '' &&
       userDetail.gender !== '' &&
+      userDetail.state &&
       userDetail.jobType !== ''
     ) {
       let employeeDetail = {
@@ -114,7 +144,9 @@ const AddStaffMember = () => {
         contact_number: userDetail.contactNo,
         gender: userDetail.gender,
         birthDay: userDetail.birthDate,
-        state: userDetail.state,
+        state: userDetail.state.name,
+        state_id: userDetail.state.id,
+        state_iso2: userDetail.state.iso2,
         jobType: userDetail.jobType,
       }
       if (parseInt(path)) {
@@ -298,7 +330,7 @@ const AddStaffMember = () => {
                   variant="outlined"
                 />
               </Box>
-              <Box className="input_fields">
+              {/* <Box className="input_fields">
                 <TextField
                   autoComplete="off"
                   label="State"
@@ -308,7 +340,19 @@ const AddStaffMember = () => {
                   value={userDetail.state}
                   variant="outlined"
                 />
-              </Box>
+              </Box> */}
+              <Autocomplete
+                className="input_fields"
+                options={stateList}
+                disableClearable
+                filterOptions={filterOptions}
+                value={userDetail.state}
+                getOptionLabel={option => option.name}
+                onChange={(e, value) => {
+                  setUserDetail({ ...userDetail, state: value })
+                }}
+                renderInput={params => <TextField {...params} label="State" />}
+              />
             </Box>
 
             {/* Gender*/}

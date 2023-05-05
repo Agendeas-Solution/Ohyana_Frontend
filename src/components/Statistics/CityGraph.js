@@ -148,7 +148,6 @@ const CityGraph = ({ selectedPeriod, customRange }) => {
           circular: true,
         }
       })
-    console.log(datga)
     datga &&
       setUserData({
         ...userData,
@@ -210,6 +209,17 @@ const CityGraph = ({ selectedPeriod, customRange }) => {
               renderInput={params => (
                 <TextField {...params} label="Select City" />
               )}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <span
+                    key={option.name}
+                    style={{ display: 'inline-block', marginRight: 4 }}
+                  >
+                    {option.name}
+                    {index < value.length - 1 ? ', ' : ''}
+                  </span>
+                ))
+              }
             />
             <Autocomplete
               sx={{ width: '200px', marginLeft: '10px' }}

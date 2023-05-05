@@ -91,10 +91,6 @@ export const GetAdminClientAppointmentDetail = async (
   await handleApiGetCall(`/appointment/client/${id}`, value, onSuccess, onError)
 }
 
-export const GetCountryList = async (id, onSuccess, onError) => {
-  await handleApiGetCall(`/country`, {}, onSuccess, onError)
-}
-
 export const EditClientStage = async (id, value, onSuccess, onError) => {
   await handleApiPutCall(`/stage/client/${id}`, value, onSuccess, onError)
 }

@@ -22,8 +22,6 @@ import {
   GetCity,
   GetState,
 } from '../../services/apiservices/country-state-city'
-import { FilterList } from '@mui/icons-material'
-import { matchSorter } from 'match-sorter'
 const ProductGraph = ({ selectedPeriod, customRange }) => {
   const [comparison, setComparison] = useState()
   // const [graphData, setGraphData] = useState([])

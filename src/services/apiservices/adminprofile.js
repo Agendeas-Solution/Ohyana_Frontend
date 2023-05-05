@@ -46,6 +46,10 @@ export const DeleteAdminProduct = async (value, onSuccess, onError) => {
   await handleApiDeleteCall(`/product/${value}`, onSuccess, onError)
 }
 
+export const AddToCart = async (value, onSuccess, onError) => {
+  await handleApiPostCall(`/addtocart`, value, onSuccess, onError)
+}
+
 export const AddAdminProduct = async (value, onSuccess, onError) => {
   await handleApiPostCall(`/product`, value, onSuccess, onError)
 }

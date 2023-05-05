@@ -113,9 +113,10 @@ const ClientProfile = () => {
     clientId: null,
     description: '',
   })
+
+  let path = window.location.pathname
+  path = path.split('/').pop()
   useEffect(() => {
-    let path = window.location.pathname
-    path = path.split('/').pop()
     GetAdminClientProfileDetail(
       parseInt(path),
       {},
@@ -129,8 +130,6 @@ const ClientProfile = () => {
       },
     )
   }, [stageDialog])
-  let path = window.location.pathname
-  path = path.split('/').pop()
   const handleAdminClienStatusDetail = () => {
     GetAdminClientStatusDetail(
       parseInt(path),
@@ -533,7 +532,10 @@ const ClientProfile = () => {
                       className="common_button"
                       // onClick={handleOrderOpen}
                       onClick={() =>
-                        handleClientOrdersClick('/clientorders', 'Add to Cart')
+                        handleClientOrdersClick(
+                          `/clientorders/${path}`,
+                          'Add to Cart',
+                        )
                       }
                       variant="contained"
                     >
