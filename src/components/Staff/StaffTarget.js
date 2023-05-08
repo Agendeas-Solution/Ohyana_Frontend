@@ -87,7 +87,10 @@ const StaffTarget = ({
                       '&:last-child td,th': { border: 0 },
                     }}
                   >
-                    <TableCell scope="row" className="tablecell_height">
+                    <TableCell
+                      scope="row"
+                      className="tablecell_height table_row_top_align"
+                    >
                       {moment(targetData?.startDate).format('D-M') +
                         ' to ' +
                         moment(targetData?.endDate).format('D-M-YY')}{' '}
