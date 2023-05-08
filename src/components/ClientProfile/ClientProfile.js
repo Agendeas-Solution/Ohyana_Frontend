@@ -113,9 +113,10 @@ const ClientProfile = () => {
     clientId: null,
     description: '',
   })
+
+  let path = window.location.pathname
+  path = path.split('/').pop()
   useEffect(() => {
-    let path = window.location.pathname
-    path = path.split('/').pop()
     GetAdminClientProfileDetail(
       parseInt(path),
       {},
@@ -129,8 +130,6 @@ const ClientProfile = () => {
       },
     )
   }, [stageDialog])
-  let path = window.location.pathname
-  path = path.split('/').pop()
   const handleAdminClienStatusDetail = () => {
     GetAdminClientStatusDetail(
       parseInt(path),
@@ -253,7 +252,6 @@ const ClientProfile = () => {
       } else if (clientProfileDetail.id) {
         data['clientId'] = clientProfileDetail.id
       }
-      debugger
       parseInt(remainderDialog?.id) &&
         EditAdminClientReminderDetail(
           data,

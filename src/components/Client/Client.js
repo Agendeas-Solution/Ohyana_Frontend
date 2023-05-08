@@ -12,6 +12,9 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  Autocomplete,
+  TextField,
+  createFilterOptions,
 } from '@mui/material'
 import './index.css'
 import { socket } from '../../App'
@@ -34,6 +37,11 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import FilterIcon from '../../assets/img/Filter.svg'
 import { styled, useTheme } from '@mui/material/styles'
 import { CLIENT } from '../../constants'
+import {
+  GetCityByStates,
+  GetCountryList,
+  GetStateByCountry,
+} from '../../services/apiservices/country-state-city'
 const drawerWidth = 350
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const NoResultFound = React.lazy(() =>
@@ -55,14 +63,15 @@ const Client = () => {
   const [totalResult, setTotalresult] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [isInternational, setIsInternational] = useState(null)
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const [cityList, setCityList] = useState([])
   const [clientStage, setClientStage] = useState('')
   const [stateList, setStateList] = useState([])
-  const [selectedCityState, setSelectedCityState] = useState({
-    city: '',
-    state: '',
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [selectedCityStateCountry, setSelectedCityStateCountry] = useState({
+    city: null,
+    state: null,
+    country: null,
   })
   const [deleteClientDialogControl, setDeleteClientDialogControl] = useState({
     status: false,
@@ -73,6 +82,7 @@ const Client = () => {
   const [clientLoader, setClientLoader] = useState(false)
   const [clientType, setClientType] = useState(CLIENT.STAGE)
   const [searchQuery, setSearchQuery] = useState('')
+  const [countryList, setCountryList] = useState([])
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -89,7 +99,7 @@ const Client = () => {
   }
   const handleClearAllFilter = () => {
     setClientStage(null)
-    setSelectedCityState({ city: '', state: '' })
+    setSelectedCityStateCountry({ city: null, state: null, country: null })
     getClientDetails()
   }
   const handleApplyFilter = () => {
@@ -108,33 +118,55 @@ const Client = () => {
       },
     )
   }
-  const handleStateList = () => {
-    GetStateList(
-      {},
-      res => {
-        if (res?.success) {
-          setStateList(res.data)
-        }
-      },
-      err => {
-        console.log(err)
-      },
-    )
-  }
+
   useEffect(() => {
-    if (open && cityList.length === 0) {
-      handleCityList()
-    }
-    if (open && stateList.length === 0) {
-      handleStateList()
-    }
-  }, [open])
+    let data = selectedCityStateCountry?.state?.iso2
+      ? `${selectedCityStateCountry?.country?.iso2}/states/${selectedCityStateCountry?.state?.iso2}/cities`
+      : ''
+    selectedCityStateCountry?.state &&
+      GetCityByStates(
+        data,
+        res => {
+          const uniqueCity = res.reduce((acc, current) => {
+            const x = acc.find(item => item.name === current.name)
+            if (!x) {
+              return acc.concat([current])
+            } else {
+              return acc
+            }
+          }, [])
+          setCityList(uniqueCity)
+        },
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
+      )
+  }, [selectedCityStateCountry?.state])
   useEffect(() => {
     let value = clientType.filter(data => {
       if (data.id <= permissions?.clientStageAccess) {
         return data
       }
     })
+    GetCountryList(
+      {},
+      res => {
+        if (res) {
+          setCountryList(res)
+        }
+      },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
+    )
     setClientType(value)
   }, [])
 
@@ -169,6 +201,27 @@ const Client = () => {
   const ViewClientDetail = id => {
     navigate(`/clientprofile/${id}`)
   }
+  const filterOptions = createFilterOptions({
+    matchFrom: 'start',
+    stringify: option => option?.name,
+  })
+  useEffect(() => {
+    let data = selectedCityStateCountry?.country?.iso2
+    selectedCityStateCountry?.country &&
+      GetStateByCountry(
+        data,
+        res => {
+          setStateList(res)
+        },
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
+      )
+  }, [selectedCityStateCountry?.country])
   useEffect(() => {
     socket.on('client_list', data => {
       console.log('Printing Connections', data)
@@ -201,11 +254,20 @@ const Client = () => {
     if (searchQuery) {
       data['searchQuery'] = searchQuery
     }
-    if (selectedCityState.city !== '' && selectedCityState.city !== null) {
-      data['city'] = selectedCityState.city
+    if (selectedCityStateCountry.city !== '' && selectedCityStateCountry.city) {
+      data['city_id'] = selectedCityStateCountry?.city?.id
     }
-    if (selectedCityState.state !== '' && selectedCityState.state !== null) {
-      data['state'] = selectedCityState.state
+    if (
+      selectedCityStateCountry.country !== '' &&
+      selectedCityStateCountry.country
+    ) {
+      data['country_id'] = selectedCityStateCountry?.country?.id
+    }
+    if (
+      selectedCityStateCountry.state !== '' &&
+      selectedCityStateCountry.state
+    ) {
+      data['state_id'] = selectedCityStateCountry?.state?.id
     }
     if (clientStage !== '' && clientStage !== null) {
       data['stage'] = clientStage
@@ -240,7 +302,7 @@ const Client = () => {
     value,
     clientStage,
     searchQuery,
-    selectedCityState,
+    selectedCityStateCountry,
     deleteClientDialogControl.status,
   ])
   return (
@@ -351,14 +413,64 @@ const Client = () => {
                 })}
               </Select>
             </FormControl>
-            <FormControl className="filter_body_inner_section">
+            <Autocomplete
+              className="input_fields"
+              disablePortal
+              disableClearable
+              options={countryList}
+              value={selectedCityStateCountry?.country}
+              onChange={(e, value) => {
+                setSelectedCityStateCountry({
+                  ...selectedCityStateCountry,
+                  country: value,
+                })
+                debugger
+              }}
+              getOptionLabel={option => option?.name}
+              renderInput={params => (
+                <TextField {...params} label="Select Country" />
+              )}
+            />
+            <Autocomplete
+              className="input_fields"
+              options={stateList}
+              disableClearable
+              disabled={!selectedCityStateCountry?.country}
+              filterOptions={filterOptions}
+              value={selectedCityStateCountry.state}
+              getOptionLabel={option => option.name}
+              onChange={(e, value) => {
+                setSelectedCityStateCountry({
+                  ...selectedCityStateCountry,
+                  state: value,
+                })
+              }}
+              renderInput={params => <TextField {...params} label="State" />}
+            />
+            <Autocomplete
+              className="input_fields"
+              options={cityList}
+              disableClearable
+              disabled={!selectedCityStateCountry?.state}
+              filterOptions={filterOptions}
+              value={selectedCityStateCountry.city}
+              getOptionLabel={option => option.name}
+              onChange={(e, value) => {
+                setSelectedCityStateCountry({
+                  ...selectedCityStateCountry,
+                  city: value,
+                })
+              }}
+              renderInput={params => <TextField {...params} label="City" />}
+            />
+            {/* <FormControl className="filter_body_inner_section">
               <InputLabel>Select City</InputLabel>
               <Select
                 label="Select City"
-                value={selectedCityState.city}
+                value={selectedCityStateCountry.city}
                 onChange={e => {
-                  setSelectedCityState({
-                    ...selectedCityState,
+                  setSelectedCityStateCountry({
+                    ...selectedCityStateCountry,
                     city: e.target.value,
                   })
                 }}
@@ -368,25 +480,7 @@ const Client = () => {
                     return <MenuItem value={data}>{data}</MenuItem>
                   })}
               </Select>
-            </FormControl>
-            <FormControl className="filter_body_inner_section">
-              <InputLabel>Select State</InputLabel>
-              <Select
-                label="Select State"
-                value={selectedCityState.state}
-                onChange={e => {
-                  setSelectedCityState({
-                    ...selectedCityState,
-                    state: e.target.value,
-                  })
-                }}
-              >
-                {stateList &&
-                  stateList.map(data => {
-                    return <MenuItem value={data}>{data}</MenuItem>
-                  })}
-              </Select>
-            </FormControl>
+            </FormControl> */}
           </Box>
         </Drawer>
       </Box>

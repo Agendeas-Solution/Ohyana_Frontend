@@ -15,17 +15,21 @@ import SnacksPhoto from '../../assets/img/SnacksPhoto.png'
 import InfoIcon from '@mui/icons-material/Info'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { Context as ContextActivePage } from '../../context/pageContext'
-import { GetAdminProductList } from '../../services/apiservices/adminprofile'
+import {
+  AddToCart,
+  GetAdminProductList,
+} from '../../services/apiservices/adminprofile'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const ClientOrders = () => {
   const navigate = useNavigate()
   const { setActivePage } = useContext(ContextActivePage)
   const [path, setPath] = useState(null)
-  const [clientOrdersList, setClientOrdersList] = useState([])
-
-  const handleClickOpen = () => {
-    navigate('/mycart')
-  }
+  const [clientProductList, setClientProductList] = useState([])
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  let clientId = window.location.pathname
+  clientId = clientId.split('/').pop()
 
   const handleClientOrdersClick = (path, name) => {
     navigate(path)
@@ -34,28 +38,52 @@ const ClientOrders = () => {
     localStorage.setItem('path', path)
   }
 
-  const handleCliendOrdersList = () => {
+  const handleClientProductList = () => {
     let data = {}
-
     GetAdminProductList(
       data,
       res => {
-        debugger
         if (res?.success) {
-          setClientOrdersList(res?.data)
+          setClientProductList(res?.data?.products)
         }
       },
       err => {
-        console.log(err)
-        setClientOrdersList([])
+        setClientProductList([])
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err.response.data.message,
+        })
       },
     )
   }
 
   useEffect(() => {
-    handleCliendOrdersList()
+    handleClientProductList()
   }, [])
-
+  const handleAddToCart = row => {
+    let data = {
+      productId: row.id,
+      clientId: parseInt(clientId),
+    }
+    AddToCart(
+      data,
+      res => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+      },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err.response.data.message,
+        })
+      },
+    )
+  }
   return (
     <>
       <Box className="main_tab_section">
@@ -82,7 +110,9 @@ const ClientOrders = () => {
             </FormControl>
             <Button
               // onClick={handleClickOpen}
-              onClick={() => handleClientOrdersClick('/mycart', 'Order Detail')}
+              onClick={() =>
+                handleClientOrdersClick(`/mycart/${path}`, 'Order Detail')
+              }
               className="main_tab_button"
               variant="span"
             >
@@ -93,116 +123,48 @@ const ClientOrders = () => {
 
         <Box className="below_main_tab_section">
           <Box className="inner_container">
-            <Box className="client_product_card">
-              <Box
-                className="task_card_hover"
-                // onClick={() => {
-                //   navigate(`/taskdetail/${taskData?.id}`)
-                // }}
-              >
-                <Typography className="order_card_heading" variant="span">
-                  Spicy Masala Noodles
-                </Typography>
-              </Box>
-
-              <Box className="product_card_main_section">
-                <Box>
-                  <img
-                    className="client_order_photo"
-                    src={SnacksPhoto}
-                    variant="span"
-                  />
-                </Box>
-
-                <Box className="order_detail">
-                  <Box className="order_price">
-                    <Typography className="order_price_tag" variant="span">
-                      Price
+            {clientProductList.map(data => {
+              return (
+                <Box className="client_product_card">
+                  <Box
+                    className="task_card_hover"
+                    // onClick={() => {
+                    //   navigate(`/taskdetail/${taskData?.id}`)
+                    // }}
+                  >
+                    <Typography className="order_card_heading" variant="span">
+                      {/* {taskData.title} */}
+                      {data?.name}
                     </Typography>
-                    <Typography variant="span">10</Typography>
                   </Box>
-                  <Box className="info_and_cart">
-                    <InfoIcon />
-                    <ShoppingCartIcon />
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
 
-            <Box className="client_product_card">
-              <Box
-                className="task_card_hover"
-                // onClick={() => {
-                //   navigate(`/taskdetail/${taskData?.id}`)
-                // }}
-              >
-                <Typography className="order_card_heading" variant="span">
-                  {/* {taskData.title} */}
-                  Spicy Masala Noodles
-                </Typography>
-              </Box>
+                  <Box className="product_card_main_section">
+                    <Box>
+                      <img
+                        className="client_order_photo"
+                        src={data?.imageUrl}
+                        variant="span"
+                      />
+                    </Box>
 
-              <Box className="product_card_main_section">
-                <Box>
-                  <img
-                    className="client_order_photo"
-                    src={SnacksPhoto}
-                    variant="span"
-                  />
-                </Box>
-
-                <Box className="order_detail">
-                  <Box className="order_price">
-                    <Typography className="order_price_tag" variant="span">
-                      Price
-                    </Typography>
-                    <Typography variant="span">10</Typography>
-                  </Box>
-                  <Box className="info_and_cart">
-                    <InfoIcon />
-                    <ShoppingCartIcon />
+                    <Box className="order_detail">
+                      <Box className="order_price">
+                        <Typography className="order_price_tag" variant="span">
+                          Price
+                        </Typography>
+                        <Typography variant="span">{data?.price}</Typography>
+                      </Box>
+                      <Box className="info_and_cart">
+                        <InfoIcon />
+                        <ShoppingCartIcon
+                          onClick={() => handleAddToCart(data)}
+                        />
+                      </Box>
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
-            </Box>
-
-            <Box className="client_product_card">
-              <Box
-                className="task_card_hover"
-                // onClick={() => {
-                //   navigate(`/taskdetail/${taskData?.id}`)
-                // }}
-              >
-                <Typography className="order_card_heading" variant="span">
-                  {/* {taskData.title} */}
-                  Spicy Masala Noodles
-                </Typography>
-              </Box>
-
-              <Box className="product_card_main_section">
-                <Box>
-                  <img
-                    className="client_order_photo"
-                    src={SnacksPhoto}
-                    variant="span"
-                  />
-                </Box>
-
-                <Box className="order_detail">
-                  <Box className="order_price">
-                    <Typography className="order_price_tag" variant="span">
-                      Price
-                    </Typography>
-                    <Typography variant="span">10</Typography>
-                  </Box>
-                  <Box className="info_and_cart">
-                    <InfoIcon />
-                    <Checkbox />
-                    {/* <DoneIcon /> */}
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
+              )
+            })}
           </Box>
         </Box>
       </Box>
