@@ -19,10 +19,7 @@ const StatusTable = ({
 }) => {
   return (
     <>
-      <TableContainer
-        className="client_table_height client_detail_table set_box_shadow"
-        component={Paper}
-      >
+      <TableContainer className="profile_data_table" component={Paper}>
         {clientStatusList.length > 0 ? (
           <Table
             stickyHeader
@@ -30,7 +27,7 @@ const StatusTable = ({
             sx={{ minWidth: 700, padding: '0px !important' }}
             className="table_heading"
           >
-            <TableHead className="client_profile_table_header">
+            <TableHead className="profile_data_table_header">
               <TableRow>
                 <TableCell>Sr No.</TableCell>
                 <TableCell>Status Added By</TableCell>
@@ -66,7 +63,7 @@ const StatusTable = ({
                   <TableCell className="table_row_top_align status_description">
                     {row?.description}
                   </TableCell>
-                  <TableCell className="table_row_top_align">
+                  <TableCell className="table_row_top_align table_buttons">
                     <Button
                       sx={{ marginRight: '10px' }}
                       onClick={() => {

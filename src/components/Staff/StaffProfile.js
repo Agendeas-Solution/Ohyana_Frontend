@@ -141,7 +141,15 @@ const StaffProfile = () => {
               </TabList>
 
               {value == '1' && (
-                <Box>
+                <Box className="tab_right_button_section">
+                  <Button
+                    className="common_button"
+                    onClick={() =>
+                      setTargetDetail({ ...targetDetail, status: true })
+                    }
+                  >
+                    + Set Target
+                  </Button>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       className="staff_date"
@@ -153,8 +161,8 @@ const StaffProfile = () => {
                       renderInput={params => (
                         <TextField
                           sx={{
-                            width: '175px',
-                            marginRight: '10px',
+                            width: '150px',
+                            marginLeft: '6px',
                           }}
                           {...params}
                           helperText={null}
@@ -165,30 +173,28 @@ const StaffProfile = () => {
                       }}
                     />
                   </LocalizationProvider>
-                  <Button
-                    className="staff_common_button"
-                    onClick={() =>
-                      setTargetDetail({ ...targetDetail, status: true })
-                    }
-                  >
-                    + Set Target
-                  </Button>
                 </Box>
               )}
 
               {value == '3' && (
-                <Box className="button_and_filter">
+                <Box className="tab_right_button_section">
                   <Button
                     onClick={() =>
                       setAddPJPDetail({ ...addPJPDetail, dialogStatus: true })
                     }
-                    className="tab_btn p-2"
+                    className="common_button"
                   >
                     + Create
                   </Button>
-                  <IconButton edge="end" onClick={handleDrawerOpen}>
-                    <img src={Filter} alt="" />
-                  </IconButton>
+                  <Box sx={{ marginLeft: '6px' }}>
+                    <IconButton
+                      sx={{ margin: '0px', padding: '0px' }}
+                      edge="end"
+                      onClick={handleDrawerOpen}
+                    >
+                      <img src={Filter} alt="" />
+                    </IconButton>
+                  </Box>
                 </Box>
               )}
 
@@ -204,7 +210,7 @@ const StaffProfile = () => {
                       }}
                       renderInput={params => (
                         <TextField
-                          sx={{ width: '175px', marginRight: '10px' }}
+                          sx={{ width: '150px' }}
                           placeholder="Year and Month"
                           {...params}
                           helperText={null}
@@ -219,40 +225,11 @@ const StaffProfile = () => {
               )}
 
               {value == '2' && (
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'start',
-                  }}
-                >
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                      className="staff_date"
-                      views={['month', 'year']}
-                      value={selectMonth}
-                      onChange={selectMonth => {
-                        setSelectMonth(selectMonth)
-                      }}
-                      renderInput={params => (
-                        <TextField
-                          sx={{ width: '175px', marginRight: '10px' }}
-                          placeholder="Year and Month"
-                          {...params}
-                          helperText={null}
-                        />
-                      )}
-                      PopperProps={{
-                        placement: 'bottom-start',
-                      }}
-                    />
-                  </LocalizationProvider>
+                <Box className="tab_right_button_section">
                   <Box
+                    className="custom_tab_background"
                     sx={{
-                      background: '#F1F2F6',
-                      borderRadius: '5px',
-                      height: '35px',
-                      display: 'flex',
-                      flexDirection: 'row',
+                      marginRight: '10px',
                     }}
                   >
                     <Button
@@ -282,19 +259,39 @@ const StaffProfile = () => {
                       Leave
                     </Button>
                   </Box>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      className="staff_date"
+                      views={['month', 'year']}
+                      value={selectMonth}
+                      onChange={selectMonth => {
+                        setSelectMonth(selectMonth)
+                      }}
+                      renderInput={params => (
+                        <TextField
+                          sx={{ width: '150px' }}
+                          placeholder="Year and Month"
+                          {...params}
+                          helperText={null}
+                        />
+                      )}
+                      PopperProps={{
+                        placement: 'bottom-start',
+                      }}
+                    />
+                  </LocalizationProvider>
                 </Box>
               )}
 
               {value == '6' && (
-                <Box>
+                <Box className="tab_right_button_section">
                   <Button
                     onClick={() => setAddAppreciationDialogControl(true)}
-                    className="staff_common_button"
+                    className="common_button"
                   >
                     + Appreciation
                   </Button>
 
-                  {/* <Box className="points_date_filter "> */}
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       className="staff_date"
@@ -307,8 +304,8 @@ const StaffProfile = () => {
                         <TextField
                           {...params}
                           sx={{
-                            width: '180px',
-                            marginLeft: '10px',
+                            width: '150px',
+                            marginLeft: '6px',
                             border: 'none',
                           }}
                           placeholder="Year and Month"

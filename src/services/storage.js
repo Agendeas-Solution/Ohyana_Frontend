@@ -1,4 +1,5 @@
 import Cookie from 'js-cookie'
+
 export function setLoginToken(token) {
   Cookie.set('userToken', token, { expires: 1 })
 }

@@ -341,7 +341,7 @@ const OrderDetail = () => {
             }}
           >
             <TableContainer
-              className="client_table_height client_detail_table set_box_shadow"
+              className="profile_data_table client_detail_table set_box_shadow"
               component={Paper}
             >
               <Table

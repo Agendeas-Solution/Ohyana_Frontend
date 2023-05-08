@@ -223,24 +223,6 @@ const Client = () => {
       )
   }, [selectedCityStateCountry?.country])
   useEffect(() => {
-    // socket.on('connect', (connection) => {
-    // socket.on("client_list", (data) => {
-    //     console.log("Printing Connections", data);
-    //     GetAdminClientDetail(
-    //       data,
-    //       (res) => {
-    //         if (res?.success) {
-    //           setClientDetails(res?.data.client);
-    //         }
-    //       },
-    //       (err) => {
-    //         console.log(err);
-    //       }
-    //     );
-    //   });
-    // });
-    // return () => socket.disconnect();
-    // const socket = io("http://159.89.165.83");
     socket.on('client_list', data => {
       console.log('Printing Connections', data)
       GetAllClients(

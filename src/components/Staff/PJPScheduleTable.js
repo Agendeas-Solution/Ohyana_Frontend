@@ -33,17 +33,14 @@ const PJPScheduleTable = ({
   return (
     <>
       {pjpList?.pjps && pjpList?.pjps.length > 0 ? (
-        <TableContainer
-          className="client_table_height client_detail_table set_box_shadow"
-          component={Paper}
-        >
+        <TableContainer className="profile_data_table" component={Paper}>
           <Table
             stickyHeader
             aria-label="sticky table"
             sx={{ minWidth: 700, padding: '0px !important' }}
             className="table_heading"
           >
-            <TableHead className="client_profile_table_header">
+            <TableHead className="profile_data_table_header">
               <TableRow>
                 <TableCell>Sr No.</TableCell>
                 <TableCell>Date</TableCell>
@@ -140,7 +137,7 @@ const PJPScheduleTable = ({
           />
         </TableContainer>
       ) : (
-        <Box sx={{ height: '60vh' }}>
+        <Box>
           <NoResultFound />
         </Box>
       )}
