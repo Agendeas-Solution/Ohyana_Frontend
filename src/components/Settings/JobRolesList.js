@@ -116,7 +116,7 @@ const JobRolesList = () => {
         <Box className="left_team_profile_section" sx={{ marginTop: '10px' }}>
           <TableContainer>
             <Table className="job_role_list">
-              <TableHead className="client_profile_table_header">
+              <TableHead className="profile_data_table_header">
                 <TableRow>
                   <TableCell>Sr. No.</TableCell>
                   <TableCell>Job Role</TableCell>

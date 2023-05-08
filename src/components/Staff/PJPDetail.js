@@ -10,9 +10,17 @@ import {
   IconButton,
   InputLabel,
   MenuItem,
+  Pagination,
+  Paper,
   Radio,
   RadioGroup,
   Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   TextField,
   Typography,
 } from '@mui/material'
@@ -42,6 +50,8 @@ import { styled, useTheme } from '@mui/material/styles'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { TEAM } from '../../constants/teamConstant'
+import PJPDetailDialog from './PJPDetailDialog'
+import NoResultFound from '../ErrorComponent/NoResultFound'
 const drawerWidth = 350
 
 const PJPDetail = ({
@@ -55,7 +65,7 @@ const PJPDetail = ({
   const theme = useTheme()
   let path = window.location.pathname
   path = path.split('/').pop()
-  const [value, setValue] = useState('TODAY')
+  const [value, setValue] = useState('ALL')
   const [pjpList, setPjpList] = useState([])
   const [cityList, setCityList] = useState([])
   const [stateList, setStateList] = useState([])
@@ -66,6 +76,10 @@ const PJPDetail = ({
   //   clientId: '',
   //   description: '',
   // })
+  const [pjpDetailDialog, setPJPDetailDialog] = useState({
+    status: false,
+    id: '',
+  })
   const [selectedCityState, setSelectedCityState] = useState({
     city: '',
     state: '',
@@ -100,6 +114,7 @@ const PJPDetail = ({
       clientId: '',
       description: '',
     })
+    setPJPDetailDialog({ ...pjpDetailDialog, status: false })
   }
   const handleCloseCompletedDialog = () => {
     setCompletedDialog({ ...completedDialog, status: false })
@@ -280,182 +295,238 @@ const PJPDetail = ({
 
   return (
     <>
-      <Box className="pjp_detail_main_box">
-        <TabContext value={value}>
-          {/* <Box className="tab_row client_pjp_tab">
-            <TabList onChange={handleChange}>
-              <Tab label="Today" value="TODAY" />
-              <Tab label="All" value="ALL" />
-            </TabList>
-            <Box className="button_and_filter">
-              <Button
-                onClick={() =>
-                  setAddPJPDetail({ ...addPJPDetail, dialogStatus: true })
-                }
-                className="tab_btn p-2"
+      <Drawer
+        onClose={handleDrawerClose}
+        sx={{
+          width: 2,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+          },
+        }}
+        anchor="right"
+        open={open}
+      >
+        <DrawerHeader className="drawer_header_section">
+          <Box className="filter_main_heading">
+            <IconButton
+              sx={{ color: '#2e3591', padding: '0px' }}
+              disableRipple={true}
+              onClick={handleDrawerClose}
+            >
+              {theme.direction === 'rtl' ? (
+                <ChevronLeftIcon className="chevron_icon" />
+              ) : (
+                <ChevronRightIcon className="chevron_icon" />
+              )}
+            </IconButton>
+            <Typography sx={{ fontSize: '22px', paddingRight: '0px' }}>
+              Filter By
+            </Typography>
+          </Box>
+          <Box>
+            <Button onClick={handleClearAllFilter}>Reset</Button>
+            <Button
+              className="common_button"
+              onClick={handleApplyFilter}
+              variant="contained"
+            >
+              Apply
+            </Button>
+          </Box>
+        </DrawerHeader>
+        <Divider />
+        <Box className="filter_body_section">
+          <FormControl className="filter_body_inner_section">
+            <FormLabel className="filter_body_inner_heading">PJP Is</FormLabel>
+            <RadioGroup
+              value={filterPJP.pjpStatus}
+              onChange={e => {
+                setFilterPJP({ ...filterPJP, pjpStatus: e.target.value })
+              }}
+            >
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
               >
-                + Create
-              </Button>
-              <IconButton edge="end" onClick={handleDrawerOpen}>
-                <img src={Filter} alt="" />
-              </IconButton>
-            </Box>
-          </Box> */}
-
-          <Drawer
-            onClose={handleDrawerClose}
-            sx={{
-              '& .MuiDrawer-paper': {
-                width: drawerWidth,
-              },
-            }}
-            open={open}
-            anchor="right"
-          >
-            <DrawerHeader className="drawer_header_section">
-              <Box className="filter_main_heading">
-                <IconButton
-                  sx={{ color: '#2e3591' }}
-                  disableRipple={true}
-                  onClick={handleDrawerClose}
-                >
-                  {theme.direction === 'rtl' ? (
-                    <ChevronLeftIcon className="chevron_icon" />
-                  ) : (
-                    <ChevronRightIcon className="chevron_icon" />
-                  )}
-                </IconButton>
-                <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
-              </Box>
-              <Box>
-                <Button onClick={handleApplyFilter} variant="contained">
-                  Apply
-                </Button>
-                <Button onClick={handleClearAllFilter}>Clear All</Button>
-              </Box>
-            </DrawerHeader>
-            <Divider />
-            <Box className="filter_body_section">
-              <FormControl className="filter_body_inner_section">
-                <FormLabel className="filter_body_inner_heading">
-                  PJP Is
-                </FormLabel>
-                <RadioGroup
-                  // row
-                  value={filterPJP.pjpStatus}
-                  onChange={e => {
-                    setFilterPJP({ ...filterPJP, pjpStatus: e.target.value })
-                  }}
-                >
-                  <Box className="checkbox_section">
-                    {statusTypeList.map(data => {
-                      return (
-                        <FormControlLabel
-                          className="checkbox_background_color"
-                          value={data.value}
-                          control={<Radio />}
-                          label={data.type}
-                        />
-                      )
-                    })}
-                  </Box>
-                </RadioGroup>
-              </FormControl>
-              <FormControl className="filter_body_inner_section">
-                <InputLabel>Select City</InputLabel>
-                <Select
-                  label="Select City"
-                  value={selectedCityState.city}
-                  onChange={e => {
-                    setSelectedCityState({
-                      ...selectedCityState,
-                      city: e.target.value,
-                    })
-                  }}
-                >
-                  {cityList &&
-                    cityList.map(data => {
-                      return <MenuItem value={data}>{data}</MenuItem>
-                    })}
-                </Select>
-              </FormControl>
-              <FormControl className="filter_body_inner_section">
-                <InputLabel>Select State</InputLabel>
-                <Select
-                  label="Select State"
-                  value={selectedCityState.state}
-                  onChange={e => {
-                    setSelectedCityState({
-                      ...selectedCityState,
-                      state: e.target.value,
-                    })
-                  }}
-                >
-                  {stateList &&
-                    stateList.map(data => {
-                      return <MenuItem value={data}>{data}</MenuItem>
-                    })}
-                </Select>
-              </FormControl>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  inputFormat="dd/MM/yyyy"
-                  value={filterPJP.date}
-                  onChange={e => {
-                    setFilterPJP({
-                      ...filterPJP,
-                      date: moment(e).format('YYYY-MM-DD'),
-                    })
-                  }}
-                  renderInput={params => (
-                    <TextField
-                      variant="outlined"
-                      {...params}
-                      label="Date"
-                      sx={{ margin: '10px 16px' }}
+                {statusTypeList.map(data => {
+                  return (
+                    <FormControlLabel
+                      sx={{
+                        width: '100%',
+                        margin: '4px 0px',
+                      }}
+                      className="checkbox_background_color"
+                      value={data.value}
+                      control={<Radio />}
+                      label={data.type}
                     />
-                  )}
-                  PopperProps={{
-                    placement: 'bottom-start', // Set placement to 'bottom-start'
-                  }}
+                  )
+                })}
+              </Box>
+            </RadioGroup>
+          </FormControl>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              inputFormat="dd/MM/yyyy"
+              value={filterPJP.date}
+              onChange={e => {
+                setFilterPJP({
+                  ...filterPJP,
+                  date: moment(e).format('YYYY-MM-DD'),
+                })
+              }}
+              renderInput={params => (
+                <TextField
+                  variant="outlined"
+                  {...params}
+                  label="Date"
+                  sx={{ margin: '10px 10px' }}
                 />
-              </LocalizationProvider>
-            </Box>
-          </Drawer>
+              )}
+              PopperProps={{
+                placement: 'bottom-start', // Set placement to 'bottom-start'
+              }}
+            />
+          </LocalizationProvider>
 
-          <TabPanel sx={{ padding: '0px' }} value="TODAY">
-            <PJPScheduleTable
-              pjpList={pjpList}
-              numbersToDisplayOnPagination={numbersToDisplayOnPagination}
-              currentPage={currentPage}
-              rowsPerPage={rowsPerPage}
-              setCurrentPage={setCurrentPage}
-            />
-          </TabPanel>
-          {/* <TabPanel value="TOMORROW">
-            <PJPScheduleTable pjpList={pjpList} />
-          </TabPanel> */}
-          <TabPanel
-            sx={{ padding: '0px' }}
-            className="staff_profile_pjp"
-            value="ALL"
+          <FormControl className="filter_body_inner_section">
+            <InputLabel>Select State</InputLabel>
+            <Select
+              label="Select State"
+              value={selectedCityState.state}
+              onChange={e => {
+                setSelectedCityState({
+                  ...selectedCityState,
+                  state: e.target.value,
+                })
+              }}
+            >
+              {stateList &&
+                stateList.map(data => {
+                  return <MenuItem value={data}>{data}</MenuItem>
+                })}
+            </Select>
+          </FormControl>
+          <FormControl className="filter_body_inner_section">
+            <InputLabel>Select City</InputLabel>
+            <Select
+              label="Select City"
+              value={selectedCityState.city}
+              onChange={e => {
+                setSelectedCityState({
+                  ...selectedCityState,
+                  city: e.target.value,
+                })
+              }}
+            >
+              {cityList &&
+                cityList.map(data => {
+                  return <MenuItem value={data}>{data}</MenuItem>
+                })}
+            </Select>
+          </FormControl>
+        </Box>
+      </Drawer>
+      <TableContainer className="profile_data_table" component={Paper}>
+        {pjpList?.pjps && pjpList?.pjps.length > 0 ? (
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            sx={{ minWidth: 700, padding: '0px !important' }}
+            className="table_heading"
           >
-            <PJPScheduleTable
-              pjpList={pjpList}
-              numbersToDisplayOnPagination={numbersToDisplayOnPagination}
-              currentPage={currentPage}
-              rowsPerPage={rowsPerPage}
-              setCurrentPage={setCurrentPage}
-              completedDialog={completedDialog}
-              setCompletedDialog={setCompletedDialog}
-              addPJPDetail={addPJPDetail}
-              setAddPJPDetail={setAddPJPDetail}
-              handleCloseDialog={handleCloseDialog}
-              handleAddPJPDetail={handleAddPJPDetail}
-            />
-          </TabPanel>
-        </TabContext>
-      </Box>
+            <TableHead className="profile_data_table_header">
+              <TableRow>
+                <TableCell>Sr No.</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Customer Name</TableCell>
+                <TableCell>Business Name</TableCell>
+                <TableCell>Contact Number</TableCell>
+                <TableCell>City</TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {pjpList?.pjps.map((pjpData, index) => {
+                return (
+                  <TableRow
+                    key={index}
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    sx={{
+                      '&:last-child td,th': { border: 0 },
+                    }}
+                  >
+                    <TableCell scope="row" className=" table_row_top_align">
+                      {index + 1}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
+                      {pjpData?.date || '-'}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
+                      {pjpData?.client?.name || '-'}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
+                      {pjpData?.client?.business || '-'}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
+                      {pjpData?.client?.contact_number || '-'}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
+                      {pjpData?.client?.city || '-'}
+                    </TableCell>
+                    <TableCell className="table_row_top_align table_buttons">
+                      <Box
+                        sx={{
+                          marginRight: '10px',
+                          minWidth: '50px',
+                          display: 'flex',
+                          alignItems: 'center',
+                        }}
+                      >
+                        {!pjpData?.is_completed ? (
+                          <Button
+                            className="border_button"
+                            onClick={() =>
+                              setCompletedDialog({
+                                ...completedDialog,
+                                status: true,
+                                pjpId: pjpData?.id,
+                              })
+                            }
+                          >
+                            Complete
+                          </Button>
+                        ) : (
+                          '-'
+                        )}
+                      </Box>
+
+                      <Button
+                        className="border_button"
+                        onClick={() =>
+                          setPJPDetailDialog({
+                            status: true,
+                            id: pjpData.id,
+                          })
+                        }
+                      >
+                        View
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
+        ) : (
+          <NoResultFound />
+        )}
+      </TableContainer>
 
       {addPJPDetail.dialogStatus && (
         <AddPJPDialog
@@ -471,6 +542,15 @@ const PJPDetail = ({
           setCompletedDialog={setCompletedDialog}
           handleCloseCompletedDialog={handleCloseCompletedDialog}
           handleAddCompletePJPStatus={handleAddCompletePJPStatus}
+        />
+      )}
+      {pjpDetailDialog.status && (
+        <PJPDetailDialog
+          addPJPDetail={addPJPDetail}
+          setAddPJPDetail={setAddPJPDetail}
+          pjpDetailDialog={pjpDetailDialog}
+          handleCloseDialog={handleCloseDialog}
+          setPJPDetailDialog={setPJPDetailDialog}
         />
       )}
     </>

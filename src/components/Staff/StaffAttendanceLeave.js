@@ -23,36 +23,10 @@ const StaffAttendanceLeave = ({
   setApproveLeave,
 }) => {
   const [value, setValue] = useState('1')
-  // useEffect(() => {
-  //   let path = window.location.pathname
-  //   console.log('Printing Path of ', path)
-  //   console.log('Printing ', path.split('/').pop())
-  //   path = path.split('/').pop()
-  //   // value === '1' &&
-  //   //   GetStaffAttendanceList(
-  //   //     path,
-  //   //     res => {
-  //   //       setStaffAttendanceList(res?.data)
-  //   //     },
-  //   //     err => {},
-  //   //   )
-  //   value === '1' &&
-  //     GetStaffLeaveList(
-  //       path,
-  //       res => {
-  //         setStaffLeaveList(res?.data)
-  //         //   setStaffAttendanceList(res?.data)
-  //       },
-  //       err => { },
-  //     )
-  // }, [value])
 
   return (
     <>
-      <TableContainer
-        className="eclient_table_height client_detail_table set_box_shadow mt-2"
-        component={Paper}
-      >
+      <TableContainer className="profile_data_table mt-2" component={Paper}>
         {staffLeaveList.length > 0 ? (
           <Table
             stickyHeader
@@ -60,7 +34,7 @@ const StaffAttendanceLeave = ({
             sx={{ minWidth: 700, padding: '0px !important' }}
             className="table_heading"
           >
-            <TableHead className="client_profile_table_header">
+            <TableHead className="profile_data_table_header">
               <TableRow>
                 <TableCell>Date</TableCell>
                 <TableCell>Leave Type</TableCell>

@@ -482,9 +482,10 @@ const ClientProfile = () => {
                 <Tab label="Orders" value="5" />
                 <Tab label="Profile" value="4" />
               </TabList>
-              <Box>
-                {value === '1' ? (
-                  <>
+
+              {value === '1' ? (
+                <>
+                  <Box className="tab_right_button_section">
                     <Button onClick={handleCallOpen} className="common_button">
                       <img src={CallNotReceived} />
                     </Button>
@@ -502,47 +503,47 @@ const ClientProfile = () => {
                     >
                       Close
                     </Button>
-                  </>
-                ) : null}
-                {value === '2' ? (
-                  <>
-                    <Button
-                      onClick={() =>
-                        setRemainderDialog({ ...remainderDialog, status: true })
-                      }
-                      className="common_button"
-                      variant="contained"
-                    >
-                      + Reminder
-                    </Button>
-                  </>
-                ) : null}
-                {value === '3' ? (
-                  <>
-                    <Button
-                      className="common_button"
-                      onClick={handleAppointmentOpen}
-                      variant="contained"
-                    >
-                      + Appointment
-                    </Button>
-                  </>
-                ) : null}
-                {value === '5' ? (
-                  <>
-                    <Button
-                      className="common_button"
-                      // onClick={handleOrderOpen}
-                      onClick={() =>
-                        handleClientOrdersClick('/clientorders', 'Add to Cart')
-                      }
-                      variant="contained"
-                    >
-                      + Order
-                    </Button>
-                  </>
-                ) : null}
-              </Box>
+                  </Box>
+                </>
+              ) : null}
+              {value === '2' ? (
+                <>
+                  <Button
+                    onClick={() =>
+                      setRemainderDialog({ ...remainderDialog, status: true })
+                    }
+                    className="common_button"
+                    variant="contained"
+                  >
+                    + Reminder
+                  </Button>
+                </>
+              ) : null}
+              {value === '3' ? (
+                <>
+                  <Button
+                    className="common_button"
+                    onClick={handleAppointmentOpen}
+                    variant="contained"
+                  >
+                    + Appointment
+                  </Button>
+                </>
+              ) : null}
+              {value === '5' ? (
+                <>
+                  <Button
+                    className="common_button"
+                    // onClick={handleOrderOpen}
+                    onClick={() =>
+                      handleClientOrdersClick('/clientorders', 'Add to Cart')
+                    }
+                    variant="contained"
+                  >
+                    + Order
+                  </Button>
+                </>
+              ) : null}
             </Box>
 
             <TabPanel sx={{ padding: '0px' }} value="1">

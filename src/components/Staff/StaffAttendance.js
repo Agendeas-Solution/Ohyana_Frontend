@@ -88,30 +88,30 @@ const StaffAttendance = ({
   }, [activeTab, selectMonth])
   return (
     <>
-      <Box className="target_section">
-        <Box className="statistics_data_section">
-          <Box className="statistics_data">
-            <Box className="statistics_box first_box">
-              <Typography variant="span">Total Days</Typography>
-              <Typography variant="span">
-                {staffAttendanceList?.totalDays || '-'}
-              </Typography>
-            </Box>
-            <Box className="statistics_box second_box">
-              <Typography variant="span">Absent Days</Typography>
-              <Typography variant="span">
-                {staffAttendanceList?.absentDays || '-'}
-              </Typography>
-            </Box>
-            <Box className="statistics_box third_box">
-              <Typography variant="span">Late Days</Typography>
-              <Typography variant="span">
-                {staffAttendanceList?.lateDays || '-'}
-              </Typography>
-            </Box>
+      {/* <Box className="target_section"> */}
+      <Box className="statistics_data_section">
+        <Box className="statistics_data">
+          <Box className="statistics_box first_box">
+            <Typography variant="span">Total Days</Typography>
+            <Typography variant="span">
+              {staffAttendanceList?.totalDays || '-'}
+            </Typography>
           </Box>
+          <Box className="statistics_box second_box">
+            <Typography variant="span">Absent Days</Typography>
+            <Typography variant="span">
+              {staffAttendanceList?.absentDays || '-'}
+            </Typography>
+          </Box>
+          <Box className="statistics_box third_box">
+            <Typography variant="span">Late Days</Typography>
+            <Typography variant="span">
+              {staffAttendanceList?.lateDays || '-'}
+            </Typography>
+          </Box>
+        </Box>
 
-          {/* <Box
+        {/* <Box
             sx={{
               display: 'flex',
               alignItems: 'start',
@@ -175,18 +175,19 @@ const StaffAttendance = ({
               </Button>
             </Box>
           </Box> */}
-        </Box>
-        {activeTab === 'present' && (
-          <StaffAttendancePresent staffAttendanceList={staffAttendanceList} />
-        )}
-        {activeTab === 'leave' && (
-          <StaffAttendanceLeave
-            approveLeave={approveLeave}
-            setApproveLeave={setApproveLeave}
-            staffLeaveList={staffLeaveList}
-          />
-        )}
       </Box>
+
+      {activeTab === 'present' && (
+        <StaffAttendancePresent staffAttendanceList={staffAttendanceList} />
+      )}
+      {activeTab === 'leave' && (
+        <StaffAttendanceLeave
+          approveLeave={approveLeave}
+          setApproveLeave={setApproveLeave}
+          staffLeaveList={staffLeaveList}
+        />
+      )}
+      {/* </Box> */}
       <ApproveLeaveDialog
         approveLeave={approveLeave}
         handleGrantLeave={handleGrantLeave}

@@ -24,12 +24,6 @@ const StaffTarget = ({
 }) => {
   let path = window.location.pathname
   path = path.split('/').pop()
-  // const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
-
-  // const [targetDetail, setTargetDetail] = useState({
-  //   status: false,
-  //   id: path,
-  // })
 
   const [targetList, setTargetList] = useState([])
 
@@ -62,10 +56,7 @@ const StaffTarget = ({
   }
   return (
     <>
-      <TableContainer
-        className="client_table_height client_detail_table set_box_shadow"
-        component={Paper}
-      >
+      <TableContainer className="profile_data_table" component={Paper}>
         {targetList.length > 0 ? (
           <Table
             stickyHeader
@@ -73,7 +64,7 @@ const StaffTarget = ({
             sx={{ minWidth: 700, padding: '0px !important' }}
             className="table_heading"
           >
-            <TableHead className="client_profile_table_header">
+            <TableHead className="profile_data_table_header">
               <TableRow>
                 <TableCell>Date</TableCell>
                 <TableCell>Period</TableCell>
@@ -105,7 +96,7 @@ const StaffTarget = ({
                       {targetData?.period ?? '-'} days
                     </TableCell>
                     <TableCell className="table_row_top_align">
-                      {targetData?.type === 0 ? 'Generate Lead' : 'Take Order'}
+                      {targetData?.type === 0 ? 'Generate Lead' : 'Take Order'}
                     </TableCell>
                     <TableCell className="table_row_top_align">
                       {targetData?.target || '-'}

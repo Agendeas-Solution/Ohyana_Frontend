@@ -33,18 +33,15 @@ const OrderList = () => {
   return (
     <>
       {/* {orderList.length > 0 ? ( */}
-      <TableContainer
-        className="client_table_height client_detail_table set_box_shadow"
-        component={Paper}
-      >
+      <TableContainer className="profile_data_table" component={Paper}>
         {orderList.length > 0 ? (
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, padding: '0px !important' }}
+            sx={{ minWidth: 700, padding: '0px !important' }}
             className="table_heading"
           >
-            <TableHead className="client_profile_table_header">
+            <TableHead className="profile_data_table_header">
               <TableRow>
                 <TableCell>Order Id.</TableCell>
                 <TableCell>Order By</TableCell>
@@ -68,18 +65,26 @@ const OrderList = () => {
                       '&:last-child td,th': { border: 0 },
                     }}
                   >
-                    <TableCell scope="row">{orderData?.id}</TableCell>
-                    <TableCell>{orderData?.team?.name}</TableCell>
-                    <TableCell>
+                    <TableCell scope="row" className="table_row_top_align">
+                      {orderData?.id}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
+                      {orderData?.team?.name}
+                    </TableCell>
+                    <TableCell className="table_row_top_align">
                       {moment(orderData?.date).format('Do MMM YY')}
                     </TableCell>
-                    <TableCell>{orderData?.total_items}</TableCell>
+                    <TableCell className="table_row_top_align">
+                      {orderData?.total_items}
+                    </TableCell>
                     <TableCell>{orderData?.order_total}</TableCell>
                     <TableCell className="status_description">
                       {orderData?.orderTrackingStatus}
                     </TableCell>
-                    <TableCell>{orderData?.paymentStatus}</TableCell>
-                    <TableCell>
+                    <TableCell className="table_row_top_align">
+                      {orderData?.paymentStatus}
+                    </TableCell>
+                    <TableCell className="table_row_top_align table_buttons">
                       <Button
                         onClick={() => {
                           navigate(`/orderDetail/${orderData?.id}`)
