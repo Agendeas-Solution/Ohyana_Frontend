@@ -45,6 +45,8 @@ import moment from 'moment'
 import AddPJPDialog from './AddPJPDialog'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import CompletedPJPDialog from './CompletedPJPDialog'
+import PJPDetailDialog from './PJPDetailDialog'
+import NoResultFound from '../ErrorComponent/NoResultFound'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { styled, useTheme } from '@mui/material/styles'
@@ -72,6 +74,10 @@ const PJPDetail = ({
   const [pjpList, setPjpList] = useState([])
   const [cityList, setCityList] = useState([])
   const [stateList, setStateList] = useState([])
+  const [pjpDetailDialog, setPJPDetailDialog] = useState({
+    status: false,
+    id: '',
+  })
   const [selectedCityState, setSelectedCityState] = useState({
     city: null,
     state: null,
