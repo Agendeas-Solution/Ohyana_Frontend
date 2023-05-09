@@ -9,7 +9,6 @@ import AddClient from '../components/AddClient/AddClient'
 import UserProfile from '../components/UserProfile/UserProfile'
 import EditProfile from '../components/EditProfile/EditProfile'
 import Dashboard from '../components/Dashboard'
-import Notification from '../components/Notification/Notification'
 import Client from '../components/Client/Client'
 import ClientProfile from '../components/ClientProfile/ClientProfile'
 import Department from '../components/Settings/Department'
@@ -38,6 +37,7 @@ import ExpenseList from '../components/Expense/ExpenseList'
 import ClientOrders from '../components/Orders/ClientOrders'
 import MyCart from '../components/Orders/MyCart'
 import Integrations from '../components/Integrations/Integrations'
+import Notification from '../components/Notification/Notification'
 const socket = io('http://192.168.1.65:9009')
 
 const AppContent = () => {
@@ -73,13 +73,15 @@ const AppContent = () => {
             <Route path="/profile" element={<UserProfile />}></Route>
             <Route path="/editprofile" element={<EditProfile />}></Route>
             <Route path="/dashboard" element={<Dashboard />}></Route>
-            <Route path="/clientorders/:id" element={<ClientOrders />}></Route>
+            {/* <Route path="/clientorders/:id" element={<ClientOrders />}></Route> */}
+            <Route path="/clientorders/" element={<ClientOrders />}></Route>
             <Route path="/mycart/:id" element={<MyCart />}></Route>
             <Route
               path="/dashboardemployee"
               element={<DashboardEmployee />}
             ></Route>
             <Route path="/notification" element={<Notification />}></Route>
+
             {permissions?.clientMenu && (
               <Route path="/client" element={<Client />}></Route>
             )}

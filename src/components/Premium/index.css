@@ -88,3 +88,14 @@
 .main_sub_heading {
   padding-bottom: 12px;
 }
+
+.profile_section {
+  display: flex;
+  background: #ffffff;
+  width: 97% !important;
+  padding: 10px;
+  height: 86vh;
+  border-radius: 5px;
+  margin: 20px auto;
+  flex-direction: column;
+}

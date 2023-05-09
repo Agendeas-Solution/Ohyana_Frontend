@@ -3,6 +3,7 @@
   height: 100vh;
   display: flex;
 }
+
 .signup_left_section {
   background-color: #2e3591;
   width: 60%;
@@ -12,21 +13,18 @@
   justify-content: center;
   align-items: center;
 }
+
 .Logo_img {
   width: 200px;
   height: 100px;
 }
+
 .signup_right_section {
   width: 40%;
   display: flex;
   flex-direction: column;
   padding: 30px 30px 10px 30px;
   height: 100%;
-}
-.textfield {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
 }
 
 .copyright_footer {
@@ -35,4 +33,12 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+}
+
+.textfield {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  width: 45%;
+  justify-content: space-between;
 }

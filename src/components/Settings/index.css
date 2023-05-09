@@ -240,3 +240,49 @@ input[type='radio']:focus {
   display: flex;
   flex-direction: row;
 }
+
+.access_box_form_control {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.access_checkbox {
+  padding: 10px 0px !important;
+  color: #2e3591 !important;
+}
+
+.expanse_checkbox {
+  padding: 10px 8px !important;
+  color: #2e3591 !important;
+}
+
+.common_heading {
+  font-weight: 600 !important;
+}
+
+.main_header_section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 0px 10px 0px;
+}
+
+.product_dialog_detail_section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.description_text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  /* line-height: 1.4 !important; */
+  /* max-height: 4.8em; */
+  line-height: 2 !important;
+  /* max-height: 4.0em; */
+}

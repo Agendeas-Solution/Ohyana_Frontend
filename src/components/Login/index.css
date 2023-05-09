@@ -10,16 +10,6 @@
   width: 100%;
 }
 
-.login_submit_button_root button {
-  margin-top: 20px;
-  background-color: #2e3591 !important;
-  color: #ffffff;
-  border-radius: 7px;
-  text-transform: capitalize;
-  width: 75%;
-  font-size: 20px;
-}
-
 .login_forget_password_root {
   width: 100%;
   display: flex;

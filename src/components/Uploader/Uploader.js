@@ -11,7 +11,7 @@
 //       const fileType = parts[parts.length - 1]
 //       console.log('fileType', fileType)
 //       setImage(files[0])
-//       debugger
+//
 //     }
 //   }
 //   const onButtonClick = () => {

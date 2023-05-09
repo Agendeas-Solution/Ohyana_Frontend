@@ -57,7 +57,6 @@ const EditCompanyProfile = () => {
       res => {
         if (res) {
           setCountryList(res)
-          debugger
         }
       },
       err => {

@@ -23,3 +23,9 @@ audio::-internal-media-controls-download-button {
   background-color: red !important;
   padding: 9px;
 }
+
+.client_profile_main_section {
+  width: 70%;
+  overflow: scroll;
+  padding: 10px;
+}

@@ -86,6 +86,9 @@ const Header = () => {
             }}
           >
             <NotificationsNoneIcon
+              onClick={() => {
+                navigate('/notification')
+              }}
               variant="span"
               sx={{ marginRight: '10px', color: '#2E3591' }}
             />
@@ -103,7 +106,7 @@ const Header = () => {
                 alt="Remy Sharp"
                 src="/static/images/avatar/1.jpg"
               />
-              <KeyboardArrowDownIcon className="k_color_primary" />
+              <KeyboardArrowDownIcon />
             </Stack>
           </Box>
         </Box>
