@@ -61,3 +61,22 @@
   color: #2e3591;
   font-weight: 600;
 }
+
+.staff_profile {
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.staff_profile_page {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+
+.attendance_present_table {
+  border: 1px solid #e5e5e5;
+  border-top: none;
+}

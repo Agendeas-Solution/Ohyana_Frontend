@@ -167,3 +167,23 @@
     text-align: center;
   }
 } */
+
+.sales_parameter {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.attendance_buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 3px;
+}

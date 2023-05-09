@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Typography, Box, Tabs, Button, Tab } from '@mui/material'
+import {
+  Typography,
+  Box,
+  Tabs,
+  Button,
+  Tab,
+  selectClasses,
+} from '@mui/material'
 import StaffExpenses from '../Staff/StaffExpenses'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import { useNavigate } from 'react-router-dom'
@@ -16,12 +23,15 @@ import {
 } from '../../services/apiservices/staffDetail'
 import ApplyLeaveDialog from './ApplyLeaveDialog'
 import { GetAllHoliday } from '../../services/apiservices/holiday'
+import moment from 'moment'
 const PresentData = React.lazy(() => import('./PresentData'))
 const LeaveData = React.lazy(() => import('./LeaveData'))
 const HolidayData = React.lazy(() => import('./HolidayData'))
+
 const UserProfile = () => {
   const navigate = useNavigate()
   const [value, setValue] = useState('Profile')
+  const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
@@ -30,7 +40,7 @@ const UserProfile = () => {
     setAttendanceTab(newValue)
   }
   const [userDetail, setUserDetail] = useState({})
-  const [activeTab, setActiveTab] = useState('present')
+  const [activeTab, setActiveTab] = useState('holiday')
   const [staffAttendanceList, setStaffAttendanceList] = useState([])
   const [leaveList, setLeaveList] = useState([])
   const [holidayList, setHolidayList] = useState([])
@@ -158,17 +168,23 @@ const UserProfile = () => {
               <Box className="statistics_data">
                 <Box className="statistics_box first_box">
                   <Typography>Total Days</Typography>
-                  <Typography>{staffAttendanceList?.totalDays}</Typography>
+                  <Typography>
+                    {staffAttendanceList?.totalDays || '-'}
+                  </Typography>
                 </Box>
 
                 <Box className="statistics_box second_box">
                   <Typography>Absent Days</Typography>
-                  <Typography>{staffAttendanceList?.absentDays}</Typography>
+                  <Typography>
+                    {staffAttendanceList?.absentDays || '-'}
+                  </Typography>
                 </Box>
 
                 <Box className="statistics_box third_box">
                   <Typography>Late Days</Typography>
-                  <Typography>{staffAttendanceList?.lateDays}</Typography>
+                  <Typography>
+                    {staffAttendanceList?.lateDays || '-'}
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -229,8 +245,12 @@ const UserProfile = () => {
           </TabPanel>
 
           <TabPanel sx={{ padding: '10px' }} value="Expenses">
-            <StaffExpenses />
+            <StaffExpenses
+              selectMonth={selectMonth}
+              setSelectMonth={setSelectMonth}
+            />
           </TabPanel>
+
           <TabPanel value="Profile">
             <Box className="staff_profile">
               <Box className="staff_profile_page">
@@ -257,14 +277,6 @@ const UserProfile = () => {
                 </Typography>
                 <Typography variant="span">{userDetail?.email}</Typography>
               </Box>
-              {/* <Box className="staff_profile_page">
-                <Typography variant="span" className=" profile_data_lable">
-                  City:
-                </Typography>
-                <Typography variant="span">
-                  {userDetail?.city || '-'}
-                </Typography>
-              </Box> */}
               <Box className="staff_profile_page">
                 <Typography className=" profile_data_lable" variant="span">
                   Birthday

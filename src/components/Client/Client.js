@@ -424,7 +424,6 @@ const Client = () => {
                   ...selectedCityStateCountry,
                   country: value,
                 })
-                debugger
               }}
               getOptionLabel={option => option?.name}
               renderInput={params => (

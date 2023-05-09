@@ -221,7 +221,7 @@ const AddStaffMember = () => {
 
           {/* FINAL */}
           {/* <Paper className="my_profile_upload_image">
-            <Box className="edit_myy_profile_image_section">
+            <Box className="my_profile_image_section">
               <input
                 type="file"
                 accept="image/*"

@@ -55,15 +55,15 @@ const ClientStatusCloseDialog = ({
   }, [addNotificationDetail?.departmentId])
 
   useEffect(() => {
-    GetAdminDepartmentList(
-      {},
-      res => {
-        setDepartmentList(res?.data?.department)
-      },
-      err => {
-        console.log('Printing Error', err)
-      },
-    )
+    // GetAdminDepartmentList(
+    //   {},
+    //   res => {
+    //     setDepartmentList(res?.data?.department)
+    //   },
+    //   err => {
+    //     console.log('Printing Error', err)
+    //   },
+    // )
   }, [])
   const handleAddNotification = () => {
     AddNotificationDetail(

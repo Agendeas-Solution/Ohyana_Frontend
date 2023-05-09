@@ -172,7 +172,7 @@ const AddClient = () => {
 
   const handleAddClient = () => {
     console.log('Printing UserDetail', userDetail)
-    debugger
+
     if (
       userDetail.clientName !== '' &&
       (userDetail.email || userDetail.contactNo) &&
@@ -200,7 +200,7 @@ const AddClient = () => {
         max_invesment_amount: userDetail.max_invesment_amount,
         reference_name: userDetail?.referenceName,
       }
-      debugger
+
       let path = window.location.pathname
       path = path.split('/').pop()
       {
@@ -276,7 +276,7 @@ const AddClient = () => {
 
           {/* FINAL */}
           {/* <Paper className="my_profile_upload_image">
-            <Box className="edit_myy_profile_image_section">
+            <Box className="my_profile_image_section">
               <input
                 type="file"
                 accept="image/*"
@@ -409,7 +409,6 @@ const AddClient = () => {
                 value={userDetail?.country}
                 onChange={(e, value) => {
                   setUserDetail({ ...userDetail, country: value })
-                  debugger
                 }}
                 getOptionLabel={option => option?.name}
                 renderInput={params => (

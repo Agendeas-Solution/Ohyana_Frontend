@@ -412,7 +412,7 @@ const HolidayAndLeaveManagement = () => {
 
             <TableContainer
               sx={{ padding: '0px 10px' }}
-              className="detail_table set_box_shadow"
+              className="set_box_shadow"
               component={Paper}
             >
               <Table

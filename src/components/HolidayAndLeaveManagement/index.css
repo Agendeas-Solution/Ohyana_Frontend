@@ -27,13 +27,14 @@
   margin-left: 10px;
 }
 
-/* .leave_holiday_section th,
-tr,
-td,
-table {
-  border: none !important;
-  box-shadow: none !important;
-} */
+.border_button_small {
+  min-width: 0px !important;
+  font-size: 14px !important;
+  height: 35px;
+  padding: 10px !important;
+  color: #2e3591 !important;
+  text-transform: capitalize !important;
+}
 
 .leave_holiday_section {
   box-shadow: none !important;
