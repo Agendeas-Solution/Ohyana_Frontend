@@ -9,9 +9,17 @@ import {
   ListItemText,
   Checkbox,
   OutlinedInput,
+  TableBody,
+  TableRow,
+  TableContainer,
+  Table,
+  TableHead,
+  TableCell,
+  Button,
 } from '@mui/material'
 import './index.css'
 import BarChart from './BarChart'
+import Paper from '@mui/material/Paper'
 import { GetTeamReport } from '../../services/apiservices/productDetail'
 import { GetAdminRole } from '../../services/apiservices/adminprofile'
 import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail'
@@ -156,7 +164,7 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
   }, [graphData])
   return (
     <>
-      <Box>
+      <Box className="main_section">
         <Box
           sx={{
             width: '100%',
@@ -231,6 +239,93 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
         </Box>
         <Box sx={{ height: '65vh !important' }}>
           {userData?.datasets && <BarChart chartData={userData} />}
+        </Box>
+
+        <Box>
+          <Box>
+            <TableContainer
+              sx={{ padding: '0px 10px' }}
+              className="set_box_shadow"
+              component={Paper}
+            >
+              <Table
+                stickyHeader
+                aria-label="sticky table"
+                sx={{ minWidth: 500, padding: '0px !important' }}
+                className="table_heading"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Sr. No.</TableCell>
+                    <TableCell>Team Member</TableCell>
+                    <TableCell>Points</TableCell>
+                    <TableCell>Performance</TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    sx={{
+                      '&:last-child td,th': { border: 0 },
+                    }}
+                  >
+                    <TableCell>fds</TableCell>
+                    <TableCell>fds </TableCell>
+                    <TableCell>fdsf</TableCell>
+                    <TableCell>fdsf</TableCell>
+                    <TableCell>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'flex-end',
+                        }}
+                      >
+                        <Button
+                          sx={{ marginRight: '10px' }}
+                          className="border_button_small"
+                        >
+                          Edit
+                        </Button>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    sx={{
+                      '&:last-child td,th': { border: 0 },
+                    }}
+                  >
+                    <TableCell>fds</TableCell>
+                    <TableCell>fds </TableCell>
+                    <TableCell>fdsf</TableCell>
+                    <TableCell>fdsf</TableCell>
+                    <TableCell>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'flex-end',
+                        }}
+                      >
+                        <Button
+                          sx={{ marginRight: '10px' }}
+                          className="border_button_small"
+                        >
+                          Edit
+                        </Button>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Box>
+          <Box></Box>
         </Box>
       </Box>
     </>

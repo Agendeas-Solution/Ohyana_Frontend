@@ -85,25 +85,27 @@ const Notification = () => {
 
   return (
     <>
-      <Box className="main_section">
-        <Box className="bg-body">
-          <Box className="appointment_notification">
-            {notificationDetail.map((rowData, index) => {
-              return (
-                <>
+      <Box className="main_section" sx={{ padding: '0px', overflowY: 'auto' }}>
+        <Box sx={{ padding: '10px' }}>
+          {notificationDetail.map((rowData, index) => {
+            return (
+              <>
+                <Box sx={{ marginBottom: '20px' }}>
                   {moment(rowData?.createdAt).format('DD-MM-YYYY') ===
                   moment(notificationDetail[index - 1]?.createdAt).format(
                     'DD-MM-YYYY',
                   ) ? null : (
-                    <Box className="content_heading">
-                      <Typography>
-                        {moment(rowData.createdAt).format('DD-MM-YYYY')}
-                      </Typography>
-                    </Box>
+                    <Typography>
+                      {moment(rowData.createdAt).format('DD-MM-YYYY')}
+                    </Typography>
                   )}
 
                   <Box className="notification_content">
-                    <Box sx={{ width: '3%' }} className="d-flex flex-column">
+                    <Box
+                      sx={{
+                        width: '6%',
+                      }}
+                    >
                       {
                         <img
                           style={{ height: '30px', width: '30px' }}
@@ -119,7 +121,11 @@ const Notification = () => {
                       }
                     </Box>
 
-                    <Box sx={{ width: '6%' }} className="d-flex flex-column">
+                    <Box
+                      sx={{
+                        width: '10%',
+                      }}
+                    >
                       <Typography variant="span">
                         {moment(
                           moment(rowData.createdAt).format(
@@ -129,11 +135,20 @@ const Notification = () => {
                       </Typography>
                     </Box>
 
-                    <Box sx={{ width: '70%' }} className="d-flex flex-column">
-                      <Typography className="h5" variant="div">
+                    <Box
+                      sx={{
+                        width: '84%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                      }}
+                    >
+                      <Typography
+                        className="notification_description_heading"
+                        variant="span"
+                      >
                         {rowData.heading}
                       </Typography>
-                      <Typography variant="div">
+                      <Typography variant="span">
                         {rowData.description}
                       </Typography>
                     </Box>
@@ -154,10 +169,10 @@ const Notification = () => {
                         })}
                     </Box>
                   </Box>
-                </>
-              )
-            })}
-          </Box>
+                </Box>
+              </>
+            )
+          })}
         </Box>
         {/* <ClientStatusCloseDialog
           deleteRemainderDialog={deleteRemainderDialog}

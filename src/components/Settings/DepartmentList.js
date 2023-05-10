@@ -51,7 +51,7 @@ const DepartmentList = () => {
           + Add Department
         </Button>
       </div>
-      <Box className="department_list_section bg-body">
+      <Box className="department_list_section inner_content">
         {AdminDepartmentList.map(row => {
           return (
             <Box

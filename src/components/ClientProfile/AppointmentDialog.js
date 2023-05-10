@@ -21,13 +21,14 @@ import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import './index.css'
 import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail.js'
+
 const AppointmentDialog = ({
-  clientProfileDetail,
   handleAppointmentClose,
   appointmentDialogControl,
   setAppointmentDialogControl,
   handleAddEditAppointment,
 }) => {
+  console.log({ appstatus: appointmentDialogControl })
   const [staffDetailList, setStaffDetailList] = useState([])
   useEffect(() => {
     GetAdminStaffDetailList(

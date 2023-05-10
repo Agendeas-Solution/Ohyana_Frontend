@@ -83,7 +83,7 @@ const DashboardEmployee = () => {
   }
   return (
     <>
-      <Box className="dashboard_emp_main_section">
+      <Box className="main_section">
         <Box className="dashboard_emp_attendance_buttons">
           <Box>
             <Typography sx={{ fontWeight: '600' }} variant="span">
@@ -434,20 +434,20 @@ const DashboardEmployee = () => {
             {salesInquiry?.starPerformerList.length > 0 &&
               salesInquiry.starPerformerList.map(data => {
                 return (
-                  <div className="a-box">
-                    <div className="img-container">
-                      <div className="img-inner">
-                        <div className="inner-skew">
+                  <Box className="a-box">
+                    <Box className="img-container">
+                      <Box className="img-inner">
+                        <Box className="inner-skew">
                           <img src={StarPerformer} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-container">
+                        </Box>
+                      </Box>
+                    </Box>
+                    <Box className="text-container">
                       <h3>{data?.name || '-'}</h3>
                       <h6>{data?.role?.name || '-'}</h6>
                       <h5>Star Performer of the Month.</h5>
-                    </div>
-                  </div>
+                    </Box>
+                  </Box>
                 )
               })}
           </Box>

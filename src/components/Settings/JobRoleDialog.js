@@ -20,7 +20,7 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
     name: '',
     description: '',
     parentId: '',
-    clockIn: '',
+    clockIn: moment().format(),
   })
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
