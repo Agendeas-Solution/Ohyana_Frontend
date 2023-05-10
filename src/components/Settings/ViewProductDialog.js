@@ -113,7 +113,6 @@ const ViewProductDialog = ({
 
               <Box className="update_button_section">
                 <TextField
-                  // variant="standard"
                   variant="outlined"
                   label="Current Stock"
                   // InputProps={{
@@ -142,9 +141,6 @@ const ViewProductDialog = ({
                   Update
                 </Button>
               </Box>
-              {/* <Button onClick={handleProductQuantityUpdate} variant="contained">
-                Update Stock
-              </Button> */}
             </Box>
             <Box className="product_dialog_right_section">
               <Box className="detail_row product_detail_dia_right_section">

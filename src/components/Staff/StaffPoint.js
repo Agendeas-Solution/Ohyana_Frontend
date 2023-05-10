@@ -99,10 +99,13 @@ const StaffPoint = ({
     <>
       <Box className="point_section">
         <Box className="point_left_section">
-          <Box className="inner_point_left_section p-2 staff_point_table">
-            <Typography className="left_panel_heading p-2" variant="span">
+          <Box sx={{ margin: '15px 0px' }}>
+            <Typography className="left_panel_heading" variant="span">
               Point Rules
             </Typography>
+          </Box>
+
+          <Box className="inner_point_left_section">
             {pointRule.length > 0 &&
               pointRule.map(data => {
                 return (
@@ -130,60 +133,31 @@ const StaffPoint = ({
         <Box className="point_right_section">
           <Box className="point_data_heading">
             <Typography className="right_panel_heading" variant="span">
-              Total Points : {totalPoints}
+              Total Points :
             </Typography>
-
-            {/* <Box>
-              <Button
-                onClick={() => setAddAppreciationDialogControl(true)}
-                className="staff_common_button"
-              >
-                + Appreciation
-              </Button>
-
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  className="staff_date"
-                  views={['month', 'year']}
-                  value={selectMonth}
-                  onChange={newValue => {
-                    setSelectMonth(newValue)
-                  }}
-                  renderInput={params => (
-                    <TextField
-                      {...params}
-                      sx={{
-                        width: '180px',
-                        marginLeft: '10px',
-                        border: 'none',
-                      }}
-                      placeholder="Year and Month"
-                      helperText={null}
-                    />
-                  )}
-                  PopperProps={{
-                    placement: 'bottom-start', // Set placement to 'bottom-start'
-                  }}
-                />
-              </LocalizationProvider>
-            </Box> */}
-            {/* </Box> */}
+            <Typography className="right_panel_heading" variant="span">
+              {totalPoints}
+            </Typography>
           </Box>
 
-          {/* <Divider sx={{ width: '10%', border: '1px solid #c4c4c4' }} /> */}
-
           <TableContainer
-            className="expenses_table_height staff_point_table"
+            sx={{
+              height: '60vh',
+              border: '1px solid #e5e5e5',
+              overflowY: 'auto',
+              boxShadow: 'none',
+              paddingBottom: '20px',
+            }}
             component={Paper}
           >
             {pointsData.length > 0 ? (
               <Table
                 stickyHeader
                 aria-label="sticky table"
-                sx={{ minWidth: 650 }}
+                sx={{ minWidth: 500, padding: '0px !important' }}
                 className="table_heading"
               >
-                <TableHead>
+                <TableHead className="profile_data_table_header">
                   <TableRow>
                     <TableCell>Date</TableCell>
                     <TableCell>Type</TableCell>
@@ -220,7 +194,7 @@ const StaffPoint = ({
               <NoResultFound />
             )}
           </TableContainer>
-          <Pagination
+          {/* <Pagination
             className="mt-3"
             boundaryCount={0}
             siblingCount={1}
@@ -231,7 +205,7 @@ const StaffPoint = ({
             onChange={(e, value) => {
               setCurrentPage(value)
             }}
-          />
+          /> */}
           <AddAppreciationDialog
             handleAppreciation={handleAppreciation}
             addAppreciationDialogControl={addAppreciationDialogControl}

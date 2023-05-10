@@ -139,13 +139,13 @@ const ClientOrders = () => {
                   </Box>
 
                   <Box className="product_card_main_section">
-                    <Box>
-                      <img
-                        className="client_order_photo"
-                        src={data?.imageUrl}
-                        variant="span"
-                      />
-                    </Box>
+                    {/* <Box> */}
+                    <img
+                      className="client_order_photo"
+                      src={data?.imageUrl}
+                      variant="span"
+                    />
+                    {/* </Box>   */}
 
                     <Box className="order_detail">
                       <Box className="order_price">

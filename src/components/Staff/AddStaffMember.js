@@ -12,7 +12,6 @@ import {
   Autocomplete,
   createFilterOptions,
 } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import {
   GetAdminDepartmentList,
   GetAdminRole,
@@ -38,7 +37,6 @@ import {
 } from '../../services/apiservices/country-state-city'
 
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
-const useStyles = makeStyles({})
 
 const AddStaffMember = () => {
   const [userDetail, setUserDetail] = useState({
@@ -200,7 +198,6 @@ const AddStaffMember = () => {
   }
 
   const [state, setState] = useState('')
-  const classes = useStyles()
   const loadFile = event => {
     if (event.target.files) {
       setState(URL.createObjectURL(event.target.files[0]))
@@ -221,7 +218,7 @@ const AddStaffMember = () => {
 
           {/* FINAL */}
           {/* <Paper className="my_profile_upload_image">
-            <Box className="edit_myy_profile_image_section">
+            <Box className="my_profile_image_section">
               <input
                 type="file"
                 accept="image/*"

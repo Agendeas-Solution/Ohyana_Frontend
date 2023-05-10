@@ -19,16 +19,7 @@ import NoResultFound from '../ErrorComponent/NoResultFound'
 const StaffAttendancePresent = ({ staffAttendanceList }) => {
   return (
     <>
-      <TableContainer
-        className="client_table_height client_detail_table set_box_shadow mt-2"
-        component={Paper}
-        // sx={{
-        //   boxShadow: 'none',
-        //   border: '1px solid #e5e5e5',
-        //   borderTop: 'none',
-        //   overflowY: 'auto',
-        // }}
-      >
+      <TableContainer className="profile_data_table mt-2" component={Paper}>
         {staffAttendanceList?.attendancePerUser ? (
           <Table
             stickyHeader
@@ -36,7 +27,7 @@ const StaffAttendancePresent = ({ staffAttendanceList }) => {
             sx={{ minWidth: 700, padding: '0px !important' }}
             className="table_heading"
           >
-            <TableHead className="client_profile_table_header">
+            <TableHead className="profile_data_table_header">
               <TableRow>
                 <TableCell>Date</TableCell>
                 <TableCell>Check In</TableCell>
@@ -88,9 +79,7 @@ const StaffAttendancePresent = ({ staffAttendanceList }) => {
             </TableBody>
           </Table>
         ) : (
-          <Box className="client_table_height mt-2">
-            <NoResultFound />
-          </Box>
+          <NoResultFound />
         )}
       </TableContainer>
     </>

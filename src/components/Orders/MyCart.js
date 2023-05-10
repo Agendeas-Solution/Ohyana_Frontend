@@ -45,27 +45,35 @@ const MyCart = () => {
 
           <Box className="cart_header_section">
             <Box className="my_cart_header_section">
-              <Box className="detail_row mb-4">
+              <Box className="detail_row">
                 <Typography className="order_desc_subheading" variant="span">
                   Date
                 </Typography>
                 <Typography variant="span">22 Aug 2023</Typography>
+                <Typography variant="span"> </Typography>
               </Box>
-              <Box className="detail_row mb-4">
+              <Box className="detail_row">
                 <Typography className="order_desc_subheading" variant="span ">
                   Price
                 </Typography>
-                <Typography variant="span">300 </Typography>
+                <Typography variant="span">300</Typography>
+                <Box className="my_cart_right_side_header">
+                  <Button variant="span" className="common_button">
+                    Place Order
+                  </Button>
+                  <DeleteIcon className="mx-4" />
+                  <PrintIcon />
+                </Box>
               </Box>
             </Box>
 
-            <Box className="my_cart_right_side_header">
+            {/* <Box className="my_cart_right_side_header">
               <Button variant="span" className="common_button">
                 Place Order
               </Button>
               <DeleteIcon className="mx-4" />
               <PrintIcon />
-            </Box>
+            </Box> */}
           </Box>
 
           <Box className="my_cart_details_section">

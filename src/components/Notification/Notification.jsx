@@ -17,12 +17,9 @@ const Notification = () => {
     useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar, setNotificationSnackbar } =
     useContext(ContextSnackbar)
-  const [value, setValue] = useState('All')
   const [notificationSentDetail, setNotificationSentDetail] = useState([])
   const [notificationDetail, setNotificationDetail] = useState([])
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
+
   const [AddNotificationDialog, setAddNotificationDialog] = useState(false)
   const [deleteRemainderDialog, setDeleteRemainderDialog] = useState(false)
   const [loader, setLoader] = useState(false)
@@ -51,231 +48,121 @@ const Notification = () => {
     GetNotification(
       {},
       res => {
-        setNotificationDetail(res?.data?.notifications)
-        setLoader(false)
+        if (res?.success) {
+          setNotificationDetail(res?.data)
+          setLoader(false)
+        }
       },
       err => {
+        console.log(err)
+        setNotificationDetail([])
         setLoader(false)
       },
     )
-  }, [deleteRemainderDialog])
+  }, [])
   useEffect(() => {
     setLoader(true)
     GetNotification(
-      { sent: true },
+      {},
       res => {
-        setNotificationSentDetail(res?.data?.notifications)
-        setLoader(false)
+        if (res?.success) {
+          setNotificationSentDetail(res?.data)
+          setLoader(false)
+        }
       },
       err => {
+        console.log(err)
+        setNotificationSentDetail([])
         setLoader(false)
       },
     )
-  }, [deleteRemainderDialog])
+  }, [])
 
   //Route for button coming from api
   const handleView = route => {
     navigate(route)
   }
+
   return (
     <>
-      {/* {
-        loader && <Loader />
-      } */}
-      <Box className="notification_section">
-        <Box className="notification_tabs_root">
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            textColor="secondary"
-            indicatorColor="secondary"
-          >
-            <Tab value="All" label="All" />
-            <Tab value="Sent" label="Sent" />
-          </Tabs>
-          {value === 'Sent' && (
-            <Button
-              onClick={OpenDeleteRemainder}
-              className="main_button"
-              variant="standard"
-            >
-              <AddRoundedIcon />
-              Compose
-            </Button>
-          )}
+      <Box className="main_section">
+        <Box className="bg-body">
+          <Box className="appointment_notification">
+            {notificationDetail.map((rowData, index) => {
+              return (
+                <>
+                  {moment(rowData?.createdAt).format('DD-MM-YYYY') ===
+                  moment(notificationDetail[index - 1]?.createdAt).format(
+                    'DD-MM-YYYY',
+                  ) ? null : (
+                    <Box className="content_heading">
+                      <Typography>
+                        {moment(rowData.createdAt).format('DD-MM-YYYY')}
+                      </Typography>
+                    </Box>
+                  )}
+
+                  <Box className="notification_content">
+                    <Box sx={{ width: '3%' }} className="d-flex flex-column">
+                      {
+                        <img
+                          style={{ height: '30px', width: '30px' }}
+                          src={`${
+                            window.location.protocol +
+                            '//' +
+                            window.location.hostname +
+                            ':' +
+                            window.location.port
+                          }/${rowData.type.toLowerCase()}.svg`}
+                          alt="mySvgImage"
+                        />
+                      }
+                    </Box>
+
+                    <Box sx={{ width: '6%' }} className="d-flex flex-column">
+                      <Typography variant="span">
+                        {moment(
+                          moment(rowData.createdAt).format(
+                            'YYYY-MM-DD HH:mm:ss',
+                          ),
+                        ).format('LT')}
+                      </Typography>
+                    </Box>
+
+                    <Box sx={{ width: '70%' }} className="d-flex flex-column">
+                      <Typography className="h5" variant="div">
+                        {rowData.heading}
+                      </Typography>
+                      <Typography variant="div">
+                        {rowData.description}
+                      </Typography>
+                    </Box>
+
+                    <Box>
+                      {rowData?.button &&
+                        JSON.parse(rowData?.button).map(value => {
+                          return (
+                            <Button
+                              sx={{ backgroundColor: '#2E3591' }}
+                              className="notification_button"
+                              variant="contained"
+                              onClick={() => handleView(value?.path)}
+                            >
+                              {value?.name}
+                            </Button>
+                          )
+                        })}
+                    </Box>
+                  </Box>
+                </>
+              )
+            })}
+          </Box>
         </Box>
-        <Box>
-          <div className="bg-body p-4">
-            <Box className="appointment_notification">
-              {value === 'All' &&
-                notificationDetail.map((rowData, index) => {
-                  return (
-                    <>
-                      {moment(rowData?.createdAt).format('DD-MM-YYYY') ===
-                      moment(notificationDetail[index - 1]?.createdAt).format(
-                        'DD-MM-YYYY',
-                      ) ? null : (
-                        <Typography>
-                          {moment(rowData.createdAt).format('DD-MM-YYYY')}
-                        </Typography>
-                      )}
-                      {/* {index===0 &&<Typography>{moment(rowData.createdAt).format('DD-MM-YYYY')}</Typography>} */}
-                      {/* {index === 0 && moment(notificationDetail[index - 1]?.createdAt).format('DD-MM-YYYY')} */}
-                      <Grid container spacing={2}>
-                        <Grid item xs={8}>
-                          <Box
-                            sx={{ width: '13%' }}
-                            className="d-flex flex-column"
-                          >
-                            {
-                              <img
-                                style={{ height: '30px', width: '30px' }}
-                                src={`${
-                                  window.location.protocol +
-                                  '//' +
-                                  window.location.hostname +
-                                  ':' +
-                                  window.location.port
-                                }/${rowData.type.toLowerCase()}.svg`}
-                                alt="mySvgImage"
-                              />
-                            }
-                          </Box>
-                          <Box
-                            sx={{ width: '16%' }}
-                            className="d-flex flex-column"
-                          >
-                            <Typography variant="span">
-                              {moment(
-                                moment(rowData.createdAt).format(
-                                  'YYYY-MM-DD HH:mm:ss',
-                                ),
-                              ).format('LT')}
-                            </Typography>
-                          </Box>
-                          <Box
-                            sx={{ width: '71%' }}
-                            className="d-flex flex-column"
-                          >
-                            <Typography className="h5" variant="div">
-                              {rowData.heading}
-                            </Typography>
-                            <Typography variant="div">
-                              {rowData.description}
-                            </Typography>
-                          </Box>
-                        </Grid>
-                        <Grid
-                          className="product_buttons"
-                          item
-                          xs={4}
-                          spacing={2}
-                        >
-                          {rowData?.button &&
-                            rowData?.button.map(value => {
-                              return (
-                                <Button
-                                  className="notification_button"
-                                  variant="contained"
-                                  onClick={() => eval(value?.functionName)}
-                                >
-                                  {value?.name}
-                                </Button>
-                              )
-                            })}
-                        </Grid>
-                      </Grid>
-                    </>
-                  )
-                })}
-            </Box>
-            <Box className="appointment_notification">
-              {value === 'Sent' &&
-                notificationSentDetail.map((rowData, index) => {
-                  return (
-                    <>
-                      {moment(rowData?.createdAt).format('DD-MM-YYYY') ===
-                      moment(
-                        notificationSentDetail[index - 1]?.createdAt,
-                      ).format('DD-MM-YYYY') ? null : (
-                        <Typography>
-                          {moment(rowData.createdAt).format('DD-MM-YYYY')}
-                        </Typography>
-                      )}
-                      <Grid container spacing={2}>
-                        <Grid item xs={8}>
-                          <Box
-                            sx={{ width: '13%' }}
-                            className="d-flex flex-column"
-                          >
-                            {
-                              <img
-                                style={{ height: '30px', width: '30px' }}
-                                src={`${
-                                  window.location.protocol +
-                                  '//' +
-                                  window.location.hostname +
-                                  ':' +
-                                  window.location.port
-                                }/${rowData.type.toLowerCase()}.svg`}
-                                alt="mySvgImage"
-                              />
-                            }
-                          </Box>
-                          <Box
-                            sx={{ width: '16%' }}
-                            className="d-flex flex-column"
-                          >
-                            <Typography variant="span">
-                              {moment(
-                                moment(rowData.createdAt).format(
-                                  'YYYY-MM-DD HH:mm:ss',
-                                ),
-                              ).format('LT')}
-                            </Typography>
-                          </Box>
-                          <Box
-                            sx={{ width: '71%' }}
-                            className="d-flex flex-column"
-                          >
-                            <Typography className="h5" variant="div">
-                              {rowData.heading}
-                            </Typography>
-                            <Typography variant="div">
-                              {rowData.description}
-                            </Typography>
-                          </Box>
-                        </Grid>
-                        <Grid
-                          className="product_buttons"
-                          item
-                          xs={4}
-                          spacing={2}
-                        >
-                          {rowData?.button &&
-                            rowData?.button.map(value => {
-                              return (
-                                <Button
-                                  className="notification_button"
-                                  variant="contained"
-                                  onClick={() => eval(value?.functionName)}
-                                >
-                                  {value?.name}
-                                </Button>
-                              )
-                            })}
-                        </Grid>
-                      </Grid>
-                    </>
-                  )
-                })}
-            </Box>
-          </div>
-        </Box>
-        <ClientStatusCloseDialog
+        {/* <ClientStatusCloseDialog
           deleteRemainderDialog={deleteRemainderDialog}
           CloseDeleteRemainder={CloseDeleteRemainder}
-        />
+        /> */}
       </Box>
     </>
   )

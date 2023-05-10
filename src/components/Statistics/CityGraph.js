@@ -48,7 +48,7 @@ const CityGraph = ({ selectedPeriod, customRange }) => {
     if (selectedCityList.length > 0) {
       data['cities'] = selectedCityList.map(city => city.id)
     }
-    debugger
+
     if (selectedProduct) {
       data['productIds'] = selectedProduct
     }

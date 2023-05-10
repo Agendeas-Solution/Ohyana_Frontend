@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext, lazy, useRef } from 'react'
-import { makeStyles } from '@mui/styles'
 import {
   Box,
   TextField,
@@ -35,7 +34,6 @@ const SuccessSnackbar = React.lazy(() =>
   import('../SuccessSnackbar/SuccessSnackbar'),
 )
 
-const useStyles = makeStyles({})
 const EditProfile = () => {
   const inputFile = useRef(null)
   const [userDetail, setUserDetail] = useState({
@@ -129,7 +127,6 @@ const EditProfile = () => {
   }
 
   const [state, setState] = useState('')
-  const classes = useStyles()
   const loadFile = event => {
     if (event.target.files) {
       setState(URL.createObjectURL(event.target.files[0]))
@@ -142,7 +139,7 @@ const EditProfile = () => {
       <Box className="main_section">
         <Box className="pofile_edit_section">
           {/* ORIGINAL UPLOAD IMG */}
-          {/* <Box ref={inputFile} className="edit_myy_profile_image_section">
+          {/* <Box ref={inputFile} className="my_profile_image_section">
             <img className="image_style" src={ProfileImage} alt="profile" />
             <form className="inner_icon_style" onSubmit={handleSubmit}>
               <CameraAltRoundedIcon fontSize="large" color="white" />
@@ -151,7 +148,7 @@ const EditProfile = () => {
 
           {/* PRE-FINAL SOLUTION */}
           {/* <Paper className="my_profile_upload_image">
-            <Box className="edit_myy_profile_image_section">
+            <Box className="my_profile_image_section">
               <input
                 type="file"
                 accept="image/*"

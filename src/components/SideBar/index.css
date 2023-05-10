@@ -48,3 +48,11 @@
     display: none;
   }
 } */
+
+.sidebar_icon_root {
+  width: 20%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 10px;
+}

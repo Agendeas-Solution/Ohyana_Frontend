@@ -291,10 +291,19 @@ const Staff = () => {
                       })
                     }}
                   >
-                    <Box className="checkbox_section">
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                      }}
+                    >
                       {jobTypeList.map(data => {
                         return (
                           <FormControlLabel
+                            sx={{
+                              width: '100%',
+                              margin: '4px 0px',
+                            }}
                             className="checkbox_background_color"
                             value={data.id}
                             control={<Radio />}
@@ -306,7 +315,7 @@ const Staff = () => {
                   </RadioGroup>
                 </FormControl>
 
-                <FormControl sx={{ margin: '10px 16px' }}>
+                <FormControl sx={{ margin: '10px' }}>
                   <InputLabel>Result for</InputLabel>
                   <Select
                     label="Result for"
@@ -326,7 +335,7 @@ const Staff = () => {
                   </Select>
                 </FormControl>
 
-                <FormControl sx={{ margin: '10px 16px' }}>
+                <FormControl sx={{ margin: '10px' }}>
                   <InputLabel>Job Role</InputLabel>
                   <Select
                     label="Job Role"

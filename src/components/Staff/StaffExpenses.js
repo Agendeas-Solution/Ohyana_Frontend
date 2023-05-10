@@ -170,10 +170,7 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
         </Box>
       </Box>
 
-      <TableContainer
-        className="client_table_height client_detail_table set_box_shadow mt-2"
-        component={Paper}
-      >
+      <TableContainer className="profile_data_table mt-2" component={Paper}>
         {expenseList.length > 0 ? (
           <Table
             stickyHeader
@@ -181,7 +178,7 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
             sx={{ minWidth: 700, padding: '0px !important' }}
             className="table_heading"
           >
-            <TableHead className="client_profile_table_header">
+            <TableHead className="profile_data_table_header">
               <TableRow>
                 <TableCell>Date</TableCell>
                 <TableCell>Type</TableCell>

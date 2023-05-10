@@ -15,7 +15,6 @@ import {
   createFilterOptions,
 } from '@mui/material'
 import './index.css'
-import { makeStyles } from '@mui/styles'
 
 import {
   GetAdminProductList,
@@ -38,7 +37,6 @@ import {
 } from '../../services/apiservices/country-state-city'
 import { GetCity } from '../../services/apiservices/country-state-city'
 // const ErrorSnackbar = lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
-const useStyles = makeStyles({})
 
 const AddClient = () => {
   const [userDetail, setUserDetail] = useState({
@@ -172,7 +170,7 @@ const AddClient = () => {
 
   const handleAddClient = () => {
     console.log('Printing UserDetail', userDetail)
-    debugger
+
     if (
       userDetail.clientName !== '' &&
       (userDetail.email || userDetail.contactNo) &&
@@ -200,7 +198,7 @@ const AddClient = () => {
         max_invesment_amount: userDetail.max_invesment_amount,
         reference_name: userDetail?.referenceName,
       }
-      debugger
+
       let path = window.location.pathname
       path = path.split('/').pop()
       {
@@ -255,7 +253,6 @@ const AddClient = () => {
   }
 
   const [state, setState] = useState('')
-  const classes = useStyles()
   const loadFile = event => {
     if (event.target.files) {
       setState(URL.createObjectURL(event.target.files[0]))
@@ -276,7 +273,7 @@ const AddClient = () => {
 
           {/* FINAL */}
           {/* <Paper className="my_profile_upload_image">
-            <Box className="edit_myy_profile_image_section">
+            <Box className="my_profile_image_section">
               <input
                 type="file"
                 accept="image/*"
@@ -409,7 +406,6 @@ const AddClient = () => {
                 value={userDetail?.country}
                 onChange={(e, value) => {
                   setUserDetail({ ...userDetail, country: value })
-                  debugger
                 }}
                 getOptionLabel={option => option?.name}
                 renderInput={params => (
