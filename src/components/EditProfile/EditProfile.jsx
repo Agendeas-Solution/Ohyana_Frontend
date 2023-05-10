@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext, lazy, useRef } from 'react'
-import { makeStyles } from '@mui/styles'
 import {
   Box,
   TextField,
@@ -35,7 +34,6 @@ const SuccessSnackbar = React.lazy(() =>
   import('../SuccessSnackbar/SuccessSnackbar'),
 )
 
-const useStyles = makeStyles({})
 const EditProfile = () => {
   const inputFile = useRef(null)
   const [userDetail, setUserDetail] = useState({
@@ -129,7 +127,6 @@ const EditProfile = () => {
   }
 
   const [state, setState] = useState('')
-  const classes = useStyles()
   const loadFile = event => {
     if (event.target.files) {
       setState(URL.createObjectURL(event.target.files[0]))

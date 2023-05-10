@@ -82,6 +82,7 @@ const Notification = () => {
   const handleView = route => {
     navigate(route)
   }
+
   return (
     <>
       <Box className="main_section">
@@ -94,13 +95,15 @@ const Notification = () => {
                   moment(notificationDetail[index - 1]?.createdAt).format(
                     'DD-MM-YYYY',
                   ) ? null : (
-                    <Typography>
-                      {moment(rowData.createdAt).format('DD-MM-YYYY')}
-                    </Typography>
+                    <Box className="content_heading">
+                      <Typography>
+                        {moment(rowData.createdAt).format('DD-MM-YYYY')}
+                      </Typography>
+                    </Box>
                   )}
 
                   <Box className="notification_content">
-                    <Box sx={{ width: '13%' }} className="d-flex flex-column">
+                    <Box sx={{ width: '3%' }} className="d-flex flex-column">
                       {
                         <img
                           style={{ height: '30px', width: '30px' }}
@@ -116,7 +119,7 @@ const Notification = () => {
                       }
                     </Box>
 
-                    <Box sx={{ width: '16%' }} className="d-flex flex-column">
+                    <Box sx={{ width: '6%' }} className="d-flex flex-column">
                       <Typography variant="span">
                         {moment(
                           moment(rowData.createdAt).format(
@@ -126,7 +129,7 @@ const Notification = () => {
                       </Typography>
                     </Box>
 
-                    <Box sx={{ width: '71%' }} className="d-flex flex-column">
+                    <Box sx={{ width: '70%' }} className="d-flex flex-column">
                       <Typography className="h5" variant="div">
                         {rowData.heading}
                       </Typography>
@@ -137,12 +140,13 @@ const Notification = () => {
 
                     <Box>
                       {rowData?.button &&
-                        rowData?.button.map(value => {
+                        JSON.parse(rowData?.button).map(value => {
                           return (
                             <Button
+                              sx={{ backgroundColor: '#2E3591' }}
                               className="notification_button"
                               variant="contained"
-                              onClick={() => eval(value?.functionName)}
+                              onClick={() => handleView(value?.path)}
                             >
                               {value?.name}
                             </Button>
