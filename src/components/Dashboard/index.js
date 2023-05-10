@@ -13,6 +13,8 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Avatar from '@mui/material/Avatar'
 import Stack from '@mui/material/Stack'
+import StarPerformer from '../../assets/img/star_performer.png'
+
 import {
   AttendanceStatus,
   GetInquiryAnalytics,
@@ -454,6 +456,32 @@ const Dashboard = () => {
               </TableBody>
             </Table>
           </TableContainer>
+        </Box>
+
+        <Box className="detail_row">
+          <Box className="star_performers_section">
+            <Box className="my_main_section_header">
+              <Typography className="bottom_left_panel_heading" variant="span">
+                Star Performers
+              </Typography>
+            </Box>
+            {/* {salesInquiry?.starPerformerList.length > 0 &&
+              salesInquiry.starPerformerList.map(data => { */}
+            <Box className="a-box">
+              <Box className="img-container">
+                <Box className="img-inner">
+                  <Box className="inner-skew">
+                    <img src={StarPerformer} />
+                  </Box>
+                </Box>
+              </Box>
+              <Box className="text-container">
+                <h3>Paul Walker</h3>
+                <h6>Sr. Sales Person</h6>
+                <h5>Star Performer of the Month.</h5>
+              </Box>
+            </Box>
+          </Box>
         </Box>
       </Box>
     </>

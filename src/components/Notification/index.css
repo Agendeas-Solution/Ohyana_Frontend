@@ -18,19 +18,18 @@
   height: 35px;
 }
 
-.notification_button:hover {
-  cursor: pointer;
-}
-.content_heading {
-  padding: 5px 8px;
-}
-
 .notification_content {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   border: 1px solid #e5e6eb;
   border-radius: 5px;
-  padding: 8px;
-  margin: 12px 20px;
+  padding: 10px;
+  margin: 10px 0px 10px 0px;
+}
+
+.notification_description_heading {
+  padding-bottom: 6px;
+  font-size: 18px;
+  font-weight: 600;
 }
