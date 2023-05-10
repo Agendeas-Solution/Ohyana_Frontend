@@ -15,7 +15,6 @@ import {
   createFilterOptions,
 } from '@mui/material'
 import './index.css'
-import { makeStyles } from '@mui/styles'
 
 import {
   GetAdminProductList,
@@ -38,7 +37,6 @@ import {
 } from '../../services/apiservices/country-state-city'
 import { GetCity } from '../../services/apiservices/country-state-city'
 // const ErrorSnackbar = lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
-const useStyles = makeStyles({})
 
 const AddClient = () => {
   const [userDetail, setUserDetail] = useState({
@@ -255,7 +253,6 @@ const AddClient = () => {
   }
 
   const [state, setState] = useState('')
-  const classes = useStyles()
   const loadFile = event => {
     if (event.target.files) {
       setState(URL.createObjectURL(event.target.files[0]))
