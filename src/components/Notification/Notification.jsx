@@ -78,7 +78,7 @@ const Notification = () => {
         setLoader(false)
       },
     )
-  }, [])
+  }, [currentPage])
   useEffect(() => {
     setLoader(true)
     GetNotification(

@@ -20,6 +20,7 @@ import StepLabel from '@mui/material/StepLabel'
 import StepContent from '@mui/material/StepContent'
 import SampleProduct from '../../assets/img/sample_product.png'
 import {
+  DispatchOrder,
   GetOrderDetail,
   UpdatePaymentStatus,
 } from '../../services/apiservices/orderDetail'
@@ -117,7 +118,24 @@ const OrderDetail = () => {
   const handleCloseDispatchDialog = () => {
     setOpenDispatchOrder(false)
   }
-
+  const handleDispatch = () => {
+    DispatchOrder(
+      parseInt(path),
+      {
+        status: 'DISPATCH',
+      },
+      res => {
+        debugger
+      },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
+    )
+  }
   const handleUpdatePaymentStatus = paymentDetail => {
     UpdatePaymentStatus(
       {
@@ -418,6 +436,7 @@ const OrderDetail = () => {
       <DispatchOrderDialog
         openDispatchOrder={openDispatchOrder}
         handleCloseDispatchDialog={handleCloseDispatchDialog}
+        handleDispatch={handleDispatch}
       />
     </>
   )
