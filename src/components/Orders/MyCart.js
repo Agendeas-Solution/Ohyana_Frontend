@@ -206,7 +206,7 @@ const MyCart = () => {
                             <TextField
                               type="number"
                               size="small"
-                              id="outlined-basic"
+                              type="number"
                               label="Quantity"
                               variant="outlined"
                               value={data.product.quantity}

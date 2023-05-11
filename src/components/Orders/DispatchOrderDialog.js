@@ -20,7 +20,7 @@ const DispatchOrderDialog = ({
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              onClick={() => console.log('Yes button clickeddd!!!')}
+              // onClick={() => }
               autoFocus
             >
               Yes
