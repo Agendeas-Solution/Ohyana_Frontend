@@ -31,6 +31,7 @@ const ViewProductDialog = ({
 }) => {
   const [productDetail, setProductDetail] = useState({})
   const navigate = useNavigate()
+
   useEffect(() => {
     GetProductDetail(
       viewProductDialog?.id,
@@ -41,6 +42,7 @@ const ViewProductDialog = ({
       err => {},
     )
   }, [viewProductDialog?.id])
+
   const handleDeleteProduct = () => {
     DeleteAdminProduct(
       viewProductDialog?.id,
@@ -52,6 +54,7 @@ const ViewProductDialog = ({
       },
     )
   }
+
   const handleProductQuantityUpdate = () => {
     UpdateProductQuantity(
       viewProductDialog?.id,
@@ -64,6 +67,7 @@ const ViewProductDialog = ({
       },
     )
   }
+
   return (
     <>
       <Dialog
@@ -72,10 +76,15 @@ const ViewProductDialog = ({
         fullWidth
         maxWidth="sm"
       >
-        <DialogTitle className="detail_row">
+        <DialogTitle
+          // sx={{ justifyContent: 'space-between' }}
+          // className="product_dialogue_field"
+          className="detail_row product_dialogue_field"
+        >
           <Typography className="product_dialog_heading" variant="span">
             {productDetail?.name}
           </Typography>
+
           <Box>
             <Button
               onClick={() => navigate(`/editproduct/${viewProductDialog?.id}`)}
@@ -108,7 +117,12 @@ const ViewProductDialog = ({
           <Box className="product_dialog_detail_section">
             <Box className="product_dialog_left_Section">
               <Box className="dialog_product_image">
-                <img src={SampleProduct} alt="" />
+                {/* <img src={SampleProduct} alt="" /> */}
+                <img
+                  src={productDetail?.imageUrl}
+                  alt={productDetail?.name}
+                  style={{ height: '100%', width: '100%' }}
+                />
               </Box>
 
               <Box className="update_button_section">
@@ -143,38 +157,54 @@ const ViewProductDialog = ({
               </Box>
             </Box>
             <Box className="product_dialog_right_section">
-              <Box className="detail_row product_detail_dia_right_section">
-                <Typography className="common_heading" variant="span">
+              <Box
+                sx={{ justifyContent: 'space-between' }}
+                className="detail_row product_detail_dia_right_section"
+              >
+                <Typography
+                  className="common_heading product_dialogue_field"
+                  variant="span"
+                >
                   Id
                 </Typography>
-                <Typography variant="span">{productDetail?.id}</Typography>
+                <Typography variant="span">
+                  {productDetail?.id || '-'}
+                </Typography>
               </Box>
-              <Box className="detail_row product_detail_dia_right_section">
+
+              <Box className="detail_row product_detail_dia_right_section product_dialogue_field">
                 <Typography className="common_heading" variant="span">
                   Price
                 </Typography>
-                <Typography variant="span">{productDetail?.price}</Typography>
+                <Typography variant="span">
+                  {productDetail?.price || '-'}
+                </Typography>
               </Box>
-              <Box className="detail_row product_detail_dia_right_section">
+
+              <Box className="detail_row product_detail_dia_right_section product_dialogue_field">
                 <Typography className="common_heading" variant="span">
                   Material Type
                 </Typography>
                 <Typography variant="span">
-                  {productDetail?.materialType}
+                  {productDetail?.materialType || '-'}
                 </Typography>
               </Box>
-              <Box className="detail_row product_detail_dia_right_section">
+
+              <Box className="detail_row product_detail_dia_right_section product_dialogue_field">
                 <Typography className="common_heading" variant="span">
                   Weight
                 </Typography>
-                <Typography variant="span">{productDetail?.weight}</Typography>
+                <Typography variant="span">
+                  {productDetail?.weight || '-'}
+                </Typography>
               </Box>
-              <Box className="row product_detail_dia_right_section">
+
+              <Box className="detail_row product_detail_dia_right_section product_dialogue_field">
                 <Typography className="common_heading" variant="span">
                   Description
                 </Typography>
                 <Typography variant="span">
-                  {productDetail?.description}
+                  {productDetail?.description || '-'}
                 </Typography>
               </Box>
             </Box>

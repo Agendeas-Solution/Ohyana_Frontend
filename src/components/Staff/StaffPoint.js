@@ -142,7 +142,7 @@ const StaffPoint = ({
 
           <TableContainer
             sx={{
-              height: '60vh',
+              height: '54vh',
               border: '1px solid #e5e5e5',
               overflowY: 'auto',
               boxShadow: 'none',

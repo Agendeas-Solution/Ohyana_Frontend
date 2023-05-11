@@ -286,3 +286,7 @@ input[type='radio']:focus {
   line-height: 2 !important;
   /* max-height: 4.0em; */
 }
+
+.product_dialogue_field {
+  justify-content: space-between !important;
+}

@@ -223,24 +223,24 @@ const Client = () => {
       )
   }, [selectedCityStateCountry?.country])
   useEffect(() => {
-    socket.on('client_list', data => {
-      console.log('Printing Connections', data)
-      GetAllClients(
-        data,
-        res => {
-          if (res?.success) {
-            setClientDetails(res?.data.client)
-          }
-        },
-        err => {
-          console.log(err)
-          setClientDetails([])
-        },
-      )
-    })
-    return () => {
-      socket.disconnect()
-    }
+    // socket.on('client_list', data => {
+    //   console.log('Printing Connections', data)
+    //   GetAllClients(
+    //     data,
+    //     res => {
+    //       if (res?.success) {
+    //         setClientDetails(res?.data.client)
+    //       }
+    //     },
+    //     err => {
+    //       console.log(err)
+    //       setClientDetails([])
+    //     },
+    //   )
+    // })
+    // return () => {
+    //   socket.disconnect()
+    // }
   }, [])
   const getClientDetails = () => {
     let data = { page: currentPage, size: rowsPerPage }

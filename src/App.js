@@ -16,7 +16,7 @@ import SideBar from './components/SideBar/SideBar'
 import Header from './components/Header/Header'
 import { io } from 'socket.io-client'
 import { Context as ContextSnackbar } from './context/pageContext'
-const socket = io('http://192.168.1.65:9009')
+// const socket = io('http://192.168.1.65:9009')
 const Login = React.lazy(() => import('./components/Login/Login'))
 const DefaultLayout = React.lazy(() =>
   import('./components/layout/DefaultLayout'),
@@ -36,15 +36,15 @@ const App = () => {
   useEffect(() => {
     var retrievedObject = JSON.parse(localStorage.getItem('permissions'))
     setPermissions(retrievedObject)
-    socket.on('reJoin', () => {
-      socket.emit('join', { email: localStorage.getItem('userEmail') })
-    })
-    socket.on('connect', () => {
-      socket.emit('join', { email: localStorage.getItem('userEmail') })
-    })
-    socket.on('permissionChanged', () => {
-      clearLoginToken()
-    })
+    // socket.on('reJoin', () => {
+    //   socket.emit('join', { email: localStorage.getItem('userEmail') })
+    // })
+    // socket.on('connect', () => {
+    //   socket.emit('join', { email: localStorage.getItem('userEmail') })
+    // })
+    // socket.on('permissionChanged', () => {
+    //   clearLoginToken()
+    // })
   }, [])
   return (
     <>
@@ -99,4 +99,4 @@ const App = () => {
 }
 
 export default App
-export { socket }
+// export { socket }

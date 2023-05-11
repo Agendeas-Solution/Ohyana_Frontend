@@ -38,7 +38,7 @@ import ClientOrders from '../components/Orders/ClientOrders'
 import MyCart from '../components/Orders/MyCart'
 import Integrations from '../components/Integrations/Integrations'
 import Notification from '../components/Notification/Notification'
-const socket = io('http://192.168.1.65:9009')
+// const socket = io('http://192.168.1.65:9009')
 
 const AppContent = () => {
   const { setPermissions } = useContext(AuthContext)
@@ -49,15 +49,15 @@ const AppContent = () => {
   useEffect(() => {
     var retrievedObject = JSON.parse(localStorage.getItem('permissions'))
     setPermissions(retrievedObject)
-    socket.on('reJoin', () => {
-      socket.emit('join', { email: localStorage.getItem('userEmail') })
-    })
-    socket.on('connect', () => {
-      socket.emit('join', { email: localStorage.getItem('userEmail') })
-    })
-    socket.on('permissionChanged', () => {
-      clearLoginToken()
-    })
+    // socket.on('reJoin', () => {
+    //   socket.emit('join', { email: localStorage.getItem('userEmail') })
+    // })
+    // socket.on('connect', () => {
+    //   socket.emit('join', { email: localStorage.getItem('userEmail') })
+    // })
+    // socket.on('permissionChanged', () => {
+    //   clearLoginToken()
+    // })
   }, [])
   const loading = (
     <div className="pt-3 text-center">

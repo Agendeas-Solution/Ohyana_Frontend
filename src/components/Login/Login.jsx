@@ -58,7 +58,7 @@ const Login = () => {
             setAuthorize(true)
             setFlagLoader(false)
             handleNavItemClick('/dashboard', 'Dashboard')
-            socket.emit('join', { email: userDetail?.email })
+            // socket.emit('join', { email: userDetail?.email })
           } else {
             if (res?.data?.error) {
               setErrorMessage(res?.data?.error?.message)
