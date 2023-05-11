@@ -15,7 +15,6 @@ const StatusTable = ({
   clientStatusList,
   clientProfileDetail,
   handleViewClientStatus,
-  handleEditClientStatus,
 }) => {
   return (
     <>

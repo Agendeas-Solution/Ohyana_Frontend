@@ -46,6 +46,7 @@ import CloseStatusDialog from './CloseStatusDialog'
 import { Dashboard } from '@mui/icons-material'
 import EditReminderDialog from './EditReminderDialog'
 import StatusTable from './StatusTable'
+import ViewAppointmentDialog from './ViewAppointmentDialog'
 const EditStatusDialog = React.lazy(() => import('./EditStatusDialog'))
 const StageDialog = React.lazy(() => import('./StageDialog'))
 const OrderList = React.lazy(() => import('./OrderList'))
@@ -91,7 +92,7 @@ const ClientProfile = () => {
   const [stageDialog, setStageDialog] = useState(false)
   const [editStatusDialog, setEditStatusDialog] = useState({
     clientId: null,
-    description: '',
+    description: {},
     statusId: null,
     status: false,
   })
@@ -104,14 +105,19 @@ const ClientProfile = () => {
     followUpType: 'OTHER',
   })
   const [viewClientStatus, setViewClientStatus] = useState({
+    status: false,
     clientId: null,
     statusDetail: {},
+  })
+  const [viewAppointment, setViewAppointment] = useState({
     status: false,
+    appointmentId: null,
+    appointmentDetail: {},
   })
   const [closeStatusDialogControl, setCloseStatusDialogControl] = useState({
-    status: false,
     clientId: null,
     description: '',
+    status: false,
   })
 
   let path = window.location.pathname
@@ -412,8 +418,19 @@ const ClientProfile = () => {
       statusDetail: row,
     })
   }
+  const handleViewAppointment = (row, appointmentid) => {
+    setViewAppointment({
+      ...viewAppointment,
+      status: true,
+      appointmentId: appointmentid,
+      description: row,
+    })
+  }
   const handleViewStatusDialogClose = () => {
     setViewClientStatus({ ...viewClientStatus, status: false })
+  }
+  const handleViewAppointmentDialogClose = () => {
+    setViewAppointment({ ...viewAppointment, status: false })
   }
   const handleClientOrdersClick = (path, name) => {
     navigate(path)
@@ -565,6 +582,7 @@ const ClientProfile = () => {
             </TabPanel>
             <TabPanel sx={{ padding: '0px' }} value="3">
               <AppointmentTable
+                handleViewAppointment={handleViewAppointment}
                 appointmentDialogControl={appointmentDialogControl}
                 setAppointmentDialogControl={setAppointmentDialogControl}
                 handleAppointmentOpen={handleAppointmentOpen}
@@ -620,13 +638,25 @@ const ClientProfile = () => {
               viewClientStatus={viewClientStatus}
             />
           ) : null}
-          <AppointmentDialog
-            appointmentDialogControl={appointmentDialogControl}
-            handleAppointmentClose={handleAppointmentClose}
-            clientProfileDetail={clientProfileDetail}
-            setAppointmentDialogControl={setAppointmentDialogControl}
-            handleAddEditAppointment={handleAddEditAppointment}
-          />
+          {appointmentDialogControl.status === true ? (
+            <AppointmentDialog
+              appointmentDialogControl={appointmentDialogControl}
+              handleAppointmentClose={handleAppointmentClose}
+              clientProfileDetail={clientProfileDetail}
+              setAppointmentDialogControl={setAppointmentDialogControl}
+              handleAddEditAppointment={handleAddEditAppointment}
+            />
+          ) : null}
+          {viewAppointment.status === true ? (
+            <ViewAppointmentDialog
+              viewAppointment={viewAppointment}
+              handleViewAppointmentDialogClose={
+                handleViewAppointmentDialogClose
+              }
+            />
+          ) : (
+            console.log('nor found view appointment dialog')
+          )}
         </Box>
       </Box>
     </>

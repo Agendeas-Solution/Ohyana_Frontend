@@ -29,3 +29,27 @@ audio::-internal-media-controls-download-button {
   overflow: scroll;
   padding: 10px;
 }
+
+.view_appointment_dia_header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin: 15px;
+}
+
+.view_appointment_dia_heading {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+}
+
+.client_view_appointment_dialog_data {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding-bottom: 20px;
+}
+
+.appointment_dia_field_name {
+  font-weight: 600;
+}

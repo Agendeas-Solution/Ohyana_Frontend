@@ -17,6 +17,7 @@ import { DeleteAppointment } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const AppointmentTable = ({
+  handleViewAppointment,
   clientAppointmentList,
   appointmentDialogControl,
   setAppointmentDialogControl,
@@ -133,6 +134,14 @@ const AppointmentTable = ({
                       <Button
                         className="border_button"
                         onClick={() => {
+                          handleViewAppointment(row, clientAppointmentList.id)
+                        }}
+                      >
+                        View
+                      </Button>
+                      {/* <Button
+                        className="border_button"
+                        onClick={() => {
                           setDeleteAppointmentDialogControl({
                             ...deleteAppoinmentDialogControl,
                             status: true,
@@ -141,7 +150,7 @@ const AppointmentTable = ({
                         }}
                       >
                         Delete
-                      </Button>
+                      </Button> */}
                     </TableCell>
                   </TableRow>
                 ))}

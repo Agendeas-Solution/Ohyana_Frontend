@@ -1,17 +1,9 @@
 import React, { useState, useContext } from 'react'
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  TextField,
-  Typography,
-  TextareaAutosize,
-} from '@mui/material'
+import { Box, Dialog, DialogContent, Typography } from '@mui/material'
 import { EditClientStatus } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import moment from 'moment'
+
 const ViewClientStatusDialog = ({
   editStatusDialog,
   handleViewStatusDialogClose,
@@ -23,6 +15,7 @@ const ViewClientStatusDialog = ({
   })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+
   const EditStatus = () => {
     EditClientStatus(
       editStatusDetail,
@@ -49,42 +42,59 @@ const ViewClientStatusDialog = ({
         open={viewClientStatus.status}
         onClose={handleViewStatusDialogClose}
       >
-        <div style={{ textAlign: 'center' }} className="px-3 pt-3">
-          <h4 style={{ fontWeight: '600' }}>Detailed Status</h4>
-        </div>
-        <DialogContent sx={{ minWidth: 400 }}>
-          <Box>
-            <div className="row mb-2">
-              <div className="col-md-4 ">
-                <Typography className="fw-bold" variant="span">
+        <Box
+          sx={{ textAlign: 'center', margin: '15px' }}
+          // className="view_appointment_dia_header"
+        >
+          <Typography className="view_appointment_dia_heading">
+            Detailed Status
+          </Typography>
+        </Box>
+
+        <DialogContent sx={{ minWidth: 450 }}>
+          <Box sx={{ padding: '0px 6px' }}>
+            <Box className="client_view_appointment_dialog_data">
+              <Box>
+                <Typography
+                  className="appointment_dia_field_name"
+                  variant="span"
+                >
                   Add By
                 </Typography>
-              </div>
-              <div className="col-md-8">
+              </Box>
+              <Box className="col-md-8">
                 <Typography variant="span">
                   {viewClientStatus.statusDetail?.team?.name}
                 </Typography>
-              </div>
-            </div>
-            <div className="row  mb-2">
-              <div className="col-md-4">
-                <Typography className="fw-bold" variant="span">
+              </Box>
+            </Box>
+
+            <Box className="client_view_appointment_dialog_data">
+              <Box className="col-md-4">
+                <Typography
+                  className="appointment_dia_field_name"
+                  variant="span"
+                >
                   Job Role
                 </Typography>
-              </div>
-              <div className="col-md-8">
+              </Box>
+              <Box className="col-md-8">
                 <Typography variant="span">
                   {viewClientStatus.statusDetail?.team?.role?.name}
                 </Typography>
-              </div>
-            </div>
-            <div className="row  mb-2">
-              <div className="col-md-4">
-                <Typography className="fw-bold" variant="span">
+              </Box>
+            </Box>
+
+            <Box className="client_view_appointment_dialog_data">
+              <Box className="col-md-4">
+                <Typography
+                  className="appointment_dia_field_name"
+                  variant="span"
+                >
                   Date & Time
                 </Typography>
-              </div>
-              <div className="col-md-8 ">
+              </Box>
+              <Box className="col-md-8">
                 <Typography variant="span">
                   {moment(viewClientStatus.statusDetail?.date).format('LL')},
                   {moment(
@@ -92,28 +102,36 @@ const ViewClientStatusDialog = ({
                     'hh:mm:ss',
                   ).format('LT')}
                 </Typography>
-              </div>
-            </div>
-            <div className="row  mb-2">
-              <div className="col-md-4">
-                <Typography className="fw-bold" variant="span">
+              </Box>
+            </Box>
+
+            <Box className="client_view_appointment_dialog_data">
+              <Box className="col-md-4">
+                <Typography
+                  className="appointment_dia_field_name"
+                  variant="span"
+                >
                   Description
                 </Typography>
-              </div>
-              <div className="col-md-8">
+              </Box>
+              <Box className="col-md-8">
                 <Typography variant="span">
                   {viewClientStatus.statusDetail?.description}
                 </Typography>
-              </div>
-            </div>
+              </Box>
+            </Box>
+
             {viewClientStatus.statusDetail?.audioUrl && (
-              <div className="row  mb-2">
-                <div className="col-md-4">
-                  <Typography className="fw-bold" variant="span">
+              <Box className="client_view_appointment_dialog_data">
+                <Box className="col-md-4">
+                  <Typography
+                    className="appointment_dia_field_name"
+                    variant="span"
+                  >
                     Audio
                   </Typography>
-                </div>
-                <div className="col-md-8">
+                </Box>
+                <Box className="col-md-8">
                   <audio
                     style={{ maxWidth: '230px' }}
                     controls
@@ -128,8 +146,8 @@ const ViewClientStatusDialog = ({
                       type="audio/ogg"
                     ></source>
                   </audio>
-                </div>
-              </div>
+                </Box>
+              </Box>
             )}
           </Box>
         </DialogContent>
