@@ -31,8 +31,6 @@ const PaymentDetailDialog = ({
     method: '',
   })
 
-  const [options, setOptions] = useState([])
-
   return (
     <>
       <Dialog open={openPaymentDetailDialog} onClose={handleClosePaymentDialog}>

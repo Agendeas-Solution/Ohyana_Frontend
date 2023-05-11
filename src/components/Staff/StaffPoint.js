@@ -194,7 +194,7 @@ const StaffPoint = ({
               <NoResultFound />
             )}
           </TableContainer>
-          {/* <Pagination
+          <Pagination
             className="mt-3"
             boundaryCount={0}
             siblingCount={1}
@@ -205,7 +205,7 @@ const StaffPoint = ({
             onChange={(e, value) => {
               setCurrentPage(value)
             }}
-          /> */}
+          />
           <AddAppreciationDialog
             handleAppreciation={handleAppreciation}
             addAppreciationDialogControl={addAppreciationDialogControl}

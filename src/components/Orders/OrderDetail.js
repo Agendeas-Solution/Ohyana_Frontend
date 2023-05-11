@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
   Box,
   Table,
@@ -26,6 +26,7 @@ import {
 import moment from 'moment'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import DispatchOrderDialog from './DispatchOrderDialog'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const PaymentDetailDialog = React.lazy(() => import('./PaymentDetailDialog'))
@@ -54,6 +55,8 @@ const steps = [
 const OrderDetail = () => {
   const [orderDetail, setOrderDetail] = useState([])
   const [orderItems, setOrderItems] = useState([])
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [paymentMethodList, setPaymentMethodList] = useState([
     'UPI',
     'CASH',
@@ -73,6 +76,7 @@ const OrderDetail = () => {
       res => {
         setOrderDetail(res.data.orderDetail)
         setOrderItems(res.data.orderDetail.order_items)
+        debugger
       },
       err => {
         console.log('Printing OrderList Error', err)
@@ -121,6 +125,11 @@ const OrderDetail = () => {
         orderId: path,
       },
       res => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
+        })
         setOrderDetail({
           ...orderDetail,
           method: res.data.order.method,
@@ -128,7 +137,13 @@ const OrderDetail = () => {
         })
         handleClosePaymentDialog()
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
 
