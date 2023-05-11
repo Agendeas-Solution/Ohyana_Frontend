@@ -551,7 +551,10 @@ const ClientProfile = () => {
                     className="common_button"
                     // onClick={handleOrderOpen}
                     onClick={() =>
-                      handleClientOrdersClick('/clientorders', 'Add to Cart')
+                      handleClientOrdersClick(
+                        `/clientorders/${path}`,
+                        'Add to Cart',
+                      )
                     }
                     variant="contained"
                   >

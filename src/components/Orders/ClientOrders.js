@@ -111,7 +111,7 @@ const ClientOrders = () => {
             <Button
               // onClick={handleClickOpen}
               onClick={() =>
-                handleClientOrdersClick(`/mycart/${path}`, 'Order Detail')
+                handleClientOrdersClick(`/mycart/${clientId}`, 'Order Detail')
               }
               className="main_tab_button"
               variant="span"
