@@ -52,14 +52,13 @@ const ViewBusinessCardDetail = ({
     )
   }
   return (
-    <div>
+    <Box>
       <Dialog open={viewBusinessCardDialog.status} onClose={handleDialogClose}>
-        <Box className="detail_row">
-          {' '}
+        <Box sx={{ margin: '18px 18px auto 18px' }} className="detail_row">
           <Typography className="business_detail_dialog_title" variant="span">
             Card Detail
           </Typography>
-          <Box>
+          <Box sx={{ marginLeft: '70px' }}>
             <Button
               onClick={() => setAddStatus({ ...addStatus, status: true })}
               disableElevation
@@ -78,27 +77,35 @@ const ViewBusinessCardDetail = ({
             </Button>
           </Box>
         </Box>
+
         <DialogContent>
           <Box className="business_card_dialog_section">
             <img
-              className="business_card"
+              className="inner_business_card"
               src={businessDetail?.imageUrl}
               alt=""
             />
-            <Box className="detail_row">
+            <Box
+              sx={{
+                marginTop: '22px ',
+              }}
+              className="detail_row"
+            >
               <Typography className="text-align-center fw-bold" variant="span">
-                Added By:{' '}
+                Added By
               </Typography>
               <Typography className="text-align-center" variant="span">
-                {businessDetail?.team?.name}{' '}
+                {businessDetail?.team?.name}
               </Typography>
             </Box>
-            <Box className="detail_row">
-              <Typography
-                className="text-align-center fw-bo  ld"
-                variant="span"
-              >
-                Arrival Date:{' '}
+            <Box
+              sx={{
+                marginTop: '10px',
+              }}
+              className="detail_row"
+            >
+              <Typography className="text-align-center fw-bold" variant="span">
+                Arrival Date
               </Typography>
               <Typography className="text-align-center" variant="span">
                 {moment(businessDetail?.arrivalDate).format('D/M/YY')}
@@ -115,7 +122,7 @@ const ViewBusinessCardDetail = ({
           setAddStatus={setAddStatus}
         />
       )}
-    </div>
+    </Box>
   )
 }
 

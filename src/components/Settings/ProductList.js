@@ -17,6 +17,7 @@ import TabContext from '@mui/lab/TabContext'
 import SampleProduct from '../../assets/img/sample_product.png'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
+// import { ProductIcon } from '../../assets/img/product-icon.svg'
 import SnacksPhoto from '../../assets/img/SnacksPhoto.png'
 const ViewProductDialog = React.lazy(() => import('./ViewProductDialog'))
 const DeleteProductDialog = React.lazy(() => import('./DeleteProductDialog'))
@@ -122,6 +123,7 @@ const ProductList = () => {
           <div className="row">
             {AdminProductList &&
               AdminProductList.map(row => {
+                console.log({ row: row })
                 let image_url = `${process.env.REACT_APP_API_CALL_URL}/file/${row?.imageUrl}`
                 return (
                   <>
@@ -136,7 +138,26 @@ const ProductList = () => {
                       }
                     >
                       {/* <img src={image_url} alt="sample" /> */}
-                      <img src={SnacksPhoto} alt="sample" />
+                      {/* {row.imageUrl ? (
+                        <img
+                          src={row.imageUrl}
+                          alt={row.name}
+                          height={100}
+                          width={100}
+                        />
+                      ) : (
+                        <img
+                          // src="../../assets/img/product-icon.svg"
+                          src={ProductIcon}
+                          alt={row.name}
+                        />
+                      )} */}
+                      <img
+                        src={row.imageUrl}
+                        alt={row.name}
+                        height={100}
+                        width={100}
+                      />
                     </Box>
                   </>
                 )

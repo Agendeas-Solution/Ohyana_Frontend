@@ -46,7 +46,8 @@
   height: 70vh;
   background-color: #fff;
   width: 95%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  margin: 10px;
   padding: 5px;
   display: flex;
   justify-content: flex-start;
@@ -57,10 +58,16 @@
   flex-direction: row;
   justify-content: center;
   height: 150px;
-  background-color: #f1f2f6;
-  /* border-radius: 5px; */
-  border: 1px solid #000;
   margin: 5px;
+}
+
+.inner_business_card {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 220px;
+  margin: 5px;
+  border-radius: 5px;
 }
 
 .business_card_left_section {
@@ -95,7 +102,7 @@
 
 .business_detail_dialog_title {
   font-weight: 600 !important;
-  font-size: 16px !important;
+  font-size: 24px !important;
 }
 
 .client_type_select {

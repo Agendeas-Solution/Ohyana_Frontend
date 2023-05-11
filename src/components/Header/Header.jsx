@@ -15,6 +15,7 @@ import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import { clearLoginToken } from '../../services/storage'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
+import ProfileSmallIcon from '../../assets/img/profileSmalIcon.png'
 import './index.css'
 
 const Header = () => {
@@ -104,7 +105,8 @@ const Header = () => {
               <Avatar
                 sx={{ width: 32, height: 32 }}
                 alt="Remy Sharp"
-                src="/static/images/avatar/1.jpg"
+                // src="/static/images/avatar/1.jpg"
+                src={ProfileSmallIcon}
               />
               <KeyboardArrowDownIcon />
             </Stack>

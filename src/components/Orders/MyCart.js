@@ -38,7 +38,7 @@ const MyCart = () => {
         let orders = res.data
         for (let i = 0; i < orders.length; i++) {
           // Add a new field to each object
-          orders[i].product.quantity = 0
+          orders[i].product.quantity = 1
         }
         setOrderList(orders)
       },
@@ -59,7 +59,10 @@ const MyCart = () => {
       .map(value => {
         if (value.product.quantity > 0) {
           debugger
-          return { productId: value.id, quantity: value.product.quantity }
+          return {
+            productId: value.product.id,
+            quantity: value.product.quantity,
+          }
         }
       })
       .filter(count => count !== undefined && count !== [])
@@ -201,6 +204,7 @@ const MyCart = () => {
                           </TableCell>
                           <TableCell align="right">
                             <TextField
+                              type="number"
                               size="small"
                               id="outlined-basic"
                               label="Quantity"

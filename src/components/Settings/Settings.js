@@ -58,7 +58,7 @@ const Settings = () => {
             <Typography variant="span">Product</Typography>
           </Box>
         )}
-        <Box
+        {/* <Box
           className="setting_cards-list"
           onClick={() => {
             navigate('/premium')
@@ -66,7 +66,7 @@ const Settings = () => {
         >
           <img className="premium_icon" src={PremiumIcon} alt="ProductIcon" />
           <Typography variant="span">Premium</Typography>
-        </Box>
+        </Box> */}
         <Box
           className="setting_cards-list"
           onClick={() => {
