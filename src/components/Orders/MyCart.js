@@ -14,33 +14,31 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete'
 import PrintIcon from '@mui/icons-material/Print'
 import Paper from '@mui/material/Paper'
-import Avatar from '@mui/material/Avatar'
-import Stack from '@mui/material/Stack'
-import ProductPhotoWithOutline from '../../assets/img/Product_Photo_With_Outline.svg'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import {
+  DeleteMyCartProduct,
   GetAllCartItems,
   PlaceOrders,
 } from '../../services/apiservices/orderDetail'
+import DeleteProductMyCart from '../ClientProfile/DeleteProductMyCart'
 
 const MyCart = () => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [deleteProductMyCardDialog, setDeleteProductCardDialog] = useState({
+    status: false,
+    id: '',
+  })
   const [orderList, setOrderList] = useState([])
   const [orders, setOrders] = useState([])
   let path = window.location.pathname
   path = path.split('/').pop()
-  useEffect(() => {
+  const handleGetAllCartItems = () => {
     GetAllCartItems(
       path,
       {},
       res => {
-        let orders = res.data
-        for (let i = 0; i < orders.length; i++) {
-          // Add a new field to each object
-          orders[i].product.quantity = 1
-        }
-        setOrderList(orders)
+        setOrderList(res.data)
       },
       err => {
         setErrorSnackbar({
@@ -50,6 +48,9 @@ const MyCart = () => {
         })
       },
     )
+  }
+  useEffect(() => {
+    handleGetAllCartItems()
   }, [])
   const handlePlaceOrder = () => {
     let data = {
@@ -57,16 +58,15 @@ const MyCart = () => {
     }
     data['orders'] = orderList
       .map(value => {
-        if (value.product.quantity > 0) {
+        if (value.quantity > 0) {
           debugger
           return {
             productId: value.product.id,
-            quantity: value.product.quantity,
+            quantity: value.quantity,
           }
         }
       })
       .filter(count => count !== undefined && count !== [])
-    debugger
     PlaceOrders(
       data,
       res => {},
@@ -82,20 +82,34 @@ const MyCart = () => {
   const handleQuantityChange = (event, id) => {
     // Find the object with the specified id
     const index = orderList.findIndex(item => item.product.id === id)
-
     // Update the quantity field in the state
     const updatedData = [...orderList]
     updatedData[index] = {
       ...updatedData[index],
-      product: {
-        ...updatedData[index].product,
-        quantity: parseInt(event.target.value),
-      },
+      quantity: parseInt(event.target.value),
     }
     setOrderList(updatedData)
     debugger
   }
-
+  const handleDeleteProductDialogClose = () => {
+    setDeleteProductCardDialog({ ...deleteProductMyCardDialog, status: false })
+  }
+  const handleDeleteProduct = () => {
+    DeleteMyCartProduct(
+      deleteProductMyCardDialog.id,
+      res => {
+        handleDeleteProductDialogClose()
+        handleGetAllCartItems()
+      },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
+    )
+  }
   return (
     <>
       <Box className="main_section">
@@ -143,7 +157,6 @@ const MyCart = () => {
                     Place Order
                   </Button>
                   <DeleteIcon className="mx-4" />
-                  <PrintIcon />
                 </Box>
               </Box>
             </Box>
@@ -209,10 +222,22 @@ const MyCart = () => {
                               type="number"
                               label="Quantity"
                               variant="outlined"
-                              value={data.product.quantity}
+                              value={data.quantity}
                               onChange={event =>
                                 handleQuantityChange(event, data.product.id)
                               }
+                            />
+                          </TableCell>
+                          <TableCell align="right">
+                            <DeleteIcon
+                              onClick={() =>
+                                setDeleteProductCardDialog({
+                                  ...deleteProductMyCardDialog,
+                                  status: true,
+                                  id: data.id,
+                                })
+                              }
+                              className="mx-4"
                             />
                           </TableCell>
                         </TableRow>
@@ -224,6 +249,11 @@ const MyCart = () => {
           </Box>
         </Box>
       </Box>
+      <DeleteProductMyCart
+        deleteProductMyCardDialog={deleteProductMyCardDialog}
+        handleDeleteProductDialogClose={handleDeleteProductDialogClose}
+        handleDeleteProduct={handleDeleteProduct}
+      />
     </>
   )
 }
