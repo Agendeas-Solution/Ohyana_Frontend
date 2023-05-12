@@ -82,14 +82,14 @@ const SideBar = () => {
     let pathName = localStorage.getItem('path')
     setPath(pathName)
 
-    socket.on('notification', function (result) {
-      setNotificationSnackbar({
-        ...notificationSnackbar,
-        status: true,
-        heading: result?.data?.heading,
-        description: result?.data?.description,
-      })
-    })
+    // socket.on('notification', function (result) {
+    //   setNotificationSnackbar({
+    //     ...notificationSnackbar,
+    //     status: true,
+    //     heading: result?.data?.heading,
+    //     description: result?.data?.description,
+    //   })
+    // })
   }, [])
 
   return (

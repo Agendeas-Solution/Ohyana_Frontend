@@ -264,41 +264,6 @@ const AddClient = () => {
     <>
       <Box className="main_section" sx={{ overflow: 'hidden', padding: '0px' }}>
         <Box className="pofile_edit_section">
-          {/* <Box className="edit_my_profile_image_section">
-            <img src={ProfileImage} alt="profile" />
-            <Box className="inner_icon_style">
-              <CameraAltRoundedIcon fontSize="large" />
-            </Box>
-          </Box> */}
-
-          {/* FINAL */}
-          {/* <Paper className="my_profile_upload_image">
-            <Box className="my_profile_image_section">
-              <input
-                type="file"
-                accept="image/*"
-                name="image"
-                id="file"
-                onChange={loadFile}
-                style={{ display: 'none', background: 'red' }}
-              />
-              <img
-                className="image_style"
-                src={state ? state : image}
-                // className={classes.image}
-                id="output"
-                // width="70"
-                // height="70"
-                alt="test"
-              />
-              <Box className="inner_icon_style">
-                <label htmlFor="file" style={{ cursor: 'pointer' }}>
-                  <PhotoCamera />
-                </label>
-              </Box>
-            </Box>
-          </Paper> */}
-
           <Uploader />
 
           <Box className="edit_profile_detail_section">
@@ -355,7 +320,7 @@ const AddClient = () => {
               </Box>
             </Box>
 
-            {/* Email && Address*/}
+            {/* Email && Country*/}
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
@@ -367,37 +332,6 @@ const AddClient = () => {
                   variant="outlined"
                 />
               </Box>
-              <Box className="input_fields">
-                <TextField
-                  autocomplete="off"
-                  label="Address"
-                  onChange={e => {
-                    setUserDetail({ ...userDetail, address: e.target.value })
-                  }}
-                  value={userDetail.address}
-                  variant="outlined"
-                />
-              </Box>
-            </Box>
-            <Box className="input_field_row">
-              {/* <Box className="input_fields">
-                <FormControl>
-                  <InputLabel>Client Type</InputLabel>
-                  <Select
-                    label="Client Type"
-                    value={userDetail.clientType}
-                    onChange={e => {
-                      setUserDetail({
-                        ...userDetail,
-                        clientType: e.target.value,
-                      })
-                    }}
-                  >
-                    <MenuItem value="true">Domestic</MenuItem>
-                    <MenuItem value="false">International</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box> */}
               <Autocomplete
                 className="input_fields"
                 disablePortal
@@ -412,6 +346,21 @@ const AddClient = () => {
                   <TextField {...params} label="Select Country" />
                 )}
               />
+            </Box>
+
+            {/* Address && State*/}
+            <Box className="input_field_row">
+              <Box className="input_fields">
+                <TextField
+                  autocomplete="off"
+                  label="Address"
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, address: e.target.value })
+                  }}
+                  value={userDetail.address}
+                  variant="outlined"
+                />
+              </Box>
               <Autocomplete
                 className="input_fields"
                 options={stateList}
@@ -423,23 +372,14 @@ const AddClient = () => {
                 onChange={(e, value) => {
                   setUserDetail({ ...userDetail, state: value })
                 }}
-                renderInput={params => <TextField {...params} label="State" />}
+                renderInput={params => (
+                  <TextField {...params} label=" Select State" />
+                )}
               />
             </Box>
+
+            {/* Reference && City */}
             <Box className="input_field_row">
-              <Autocomplete
-                className="input_fields"
-                options={cityList}
-                disableClearable
-                disabled={!userDetail?.state}
-                filterOptions={filterOptions}
-                value={userDetail.city}
-                getOptionLabel={option => option.name}
-                onChange={(e, value) => {
-                  setUserDetail({ ...userDetail, city: value })
-                }}
-                renderInput={params => <TextField {...params} label="City" />}
-              />
               <Box className="input_fields">
                 <FormControl>
                   <InputLabel>Reference</InputLabel>
@@ -459,9 +399,30 @@ const AddClient = () => {
                   </Select>
                 </FormControl>
               </Box>
+
+              <Autocomplete
+                className="input_fields"
+                options={cityList}
+                disableClearable
+                disabled={!userDetail?.state}
+                filterOptions={filterOptions}
+                value={userDetail.city}
+                getOptionLabel={option => option.name}
+                onChange={(e, value) => {
+                  setUserDetail({ ...userDetail, city: value })
+                }}
+                renderInput={params => (
+                  <TextField {...params} label="Select City" />
+                )}
+              />
+            </Box>
+
+            {/* Reference Name */}
+            <Box className="input_field_row">
               {userDetail.reference === 'OTHER' && (
                 <Box className="input_fields">
                   <TextField
+                    className="reference_field"
                     label="Reference Name"
                     onChange={e => {
                       setUserDetail({
@@ -479,6 +440,7 @@ const AddClient = () => {
                   <FormControl>
                     <InputLabel>Reference Name</InputLabel>
                     <Select
+                      className="reference_field"
                       label="Reference"
                       value={userDetail.referenceName}
                       onChange={e => {

@@ -1,57 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Typography } from '@mui/material'
+import { INTEGRATIONDETAIL } from '../../constants'
 import './index.css'
-import IntegrationIcon from '../../assets/img/IntegrationIcon.svg'
 
 const Integrations = () => {
+  const [productPath, setProductPath] = useState(
+    INTEGRATIONDETAIL.PRODUCTDETAIL,
+  )
+
+  const [productName, setProductName] = useState([
+    'Twitter',
+    'Shopify',
+    'Trade India',
+    'India Mart',
+  ])
+
   return (
     <>
       <Box className="main_section">
         <Box className="inner_containers">
-          <Box className="integrations_card">
-            <Box className="image_part">
-              <img src={IntegrationIcon} alt="twitter" />
+          {productPath.map(data => (
+            <Box className="integrations_card">
+              <Box className="image_part">
+                {/* <img src={IntegrationIcon} alt="twitter" /> */}
+                <img src={data.productImage} />
+              </Box>
+              <Typography className="heading_part" variant="span">
+                {data.name}
+              </Typography>
             </Box>
-            <Typography className="heading_part" variant="span">
-              Twitter
-            </Typography>
-          </Box>
-
-          <Box className="integrations_card">
-            <Box className="image_part">
-              <img src={IntegrationIcon} alt="twitter" />
-            </Box>
-            <Typography className="heading_part" variant="span">
-              Twitter
-            </Typography>
-          </Box>
-
-          <Box className="integrations_card">
-            <Box className="image_part">
-              <img src={IntegrationIcon} alt="twitter" />
-            </Box>
-            <Typography className="heading_part" variant="span">
-              Twitter
-            </Typography>
-          </Box>
-
-          <Box className="integrations_card">
-            <Box className="image_part">
-              <img src={IntegrationIcon} alt="twitter" />
-            </Box>
-            <Typography className="heading_part" variant="span">
-              Twitter
-            </Typography>
-          </Box>
-
-          <Box className="integrations_card">
-            <Box className="image_part">
-              <img src={IntegrationIcon} alt="twitter" />
-            </Box>
-            <Typography className="heading_part" variant="span">
-              Twitter
-            </Typography>
-          </Box>
+          ))}
         </Box>
       </Box>
     </>

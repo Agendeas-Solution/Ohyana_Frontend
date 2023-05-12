@@ -24,6 +24,8 @@ import { GetTeamReport } from '../../services/apiservices/productDetail'
 import { GetAdminRole } from '../../services/apiservices/adminprofile'
 import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail'
 import { TEAM } from '../../constants'
+import StarPerformer from '../../assets/img/star_performer.png'
+
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const TeamGraph = ({ selectedPeriod, customRange }) => {
   const [graphData, setGraphData] = useState()
@@ -164,7 +166,7 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
   }, [graphData])
   return (
     <>
-      <Box className="main_section">
+      <Box>
         <Box
           sx={{
             width: '100%',
@@ -192,10 +194,10 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
               </Select>
             </FormControl>
             <FormControl sx={{ width: '200px', marginLeft: '10px' }}>
-              <InputLabel>Client Type</InputLabel>
+              <InputLabel>Job Role</InputLabel>
               <Select
                 className="report_tab_heading_option"
-                label="Select Client Type"
+                label="Job Role"
                 value={selectedJobRole}
                 onChange={e => {
                   setSelectedJobRole(e.target.value)
@@ -237,17 +239,21 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
             </FormControl>
           </Box>
         </Box>
+
         <Box sx={{ height: '65vh !important' }}>
           {userData?.datasets && <BarChart chartData={userData} />}
         </Box>
 
-        <Box>
-          <Box>
-            <TableContainer
-              sx={{ padding: '0px 10px' }}
-              className="set_box_shadow"
-              component={Paper}
-            >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            width: '100%',
+          }}
+        >
+          <Box sx={{ padding: '0px 10px', width: '50%' }}>
+            <TableContainer className="set_box_shadow" component={Paper}>
               <Table
                 stickyHeader
                 aria-label="sticky table"
@@ -293,39 +299,79 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
                       </Box>
                     </TableCell>
                   </TableRow>
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    sx={{
-                      '&:last-child td,th': { border: 0 },
-                    }}
-                  >
-                    <TableCell>fds</TableCell>
-                    <TableCell>fds </TableCell>
-                    <TableCell>fdsf</TableCell>
-                    <TableCell>fdsf</TableCell>
-                    <TableCell>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          justifyContent: 'flex-end',
-                        }}
-                      >
-                        <Button
-                          sx={{ marginRight: '10px' }}
-                          className="border_button_small"
-                        >
-                          Edit
-                        </Button>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
                 </TableBody>
               </Table>
             </TableContainer>
           </Box>
-          <Box></Box>
+
+          <Box sx={{ width: '50%', marginLeft: '25px' }} className="detail_row">
+            <Box className="star_performers_section">
+              <Box className="my_main_section_header">
+                <Typography
+                  className="bottom_left_panel_heading"
+                  variant="span"
+                >
+                  Star Performers
+                </Typography>
+              </Box>
+              {/* {salesInquiry?.starPerformerList.length > 0 &&
+              salesInquiry.starPerformerList.map(data => { */}
+              <Box className="a-box">
+                <Box className="img-container">
+                  <Box className="img-inner">
+                    <Box className="inner-skew">
+                      <img src={StarPerformer} />
+                    </Box>
+                  </Box>
+                </Box>
+                <Box className="text-container">
+                  <h3>Paul Walker</h3>
+                  <h6>Sr. Sales Person</h6>
+                  <h5>Star Performer of the Month.</h5>
+                </Box>
+              </Box>
+
+              <Box className="a-box">
+                <Box className="img-container">
+                  <Box className="img-inner">
+                    <Box className="inner-skew">
+                      <img src={StarPerformer} />
+                    </Box>
+                  </Box>
+                </Box>
+                <Box className="text-container">
+                  <h3>Paul Walker</h3>
+                  <h6>Sr. Sales Person</h6>
+                  <h5>Star Performer of the Month.</h5>
+                </Box>
+              </Box>
+            </Box>
+
+            {/* <Box className="star_performers_section">
+              <Box className="my_main_section_header">
+                <Typography
+                  className="bottom_left_panel_heading"
+                  variant="span"
+                >
+                  Star Performers
+                </Typography>
+              </Box>
+              <Box className="a-box">
+                <Box className="img-container">
+                  <Box className="img-inner">
+                    <Box className="inner-skew">
+                      <img src={StarPerformer} />
+                    </Box>
+                  </Box>
+                </Box>
+                <Box className="text-container">
+                  <h3>Paul Walker</h3>
+                  <h6>Sr. Sales Person</h6>
+                  <h5>Star Performer of the Month.</h5>
+                </Box>
+              </Box>
+            </Box> */}
+          </Box>
         </Box>
       </Box>
     </>

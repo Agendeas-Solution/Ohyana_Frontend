@@ -217,6 +217,7 @@ const MyCart = () => {
                           </TableCell>
                           <TableCell align="right">
                             <TextField
+                              type="number"
                               size="small"
                               type="number"
                               label="Quantity"

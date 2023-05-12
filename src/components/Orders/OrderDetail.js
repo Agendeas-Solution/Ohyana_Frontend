@@ -191,9 +191,6 @@ const OrderDetail = () => {
               <Typography className="common_sub_heading" variant="span">
                 Order Summary
               </Typography>
-              <Button className="white_buttons" variant="contained">
-                <ReceiptRoundedIcon />
-              </Button>
             </Box>
 
             <Box className="order_detail_row">
