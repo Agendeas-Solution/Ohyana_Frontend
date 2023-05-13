@@ -59,6 +59,8 @@ const AddClient = () => {
   const navigate = useNavigate()
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [imageUrl, setImageUrl] = useState(null)
+
   const handleChange = prop => event => {
     setUserDetail({ ...userDetail, [prop]: event.target.value })
   }
@@ -141,6 +143,8 @@ const AddClient = () => {
               business: res.data?.business,
               referenceName: res.data?.reference_name,
             })
+            setImageUrl(res?.data?.imageUrl)
+            debugger
           }
         },
         err => {
@@ -180,24 +184,24 @@ const AddClient = () => {
       userDetail.city &&
       userDetail?.country
     ) {
-      let clientDetail = {
-        name: userDetail.clientName,
-        email: userDetail?.email,
-        reference: userDetail.reference,
-        business: userDetail.business,
-        contact_number: userDetail.contactNo,
-        state: userDetail.state.name,
-        city: userDetail.city.name,
-        city_id: userDetail.city.id,
-        state_id: userDetail.state.id,
-        state_iso2: userDetail.state.iso2,
-        country: userDetail.country.name,
-        country_id: userDetail.country.id,
-        country_iso2: userDetail.country.iso2,
-        address: userDetail.address,
-        max_invesment_amount: userDetail.max_invesment_amount,
-        reference_name: userDetail?.referenceName,
-      }
+      const data = new FormData()
+      data.append('name', userDetail.clientName)
+      data.append('email', userDetail.email)
+      data.append('reference', userDetail.reference)
+      data.append('business', userDetail.business)
+      data.append('contact_number', userDetail.contactNo)
+      data.append('state', userDetail.state.name)
+      data.append('city', userDetail.city.name)
+      data.append('city_id', userDetail.city.id)
+      data.append('state_id', userDetail.state.id)
+      data.append('state_iso2', userDetail.state.iso2)
+      data.append('country', userDetail.country.name)
+      data.append('country_id', userDetail.country.id)
+      data.append('country_iso2', userDetail.country.iso2)
+      data.append('address', userDetail.address)
+      data.append('max_invesment_amount', userDetail.max_invesment_amount)
+      data.append('reference_name', userDetail.reference_name)
+      data.append('customer_image', imageUrl)
 
       let path = window.location.pathname
       path = path.split('/').pop()
@@ -205,7 +209,7 @@ const AddClient = () => {
         parseInt(path)
           ? EditClientDetail(
               path,
-              clientDetail,
+              data,
               res => {
                 if (res.success) {
                   navigate(`/clientprofile/${path}`)
@@ -225,7 +229,7 @@ const AddClient = () => {
               },
             )
           : AddClientDetail(
-              clientDetail,
+              data,
               res => {
                 navigate('/client')
                 setSuccessSnackbar({
@@ -264,8 +268,7 @@ const AddClient = () => {
     <>
       <Box className="main_section" sx={{ overflow: 'hidden', padding: '0px' }}>
         <Box className="pofile_edit_section">
-          <Uploader />
-
+          <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
           <Box className="edit_profile_detail_section">
             {/* Client Name &&  Business Name*/}
             <Box className="input_field_row">

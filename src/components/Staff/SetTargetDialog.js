@@ -16,6 +16,9 @@ import {
 import { SetTarget } from '../../services/apiservices/staffDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { TEAM } from '../../constants'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import moment from 'moment'
 const SetTargetDialog = ({
   targetDetail,
   handleCloseTargetDetailDialog,
@@ -23,7 +26,8 @@ const SetTargetDialog = ({
 }) => {
   const [feedbackDetail, setFeedBackDetail] = useState({
     type: '',
-    period: '',
+    startDate: null,
+    endDate: null,
     target: '',
   })
   const [typeOptions, setTypeOptions] = useState(TEAM.TARGETTYPE)
@@ -71,8 +75,67 @@ const SetTargetDialog = ({
               })}
             </Select>
           </FormControl>
+          <Box sx={{ marginRight: '10px' }}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                className="dialogue_input_fields"
+                inputFormat="dd/MM/yyyy"
+                label="Start Date"
+                value={feedbackDetail.startDate}
+                onChange={e => {
+                  setFeedBackDetail({
+                    ...feedbackDetail,
+                    startDate: moment(e).format('YYYY-MM-DD'),
+                  })
+                }}
+                renderInput={params => (
+                  <TextField
+                    sx={{
+                      width: '175px',
+                      background: 'white',
+                    }}
+                    placeholder="Start Date"
+                    {...params}
+                  />
+                )}
+                PopperProps={{
+                  placement: 'bottom-start',
+                }}
+              />
+            </LocalizationProvider>
+          </Box>
 
-          <FormControl className="dialogue_input_fields">
+          <Box>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="End Date"
+                className="dialogue_input_fields"
+                inputFormat="dd/MM/yyyy"
+                minDate={feedbackDetail.startDate}
+                value={feedbackDetail.endDate}
+                onChange={e => {
+                  setFeedBackDetail({
+                    ...feedbackDetail,
+                    endDate: moment(e).format('YYYY-MM-DD'),
+                  })
+                }}
+                renderInput={params => (
+                  <TextField
+                    sx={{
+                      width: '175px',
+                      background: 'white',
+                    }}
+                    placeholder="End Date"
+                    {...params}
+                  />
+                )}
+                PopperProps={{
+                  placement: 'bottom-start',
+                }}
+              />
+            </LocalizationProvider>
+          </Box>
+          {/* <FormControl className="dialogue_input_fields">
             <InputLabel>Select Period</InputLabel>
             <Select
               label="Select Period"
@@ -85,7 +148,7 @@ const SetTargetDialog = ({
                 return <MenuItem value={data.days}>{data.period}</MenuItem>
               })}
             </Select>
-          </FormControl>
+          </FormControl> */}
 
           <TextField
             className="dialogue_input_fields"

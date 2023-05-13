@@ -35,7 +35,6 @@ import {
   GetState,
   GetStateByCountry,
 } from '../../services/apiservices/country-state-city'
-
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 
 const AddStaffMember = () => {
@@ -54,6 +53,7 @@ const AddStaffMember = () => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [employeeJobRole, setEmployeeJobRole] = useState([])
+  const [imageUrl, setImageUrl] = useState(null)
   let path = window.location.pathname
   path = path.split('/').pop()
   const navigate = useNavigate()
@@ -117,6 +117,7 @@ const AddStaffMember = () => {
               jobType: res.data.jobType,
               id: res.data.id,
             })
+            setImageUrl(res?.data?.imgUrl)
           }
         },
         err => {
@@ -135,20 +136,21 @@ const AddStaffMember = () => {
       userDetail.state &&
       userDetail.jobType !== ''
     ) {
-      let employeeDetail = {
-        name: userDetail.employeeName,
-        email: userDetail.email,
-        roleId: userDetail.jobRole,
-        contact_number: userDetail.contactNo,
-        gender: userDetail.gender,
-        birthDay: userDetail.birthDate,
-        state: userDetail.state.name,
-        state_id: userDetail.state.id,
-        state_iso2: userDetail.state.iso2,
-        jobType: userDetail.jobType,
-      }
+      const employeeDetail = new FormData()
+      employeeDetail.append('name', userDetail.employeeName)
+      employeeDetail.append('email', userDetail.email)
+      employeeDetail.append('roleId', userDetail.jobRole)
+      employeeDetail.append('profile_image', imageUrl)
+      employeeDetail.append('contact_number', userDetail.contactNo)
+      employeeDetail.append('gender', userDetail.gender)
+      employeeDetail.append('birthDay', userDetail.birthDate)
+      employeeDetail.append('state', userDetail.state.name)
+      employeeDetail.append('state_id', userDetail.state.id)
+      employeeDetail.append('state_iso2', userDetail.state.iso2)
+      employeeDetail.append('jobType', userDetail.jobType)
+
       if (parseInt(path)) {
-        employeeDetail['id'] = userDetail.id
+        employeeDetail.append('id', userDetail.id)
       }
       {
         parseInt(path)
@@ -244,7 +246,7 @@ const AddStaffMember = () => {
             </Box>
           </Paper> */}
 
-          <Uploader />
+          <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
           <Box className="edit_profile_detail_section">
             {/* Employee Name && Select job type */}
             <Box className="input_field_row">
