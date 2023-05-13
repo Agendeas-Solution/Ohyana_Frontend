@@ -190,7 +190,8 @@
 }
 
 .my_cart_product_photo {
-  width: 35%;
+  width: 80px !important;
+  height: 80px !important;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
 }

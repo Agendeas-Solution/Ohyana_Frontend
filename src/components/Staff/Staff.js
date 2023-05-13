@@ -125,6 +125,7 @@ const Staff = () => {
   }
   useEffect(() => {
     singleStaffDetails && teamLeaderDetails(staffDetailList[0]?.id)
+    console.log({ Single: singleStaffDetails })
   }, [staffDetailList.length > 0])
 
   const handleGetAdminStaffDetail = () => {
@@ -391,6 +392,12 @@ const Staff = () => {
                             sx={{ marginRight: '10px' }}
                             src="/static/images/avatar/1.jpg"
                           />
+                          {/* <Box>
+                            <img
+                              style={{ borderRadius: '50%', width: '20%' }}
+                              src={row.imgUrl}
+                            />
+                          </Box> */}
                           <Typography>{row.name}</Typography>
                         </TableCell>
                         <TableCell align="left">
@@ -412,7 +419,18 @@ const Staff = () => {
         <Box className="staff_right_main_header_section">
           <Box className="user_profile_header_Section">
             <Box className="username_profile_Section">
-              <AccountCircleRoundedIcon className="user_profile_icon" />
+              {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
+              {singleStaffDetails?.memberDetail?.imgUrl ? (
+                // <Box sx={{ height: '100px', width: '100px' }}>
+                <img
+                  style={{ margin: '8px auto' }}
+                  className="user_profile_icon"
+                  src={singleStaffDetails?.memberDetail?.imgUrl}
+                />
+              ) : (
+                // </Box>
+                <AccountCircleRoundedIcon className="user_profile_icon" />
+              )}
               <Box className="username_and_position">
                 <Typography className="username_text" variant="span">
                   {singleStaffDetails?.memberDetail?.name}

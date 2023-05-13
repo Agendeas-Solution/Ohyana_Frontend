@@ -110,6 +110,7 @@ const MyCart = () => {
       },
     )
   }
+
   return (
     <>
       <Box className="main_section">
@@ -179,12 +180,14 @@ const MyCart = () => {
                     <TableCell align="right">Name</TableCell>
                     <TableCell align="right">Price</TableCell>
                     <TableCell align="right">Quantity</TableCell>
+                    <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
 
                 <TableBody>
                   {orderList.length > 0 &&
                     orderList.map(data => {
+                      console.log({ Data: data })
                       return (
                         <TableRow
                           sx={{
@@ -193,15 +196,9 @@ const MyCart = () => {
                         >
                           <TableCell
                             align="right"
-                            className="d-flex flex-row align-items-center"
+                            sx={{ width: '0%' }}
+                            // className="d-flex flex-row align-items-center"
                           >
-                            {/* <Stack direction="row" spacing={1}>
-     <Avatar
-       className="me-2"
-       sx={{ width: 50, height: 50 }}
-       src={SnacksPhoto}
-     />
-   </Stack> */}
                             <img
                               src={data.product.imageUrl}
                               className="my_cart_product_photo"
@@ -219,7 +216,6 @@ const MyCart = () => {
                             <TextField
                               type="number"
                               size="small"
-                              type="number"
                               label="Quantity"
                               variant="outlined"
                               value={data.quantity}

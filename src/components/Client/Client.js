@@ -322,7 +322,7 @@ const Client = () => {
   ])
   return (
     <Box className="main_tab_section">
-      <MarkersMap />
+      {/* <MarkersMap /> */}
       <Box className="tab_header">
         <Tabs
           value={value}

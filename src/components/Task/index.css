@@ -171,3 +171,10 @@
   display: flex;
   align-items: center;
 }
+
+.main_task_section {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 12px;
+  height: 90%;
+}

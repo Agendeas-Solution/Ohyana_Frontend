@@ -106,6 +106,7 @@ textarea:focus {
   height: 90px !important;
   width: 90px !important;
   color: #f1f2f6 !important;
+  border-radius: 50%;
 }
 
 .heading_access_box {
@@ -314,6 +315,7 @@ textarea:focus {
 
 .team_overview_table_heading {
   background: #f1f2f6;
+  width: 100%;
 }
 
 .team_overview_table_heading tr th {

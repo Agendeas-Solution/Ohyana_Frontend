@@ -1,10 +1,10 @@
 // import React, { useState, useRef, useEffect } from "react";
 // import { TileLayer, Marker, Popup, MapContainer } from "react-leaflet";
+
 import L from 'leaflet'
 
 // import "leaflet/dist/leaflet.css";
 // import osm from "./osm-providers";
-// import RoomRoundedIcon from '@mui/icons-material/RoomRounded';
 // import cities from "./cities.json";
 
 // const MarkersMap = () => {
@@ -56,55 +56,69 @@ import React, { useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import './index.css'
 import 'leaflet/dist/leaflet.css'
-const MarkersMap = () => {
-  const [markers, setMarkers] = useState([
+import MarkersIcon from '../../assets/img/marker_bg.png'
+
+import RoomRoundedIcon from '@mui/icons-material/RoomRounded'
+
+import { Box, Dialog } from '@mui/material'
+import { Circle, Height } from '@mui/icons-material'
+
+const MarkersMap = ({ openMap, handleCloseMap }) => {
+  const markers = [
     {
-      latitude: 23.114593,
+      latitude: 22.3006,
+      longitude: 70.802,
+    },
+    {
+      latitude: 22.114593,
       longitude: 72.573719,
     },
     {
-      latitude: 23.114593,
-      longitude: 72.573719,
+      latitude: 22.124593,
+      longitude: 70.573719,
     },
     {
-      latitude: 23.114593,
-      longitude: 72.573719,
+      latitude: 22.124593,
+      longitude: 71.573719,
     },
-  ])
+  ]
   const position = [37.775, -122.418]
-  const icon = L.icon({ iconUrl: '../../assets/img/warning.png' })
+  const icon = L.icon({ iconUrl: MarkersIcon, iconSize: [60, 60] })
+  // const icon = L.icon({
+  //   iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png',
+  // })
+
   return (
     <>
-      <MapContainer
-        center={[markers[0].latitude, markers[0].longitude]}
-        zoom={11}
-        scrollWheelZoom={false}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker
-          position={[markers[0].latitude, markers[0].longitude]}
-          icon={icon}
+      <Dialog open={openMap} onClose={handleCloseMap}>
+        {/* <Box className="dialogue_map"> */}
+        <MapContainer
+          className="dialogue_map"
+          center={[markers[0].latitude, markers[0].longitude]}
+          zoom={11}
+          scrollWheelZoom={true}
         >
-          <Popup>
-            A pretty CSS3 popup.
-            <br /> Easily customizable.
-          </Popup>
-        </Marker>
-        {markers.map(bike => {
-          ;<Marker
-            key={bike.latitude}
-            position={[bike.latitude, bike.longitude]}
-          >
-            <Popup>
-              A pretty CSS3 popup.
-              <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        })}
-      </MapContainer>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {markers.map(bike => {
+            return (
+              <Marker
+                key={bike.latitude}
+                position={[bike.latitude, bike.longitude]}
+                icon={icon}
+              >
+                <Popup>
+                  A pretty CSS3 popup.
+                  <br /> Easily customizable.
+                </Popup>
+              </Marker>
+            )
+          })}
+        </MapContainer>
+        {/* </Box> */}
+      </Dialog>
     </>
   )
 }

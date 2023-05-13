@@ -14,6 +14,7 @@ import {
   Select,
   MenuItem,
 } from '@mui/material'
+
 const AssignMemberDialog = ({
   handleCloseMemberDialog,
   openMemberDialog,
@@ -27,24 +28,6 @@ const AssignMemberDialog = ({
       <Dialog open={openMemberDialog} onClose={handleCloseMemberDialog}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Assign Member</Typography>
-
-          {/* <Autocomplete
-            disablePortal
-            options={memberList}
-            value={member?.email}
-            onChange={(e, value) => {
-              setMember(value)
-            }}
-            getOptionLabel={memberList => memberList?.email}
-            renderInput={params => (
-              <TextField
-                {...params}
-                className="dialogue_input_fields"
-                label="Select Members"
-                placeholder="Search Members"
-              />
-            )}
-          /> */}
 
           <FormControl className="dialogue_input_fields">
             <InputLabel>Select Members</InputLabel>
