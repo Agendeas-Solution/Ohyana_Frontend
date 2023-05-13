@@ -34,6 +34,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail'
+import TaskDetail from './TaskDetail'
 
 const drawerWidth = 350
 const CreateTaskDialog = React.lazy(() => import('./CreateTaskDialog'))
@@ -59,6 +60,7 @@ const Task = () => {
     title: '',
     description: '',
     due_date: moment().format(''),
+    teamId: '',
   })
   const [memberList, setMemberList] = useState([])
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
@@ -88,7 +90,6 @@ const Task = () => {
 
   const handleOpenMemberDialog = id => {
     setTaskId(id)
-
     setOpenMemberDialog(true)
   }
 
@@ -106,15 +107,19 @@ const Task = () => {
 
   const handleTaskList = () => {
     let data = {}
+
     if (searchQuery !== '' && searchQuery) {
       data['searchQuery'] = searchQuery
     }
+
     if (filterTask.due_date !== '' && filterTask.due_date) {
       data['due_date'] = filterTask.due_date
     }
+
     if (filterTask.teamId !== '' && filterTask.teamId) {
       data['teamId'] = filterTask.teamId
     }
+
     GetTaskList(
       data,
       res => {
@@ -134,19 +139,26 @@ const Task = () => {
   }, [searchQuery, filterTask])
 
   useEffect(() => {
-    ;(openDrawer || openMemberDialog) &&
-      GetAdminStaffDetailList(
-        {},
-        res => {
-          setMemberList(res.data)
-        },
-        err => {},
-      )
-  }, [openDrawer, openMemberDialog])
+    GetAdminStaffDetailList(
+      {},
+      res => {
+        setMemberList(res.data)
+      },
+      err => {},
+    )
+  }, [])
 
   const handleCreateTask = () => {
+    let data = {
+      title: createTask.title,
+      description: createTask.description,
+      due_date: createTask.due_date,
+    }
+    if (createTask.teamId !== '' && createTask.teamId) {
+      data['teamId'] = createTask.teamId
+    }
     CreateTaskCall(
-      createTask,
+      data,
       res => {
         if (res?.success) {
           setSuccessSnackbar({
@@ -182,7 +194,7 @@ const Task = () => {
   }
 
   return (
-    <Box className="main_tab_section">
+    <Box className="main_task_section">
       <Box className="tab_header">
         <Box>
           <Typography sx={{ color: '#8E8E8E' }} variant="span">
@@ -338,12 +350,15 @@ const Task = () => {
                         {taskData?.team?.email.toUpperCase().charAt(0)}
                       </Typography>
                     ) : (
-                      <Button
-                        onClick={() => handleOpenMemberDialog(taskData.id)}
-                        className="task_button"
-                      >
-                        + Member
-                      </Button>
+                      <Typography sx={{ color: '#8e8e8e' }}>
+                        Not Assigned
+                      </Typography>
+                      // <Button
+                      //   onClick={() => handleOpenMemberDialog(taskData.id)}
+                      //   className="task_button"
+                      // >
+                      //   + Member
+                      // </Button>
                     )}
                   </Box>
                 </Box>
@@ -360,15 +375,18 @@ const Task = () => {
           createTask={createTask}
           handleCreateTask={handleCreateTask}
           setCreateTask={setCreateTask}
+          member={member}
+          memberList={memberList}
+          setMember={setMember}
         />
-        <AssignMemberDialog
+        {/* <AssignMemberDialog
           handleCloseMemberDialog={handleCloseMemberDialog}
           openMemberDialog={openMemberDialog}
           handleAssignMember={handleAssignMember}
           memberList={memberList}
           member={member}
           setMember={setMember}
-        />
+        /> */}
       </Box>
     </Box>
   )

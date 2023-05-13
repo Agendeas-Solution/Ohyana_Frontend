@@ -78,7 +78,6 @@ const OrderDetail = () => {
       res => {
         setOrderDetail(res.data.orderDetail)
         setOrderItems(res.data.orderDetail.order_items)
-        debugger
       },
       err => {
         console.log('Printing OrderList Error', err)
@@ -125,9 +124,7 @@ const OrderDetail = () => {
       {
         status: 'DISPATCH',
       },
-      res => {
-        debugger
-      },
+      res => {},
       err => {
         setErrorSnackbar({
           ...errorSnackbar,
@@ -387,6 +384,7 @@ const OrderDetail = () => {
                 <TableBody>
                   {orderDetail?.order_items &&
                     orderDetail?.order_items.map(data => {
+                      console.log({ DATA: data })
                       return (
                         <TableRow
                           sx={{
@@ -399,8 +397,10 @@ const OrderDetail = () => {
                                 border: '1px solid #E5E5E5',
                                 borderRadius: '5px',
                                 padding: '4px',
+                                height: '90px',
+                                width: '90px',
                               }}
-                              src={SampleProduct}
+                              src={data?.product?.productImage}
                             />
                           </TableCell>
                           <TableCell>{data?.product?.name || '-'}</TableCell>

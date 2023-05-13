@@ -18,7 +18,7 @@
 //     inputFile.current.click()
 //   }
 //   return (
-//     <div>
+//     <Box>
 //       <input
 //         style={{ display: 'none' }}
 //         // accept=".zip,.rar"
@@ -26,16 +26,17 @@
 //         onChange={handleFileUpload}
 //         type="file"
 //       />
-//       <div className="button" onClick={onButtonClick}>
+//       <Box className="button" onClick={onButtonClick}>
 //         Upload
-//       </div>
-//     </div>
+//       </Box>
+//     </Box>
 //   )
 // }
 
 // export default Uploader
 
 import React, { useState } from 'react'
+import './index.css'
 import AvatarEditor from 'react-avatar-editor'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import { Box } from '@mui/system'
@@ -63,8 +64,8 @@ const Uploader = ({ imageUrl, setImageUrl }) => {
   // }
 
   return (
-    <div>
-      <div
+    <Box>
+      <Box
         style={{
           width: '130px',
           height: '130px',
@@ -75,6 +76,7 @@ const Uploader = ({ imageUrl, setImageUrl }) => {
       >
         {imageUrl ? (
           <div
+
             style={{
               width: '100%',
               height: '100%',
@@ -110,9 +112,9 @@ const Uploader = ({ imageUrl, setImageUrl }) => {
                 <PhotoCamera />
               </label>
             </Box>
-          </div>
+          </Box>
         ) : (
-          <div
+          <Box
             style={{
               width: '100%',
               height: '100%',
@@ -150,10 +152,11 @@ const Uploader = ({ imageUrl, setImageUrl }) => {
                 }}
               />
             </label>
-          </div>
+          </Box>
         )}
       </div>
     </div>
+
   )
 }
 

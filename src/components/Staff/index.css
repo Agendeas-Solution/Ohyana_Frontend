@@ -476,3 +476,9 @@
   font-size: 18px;
   font-weight: 500;
 }
+
+.set_pagination {
+  display: flex;
+  justify-content: end;
+  margin-top: 14px;
+}

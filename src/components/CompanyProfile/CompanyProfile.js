@@ -16,6 +16,7 @@ const CompanyProfile = () => {
       res => {
         if (res.success) {
           setCompanyDetail(res.data)
+          console.log({ res: companyDetail })
         }
       },
       err => {
@@ -23,6 +24,7 @@ const CompanyProfile = () => {
       },
     )
   }, [])
+
   return (
     <>
       <Box className="main_section">
@@ -30,6 +32,7 @@ const CompanyProfile = () => {
           <Box className="username_profile_Section">
             <img
               src={ProfileImage}
+              // src={companyDetail.logoUrl}
               className="user_profile_icon"
               alt="profile"
             />
