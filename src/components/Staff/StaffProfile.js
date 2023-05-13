@@ -17,6 +17,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import moment from 'moment'
 import Filter from '../../assets/img/Filter.svg'
+import MarkersMap from '../Client/MarkersMap'
 
 const PJPDetail = React.lazy(() => import('./PJPDetail'))
 const StaffTarget = React.lazy(() => import('./StaffTarget'))
@@ -36,6 +37,8 @@ const StaffProfile = () => {
     status: false,
     id: path,
   })
+
+  const [openMap, setOpenMap] = useState(false)
 
   // PJP
   const [open, setOpen] = useState(false)
@@ -86,12 +89,38 @@ const StaffProfile = () => {
       )
   }, [value])
 
+  const handleOpenMap = () => {
+    setOpenMap(true)
+  }
+
+  const handleCloseMap = () => {
+    setOpenMap(false)
+  }
+
   return (
     <>
       <Box className="profile_body_section">
         <Box className="user_profile_header_Section">
           <Box className="username_profile_Section">
-            <AccountCircleRoundedIcon className="user_profile_icon" />
+            {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
+            {adminProfileDetail?.imgUrl ? (
+              <Box className="user_profile_icon">
+                <img
+                  style={{
+                    // margin: '8px auto',
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '50%',
+                    // border: '1px solid red',
+                    textAlign: 'center',
+                  }}
+                  // className="user_profile_icon"
+                  src={adminProfileDetail.imgUrl}
+                />
+              </Box>
+            ) : (
+              <AccountCircleRoundedIcon className="user_profile_icon" />
+            )}
             <Box className="username_and_position">
               <Typography className="username_text" variant="span">
                 {adminProfileDetail?.name}
@@ -103,7 +132,7 @@ const StaffProfile = () => {
           </Box>
 
           <Box>
-            <Button className="custom_text_button">
+            <Button onClick={handleOpenMap} className="custom_text_button">
               <PlaceIcon />
               View On Map
             </Button>
@@ -369,6 +398,9 @@ const StaffProfile = () => {
             </TabPanel>
           </TabContext>
           <ChangeRoleDialog changeRoleDialogControl={changeRoleDialogControl} />
+          {openMap && (
+            <MarkersMap handleCloseMap={handleCloseMap} openMap={openMap} />
+          )}
         </Box>
       </Box>
     </>

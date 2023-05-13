@@ -112,7 +112,18 @@ const UserProfile = () => {
       <Box className="profile_body_section">
         <Box className="user_profile_header_Section">
           <Box className="username_profile_Section">
-            <AccountCircleRoundedIcon className="user_profile_icon" />
+            <Box>
+              {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
+              {userDetail.imgUrl ? (
+                <img
+                  className="user_profile_icon"
+                  src={userDetail.imgUrl}
+                  alt=""
+                />
+              ) : (
+                <AccountCircleRoundedIcon className="user_profile_icon" />
+              )}
+            </Box>
             <Box className="username_and_position">
               <Typography className="username_text" variant="span">
                 {userDetail?.name || '-'}

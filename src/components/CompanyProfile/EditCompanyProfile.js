@@ -100,7 +100,11 @@ const EditCompanyProfile = () => {
       <Box className="main_section">
         <Box className="pofile_edit_section">
           <Box className="edit_my_profile_image_section">
-            <img src={ProfileImage} alt="profile" />
+            <img
+              style={{ borderRadius: '50%' }}
+              src={ProfileImage}
+              alt="profile"
+            />
             {/* <Button className="common_button">
               <Uploader />
             </Button> */}

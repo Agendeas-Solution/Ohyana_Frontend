@@ -19,6 +19,7 @@ import {
   AddItemCheckList,
   DeleteCheckListTask,
   DeleteSingleTask,
+  AssignMemberParticularTask,
 } from '../../services/apiservices/task'
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
@@ -27,10 +28,13 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import { EditTaskName, EditDueDate } from '../../services/apiservices/task'
 import DeleteTaskDialog from './DeleteTaskDialog'
 import DueDateDialog from './DueDateDialog'
+import AssignMemberDialog from './AssignMemberDialog'
+import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail'
 const EditDescriptionDialog = React.lazy(() =>
   import('./EditDescriptionDialog'),
 )
 const EditTitleDialog = React.lazy(() => import('./EditTitleDialog'))
+
 const TaskDetail = () => {
   const [taskDetail, setTaskDetail] = useState([])
   const [checkLists, setCheckLists] = useState([])
@@ -39,6 +43,10 @@ const TaskDetail = () => {
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const [countDoneTask, setCountDoneTask] = useState(null)
   const [taskRatio, setTaskRatio] = useState(0)
+  const [openMemberDialog, setOpenMemberDialog] = useState(false)
+  const [member, setMember] = useState({})
+  const [memberList, setMemberList] = useState([])
+
   const [editDescriptionDialog, setEditDescriptionDialog] = useState({
     status: false,
     description: '',
@@ -59,6 +67,9 @@ const TaskDetail = () => {
     due_date: moment(),
     id: '',
   })
+  const handleCloseMemberDialog = () => {
+    setOpenMemberDialog(false)
+  }
   const handleDueDateDialogClose = () => {
     setDueDateDialogControl({ ...dueDateDialogControl, status: false })
   }
@@ -68,6 +79,31 @@ const TaskDetail = () => {
   const navigate = useNavigate()
   let path = window.location.pathname
   path = path.split('/').pop()
+  const handleAssignMember = memberId => {
+    AssignMemberParticularTask(
+      { taskid: taskDetail.id, memberid: memberId },
+      res => {
+        setMember()
+        handleCloseMemberDialog()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+        handleSingleTaskDetail()
+      },
+      err => {},
+    )
+  }
+  useEffect(() => {
+    GetAdminStaffDetailList(
+      {},
+      res => {
+        setMemberList(res.data)
+      },
+      err => {},
+    )
+  }, [])
   const handleSingleTaskDetail = () => {
     GetSingleTaskDetail(
       path,
@@ -389,11 +425,31 @@ const TaskDetail = () => {
               </Typography>
             </Box>
             <Box sx={{ margin: '10px 0px' }}>
-              <Typography className="common_sub_heading" variant="span">
-                Assigned Member
-              </Typography>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <Typography className="common_sub_heading" variant="span">
+                  Assigned Member
+                </Typography>
+
+                {!taskDetail?.team?.email && (
+                  <Button
+                    onClick={() => setOpenMemberDialog(true)}
+                    className="white_buttons"
+                  >
+                    + Member
+                  </Button>
+                )}
+              </Box>
               {taskDetail?.team?.email ? (
-                <Box className="d-flex" sx={{ marginTop: '5px' }}>
+                <Box
+                  className="d-flex"
+                  sx={{ marginTop: '5px', alignItems: 'center' }}
+                >
                   <Typography className="name_chip" variant="span">
                     {taskDetail?.team?.email &&
                       taskDetail?.team?.email?.charAt(0).toUpperCase()}
@@ -416,6 +472,7 @@ const TaskDetail = () => {
                 className="d-flex"
                 sx={{
                   marginTop: '5px',
+                  alignItems: 'center',
                 }}
               >
                 <Typography
@@ -454,6 +511,14 @@ const TaskDetail = () => {
           handleDueDateDialogClose={handleDueDateDialogClose}
           setDueDateDialogControl={setDueDateDialogControl}
           handleEditDueDate={handleEditDueDate}
+        />
+        <AssignMemberDialog
+          openMemberDialog={openMemberDialog}
+          handleCloseMemberDialog={handleCloseMemberDialog}
+          handleAssignMember={handleAssignMember}
+          memberList={memberList}
+          member={member}
+          setMember={setMember}
         />
       </Box>
     </>

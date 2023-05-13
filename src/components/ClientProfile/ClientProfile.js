@@ -129,6 +129,7 @@ const ClientProfile = () => {
       res => {
         if (res.success) {
           setClientProfileDetail(res?.data)
+          console.log(res?.data)
         }
       },
       err => {
@@ -444,7 +445,21 @@ const ClientProfile = () => {
       <Box className="profile_body_section">
         <Box className="user_profile_header_Section">
           <Box className="username_profile_Section">
-            <AccountCircleRoundedIcon className="user_profile_icon" />
+            <Box>
+              {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
+              {clientProfileDetail?.imageUrl ? (
+                <img
+                  src={
+                    clientProfileDetail?.imageUrl
+                    // <AccountCircleRoundedIcon className="user_profile_icon" />
+                  }
+                  className="user_profile_icon"
+                  alt={clientProfileDetail.name}
+                />
+              ) : (
+                <AccountCircleRoundedIcon className="user_profile_icon" />
+              )}
+            </Box>
             <Box className="username_and_position">
               <Typography className="username_text" variant="span">
                 {clientProfileDetail?.name || '-'}
@@ -483,6 +498,7 @@ const ClientProfile = () => {
             )}
           </Button>
         </Box>
+
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={value}>
             <Box className="tab_row">

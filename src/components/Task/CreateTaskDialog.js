@@ -7,6 +7,9 @@ import {
   FormControl,
   Paper,
   TextareaAutosize,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -14,6 +17,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+
 const CreateTaskDialog = ({
   fullScreen,
   open,
@@ -21,7 +25,11 @@ const CreateTaskDialog = ({
   handleCreateTask,
   setCreateTask,
   handleClose,
+  member,
+  memberList,
+  setMember,
 }) => {
+  console.log({ CreateTask: createTask })
   const [selectedDate, setSelectedDate] = useState(null)
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -57,12 +65,28 @@ const CreateTaskDialog = ({
             }}
           />
 
+          <FormControl className="dialogue_input_fields">
+            <InputLabel>Select Members</InputLabel>
+            <Select
+              label="Select Members"
+              value={createTask.teamId}
+              onChange={(e, value) => {
+                setCreateTask({ ...createTask, teamId: e.target.value })
+              }}
+            >
+              {memberList.map(data => {
+                return <MenuItem value={data.id}>{data.email}</MenuItem>
+              })}
+            </Select>
+          </FormControl>
+
           <TextField
             className="dialogue_input_fields"
             multiline
             placeholder="Description here..."
             autoComplete="off"
             label="Description"
+            minRows={3}
             maxRows={3}
             value={createTask.description}
             onChange={e => {

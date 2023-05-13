@@ -195,7 +195,7 @@ const StaffPoint = ({
             )}
           </TableContainer>
           <Pagination
-            className="mt-3"
+            className="set_pagination"
             boundaryCount={0}
             siblingCount={1}
             size="small"
