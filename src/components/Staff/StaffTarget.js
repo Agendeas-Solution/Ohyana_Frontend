@@ -67,7 +67,7 @@ const StaffTarget = ({
             <TableHead className="profile_data_table_header">
               <TableRow>
                 <TableCell>Date</TableCell>
-                <TableCell>Period</TableCell>
+                {/* <TableCell>Period</TableCell> */}
                 <TableCell>Type</TableCell>
                 <TableCell>Given</TableCell>
                 <TableCell>Achieve</TableCell>
@@ -95,9 +95,9 @@ const StaffTarget = ({
                         ' to ' +
                         moment(targetData?.endDate).format('D-M-YY')}{' '}
                     </TableCell>
-                    <TableCell className="table_row_top_align">
+                    {/* <TableCell className="table_row_top_align">
                       {targetData?.period ?? '-'} days
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell className="table_row_top_align">
                       {targetData?.type === 0 ? 'Generate Lead' : 'Take Order'}
                     </TableCell>

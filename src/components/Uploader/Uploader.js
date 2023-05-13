@@ -42,29 +42,26 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import { Box } from '@mui/system'
 import { PhotoCamera } from '@mui/icons-material'
 
-const Uploader = () => {
-  const [image, setImage] = useState(null)
+const Uploader = ({ imageUrl, setImageUrl }) => {
   const [editor, setEditor] = useState(null)
   const [scale, setScale] = useState(1)
-
   const onFileChange = e => {
     const file = e.target.files[0]
     if (file && file.type.startsWith('image/')) {
-      setImage(file)
+      setImageUrl(file)
     }
   }
 
-  const handleScaleChange = e => {
-    const scale = parseFloat(e.target.value)
-    setScale(scale)
-  }
+  // const handleScaleChange = e => {
+  //   const scale = parseFloat(e.target.value)
+  //   setScale(scale)
+  // }
 
-  const handleSave = () => {
-    if (editor) {
-      const canvas = editor.getImage().toDataURL()
-      // do something with the canvas
-    }
-  }
+  // const handleSave = () => {
+  //   if (editor) {
+  //     const canvas = editor.getImage().toDataURL()
+  //   }
+  // }
 
   return (
     <Box>
@@ -77,8 +74,9 @@ const Uploader = () => {
           overflow: 'hidden',
         }}
       >
-        {image ? (
-          <Box
+        {imageUrl ? (
+          <div
+
             style={{
               width: '100%',
               height: '100%',
@@ -89,7 +87,7 @@ const Uploader = () => {
           >
             <AvatarEditor
               ref={setEditor}
-              image={image}
+              image={imageUrl}
               // width={140}
               // height={140}
               style={{
@@ -156,22 +154,9 @@ const Uploader = () => {
             </label>
           </Box>
         )}
-      </Box>
+      </div>
+    </div>
 
-      {image && (
-        <Box>
-          {/* <input
-            type="range"
-            min="1"
-            max="2"
-            step="0.01"
-            value={scale}
-            onChange={handleScaleChange}
-          /> */}
-          {/* <button onClick={handleSave}>Save</button> */}
-        </Box>
-      )}
-    </Box>
   )
 }
 

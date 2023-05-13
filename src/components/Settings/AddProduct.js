@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import ProfileImage from '../../assets/img/Profile_Image.svg'
 import CompanyIcon from '../../assets/img/companyIcon.svg'
+import Uploader from '../Uploader/Uploader'
 
 const AddProduct = props => {
   const [productDetail, setProductDetail] = useState({
@@ -28,6 +29,7 @@ const AddProduct = props => {
   })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [imageUrl, setImageUrl] = useState(null)
   const navigate = useNavigate()
   let path = window.location.pathname
   path = path.split('/').pop()
@@ -47,6 +49,8 @@ const AddProduct = props => {
             weight: res.data.weight,
             skuId: res.data.skuId,
           })
+          setImageUrl(res.data.imageUrl)
+          debugger
         },
         err => {
           setErrorSnackbar({
@@ -58,9 +62,18 @@ const AddProduct = props => {
       )
   }, [])
   const handleAddProduct = () => {
+    const data = new FormData()
+    data.append('name', productDetail.name)
+    data.append('skuId', productDetail.skuId)
+    data.append('price', productDetail.price)
+    data.append('quantity', productDetail.quantity)
+    data.append('materialType', productDetail.materialType)
+    data.append('weight', productDetail.weight)
+    data.append('description', productDetail.description)
+    data.append('product_image', imageUrl)
     if (parseInt(path)) {
       EditAdminProduct(
-        productDetail,
+        data,
         parseInt(path),
         res => {
           if (res.success) {
@@ -82,7 +95,7 @@ const AddProduct = props => {
       )
     } else {
       AddAdminProduct(
-        productDetail,
+        data,
         res => {
           if (res.success) {
             navigate('/productlist')
@@ -108,7 +121,7 @@ const AddProduct = props => {
       <Box className="main_section" sx={{ overflow: 'hidden', padding: '0px' }}>
         <Box className="pofile_edit_section">
           <Box className="edit_profile_image_section">
-            <img src={ProfileImage} alt="profile" />
+            <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
           </Box>
 
           <Box className="edit_profile_detail_section">

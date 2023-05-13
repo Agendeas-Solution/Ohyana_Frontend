@@ -44,7 +44,7 @@ const EditProfile = () => {
     birthDate: moment().format('LL'),
   })
   const [file, setFile] = useState(null)
-
+  const [imageUrl, setImageUrl] = useState(null)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const navigate = useNavigate()
@@ -61,6 +61,7 @@ const EditProfile = () => {
             gender: res?.data.gender,
             birthDate: res?.data.birthDay,
           })
+          setImageUrl(res?.data?.imgUrl)
         }
       },
       err => {
@@ -72,13 +73,13 @@ const EditProfile = () => {
     setUserDetail({ ...userDetail, [prop]: event.target.value })
   }
   const SaveProfile = () => {
-    let data = {
-      name: userDetail.employeeName,
-      email: userDetail.email,
-      contact_number: userDetail.contactNo,
-      gender: userDetail.gender,
-      birthDay: userDetail.birthDate,
-    }
+    const data = new FormData()
+    data.append('profile_image', imageUrl)
+    data.append('name', userDetail.employeeName)
+    data.append('email', userDetail.email)
+    data.append('contact_number', userDetail.contactNo)
+    data.append('gender', userDetail.gender)
+    data.append('birthDay', userDetail.birthDate)
     EditAdminProfile(
       data,
       res => {
@@ -174,7 +175,7 @@ const EditProfile = () => {
             </Box>
           </Paper> */}
 
-          <Uploader />
+          <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
 
           {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
           <Box className="edit_profile_detail_section">
@@ -256,7 +257,6 @@ const EditProfile = () => {
                 </Select>
               </FormControl>
             </Box>
-
             <Button
               className="edit_page_save_button"
               onClick={SaveProfile}

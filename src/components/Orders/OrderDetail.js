@@ -34,18 +34,19 @@ const PaymentDetailDialog = React.lazy(() => import('./PaymentDetailDialog'))
 
 const steps = [
   {
-    label: 'Shipping',
+    label: 'PENDING',
     description: `For each ad campaign that you create, you can control how much
               you're willing to spend on clicks and conversions, which networks
               and geographical locations you want your ads to show on, and more.`,
   },
   {
-    label: 'Dispatch',
-    description:
-      'An ad group contains one or more ads which target a shared set of keywords.',
+    label: 'DISPATCH',
+    description: `For each ad campaign that you create, you can control how much
+              you're willing to spend on clicks and conversions, which networks
+              and geographical locations you want your ads to show on, and more.`,
   },
   {
-    label: 'Delivered',
+    label: 'DELIVERED',
     description: `Try out different ad text to see what brings in the most customers,
               and learn how to enhance your ads using features like ad extensions.
               If you run into any problems with your ads, find out how to tell if
@@ -84,7 +85,7 @@ const OrderDetail = () => {
     )
   }, [])
 
-  const [activeStep, setActiveStep] = React.useState(0)
+  const [activeStep, setActiveStep] = useState(0)
 
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1)
@@ -293,24 +294,18 @@ const OrderDetail = () => {
             sx={{
               width: '35%',
             }}
-            // sx={{
-            //   width: '35%',
-            //   padding: '10px',
-            //   borderRadius: '5px',
-            //   background: ' #f1f2f6',
-            // }}
           >
             <Box className="payment_detail_heading">
               <Typography className="common_sub_heading" variant="span">
                 Order Tracking
               </Typography>
-              <Button
+              {/* <Button
                 className="common_button"
                 onClick={handleOpenDispatchDialog}
                 variant="contained"
               >
                 Dispatch
-              </Button>
+              </Button> */}
             </Box>
 
             <Box sx={{ marginTop: '15px' }}>
@@ -318,11 +313,11 @@ const OrderDetail = () => {
                 {steps.map((step, index) => (
                   <Step key={step.label}>
                     <StepLabel
-                      optional={
-                        index === 2 ? (
-                          <Typography variant="caption">Last step</Typography>
-                        ) : null
-                      }
+                    // optional={
+                    //   index === 2 ? (
+                    //     <Typography variant="caption">Last step</Typography>
+                    //   ) : null
+                    // }
                     >
                       {step.label}
                     </StepLabel>
