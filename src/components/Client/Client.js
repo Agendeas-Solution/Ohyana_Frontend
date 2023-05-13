@@ -37,11 +37,17 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import FilterIcon from '../../assets/img/Filter.svg'
 import { styled, useTheme } from '@mui/material/styles'
 import { CLIENT } from '../../constants'
+import { TileLayer, Marker, Popup } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css'
 import {
   GetCityByStates,
   GetCountryList,
   GetStateByCountry,
 } from '../../services/apiservices/country-state-city'
+import { MapContainer } from 'react-leaflet/MapContainer'
+import { useMap } from 'react-leaflet/hooks'
+import MarkersMap from './MarkersMap'
+
 const drawerWidth = 350
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const NoResultFound = React.lazy(() =>
@@ -59,7 +65,6 @@ const Client = () => {
   const [open, setOpen] = useState(false)
   const [clientDetails, setClientDetails] = useState([])
   const [rowsPerPage, setRowsPerPage] = useState(20)
-  // const [pageNumber, setPageNumber] = useState(1)
   const [totalResult, setTotalresult] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [isInternational, setIsInternational] = useState(null)
@@ -83,6 +88,16 @@ const Client = () => {
   const [clientType, setClientType] = useState(CLIENT.STAGE)
   const [searchQuery, setSearchQuery] = useState('')
   const [countryList, setCountryList] = useState([])
+  const [locations, setLocations] = useState([
+    {
+      latitude: 23.114593,
+      longitude: 72.573719,
+    },
+    {
+      latitude: 23.114593,
+      longitude: 72.573719,
+    },
+  ])
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -307,6 +322,7 @@ const Client = () => {
   ])
   return (
     <Box className="main_tab_section">
+      <MarkersMap />
       <Box className="tab_header">
         <Tabs
           value={value}
@@ -462,24 +478,6 @@ const Client = () => {
               }}
               renderInput={params => <TextField {...params} label="City" />}
             />
-            {/* <FormControl className="filter_body_inner_section">
-              <InputLabel>Select City</InputLabel>
-              <Select
-                label="Select City"
-                value={selectedCityStateCountry.city}
-                onChange={e => {
-                  setSelectedCityStateCountry({
-                    ...selectedCityStateCountry,
-                    city: e.target.value,
-                  })
-                }}
-              >
-                {cityList &&
-                  cityList.map(data => {
-                    return <MenuItem value={data}>{data}</MenuItem>
-                  })}
-              </Select>
-            </FormControl> */}
           </Box>
         </Drawer>
       </Box>

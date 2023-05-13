@@ -5,6 +5,7 @@ import React from 'react'
 const DispatchOrderDialog = ({
   openDispatchOrder,
   handleCloseDispatchDialog,
+  handleDispatch,
 }) => {
   return (
     <>
@@ -20,7 +21,7 @@ const DispatchOrderDialog = ({
             <Button
               className="dialogue_button_positive"
               variant="contained"
-              // onClick={() => }
+              onClick={handleDispatch}
               autoFocus
             >
               Yes
