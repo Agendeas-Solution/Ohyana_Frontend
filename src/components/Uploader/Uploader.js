@@ -75,8 +75,7 @@ const Uploader = ({ imageUrl, setImageUrl }) => {
         }}
       >
         {imageUrl ? (
-          <div
-
+          <Box
             style={{
               width: '100%',
               height: '100%',
@@ -154,9 +153,8 @@ const Uploader = ({ imageUrl, setImageUrl }) => {
             </label>
           </Box>
         )}
-      </div>
-    </div>
-
+      </Box>
+    </Box>
   )
 }
 

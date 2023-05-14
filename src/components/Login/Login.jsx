@@ -20,6 +20,7 @@ import { socket } from '../../App'
 import InputLabel from '@mui/material/InputLabel'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
+
 const Login = () => {
   const { setAuthorize, setFlagLoader } = useContext(AuthContext)
   const [userDetail, setUserDetail] = useState({
@@ -54,6 +55,7 @@ const Login = () => {
       login(
         { email: userDetail.email, password: userDetail.password },
         res => {
+          console.log({ RES: res })
           if (res.success) {
             setAuthorize(true)
             setFlagLoader(false)
@@ -82,6 +84,7 @@ const Login = () => {
       })
     }
   }
+
   return (
     <>
       <Box className="login_page">

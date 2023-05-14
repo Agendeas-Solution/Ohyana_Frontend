@@ -24,6 +24,7 @@ const Header = () => {
   const [pathName, setPathName] = useState('')
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
+
   const handleClick = event => {
     setAnchorEl(event.currentTarget)
   }
@@ -66,6 +67,7 @@ const Header = () => {
               {ActivePage}
             </Typography>
           </Box>
+
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
             <MenuItem
               onClick={() => {
@@ -93,6 +95,7 @@ const Header = () => {
               variant="span"
               sx={{ marginRight: '10px', color: '#2E3591' }}
             />
+
             <Stack
               sx={{
                 display: 'flex',
@@ -105,9 +108,9 @@ const Header = () => {
               <Avatar
                 sx={{ width: 32, height: 32 }}
                 alt="Remy Sharp"
-                // src="/static/images/avatar/1.jpg"
                 src={ProfileSmallIcon}
               />
+              {/* <img src={}/> */}
               <KeyboardArrowDownIcon />
             </Stack>
           </Box>

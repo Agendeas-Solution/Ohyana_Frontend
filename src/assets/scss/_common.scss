@@ -20,7 +20,7 @@ html {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #2e3591;
+  background: #2E3591;
   border-radius: 3px;
 }
 
@@ -30,14 +30,16 @@ html {
   opacity: 0.6;
 }
 
+$baseColor: #2E3591;
+
 .selected-link {
   // background-color: #f1f2f6;
-  background-color: #2e3591;
+  background-color: $baseColor;
   color: #fff;
   border: none !important;
 
   .sidebar_icon_root {
-    // background-color: #2e3591;
+    // background-color: $baseColor;
     svg {
       color: #f1f1f1;
     }
@@ -122,7 +124,7 @@ textarea:focus {
 .custom_tab_background {
   box-shadow: none !important;
   background-color: #f1f2f6 !important;
-  color: #2e3591 !important;
+  color: $baseColor !important;
   height: 40px !important;
   border-radius: 3px;
 }
@@ -150,6 +152,24 @@ textarea:focus {
   margin: 8px 12px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.notification_section {
+  display: flex;
+  height: 91%;
+  background-color: #fff !important;
+  border-radius: 5px;
+  // padding: 10px;
+  flex-direction: column !important;
+  margin: 8px 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  // height: 100%;
+  // margin: 0px 0px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
 }
 
 .team_profile_section {
@@ -235,7 +255,7 @@ textarea:focus {
   box-shadow: none !important;
   width: 300px !important;
   height: 45px !important;
-  background-color: #2e3591 !important;
+  background-color: $baseColor !important;
   font-size: 18px !important;
   font-weight: 600;
   text-transform: capitalize;
@@ -244,7 +264,7 @@ textarea:focus {
 .dialogue_button_positive {
   box-shadow: none !important;
   height: 40px !important;
-  background-color: #2e3591 !important;
+  background-color: $baseColor !important;
   width: 150px !important;
   font-size: 18px !important;
   font-weight: 600;
@@ -300,6 +320,7 @@ textarea:focus {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 
 .product_detail_dia_right_section {
@@ -307,7 +328,7 @@ textarea:focus {
 }
 
 .common_icon {
-  color: #2e3591;
+  color: $baseColor;
 }
 .common_icon:hover {
   cursor: pointer;
@@ -413,7 +434,7 @@ textarea:focus {
   justify-content: center;
   border-radius: 5px;
   background: #f1f2f6;
-  margin: 20px 10px;
+  // margin: 20px 10px;
   padding: 20px;
 }
 
@@ -447,7 +468,7 @@ button {
 
 .custom_text_button {
   background-color: #f1f2f6 !important;
-  color: #2e3591 !important;
+  color: $baseColor !important;
   margin: 4px !important;
   height: 40px !important;
   border-radius: 3px;
@@ -461,7 +482,7 @@ button {
 .common_button {
   box-shadow: none !important;
   background-color: #f1f2f6 !important;
-  color: #2e3591 !important;
+  color: $baseColor !important;
   margin: 4px !important;
   height: 40px !important;
   font-size: 16px !important;
@@ -476,7 +497,7 @@ button {
 
 .active_button {
   box-shadow: none !important;
-  background-color: #2e3591 !important;
+  background-color: $baseColor !important;
   color: #ffffff !important;
   height: 40px !important;
   border-radius: 3px;
@@ -487,8 +508,8 @@ button {
 }
 
 .border_button {
-  border: 1px solid #2e3591 !important;
-  color: #2e3591 !important;
+  border: 1px solid $baseColor !important;
+  color: $baseColor !important;
   text-transform: capitalize !important;
 }
 
@@ -502,7 +523,7 @@ button {
 
 .edit_page_save_button {
   margin: 20px !important;
-  background-color: #2e3591 !important;
+  background-color: $baseColor !important;
   width: 225px;
   text-transform: capitalize !important;
   font-size: 17px !important;
@@ -517,7 +538,7 @@ button {
   padding: 5px;
   border: 1px solid #e5e5e5;
   border-radius: 50%;
-  color: #2e3591;
+  color: $baseColor;
 }
 
 .main_tab_button {
@@ -525,7 +546,7 @@ button {
   height: 40px;
   background-color: #fff !important;
   text-transform: capitalize !important;
-  color: #2e3591 !important;
+  color: $baseColor !important;
   padding-left: 0px;
 }
 
@@ -538,7 +559,7 @@ button {
 
 .primary_color_button {
   color: white !important;
-  background-color: #2e3591 !important;
+  background-color: $baseColor !important;
   box-shadow: none !important;
 }
 
@@ -569,7 +590,7 @@ button {
 }
 
 .edit_icon_profile {
-  color: #2e3591;
+  color: $baseColor;
   font-size: 45px !important;
   border: 1px solid #ddd;
   border-radius: 50%;
@@ -808,7 +829,7 @@ button {
   padding: 0px 10px !important;
   box-shadow: none !important;
   background-color: #f1f2f6 !important;
-  color: #2e3591 !important;
+  color: $baseColor !important;
   height: 40px !important;
   border-radius: 3px;
   min-width: 0 !important;
@@ -892,6 +913,7 @@ button {
 .pagination_style {
   margin: 20px auto;
   float: right;
+
 }
 
 .customers_list_page_buttons {
@@ -955,8 +977,8 @@ button {
 }
 
 .button_color {
-  color: #2e3591 !important;
-  border-color: #2e3591 !important;
+  color: $baseColor !important;
+  border-color: $baseColor !important;
 }
 
 .edit_my_profile_image_section {

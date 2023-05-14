@@ -90,7 +90,11 @@ const MarkersMap = ({ openMap, handleCloseMap }) => {
 
   return (
     <>
-      <Dialog open={openMap} onClose={handleCloseMap}>
+      <Dialog
+        PaperProps={{ sx: { width: '60%', height: '60%' } }}
+        open={openMap}
+        onClose={handleCloseMap}
+      >
         {/* <Box className="dialogue_map"> */}
         <MapContainer
           className="dialogue_map"

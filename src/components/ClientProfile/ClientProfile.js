@@ -70,7 +70,7 @@ const ClientProfile = () => {
   const [remainderDialog, setRemainderDialog] = useState({
     description: '',
     date: moment(),
-    time: '',
+    time: moment().format(),
     status: false,
     id: null,
   })

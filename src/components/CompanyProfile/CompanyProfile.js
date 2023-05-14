@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { GetCompanyProfile } from '../../services/apiservices/companyprofile'
 import './index.css'
 import ProfileImage from '../../assets/img/Profile_Image.svg'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 
 const CompanyProfile = () => {
   const navigate = useNavigate()
@@ -30,12 +31,16 @@ const CompanyProfile = () => {
       <Box className="main_section">
         <Box className="user_profile_header_Section">
           <Box className="username_profile_Section">
-            <img
-              src={ProfileImage}
-              // src={companyDetail.logoUrl}
-              className="user_profile_icon"
-              alt="profile"
-            />
+            {companyDetail.logoUrl ? (
+              <img
+                // src={ProfileImage}
+                src={companyDetail.logoUrl}
+                className="user_profile_icon"
+                alt="profile"
+              />
+            ) : (
+              <AccountCircleRoundedIcon className="user_profile_icon" />
+            )}
             {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
             <Box className="username_and_position">
               <Typography className="username_text" variant="span">
