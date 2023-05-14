@@ -23,7 +23,6 @@ const EditTitleDialog = ({
       <Dialog open={editTaskNameDialog.status} onClose={handleDialogClose}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Edit Task</Typography>
-
           <TextField
             className="dialogue_input_fields"
             label="Task Name"
