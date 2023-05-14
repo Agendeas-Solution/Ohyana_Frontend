@@ -149,3 +149,7 @@ export const GrantLeave = async (value, onSuccess, onError) => {
     onError,
   )
 }
+
+export const GetTeamMemberLocation = async (value, onSuccess, onError) => {
+  await handleApiGetCall(`/location/member`, value, onSuccess, onError)
+}

@@ -6,6 +6,7 @@ import {
   Autocomplete,
   Button,
   TextareaAutosize,
+  createFilterOptions,
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import './index.css'
@@ -16,21 +17,77 @@ import {
 import ProfileImage from '../../assets/img/Profile_Image.svg'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import Uploader from '../Uploader/Uploader'
-import { GetCountryList } from '../../services/apiservices/country-state-city'
+import {
+  GetCityByStates,
+  GetCountryList,
+  GetStateByCountry,
+} from '../../services/apiservices/country-state-city'
 const EditCompanyProfile = () => {
   const [companyDetail, setCompanyDetail] = useState({
     companyName: '',
     email: '',
-    state: '',
+    state: null,
     crmKey: '',
     businessType: '',
-    city: '',
-    country: '',
+    city: null,
+    country: null,
   })
   const [countryList, setCountryList] = useState([])
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [imageUrl, setImageUrl] = useState(null)
+  const [cityList, setCityList] = useState([])
+  const [stateList, setStateList] = useState([])
   const navigate = useNavigate()
+  const filterOptions = createFilterOptions({
+    matchFrom: 'start',
+    stringify: option => option?.name,
+  })
+  useEffect(() => {
+    let data = companyDetail?.country?.iso2
+    companyDetail?.country &&
+      GetStateByCountry(
+        data,
+        res => {
+          setStateList(res)
+        },
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
+      )
+  }, [companyDetail?.country])
+  useEffect(() => {
+    let data = companyDetail?.state?.iso2
+      ? `${companyDetail?.country?.iso2}/states/${companyDetail?.state?.iso2}/cities`
+      : ''
+    companyDetail?.state &&
+      GetCityByStates(
+        data,
+        res => {
+          const uniqueCity = res.reduce((acc, current) => {
+            const x = acc.find(item => item.name === current.name)
+            if (!x) {
+              return acc.concat([current])
+            } else {
+              return acc
+            }
+          }, [])
+          setCityList(uniqueCity)
+        },
+        err => {
+          setCityList([])
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
+      )
+  }, [companyDetail?.state])
   useEffect(() => {
     GetCompanyProfile(
       {},
@@ -40,12 +97,21 @@ const EditCompanyProfile = () => {
             ...companyDetail,
             companyName: res.data?.name,
             email: res.data?.email,
-            state: res.data?.state,
             crmKey: res.data?.crmKey,
             businessType: res.data?.businessType,
-            city: res.data?.city,
-            country: res.data?.country,
+            state: {
+              id: res.data.state_id,
+              name: res.data.state,
+              iso2: res.data.state_iso2,
+            },
+            city: { id: res.data.city_id, name: res.data.city },
+            country: {
+              id: res.data.country_id,
+              name: res.data.country,
+              iso2: res.data.country_iso2,
+            },
           })
+          setImageUrl(res.data.logoUrl)
         }
       },
       err => {
@@ -66,13 +132,27 @@ const EditCompanyProfile = () => {
   }, [])
 
   const SaveProfile = () => {
-    let data = {
-      name: companyDetail.companyName,
-      // email: companyDetail.email,
-      // state: companyDetail.state,
-      crmKey: companyDetail.crmKey,
-      // businessType: companyDetail.businessType, city: companyDetail.city, country: companyDetail.country
+    const data = new FormData()
+    data.append('name', companyDetail.companyName)
+    data.append('email', companyDetail.email)
+    data.append('crmKey', companyDetail.crmKey)
+    console.log(typeof imageUrl)
+    if (typeof imageUrl !== 'string') {
+      data.append('logo_image', imageUrl)
     }
+    data.append('state', companyDetail.state.name)
+    data.append('city', companyDetail.city.name)
+    data.append('city_id', companyDetail.city.id)
+    data.append('state_id', companyDetail.state.id)
+    data.append('state_iso2', companyDetail.state.iso2)
+    data.append('country', companyDetail.country.name)
+    data.append('country_id', companyDetail.country.id)
+    data.append('country_iso2', companyDetail.country.iso2)
+    debugger
+    // email: companyDetail.email,
+    // state: companyDetail.state,
+    // crmKey: companyDetail.crmKey,
+    // businessType: companyDetail.businessType, city: companyDetail.city, country: companyDetail.country
     editCompanyProfile(
       data,
       res => {
@@ -100,11 +180,7 @@ const EditCompanyProfile = () => {
       <Box className="main_section">
         <Box className="pofile_edit_section">
           <Box className="edit_my_profile_image_section">
-            <img
-              style={{ borderRadius: '50%' }}
-              src={ProfileImage}
-              alt="profile"
-            />
+            <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
             {/* <Button className="common_button">
               <Uploader />
             </Button> */}
@@ -127,19 +203,6 @@ const EditCompanyProfile = () => {
               </Box>
               <Box className="input_fields">
                 <TextField
-                  label="City"
-                  onChange={e => {
-                    setCompanyDetail({ ...companyDetail, city: e.target.value })
-                  }}
-                  value={companyDetail.city}
-                  variant="outlined"
-                />
-              </Box>
-            </Box>
-            {/* Email &&  State */}
-            <Box className="input_field_row">
-              <Box className="input_fields">
-                <TextField
                   label="Email"
                   autoComplete="false"
                   onChange={e => {
@@ -152,23 +215,56 @@ const EditCompanyProfile = () => {
                   variant="outlined"
                 />
               </Box>
-              <Box className="input_fields">
-                <TextField
-                  label="State"
-                  autoComplete="false"
-                  onChange={e => {
-                    setCompanyDetail({
-                      ...companyDetail,
-                      state: e.target.value,
-                    })
-                  }}
-                  value={companyDetail.state}
-                  variant="outlined"
-                />
-              </Box>
+            </Box>
+            {/* Email &&  State */}
+            <Box className="input_field_row">
+              <Autocomplete
+                className="input_fields"
+                disablePortal
+                disableClearable
+                options={countryList}
+                value={companyDetail?.country}
+                onChange={(e, value) => {
+                  setCompanyDetail({ ...companyDetail, country: value })
+                }}
+                getOptionLabel={option => option?.name}
+                renderInput={params => (
+                  <TextField {...params} label="Select Country" />
+                )}
+              />
+              <Autocomplete
+                className="input_fields"
+                options={stateList}
+                disableClearable
+                disabled={!companyDetail?.country}
+                filterOptions={filterOptions}
+                value={companyDetail.state}
+                getOptionLabel={option => option.name}
+                onChange={(e, value) => {
+                  setCompanyDetail({ ...companyDetail, state: value })
+                }}
+                renderInput={params => (
+                  <TextField {...params} label=" Select State" />
+                )}
+              />
             </Box>
             {/* Business Type &&  Country */}
             <Box className="input_field_row">
+              <Autocomplete
+                className="input_fields"
+                options={cityList}
+                disableClearable
+                disabled={!companyDetail?.state}
+                filterOptions={filterOptions}
+                value={companyDetail?.city}
+                getOptionLabel={option => option.name}
+                onChange={(e, value) => {
+                  setCompanyDetail({ ...companyDetail, city: value })
+                }}
+                renderInput={params => (
+                  <TextField {...params} label="Select City" />
+                )}
+              />
               <Box className="input_fields">
                 <TextField
                   label="Business Type"
@@ -181,20 +277,6 @@ const EditCompanyProfile = () => {
                   }}
                   value={companyDetail.businessType}
                   variant="outlined"
-                />
-              </Box>
-              <Box className="input_fields">
-                <Autocomplete
-                  disablePortal
-                  options={countryList}
-                  value={companyDetail?.country}
-                  onChange={(e, value) => {
-                    setCompanyDetail({ ...companyDetail, country: value })
-                  }}
-                  getOptionLabel={option => option?.name}
-                  renderInput={params => (
-                    <TextField {...params} label="Select Country" />
-                  )}
                 />
               </Box>
             </Box>
