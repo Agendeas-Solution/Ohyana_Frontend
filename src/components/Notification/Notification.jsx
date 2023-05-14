@@ -104,8 +104,15 @@ const Notification = () => {
 
   return (
     <>
-      <Box className="main_section" sx={{ padding: '0px', overflowY: 'auto' }}>
-        <Box sx={{ padding: '10px' }}>
+      <Box
+        className="notification_section"
+        // className="orders_table_height body_section_paddingless_pagination"
+        // sx={{ padding: '0px', overflowY: 'auto' }}
+      >
+        <Box
+          // className="main_sections"
+          sx={{ padding: '10px', overflowY: 'auto' }}
+        >
           {notificationDetail.length > 0 &&
             notificationDetail.map((rowData, index) => {
               return (
@@ -194,18 +201,20 @@ const Notification = () => {
               )
             })}
         </Box>
-        <Pagination
-          className="pagination_style"
-          boundaryCount={0}
-          siblingCount={0}
-          size="small"
-          shape="rounded"
-          count={numbersToDisplayOnPagination}
-          page={currentPage}
-          onChange={(e, value) => {
-            setCurrentPage(value)
-          }}
-        />
+        <Box>
+          <Pagination
+            className="pagination_style"
+            boundaryCount={0}
+            siblingCount={0}
+            size="small"
+            shape="rounded"
+            count={numbersToDisplayOnPagination}
+            page={currentPage}
+            onChange={(e, value) => {
+              setCurrentPage(value)
+            }}
+          />
+        </Box>
         {/* <ClientStatusCloseDialog
           deleteRemainderDialog={deleteRemainderDialog}
           CloseDeleteRemainder={CloseDeleteRemainder}

@@ -17,6 +17,8 @@ import TabContext from '@mui/lab/TabContext'
 import SampleProduct from '../../assets/img/sample_product.png'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
+
 // import { ProductIcon } from '../../assets/img/product-icon.svg'
 import SnacksPhoto from '../../assets/img/SnacksPhoto.png'
 const ViewProductDialog = React.lazy(() => import('./ViewProductDialog'))
@@ -120,7 +122,7 @@ const ProductList = () => {
 
         <Box className="below_main_tab_section">
           {/* <TabPanel value="ProductList"> */}
-          <div className="row">
+          <Box className="row">
             {AdminProductList &&
               AdminProductList.map(row => {
                 console.log({ row: row })
@@ -152,17 +154,21 @@ const ProductList = () => {
                           alt={row.name}
                         />
                       )} */}
-                      <img
-                        src={row.imageUrl}
-                        alt={row.name}
-                        height={100}
-                        width={100}
-                      />
+                      {row.imageUrl ? (
+                        <img
+                          src={row.imageUrl}
+                          alt={row.name}
+                          height={100}
+                          width={100}
+                        />
+                      ) : (
+                        <AccountCircleRoundedIcon className="user_profile_icon" />
+                      )}
                     </Box>
                   </>
                 )
               })}
-          </div>
+          </Box>
           {/* </TabPanel> */}
         </Box>
         {/* </TabContext> */}

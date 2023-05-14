@@ -25,6 +25,7 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
   const userImg = localStorage.getItem('userImageUrl')
+
   const handleClick = event => {
     setAnchorEl(event.currentTarget)
   }
@@ -67,6 +68,7 @@ const Header = () => {
               {ActivePage}
             </Typography>
           </Box>
+
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
             <MenuItem
               onClick={() => {
@@ -94,6 +96,7 @@ const Header = () => {
               variant="span"
               sx={{ marginRight: '10px', color: '#2E3591' }}
             />
+
             <Stack
               sx={{
                 display: 'flex',
@@ -107,7 +110,9 @@ const Header = () => {
                 style={{ width: 32, height: 32, borderRadius: '50%' }}
                 // alt="Remy Sharp"
                 src={userImg}
+
               />
+              {/* <img src={}/> */}
               <KeyboardArrowDownIcon />
             </Stack>
           </Box>
