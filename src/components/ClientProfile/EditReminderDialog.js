@@ -45,17 +45,18 @@ const EditReminderDialog = ({
           </LocalizationProvider>
 
           <TextField
+            className="dialogue_input_fields"
             label="Time"
+            type="time"
+            value={remainderDialog?.time}
             onChange={e => {
               setRemainderDialog({
                 ...remainderDialog,
                 time: e.target.value,
               })
             }}
-            value={remainderDialog.time}
-            className="dialogue_input_fields"
-            type="time"
           />
+
           <TextField
             className="dialogue_input_fields"
             multiline

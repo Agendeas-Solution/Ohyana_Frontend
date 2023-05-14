@@ -9,7 +9,7 @@
   margin: 20px;
 }
 
-.setting_cards-list {
+.setting_cards_list {
   border: 2px solid #e5e6eb;
   border-radius: 5px;
   display: flex;
@@ -18,6 +18,10 @@
   padding: 10px;
   /* margin: 2rem 0.4rem 2rem 0.6rem; */
   margin: 15px;
+}
+
+.setting_cards_list :hover {
+  cursor: pointer;
 }
 
 .department_icon {
@@ -136,6 +140,10 @@ input[type='radio']:focus {
   align-items: center;
   background-color: #f1f2f6;
   margin: 15px 20px;
+}
+
+.product_card :hover {
+  cursor: pointer;
 }
 
 .poll_section {

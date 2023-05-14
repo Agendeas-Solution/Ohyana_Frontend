@@ -18,7 +18,7 @@ const Settings = () => {
     <>
       <Box className="main_section" sx={{ height: '90%', overflowY: 'auto' }}>
         <Box
-          className="setting_cards-list"
+          className="setting_cards_list"
           onClick={() => {
             navigate('/companyprofile')
           }}
@@ -30,8 +30,9 @@ const Settings = () => {
           />
           <Typography variant="span">Company Profile</Typography>
         </Box>
+
         <Box
-          className="setting_cards-list"
+          className="setting_cards_list"
           onClick={() => {
             navigate('/jobrolelist')
           }}
@@ -43,9 +44,10 @@ const Settings = () => {
           />
           <Typography variant="span">Team Role</Typography>
         </Box>
+
         {permissions?.viewProduct && (
           <Box
-            className="setting_cards-list"
+            className="setting_cards_list"
             onClick={() => {
               navigate('/productlist')
             }}
@@ -58,8 +60,9 @@ const Settings = () => {
             <Typography variant="span">Product</Typography>
           </Box>
         )}
+
         {/* <Box
-          className="setting_cards-list"
+          className="setting_cards_list"
           onClick={() => {
             navigate('/premium')
           }}
@@ -67,8 +70,9 @@ const Settings = () => {
           <img className="premium_icon" src={PremiumIcon} alt="ProductIcon" />
           <Typography variant="span">Premium</Typography>
         </Box> */}
+
         <Box
-          className="setting_cards-list"
+          className="setting_cards_list"
           onClick={() => {
             navigate('/leaveholidaymanagement')
           }}
@@ -80,8 +84,9 @@ const Settings = () => {
           />
           <Typography variant="span">Leave & Holiday</Typography>
         </Box>
+
         <Box
-          className="setting_cards-list"
+          className="setting_cards_list"
           onClick={() => {
             // navigate("/departmentlist");
             navigate('/expenselist')
@@ -94,8 +99,9 @@ const Settings = () => {
           />
           <Typography variant="span">Expense Policy</Typography>
         </Box>
+
         <Box
-          className="setting_cards-list"
+          className="setting_cards_list"
           onClick={() => {
             // navigate("/departmentlist");
             navigate('/integrations')
@@ -108,8 +114,9 @@ const Settings = () => {
           />
           <Typography variant="span">Integrations</Typography>
         </Box>
+
         {/* <Box
-          className="setting_cards-list"
+          className="setting_cards_list"
           onClick={() => {
             navigate("/poll");
           }}

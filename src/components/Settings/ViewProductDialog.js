@@ -128,14 +128,7 @@ const ViewProductDialog = ({
               <Box className="update_button_section">
                 <TextField
                   variant="outlined"
-                  label="Current Stock"
-                  // InputProps={{
-                  //   disableUnderline: true,
-                  //   style: { textAlign: 'center' },
-                  // }}
-                  // sx={{
-                  //   width: '37%',
-                  // }}
+                  label={productDetail?.quantity ? 'Current Stock' : ''}
                   size="small"
                   value={productDetail?.quantity}
                   onChange={e =>

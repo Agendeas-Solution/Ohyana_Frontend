@@ -421,16 +421,24 @@ const Staff = () => {
             <Box className="username_profile_Section">
               {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
               {singleStaffDetails?.memberDetail?.imgUrl ? (
-                // <Box sx={{ height: '100px', width: '100px' }}>
+                // <Box className="user_profile_icon">
                 <img
-                  style={{ margin: '8px auto' }}
+                  style={{
+                    margin: '8px auto',
+                  }}
                   className="user_profile_icon"
                   src={singleStaffDetails?.memberDetail?.imgUrl}
                 />
               ) : (
                 // </Box>
-                <AccountCircleRoundedIcon className="user_profile_icon" />
+                <AccountCircleRoundedIcon
+                  style={{
+                    margin: '8px auto',
+                  }}
+                  className="user_profile_icon"
+                />
               )}
+
               <Box className="username_and_position">
                 <Typography className="username_text" variant="span">
                   {singleStaffDetails?.memberDetail?.name}

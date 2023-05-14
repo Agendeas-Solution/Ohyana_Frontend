@@ -14,6 +14,7 @@ import Paper from '@mui/material/Paper'
 import Avatar from '@mui/material/Avatar'
 import Stack from '@mui/material/Stack'
 import StarPerformer from '../../assets/img/star_performer.png'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 
 import {
   AttendanceStatus,
@@ -34,6 +35,7 @@ const Dashboard = () => {
       {},
       res => {
         setInquiryData(res.data.data)
+        console.log({ Inq: res.data.data })
       },
       err => {
         setErrorSnackbar({
@@ -410,8 +412,7 @@ const Dashboard = () => {
               className="view_all_button"
               onClick={() => navigate('/orders')}
             >
-              {' '}
-              View All {'>'}{' '}
+              View All {'>'}
             </Button>
           </Box>
           <TableContainer component={Paper} className="set_box_shadow">
@@ -467,20 +468,30 @@ const Dashboard = () => {
             </Box>
             {/* {salesInquiry?.starPerformerList.length > 0 &&
               salesInquiry.starPerformerList.map(data => { */}
-            <Box className="a-box">
-              <Box className="img-container">
-                <Box className="img-inner">
-                  <Box className="inner-skew">
-                    <img src={StarPerformer} />
+            {inquiryData?.starPerformerList &&
+              inquiryData?.starPerformerList.map(data => (
+                <Box className="a-box">
+                  <Box className="img-container">
+                    <Box className="img-inner">
+                      <Box className="inner-skew">
+                        {data?.imgUrl ? (
+                          <img
+                            src={data.imgUrl}
+                            className="user_profile_icon"
+                          />
+                        ) : (
+                          <AccountCircleRoundedIcon className="user_profile_icon" />
+                        )}
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box className="text-container">
+                    <h3>Paul Walker</h3>
+                    <h6>Sr. Sales Person</h6>
+                    <h5>Star Performer of the Month.</h5>
                   </Box>
                 </Box>
-              </Box>
-              <Box className="text-container">
-                <h3>Paul Walker</h3>
-                <h6>Sr. Sales Person</h6>
-                <h5>Star Performer of the Month.</h5>
-              </Box>
-            </Box>
+              ))}
           </Box>
         </Box>
       </Box>

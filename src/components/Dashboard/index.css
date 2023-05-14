@@ -133,7 +133,7 @@
 }
 
 .view_all_button {
-  color: #2e3591;
+  color: #2e3591 !important;
 }
 
 .dashboard_heading {
