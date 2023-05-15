@@ -86,7 +86,7 @@ const CompanyProfile = () => {
               Country:
             </Typography>
             <Typography variant="span">
-              {companyDetail?.country?.name || '-'}
+              {companyDetail?.country || '-'}
             </Typography>
           </Box>
           <Box className="companyDetail_root  p-3">

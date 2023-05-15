@@ -242,6 +242,7 @@ const TaskDetail = () => {
                   status: true,
                   id: taskDetail?.id,
                   taskName: taskDetail?.title,
+                  description: taskDetail?.description,
                 })
               }}
               className="profile_header_button"

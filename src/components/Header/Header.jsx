@@ -24,6 +24,7 @@ const Header = () => {
   const [pathName, setPathName] = useState('')
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
+  const userImg = localStorage.getItem('userImageUrl')
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget)
@@ -105,10 +106,11 @@ const Header = () => {
               onClick={handleClick}
               direction="row"
             >
-              <Avatar
-                sx={{ width: 32, height: 32 }}
-                alt="Remy Sharp"
-                src={ProfileSmallIcon}
+              <img
+                style={{ width: 32, height: 32, borderRadius: '50%' }}
+                // alt="Remy Sharp"
+                src={userImg}
+
               />
               {/* <img src={}/> */}
               <KeyboardArrowDownIcon />
