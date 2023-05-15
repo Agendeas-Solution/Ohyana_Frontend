@@ -219,6 +219,7 @@ const Orders = () => {
                   Delivery
                 </FormLabel>
                 <RadioGroup
+                  // sx={{ margin: '8px 0 auto 8px' }}
                   value={queryParams.delivery}
                   onChange={e => {
                     setQueryParams({ ...queryParams, delivery: e.target.value })
@@ -228,6 +229,10 @@ const Orders = () => {
                     {deliveryStatusList.map(data => {
                       return (
                         <FormControlLabel
+                          sx={{
+                            width: '100%',
+                            margin: '4px 0px',
+                          }}
                           className="checkbox_background_color"
                           value={data.value}
                           control={<Radio />}
@@ -244,6 +249,7 @@ const Orders = () => {
                   Payment
                 </FormLabel>
                 <RadioGroup
+                  // sx={{ margin: '8px 0 auto 8px' }}
                   value={queryParams.payment}
                   onChange={e => {
                     setQueryParams({ ...queryParams, payment: e.target.value })
@@ -253,6 +259,10 @@ const Orders = () => {
                     {paymentStatusList.map(data => {
                       return (
                         <FormControlLabel
+                          sx={{
+                            width: '100%',
+                            margin: '4px 0px',
+                          }}
                           className="checkbox_background_color"
                           value={data.value}
                           control={<Radio />}
@@ -279,7 +289,8 @@ const Orders = () => {
                       variant="outlined"
                       {...params}
                       label="Date"
-                      sx={{ margin: '10px' }}
+                      className="orders_drawer_date"
+                      // sx={{ margin: '10px 22px auto 8px' }}
                     />
                   )}
                   PopperProps={{

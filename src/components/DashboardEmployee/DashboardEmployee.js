@@ -24,6 +24,8 @@ import SecondStarPerformer from '../../assets/img/second_star_performer.png'
 import { AttendanceStatus } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
+
 const DashboardEmployee = () => {
   const [salesInquiry, setSalesInquiry] = useState()
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
@@ -220,6 +222,7 @@ const DashboardEmployee = () => {
               </Box>
             </Box>
           </Box>
+
           <Box className="attendance_section">
             <Box className="attendance_subheading">
               <Typography className="right_panel_heading" variant="span">
@@ -312,55 +315,113 @@ const DashboardEmployee = () => {
             </Box> */}
           </Box>
         </Box>
+
         <Box className="detail_row">
           <Box className="my_task_section">
             <Box className="my_main_section_header">
               <Typography className="bottom_left_panel_heading" variant="span">
                 My Task
               </Typography>
-              <Button onClick={() => navigate('/task')}>View All ></Button>
-            </Box>
-            <Box className="my_task_subheading">
-              <Typography sx={{ padding: '8px' }} variant="span">
-                {salesInquiry?.tasks?.title}
-              </Typography>
-              <Typography
-                sx={{ color: '#8E8E8E', padding: '8px' }}
-                variant="span"
+              <Button
+                className="view_all_button"
+                onClick={() => navigate('/task')}
               >
-                Due Date :{' '}
-                {moment(salesInquiry?.tasks?.due_date).format('DD-MM-YYYY')}
-              </Typography>
+                View All >
+              </Button>
             </Box>
-            <FormGroup>
-              {salesInquiry?.tasks?.checklists &&
-                salesInquiry?.tasks?.checklists.map(data => {
-                  return (
-                    <Box className="task_list">
-                      <FormControlLabel
-                        sx={{
-                          display: 'flex',
-                          alignItems: 'flex-start',
-                        }}
-                        control={
-                          <Checkbox
+
+            <Box className="inner_my_task">
+              {/* <Box className="my_task_subheading">
+                <Typography sx={{ padding: '8px' }} variant="span">
+                  {salesInquiry?.tasks?.title}
+                </Typography>
+                <Typography
+                  sx={{ color: '#8E8E8E', padding: '8px' }}
+                  variant="span"
+                >
+                  Due Date :
+                  {moment(salesInquiry?.tasks?.due_date).format('DD-MM-YYYY')}
+                </Typography>
+              </Box> */}
+
+              {/* <FormGroup>
+                {salesInquiry?.tasks?.checklists &&
+                  salesInquiry?.tasks?.checklists.map(data => {
+                    return (
+                      <Box className="task_list">
+                        <FormControlLabel
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                          }}
+                          control={
+                            <Checkbox
+                              sx={{
+                                padding: 0,
+                                margin: '0px 7px',
+                              }}
+                              onChange={() => {
+                                updateCheckListStatus(data?.id)
+                              }}
+                              value={data.done}
+                              defaultChecked={data.done ? true : false}
+                            />
+                          }
+                          label={data?.task}
+                        />
+                      </Box>
+                    )
+                  })}
+              </FormGroup> */}
+
+              <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+                <Table sx={{ minWidth: 250 }}>
+                  <TableHead className="team_overview_table_heading">
+                    <TableRow>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Due Date</TableCell>
+                      <TableCell>Completed</TableCell>
+                      <TableCell>Total</TableCell>
+                      <TableCell></TableCell>
+                    </TableRow>
+                  </TableHead>
+
+                  <TableBody>
+                    {salesInquiry?.tasks &&
+                      salesInquiry?.tasks?.map(data => {
+                        console.log({ SalesInquiry: salesInquiry })
+                        return (
+                          <TableRow
                             sx={{
-                              padding: 0,
-                              margin: '0px 7px',
+                              '&:last-child td, &:last-child th': { border: 0 },
                             }}
-                            onChange={() => {
-                              updateCheckListStatus(data?.id)
-                            }}
-                            value={data.done}
-                            defaultChecked={data.done ? true : false}
-                          />
-                        }
-                        label={data?.task}
-                      />
-                    </Box>
-                  )
-                })}
-            </FormGroup>
+                          >
+                            <TableCell align="right">{data?.title}</TableCell>
+                            <TableCell align="right">
+                              {moment(data?.due_date).format('DD-MM-YYYY')}
+                            </TableCell>
+                            <TableCell>{data?.completed}</TableCell>
+                            <TableCell>{data?.total}</TableCell>
+                            <TableCell
+                              sx={{ display: 'flex', justifyContent: 'end' }}
+                            >
+                              <Button
+                                onClick={() =>
+                                  navigate(`/taskdetail/${data?.id}`)
+                                }
+                                className="client_view_button common_button"
+                              >
+                                View
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        )
+                      })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
+
             {/* <FormGroup>
               {salesInquiry?.tasks?.checklists && salesInquiry?.tasks?.checklists.map((data) => {
                 return (
@@ -380,13 +441,15 @@ const DashboardEmployee = () => {
               })}
             </FormGroup> */}
           </Box>
+
           <Box className="point_table_section">
             <Box className="point_table_heading">
               <Typography className="bottom_right_panel_heading" variant="span">
                 My Points
               </Typography>
-              <Button>View All {'>'}</Button>
+              <Button className="view_all_button">View All {'>'}</Button>
             </Box>
+
             <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
               <Table sx={{ minWidth: 250 }}>
                 <TableHead className="team_overview_table_heading">
@@ -405,7 +468,6 @@ const DashboardEmployee = () => {
                         }}
                       >
                         <TableCell align="right">
-                          {' '}
                           {moment(value?.createdAt).format('D/MM/YY')}
                         </TableCell>
                         <TableCell align="right">
@@ -423,6 +485,7 @@ const DashboardEmployee = () => {
             </TableContainer>
           </Box>
         </Box>
+
         <Box className="detail_row">
           <Box className="star_performers_section">
             <Box className="my_main_section_header">
@@ -433,12 +496,20 @@ const DashboardEmployee = () => {
 
             {salesInquiry?.starPerformerList.length > 0 &&
               salesInquiry.starPerformerList.map(data => {
+                console.log({ salesInq: salesInquiry })
                 return (
                   <Box className="a-box">
                     <Box className="img-container">
                       <Box className="img-inner">
                         <Box className="inner-skew">
-                          <img src={StarPerformer} />
+                          {data?.imgUrl ? (
+                            <img
+                              src={data?.imgUrl}
+                              className="user_profile_icon"
+                            />
+                          ) : (
+                            <AccountCircleRoundedIcon className="user_profile_icon" />
+                          )}
                         </Box>
                       </Box>
                     </Box>

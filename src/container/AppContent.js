@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, Suspense } from 'react'
-import { Routes, Route, Outlet, Navigate } from 'react-router-dom'
+import { Routes, Route, Outlet, Navigate, Switch } from 'react-router-dom'
 import Cookie from 'js-cookie'
 import { clearLoginToken } from '../services/storage'
 import { io } from 'socket.io-client'
@@ -68,6 +68,7 @@ const AppContent = () => {
     <>
       <Suspense fallback={loading}>
         <Routes>
+          {/* <Switch> */}
           <Route path="/" element={<ProtectedRoutes />}>
             <Route path="/" element={<UserProfile />}></Route>
             <Route path="/profile" element={<UserProfile />}></Route>

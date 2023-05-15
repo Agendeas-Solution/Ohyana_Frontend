@@ -15,7 +15,6 @@ import Avatar from '@mui/material/Avatar'
 import Stack from '@mui/material/Stack'
 import StarPerformer from '../../assets/img/star_performer.png'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
-
 import {
   AttendanceStatus,
   GetInquiryAnalytics,
@@ -24,6 +23,7 @@ import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { TEAM } from '../../constants'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+
 const Dashboard = () => {
   const navigate = useNavigate()
   const [inquiryData, setInquiryData] = useState([])
@@ -472,18 +472,15 @@ const Dashboard = () => {
               inquiryData?.starPerformerList.map(data => (
                 <Box className="a-box">
                   <Box className="img-container">
-                    <Box className="img-inner">
-                      <Box className="inner-skew">
-                        {data?.imgUrl ? (
-                          <img
-                            src={data.imgUrl}
-                            className="user_profile_icon"
-                          />
-                        ) : (
-                          <AccountCircleRoundedIcon className="user_profile_icon" />
-                        )}
-                      </Box>
-                    </Box>
+                    {/* <Box className="inner-skew"> */}
+                    {/* <Box> */}
+                    {data?.imgUrl ? (
+                      <img src={data.imgUrl} className="user_profile_icon" />
+                    ) : (
+                      <AccountCircleRoundedIcon className="user_profile_icon" />
+                    )}
+                    {/* <img src={StarPerformer} /> */}
+                    {/* </Box> */}
                   </Box>
                   <Box className="text-container">
                     <h3>Paul Walker</h3>

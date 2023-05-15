@@ -137,12 +137,11 @@ const MyCart = () => {
 
           <Box className="cart_header_section">
             <Box className="my_cart_header_section">
-              <Box className="detail_row">
+              <Box className="detail_row product_profile_date">
                 <Typography className="order_desc_subheading" variant="span">
                   Date
                 </Typography>
                 <Typography variant="span">22 Aug 2023</Typography>
-                <Typography variant="span"> </Typography>
               </Box>
               <Box className="detail_row">
                 <Typography className="order_desc_subheading" variant="span ">

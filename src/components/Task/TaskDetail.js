@@ -395,8 +395,11 @@ const TaskDetail = () => {
           </Box>
           <Box className="task_details_section">
             <Box sx={{ marginBottom: '10px' }}>
-              <Box className="detail_row">
-                <Typography className="common_sub_heading" variant="span">
+              <Box sx={{ marginBottom: '16px' }} className="detail_row">
+                <Typography
+                  className="common_sub_heading task_left_section_heading"
+                  variant="span"
+                >
                   Due Date
                 </Typography>
                 <Button
@@ -413,27 +416,39 @@ const TaskDetail = () => {
                   <CalendarMonthRoundedIcon sx={{ color: '#2E3591' }} />
                 </Button>
               </Box>
+
               <Typography variant="span" className="common_description_text">
                 {moment(taskDetail?.due_date).format('MMMM Do YYYY, h:mm:ss a')}
               </Typography>
             </Box>
+
             <Box sx={{ margin: '10px 0px' }}>
-              <Typography className="common_sub_heading" variant="span">
-                Description
-              </Typography>
+              <Box sx={{ marginBottom: '16px' }}>
+                <Typography
+                  className="common_sub_heading task_left_section_heading"
+                  variant="span"
+                >
+                  Description
+                </Typography>
+              </Box>
               <Typography variant="span" className="common_description_text">
                 {taskDetail?.description || '-'}
               </Typography>
             </Box>
+
             <Box sx={{ margin: '10px 0px' }}>
               <Box
                 sx={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
+                  marginBottom: '16px',
                 }}
               >
-                <Typography className="common_sub_heading" variant="span">
+                <Typography
+                  className="common_sub_heading task_left_section_heading"
+                  variant="span"
+                >
                   Assigned Member
                 </Typography>
 
@@ -465,10 +480,16 @@ const TaskDetail = () => {
                 </Typography>
               )}
             </Box>
+
             <Box sx={{ margin: '10px 0px' }}>
-              <Typography className="common_sub_heading" variant="span">
-                Task Create By
-              </Typography>
+              <Box sx={{ marginBottom: '16px' }}>
+                <Typography
+                  className="common_sub_heading task_left_section_heading"
+                  variant="span"
+                >
+                  Task Create By
+                </Typography>
+              </Box>
               <Box
                 className="d-flex"
                 sx={{

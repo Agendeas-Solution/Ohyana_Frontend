@@ -73,6 +73,7 @@ const Header = () => {
             <MenuItem
               onClick={() => {
                 navigate('/profile')
+                handleClose()
               }}
             >
               <PersonOutlineRoundedIcon className="header_profile_drop_down" />
@@ -83,6 +84,7 @@ const Header = () => {
               Logout
             </MenuItem>
           </Menu>
+
           <Box
             sx={{
               display: 'flex',
@@ -110,7 +112,6 @@ const Header = () => {
                 style={{ width: 32, height: 32, borderRadius: '50%' }}
                 // alt="Remy Sharp"
                 src={userImg}
-
               />
               {/* <img src={}/> */}
               <KeyboardArrowDownIcon />
