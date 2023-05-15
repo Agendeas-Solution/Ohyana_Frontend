@@ -56,8 +56,8 @@
   margin-top: 10px;
   margin-right: 10px;
   overflow-y: hidden;
-  display: grid;
-  /* height: 100%; */
+  /* display: grid; */
+  height: 100%;
   margin-bottom: 80px;
 }
 
@@ -177,4 +177,8 @@
   flex-direction: column;
   margin: 0px 12px;
   height: 90%;
+}
+
+.task_left_section_heading {
+  color: #8e8e8e;
 }

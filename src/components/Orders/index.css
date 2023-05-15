@@ -63,7 +63,9 @@
 }
 .order_desc_subheading {
   width: 25% !important;
-  color: #8e8e8e;
+  /* color: #8e8e8e; */
+  color: #000000;
+  font-weight: 600;
 }
 .order_tracking_payment_detail {
   width: 100%;
@@ -184,7 +186,7 @@
 }
 
 .client_order_photo {
-  width: 34%;
+  width: 20%;
   height: 100%;
   margin-right: 15px;
 }
@@ -201,9 +203,15 @@
   height: 100%;
 }
 
+.product_order_detail {
+  width: 100%;
+  height: 100%;
+}
+
 .order_price {
   display: flex;
   justify-content: space-between;
+  /* align-items: center; */
 }
 
 .info_and_cart {
@@ -217,4 +225,9 @@
   flex-direction: column;
   margin: 10px;
   width: 100% !important;
+}
+
+.orders_drawer_date {
+  /* margin: 10px 22px auto 8px !important; */
+  margin: 10px 10px !important;
 }

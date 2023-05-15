@@ -30,11 +30,11 @@ html {
   opacity: 0.6;
 }
 
-$baseColor: #2E3591;
+$colorPrimary: #2E3591;
 
 .selected-link {
   // background-color: #f1f2f6;
-  background-color: $baseColor;
+  background-color: $colorPrimary;
   color: #fff;
   border: none !important;
 
@@ -109,6 +109,7 @@ textarea:focus {
   width: 90px !important;
   color: #f1f2f6 !important;
   border-radius: 50%;
+  background-color: #E5E5E5;
 }
 
 .heading_access_box {
@@ -124,7 +125,7 @@ textarea:focus {
 .custom_tab_background {
   box-shadow: none !important;
   background-color: #f1f2f6 !important;
-  color: $baseColor !important;
+  color: $colorPrimary !important;
   height: 40px !important;
   border-radius: 3px;
 }
@@ -255,7 +256,7 @@ textarea:focus {
   box-shadow: none !important;
   width: 300px !important;
   height: 45px !important;
-  background-color: $baseColor !important;
+  background-color: $colorPrimary !important;
   font-size: 18px !important;
   font-weight: 600;
   text-transform: capitalize;
@@ -264,7 +265,7 @@ textarea:focus {
 .dialogue_button_positive {
   box-shadow: none !important;
   height: 40px !important;
-  background-color: $baseColor !important;
+  background-color: $colorPrimary !important;
   width: 150px !important;
   font-size: 18px !important;
   font-weight: 600;
@@ -323,20 +324,24 @@ textarea:focus {
   justify-content: space-between;
 }
 
+.product_profile_date {
+  width: 41%;
+}
+
 .product_detail_dia_right_section {
   margin-bottom: 20px;
 }
 
 .common_icon {
-  color: $baseColor;
+  color: $colorPrimary;
 }
 .common_icon:hover {
   cursor: pointer;
 }
 
 .team_overview_table_heading {
-  background: #f1f2f6;
-  width: 100%;
+  background: #f1f2f6 !important;
+  width: 100% !important;
 }
 
 .team_overview_table_heading tr th {
@@ -468,7 +473,7 @@ button {
 
 .custom_text_button {
   background-color: #f1f2f6 !important;
-  color: $baseColor !important;
+  color: $colorPrimary !important;
   margin: 4px !important;
   height: 40px !important;
   border-radius: 3px;
@@ -482,7 +487,7 @@ button {
 .common_button {
   box-shadow: none !important;
   background-color: #f1f2f6 !important;
-  color: $baseColor !important;
+  color: $colorPrimary !important;
   margin: 4px !important;
   height: 40px !important;
   font-size: 16px !important;
@@ -497,7 +502,7 @@ button {
 
 .active_button {
   box-shadow: none !important;
-  background-color: $baseColor !important;
+  background-color: $colorPrimary !important;
   color: #ffffff !important;
   height: 40px !important;
   border-radius: 3px;
@@ -508,8 +513,8 @@ button {
 }
 
 .border_button {
-  border: 1px solid $baseColor !important;
-  color: $baseColor !important;
+  border: 1px solid $colorPrimary !important;
+  color: $colorPrimary !important;
   text-transform: capitalize !important;
 }
 
@@ -523,7 +528,7 @@ button {
 
 .edit_page_save_button {
   margin: 20px !important;
-  background-color: $baseColor !important;
+  background-color: $colorPrimary !important;
   width: 225px;
   text-transform: capitalize !important;
   font-size: 17px !important;
@@ -538,7 +543,7 @@ button {
   padding: 5px;
   border: 1px solid #e5e5e5;
   border-radius: 50%;
-  color: $baseColor;
+  color: $colorPrimary;
 }
 
 .main_tab_button {
@@ -546,7 +551,7 @@ button {
   height: 40px;
   background-color: #fff !important;
   text-transform: capitalize !important;
-  color: $baseColor !important;
+  color: $colorPrimary !important;
   padding-left: 0px;
 }
 
@@ -559,7 +564,7 @@ button {
 
 .primary_color_button {
   color: white !important;
-  background-color: $baseColor !important;
+  background-color: $colorPrimary !important;
   box-shadow: none !important;
 }
 
@@ -590,7 +595,7 @@ button {
 }
 
 .edit_icon_profile {
-  color: $baseColor;
+  color: $colorPrimary;
   font-size: 45px !important;
   border: 1px solid #ddd;
   border-radius: 50%;
@@ -752,7 +757,7 @@ button {
 .checkbox_section {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   align-items: center;
 }
 
@@ -824,12 +829,13 @@ button {
   border-bottom: 2px solid black;
 }
 
+.product_cart_button,
 .profile_header_button,
 .product_detail_buttons {
   padding: 0px 10px !important;
   box-shadow: none !important;
   background-color: #f1f2f6 !important;
-  color: $baseColor !important;
+  color: $colorPrimary !important;
   height: 40px !important;
   border-radius: 3px;
   min-width: 0 !important;
@@ -845,7 +851,7 @@ button {
   flex-direction: column;
   justify-content: space-between;
   width: calc(100% / 3 - 1rem);
-  height: 140px;
+  height: 150px;
   border-radius: 5px;
   border: 1px solid #e5e5e5;
   padding: 10px;
@@ -977,8 +983,8 @@ button {
 }
 
 .button_color {
-  color: $baseColor !important;
-  border-color: $baseColor !important;
+  color: $colorPrimary !important;
+  border-color: $colorPrimary !important;
 }
 
 .edit_my_profile_image_section {
@@ -1025,4 +1031,8 @@ button {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+}
+
+.view_all_button {
+  color: #2e3591 !important;
 }

@@ -2,25 +2,30 @@ import React, { useState } from 'react'
 import { Box, Typography } from '@mui/material'
 import { INTEGRATIONDETAIL } from '../../constants'
 import './index.css'
+import IntegrationsDialog from './IntegrationsDialog'
 
 const Integrations = () => {
   const [productPath, setProductPath] = useState(
     INTEGRATIONDETAIL.PRODUCTDETAIL,
   )
 
-  const [productName, setProductName] = useState([
-    'Twitter',
-    'Shopify',
-    'Trade India',
-    'India Mart',
-  ])
+  const [integrationDialog, setIntegrationDialog] = useState(false)
+
+  const handleCloseDialog = () => {
+    setIntegrationDialog(false)
+  }
 
   return (
     <>
       <Box className="main_section">
         <Box className="inner_containers">
           {productPath.map(data => (
-            <Box className="integrations_card">
+            <Box
+              onClick={() => {
+                setIntegrationDialog(true)
+              }}
+              className="integrations_card"
+            >
               <Box className="image_part">
                 {/* <img src={IntegrationIcon} alt="twitter" /> */}
                 <img src={data.productImage} />
@@ -32,6 +37,11 @@ const Integrations = () => {
           ))}
         </Box>
       </Box>
+      <IntegrationsDialog
+        integrationDialog={integrationDialog}
+        handleCloseDialog={handleCloseDialog}
+        setIntegrationDialog={setIntegrationDialog}
+      />
     </>
   )
 }

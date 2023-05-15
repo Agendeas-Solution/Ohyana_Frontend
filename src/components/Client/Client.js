@@ -377,6 +377,7 @@ const Client = () => {
             <img src={FilterIcon} alt="" />
           </IconButton>
         </Box>
+
         <Drawer
           onClose={handleDrawerClose}
           sx={{
@@ -413,7 +414,9 @@ const Client = () => {
               </Button>
             </Box>
           </DrawerHeader>
+
           <Divider />
+
           <Box className="filter_body_section">
             <FormControl className="filter_body_inner_section">
               <InputLabel>Client Type</InputLabel>
@@ -429,8 +432,10 @@ const Client = () => {
                 })}
               </Select>
             </FormControl>
+
             <Autocomplete
-              className="input_fields"
+              // className="input_fields"
+              className="filter_body_inner_section"
               disablePortal
               disableClearable
               options={countryList}
@@ -447,7 +452,8 @@ const Client = () => {
               )}
             />
             <Autocomplete
-              className="input_fields"
+              // className="input_fields"
+              className="filter_body_inner_section"
               options={stateList}
               disableClearable
               disabled={!selectedCityStateCountry?.country}
@@ -463,7 +469,8 @@ const Client = () => {
               renderInput={params => <TextField {...params} label="State" />}
             />
             <Autocomplete
-              className="input_fields"
+              // className="input_fields"
+              className="filter_body_inner_section"
               options={cityList}
               disableClearable
               disabled={!selectedCityStateCountry?.state}
@@ -481,6 +488,7 @@ const Client = () => {
           </Box>
         </Drawer>
       </Box>
+
       <Box className="body_section_paddingless_pagination">
         {value === 'business_card' ? (
           <BusinessCard clientDetails={clientDetails} />
