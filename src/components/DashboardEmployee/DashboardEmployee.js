@@ -315,7 +315,6 @@ const DashboardEmployee = () => {
             </Box> */}
           </Box>
         </Box>
-
         <Box className="detail_row">
           <Box className="my_task_section">
             <Box className="my_main_section_header">
@@ -326,7 +325,7 @@ const DashboardEmployee = () => {
                 className="view_all_button"
                 onClick={() => navigate('/task')}
               >
-                View All >
+                View All {'>'}
               </Button>
             </Box>
 
@@ -380,7 +379,11 @@ const DashboardEmployee = () => {
                     <TableRow>
                       <TableCell>Name</TableCell>
                       <TableCell>Due Date</TableCell>
-                      <TableCell>Completed</TableCell>
+                      <TableCell
+                        sx={{ display: 'flex', justifyContent: 'center' }}
+                      >
+                        Completed
+                      </TableCell>
                       <TableCell>Total</TableCell>
                       <TableCell></TableCell>
                     </TableRow>
@@ -400,7 +403,11 @@ const DashboardEmployee = () => {
                             <TableCell align="right">
                               {moment(data?.due_date).format('DD-MM-YYYY')}
                             </TableCell>
-                            <TableCell>{data?.completed}</TableCell>
+                            <TableCell
+                              sx={{ display: 'flex', justifyContent: 'center' }}
+                            >
+                              {data?.completed}
+                            </TableCell>
                             <TableCell>{data?.total}</TableCell>
                             <TableCell
                               sx={{ display: 'flex', justifyContent: 'end' }}
@@ -459,7 +466,8 @@ const DashboardEmployee = () => {
                     <TableCell align="right">Point</TableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody>
+
+                <TableBody className="tablebody_class">
                   {salesInquiry?.teamPoints.map(value => {
                     return (
                       <TableRow
@@ -474,7 +482,6 @@ const DashboardEmployee = () => {
                           {value?.point?.name || '-'}
                         </TableCell>
                         <TableCell align="right">
-                          {' '}
                           {value?.point?.points || '-'}
                         </TableCell>
                       </TableRow>
