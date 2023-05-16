@@ -78,24 +78,28 @@ const Dashboard = () => {
           </Box>
           <Box>
             <Button
+              disabled={inquiryData?.userAttendance?.checkIn ? true : null}
               onClick={() => handleCheckIn('checkIn')}
               className="custom_text_button"
             >
               Check In
             </Button>
             <Button
+              disabled={inquiryData?.userAttendance?.breakIn ? true : null}
               onClick={() => handleCheckIn('breakIn')}
               className="custom_text_button"
             >
               Break In
             </Button>
             <Button
+              disabled={inquiryData?.userAttendance?.breakOut ? true : null}
               onClick={() => handleCheckIn('breakOut')}
               className="custom_text_button"
             >
               Break Out
             </Button>
             <Button
+              disabled={inquiryData?.userAttendance?.checkOut ? true : null}
               onClick={() => handleCheckIn('checkOut')}
               className="custom_text_button"
             >

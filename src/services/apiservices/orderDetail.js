@@ -21,6 +21,9 @@ export const UpdatePaymentStatus = async (value, onSuccess, onError) => {
     onError,
   )
 }
+export const UpdateDeliveryStatus = async (id, value, onSuccess, onError) => {
+  await handleApiPatchCall(`/delivery/${id}`, value, onSuccess, onError)
+}
 
 export const GetAllCartItems = async (id, value, onSuccess, onError) => {
   await handleApiGetCall(`/cart/items/${id}`, value, onSuccess, onError)
