@@ -199,64 +199,68 @@ const MyCart = () => {
               <DeleteIcon className="mx-4" />
               <PrintIcon />
             </Box> */}
-          </Box>
+              </Box>
 
-          <Box className="my_cart_details_section">
-            {orderList.length > 0 ? (
-              <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
-                <Table>
-                  <TableHead className="team_overview_table_heading">
-                    <TableRow sx={{ marginTop: '5px' }}>
-                      <TableCell></TableCell>
-                      <TableCell align="right">Name</TableCell>
-                      <TableCell align="right">Price</TableCell>
-                      <TableCell align="right">Quantity</TableCell>
-                      <TableCell></TableCell>
-                    </TableRow>
-                  </TableHead>
+              <Box className="my_cart_details_section">
+                {/* {orderList.length > 0 ? ( */}
+                <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+                  <Table>
+                    <TableHead className="team_overview_table_heading">
+                      <TableRow sx={{ marginTop: '5px' }}>
+                        <TableCell></TableCell>
+                        <TableCell align="right">Name</TableCell>
+                        <TableCell align="right">Price</TableCell>
+                        <TableCell align="right">Quantity</TableCell>
+                        <TableCell></TableCell>
+                      </TableRow>
+                    </TableHead>
 
-                  <TableBody>
-                    {orderList.map(data => {
-                      console.log({ Data: data })
-                      return (
-                        <TableRow
-                          sx={{
-                            '&:last-child td, &:last-child th': { border: 0 },
-                          }}
-                        >
-                          <TableCell
-                            align="right"
-                            sx={{ width: '0%' }}
-                            // className="d-flex flex-row align-items-center"
+                    <TableBody>
+                      {orderList.map(data => {
+                        console.log({ Data: data })
+                        return (
+                          <TableRow
+                            sx={{
+                              '&:last-child td, &:last-child th': {
+                                border: 0,
+                              },
+                            }}
                           >
-                            <img
-                              src={data.product.imageUrl}
-                              className="my_cart_product_photo"
-                            />
-                            {/* <Typography>dfa</Typography> */}
-                          </TableCell>
+                            <TableCell
+                              align="right"
+                              sx={{ width: '0%' }}
+                              // className="d-flex flex-row align-items-center"
+                            >
+                              <img
+                                src={data.product.imageUrl}
+                                className="my_cart_product_photo"
+                              />
+                              {/* <Typography>dfa</Typography> */}
+                            </TableCell>
 
-                          <TableCell align="right">
-                            {data.product.name}
-                          </TableCell>
-                          <TableCell align="right">
-                            {data.product.price}
-                          </TableCell>
-                          <TableCell align="right">
-                            <TextField
-                              type="number"
-                              size="small"
-                              label="Quantity"
-                              variant="outlined"
-                              value={data.quantity}
-                              onChange={event =>
-                                handleQuantityChange(event, data.product.id)
-                              }
-                              InputProps={{ inputProps: { min: 1, max: 100 } }}
-                            />
-                          </TableCell>
-                          <TableCell align="right">
-                            {/* <DeleteIcon
+                            <TableCell align="right">
+                              {data.product.name}
+                            </TableCell>
+                            <TableCell align="right">
+                              {data.product.price}
+                            </TableCell>
+                            <TableCell align="right">
+                              <TextField
+                                type="number"
+                                size="small"
+                                label="Quantity"
+                                variant="outlined"
+                                value={data.quantity}
+                                onChange={event =>
+                                  handleQuantityChange(event, data.product.id)
+                                }
+                                InputProps={{
+                                  inputProps: { min: 1, max: 100 },
+                                }}
+                              />
+                            </TableCell>
+                            <TableCell align="right">
+                              {/* <DeleteIcon
                               onClick={() =>
                                 setDeleteProductCardDialog({
                                   ...deleteProductMyCardDialog,
@@ -266,49 +270,49 @@ const MyCart = () => {
                               }
                               className="mx-4"
                             /> */}
-                            <Button
-                              onClick={() =>
-                                setDeleteProductCardDialog({
-                                  ...deleteProductMyCardDialog,
-                                  status: true,
-                                  id: data.id,
-                                })
-                              }
-                              className="common_button"
-                            >
-                              Remove
-                            </Button>
-
-                          </TableCell>
-                        </TableRow>
-                      )
-                    })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            ) : (
-              <Box sx={{ width: '100%' }}>
-                {' '}
-                <NoResultFound />
+                              <Button
+                                onClick={() =>
+                                  setDeleteProductCardDialog({
+                                    ...deleteProductMyCardDialog,
+                                    status: true,
+                                    id: data.id,
+                                  })
+                                }
+                                className="common_button"
+                              >
+                                Remove
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        )
+                      })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                {/* ) : (
+                  <Box sx={{ width: '100%' }}>
+                    <NoResultFound />
+                  </Box>
+                )} */}
               </Box>
-            )}
+            </Box>
+            <Box className="my_cart_right_side_header">
+              <Button
+                onClick={handlePlaceOrder}
+                variant="span"
+                className="common_button"
+              >
+                Place Order
+              </Button>
+            </Box>
           </Box>
-        </Box>
-        <Box className="my_cart_right_side_header">
-          <Button
-            onClick={handlePlaceOrder}
-            variant="span"
-            className="common_button"
-          >
-            Place Order
-          </Button>
+          <DeleteProductMyCart
+            deleteProductMyCardDialog={deleteProductMyCardDialog}
+            handleDeleteProductDialogClose={handleDeleteProductDialogClose}
+            handleDeleteProduct={handleDeleteProduct}
+          />
         </Box>
       </Box>
-      <DeleteProductMyCart
-        deleteProductMyCardDialog={deleteProductMyCardDialog}
-        handleDeleteProductDialogClose={handleDeleteProductDialogClose}
-        handleDeleteProduct={handleDeleteProduct}
-      />
     </>
   )
 }
