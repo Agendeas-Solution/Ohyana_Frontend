@@ -24,6 +24,7 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
   })
   const { successSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
+
   const addJobRole = () => {
     if (
       jobRoleDetail.name !== '' &&

@@ -12,14 +12,17 @@ import { Box } from '@mui/system'
 import { Navigate, useNavigate } from 'react-router-dom'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import SnacksPhoto from '../../assets/img/SnacksPhoto.png'
-import InfoIcon from '@mui/icons-material/Info'
+// import InfoIcon from '@mui/icons-material/Info'
+import InformationIcon from '../../assets/img/information.svg'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import CartIcon from '../../assets/img/orders_cart.svg'
 import { Context as ContextActivePage } from '../../context/pageContext'
 import {
   AddToCart,
   GetAdminProductList,
 } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
+import IndeterminateCheckBoxOutlinedIcon from '@mui/icons-material/IndeterminateCheckBoxOutlined'
 
 const ClientOrders = () => {
   const navigate = useNavigate()
@@ -61,6 +64,7 @@ const ClientOrders = () => {
   useEffect(() => {
     handleClientProductList()
   }, [])
+
   const handleAddToCart = row => {
     let data = {
       productId: row.id,
@@ -84,6 +88,7 @@ const ClientOrders = () => {
       },
     )
   }
+
   return (
     <>
       <Box className="main_tab_section">
@@ -124,6 +129,7 @@ const ClientOrders = () => {
         <Box className="below_main_tab_section">
           <Box className="inner_container">
             {clientProductList.map(data => {
+              console.log({ DATA: data })
               return (
                 <Box className="client_product_card">
                   <Box
@@ -133,21 +139,17 @@ const ClientOrders = () => {
                     // }}
                   >
                     <Typography className="order_card_heading" variant="span">
-                      {/* {taskData.title} */}
                       {data?.name}
                     </Typography>
                   </Box>
 
                   <Box className="product_card_main_section">
-                    {/* <Box> */}
                     <img
                       className="client_order_photo"
                       src={data?.imageUrl}
                       variant="span"
                     />
-                    {/* </Box>   */}
-
-                    <Box className="order_detail">
+                    <Box className="product_order_detail">
                       <Box className="order_price">
                         <Typography className="order_price_tag" variant="span">
                           Price
@@ -155,10 +157,17 @@ const ClientOrders = () => {
                         <Typography variant="span">{data?.price}</Typography>
                       </Box>
                       <Box className="info_and_cart">
-                        <InfoIcon />
-                        <ShoppingCartIcon
-                          onClick={() => handleAddToCart(data)}
-                        />
+                        <img src={InformationIcon} />
+                        {/* <Button
+                          variant="contained"
+                          className="product_cart_button"
+                        >
+                          <img
+                            src={CartIcon}
+                            onClick={() => handleAddToCart(data)}
+                          />
+                        </Button> */}
+                        <IndeterminateCheckBoxOutlinedIcon />
                       </Box>
                     </Box>
                   </Box>
