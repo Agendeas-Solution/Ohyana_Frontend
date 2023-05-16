@@ -23,6 +23,7 @@ import {
 } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import IndeterminateCheckBoxOutlinedIcon from '@mui/icons-material/IndeterminateCheckBoxOutlined'
+import { DeleteMyCartProduct } from '../../services/apiservices/orderDetail'
 
 const ClientOrders = () => {
   const navigate = useNavigate()
@@ -42,10 +43,11 @@ const ClientOrders = () => {
   }
 
   const handleClientProductList = () => {
-    let data = {}
+    let data = { cart: true, clientId }
     GetAdminProductList(
       data,
       res => {
+        console.log({ RESPONSE: res })
         if (res?.success) {
           setClientProductList(res?.data?.products)
         }
@@ -65,6 +67,16 @@ const ClientOrders = () => {
     handleClientProductList()
   }, [])
 
+  const handleProductList = productId => {
+    const updatedProductArray = clientProductList.map(obj => {
+      if (obj.id === productId) {
+        return { ...obj, inCart: !obj.inCart } // Update the name property of the matching object
+      }
+      return obj // Return the object as is if no update is required
+    })
+    setClientProductList(updatedProductArray)
+  }
+
   const handleAddToCart = row => {
     let data = {
       productId: row.id,
@@ -78,6 +90,7 @@ const ClientOrders = () => {
           status: true,
           message: res.message,
         })
+        handleProductList(res.data.productId)
       },
       err => {
         setErrorSnackbar({
@@ -88,6 +101,31 @@ const ClientOrders = () => {
       },
     )
   }
+
+  const handleDeleteProduct = row => {
+    DeleteMyCartProduct(
+      row.cartId,
+      res => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+        handleProductList(row.id)
+      },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
+    )
+  }
+
+  // useEffect(() => {
+  //   handleAddToCart()
+  // }, [])
 
   return (
     <>
@@ -158,16 +196,30 @@ const ClientOrders = () => {
                       </Box>
                       <Box className="info_and_cart">
                         <img src={InformationIcon} />
-                        {/* <Button
-                          variant="contained"
-                          className="product_cart_button"
-                        >
-                          <img
-                            src={CartIcon}
-                            onClick={() => handleAddToCart(data)}
-                          />
-                        </Button> */}
-                        <IndeterminateCheckBoxOutlinedIcon />
+                        {data.inCart ? (
+                          <Button
+                            variant="contained"
+                            className="product_cart_button"
+                          >
+                            <IndeterminateCheckBoxOutlinedIcon
+                              sx={{
+                                color: '#2E3591',
+                                fontSize: '26px',
+                              }}
+                              onClick={() => handleDeleteProduct(data)}
+                            />
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="contained"
+                            className="product_cart_button"
+                          >
+                            <img
+                              src={CartIcon}
+                              onClick={() => handleAddToCart(data)}
+                            />
+                          </Button>
+                        )}
                       </Box>
                     </Box>
                   </Box>

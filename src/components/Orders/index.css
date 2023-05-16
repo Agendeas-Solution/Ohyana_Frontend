@@ -22,12 +22,10 @@
 }
 .my_cart_right_side_header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: end;
   align-items: center;
-
-  width: 45%;
-  margin: 5px;
-  /* padding: 20px; */
+  width: 100%;
+  margin: auto 0px 18px auto;
 }
 .cart_header_section {
   display: flex;

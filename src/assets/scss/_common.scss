@@ -217,7 +217,7 @@ textarea:focus {
 }
 
 .dialogue_main_section {
-  margin: 10px 10px 5px 10px;
+  margin: 10px 10px 15px 10px;
   width: 350px;
   display: flex;
   text-align: 'center' !important;
@@ -325,7 +325,7 @@ textarea:focus {
 }
 
 .product_profile_date {
-  width: 41%;
+  width: 100%;
 }
 
 .product_detail_dia_right_section {
@@ -347,6 +347,10 @@ textarea:focus {
 .team_overview_table_heading tr th {
   border-bottom: none;
   padding: 8px;
+}
+
+.tablebody_class tr td {
+  padding: 12px !important;
 }
 
 .input_field_row {
