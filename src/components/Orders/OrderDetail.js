@@ -22,23 +22,18 @@ import SampleProduct from '../../assets/img/sample_product.png'
 import {
   DispatchOrder,
   GetOrderDetail,
+  UpdateDeliveryStatus,
   UpdatePaymentStatus,
 } from '../../services/apiservices/orderDetail'
 import moment from 'moment'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import DispatchOrderDialog from './DispatchOrderDialog'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-
+import { ORDER } from '../../constants/orderConstant'
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const PaymentDetailDialog = React.lazy(() => import('./PaymentDetailDialog'))
 
 const steps = [
-  {
-    label: 'PENDING',
-    description: `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`,
-  },
   {
     label: 'DISPATCH',
     description: `For each ad campaign that you create, you can control how much
@@ -67,6 +62,7 @@ const OrderDetail = () => {
     'NETBANKING',
     'OTHER',
   ])
+  const [activeStep, setActiveStep] = useState()
   const [openPaymentDetailDialog, setOpenPaymentDetailDialog] = useState(false)
   const [openDispatchOrder, setOpenDispatchOrder] = useState(false)
   let path = window.location.pathname
@@ -78,17 +74,33 @@ const OrderDetail = () => {
       res => {
         setOrderDetail(res.data.orderDetail)
         setOrderItems(res.data.orderDetail.order_items)
+        let data = ORDER.DELIVERYSTATUS.map(data => {
+          if (data.type === res.data.orderDetail.orderTrackingStatus) {
+            return data.id
+          }
+        }).filter(count => count !== undefined && count !== [])
+        setActiveStep(data[0])
       },
       err => {
         console.log('Printing OrderList Error', err)
       },
     )
   }, [])
-
-  const [activeStep, setActiveStep] = useState(0)
-
-  const handleNext = () => {
-    setActiveStep(prevActiveStep => prevActiveStep + 1)
+  const handleNext = statusValue => {
+    UpdateDeliveryStatus(
+      parseInt(path),
+      { status: statusValue },
+      res => {
+        if (activeStep < 1) {
+          setActiveStep(prevActiveStep => prevActiveStep + 1)
+          debugger
+        }
+        debugger
+      },
+      err => {
+        console.log('Printing Error', err)
+      },
+    )
   }
 
   const handleBack = () => {
@@ -111,29 +123,28 @@ const OrderDetail = () => {
   const handleClosePaymentDialog = () => {
     setOpenPaymentDetailDialog(false)
   }
-
   const handleOpenDispatchDialog = () => {
     setOpenDispatchOrder(true)
   }
   const handleCloseDispatchDialog = () => {
     setOpenDispatchOrder(false)
   }
-  const handleDispatch = () => {
-    DispatchOrder(
-      parseInt(path),
-      {
-        status: 'DISPATCH',
-      },
-      res => {},
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
-    )
-  }
+  // const handleDispatch = () => {
+  //   DispatchOrder(
+  //     parseInt(path),
+  //     {
+  //       status: 'DISPATCH',
+  //     },
+  //     res => { },
+  //     err => {
+  //       setErrorSnackbar({
+  //         ...errorSnackbar,
+  //         status: true,
+  //         message: err?.response?.data?.message,
+  //       })
+  //     },
+  //   )
+  // }
   const handleUpdatePaymentStatus = paymentDetail => {
     UpdatePaymentStatus(
       {
@@ -327,13 +338,13 @@ const OrderDetail = () => {
                         <div>
                           <Button
                             variant="contained"
-                            onClick={handleNext}
+                            onClick={() => handleNext(step.label)}
                             sx={{ mt: 1, mr: 1 }}
                           >
                             {index === steps.length - 1 ? 'Finish' : 'Continue'}
                           </Button>
                           <Button
-                            disabled={index === 0}
+                            disabled={true}
                             onClick={handleBack}
                             sx={{ mt: 1, mr: 1 }}
                           >
@@ -382,7 +393,7 @@ const OrderDetail = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {orderDetail?.order_items &&
+                  {orderDetail?.order_items ? (
                     orderDetail?.order_items.map(data => {
                       console.log({ DATA: data })
                       return (
@@ -411,7 +422,10 @@ const OrderDetail = () => {
                           </TableCell>
                         </TableRow>
                       )
-                    })}
+                    })
+                  ) : (
+                    <NoResultFound />
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -425,11 +439,11 @@ const OrderDetail = () => {
         paymentMethodList={paymentMethodList}
         handleUpdatePaymentStatus={handleUpdatePaymentStatus}
       />
-      <DispatchOrderDialog
+      {/* <DispatchOrderDialog
         openDispatchOrder={openDispatchOrder}
         handleCloseDispatchDialog={handleCloseDispatchDialog}
         handleDispatch={handleDispatch}
-      />
+      /> */}
     </>
   )
 }

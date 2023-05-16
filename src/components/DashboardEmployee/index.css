@@ -217,7 +217,7 @@
   /* transform: skew(0deg, -13deg); */
   height: 110px;
   /* margin: -5px 0px 0px -40px; */
-  object-fit: contain;
+  object-fit: cover;
 }
 
 /* .inner-skew {
