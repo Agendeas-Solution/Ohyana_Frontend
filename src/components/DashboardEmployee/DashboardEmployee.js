@@ -94,24 +94,28 @@ const DashboardEmployee = () => {
           </Box>
           <Box>
             <Button
+              disabled={salesInquiry?.userAttendance?.checkIn ? true : null}
               className="custom_text_button"
               onClick={() => handleCheckIn('checkIn')}
             >
               Check In
             </Button>
             <Button
+              disabled={salesInquiry?.userAttendance?.breakIn ? true : null}
               onClick={() => handleCheckIn('breakIn')}
               className="custom_text_button"
             >
               Break In
             </Button>
             <Button
+              disabled={salesInquiry?.userAttendance?.breakOut ? true : null}
               onClick={() => handleCheckIn('breakOut')}
               className="custom_text_button"
             >
               Break Out
             </Button>
             <Button
+              disabled={salesInquiry?.userAttendance?.checkOut ? true : null}
               onClick={() => handleCheckIn('checkOut')}
               className="custom_text_button"
             >
@@ -372,7 +376,6 @@ const DashboardEmployee = () => {
                     )
                   })}
               </FormGroup> */}
-
               <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
                 <Table sx={{ minWidth: 250 }}>
                   <TableHead className="team_overview_table_heading">
@@ -388,7 +391,6 @@ const DashboardEmployee = () => {
                       <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
-
                   <TableBody>
                     {salesInquiry?.tasks &&
                       salesInquiry?.tasks?.map(data => {

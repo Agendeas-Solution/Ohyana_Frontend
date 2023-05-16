@@ -1,7 +1,7 @@
 export const ORDER = {
   DELIVERYSTATUS: [
-    { type: 'Pending', value: 'PENDING' },
-    { type: 'Dispatch', value: 'DISPATCH' },
+    { type: 'PENDING', id: 0 },
+    { type: 'DISPATCH', id: 1 },
   ],
   PAYMENTSTATUS: [
     { type: 'Pending', value: 'PENDING' },

@@ -21,6 +21,7 @@ import {
   PlaceOrders,
 } from '../../services/apiservices/orderDetail'
 import DeleteProductMyCart from '../ClientProfile/DeleteProductMyCart'
+import NoResultFound from '../ErrorComponent/NoResultFound'
 
 const MyCart = () => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
@@ -59,7 +60,6 @@ const MyCart = () => {
     data['orders'] = orderList
       .map(value => {
         if (value.quantity > 0) {
-          debugger
           return {
             productId: value.product.id,
             quantity: value.quantity,
@@ -186,8 +186,9 @@ const MyCart = () => {
                   >
                     Place Order
                   </Button>
-                  <DeleteIcon className="mx-4" />
-                </Box> */}
+
+                  <DeleteIcon className="mx-4 common_icon" />
+                </Box>
               </Box>
             </Box>
 
@@ -201,21 +202,21 @@ const MyCart = () => {
           </Box>
 
           <Box className="my_cart_details_section">
-            <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
-              <Table>
-                <TableHead className="team_overview_table_heading">
-                  <TableRow sx={{ marginTop: '5px' }}>
-                    <TableCell></TableCell>
-                    <TableCell align="right">Name</TableCell>
-                    <TableCell align="right">Price</TableCell>
-                    <TableCell align="right">Quantity</TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
-                </TableHead>
+            {orderList.length > 0 ? (
+              <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+                <Table>
+                  <TableHead className="team_overview_table_heading">
+                    <TableRow sx={{ marginTop: '5px' }}>
+                      <TableCell></TableCell>
+                      <TableCell align="right">Name</TableCell>
+                      <TableCell align="right">Price</TableCell>
+                      <TableCell align="right">Quantity</TableCell>
+                      <TableCell></TableCell>
+                    </TableRow>
+                  </TableHead>
 
-                <TableBody>
-                  {orderList.length > 0 &&
-                    orderList.map(data => {
+                  <TableBody>
+                    {orderList.map(data => {
                       console.log({ Data: data })
                       return (
                         <TableRow
@@ -277,13 +278,20 @@ const MyCart = () => {
                             >
                               Remove
                             </Button>
+
                           </TableCell>
                         </TableRow>
                       )
                     })}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            ) : (
+              <Box sx={{ width: '100%' }}>
+                {' '}
+                <NoResultFound />
+              </Box>
+            )}
           </Box>
         </Box>
         <Box className="my_cart_right_side_header">
