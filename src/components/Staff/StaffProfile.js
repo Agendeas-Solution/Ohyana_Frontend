@@ -106,15 +106,13 @@ const StaffProfile = () => {
             {adminProfileDetail?.imgUrl ? (
               <Box className="user_profile_icon">
                 <img
-                  style={{
-                    // margin: '8px auto',
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: '50%',
-                    // border: '1px solid red',
-                    textAlign: 'center',
-                  }}
-                  // className="user_profile_icon"
+                  className="profile_img staff_profile_img"
+                  // style={{
+                  //   width: '100%',
+                  //   height: '100%',
+                  //   borderRadius: '50%',
+                  //   textAlign: 'center',
+                  // }}
                   src={adminProfileDetail.imgUrl}
                 />
               </Box>

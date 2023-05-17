@@ -12,12 +12,20 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  FormGroup,
   Modal,
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
 } from '@mui/material'
+import FormGroup from '@mui/material/FormGroup'
+
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteRounded'
 import './index.css'
@@ -573,7 +581,7 @@ const Department = () => {
             </Accordion>
           </Box>
 
-          <Box className="accessMenu_section">
+          {/* <Box className="accessMenu_section">
             <Box
               sx={{
                 display: 'flex',
@@ -1127,6 +1135,236 @@ const Department = () => {
                 </Box>
               )}
             </Box>
+          </Box> */}
+
+          <Box className="permission_table">
+            <Box className="team_overview_heading">
+              <Typography
+                sx={{ marginBottom: '8px' }}
+                className="team_overview_inner_heading"
+                variant="span"
+              >
+                Access Control
+              </Typography>
+            </Box>
+
+            <TableContainer component={Paper} className="set_box_shadow">
+              <Table sx={{ minWidth: 650, border: '1px solid' }}>
+                <TableHead className="team_overview_table_heading">
+                  <TableRow>
+                    <TableCell
+                      sx={{
+                        width: '5%',
+                        border: '1px solid',
+                        borderRadius: 'none',
+                        boxShadow: 'none',
+                      }}
+                    >
+                      Sr. No.
+                    </TableCell>
+                    <TableCell sx={{ width: '20%', border: '1px solid' }}>
+                      Type
+                    </TableCell>
+                    <TableCell sx={{ width: '75%', border: '1px solid' }}>
+                      Permission
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {/* {inquiryData?.teamWithPoints &&
+                    inquiryData?.teamWithPoints.map(data => {
+                      return ( */}
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="permission_table_cell">1</TableCell>
+                    <TableCell className="permission_table_cell">
+                      dadsfa
+                    </TableCell>
+                    <TableCell className="permission_table_cell">
+                      <FormGroup
+                        // sx={{
+                        //   display: 'flex',
+                        //   justifyContent: 'space-between',
+                        //   flexDirection: 'row',
+                        //   width: '100%',
+                        // }}
+                        className="table_permission_section"
+                        aria-label="position"
+                        row
+                      >
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="top"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 1"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 2"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 3"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 4"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 5"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 6"
+                          labelPlacement="end"
+                        />
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="permission_table_cell">2</TableCell>
+                    <TableCell className="permission_table_cell">
+                      dadsfa
+                    </TableCell>
+                    <TableCell className="permission_table_cell">
+                      <FormGroup
+                        className="table_permission_section"
+                        aria-label="position"
+                        row
+                      >
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="top"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 1"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 2"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 3"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 4"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 5"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 6"
+                          labelPlacement="end"
+                        />
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="permission_table_cell">3</TableCell>
+                    <TableCell className="permission_table_cell">
+                      dadsfa
+                    </TableCell>
+                    <TableCell className="permission_table_cell">
+                      <FormGroup
+                        className="table_permission_section"
+                        aria-label="position"
+                        row
+                      >
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="top"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 1"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 2"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 3"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 4"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 5"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          sx={{ width: '25%' }}
+                          value="start"
+                          control={<Checkbox className="expanse_checkbox" />}
+                          label="Permission 6"
+                          labelPlacement="end"
+                        />
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
+                  {/* )
+                    })} */}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Box>
         </Box>
 

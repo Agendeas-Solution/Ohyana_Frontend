@@ -135,8 +135,7 @@ const Dashboard = () => {
                         </Typography>
                       </Box>
                       <Typography className="small_sub_heading" variant="span">
-                        Last Month :{' '}
-                        {inquiryData?.inquiry?.lstMonIndiaMart || 0}
+                        Last Month :{inquiryData?.inquiry?.lstMonIndiaMart || 0}
                       </Typography>
                       <Divider className="underline" />
                     </Box>
@@ -355,7 +354,6 @@ const Dashboard = () => {
                   <TableCell>Performance</TableCell>
                   <TableCell>Location</TableCell>
                   <TableCell></TableCell>
-                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -389,7 +387,9 @@ const Dashboard = () => {
                           {TEAM.JOBTYPE.find(e => e.id == data?.jobType)
                             ?.type || '-'}
                         </TableCell>
-                        <TableCell>
+                        <TableCell
+                          sx={{ display: 'flex', justifyContent: 'end' }}
+                        >
                           <Button
                             className="common_button"
                             onClick={() =>
@@ -448,7 +448,9 @@ const Dashboard = () => {
                       <TableCell>{row?.orderTrackingStatus || '-'}</TableCell>
                       <TableCell>{row?.paymentMethod || '-'}</TableCell>
                       <TableCell>{row?.paymentStatus || '-'}</TableCell>
-                      <TableCell>
+                      <TableCell
+                        sx={{ display: 'flex', justifyContent: 'end' }}
+                      >
                         <Button
                           className="common_button"
                           onClick={() => navigate(`/orderDetail/${row?.id}`)}

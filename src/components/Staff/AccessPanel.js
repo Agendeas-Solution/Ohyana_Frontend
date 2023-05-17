@@ -127,7 +127,7 @@ const AccessPanel = () => {
     )
   }
   return (
-    <div>
+    <Box>
       <Box className="row accessMenu_section">
         <Box className="col-md-12">
           <Typography variant="span">
@@ -569,7 +569,7 @@ const AccessPanel = () => {
       <Button variant="contained" onClick={handleUserPermissions}>
         Save
       </Button>
-    </div>
+    </Box>
   )
 }
 
