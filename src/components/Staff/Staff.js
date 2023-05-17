@@ -426,7 +426,7 @@ const Staff = () => {
                   style={{
                     margin: '8px auto',
                   }}
-                  className="user_profile_icon"
+                  className="user_profile_icon profile_img"
                   src={singleStaffDetails?.memberDetail?.imgUrl}
                 />
               ) : (

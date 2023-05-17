@@ -482,3 +482,10 @@
   justify-content: end;
   margin-top: 14px;
 }
+
+.staff_profile_img {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  text-align: center !important;
+}
