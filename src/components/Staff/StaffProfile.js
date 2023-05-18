@@ -18,6 +18,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import moment from 'moment'
 import Filter from '../../assets/img/Filter.svg'
 import MarkersMap from '../Client/MarkersMap'
+import PermissionsGate from '../Settings/PermissionGate'
+import { PERMISSION } from '../../constants'
 
 const PJPDetail = React.lazy(() => import('./PJPDetail'))
 const StaffTarget = React.lazy(() => import('./StaffTarget'))
@@ -134,7 +136,9 @@ const StaffProfile = () => {
               <PlaceIcon />
               View On Map
             </Button>
-            {permissions?.editStaff && (
+
+            {/* permission_control */}
+            <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_STAFF]}>
               <Button variant="contained" className="profile_header_button">
                 <EditRoundedIcon
                   onClick={() => {
@@ -142,7 +146,7 @@ const StaffProfile = () => {
                   }}
                 />
               </Button>
-            )}
+            </PermissionsGate>
           </Box>
         </Box>
 
