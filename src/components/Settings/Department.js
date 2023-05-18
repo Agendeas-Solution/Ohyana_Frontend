@@ -91,31 +91,43 @@ const Department = () => {
   const [clientType, setClientType] = useState(CLIENT.STAGE)
 
   const [accessControl, setAccessControl] = useState({
-    clientControl: false,
-    client: {
-      viewClient: false,
-      editClient: false,
-      deleteClient: false,
-      accessClient: false,
-      clientStage: null,
-    },
-    staffControl: false,
-    staff: {
-      viewStaff: false,
-      editStaff: false,
-      deleteStaff: false,
-      accessStaff: false,
-    },
-    settingControl: false,
-    setting: {
-      viewRole: false,
-      editRole: false,
-      deleteRole: false,
-      viewProduct: false,
-      editProduct: false,
-      accessSetting: false,
-      deleteProduct: false,
-    },
+    EditClient: false,
+    DeleteClient: false,
+    ViewClient: false,
+    ViewStaff: false,
+    EditStaff: false,
+    DeleteStaff: false,
+    ViewRole: false,
+    EditRole: false,
+    DeleteRole: false,
+    ViewProduct: false,
+    EditProduct: false,
+    DeleteProduct: false,
+    AccessClientSettings: false,
+    AccessStaffSettings: false,
+    AccessSetting: false,
+    EditCompanyProfile: false,
+    EditLeaveDetail: false,
+    DeleteLeave: false,
+    EditHolidayDetail: false,
+    DeleteHoliday: false,
+    ViewExpense: false,
+    EditExpense: false,
+    DeleteExpense: false,
+    AccessIntegration: false,
+    ViewReport: false,
+    ViewOrders: false,
+    UpdateOrderDeliveryStatus: false,
+    UpdateOrderPaymentStatus: false,
+    UpdateExpenseApprovalStatus: false,
+    UpdateExpensePaymentStatus: false,
+    ViewBusinessCard: false,
+    DeleteBusinessCard: false,
+    ViewPJP: false,
+    DeletePJP: false,
+    EditPJP: false,
+    PlaceOrder: false,
+    AddBusinessCard: false,
   })
   const [expenseManagement, setExpenseManagement] = useState({
     travelChecked: false,
@@ -157,7 +169,6 @@ const Department = () => {
             const value = item[key]
             obj[key] = value
           })
-          debugger
           setAccessControl(obj)
           // setAccessControl({
           //   ...accessControl,
@@ -219,31 +230,12 @@ const Department = () => {
       )
   }, [jobRoleList.id])
   const handleUserPermissions = () => {
-    let userPermission = {
-      roleId: jobRoleList?.id,
-      clientMenu: accessControl?.clientControl,
-      editClient: accessControl?.client?.editClient,
-      viewClient: accessControl?.client?.viewClient,
-      deleteClient: accessControl?.client?.deleteClient,
-      staffMenu: accessControl?.staffControl,
-      viewStaff: accessControl?.staff?.viewStaff,
-      editStaff: accessControl?.staff?.editStaff,
-      viewStaff: accessControl?.staff?.viewStaff,
-      deleteStaff: accessControl?.staff?.deleteStaff,
-      settingMenu: accessControl?.settingControl,
-      viewRole: accessControl?.setting?.viewRole,
-      editRole: accessControl?.setting?.editRole,
-      deleteRole: accessControl?.setting?.deleteRole,
-      viewProduct: accessControl?.setting?.viewProduct,
-      editProduct: accessControl?.setting?.editProduct,
-      deleteProduct: accessControl?.setting?.deleteProduct,
-      accessClient: accessControl?.client.accessClient,
-      accessStaff: accessControl?.staff.accessStaff,
-      accessSetting: accessControl?.setting.accessSetting,
-      clientStageAccess: accessControl?.client?.clientStage,
-    }
+    let givenPermissions = Object.keys(accessControl).filter(
+      key => accessControl[key] === true,
+    )
+
     UpdatePermission(
-      userPermission,
+      { roleId: jobRoleList?.id, permissions: givenPermissions },
       res => {
         setSuccessSnackbar({
           ...successSnackbar,
@@ -1159,22 +1151,18 @@ const Department = () => {
               >
                 Access Control
               </Typography>
+              <Button
+                className="primary_color_button"
+                variant="contained"
+                onClick={handleUserPermissions}
+              >
+                Save
+              </Button>
             </Box>
-
             <TableContainer component={Paper} className="set_box_shadow">
               <Table sx={{ minWidth: 650, border: '1px solid' }}>
                 <TableHead className="team_overview_table_heading">
                   <TableRow>
-                    <TableCell
-                      sx={{
-                        width: '5%',
-                        border: '1px solid',
-                        borderRadius: 'none',
-                        boxShadow: 'none',
-                      }}
-                    >
-                      Sr. No.
-                    </TableCell>
                     <TableCell sx={{ width: '20%', border: '1px solid' }}>
                       Type
                     </TableCell>
@@ -1187,69 +1175,81 @@ const Department = () => {
                   {/* {inquiryData?.teamWithPoints &&
                     inquiryData?.teamWithPoints.map(data => {
                       return ( */}
+
                   <TableRow
                     sx={{
                       '&:last-child td, &:last-child th': { border: 0 },
                     }}
                   >
-                    <TableCell className="permission_table_cell">1</TableCell>
                     <TableCell className="permission_table_cell">
-                      dadsfa
+                      Staff
                     </TableCell>
                     <TableCell className="permission_table_cell">
                       <FormGroup
-                        // sx={{
-                        //   display: 'flex',
-                        //   justifyContent: 'space-between',
-                        //   flexDirection: 'row',
-                        //   width: '100%',
-                        // }}
                         className="table_permission_section"
                         aria-label="position"
                         row
                       >
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="top"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 1"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 2"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 3"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 4"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 5"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 6"
-                          labelPlacement="end"
-                        />
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.ViewClient}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                ViewClient: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">ViewClient</Typography>
+                        </Box>
+
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.EditClient}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                EditClient: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">EditClient</Typography>
+                        </Box>
+
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.DeleteClient}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                DeleteClient: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">DeleteClient</Typography>
+                        </Box>
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.AccessClientSettings}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                AccessClientSettings: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">
+                            AccessClientSettings
+                          </Typography>
+                        </Box>
                       </FormGroup>
                     </TableCell>
                   </TableRow>
@@ -1258,9 +1258,8 @@ const Department = () => {
                       '&:last-child td, &:last-child th': { border: 0 },
                     }}
                   >
-                    <TableCell className="permission_table_cell">2</TableCell>
                     <TableCell className="permission_table_cell">
-                      dadsfa
+                      Staff
                     </TableCell>
                     <TableCell className="permission_table_cell">
                       <FormGroup
@@ -1268,48 +1267,589 @@ const Department = () => {
                         aria-label="position"
                         row
                       >
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="top"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 1"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 2"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 3"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 4"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 5"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 6"
-                          labelPlacement="end"
-                        />
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.ViewStaff}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                ViewStaff: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">ViewStaff</Typography>
+                        </Box>
+
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.EditStaff}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                EditStaff: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">EditStaff</Typography>
+                        </Box>
+
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.DeleteStaff}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                DeleteStaff: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">DeleteStaff</Typography>
+                        </Box>
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.AccessStaffSettings}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                AccessStaffSettings: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">
+                            AccessStaffSettings
+                          </Typography>
+                        </Box>
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="permission_table_cell">
+                      Role
+                    </TableCell>
+                    <TableCell className="permission_table_cell">
+                      <FormGroup
+                        className="table_permission_section"
+                        aria-label="position"
+                        row
+                      >
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.ViewRole}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                ViewRole: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">ViewRole</Typography>
+                        </Box>
+
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.EditRole}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                EditRole: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">EditRole</Typography>
+                        </Box>
+
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.DeleteRole}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                DeleteRole: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">DeleteRole</Typography>
+                        </Box>
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="permission_table_cell">
+                      Product
+                    </TableCell>
+                    <TableCell className="permission_table_cell">
+                      <FormGroup
+                        className="table_permission_section"
+                        aria-label="position"
+                        row
+                      >
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.ViewProduct}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                ViewProduct: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">ViewProduct</Typography>
+                        </Box>
+
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.EditProduct}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                EditProduct: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">EditProduct</Typography>
+                        </Box>
+
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.DeleteProduct}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                DeleteProduct: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">DeleteProduct</Typography>
+                        </Box>
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="permission_table_cell">
+                      Setting
+                    </TableCell>
+                    <TableCell className="permission_table_cell">
+                      <FormGroup
+                        className="table_permission_section"
+                        aria-label="position"
+                        row
+                      >
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.AccessSetting}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                AccessSetting: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">AccessSetting</Typography>
+                        </Box>
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="permission_table_cell">
+                      Company Profile
+                    </TableCell>
+                    <TableCell className="permission_table_cell">
+                      <FormGroup
+                        className="table_permission_section"
+                        aria-label="position"
+                        row
+                      >
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.EditCompanyProfile}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                EditCompanyProfile: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">
+                            EditCompanyProfile
+                          </Typography>
+                        </Box>
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="permission_table_cell">
+                      Leave
+                    </TableCell>
+                    <TableCell className="permission_table_cell">
+                      <FormGroup
+                        className="table_permission_section"
+                        aria-label="position"
+                        row
+                      >
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.EditLeaveDetail}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                EditLeaveDetail: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">
+                            EditLeaveDetail
+                          </Typography>
+                        </Box>
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.DeleteLeave}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                DeleteLeave: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">DeleteLeave</Typography>
+                        </Box>
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="permission_table_cell">
+                      Holiday
+                    </TableCell>
+                    <TableCell className="permission_table_cell">
+                      <FormGroup
+                        className="table_permission_section"
+                        aria-label="position"
+                        row
+                      >
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.EditHolidayDetail}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                EditHolidayDetail: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">
+                            EditHolidayDetail
+                          </Typography>
+                        </Box>
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.DeleteHoliday}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                DeleteHoliday: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">DeleteHoliday</Typography>
+                        </Box>
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="permission_table_cell">
+                      Expense
+                    </TableCell>
+                    <TableCell className="permission_table_cell">
+                      <FormGroup
+                        className="table_permission_section"
+                        aria-label="position"
+                        row
+                      >
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.ViewExpense}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                ViewExpense: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">ViewExpense</Typography>
+                        </Box>
+
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.UpdateExpenseApprovalStatus}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                UpdateExpenseApprovalStatus: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">
+                            UpdateExpenseApprovalStatus
+                          </Typography>
+                        </Box>
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.UpdateExpensePaymentStatus}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                UpdateExpensePaymentStatus: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">
+                            UpdateExpensePaymentStatus
+                          </Typography>
+                        </Box>
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.EditExpense}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                EditExpense: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">EditExpense</Typography>
+                        </Box>
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.DeleteExpense}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                DeleteExpense: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">DeleteExpense</Typography>
+                        </Box>
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="permission_table_cell">
+                      Integration
+                    </TableCell>
+                    <TableCell className="permission_table_cell">
+                      <FormGroup
+                        className="table_permission_section"
+                        aria-label="position"
+                        row
+                      >
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.AccessIntegration}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                AccessIntegration: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">
+                            AccessIntegration
+                          </Typography>
+                        </Box>
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="permission_table_cell">
+                      Report
+                    </TableCell>
+                    <TableCell className="permission_table_cell">
+                      <FormGroup
+                        className="table_permission_section"
+                        aria-label="position"
+                        row
+                      >
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.ViewReport}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                ViewReport: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">ViewReport</Typography>
+                        </Box>
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="permission_table_cell">
+                      Orders
+                    </TableCell>
+                    <TableCell className="permission_table_cell">
+                      <FormGroup
+                        className="table_permission_section"
+                        aria-label="position"
+                        row
+                      >
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.ViewOrders}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                ViewOrders: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">ViewOrders</Typography>
+                        </Box>
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.UpdateOrderDeliveryStatus}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                UpdateOrderDeliveryStatus: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">
+                            UpdateOrderDeliveryStatus
+                          </Typography>
+                        </Box>
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.UpdateOrderPaymentStatus}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                UpdateOrderPaymentStatus: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">
+                            UpdateOrderPaymentStatus
+                          </Typography>
+                        </Box>
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.PlaceOrder}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                PlaceOrder: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">PlaceOrder</Typography>
+                        </Box>
                       </FormGroup>
                     </TableCell>
                   </TableRow>
@@ -1318,9 +1858,8 @@ const Department = () => {
                       '&:last-child td, &:last-child th': { border: 0 },
                     }}
                   >
-                    <TableCell className="permission_table_cell">3</TableCell>
                     <TableCell className="permission_table_cell">
-                      dadsfa
+                      Business Card
                     </TableCell>
                     <TableCell className="permission_table_cell">
                       <FormGroup
@@ -1328,53 +1867,115 @@ const Department = () => {
                         aria-label="position"
                         row
                       >
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="top"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 1"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 2"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 3"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 4"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 5"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          sx={{ width: '25%' }}
-                          value="start"
-                          control={<Checkbox className="expanse_checkbox" />}
-                          label="Permission 6"
-                          labelPlacement="end"
-                        />
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.ViewBusinessCard}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                ViewBusinessCard: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">
+                            ViewBusinessCard
+                          </Typography>
+                        </Box>
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.DeleteBusinessCard}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                DeleteBusinessCard: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">
+                            DeleteBusinessCard
+                          </Typography>
+                        </Box>
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.AddBusinessCard}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                AddBusinessCard: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">
+                            AddBusinessCard
+                          </Typography>
+                        </Box>
                       </FormGroup>
                     </TableCell>
                   </TableRow>
-                  {/* )
-                    })} */}
+
+                  <TableRow
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell className="permission_table_cell">PJP</TableCell>
+                    <TableCell className="permission_table_cell">
+                      <FormGroup
+                        className="table_permission_section"
+                        aria-label="position"
+                        row
+                      >
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.ViewPJP}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                ViewPJP: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">ViewPJP</Typography>
+                        </Box>
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.DeletePJP}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                DeletePJP: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">DeletePJP</Typography>
+                        </Box>
+                        <Box className="detail_access_control_box">
+                          <Checkbox
+                            className="access_checkbox"
+                            disableRipple
+                            checked={accessControl?.EditPJP}
+                            onChange={e => {
+                              setAccessControl({
+                                ...accessControl,
+                                EditPJP: e.target.checked,
+                              })
+                            }}
+                          />
+                          <Typography variant="span">EditPJP</Typography>
+                        </Box>
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
                 </TableBody>
               </Table>
             </TableContainer>

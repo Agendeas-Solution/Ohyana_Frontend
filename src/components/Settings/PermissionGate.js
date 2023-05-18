@@ -10,7 +10,8 @@ const hasPermission = ({ permissions, scopes }) => {
 }
 
 export default function PermissionsGate({ children, scopes = [] }) {
-  const permissions = PERMISSION.PERMISSIONTYPE.map(data => data.string)
+  var permissions = JSON.parse(localStorage.getItem('permissions'))
+
   const permissionGranted = hasPermission({ permissions, scopes })
 
   if (!permissionGranted) return <></>

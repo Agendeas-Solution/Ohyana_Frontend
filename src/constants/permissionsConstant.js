@@ -71,6 +71,7 @@ export const PERMISSION = {
     { status: false, value: 'EditPJP' },
     { status: false, value: 'PlaceOrder' },
     { status: false, value: 'AddBusinessCard' },
+    { status: false, value: 'AddBusinessCards' },
   ],
   PERMISSIONS: {
     EDIT_CLIENT: 'EditClient',
