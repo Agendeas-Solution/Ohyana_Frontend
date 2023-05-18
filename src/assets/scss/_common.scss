@@ -20,7 +20,7 @@ html {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #2E3591;
+  background: #2e3591;
   border-radius: 3px;
 }
 
@@ -30,7 +30,7 @@ html {
   opacity: 0.6;
 }
 
-$colorPrimary: #2E3591;
+$colorPrimary: #2e3591;
 
 .selected-link {
   // background-color: #f1f2f6;
@@ -109,7 +109,7 @@ textarea:focus {
   width: 90px !important;
   color: #f1f2f6 !important;
   border-radius: 50%;
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
 }
 
 .profile_img {
@@ -174,7 +174,6 @@ textarea:focus {
   // margin: 0px 0px;
   overflow-y: auto;
   overflow-x: hidden;
-
 }
 
 .team_profile_section {
@@ -635,8 +634,9 @@ button {
 
 .detail_access_control_box {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
+  width: 33%;
 }
 
 .access_control {
@@ -927,7 +927,6 @@ button {
 .pagination_style {
   margin: 20px auto;
   float: right;
-
 }
 
 .customers_list_page_buttons {
