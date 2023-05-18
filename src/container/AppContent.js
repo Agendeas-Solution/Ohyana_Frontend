@@ -75,7 +75,7 @@ const AppContent = () => {
               console.log({ Data: data })
             })} */}
 
-            {/* <Route path="/" element={<UserProfile />}></Route>
+            <Route path="/" element={<UserProfile />}></Route>
             <Route path="/profile" element={<UserProfile />}></Route>
             <Route path="/editprofile" element={<EditProfile />}></Route>
             <Route path="/dashboard" element={<Dashboard />}></Route>
@@ -141,8 +141,7 @@ const AppContent = () => {
             <Route path="/productlist" element={<ProductList />}></Route>
           </Route>
           <Route path="/addproduct" element={<AddProduct />}></Route>
-          <Route path="/editproduct/:id" element={<AddProduct />}></Route> */}
-          </Route>
+          <Route path="/editproduct/:id" element={<AddProduct />}></Route>
         </Routes>
       </Suspense>
     </>
