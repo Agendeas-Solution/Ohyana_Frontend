@@ -47,7 +47,9 @@ import ClientIcon from '../../assets/img/Clients.svg'
 import SettingIcon from '../../assets/img/setting.svg'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { CLIENT } from '../../constants/clientConstant'
-
+import { PERMISSION } from '../../constants'
+import PermissionsGate from './PermissionGate'
+import { SCOPES } from './permission-maps'
 const DeleteJobRoleDialog = React.lazy(() => import('./DeleteJobRoleDialog'))
 const DeleteDepartmentDialog = React.lazy(() =>
   import('./DeleteDepartmentDialog'),
@@ -131,6 +133,8 @@ const Department = () => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state
   const [expensePolicy, setExpensePolicy] = useState()
   const [expensePermissions, setExpensePermissions] = useState()
+  const [permission, setPermission] = useState(PERMISSION.PERMISSIONTYPE)
+  useEffect(() => {}, [])
   let path = window.location.pathname
   path = path.split('/').pop()
   useEffect(() => {
@@ -139,37 +143,53 @@ const Department = () => {
         parseInt(jobRoleList.id),
         res => {
           let staffPermission = res?.data?.permissions
-          setAccessControl({
-            ...accessControl,
-            clientControl: staffPermission?.clientMenu,
-            staffControl: staffPermission?.staffMenu,
-            settingControl: staffPermission?.settingMenu,
-            client: {
-              ...accessControl.client,
-              editClient: staffPermission?.editClient,
-              viewClient: staffPermission?.viewClient,
-              deleteClient: staffPermission?.deleteClient,
-              accessClient: staffPermission?.accessClient,
-              clientStage: staffPermission?.clientStageAccess,
-            },
-            staff: {
-              ...accessControl.staff,
-              viewStaff: staffPermission.viewStaff,
-              editStaff: staffPermission?.editStaff,
-              deleteStaff: staffPermission?.deleteStaff,
-              accessStaff: staffPermission?.accessStaff,
-            },
-            setting: {
-              ...accessControl.setting,
-              viewRole: staffPermission?.viewRole,
-              editRole: staffPermission?.editRole,
-              deleteRole: staffPermission?.deleteRole,
-              viewProduct: staffPermission?.viewProduct,
-              editProduct: staffPermission?.editProduct,
-              deleteProduct: staffPermission?.deleteProduct,
-              accessSetting: staffPermission?.accessSetting,
-            },
+          let userPermissions = PERMISSION.PERMISSIONTYPE.map(data => {
+            let x = staffPermission.find(item => data.value === item)
+            if (x) {
+              return { [data.value]: true }
+            } else {
+              return { [data.value]: false }
+            }
           })
+          const obj = {}
+          userPermissions.forEach(item => {
+            const key = Object.keys(item)[0]
+            const value = item[key]
+            obj[key] = value
+          })
+          debugger
+          setAccessControl(obj)
+          // setAccessControl({
+          //   ...accessControl,
+          //   clientControl: staffPermission?.clientMenu,
+          //   staffControl: staffPermission?.staffMenu,
+          //   settingControl: staffPermission?.settingMenu,
+          //   client: {
+          //     ...accessControl.client,
+          //     editClient: staffPermission?.editClient,
+          //     viewClient: staffPermission?.viewClient,
+          //     deleteClient: staffPermission?.deleteClient,
+          //     accessClient: staffPermission?.accessClient,
+          //     clientStage: staffPermission?.clientStageAccess,
+          //   },
+          //   staff: {
+          //     ...accessControl.staff,
+          //     viewStaff: staffPermission.viewStaff,
+          //     editStaff: staffPermission?.editStaff,
+          //     deleteStaff: staffPermission?.deleteStaff,
+          //     accessStaff: staffPermission?.accessStaff,
+          //   },
+          //   setting: {
+          //     ...accessControl.setting,
+          //     viewRole: staffPermission?.viewRole,
+          //     editRole: staffPermission?.editRole,
+          //     deleteRole: staffPermission?.deleteRole,
+          //     viewProduct: staffPermission?.viewProduct,
+          //     editProduct: staffPermission?.editProduct,
+          //     deleteProduct: staffPermission?.deleteProduct,
+          //     accessSetting: staffPermission?.accessSetting,
+          //   },
+          // })
 
           // expensePermissions.foreach(e=>{
           //   const isIdExist = expensePolicies.find(el=> el.expenseId == e.id)
@@ -622,24 +642,17 @@ const Department = () => {
                     control={
                       <Checkbox
                         className="access_checkbox"
-                        checked={accessControl.clientControl}
+                        checked={accessControl?.AccessClientSettings}
                         onChange={e => {
                           if (e.target.checked === false) {
                             setAccessControl({
                               ...accessControl,
-                              client: {
-                                ...accessControl.client,
-                                editClient: false,
-                                viewClient: false,
-                                deleteClient: false,
-                                accessClient: false,
-                              },
-                              clientControl: e.target.checked,
+                              AccessClientSettings: e.target.checked,
                             })
                           } else {
                             setAccessControl({
                               ...accessControl,
-                              clientControl: e.target.checked,
+                              AccessClientSettings: e.target.checked,
                             })
                           }
                         }}
@@ -786,7 +799,7 @@ const Department = () => {
                 justifyContent: 'space-between',
               }}
             >
-              {accessControl.clientControl && permissions.accessClient && (
+              {permissions?.AccessClientSettings && (
                 <Box className="access_control_box">
                   <Typography className="heading_access_box" variant="span">
                     Clients Control
@@ -1367,7 +1380,10 @@ const Department = () => {
             </TableContainer>
           </Box>
         </Box>
-
+        <PermissionsGate scopes={['canEdit']}>
+          <h1>Private content</h1>
+          <p>Must be an editor to view</p>
+        </PermissionsGate>
         <EditJobRoleDialog
           editJobRoleDialogControl={editJobRoleDialogControl}
           handleClose={handleClose}
