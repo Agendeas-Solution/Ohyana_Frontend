@@ -34,6 +34,7 @@ import ClientIcon from '../../assets/img/Clients.svg'
 import SettingIcon from '../../assets/img/setting.svg'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
+import PermissionsGate from './PermissionGate'
 
 const JobRoleDialog = React.lazy(() => import('./JobRoleDialog'))
 const DeleteJobRoleDialog = React.lazy(() => import('./DeleteJobRoleDialog'))

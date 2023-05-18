@@ -214,53 +214,53 @@ const MyCart = () => {
                         <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
-
-                    <TableBody>
-                      {orderList.map(data => {
-                        console.log({ Data: data })
-                        return (
-                          <TableRow
-                            sx={{
-                              '&:last-child td, &:last-child th': {
-                                border: 0,
-                              },
-                            }}
-                          >
-                            <TableCell
-                              align="right"
-                              sx={{ width: '0%' }}
-                              // className="d-flex flex-row align-items-center"
+                    {orderList.length > 0 ? (
+                      <TableBody>
+                        {orderList.map(data => {
+                          console.log({ Data: data })
+                          return (
+                            <TableRow
+                              sx={{
+                                '&:last-child td, &:last-child th': {
+                                  border: 0,
+                                },
+                              }}
                             >
-                              <img
-                                src={data.product.imageUrl}
-                                className="my_cart_product_photo"
-                              />
-                              {/* <Typography>dfa</Typography> */}
-                            </TableCell>
+                              <TableCell
+                                align="right"
+                                sx={{ width: '0%' }}
+                                // className="d-flex flex-row align-items-center"
+                              >
+                                <img
+                                  src={data.product.imageUrl}
+                                  className="my_cart_product_photo"
+                                />
+                                {/* <Typography>dfa</Typography> */}
+                              </TableCell>
 
-                            <TableCell align="right">
-                              {data.product.name}
-                            </TableCell>
-                            <TableCell align="right">
-                              {data.product.price}
-                            </TableCell>
-                            <TableCell align="right">
-                              <TextField
-                                type="number"
-                                size="small"
-                                label="Quantity"
-                                variant="outlined"
-                                value={data.quantity}
-                                onChange={event =>
-                                  handleQuantityChange(event, data.product.id)
-                                }
-                                InputProps={{
-                                  inputProps: { min: 1, max: 100 },
-                                }}
-                              />
-                            </TableCell>
-                            <TableCell align="right">
-                              {/* <DeleteIcon
+                              <TableCell align="right">
+                                {data.product.name}
+                              </TableCell>
+                              <TableCell align="right">
+                                {data.product.price}
+                              </TableCell>
+                              <TableCell align="right">
+                                <TextField
+                                  type="number"
+                                  size="small"
+                                  label="Quantity"
+                                  variant="outlined"
+                                  value={data.quantity}
+                                  onChange={event =>
+                                    handleQuantityChange(event, data.product.id)
+                                  }
+                                  InputProps={{
+                                    inputProps: { min: 1, max: 100 },
+                                  }}
+                                />
+                              </TableCell>
+                              <TableCell align="right">
+                                {/* <DeleteIcon
                               onClick={() =>
                                 setDeleteProductCardDialog({
                                   ...deleteProductMyCardDialog,
@@ -270,23 +270,26 @@ const MyCart = () => {
                               }
                               className="mx-4"
                             /> */}
-                              <Button
-                                onClick={() =>
-                                  setDeleteProductCardDialog({
-                                    ...deleteProductMyCardDialog,
-                                    status: true,
-                                    id: data.id,
-                                  })
-                                }
-                                className="common_button"
-                              >
-                                Remove
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                        )
-                      })}
-                    </TableBody>
+                                <Button
+                                  onClick={() =>
+                                    setDeleteProductCardDialog({
+                                      ...deleteProductMyCardDialog,
+                                      status: true,
+                                      id: data.id,
+                                    })
+                                  }
+                                  className="common_button"
+                                >
+                                  Remove
+                                </Button>
+                              </TableCell>
+                            </TableRow>
+                          )
+                        })}
+                      </TableBody>
+                    ) : (
+                      <NoResultFound />
+                    )}
                   </Table>
                 </TableContainer>
                 {/* ) : (
