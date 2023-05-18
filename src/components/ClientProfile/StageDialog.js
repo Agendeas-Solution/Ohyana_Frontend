@@ -34,14 +34,18 @@ const StageDialog = ({ clientProfileDetail, handleClose, stageDialog }) => {
   }
   return (
     <>
-      <Dialog open={stageDialog} onClose={handleClose}>
-        <div className="px-3 pt-3 m-auto">
+      <Dialog
+        PaperProps={{ sx: { width: '30%' } }}
+        open={stageDialog}
+        onClose={handleClose}
+      >
+        <Box className="px-3 pt-3 m-auto">
           <h3>Set Position</h3>
-        </div>
+        </Box>
         <DialogContent>
           <Box>
-            <div className="row">
-              <div className="col-md-12">
+            <Box className="row">
+              <Box className="col-md-12">
                 <FormControl className="mx-2">
                   <RadioGroup
                     className="radio_button"
@@ -62,18 +66,33 @@ const StageDialog = ({ clientProfileDetail, handleClose, stageDialog }) => {
                     })}
                   </RadioGroup>
                 </FormControl>
-              </div>
-            </div>
+              </Box>
+            </Box>
           </Box>
         </DialogContent>
-        <DialogActions className="mt-2">
-          <Button variant="contained" onClick={handleChangeStage}>
-            Ok
-          </Button>
-          <Button variant="contained" onClick={handleClose}>
-            Cancel
+        {/* <DialogActions className="mt-2"> */}
+        {/* <Button
+            className="dialogue_button_positive"
+            variant="contained"
+            onClick={handleChangeStage}
+          >
+            Update
+          </Button> */}
+
+        <DialogActions sx={{ justifyContent: 'center' }}>
+          <Button
+            className="dialogue_bottom_button"
+            variant="contained"
+            onClick={handleChangeStage}
+          >
+            Update
           </Button>
         </DialogActions>
+
+        {/* <Button variant="contained" onClick={handleClose}>
+            Cancel
+          </Button> */}
+        {/* </DialogActions> */}
       </Dialog>
     </>
   )

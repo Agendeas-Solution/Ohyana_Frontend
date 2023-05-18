@@ -151,7 +151,9 @@ const ClientOrders = () => {
                 }
               />
             </FormControl>
+
             <Button
+              // sx={{ filter: 'blur(2px)' }}
               // onClick={handleClickOpen}
               onClick={() =>
                 handleClientOrdersClick(`/mycart/${clientId}`, 'Order Detail')

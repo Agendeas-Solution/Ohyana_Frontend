@@ -298,3 +298,22 @@ input[type='radio']:focus {
 .product_dialogue_field {
   justify-content: space-between !important;
 }
+
+.permission_table {
+  margin: 10px;
+  /* border-radius: 5px; */
+  padding: 5px;
+}
+
+.permission_table_cell {
+  border: 1px solid !important;
+  /* background-color: red; */
+  vertical-align: baseline !important;
+}
+
+.table_permission_section {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+}

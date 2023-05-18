@@ -298,15 +298,19 @@ const MyCart = () => {
                   </Box>
                 )} */}
               </Box>
-            </Box>
-            <Box className="my_cart_right_side_header">
-              <Button
-                onClick={handlePlaceOrder}
-                variant="span"
-                className="common_button"
+
+              <Box
+                sx={{ marginRight: '30px' }}
+                className="my_cart_right_side_header"
               >
-                Place Order
-              </Button>
+                <Button
+                  onClick={handlePlaceOrder}
+                  variant="span"
+                  className="common_button"
+                >
+                  Place Order
+                </Button>
+              </Box>
             </Box>
           </Box>
           <DeleteProductMyCart
