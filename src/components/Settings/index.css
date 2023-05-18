@@ -308,12 +308,11 @@ input[type='radio']:focus {
 .permission_table_cell {
   border: 1px solid !important;
   /* background-color: red; */
-  vertical-align: baseline !important;
+  /* vertical-align: baseline !important; */
 }
 
 .table_permission_section {
   display: flex;
-  justify-content: space-between;
   flex-direction: row;
   width: 100%;
 }

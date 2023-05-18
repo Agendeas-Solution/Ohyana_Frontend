@@ -17,6 +17,7 @@ export async function login(formData, onSuccess, onError) {
     let authToken = data?.data?.token
     setLoginToken(authToken)
     localStorage.setItem('permissions', JSON.stringify(data?.data?.permissions))
+    debugger
     localStorage.setItem('userImageUrl', data?.data?.userImageUrl)
     onSuccess && onSuccess(data)
   } catch (res_1) {

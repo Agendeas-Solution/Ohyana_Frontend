@@ -137,9 +137,9 @@ const AppContent = () => {
               path="/editcompanyprofile"
               element={<EditCompanyProfile />}
             ></Route>
-            {permissions?.settingMenu && (
-              <Route path="/settings" element={<Settings />}></Route>
-            )}
+            {/* {permissions?.settingMenu && ( */}
+            <Route path="/settings" element={<Settings />}></Route>
+            {/* )} */}
             {/* {permissions?.viewDepartment && (
               <Route
                 path="/departmentlist"
