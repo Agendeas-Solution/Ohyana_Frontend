@@ -11,6 +11,8 @@ import IntegrationsIcon from '../../assets/img/Integrations.svg'
 import { useNavigate } from 'react-router-dom'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import Poll from '../../assets/img/Poll.svg'
+import PermissionsGate from './PermissionGate'
+import { PERMISSION } from '../../constants'
 const Settings = () => {
   const { flagLoader, permissions } = useContext(AuthContext).state
   const navigate = useNavigate()
@@ -45,7 +47,8 @@ const Settings = () => {
           <Typography variant="span">Team Role</Typography>
         </Box>
 
-        {permissions?.viewProduct && (
+        {/* permission_control */}
+        <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_PRODUCT]}>
           <Box
             className="setting_cards_list"
             onClick={() => {
@@ -59,7 +62,7 @@ const Settings = () => {
             />
             <Typography variant="span">Product</Typography>
           </Box>
-        )}
+        </PermissionsGate>
 
         {/* <Box
           className="setting_cards_list"

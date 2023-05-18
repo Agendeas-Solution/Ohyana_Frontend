@@ -36,7 +36,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import FilterIcon from '../../assets/img/Filter.svg'
 import { styled, useTheme } from '@mui/material/styles'
-import { CLIENT } from '../../constants'
+import { CLIENT, PERMISSION } from '../../constants'
+
 import { TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import {
@@ -47,6 +48,7 @@ import {
 import { MapContainer } from 'react-leaflet/MapContainer'
 import { useMap } from 'react-leaflet/hooks'
 import MarkersMap from './MarkersMap'
+import PermissionsGate from '../Settings/PermissionGate'
 
 const drawerWidth = 350
 const Loader = React.lazy(() => import('../Loader/Loader'))
@@ -359,7 +361,8 @@ const Client = () => {
               }
             />
           </FormControl>
-          {permissions?.editClient && (
+          {/* permission_control */}
+          <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_CLIENT]}>
             <Button
               className="main_tab_button"
               onClick={() => {
@@ -368,7 +371,7 @@ const Client = () => {
             >
               + New Clients
             </Button>
-          )}
+          </PermissionsGate>
           <IconButton
             edge="end"
             onClick={handleDrawerOpen}

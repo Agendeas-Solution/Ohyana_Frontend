@@ -70,12 +70,9 @@ const AppContent = () => {
     <>
       <Suspense fallback={loading}>
         <Routes>
+          {/* <Switch> */}
           <Route path="/" element={<ProtectedRoutes />}>
-            {/* {PERMISSION.PERMISSION_ROUTE.map(data => {
-              console.log({ Data: data })
-            })} */}
-
-            {/* <Route path="/" element={<UserProfile />}></Route>
+            <Route path="/" element={<UserProfile />}></Route>
             <Route path="/profile" element={<UserProfile />}></Route>
             <Route path="/editprofile" element={<EditProfile />}></Route>
             <Route path="/dashboard" element={<Dashboard />}></Route>
@@ -87,28 +84,52 @@ const AppContent = () => {
             ></Route>
             <Route path="/notification" element={<Notification />}></Route>
 
+            {/* permission_control */}
+            {/* {permissions?.clientMenu && ( */}
             <Route path="/client" element={<Client />}></Route>
+            {/* )} */}
 
+            {/* permission_control */}
+            {/* {permissions?.clientMenu && ( */}
             <Route
               path="/clientprofile/:id"
               element={<ClientProfile />}
             ></Route>
+            {/* )} */}
 
+            {/* permission_control */}
+            {/* {permissions?.editClient && ( */}
             <Route path="/addeditclient/:id" element={<AddClient />}></Route>
+            {/* )} */}
 
+            {/* permission_control */}
+            {/* {permissions?.editClient && ( */}
             <Route path="/addeditclient" element={<AddClient />}></Route>
+            {/* )} */}
 
+            {/* permission_control */}
+            {/* {permissions?.staffMenu && ( */}
             <Route path="/staff" element={<Staff />}></Route>
+            {/* )} */}
 
+            {/* permission_control */}
+            {/* {permissions?.staffMenu && ( */}
             <Route path="/staffprofile/:id" element={<StaffProfile />}></Route>
+            {/* )} */}
             <Route path="*" element={<Login />}></Route>
 
+            {/* permission_control */}
+            {/* {permissions?.editStaff && ( */}
             <Route
               path="/addeditstaff/:id"
               element={<AddStaffMember />}
             ></Route>
+            {/* )} */}
 
+            {/* permission_control */}
+            {/* {permissions?.editStaff && ( */}
             <Route path="/addeditstaff" element={<AddStaffMember />}></Route>
+            {/* )} */}
 
             <Route path="/task" element={<Task />}></Route>
             <Route path="/dealer" element={<Dealer />}></Route>
@@ -131,18 +152,29 @@ const AppContent = () => {
               element={<EditCompanyProfile />}
             ></Route>
 
+            {/* permission_control */}
+            {/* {permissions?.settingMenu && ( */}
             <Route path="/settings" element={<Settings />}></Route>
+            {/* )} */}
+            {/* {permissions?.viewDepartment && (
+              <Route
+                path="/departmentlist"
+                element={<DepartmentList />}
+              ></Route>
+            )} */}
 
             <Route path="/expenselist" element={<ExpenseList />} />
             <Route path="/integrations" element={<Integrations />} />
             <Route path="/jobrolelist" element={<JobRolesList />}></Route>
             <Route path="/jobroleaccess/:id" element={<Department />}></Route>
 
+            {/* permission_control */}
+            {/* {permissions?.viewProduct && ( */}
             <Route path="/productlist" element={<ProductList />}></Route>
+            {/* )} */}
           </Route>
           <Route path="/addproduct" element={<AddProduct />}></Route>
-          <Route path="/editproduct/:id" element={<AddProduct />}></Route> */}
-          </Route>
+          <Route path="/editproduct/:id" element={<AddProduct />}></Route>
         </Routes>
       </Suspense>
     </>

@@ -23,6 +23,8 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 import Logo from '../../assets/img/Ohyana Logo Blue.svg'
 import Orders from '../../assets/img/Orders.svg'
 import SettingsBlue from '../../assets/img/settings_blue.svg'
+import PermissionsGate from '../Settings/PermissionGate'
+import { PERMISSION } from '../../constants'
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 const SuccessSnackbar = React.lazy(() =>
   import('../SuccessSnackbar/SuccessSnackbar'),
@@ -139,7 +141,8 @@ const SideBar = () => {
             </Typography>
           </Box> */}
 
-          {permissions?.clientMenu && (
+          {/* permission_control */}
+          <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_CLIENT]}>
             <Box
               className={`sidebar_icons ${
                 path === '/client' && 'selected-link'
@@ -158,9 +161,10 @@ const SideBar = () => {
                 Customer
               </Typography>
             </Box>
-          )}
+          </PermissionsGate>
 
-          {permissions?.staffMenu && (
+          {/* permission_control */}
+          <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_STAFF]}>
             <Box
               className={`sidebar_icons ${
                 path === '/staff' && 'selected-link'
@@ -181,7 +185,7 @@ const SideBar = () => {
                 Team
               </Typography>
             </Box>
-          )}
+          </PermissionsGate>
 
           <Box
             className={`sidebar_icons ${path === '/task' && 'selected-link'}`}
@@ -264,7 +268,9 @@ const SideBar = () => {
               Support
             </Typography>
           </Box> */}
-          {permissions?.settingMenu && (
+
+          {/* permission_control */}
+          <PermissionsGate scopes={[PERMISSION.PERMISSIONS.ACCESS_SETTINGS]}>
             <Box
               className={`sidebar_icons ${
                 path === '/settings' && 'selected-link'
@@ -283,7 +289,7 @@ const SideBar = () => {
                 Settings
               </Typography>
             </Box>
-          )}
+          </PermissionsGate>
         </Box>
         <SuccessSnackbar />
         <ErrorSnackbar />

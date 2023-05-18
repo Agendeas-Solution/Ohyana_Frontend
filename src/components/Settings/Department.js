@@ -1380,7 +1380,7 @@ const Department = () => {
             </TableContainer>
           </Box>
         </Box>
-        <PermissionsGate scopes={['canEdit']}>
+        <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_CLIENT]}>
           <h1>Private content</h1>
           <p>Must be an editor to view</p>
         </PermissionsGate>

@@ -47,6 +47,8 @@ import { Dashboard } from '@mui/icons-material'
 import EditReminderDialog from './EditReminderDialog'
 import StatusTable from './StatusTable'
 import ViewAppointmentDialog from './ViewAppointmentDialog'
+import PermissionsGate from '../Settings/PermissionGate'
+import { PERMISSION } from '../../constants'
 const EditStatusDialog = React.lazy(() => import('./EditStatusDialog'))
 const StageDialog = React.lazy(() => import('./StageDialog'))
 const OrderList = React.lazy(() => import('./OrderList'))
@@ -489,13 +491,14 @@ const ClientProfile = () => {
           </Box>
 
           <Button className="profile_header_button">
-            {permissions?.editClient && (
+            {/* permission_control */}
+            <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_CLIENT]}>
               <EditRoundedIcon
                 onClick={() => {
                   navigate(`/addeditclient/${clientProfileDetail.id}`)
                 }}
               />
-            )}
+            </PermissionsGate>
           </Button>
         </Box>
 
