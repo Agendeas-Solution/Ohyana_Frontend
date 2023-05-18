@@ -60,7 +60,7 @@ const Login = () => {
             setAuthorize(true)
             setFlagLoader(false)
             handleNavItemClick('/dashboard', 'Dashboard')
-            debugger
+
             // socket.emit('join', { email: userDetail?.email })
           } else {
             if (res?.data?.error) {

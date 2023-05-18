@@ -48,9 +48,29 @@ const AppContent = () => {
   const ProtectedRoutes = () => {
     return Cookie.get('userToken') ? <Outlet /> : <Navigate to="/login" />
   }
+
   useEffect(() => {
     var retrievedObject = JSON.parse(localStorage.getItem('permissions'))
     setPermissions(retrievedObject)
+
+    // debugger
+    const routeArray = []
+    console.log({ permisjflsl: retrievedObject })
+    for (let permissionRoute of PERMISSION.PERMISSION_ROUTE) {
+      // console.log(permissionRoute)
+      // console.log({ BRR: permissionRoute.value })
+      console.log({
+        BRR: retrievedObject.includes(permissionRoute.value),
+        hfskadL: permissionRoute.value,
+      })
+      if (permissionRoute.value) {
+        if (retrievedObject.includes(permissionRoute.value))
+          routeArray.push(permissionRoute)
+      } else {
+        routeArray.push(permissionRoute)
+      }
+    }
+    console.log({ arr: routeArray })
     // socket.on('reJoin', () => {
     //   socket.emit('join', { email: localStorage.getItem('userEmail') })
     // })
@@ -70,11 +90,7 @@ const AppContent = () => {
     <>
       <Suspense fallback={loading}>
         <Routes>
-          <Route path="/" element={<ProtectedRoutes />}>
-            {/* {PERMISSION.PERMISSION_ROUTE.map(data => {
-              console.log({ Data: data })
-            })} */}
-
+          {/* <Route path="/" element={<ProtectedRoutes />}>
             <Route path="/" element={<UserProfile />}></Route>
             <Route path="/profile" element={<UserProfile />}></Route>
             <Route path="/editprofile" element={<EditProfile />}></Route>
@@ -141,7 +157,7 @@ const AppContent = () => {
             <Route path="/productlist" element={<ProductList />}></Route>
           </Route>
           <Route path="/addproduct" element={<AddProduct />}></Route>
-          <Route path="/editproduct/:id" element={<AddProduct />}></Route>
+          <Route path="/editproduct/:id" element={<AddProduct />}></Route> */}
         </Routes>
       </Suspense>
     </>
