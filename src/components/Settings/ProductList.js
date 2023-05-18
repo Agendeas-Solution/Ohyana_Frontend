@@ -21,6 +21,8 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 
 // import { ProductIcon } from '../../assets/img/product-icon.svg'
 import SnacksPhoto from '../../assets/img/SnacksPhoto.png'
+import PermissionsGate from './PermissionGate'
+import { PERMISSION } from '../../constants'
 const ViewProductDialog = React.lazy(() => import('./ViewProductDialog'))
 const DeleteProductDialog = React.lazy(() => import('./DeleteProductDialog'))
 
@@ -105,7 +107,9 @@ const ProductList = () => {
                 }
               />
             </FormControl>
-            {permissions?.editProduct && (
+            {/* permission_control */}
+            {/* {permissions?.editProduct && ( */}
+            <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_CLIENT]}>
               <Button
                 className="main_tab_button"
                 variant="span"
@@ -116,7 +120,8 @@ const ProductList = () => {
               >
                 + Add Product
               </Button>
-            )}
+            </PermissionsGate>
+            {/* )} */}
           </Box>
         </Box>
 
