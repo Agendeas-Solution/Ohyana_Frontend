@@ -138,7 +138,7 @@ const StaffProfile = () => {
             </Button>
 
             {/* permission_control */}
-            <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_STAFF]}>
+            <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_STAFF]}>
               <Button variant="contained" className="profile_header_button">
                 <EditRoundedIcon
                   onClick={() => {

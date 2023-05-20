@@ -22,6 +22,8 @@ import {
   UpdateProductQuantity,
 } from '../../services/apiservices/adminprofile'
 import { AccountCircle } from '@mui/icons-material'
+import PermissionsGate from './PermissionGate'
+import { PERMISSION } from '../../constants'
 
 const ViewProductDialog = ({
   viewProductDialog,
@@ -86,24 +88,31 @@ const ViewProductDialog = ({
           </Typography>
 
           <Box>
-            <Button
-              onClick={() => navigate(`/editproduct/${viewProductDialog?.id}`)}
-              className="product_detail_buttons"
-            >
-              <EditRoundedIcon />
-            </Button>
-            <Button
-              onClick={() =>
-                setDeleteProductDialogControl({
-                  ...deleteProductDialogControl,
-                  status: true,
-                  id: viewProductDialog?.id,
-                })
-              }
-              className="product_detail_buttons"
-            >
-              <DeleteRoundedIcon />
-            </Button>
+            <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_PRODUCT]}>
+              <Button
+                onClick={() =>
+                  navigate(`/editproduct/${viewProductDialog?.id}`)
+                }
+                className="product_detail_buttons"
+              >
+                <EditRoundedIcon />
+              </Button>
+            </PermissionsGate>
+
+            <PermissionsGate scopes={[PERMISSION.PERMISSIONS.DELETE_PRODUCT]}>
+              <Button
+                onClick={() =>
+                  setDeleteProductDialogControl({
+                    ...deleteProductDialogControl,
+                    status: true,
+                    id: viewProductDialog?.id,
+                  })
+                }
+                className="product_detail_buttons"
+              >
+                <DeleteRoundedIcon />
+              </Button>
+            </PermissionsGate>
           </Box>
         </DialogTitle>
 
@@ -139,14 +148,17 @@ const ViewProductDialog = ({
                   }
                   placeholder="Quantity"
                 />
-                <Button
-                  sx={{ backgroundColor: '#2E3591', marginLeft: '5px' }}
-                  size="large"
-                  onClick={handleProductQuantityUpdate}
-                  variant="contained"
-                >
-                  Update
-                </Button>
+
+                <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_PRODUCT]}>
+                  <Button
+                    sx={{ backgroundColor: '#2E3591', marginLeft: '5px' }}
+                    size="large"
+                    onClick={handleProductQuantityUpdate}
+                    variant="contained"
+                  >
+                    Update
+                  </Button>
+                </PermissionsGate>
               </Box>
             </Box>
             <Box className="product_dialog_right_section">

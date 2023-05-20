@@ -11,25 +11,22 @@ import {
   TableRow,
   Typography,
   Divider,
+  Stepper,
+  Step,
+  StepLabel,
+  StepContent,
 } from '@mui/material'
-import ReceiptRoundedIcon from '@mui/icons-material/ReceiptRounded'
 import './index.css'
-import Stepper from '@mui/material/Stepper'
-import Step from '@mui/material/Step'
-import StepLabel from '@mui/material/StepLabel'
-import StepContent from '@mui/material/StepContent'
-import SampleProduct from '../../assets/img/sample_product.png'
 import {
-  DispatchOrder,
   GetOrderDetail,
   UpdateDeliveryStatus,
   UpdatePaymentStatus,
 } from '../../services/apiservices/orderDetail'
-import moment from 'moment'
 import NoResultFound from '../ErrorComponent/NoResultFound'
-import DispatchOrderDialog from './DispatchOrderDialog'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { ORDER } from '../../constants/orderConstant'
+import PermissionsGate, { CheckPermission } from '../Settings/PermissionGate'
+import { PERMISSION } from '../../constants'
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const PaymentDetailDialog = React.lazy(() => import('./PaymentDetailDialog'))
 
@@ -256,13 +253,18 @@ const OrderDetail = () => {
               <Typography className="common_sub_heading" variant="span">
                 Payment Detail
               </Typography>
-              <Button
-                className="white_buttons"
-                onClick={handleOpenPaymentDialog}
-                variant="contained"
+
+              <PermissionsGate
+                scopes={[PERMISSION.PERMISSIONS.UPDATE_ORDER_PAYMENT_STATUS]}
               >
-                Update
-              </Button>
+                <Button
+                  className="white_buttons"
+                  onClick={handleOpenPaymentDialog}
+                  variant="contained"
+                >
+                  Update
+                </Button>
+              </PermissionsGate>
             </Box>
 
             <Box className="order_detail_row">
@@ -301,77 +303,87 @@ const OrderDetail = () => {
             justifyContent: 'space-between',
           }}
         >
-          <Box
-            className="payment_detail"
-            sx={{
-              width: '35%',
-            }}
+          <PermissionsGate
+            scopes={[PERMISSION.PERMISSIONS.UPDATE_ORDER_DELIVERY_STATUS]}
           >
-            <Box className="payment_detail_heading">
-              <Typography className="common_sub_heading" variant="span">
-                Order Tracking
-              </Typography>
-              {/* <Button
+            {/* Left section  */}
+            <Box
+              className="payment_detail"
+              sx={{
+                width: '100%',
+                marginRight: '10px',
+              }}
+            >
+              <Box className="payment_detail_heading">
+                <Typography className="common_sub_heading" variant="span">
+                  Order Tracking
+                </Typography>
+                {/* <Button
                 className="common_button"
                 onClick={handleOpenDispatchDialog}
                 variant="contained"
               >
                 Dispatch
               </Button> */}
-            </Box>
+              </Box>
 
-            <Box sx={{ marginTop: '15px' }}>
-              <Stepper activeStep={activeStep} orientation="vertical">
-                {steps.map((step, index) => (
-                  <Step key={step.label}>
-                    <StepLabel
-                    // optional={
-                    //   index === 2 ? (
-                    //     <Typography variant="caption">Last step</Typography>
-                    //   ) : null
-                    // }
-                    >
-                      {step.label}
-                    </StepLabel>
-                    <StepContent>
-                      <Typography>{step.description}</Typography>
-                      <Box sx={{ mb: 2 }}>
-                        <div>
-                          <Button
-                            variant="contained"
-                            onClick={() => handleNext(step.label)}
-                            sx={{ mt: 1, mr: 1 }}
-                          >
-                            {index === steps.length - 1 ? 'Finish' : 'Continue'}
-                          </Button>
-                          <Button
-                            disabled={true}
-                            onClick={handleBack}
-                            sx={{ mt: 1, mr: 1 }}
-                          >
-                            Back
-                          </Button>
-                        </div>
-                      </Box>
-                    </StepContent>
-                  </Step>
-                ))}
-              </Stepper>
-              {activeStep === steps.length && (
-                <Paper square elevation={0} sx={{ p: 3 }}>
-                  <Typography>
-                    All steps completed - you&apos;re finished
-                  </Typography>
-                  {/* <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+              <Box sx={{ marginTop: '15px' }}>
+                <Stepper activeStep={activeStep} orientation="vertical">
+                  {steps.map((step, index) => (
+                    <Step key={step.label}>
+                      <StepLabel
+                      // optional={
+                      //   index === 2 ? (
+                      //     <Typography variant="caption">Last step</Typography>
+                      //   ) : null
+                      // }
+                      >
+                        {step.label}
+                      </StepLabel>
+                      <StepContent>
+                        <Typography>{step.description}</Typography>
+                        <Box sx={{ mb: 2 }}>
+                          <div>
+                            <Button
+                              variant="contained"
+                              onClick={() => handleNext(step.label)}
+                              sx={{ mt: 1, mr: 1 }}
+                            >
+                              {index === steps.length - 1
+                                ? 'Finish'
+                                : 'Continue'}
+                            </Button>
+                            <Button
+                              disabled={true}
+                              onClick={handleBack}
+                              sx={{ mt: 1, mr: 1 }}
+                            >
+                              Back
+                            </Button>
+                          </div>
+                        </Box>
+                      </StepContent>
+                    </Step>
+                  ))}
+                </Stepper>
+                {activeStep === steps.length && (
+                  <Paper square elevation={0} sx={{ p: 3 }}>
+                    <Typography>
+                      All steps completed - you&apos;re finished
+                    </Typography>
+                    {/* <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
                     Reset
                   </Button> */}
-                </Paper>
-              )}
+                  </Paper>
+                )}
+              </Box>
             </Box>
-          </Box>
+          </PermissionsGate>
+
+          {/* right section  */}
           <Box
             sx={{
-              width: '63%',
+              width: '100%',
             }}
           >
             <TableContainer
@@ -431,6 +443,77 @@ const OrderDetail = () => {
               </Table>
             </TableContainer>
           </Box>
+
+          {/* <PermissionsGate
+              scopes={[!PERMISSION.PERMISSIONS.UPDATE_ORDER_DELIVERY_STATUS]}
+            >
+              <Box
+                sx={{
+                  width: '100%',
+                }}
+              >
+                <TableContainer
+                  className="profile_data_table client_detail_table set_box_shadow"
+                  component={Paper}
+                >
+                  <Table
+                    stickyHeader
+                    aria-label="sticky table"
+                    sx={{ minWidth: 690, padding: '0px !important' }}
+                    className="table_heading"
+                  >
+                    <TableHead>
+                      <TableRow>
+                        <TableCell></TableCell>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Price</TableCell>
+                        <TableCell>Quantity</TableCell>
+                        <TableCell>Total Amount</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {orderDetail?.order_items ? (
+                        orderDetail?.order_items.map(data => {
+                          console.log({ DATA: data })
+                          return (
+                            <TableRow
+                              sx={{
+                                '&:last-child td,th': { border: 0 },
+                              }}
+                            >
+                              <TableCell align="right">
+                                <img
+                                  style={{
+                                    border: '1px solid #E5E5E5',
+                                    borderRadius: '5px',
+                                    padding: '4px',
+                                    height: '90px',
+                                    width: '90px',
+                                  }}
+                                  src={data?.product?.productImage}
+                                />
+                              </TableCell>
+                              <TableCell>
+                                {data?.product?.name || '-'}
+                              </TableCell>
+                              <TableCell>
+                                {data?.product?.price || '-'}
+                              </TableCell>
+                              <TableCell>{data?.quantity || '-'}</TableCell>
+                              <TableCell>
+                                {data?.product?.price * data?.quantity || 0}
+                              </TableCell>
+                            </TableRow>
+                          )
+                        })
+                      ) : (
+                        <NoResultFound />
+                      )}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Box>
+            </PermissionsGate> */}
         </Box>
       </Box>
 

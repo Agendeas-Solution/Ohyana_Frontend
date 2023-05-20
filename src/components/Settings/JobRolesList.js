@@ -35,6 +35,7 @@ import SettingIcon from '../../assets/img/setting.svg'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
 import PermissionsGate from './PermissionGate'
+import { PERMISSION } from '../../constants'
 
 const JobRoleDialog = React.lazy(() => import('./JobRoleDialog'))
 const DeleteJobRoleDialog = React.lazy(() => import('./DeleteJobRoleDialog'))
@@ -104,14 +105,16 @@ const JobRolesList = () => {
             Job Roles
           </Typography>
 
-          <Button
-            className="primary_color_button"
-            onClick={() => {
-              setJobRoleDialogControl(true)
-            }}
-          >
-            + Add Job Role
-          </Button>
+          <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_ROLE]}>
+            <Button
+              className="primary_color_button"
+              onClick={() => {
+                setJobRoleDialogControl(true)
+              }}
+            >
+              + Add Job Role
+            </Button>
+          </PermissionsGate>
         </Box>
         <Divider />
         <Box className="left_team_profile_section" sx={{ marginTop: '10px' }}>

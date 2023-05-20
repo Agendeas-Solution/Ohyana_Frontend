@@ -316,3 +316,71 @@ input[type='radio']:focus {
   flex-direction: row;
   width: 100%;
 }
+
+.job_role_heading {
+  color: #8e8e8e;
+}
+
+.office_time_section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.office_time_body {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.office_time_inner_body {
+  width: 48%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.job_role_expense_management_body {
+  display: flex;
+  width: 100%;
+  flex-direction: row !important;
+  justify-content: space-between;
+}
+
+.job_role_expense_management_inner_body {
+  display: flex;
+  width: 48%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.job_role_expense_management_save_section {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.job_role_client_stage_heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.job_role_client_stage_body {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
