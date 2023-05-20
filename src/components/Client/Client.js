@@ -165,7 +165,7 @@ const Client = () => {
   }, [selectedCityStateCountry?.state])
   useEffect(() => {
     let value = clientType.filter(data => {
-      if (data.id <= permissions?.clientStageAccess) {
+      if (data.id <= localStorage.getItem('clientStageAccess')) {
         return data
       }
     })

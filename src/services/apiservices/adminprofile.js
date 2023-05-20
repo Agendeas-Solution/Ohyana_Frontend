@@ -184,3 +184,6 @@ export const UpdatePermission = async (formData, onSuccess, onError) => {
 export const getUserPermissions = async (id, onSuccess, onError) => {
   await handleApiGetCall(`/permissions/${id}`, {}, onSuccess, onError)
 }
+export const UpdateClientStage = async (formData, onSuccess, onError) => {
+  await handleApiPutCall(`/stage/permissions`, formData, onSuccess, onError)
+}

@@ -38,6 +38,7 @@ import {
 import {
   UpdatePermission,
   getUserPermissions,
+  UpdateClientStage,
 } from '../../services/apiservices/adminprofile'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Context as ContextSnackbar } from '../../context/pageContext'
@@ -89,7 +90,6 @@ const Department = () => {
 
   const [jobRoleList, setJobRoleList] = useState({})
   const [clientType, setClientType] = useState(CLIENT.STAGE)
-
   const [accessControl, setAccessControl] = useState({
     EditClient: false,
     DeleteClient: false,
@@ -129,6 +129,7 @@ const Department = () => {
     PlaceOrder: false,
     AddBusinessCard: false,
   })
+  const [selectedClientStage, setSelectedClientStage] = useState(1)
   const [expenseManagement, setExpenseManagement] = useState({
     travelChecked: false,
     travelAmount: 0,
@@ -307,12 +308,35 @@ const Department = () => {
       )
     }
   }
+  const handleClientStage = () => {
+    UpdateClientStage(
+      { roleId: parseInt(path), stage: selectedClientStage },
+      res => {
+        if (res.success) {
+          setSuccessSnackbar({
+            ...successSnackbar,
+            message: res.message,
+            status: true,
+          })
+        }
+      },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err.response.data.message,
+        })
+      },
+    )
+  }
   const handleSingleRole = () => {
     GetSingleRole(
       { roleId: parseInt(path) },
       res => {
         if (res.success) {
           setJobRoleList(res.data)
+          setSelectedClientStage(res.data.clientStageAccess)
+          debugger
         }
       },
       err => {
@@ -1143,6 +1167,32 @@ const Department = () => {
           </Box> */}
 
           <Box className="permission_table">
+            <Box className="team_overview_heading">
+              <FormControl
+                className="client_type_select"
+                sx={{ margin: '10px' }}
+              >
+                <InputLabel>Select Stage</InputLabel>
+                <Select
+                  label="Select Client Stage"
+                  value={selectedClientStage}
+                  onChange={e => {
+                    setSelectedClientStage(e.target.value)
+                  }}
+                >
+                  {clientType.map(data => {
+                    return <MenuItem value={data.id}>{data.stage}</MenuItem>
+                  })}
+                </Select>
+              </FormControl>
+              <Button
+                className="primary_color_button"
+                variant="contained"
+                onClick={handleClientStage}
+              >
+                Save
+              </Button>
+            </Box>
             <Box className="team_overview_heading">
               <Typography
                 sx={{ marginBottom: '8px' }}
@@ -1981,10 +2031,10 @@ const Department = () => {
             </TableContainer>
           </Box>
         </Box>
-        <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_CLIENT]}>
+        {/* <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_CLIENT]}>
           <h1>Private content</h1>
           <p>Must be an editor to view</p>
-        </PermissionsGate>
+        </PermissionsGate> */}
         <EditJobRoleDialog
           editJobRoleDialogControl={editJobRoleDialogControl}
           handleClose={handleClose}
