@@ -141,7 +141,7 @@ const AddStaffMember = () => {
       employeeDetail.append('email', userDetail.email)
       employeeDetail.append('roleId', userDetail.jobRole)
       if (typeof imageUrl !== 'string') {
-        data.append('profile_image', imageUrl)
+        employeeDetail.append('profile_image', imageUrl)
       }
       employeeDetail.append('contact_number', userDetail.contactNo)
       employeeDetail.append('gender', userDetail.gender)

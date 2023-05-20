@@ -6,6 +6,8 @@ import { GetCompanyProfile } from '../../services/apiservices/companyprofile'
 import './index.css'
 import ProfileImage from '../../assets/img/Profile_Image.svg'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
+import PermissionsGate from '../Settings/PermissionGate'
+import { PERMISSION } from '../../constants'
 
 const CompanyProfile = () => {
   const navigate = useNavigate()
@@ -49,13 +51,15 @@ const CompanyProfile = () => {
             </Box>
           </Box>
 
-          <Button variant="contained" className="profile_header_button">
-            <EditRoundedIcon
-              onClick={() => {
-                navigate('/editcompanyprofile')
-              }}
-            />
-          </Button>
+          <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_COMPANY]}>
+            <Button variant="contained" className="profile_header_button">
+              <EditRoundedIcon
+                onClick={() => {
+                  navigate('/editcompanyprofile')
+                }}
+              />
+            </Button>
+          </PermissionsGate>
         </Box>
 
         <Box className="companyDetail">

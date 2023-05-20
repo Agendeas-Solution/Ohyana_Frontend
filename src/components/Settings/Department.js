@@ -61,7 +61,7 @@ const AddEditDepartmentDialog = React.lazy(() =>
 )
 const EditJobRoleDialog = React.lazy(() => import('./EditJobRoleDialog'))
 
-const Department = () => {
+const JobRoleAccess = () => {
   const { permissions } = useContext(AuthContext).state
   const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false)
   const [openTime, setOpenTime] = useState(true)
@@ -398,37 +398,44 @@ const Department = () => {
             {jobRoleList.name || '-'}
           </Typography>
           <Box>
-            <Button className="profile_header_button">
-              <EditRoundedIcon
-                onClick={() => {
-                  setEditJobRoleDialogControl({
-                    ...editJobRoleDialogControl,
-                    status: true,
-                    name: jobRoleList.name,
-                    description: jobRoleList.description,
-                    parentId: jobRoleList.senior.id,
-                  })
-                }}
-              />
-            </Button>
-            <Button className="profile_header_button">
-              <DeleteOutlineRoundedIcon
-                onClick={() => {
-                  setDeleteJobRoleDialogControl({
-                    ...deleteJobRoleDialogControl,
-                    status: true,
-                    id: jobRoleList.id,
-                  })
-                }}
-              />
-            </Button>
+            <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_ROLE]}>
+              <Button className="profile_header_button">
+                <EditRoundedIcon
+                  onClick={() => {
+                    setEditJobRoleDialogControl({
+                      ...editJobRoleDialogControl,
+                      status: true,
+                      name: jobRoleList.name,
+                      description: jobRoleList.description,
+                      parentId: jobRoleList.senior.id,
+                    })
+                  }}
+                />
+              </Button>
+            </PermissionsGate>
+
+            <PermissionsGate scopes={[PERMISSION.PERMISSIONS.DELETE_ROLE]}>
+              <Button className="profile_header_button">
+                <DeleteOutlineRoundedIcon
+                  onClick={() => {
+                    setDeleteJobRoleDialogControl({
+                      ...deleteJobRoleDialogControl,
+                      status: true,
+                      id: jobRoleList.id,
+                    })
+                  }}
+                />
+              </Button>
+            </PermissionsGate>
           </Box>
         </Box>
+
         <Divider sx={{ margin: '0px 10px' }} />
+
         <Box sx={{ height: '84%', overflowY: 'auto' }}>
           <Box className="post_detail">
             <Box className="post_name">
-              <Typography sx={{ color: '#8E8E8E' }} variant="span">
+              <Typography className="job_role_heading" variant="span">
                 Senior Post
               </Typography>
               <Typography variant="span">
@@ -437,7 +444,7 @@ const Department = () => {
             </Box>
 
             <Box className="post_description">
-              <Typography sx={{ color: '#8E8E8E' }} variant="span">
+              <Typography className="job_role_heading" variant="span">
                 Post Description
               </Typography>
               <Typography variant="span">
@@ -447,15 +454,8 @@ const Department = () => {
           </Box>
 
           <Box className="accessMenu_section">
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <Typography sx={{ color: '#8E8E8E' }} variant="span">
+            <Box className="office_time_section">
+              <Typography className="job_role_heading" variant="span">
                 Office Time Management
               </Typography>
               <Button
@@ -466,25 +466,9 @@ const Department = () => {
                 Save
               </Button>
             </Box>
-            <Box
-              sx={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginTop: '15px',
-                marginBottom: '5px',
-              }}
-            >
-              <Box
-                sx={{
-                  width: '48%',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
+
+            <Box className="office_time_body">
+              <Box className="office_time_inner_body">
                 <Typography>Clock In</Typography>
                 <TextField
                   className="set_date_time_bg"
@@ -498,14 +482,7 @@ const Department = () => {
                   }}
                 />
               </Box>
-              <Box
-                sx={{
-                  width: '48%',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
+              <Box className="office_time_inner_body">
                 <Typography>Clock Out</Typography>
                 <TextField
                   className="set_date_time_bg"
@@ -523,6 +500,7 @@ const Department = () => {
           </Box>
 
           <Box
+            // className="accessMenu_section"
             sx={{
               margin: '10px',
             }}
@@ -549,28 +527,11 @@ const Department = () => {
                   padding: ' 10px 20px',
                 }}
               >
-                <FormGroup
-                  sx={{
-                    display: 'flex',
-                    width: '100%',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}
-                >
+                <FormGroup className="job_role_expense_management_body">
                   {expensePolicy &&
                     expensePolicy.map((data, index) => {
                       return (
-                        <Box
-                          sx={{
-                            display: 'flex',
-                            width: '48%',
-                            flexDirection: 'row',
-                            flexWrap: 'wrap',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            marginBottom: '10px',
-                          }}
-                        >
+                        <Box className="job_role_expense_management_inner_body">
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -594,13 +555,7 @@ const Department = () => {
                         </Box>
                       )
                     })}
-                  <Box
-                    sx={{
-                      width: '100%',
-                      display: 'flex',
-                      justifyContent: 'flex-end',
-                    }}
-                  >
+                  <Box className="job_role_expense_management_save_section">
                     <Button
                       sx={{
                         marginTop: '5px',
@@ -1166,8 +1121,7 @@ const Department = () => {
             </Box>
           </Box> */}
 
-          <Box className="permission_table">
-            <Box className="team_overview_heading">
+          {/* <Box className="team_overview_heading">
               <FormControl
                 className="client_type_select"
                 sx={{ margin: '10px' }}
@@ -1192,8 +1146,47 @@ const Department = () => {
               >
                 Save
               </Button>
+            </Box> */}
+
+          <Box className="accessMenu_section">
+            <Box className="job_role_client_stage_heading">
+              <Typography className="job_role_heading" variant="span">
+                Client Stage Access
+              </Typography>
+              <Button
+                className="primary_color_button"
+                variant="contained"
+                onClick={handleClientStage}
+              >
+                Save
+              </Button>
             </Box>
-            <Box className="team_overview_heading">
+
+            <Box className="job_role_client_stage_body">
+              <Box className="team_overview_heading">
+                <FormControl
+                  className="client_type_select"
+                  sx={{ margin: '10px' }}
+                >
+                  <InputLabel>Select Stage</InputLabel>
+                  <Select
+                    label="Select Client Stage"
+                    value={selectedClientStage}
+                    onChange={e => {
+                      setSelectedClientStage(e.target.value)
+                    }}
+                  >
+                    {clientType.map(data => {
+                      return <MenuItem value={data.id}>{data.stage}</MenuItem>
+                    })}
+                  </Select>
+                </FormControl>
+              </Box>
+            </Box>
+          </Box>
+
+          <Box className="permission_table">
+            <Box sx={{ margin: '8px auto' }} className="team_overview_heading">
               <Typography
                 sx={{ marginBottom: '8px' }}
                 className="team_overview_inner_heading"
@@ -1209,9 +1202,10 @@ const Department = () => {
                 Save
               </Button>
             </Box>
+
             <TableContainer component={Paper} className="set_box_shadow">
               <Table sx={{ minWidth: 650, border: '1px solid' }}>
-                <TableHead className="team_overview_table_heading">
+                <TableHead className="job_role_table_heading">
                   <TableRow>
                     <TableCell sx={{ width: '20%', border: '1px solid' }}>
                       Type
@@ -2061,4 +2055,4 @@ const Department = () => {
   )
 }
 
-export default Department
+export default JobRoleAccess

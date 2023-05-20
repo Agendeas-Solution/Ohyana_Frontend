@@ -221,39 +221,47 @@ const SideBar = () => {
             </Typography>
           </Box>} */}
 
-          <Box
-            className={`sidebar_icons ${path === '/orders' && 'selected-link'}`}
-            onClick={() => {
-              handleNavItemClick('/orders', 'Order')
-            }}
-          >
-            <Box className="sidebar_icon_root">
-              <img
-                src={path === '/orders' ? OrdersBlue : Orders}
-                className="sidebar_img"
-              />
+          <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_ORDERS]}>
+            <Box
+              className={`sidebar_icons ${
+                path === '/orders' && 'selected-link'
+              }`}
+              onClick={() => {
+                handleNavItemClick('/orders', 'Order')
+              }}
+            >
+              <Box className="sidebar_icon_root">
+                <img
+                  src={path === '/orders' ? OrdersBlue : Orders}
+                  className="sidebar_img"
+                />
+              </Box>
+              <Typography className="page_name_root" variant="div">
+                Orders
+              </Typography>
             </Box>
-            <Typography className="page_name_root" variant="div">
-              Orders
-            </Typography>
-          </Box>
+          </PermissionsGate>
 
-          <Box
-            className={`sidebar_icons ${path === '/report' && 'selected-link'}`}
-            onClick={() => {
-              handleNavItemClick('/report', 'Report')
-            }}
-          >
-            <Box className="sidebar_icon_root">
-              <img
-                src={path === '/report' ? ReportBlue : Statistics}
-                className="sidebar_img"
-              />
+          <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_REPORT]}>
+            <Box
+              className={`sidebar_icons ${
+                path === '/report' && 'selected-link'
+              }`}
+              onClick={() => {
+                handleNavItemClick('/report', 'Report')
+              }}
+            >
+              <Box className="sidebar_icon_root">
+                <img
+                  src={path === '/report' ? ReportBlue : Statistics}
+                  className="sidebar_img"
+                />
+              </Box>
+              <Typography className="page_name_root" variant="div">
+                Report
+              </Typography>
             </Box>
-            <Typography className="page_name_root" variant="div">
-              Report
-            </Typography>
-          </Box>
+          </PermissionsGate>
           {/* <Box
             className={`sidebar_icons ${path === "/support" && "selected-link"
               }`}

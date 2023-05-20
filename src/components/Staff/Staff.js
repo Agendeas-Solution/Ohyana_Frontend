@@ -47,7 +47,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import moment from 'moment'
 import { styled, useTheme } from '@mui/material/styles'
-import { TEAM } from '../../constants'
+import { PERMISSION, TEAM } from '../../constants'
+import PermissionsGate from '../Settings/PermissionGate'
 const drawerWidth = 350
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const SuccessSnackbar = React.lazy(() =>
@@ -217,13 +218,15 @@ const Staff = () => {
                 />
               </FormControl>
 
-              <Button
-                onClick={() => navigate('/addeditstaff')}
-                className="main_tab_button"
-                variant="span"
-              >
-                + Add Team
-              </Button>
+              <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_STAFF]}>
+                <Button
+                  onClick={() => navigate('/addeditstaff')}
+                  className="main_tab_button"
+                  variant="span"
+                >
+                  + Add Team
+                </Button>
+              </PermissionsGate>
               {/* <Toolbar> */}
               <IconButton
                 edge="end"
@@ -448,6 +451,7 @@ const Staff = () => {
                 </Typography>
               </Box>
             </Box>
+
             <Button
               className="common_button"
               onClick={() =>

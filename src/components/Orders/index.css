@@ -232,3 +232,11 @@
   /* margin: 10px 22px auto 8px !important; */
   margin: 10px 10px !important;
 }
+
+.width_63 {
+  width: 63% !important;
+}
+
+.full_width {
+  width: 100% !important;
+}

@@ -109,7 +109,7 @@ const ProductList = () => {
             </FormControl>
             {/* permission_control */}
             {/* {permissions?.editProduct && ( */}
-            <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_CLIENT]}>
+            <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_PRODUCT]}>
               <Button
                 className="main_tab_button"
                 variant="span"

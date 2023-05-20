@@ -24,13 +24,14 @@ import HolidayAndLeaveManagement from '../components/HolidayAndLeaveManagement/H
 import CompanyProfile from '../components/CompanyProfile/CompanyProfile'
 import Settings from '../components/Settings/Settings'
 import EditCompanyProfile from '../components/CompanyProfile/EditCompanyProfile'
-import Department from '../components/Settings/Department'
+import JobRoleAccess from '../components/Settings/Department'
 import JobRolesList from '../components/Settings/JobRolesList'
 import Integrations from '../components/Integrations/Integrations'
 import ExpenseList from '../components/Expense/ExpenseList'
 import AddProduct from '../components/Settings/AddProduct'
 import ProductList from '../components/Settings/ProductList'
 import Dashboard from '../components/Dashboard'
+import StaffProfile from '../components/Staff/StaffProfile'
 
 export const PERMISSION = {
   PERMISSIONTYPE: [
@@ -117,15 +118,19 @@ export const PERMISSION = {
     { path: '/profile', component: <UserProfile /> },
     { path: '/editprofile', component: <EditProfile /> },
     { path: '/dashboard', component: <Dashboard /> },
-    { path: '/clientorders/:id', component: <ClientOrders /> },
-    { path: '/mycart/:id', component: <MyCart /> },
+    {
+      path: '/clientorders/:id',
+      component: <ClientOrders />,
+      value: 'ViewOrders',
+    },
+    { path: '/mycart/:id', component: <MyCart />, value: 'ViewOrders' },
     { path: '/dashboardemployee', component: <DashboardEmployee /> },
     { path: '/notification', component: <Notification /> },
-    { path: '/client', component: <Client />, value: 'EditClient' },
+    { path: '/client', component: <Client />, value: 'ViewClient' },
     {
       path: '/clientprofile/:id',
       component: <ClientProfile />,
-      value: 'EditClient',
+      value: 'ViewClient',
     },
     {
       path: '/addeditclient/:id',
@@ -134,6 +139,11 @@ export const PERMISSION = {
     },
     { path: '/addeditclient', component: <AddClient />, value: 'EditClient' },
     { path: '/staff', component: <Staff />, value: 'ViewStaff' },
+    {
+      path: '/staffprofile/:id',
+      component: <StaffProfile />,
+      value: 'ViewStaff',
+    },
     { path: '*', component: <Login /> },
     {
       path: '/addeditstaff/:id',
@@ -148,26 +158,46 @@ export const PERMISSION = {
     { path: '/task', component: <Task /> },
     { path: '/dealer', component: <Dealer /> },
     { path: '/taskdetail/:id', component: <TaskDetail /> },
-    { path: '/report', component: <Statistics /> },
+    { path: '/report', component: <Statistics />, value: 'ViewReport' },
     { path: '/support', component: <Support /> },
     { path: '/complaint/:id', component: <Complaint /> },
     { path: '/premium', component: <Premium /> },
-    { path: '/orders', component: <Orders /> },
+    { path: '/orders', component: <Orders />, value: 'ViewOrders' },
     { path: '/poll', component: <Poll /> },
-    { path: '/orderdetail/:id', component: <OrderDetail /> },
+    {
+      path: '/orderdetail/:id',
+      component: <OrderDetail />,
+      value: 'ViewOrders',
+    },
     {
       path: '/leaveholidaymanagement',
       component: <HolidayAndLeaveManagement />,
     },
     { path: '/companyprofile', component: <CompanyProfile /> },
-    { path: '/editcompanyprofile', component: <EditCompanyProfile /> },
-    { path: '/settings', component: <Settings />, value: 'AccessSetting' },
-    { path: '/expenselist', component: <ExpenseList /> },
-    { path: '/integrations', component: <Integrations /> },
-    { path: '/jobrolelist', component: <JobRolesList /> },
-    { path: '/jobroleaccess/:id', component: <Department /> },
+    {
+      path: '/editcompanyprofile',
+      component: <EditCompanyProfile />,
+      value: 'EditCompanyProfile',
+    },
+    { path: '/settings', component: <Settings /> },
+    { path: '/expenselist', component: <ExpenseList />, value: 'ViewExpense' },
+    {
+      path: '/integrations',
+      component: <Integrations />,
+      value: 'AccessIntegration',
+    },
+    { path: '/jobrolelist', component: <JobRolesList />, value: 'ViewRole' },
+    {
+      path: '/jobroleaccess/:id',
+      component: <JobRoleAccess />,
+      value: 'EditRole',
+    },
     { path: '/productlist', component: <ProductList />, value: 'ViewProduct' },
-    { path: '/addproduct', component: <AddProduct /> },
-    { path: '/editproduct/:id', component: <AddProduct /> },
+    { path: '/addproduct', component: <AddProduct />, value: 'EditProduct' },
+    {
+      path: '/editproduct/:id',
+      component: <AddProduct />,
+      value: 'EditProduct',
+    },
   ],
 }

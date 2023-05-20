@@ -566,19 +566,23 @@ const ClientProfile = () => {
               ) : null}
               {value === '5' ? (
                 <>
-                  <Button
-                    className="common_button"
-                    // onClick={handleOrderOpen}
-                    onClick={() =>
-                      handleClientOrdersClick(
-                        `/clientorders/${path}`,
-                        'Add to Cart',
-                      )
-                    }
-                    variant="contained"
+                  <PermissionsGate
+                    scopes={[PERMISSION.PERMISSIONS.VIEW_ORDERS]}
                   >
-                    + Order
-                  </Button>
+                    <Button
+                      className="common_button"
+                      // onClick={handleOrderOpen}
+                      onClick={() =>
+                        handleClientOrdersClick(
+                          `/clientorders/${path}`,
+                          'Add to Cart',
+                        )
+                      }
+                      variant="contained"
+                    >
+                      + Order
+                    </Button>
+                  </PermissionsGate>
                 </>
               ) : null}
             </Box>
