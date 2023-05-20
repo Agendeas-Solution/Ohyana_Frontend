@@ -67,7 +67,9 @@ export const GetHolidayList = async (value, onSuccess, onError) => {
 export const GetExpenseList = async (value, onSuccess, onError) => {
   await handleApiGetCall(`/team/expense`, value, onSuccess, onError)
 }
-
+export const GetExpenseDetail = async (value, onSuccess, onError) => {
+  await handleApiGetCall(`/team/expense/${value}`, {}, onSuccess, onError)
+}
 export const GetExpenseTypeList = async (value, onSuccess, onError) => {
   await handleApiGetCall(`/expense`, value, onSuccess, onError)
 }

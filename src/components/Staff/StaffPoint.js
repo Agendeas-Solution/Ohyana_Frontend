@@ -104,7 +104,6 @@ const StaffPoint = ({
               Point Rules
             </Typography>
           </Box>
-
           <Box className="inner_point_left_section">
             {pointRule.length > 0 &&
               pointRule.map(data => {
@@ -177,7 +176,7 @@ const StaffPoint = ({
                           }}
                         >
                           <TableCell className="tablecell_height table_row_top_align">
-                            {moment(data?.createdAt).format('l')}{' '}
+                            {moment(data?.createdAt).format('D/MM/YY')}{' '}
                           </TableCell>
                           <TableCell className="table_row_top_align">
                             {data?.point?.name || '-'}

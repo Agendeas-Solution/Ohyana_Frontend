@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Dialog, Divider, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf'
@@ -10,7 +10,12 @@ const StaffExpensesDetail = ({
   setOpenApprovalDialog,
   paymentVerification,
   setPaymentVerification,
+  handleStaffExpenseDetail,
+  expenseDetail,
 }) => {
+  useEffect(() => {
+    handleStaffExpenseDetail()
+  }, [openStaffExpenses?.data?.id])
   return (
     <>
       <Dialog
@@ -34,7 +39,7 @@ const StaffExpensesDetail = ({
                   setOpenApprovalDialog({
                     ...openApprovalDialog,
                     status: true,
-                    teamExpenseId: openStaffExpenses.data.id,
+                    teamExpenseId: expenseDetail.id,
                   })
                 }}
                 className="common_button expenses_details_heading"
@@ -66,7 +71,7 @@ const StaffExpensesDetail = ({
                 </Typography>
                 <Box className="expenses_parameter expenses_parameter_bottom_border">
                   <Typography variant="span">
-                    {openStaffExpenses?.data?.name || '-'}
+                    {expenseDetail?.name || '-'}
                   </Typography>
                 </Box>
               </Box>
@@ -76,7 +81,7 @@ const StaffExpensesDetail = ({
                 </Typography>
                 <Box className="expenses_parameter expenses_parameter_bottom_border">
                   <Typography variant="span">
-                    {openStaffExpenses?.data?.date ?? '-'}
+                    {expenseDetail?.date ?? '-'}
                   </Typography>
                 </Box>
               </Box>
@@ -86,7 +91,7 @@ const StaffExpensesDetail = ({
                 </Typography>
                 <Box className="expenses_parameter expenses_parameter_bottom_border">
                   <Typography variant="span">
-                    {openStaffExpenses?.data?.amount ?? '-'}
+                    {expenseDetail?.amount ?? '-'}
                   </Typography>
                 </Box>
               </Box>
@@ -96,7 +101,7 @@ const StaffExpensesDetail = ({
                 </Typography>
                 <Box className="expenses_parameter expenses_parameter_bottom_border">
                   <Typography variant="span">
-                    {openStaffExpenses?.data?.approvalAmount ?? '-'}
+                    {expenseDetail?.approvalAmount ?? '-'}
                   </Typography>
                 </Box>
               </Box>
@@ -106,7 +111,7 @@ const StaffExpensesDetail = ({
                 </Typography>
                 <Box className="expenses_parameter ">
                   <Typography variant="span">
-                    {openStaffExpenses?.data?.aprrovalBy || '-'}
+                    {expenseDetail?.aprrovalBy || '-'}
                   </Typography>
                 </Box>
               </Box>
@@ -116,18 +121,18 @@ const StaffExpensesDetail = ({
                 </Typography>
                 <Box className="expenses_parameter ">
                   <Typography variant="span">
-                    {openStaffExpenses?.data?.payment_status || '-'}
+                    {expenseDetail?.payment_status || '-'}
                   </Typography>
                 </Box>
               </Box>
               <Box className="common_button">
                 <Button
-                  disabled={openStaffExpenses?.data?.status !== 'APPROVED'}
+                  disabled={expenseDetail?.status !== 'APPROVED'}
                   onClick={() =>
                     setPaymentVerification({
                       ...paymentVerification,
                       status: true,
-                      teamExpenseId: openStaffExpenses.data.id,
+                      teamExpenseId: expenseDetail.id,
                     })
                   }
                   sx={{ backgroundColor: 'white' }}
@@ -141,7 +146,7 @@ const StaffExpensesDetail = ({
             <Box className="expenses_right_section">
               <Box className="document_section">
                 <Typography sx={{ color: '#8E8E8E' }} variant="span">
-                  {openStaffExpenses?.data?.file || '-'}
+                  {expenseDetail?.file || '-'}
                 </Typography>
                 <PictureAsPdfIcon />
               </Box>
@@ -151,7 +156,7 @@ const StaffExpensesDetail = ({
                 </Typography>
                 <Box>
                   <Typography variant="span">
-                    {openStaffExpenses?.data?.expense_description || '-'}
+                    {expenseDetail?.expense_description || '-'}
                   </Typography>
                 </Box>
               </Box>
@@ -162,7 +167,7 @@ const StaffExpensesDetail = ({
                 </Typography>
                 <Box>
                   <Typography variant="span">
-                    {openStaffExpenses?.data?.description || '-'}
+                    {expenseDetail?.description || '-'}
                   </Typography>
                 </Box>
               </Box>

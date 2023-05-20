@@ -163,12 +163,8 @@ const Client = () => {
         },
       )
   }, [selectedCityStateCountry?.state])
-  useEffect(() => {
-    let value = clientType.filter(data => {
-      if (data.id <= localStorage.getItem('clientStageAccess')) {
-        return data
-      }
-    })
+
+  const handleGetCountry = () => {
     GetCountryList(
       {},
       res => {
@@ -184,6 +180,17 @@ const Client = () => {
         })
       },
     )
+  }
+  useEffect(() => {
+    open && handleGetCountry()
+  }, [open])
+  useEffect(() => {
+    let value = clientType.filter(data => {
+      if (data.id <= localStorage.getItem('clientStageAccess')) {
+        return data
+      }
+    })
+
     setClientType(value)
   }, [])
 
