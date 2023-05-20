@@ -391,10 +391,10 @@ const Staff = () => {
                         onClick={() => teamLeaderDetails(row?.id)}
                       >
                         <TableCell className="staff_inner_name_tablecell">
-                          <Avatar
+                          {/* <Avatar
                             sx={{ marginRight: '10px' }}
                             src="/static/images/avatar/1.jpg"
-                          />
+                          /> */}
                           {/* <Box>
                             <img
                               style={{ borderRadius: '50%', width: '20%' }}
