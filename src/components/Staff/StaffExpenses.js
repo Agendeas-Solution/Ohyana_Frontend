@@ -18,6 +18,7 @@ import {
   StatusUpdate,
   ApproveExpense,
   PaymentStatus,
+  GetExpenseDetail,
 } from '../../services/apiservices/staffDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import StaffExpensesDetail from './StaffExpensesDetail'
@@ -50,9 +51,20 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
   const [paymentVerification, setPaymentVerification] = useState({
     status: false,
   })
+  const [expenseDetail, setExpenseDetail] = useState(null)
 
   const handleClose = () => {
     setOpenStaffExpenses({ ...openStaffExpenses, status: false })
+  }
+  const handleStaffExpenseDetail = () => {
+    openStaffExpenses?.data?.id &&
+      GetExpenseDetail(
+        openStaffExpenses?.data?.id,
+        res => {
+          setExpenseDetail(res?.data)
+        },
+        err => {},
+      )
   }
   const handleCloseApprovalDialog = () => {
     setOpenApprovalDialog({ ...openApprovalDialog, status: false })
@@ -114,14 +126,7 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
           description: '',
           teamExpenseid: '',
         })
-        setOpenStaffExpenses({
-          ...openStaffExpenses,
-          data: {
-            ...openStaffExpenses.data,
-            approvalAmount: openStaffExpenses?.data?.amount,
-            status: 'APPROVED',
-          },
-        })
+        handleStaffExpenseDetail()
         setSuccessSnackbar({
           ...successSnackbar,
           status: true,
@@ -183,7 +188,6 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
           </Box>
         </Box>
       </Box>
-
       <TableContainer className="profile_data_table mt-2" component={Paper}>
         {expenseList.length > 0 ? (
           <Table
@@ -268,6 +272,8 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
         setOpenApprovalDialog={setOpenApprovalDialog}
         paymentVerification={paymentVerification}
         setPaymentVerification={setPaymentVerification}
+        handleStaffExpenseDetail={handleStaffExpenseDetail}
+        expenseDetail={expenseDetail}
       />
       <StaffExpensesApprovalDialog
         openApprovalDialog={openApprovalDialog}

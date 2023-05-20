@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
+import moment from 'moment'
 
 const StaffDetail = ({ adminProfileDetail }) => {
   return (
@@ -18,7 +19,7 @@ const StaffDetail = ({ adminProfileDetail }) => {
             Senior Post:
           </Typography>
           <Typography variant="span">
-            {adminProfileDetail?.role?.name || '-'}
+            {adminProfileDetail?.senior?.name || '-'}
           </Typography>
         </Box>
         <Box className="companyDetail_root p-3">
@@ -34,7 +35,7 @@ const StaffDetail = ({ adminProfileDetail }) => {
             Birthdate
           </Typography>
           <Typography variant="span">
-            {adminProfileDetail?.birthday || '-'}
+            {moment(adminProfileDetail?.birthDay).format('D/M/YY') || '-'}
           </Typography>
         </Box>
         <Box className="companyDetail_root  p-3">
@@ -43,6 +44,14 @@ const StaffDetail = ({ adminProfileDetail }) => {
           </Typography>
           <Typography variant="span">
             {adminProfileDetail?.gender || '-'}
+          </Typography>
+        </Box>
+        <Box className="companyDetail_root  p-3">
+          <Typography className=" profile_data_lable" variant="span">
+            State
+          </Typography>
+          <Typography variant="span">
+            {adminProfileDetail?.state || '-'}
           </Typography>
         </Box>
       </Box>

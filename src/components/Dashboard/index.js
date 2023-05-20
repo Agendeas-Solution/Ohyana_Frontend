@@ -200,15 +200,14 @@ const Dashboard = () => {
                       <Typography>Website</Typography>
                       <Box className="inquiry_row">
                         <Typography variant="span">
-                          {inquiryData?.inquiry?.crtMonIndiaMart || 0}
+                          {inquiryData?.inquiry?.crtMonWeb || 0}
                         </Typography>
                         <Typography variant="span">
-                          {inquiryData?.inquiry?.percentageIndiaMart || 0}%
+                          {inquiryData?.inquiry?.percentageMonWeb || 0}%
                         </Typography>
                       </Box>
                       <Typography className="small_sub_heading" variant="span">
-                        Last Month :{' '}
-                        {inquiryData?.inquiry?.lstMonIndiaMart || 0}
+                        Last Month : {inquiryData?.inquiry?.lstMonWeb || 0}
                       </Typography>
                       <Divider className="underline" />
                     </Box>
@@ -252,15 +251,14 @@ const Dashboard = () => {
                       <Typography>Others</Typography>
                       <Box className="inquiry_row">
                         <Typography variant="span">
-                          {inquiryData?.inquiry?.crtMonIndiaMart || 0}
+                          {inquiryData?.inquiry?.crtMonOther || 0}
                         </Typography>
                         <Typography variant="span">
-                          {inquiryData?.inquiry?.percentageIndiaMart || 0}%
+                          {inquiryData?.inquiry?.percentageOther || 0}%
                         </Typography>
                       </Box>
                       <Typography className="small_sub_heading" variant="span">
-                        Last Month :{' '}
-                        {inquiryData?.inquiry?.lstMonIndiaMart || 0}
+                        Last Month : {inquiryData?.inquiry?.lstMonOther || 0}
                       </Typography>
                     </Box>
                   </Box>
@@ -309,7 +307,7 @@ const Dashboard = () => {
               <Typography variant="span">Total</Typography>
               <Box className="sales_parameter sales_parameter_bottom_border">
                 <Typography className="dashboard_sub_heading" variant="span">
-                  {inquiryData?.sales?.crtLead || 0}
+                  {inquiryData?.sales?.total || 0}
                 </Typography>
                 <Typography variant="span">
                   <TrendingUpRoundedIcon className="common_icon" />{' '}
@@ -539,8 +537,8 @@ const Dashboard = () => {
                     {/* </Box> */}
                   </Box>
                   <Box className="text-container">
-                    <h3>Paul Walker</h3>
-                    <h6>Sr. Sales Person</h6>
+                    <h3>{data.name}</h3>
+                    <h6>{data.role.name}</h6>
                     <h5>Star Performer of the Month.</h5>
                   </Box>
                 </Box>
