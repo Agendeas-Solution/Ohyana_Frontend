@@ -70,7 +70,9 @@ const AddProduct = props => {
     data.append('materialType', productDetail.materialType)
     data.append('weight', productDetail.weight)
     data.append('description', productDetail.description)
-    data.append('product_image', imageUrl)
+    if (typeof imageUrl !== 'string') {
+      data.append('product_image', imageUrl)
+    }
     if (parseInt(path)) {
       EditAdminProduct(
         data,

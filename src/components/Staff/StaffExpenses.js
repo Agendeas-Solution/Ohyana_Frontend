@@ -45,7 +45,7 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
     status: false,
     amount: '',
     description: '',
-    teamExpenseid: '',
+    teamExpenseId: '',
   })
   const [paymentVerification, setPaymentVerification] = useState({
     status: false,
@@ -60,12 +60,15 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
   const handleClosePaymentVerificationDialog = () => {
     setPaymentVerification({ ...paymentVerification, status: false })
   }
-
-  useEffect(() => {
+  const handleExpensesList = () => {
+    let path = window.location.pathname
+    path = path.split('/').pop()
     let data = {
       month: moment(selectMonth.$d).month() + 1,
       year: moment(selectMonth.$d).format('YYYY'),
-      teamId: permissions?.roleId,
+    }
+    if (parseInt(path)) {
+      data['teamId'] = parseInt(path)
     }
     GetExpenseList(
       data,
@@ -75,6 +78,9 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
       },
       err => {},
     )
+  }
+  useEffect(() => {
+    handleExpensesList()
   }, [selectMonth])
   const handlePaymentStatusUpdate = id => {
     PaymentStatusUpdate(
@@ -107,6 +113,14 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
           amount: '',
           description: '',
           teamExpenseid: '',
+        })
+        setOpenStaffExpenses({
+          ...openStaffExpenses,
+          data: {
+            ...openStaffExpenses.data,
+            approvalAmount: openStaffExpenses?.data?.amount,
+            status: 'APPROVED',
+          },
         })
         setSuccessSnackbar({
           ...successSnackbar,

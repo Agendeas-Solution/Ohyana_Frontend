@@ -62,7 +62,7 @@ const OrderDetail = () => {
     'NETBANKING',
     'OTHER',
   ])
-  const [activeStep, setActiveStep] = useState()
+  const [activeStep, setActiveStep] = useState(0)
   const [openPaymentDetailDialog, setOpenPaymentDetailDialog] = useState(false)
   const [openDispatchOrder, setOpenDispatchOrder] = useState(false)
   let path = window.location.pathname
@@ -80,6 +80,7 @@ const OrderDetail = () => {
           }
         }).filter(count => count !== undefined && count !== [])
         setActiveStep(data[0])
+        debugger
       },
       err => {
         console.log('Printing OrderList Error', err)
@@ -91,7 +92,7 @@ const OrderDetail = () => {
       parseInt(path),
       { status: statusValue },
       res => {
-        if (activeStep < 1) {
+        if (activeStep < 3) {
           setActiveStep(prevActiveStep => prevActiveStep + 1)
           debugger
         }
@@ -361,9 +362,9 @@ const OrderDetail = () => {
                   <Typography>
                     All steps completed - you&apos;re finished
                   </Typography>
-                  <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+                  {/* <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
                     Reset
-                  </Button>
+                  </Button> */}
                 </Paper>
               )}
             </Box>

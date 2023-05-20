@@ -74,7 +74,10 @@ const EditProfile = () => {
   }
   const SaveProfile = () => {
     const data = new FormData()
-    data.append('profile_image', imageUrl)
+    console.log(typeof imageUrl)
+    if (typeof imageUrl !== 'string') {
+      data.append('profile_image', imageUrl)
+    }
     data.append('name', userDetail.employeeName)
     data.append('email', userDetail.email)
     data.append('contact_number', userDetail.contactNo)

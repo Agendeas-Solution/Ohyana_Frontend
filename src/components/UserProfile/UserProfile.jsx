@@ -6,6 +6,7 @@ import {
   Button,
   Tab,
   selectClasses,
+  TextField,
 } from '@mui/material'
 import StaffExpenses from '../Staff/StaffExpenses'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
@@ -24,6 +25,8 @@ import {
 import ApplyLeaveDialog from './ApplyLeaveDialog'
 import { GetAllHoliday } from '../../services/apiservices/holiday'
 import moment from 'moment'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 const PresentData = React.lazy(() => import('./PresentData'))
 const LeaveData = React.lazy(() => import('./LeaveData'))
 const HolidayData = React.lazy(() => import('./HolidayData'))
@@ -172,6 +175,33 @@ const UserProfile = () => {
               <Tab value="Expenses" label="Expenses" />
               <Tab value="Profile" label="Profile" />
             </Tabs>
+            {value === 'Expenses' && (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  className="staff_date"
+                  views={['month', 'year']}
+                  value={selectMonth}
+                  onChange={newValue => {
+                    setSelectMonth(newValue)
+                  }}
+                  renderInput={params => (
+                    <TextField
+                      {...params}
+                      sx={{
+                        width: '150px',
+                        marginLeft: '6px',
+                        border: 'none',
+                      }}
+                      placeholder="Year and Month"
+                      helperText={null}
+                    />
+                  )}
+                  PopperProps={{
+                    placement: 'bottom-start', // Set placement to 'bottom-start'
+                  }}
+                />
+              </LocalizationProvider>
+            )}
           </Box>
 
           <TabPanel sx={{ padding: '10px' }} value="Attendance">
@@ -254,14 +284,12 @@ const UserProfile = () => {
               <HolidayData holidayList={holidayList} />
             )}
           </TabPanel>
-
           <TabPanel sx={{ padding: '10px' }} value="Expenses">
             <StaffExpenses
               selectMonth={selectMonth}
               setSelectMonth={setSelectMonth}
             />
           </TabPanel>
-
           <TabPanel value="Profile">
             <Box className="staff_profile">
               <Box className="staff_profile_page">

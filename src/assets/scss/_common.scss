@@ -31,6 +31,7 @@ html {
 }
 
 $colorPrimary: #2e3591;
+$disabledColor: #ddd;
 
 .selected-link {
   // background-color: #f1f2f6;
@@ -486,7 +487,14 @@ button {
   border-radius: 3px;
   font-weight: '600';
 }
-
+.custom_text_button_disabled {
+  background-color: #f1f2f6 !important;
+  color: $disabledColor !important;
+  margin: 4px !important;
+  height: 40px !important;
+  border-radius: 3px;
+  font-weight: '600';
+}
 .custom_text_button:hover {
   cursor: pointer;
 }

@@ -56,6 +56,40 @@ const Dashboard = () => {
           status: true,
           message: res.message,
         })
+        debugger
+        if (type === 'checkIn') {
+          setInquiryData({
+            ...inquiryData,
+            userAttendance: {
+              ...inquiryData.userAttendance,
+              checkIn: res.data.checkIn,
+            },
+          })
+        } else if (type === 'checkOut') {
+          setInquiryData({
+            ...inquiryData,
+            userAttendance: {
+              ...inquiryData.userAttendance,
+              checkOut: res.data.checkOut,
+            },
+          })
+        } else if (type === 'breakIn') {
+          setInquiryData({
+            ...inquiryData,
+            userAttendance: {
+              ...inquiryData.userAttendance,
+              breakIn: res.data.breakIn,
+            },
+          })
+        } else if (type === 'breakOut') {
+          setInquiryData({
+            ...inquiryData,
+            userAttendance: {
+              ...inquiryData.userAttendance,
+              breakOut: res.data.breakOut,
+            },
+          })
+        }
       },
       err => {
         setErrorSnackbar({
@@ -80,28 +114,44 @@ const Dashboard = () => {
             <Button
               disabled={inquiryData?.userAttendance?.checkIn ? true : null}
               onClick={() => handleCheckIn('checkIn')}
-              className="custom_text_button"
+              className={
+                inquiryData?.userAttendance?.checkIn
+                  ? 'custom_text_button_disabled'
+                  : 'custom_text_button'
+              }
             >
               Check In
             </Button>
             <Button
               disabled={inquiryData?.userAttendance?.breakIn ? true : null}
               onClick={() => handleCheckIn('breakIn')}
-              className="custom_text_button"
+              className={
+                inquiryData?.userAttendance?.breakIn
+                  ? 'custom_text_button_disabled'
+                  : 'custom_text_button'
+              }
             >
               Break In
             </Button>
             <Button
               disabled={inquiryData?.userAttendance?.breakOut ? true : null}
               onClick={() => handleCheckIn('breakOut')}
-              className="custom_text_button"
+              className={
+                inquiryData?.userAttendance?.breakOut
+                  ? 'custom_text_button_disabled'
+                  : 'custom_text_button'
+              }
             >
               Break Out
             </Button>
             <Button
               disabled={inquiryData?.userAttendance?.checkOut ? true : null}
               onClick={() => handleCheckIn('checkOut')}
-              className="custom_text_button"
+              className={
+                inquiryData?.userAttendance?.checkOut
+                  ? 'custom_text_button_disabled'
+                  : 'custom_text_button'
+              }
             >
               Check Out
             </Button>

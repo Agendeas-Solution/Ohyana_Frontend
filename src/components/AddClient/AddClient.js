@@ -201,7 +201,10 @@ const AddClient = () => {
       data.append('address', userDetail.address)
       data.append('max_invesment_amount', userDetail.max_invesment_amount)
       data.append('reference_name', userDetail.reference_name)
-      data.append('customer_image', imageUrl)
+      console.log(typeof imageUrl)
+      if (typeof imageUrl !== 'string') {
+        data.append('customer_image', imageUrl)
+      }
 
       let path = window.location.pathname
       path = path.split('/').pop()
