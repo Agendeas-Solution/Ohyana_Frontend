@@ -27,7 +27,6 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 import { ORDER } from '../../constants/orderConstant'
 import PermissionsGate, { CheckPermission } from '../Settings/PermissionGate'
 import { PERMISSION } from '../../constants'
-const Loader = React.lazy(() => import('../Loader/Loader'))
 const PaymentDetailDialog = React.lazy(() => import('./PaymentDetailDialog'))
 
 const steps = [
@@ -77,7 +76,6 @@ const OrderDetail = () => {
           }
         }).filter(count => count !== undefined && count !== [])
         setActiveStep(data[0])
-        debugger
       },
       err => {
         console.log('Printing OrderList Error', err)
@@ -91,58 +89,22 @@ const OrderDetail = () => {
       res => {
         if (activeStep < 3) {
           setActiveStep(prevActiveStep => prevActiveStep + 1)
-          debugger
         }
-        debugger
       },
       err => {
         console.log('Printing Error', err)
       },
     )
   }
-
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1)
   }
-
-  const handleReset = () => {
-    setActiveStep(0)
-  }
-  // const handleActiveStep = Status => {
-  //   steps.map((stepName, index) => {
-  //     if (stepName !== Status) {
-  //       return index + 1
-  //     }
-  //   })
-  // }
   const handleOpenPaymentDialog = () => {
     setOpenPaymentDetailDialog(true)
   }
   const handleClosePaymentDialog = () => {
     setOpenPaymentDetailDialog(false)
   }
-  const handleOpenDispatchDialog = () => {
-    setOpenDispatchOrder(true)
-  }
-  const handleCloseDispatchDialog = () => {
-    setOpenDispatchOrder(false)
-  }
-  // const handleDispatch = () => {
-  //   DispatchOrder(
-  //     parseInt(path),
-  //     {
-  //       status: 'DISPATCH',
-  //     },
-  //     res => { },
-  //     err => {
-  //       setErrorSnackbar({
-  //         ...errorSnackbar,
-  //         status: true,
-  //         message: err?.response?.data?.message,
-  //       })
-  //     },
-  //   )
-  // }
   const handleUpdatePaymentStatus = paymentDetail => {
     UpdatePaymentStatus(
       {
@@ -199,7 +161,6 @@ const OrderDetail = () => {
                 Order Summary
               </Typography>
             </Box>
-
             <Box className="order_detail_row">
               <Typography className="order_desc_subheading" variant="span">
                 Order Id
@@ -215,24 +176,6 @@ const OrderDetail = () => {
                 {orderDetail?.client?.name}
               </Typography>
             </Box>
-
-            {/* <Box className="detail_row">
-              <Typography className="order_desc_subheading" variant="span">
-                Date
-              </Typography>
-              <Typography variant="span">
-                {moment(orderDetail?.date).format('DD-MM-YYYY hh:mm A')}
-              </Typography>
-            </Box>
-
-            <Box className="detail_row">
-              <Typography className="order_desc_subheading" variant="span">
-                Address
-              </Typography>
-              <Typography className="text-right" variant="span">
-                {orderDetail?.client?.address}
-              </Typography>
-            </Box> */}
           </Box>
           <Divider
             sx={{ borderColor: '#8E8E8E' }}
@@ -241,10 +184,6 @@ const OrderDetail = () => {
             flexItem
           />
           <Box
-            // className="payment_detail"
-            // sx={{
-            //   width: '49.5%',
-            // }}
             sx={{
               width: '48%',
             }}
@@ -371,15 +310,11 @@ const OrderDetail = () => {
                     <Typography>
                       All steps completed - you&apos;re finished
                     </Typography>
-                    {/* <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-                    Reset
-                  </Button> */}
                   </Paper>
                 )}
               </Box>
             </Box>
           </PermissionsGate>
-
           {/* right section  */}
           <Box
             sx={{
@@ -523,11 +458,6 @@ const OrderDetail = () => {
         paymentMethodList={paymentMethodList}
         handleUpdatePaymentStatus={handleUpdatePaymentStatus}
       />
-      {/* <DispatchOrderDialog
-        openDispatchOrder={openDispatchOrder}
-        handleCloseDispatchDialog={handleCloseDispatchDialog}
-        handleDispatch={handleDispatch}
-      /> */}
     </>
   )
 }

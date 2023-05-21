@@ -1,12 +1,10 @@
 import axiosInstance from './axios'
-import { setLoginToken, clearLoginToken /*getLoginToken*/ } from '../storage'
-// let BaseUrl = process.env.REACT_APP_API_URL;
+import { setLoginToken, clearLoginToken } from '../storage'
 
 const defaultHeaders = {
   'Content-Type': 'application/json',
   withCredentials: true,
 }
-// const authHeaders = { Authorization: `Barear ${getLoginToken()}` };
 
 export async function login(formData, onSuccess, onError) {
   try {
@@ -18,11 +16,10 @@ export async function login(formData, onSuccess, onError) {
     setLoginToken(authToken)
     localStorage.setItem('permissions', JSON.stringify(data?.data?.permissions))
     localStorage.setItem('clientStageAccess', data?.data?.clientStageAccess)
-    debugger
     localStorage.setItem('userImageUrl', data?.data?.userImageUrl)
     onSuccess && onSuccess(data)
   } catch (res_1) {
-    clearLoginToken()
+    // clearLoginToken()
     onError && onError(res_1)
     console.log(res_1)
   }

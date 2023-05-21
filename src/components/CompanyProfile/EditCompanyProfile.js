@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react'
 import {
-  Typography,
   Box,
   TextField,
   Autocomplete,
   Button,
-  TextareaAutosize,
   createFilterOptions,
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
@@ -14,7 +12,6 @@ import {
   GetCompanyProfile,
   editCompanyProfile,
 } from '../../services/apiservices/companyprofile'
-import ProfileImage from '../../assets/img/Profile_Image.svg'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import Uploader from '../Uploader/Uploader'
 import {
@@ -148,11 +145,6 @@ const EditCompanyProfile = () => {
     data.append('country', companyDetail.country.name)
     data.append('country_id', companyDetail.country.id)
     data.append('country_iso2', companyDetail.country.iso2)
-    debugger
-    // email: companyDetail.email,
-    // state: companyDetail.state,
-    // crmKey: companyDetail.crmKey,
-    // businessType: companyDetail.businessType, city: companyDetail.city, country: companyDetail.country
     editCompanyProfile(
       data,
       res => {
@@ -181,9 +173,6 @@ const EditCompanyProfile = () => {
         <Box className="pofile_edit_section">
           <Box className="edit_my_profile_image_section">
             <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
-            {/* <Button className="common_button">
-              <Uploader />
-            </Button> */}
           </Box>
           <Box className="edit_profile_detail_section">
             {/* Company Name &&  City */}

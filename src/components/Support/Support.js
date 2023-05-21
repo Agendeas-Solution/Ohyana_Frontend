@@ -10,8 +10,6 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material'
-import CallIcon from '../../assets/img/call.svg'
-import MailIcon from '../../assets/img/mail.svg'
 import LikeIcon from '../../assets/img/like.svg'
 import DisLikeIcon from '../../assets/img/dislike.svg'
 import { useNavigate } from 'react-router-dom'

@@ -4,8 +4,6 @@ import {
   Typography,
   TextField,
   Button,
-  FormControl,
-  OutlinedInput,
   InputAdornment,
   IconButton,
 } from '@mui/material'
@@ -16,11 +14,8 @@ import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as ContextActivePage } from '../../context/pageContext'
 import Logo from '../../assets/img/Ohyana Logo Blue.svg'
-import { socket } from '../../App'
-import InputLabel from '@mui/material/InputLabel'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
-
 const Login = () => {
   const { setAuthorize, setFlagLoader } = useContext(AuthContext)
   const [userDetail, setUserDetail] = useState({
@@ -48,20 +43,16 @@ const Login = () => {
     setPath(path)
     localStorage.setItem('path', path)
   }
-
   const userlogin = () => {
     if (userDetail.email !== '' && userDetail.password !== '') {
       setFlagLoader(true)
       login(
         { email: userDetail.email, password: userDetail.password },
         res => {
-          console.log({ RES: res })
           if (res.success) {
             setAuthorize(true)
             setFlagLoader(false)
             handleNavItemClick('/dashboard', 'Dashboard')
-
-            // socket.emit('join', { email: userDetail?.email })
           } else {
             if (res?.data?.error) {
               setErrorMessage(res?.data?.error?.message)

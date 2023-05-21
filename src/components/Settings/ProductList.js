@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import {
   Box,
-  Tabs,
-  Tab,
   Button,
   Typography,
   OutlinedInput,
@@ -12,22 +10,15 @@ import {
 } from '@mui/material'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
-import TabPanel from '@mui/lab/TabPanel'
-import TabContext from '@mui/lab/TabContext'
-import SampleProduct from '../../assets/img/sample_product.png'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
-
-// import { ProductIcon } from '../../assets/img/product-icon.svg'
-import SnacksPhoto from '../../assets/img/SnacksPhoto.png'
 import PermissionsGate from './PermissionGate'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 import { PERMISSION } from '../../constants'
 const ViewProductDialog = React.lazy(() => import('./ViewProductDialog'))
 const DeleteProductDialog = React.lazy(() => import('./DeleteProductDialog'))
-
 const ProductList = () => {
-  const { flagLoader, permissions } = useContext(AuthContext).state
   const navigate = useNavigate()
   const [addProductDialogControl, setAddProductDialogControl] = useState({
     status: false,
@@ -35,6 +26,8 @@ const ProductList = () => {
     name: '',
     type: '',
   })
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [searchQuery, setSearchQuery] = useState('')
   const [deleteProductDialogControl, setDeleteProductDialogControl] = useState({
     status: false,
@@ -45,11 +38,6 @@ const ProductList = () => {
   const [viewProductDialog, setViewProductDialog] = useState({
     status: false,
   })
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
-
   const [AdminProductList, setAdminProductList] = useState([])
   const handleGetAdminProduct = () => {
     GetAdminProductList(
@@ -60,6 +48,11 @@ const ProductList = () => {
         }
       },
       err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err.response.data.message,
+        })
         console.log('Printing Error', err)
       },
     )

@@ -1,12 +1,10 @@
 import axiosInstance from './axios'
 import Cookie from 'js-cookie'
-// let BaseUrl = process.env.REACT_APP_API_URL;
 const defaultHeaders = {
   'Content-Type': 'application/json',
   withCredentials: true,
   Authorization: `Barear ${Cookie.get('userToken')}`,
 }
-// const authHeaders = { Authorization: `Barear ${getLoginToken()}` };
 export const GetComplaintList = async (value, onSuccess, onError) => {
   defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
   try {
@@ -62,10 +60,8 @@ export const CloseTicket = async (value, onSuccess, onError) => {
         headers: { ...defaultHeaders },
       },
     )
-    console.log('Printing data of CloseTicket', data)
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log('Got error while calling API - CloseTicket', err)
     onError && onError(err)
   }
 }

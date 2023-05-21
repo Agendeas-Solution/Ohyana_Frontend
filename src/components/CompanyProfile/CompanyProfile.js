@@ -4,15 +4,16 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import { useNavigate } from 'react-router-dom'
 import { GetCompanyProfile } from '../../services/apiservices/companyprofile'
 import './index.css'
-import ProfileImage from '../../assets/img/Profile_Image.svg'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import PermissionsGate from '../Settings/PermissionGate'
 import { PERMISSION } from '../../constants'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const CompanyProfile = () => {
   const navigate = useNavigate()
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state
   const [companyDetail, setCompanyDetail] = useState({})
-  const [showPassword, setShowPassword] = useState(false)
   useEffect(() => {
     GetCompanyProfile(
       {},
@@ -24,6 +25,11 @@ const CompanyProfile = () => {
       },
       err => {
         console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [])

@@ -15,7 +15,6 @@ import {
   createFilterOptions,
 } from '@mui/material'
 import './index.css'
-
 import {
   GetAdminProductList,
   AddClientDetail,
@@ -24,7 +23,6 @@ import {
 import { useNavigate } from 'react-router-dom'
 import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded'
 import image from '../../assets/img/profile_icon.svg'
-
 import { GetAdminClientProfileDetail } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import ProfileImage from '../../assets/img/Profile_Image.svg'
@@ -36,8 +34,6 @@ import {
   GetStateByCountry,
 } from '../../services/apiservices/country-state-city'
 import { GetCity } from '../../services/apiservices/country-state-city'
-// const ErrorSnackbar = lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
-
 const AddClient = () => {
   const [userDetail, setUserDetail] = useState({
     clientName: '',
@@ -60,10 +56,6 @@ const AddClient = () => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [imageUrl, setImageUrl] = useState(null)
-
-  const handleChange = prop => event => {
-    setUserDetail({ ...userDetail, [prop]: event.target.value })
-  }
   let path = window.location.pathname
   path = path.split('/').pop()
   const filterOptions = createFilterOptions({
@@ -259,21 +251,12 @@ const AddClient = () => {
     }
   }
 
-  const [state, setState] = useState('')
-  const loadFile = event => {
-    if (event.target.files) {
-      setState(URL.createObjectURL(event.target.files[0]))
-      console.log(URL.createObjectURL(event.target.files[0]))
-    }
-  }
-
   return (
     <>
       <Box className="main_section" sx={{ overflow: 'hidden', padding: '0px' }}>
         <Box className="pofile_edit_section">
           <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
           <Box className="edit_profile_detail_section">
-            {/* Client Name &&  Business Name*/}
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
@@ -285,7 +268,6 @@ const AddClient = () => {
                   variant="outlined"
                 />
               </Box>
-
               <Box className="input_fields">
                 <TextField
                   label="Business Name"
@@ -297,8 +279,6 @@ const AddClient = () => {
                 />
               </Box>
             </Box>
-
-            {/* Contact No. &&  Investment Scale*/}
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
@@ -310,7 +290,6 @@ const AddClient = () => {
                   variant="outlined"
                 />
               </Box>
-
               <Box className="input_fields">
                 <TextField
                   label="Investment Scale"
@@ -325,7 +304,6 @@ const AddClient = () => {
                 />
               </Box>
             </Box>
-
             {/* Email && Country*/}
             <Box className="input_field_row">
               <Box className="input_fields">
@@ -353,7 +331,6 @@ const AddClient = () => {
                 )}
               />
             </Box>
-
             {/* Address && State*/}
             <Box className="input_field_row">
               <Box className="input_fields">
@@ -383,7 +360,6 @@ const AddClient = () => {
                 )}
               />
             </Box>
-
             {/* Reference && City */}
             <Box className="input_field_row">
               <Box className="input_fields">
@@ -405,7 +381,6 @@ const AddClient = () => {
                   </Select>
                 </FormControl>
               </Box>
-
               <Autocomplete
                 className="input_fields"
                 options={cityList}
@@ -422,7 +397,6 @@ const AddClient = () => {
                 )}
               />
             </Box>
-
             {/* Reference Name */}
             <Box className="input_field_row">
               {userDetail.reference === 'OTHER' && (
@@ -463,7 +437,6 @@ const AddClient = () => {
                 </Box>
               )}
             </Box>
-
             <Button
               onClick={handleAddClient}
               variant="contained"
@@ -474,7 +447,6 @@ const AddClient = () => {
           </Box>
         </Box>
       </Box>
-      {/* <ErrorSnackbar /> */}
     </>
   )
 }

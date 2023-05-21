@@ -1,25 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react'
-import {
-  Box,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  Divider,
-} from '@mui/material'
+import { Box, Typography, Button } from '@mui/material'
 import './index.css'
 import Tab from '@mui/material/Tab'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
-import AddRoundedIcon from '@mui/icons-material/AddRounded'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as ContextActivePage } from '../../context/pageContext'

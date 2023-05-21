@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Box, Typography, Button, TextField, Tab, Tabs } from '@mui/material'
+import { Box, Typography, Button } from '@mui/material'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -7,8 +7,6 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import dayjs from 'dayjs'
-import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import {
   GetAllHoliday,
   GetAllLeaveType,
@@ -23,9 +21,7 @@ import {
   UpdateLeaveType,
 } from '../../services/apiservices/holiday'
 import HolidayDialog from './HolidayDialog'
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import AddLeaveDialog from './AddLeaveDialog'
-import { TabPanel } from '@mui/lab'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import DeleteLeaveDialog from './DeleteLeaveDialog'
 import DeleteHolidayDialog from './DeleteHolidayDialog'
@@ -34,9 +30,7 @@ import AddEditRegularHolidayDialog from './AddEditRegularHolidayDialog'
 import moment from 'moment'
 import PermissionsGate from '../Settings/PermissionGate'
 import { PERMISSION } from '../../constants'
-
 const HolidayAndLeaveManagement = () => {
-  const [date, setDate] = React.useState(dayjs())
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state
   const [holidayList, setHolidayList] = useState([])
@@ -49,7 +43,6 @@ const HolidayAndLeaveManagement = () => {
     status: false,
   })
   const [daysList, setDaysList] = useState(LEAVEHOLIDAY.WEEKDAYS)
-
   const [addHolidayDetail, setAddHolidayDetail] = useState({
     date: moment().format('LL'),
     duration: '',
@@ -67,7 +60,6 @@ const HolidayAndLeaveManagement = () => {
     type: '',
     duration: '',
   })
-
   const handleGetLeaveType = () => {
     GetAllLeaveType(
       {},

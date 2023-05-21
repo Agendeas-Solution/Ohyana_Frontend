@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import {
-  Box,
-  Button,
-  Typography,
-  TextField,
-  TextareaAutosize,
-} from '@mui/material'
+import { Box, Button, TextField } from '@mui/material'
 import {
   AddAdminProduct,
   EditAdminProduct,
@@ -13,10 +7,7 @@ import {
 import { GetProductDetail } from '../../services/apiservices/productDetail'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-import ProfileImage from '../../assets/img/Profile_Image.svg'
-import CompanyIcon from '../../assets/img/companyIcon.svg'
 import Uploader from '../Uploader/Uploader'
-
 const AddProduct = props => {
   const [productDetail, setProductDetail] = useState({
     name: '',
@@ -50,7 +41,6 @@ const AddProduct = props => {
             skuId: res.data.skuId,
           })
           setImageUrl(res.data.imageUrl)
-          debugger
         },
         err => {
           setErrorSnackbar({
@@ -125,7 +115,6 @@ const AddProduct = props => {
           <Box className="edit_profile_image_section">
             <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
           </Box>
-
           <Box className="edit_profile_detail_section">
             <Box className="input_field_row">
               <Box className="input_fields">
@@ -200,7 +189,6 @@ const AddProduct = props => {
                   }}
                 />
               </Box>
-
               <Box className="input_fields">
                 <TextField
                   label="Material Type"

@@ -4,21 +4,14 @@ import {
   Typography,
   Divider,
   Button,
-  Grid,
   TableHead,
   TableRow,
   TableCell,
   TableBody,
   TableContainer,
   Table,
-  makeStyles,
 } from '@mui/material'
 import './index.css'
-import DeleteIcon from '../../assets/img/Delete_Icon.svg'
-import EditRoundedIcon from '@mui/icons-material/EditRounded'
-import EditWithBorderRound from '../../assets/img/edit_with_border_round.svg'
-import DeleteWithBorderRound from '../../assets/img/delete_with_border_round.svg'
-import EditIcon from '../../assets/img/Edit_Icon.svg'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
@@ -72,7 +65,11 @@ const ExpenseList = () => {
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }
@@ -131,7 +128,11 @@ const ExpenseList = () => {
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }
@@ -151,7 +152,11 @@ const ExpenseList = () => {
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }
@@ -162,7 +167,6 @@ const ExpenseList = () => {
           <Typography className="task_card_heading" variant="span">
             Expense List
           </Typography>
-
           <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_EXPENSE]}>
             <Button
               className="primary_color_button"
@@ -193,9 +197,7 @@ const ExpenseList = () => {
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
-
               <Divider orientation="vertical" variant="middle" flexItem />
-
               <TableBody>
                 {expenseList.length > 0 &&
                   expenseList?.map((data, index) => (
@@ -210,7 +212,6 @@ const ExpenseList = () => {
                         <TableCell className="text-wrap">
                           {data.description || '-'}
                         </TableCell>
-
                         <TableCell>
                           <Box
                             sx={{ display: 'flex', justifyContent: 'flex-end' }}
@@ -237,7 +238,6 @@ const ExpenseList = () => {
                                 Edit
                               </Button>
                             </PermissionsGate>
-
                             <PermissionsGate
                               scopes={[PERMISSION.PERMISSIONS.DELETE_EXPENSE]}
                             >

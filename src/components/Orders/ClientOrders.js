@@ -9,12 +9,9 @@ import {
   Typography,
 } from '@mui/material'
 import { Box } from '@mui/system'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
-import SnacksPhoto from '../../assets/img/SnacksPhoto.png'
-// import InfoIcon from '@mui/icons-material/Info'
 import InformationIcon from '../../assets/img/information.svg'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import CartIcon from '../../assets/img/orders_cart.svg'
 import { Context as ContextActivePage } from '../../context/pageContext'
 import {
@@ -70,9 +67,9 @@ const ClientOrders = () => {
   const handleProductList = productId => {
     const updatedProductArray = clientProductList.map(obj => {
       if (obj.id === productId) {
-        return { ...obj, inCart: !obj.inCart } // Update the name property of the matching object
+        return { ...obj, inCart: !obj.inCart }
       }
-      return obj // Return the object as is if no update is required
+      return obj
     })
     setClientProductList(updatedProductArray)
   }
@@ -122,11 +119,6 @@ const ClientOrders = () => {
       },
     )
   }
-
-  // useEffect(() => {
-  //   handleAddToCart()
-  // }, [])
-
   return (
     <>
       <Box className="main_tab_section">
@@ -136,7 +128,6 @@ const ClientOrders = () => {
               Products
             </Typography>
           </Box>
-
           <Box>
             <FormControl variant="outlined">
               <OutlinedInput
@@ -153,8 +144,6 @@ const ClientOrders = () => {
             </FormControl>
 
             <Button
-              // sx={{ filter: 'blur(2px)' }}
-              // onClick={handleClickOpen}
               onClick={() =>
                 handleClientOrdersClick(`/mycart/${clientId}`, 'Order Detail')
               }
@@ -172,17 +161,11 @@ const ClientOrders = () => {
               console.log({ DATA: data })
               return (
                 <Box className="client_product_card">
-                  <Box
-                    className="task_card_hover"
-                    // onClick={() => {
-                    //   navigate(`/taskdetail/${taskData?.id}`)
-                    // }}
-                  >
+                  <Box className="task_card_hover">
                     <Typography className="order_card_heading" variant="span">
                       {data?.name}
                     </Typography>
                   </Box>
-
                   <Box className="product_card_main_section">
                     <img
                       className="client_order_photo"

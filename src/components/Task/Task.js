@@ -5,12 +5,8 @@ import {
   Button,
   TextField,
   FormControl,
-  Paper,
-  TextareaAutosize,
-  Toolbar,
   Drawer,
   Divider,
-  Autocomplete,
   InputLabel,
   Select,
   MenuItem,
@@ -34,20 +30,14 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail'
-import TaskDetail from './TaskDetail'
-
 const drawerWidth = 350
 const CreateTaskDialog = React.lazy(() => import('./CreateTaskDialog'))
-const AssignMemberDialog = React.lazy(() => import('./AssignMemberDialog'))
-
 const Task = () => {
   const navigate = useNavigate()
   const [taskList, setTaskList] = useState([])
   const [openDrawer, setOpenDrawer] = useState(false)
   const [open, setOpen] = useState(false)
-  const [openMemberDialog, setOpenMemberDialog] = useState(false)
   const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const [taskId, setTaskId] = useState()
   const { setSuccessSnackbar } = useContext(ContextSnackbar)
   const theme = useTheme()
   const [member, setMember] = useState({})
@@ -71,32 +61,18 @@ const Task = () => {
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   }))
-
   const handleDrawerOpen = () => {
     setOpenDrawer(true)
   }
-
   const handleDrawerClose = () => {
     setOpenDrawer(false)
   }
-
   const handleClickOpen = () => {
     setOpen(true)
   }
-
   const handleClose = () => {
     setOpen(false)
   }
-
-  const handleOpenMemberDialog = id => {
-    setTaskId(id)
-    setOpenMemberDialog(true)
-  }
-
-  const handleCloseMemberDialog = () => {
-    setOpenMemberDialog(false)
-  }
-
   const handleClearAllFilter = () => {
     setFilterTask({
       ...filterTask,
@@ -104,14 +80,11 @@ const Task = () => {
       teamId: '',
     })
   }
-
   const handleTaskList = () => {
     let data = {}
-
     if (searchQuery !== '' && searchQuery) {
       data['searchQuery'] = searchQuery
     }
-
     if (filterTask.due_date !== '' && filterTask.due_date) {
       data['due_date'] = filterTask.due_date
     }
@@ -139,14 +112,15 @@ const Task = () => {
   }, [searchQuery, filterTask])
 
   useEffect(() => {
-    GetAdminStaffDetailList(
-      {},
-      res => {
-        setMemberList(res.data)
-      },
-      err => {},
-    )
-  }, [])
+    ;(openDrawer || open) &&
+      GetAdminStaffDetailList(
+        {},
+        res => {
+          setMemberList(res.data)
+        },
+        err => {},
+      )
+  }, [openDrawer])
 
   const handleCreateTask = () => {
     let data = {
@@ -175,24 +149,6 @@ const Task = () => {
       },
     )
   }
-
-  const handleAssignMember = memberId => {
-    AssignMemberParticularTask(
-      { taskid: taskId, memberid: memberId },
-      res => {
-        setMember()
-        handleTaskList()
-        handleCloseMemberDialog()
-        setSuccessSnackbar({
-          ...successSnackbar,
-          status: true,
-          message: res.message,
-        })
-      },
-      err => {},
-    )
-  }
-
   return (
     <Box className="main_task_section">
       <Box className="tab_header">
@@ -298,7 +254,7 @@ const Task = () => {
                   />
                 )}
                 PopperProps={{
-                  placement: 'bottom-start', // Set placement to 'bottom-start'
+                  placement: 'bottom-start',
                 }}
               />
             </LocalizationProvider>
@@ -353,12 +309,6 @@ const Task = () => {
                       <Typography sx={{ color: '#8e8e8e' }}>
                         Not Assigned
                       </Typography>
-                      // <Button
-                      //   onClick={() => handleOpenMemberDialog(taskData.id)}
-                      //   className="task_button"
-                      // >
-                      //   + Member
-                      // </Button>
                     )}
                   </Box>
                 </Box>
@@ -379,14 +329,6 @@ const Task = () => {
           memberList={memberList}
           setMember={setMember}
         />
-        {/* <AssignMemberDialog
-          handleCloseMemberDialog={handleCloseMemberDialog}
-          openMemberDialog={openMemberDialog}
-          handleAssignMember={handleAssignMember}
-          memberList={memberList}
-          member={member}
-          setMember={setMember}
-        /> */}
       </Box>
     </Box>
   )

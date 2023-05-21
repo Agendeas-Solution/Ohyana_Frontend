@@ -34,7 +34,6 @@ const EditDescriptionDialog = React.lazy(() =>
   import('./EditDescriptionDialog'),
 )
 const EditTitleDialog = React.lazy(() => import('./EditTitleDialog'))
-
 const TaskDetail = () => {
   const [taskDetail, setTaskDetail] = useState([])
   const [checkLists, setCheckLists] = useState([])
@@ -46,7 +45,6 @@ const TaskDetail = () => {
   const [openMemberDialog, setOpenMemberDialog] = useState(false)
   const [member, setMember] = useState({})
   const [memberList, setMemberList] = useState([])
-
   const [editDescriptionDialog, setEditDescriptionDialog] = useState({
     status: false,
     description: '',
@@ -282,7 +280,6 @@ const TaskDetail = () => {
                 className="task_slider"
               />
             </Box>
-
             <Box
               sx={{
                 overflowY: 'auto',

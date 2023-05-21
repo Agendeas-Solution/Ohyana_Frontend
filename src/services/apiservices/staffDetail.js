@@ -12,7 +12,6 @@ const defaultHeaders = {
   withCredentials: true,
   Authorization: `Barear ${Cookie.get('userToken')}`,
 }
-// const authHeaders = { Authorization: `Barear ${getLoginToken()}` };
 export const GetAdminStaffDetailList = async (value, onSuccess, onError) => {
   await handleApiGetCall(`/member`, value, onSuccess, onError)
 }
@@ -34,20 +33,6 @@ export const AddEmployee = async (value, onSuccess, onError) => {
 export const EditEmployee = async (value, onSuccess, onError) => {
   await handleApiPutCall(`/member`, value, onSuccess, onError)
 }
-export const DeleteDepartment = async (id, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.delete(`/department/${id}`, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of DeleteDepartment', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log('Got error while calling API - DeleteDepartment', err)
-    onError && onError(err)
-  }
-}
-
 export const DeleteJobRole = async (id, onSuccess, onError) => {
   await handleApiDeleteCall(`/role/${id}`, onSuccess, onError)
 }

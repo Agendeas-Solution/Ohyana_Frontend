@@ -12,7 +12,6 @@ import PlaceIcon from '@mui/icons-material/Place'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import { GetAdminStaffProfileDetail } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
-import AddAppreciationDialog from './AddAppreciationDialog'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import moment from 'moment'
@@ -20,7 +19,6 @@ import Filter from '../../assets/img/Filter.svg'
 import MarkersMap from '../Client/MarkersMap'
 import PermissionsGate from '../Settings/PermissionGate'
 import { PERMISSION } from '../../constants'
-
 const PJPDetail = React.lazy(() => import('./PJPDetail'))
 const StaffTarget = React.lazy(() => import('./StaffTarget'))
 const StaffAttendance = React.lazy(() => import('./StaffAttendance'))
@@ -28,21 +26,12 @@ const StaffPoint = React.lazy(() => import('./StaffPoint'))
 const StaffExpenses = React.lazy(() => import('./StaffExpenses'))
 const StaffDetail = React.lazy(() => import('./staffDetail'))
 const ChangeRoleDialog = React.lazy(() => import('./ChangeRoleDialog'))
-
 const StaffProfile = () => {
   const [value, setValue] = useState('1')
   const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
-
-  let path = window.location.pathname
-  path = path.split('/').pop()
-  const [targetDetail, setTargetDetail] = useState({
-    status: false,
-    id: path,
-  })
-
   const [openMap, setOpenMap] = useState(false)
-
-  // PJP
+  const { errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setErrorSnackbar } = useContext(ContextSnackbar)
   const [open, setOpen] = useState(false)
   const [addPJPDetail, setAddPJPDetail] = useState({
     dialogStatus: false,
@@ -50,33 +39,31 @@ const StaffProfile = () => {
     clientId: '',
     description: '',
   })
+  const [targetDetail, setTargetDetail] = useState({
+    status: false,
+    id: path,
+  })
+  const [activeTab, setActiveTab] = useState('present')
+  const [addAppreciationDialogControl, setAddAppreciationDialogControl] =
+    useState(false)
+  const { flagLoader, permissions } = useContext(AuthContext).state
+  const [changeRoleDialogControl, setChangeRoleDialogControl] = useState(false)
+  const [adminProfileDetail, setAdminProfileDetail] = useState({})
+  let path = window.location.pathname
+  path = path.split('/').pop()
   const handleDrawerOpen = () => {
     setOpen(true)
   }
   const handleDrawerClose = () => {
     setOpen(false)
   }
-
-  // Attendance
-  const [activeTab, setActiveTab] = useState('present')
-
-  //Staff Points
-  const [addAppreciationDialogControl, setAddAppreciationDialogControl] =
-    useState(false)
-
-  const { flagLoader, permissions } = useContext(AuthContext).state
-  const [changeRoleDialogControl, setChangeRoleDialogControl] = useState(false)
-  const [adminProfileDetail, setAdminProfileDetail] = useState({})
-
   const navigate = useNavigate()
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-
   useEffect(() => {
     let path = window.location.pathname
     path = path.split('/').pop()
-
     value === '1' &&
       GetAdminStaffProfileDetail(
         parseInt(path),
@@ -86,7 +73,11 @@ const StaffProfile = () => {
           }
         },
         err => {
-          console.log('Printing ', err)
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err.response.data.message,
+          })
         },
       )
   }, [value])
@@ -104,17 +95,10 @@ const StaffProfile = () => {
       <Box className="profile_body_section">
         <Box className="user_profile_header_Section">
           <Box className="username_profile_Section">
-            {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
             {adminProfileDetail?.imgUrl ? (
               <Box className="user_profile_icon">
                 <img
                   className="profile_img staff_profile_img"
-                  // style={{
-                  //   width: '100%',
-                  //   height: '100%',
-                  //   borderRadius: '50%',
-                  //   textAlign: 'center',
-                  // }}
                   src={adminProfileDetail.imgUrl}
                 />
               </Box>
@@ -130,13 +114,11 @@ const StaffProfile = () => {
               </Typography>
             </Box>
           </Box>
-
           <Box>
             <Button onClick={handleOpenMap} className="custom_text_button">
               <PlaceIcon />
               View On Map
             </Button>
-
             {/* permission_control */}
             <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_STAFF]}>
               <Button variant="contained" className="profile_header_button">
@@ -149,7 +131,6 @@ const StaffProfile = () => {
             </PermissionsGate>
           </Box>
         </Box>
-
         <Box
           sx={{
             width: '100%',
@@ -170,7 +151,6 @@ const StaffProfile = () => {
                 <Tab label="Points" value="6" />
                 <Tab label="Profile" value="4" />
               </TabList>
-
               {value == '1' && (
                 <Box className="tab_right_button_section">
                   <Button
@@ -200,13 +180,12 @@ const StaffProfile = () => {
                         />
                       )}
                       PopperProps={{
-                        placement: 'bottom-start', // Set placement to 'bottom-start'
+                        placement: 'bottom-start',
                       }}
                     />
                   </LocalizationProvider>
                 </Box>
               )}
-
               {value == '3' && (
                 <Box className="tab_right_button_section">
                   <Button
@@ -228,7 +207,6 @@ const StaffProfile = () => {
                   </Box>
                 </Box>
               )}
-
               {value == '5' && (
                 <Box>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -248,7 +226,7 @@ const StaffProfile = () => {
                         />
                       )}
                       PopperProps={{
-                        placement: 'bottom-start', // Set placement to 'bottom-start'
+                        placement: 'bottom-start',
                       }}
                     />
                   </LocalizationProvider>
@@ -344,7 +322,7 @@ const StaffProfile = () => {
                         />
                       )}
                       PopperProps={{
-                        placement: 'bottom-start', // Set placement to 'bottom-start'
+                        placement: 'bottom-start',
                       }}
                     />
                   </LocalizationProvider>

@@ -12,8 +12,6 @@ import {
   Typography,
 } from '@mui/material'
 import { Form, useNavigate } from 'react-router-dom'
-import ProfileImage from '../../assets/img/Profile_Image.svg'
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import './index.css'
 import {
   EditAdminProfile,
@@ -24,15 +22,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import Uploader from '../Uploader/Uploader'
-import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded'
-import { PhotoCamera } from '@mui/icons-material'
-import image from '../../assets/img/profile_icon.svg'
 import moment from 'moment'
 
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
-const SuccessSnackbar = React.lazy(() =>
-  import('../SuccessSnackbar/SuccessSnackbar'),
-)
 
 const EditProfile = () => {
   const inputFile = useRef(null)
@@ -69,9 +61,6 @@ const EditProfile = () => {
       },
     )
   }, [])
-  const handleChange = prop => event => {
-    setUserDetail({ ...userDetail, [prop]: event.target.value })
-  }
   const SaveProfile = () => {
     const data = new FormData()
     console.log(typeof imageUrl)
@@ -104,83 +93,12 @@ const EditProfile = () => {
       },
     )
   }
-
-  const onButtonClick = () => {
-    inputFile.current.click()
-  }
-
-  function handleFileChange(event) {
-    const selectedFile = event.target.files[0]
-    const reader = new FileReader()
-    reader.readAsDataURL(selectedFile)
-    reader.onload = () => {
-      setFile(reader.result)
-    }
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault()
-    const formData = new FormData()
-    formData.append('profileImage', file)
-    const response = await fetch('/api/profile', {
-      method: 'POST',
-      body: formData,
-    })
-    const data = await response.json()
-    console.log(data)
-  }
-
   const [state, setState] = useState('')
-  const loadFile = event => {
-    if (event.target.files) {
-      setState(URL.createObjectURL(event.target.files[0]))
-      console.log(URL.createObjectURL(event.target.files[0]))
-    }
-  }
-
   return (
     <>
       <Box className="main_section">
         <Box className="pofile_edit_section">
-          {/* ORIGINAL UPLOAD IMG */}
-          {/* <Box ref={inputFile} className="my_profile_image_section">
-            <img className="image_style" src={ProfileImage} alt="profile" />
-            <form className="inner_icon_style" onSubmit={handleSubmit}>
-              <CameraAltRoundedIcon fontSize="large" color="white" />
-            </form>
-          </Box> */}
-
-          {/* PRE-FINAL SOLUTION */}
-          {/* <Paper className="my_profile_upload_image">
-            <Box className="my_profile_image_section">
-              <input
-                type="file"
-                accept="image/*"
-                name="image"
-                id="file"
-                onChange={loadFile}
-                style={{ display: 'none' }}
-              />
-              <img
-                className="image_style"
-                src={state ? state : image}
-                // className={classes.image}
-                id="output"
-                width="130"
-                height="130"
-                alt="test"
-              />
-              <Box className="inner_icon_style">
-                <label htmlFor="file" style={{ cursor: 'pointer' }}>
-                  <PhotoCamera />
-                </label>
-              </Box>
-            </Box>
-          </Paper> */}
-
           <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
-
-          {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
           <Box className="edit_profile_detail_section">
             <Box className="input_field_row">
               <Box className="input_fields">
@@ -208,13 +126,12 @@ const EditProfile = () => {
                     }}
                     renderInput={params => <TextField {...params} />}
                     PopperProps={{
-                      placement: 'bottom-start', // Set placement to 'bottom-start'
+                      placement: 'bottom-start',
                     }}
                   />
                 </LocalizationProvider>
               </Box>
             </Box>
-
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
@@ -243,7 +160,6 @@ const EditProfile = () => {
                 />
               </Box>
             </Box>
-
             <Box className="input_fields" sx={{ width: '50%' }}>
               <FormControl>
                 <InputLabel>Select Gender</InputLabel>
