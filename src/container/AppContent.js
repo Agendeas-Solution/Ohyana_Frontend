@@ -1,44 +1,7 @@
 import React, { useState, useContext, useEffect, Suspense } from 'react'
 import { Routes, Route, Outlet, Navigate, Switch } from 'react-router-dom'
 import Cookie from 'js-cookie'
-import { clearLoginToken } from '../services/storage'
-import { io } from 'socket.io-client'
 import { Context as AuthContext } from '../context/authContext/authContext'
-import Login from '../components/Login/Login'
-import AddClient from '../components/AddClient/AddClient'
-import UserProfile from '../components/UserProfile/UserProfile'
-import EditProfile from '../components/EditProfile/EditProfile'
-import Dashboard from '../components/Dashboard'
-import Client from '../components/Client/Client'
-import ClientProfile from '../components/ClientProfile/ClientProfile'
-import JobRoleAccess from '../components/Settings/Department'
-import Staff from '../components/Staff/Staff'
-import StaffProfile from '../components/Staff/StaffProfile'
-import AddStaffMember from '../components/Staff/AddStaffMember'
-import Settings from '../components/Settings/Settings'
-import ProductList from '../components/Settings/ProductList'
-import CompanyProfile from '../components/CompanyProfile/CompanyProfile'
-import Premium from '../components/Premium/Premium'
-import HolidayAndLeaveManagement from '../components/HolidayAndLeaveManagement/HolidayAndLeaveManagement'
-import Statistics from '../components/Statistics/Statistics'
-import Support from '../components/Support/Support'
-import Complaint from '../components/Complaint/Complaint'
-import Orders from '../components/Orders/Orders'
-import DashboardEmployee from '../components/DashboardEmployee/DashboardEmployee'
-import Task from '../components/Task/Task'
-import TaskDetail from '../components/Task/TaskDetail'
-import OrderDetail from '../components/Orders/OrderDetail'
-import Poll from '../components/Settings/Poll'
-import Dealer from '../components/Dealer/Dealer'
-import EditCompanyProfile from '../components/CompanyProfile/EditCompanyProfile'
-import AddProduct from '../components/Settings/AddProduct'
-import JobRolesList from '../components/Settings/JobRolesList'
-import ExpenseList from '../components/Expense/ExpenseList'
-import ClientOrders from '../components/Orders/ClientOrders'
-import MyCart from '../components/Orders/MyCart'
-import Integrations from '../components/Integrations/Integrations'
-import Notification from '../components/Notification/Notification'
-import PermissionsGate from '../components/Settings/PermissionGate'
 import { PERMISSION } from '../constants'
 // const socket = io('http://192.168.1.65:9009')
 
@@ -49,12 +12,9 @@ const AppContent = () => {
   const ProtectedRoutes = () => {
     return Cookie.get('userToken') ? <Outlet /> : <Navigate to="/login" />
   }
-
   useEffect(() => {
     var retrievedObject = JSON.parse(localStorage.getItem('permissions'))
     setPermissions(retrievedObject)
-
-    // debugger
     const routeArray = []
     console.log({ permisjflsl: retrievedObject })
     for (let permissionRoute of PERMISSION.PERMISSION_ROUTE) {

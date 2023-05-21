@@ -1,24 +1,9 @@
-import React from 'react'
-import {
-  Typography,
-  Box,
-  TextField,
-  Tabs,
-  Button,
-  Tab,
-  Table,
-  TableCell,
-  TableContainer,
-  Paper,
-  TableRow,
-  TableHead,
-  Divider,
-} from '@mui/material'
+import React, { useState } from 'react'
+import { Typography, Box, Tabs, Button, Tab, Divider } from '@mui/material'
 import './index.css'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 const Premium = () => {
-  const [value, setValue] = React.useState('one')
-
+  const [value, setValue] = useState('one')
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }

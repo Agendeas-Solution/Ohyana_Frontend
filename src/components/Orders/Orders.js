@@ -32,11 +32,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import moment from 'moment'
 import { GetSingleClientOrderList } from '../../services/apiservices/orderDetail'
 import { styled, useTheme } from '@mui/material/styles'
-import {
-  DatePicker,
-  DesktopDatePicker,
-  LocalizationProvider,
-} from '@mui/x-date-pickers'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { ORDER } from '../../constants/orderConstant'
 const drawerWidth = 350

@@ -17,19 +17,16 @@ import {
   createFilterOptions,
 } from '@mui/material'
 import './index.css'
-import { socket } from '../../App'
 import { useNavigate } from 'react-router-dom'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import {
   GetAllClients,
   DeleteClientDetail,
   GetCityList,
-  GetStateList,
 } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import Drawer from '@mui/material/Drawer'
-import Toolbar from '@mui/material/Toolbar'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
@@ -37,24 +34,15 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import FilterIcon from '../../assets/img/Filter.svg'
 import { styled, useTheme } from '@mui/material/styles'
 import { CLIENT, PERMISSION } from '../../constants'
-
-import { TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import {
   GetCityByStates,
   GetCountryList,
   GetStateByCountry,
 } from '../../services/apiservices/country-state-city'
-import { MapContainer } from 'react-leaflet/MapContainer'
-import { useMap } from 'react-leaflet/hooks'
-import MarkersMap from './MarkersMap'
 import PermissionsGate from '../Settings/PermissionGate'
 
 const drawerWidth = 350
-const Loader = React.lazy(() => import('../Loader/Loader'))
-const NoResultFound = React.lazy(() =>
-  import('../ErrorComponent/NoResultFound'),
-)
 const CustomerList = React.lazy(() => import('./CustomerList'))
 const BusinessCard = React.lazy(() => import('./BusinessCard'))
 const Client = () => {
@@ -62,8 +50,6 @@ const Client = () => {
   // const socket = io("http://159.89.165.83", { transports: ["websocket"] });
   const [value, setValue] = useState('digital')
   const navigate = useNavigate()
-  const { flagLoader, permissions } = useContext(AuthContext).state
-  // const { setFlagLoader } = useContext(AuthContext)
   const [open, setOpen] = useState(false)
   const [clientDetails, setClientDetails] = useState([])
   const [rowsPerPage, setRowsPerPage] = useState(20)
@@ -90,16 +76,6 @@ const Client = () => {
   const [clientType, setClientType] = useState(CLIENT.STAGE)
   const [searchQuery, setSearchQuery] = useState('')
   const [countryList, setCountryList] = useState([])
-  const [locations, setLocations] = useState([
-    {
-      latitude: 23.114593,
-      longitude: 72.573719,
-    },
-    {
-      latitude: 23.114593,
-      longitude: 72.573719,
-    },
-  ])
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -122,20 +98,6 @@ const Client = () => {
   const handleApplyFilter = () => {
     getClientDetails()
   }
-  const handleCityList = () => {
-    GetCityList(
-      {},
-      res => {
-        if (res?.success) {
-          setCityList(res.data)
-        }
-      },
-      err => {
-        console.log(err)
-      },
-    )
-  }
-
   useEffect(() => {
     let data = selectedCityStateCountry?.state?.iso2
       ? `${selectedCityStateCountry?.country?.iso2}/states/${selectedCityStateCountry?.state?.iso2}/cities`
@@ -163,7 +125,6 @@ const Client = () => {
         },
       )
   }, [selectedCityStateCountry?.state])
-
   const handleGetCountry = () => {
     GetCountryList(
       {},
@@ -193,31 +154,6 @@ const Client = () => {
 
     setClientType(value)
   }, [])
-
-  const [location, setLocation] = useState()
-  const handleClientDelete = () => {
-    DeleteClientDetail(
-      deleteClientDialogControl.clientId,
-      res => {
-        setDeleteClientDialogControl({
-          ...deleteClientDialogControl,
-          status: false,
-        })
-        setSuccessSnackbar({
-          ...successSnackbar,
-          status: true,
-          message: res.message,
-        })
-      },
-      err => {},
-    )
-  }
-  const handleDialogClose = () => {
-    setDeleteClientDialogControl({
-      ...deleteClientDialogControl,
-      status: false,
-    })
-  }
   const handleChange = (event, newValue) => {
     setValue(newValue)
     setCurrentPage(1)
@@ -331,7 +267,6 @@ const Client = () => {
   ])
   return (
     <Box className="main_tab_section">
-      {/* <MarkersMap /> */}
       <Box className="tab_header">
         <Tabs
           value={value}
@@ -424,9 +359,7 @@ const Client = () => {
               </Button>
             </Box>
           </DrawerHeader>
-
           <Divider />
-
           <Box className="filter_body_section">
             <FormControl className="filter_body_inner_section">
               <InputLabel>Client Type</InputLabel>
@@ -442,9 +375,7 @@ const Client = () => {
                 })}
               </Select>
             </FormControl>
-
             <Autocomplete
-              // className="input_fields"
               className="filter_body_inner_section"
               disablePortal
               disableClearable
@@ -462,7 +393,6 @@ const Client = () => {
               )}
             />
             <Autocomplete
-              // className="input_fields"
               className="filter_body_inner_section"
               options={stateList}
               disableClearable
@@ -479,7 +409,6 @@ const Client = () => {
               renderInput={params => <TextField {...params} label="State" />}
             />
             <Autocomplete
-              // className="input_fields"
               className="filter_body_inner_section"
               options={cityList}
               disableClearable

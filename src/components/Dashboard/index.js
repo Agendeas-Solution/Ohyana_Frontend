@@ -13,7 +13,6 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Avatar from '@mui/material/Avatar'
 import Stack from '@mui/material/Stack'
-import StarPerformer from '../../assets/img/star_performer.png'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import {
   AttendanceStatus,
@@ -23,11 +22,9 @@ import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { TEAM } from '../../constants'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-
 const Dashboard = () => {
   const navigate = useNavigate()
   const [inquiryData, setInquiryData] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   useEffect(() => {
@@ -46,7 +43,6 @@ const Dashboard = () => {
       },
     )
   }, [])
-
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
@@ -157,7 +153,6 @@ const Dashboard = () => {
             </Button>
           </Box>
         </Box>
-
         <Box className="inquiry_sales_statistics">
           <Box className="inquiry_overview">
             <Box className="dashboard_inner_heading">
@@ -165,7 +160,6 @@ const Dashboard = () => {
                 Inquiries Overview
               </Typography>
             </Box>
-
             <Box className="detail_row">
               <Box className="platform_data_detail">
                 <Box className="inquiry_sub_heading">
@@ -173,7 +167,6 @@ const Dashboard = () => {
                     <Box className="inquiry_from_name">
                       <Box className="inquiries_bullet_point" />
                     </Box>
-
                     <Box className="inquiries_inner_section">
                       <Typography>IndiaMart</Typography>
                       <Box className="inquiry_row">
@@ -190,12 +183,10 @@ const Dashboard = () => {
                       <Divider className="underline" />
                     </Box>
                   </Box>
-
                   <Box className="inquiry_detail_box inquiry_detail_right_part">
                     <Box className="inquiry_from_name">
                       <Box className="inquiries_bullet_point"></Box>
                     </Box>
-
                     <Box className="inquiries_inner_section">
                       <Typography>Website</Typography>
                       <Box className="inquiry_row">
@@ -213,7 +204,6 @@ const Dashboard = () => {
                     </Box>
                   </Box>
                 </Box>
-
                 <Box
                   className="inquiry_sub_heading"
                   sx={{
@@ -224,7 +214,6 @@ const Dashboard = () => {
                     <Box className="inquiry_from_name">
                       <Box className="inquiries_bullet_point"></Box>
                     </Box>
-
                     <Box className="inquiries_inner_section">
                       <Typography>From PJP</Typography>
                       <Box className="inquiry_row">
@@ -241,12 +230,10 @@ const Dashboard = () => {
                       </Typography>
                     </Box>
                   </Box>
-
                   <Box className="inquiry_detail_box inquiry_detail_right_part">
                     <Box className="inquiry_from_name">
                       <Box className="inquiries_bullet_point"></Box>
                     </Box>
-
                     <Box className="inquiries_inner_section">
                       <Typography>Others</Typography>
                       <Box className="inquiry_row">
@@ -264,7 +251,6 @@ const Dashboard = () => {
                   </Box>
                 </Box>
               </Box>
-
               <Box className="doughnut_chart_inquiry">
                 <DonutChart
                   height={200}
@@ -533,8 +519,6 @@ const Dashboard = () => {
                     ) : (
                       <AccountCircleRoundedIcon className="user_profile_icon" />
                     )}
-                    {/* <img src={StarPerformer} /> */}
-                    {/* </Box> */}
                   </Box>
                   <Box className="text-container">
                     <h3>{data.name}</h3>

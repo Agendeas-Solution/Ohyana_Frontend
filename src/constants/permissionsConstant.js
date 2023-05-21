@@ -2,13 +2,11 @@ import EditProfile from '../components/EditProfile/EditProfile'
 import UserProfile from '../components/UserProfile/UserProfile'
 import MyCart from '../components/Orders/MyCart'
 import DashboardEmployee from '../components/DashboardEmployee/DashboardEmployee'
-import Notification from '../components/Notification/Notification'
 import Client from '../components/Client/Client'
 import ClientProfile from '../components/ClientProfile/ClientProfile'
 import Staff from '../components/Staff/Staff'
 import AddStaffMember from '../components/Staff/AddStaffMember'
 import Task from '../components/Task/Task'
-import Dealer from '../components/Dealer/Dealer'
 import Statistics from '../components/Statistics/Statistics'
 import TaskDetail from '../components/Task/TaskDetail'
 import Support from '../components/Support/Support'
@@ -16,7 +14,6 @@ import ClientOrders from '../components/Orders/ClientOrders'
 import AddClient from '../components/AddClient/AddClient'
 import Login from '../components/Login/Login'
 import Complaint from '../components/Complaint/Complaint'
-import Poll from '../components/Settings/Poll'
 import Orders from '../components/Orders/Orders'
 import Premium from '../components/Premium/Premium'
 import OrderDetail from '../components/Orders/OrderDetail'
@@ -125,7 +122,6 @@ export const PERMISSION = {
     },
     { path: '/mycart/:id', component: <MyCart />, value: 'ViewOrders' },
     { path: '/dashboardemployee', component: <DashboardEmployee /> },
-    { path: '/notification', component: <Notification /> },
     { path: '/client', component: <Client />, value: 'ViewClient' },
     {
       path: '/clientprofile/:id',
@@ -156,14 +152,12 @@ export const PERMISSION = {
       value: 'EditStaff',
     },
     { path: '/task', component: <Task /> },
-    { path: '/dealer', component: <Dealer /> },
     { path: '/taskdetail/:id', component: <TaskDetail /> },
     { path: '/report', component: <Statistics />, value: 'ViewReport' },
     { path: '/support', component: <Support /> },
     { path: '/complaint/:id', component: <Complaint /> },
     { path: '/premium', component: <Premium /> },
     { path: '/orders', component: <Orders />, value: 'ViewOrders' },
-    { path: '/poll', component: <Poll /> },
     {
       path: '/orderdetail/:id',
       component: <OrderDetail />,

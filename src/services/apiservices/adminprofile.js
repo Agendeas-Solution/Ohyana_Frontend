@@ -7,13 +7,11 @@ import {
 } from './api-manager'
 import axiosInstance from './axios'
 import Cookie from 'js-cookie'
-// let BaseUrl = process.env.REACT_APP_API_URL;
 const defaultHeaders = {
   'Content-Type': 'application/json',
   withCredentials: true,
   Authorization: `Barear ${Cookie.get('userToken')}`,
 }
-// const authHeaders = { Authorization: `Barear ${getLoginToken()}` };
 export const GetAdminProfile = async (value, onSuccess, onError) => {
   await handleApiGetCall(`/profile`, value, onSuccess, onError)
 }
@@ -101,20 +99,7 @@ export const UpdateRoleExpensePermissions = async (
   onSuccess,
   onError,
 ) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.put(`/expense/permissions`, value, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of UpdateRoleExpensePermissions', data)
-    onSuccess && onSuccess(data)
-  } catch (err) {
-    console.log(
-      'Got error while calling API - UpdateRoleExpensePermissions',
-      err,
-    )
-    onError && onError(err)
-  }
+  await handleApiPutCall(`/expense/permissions`, value, onSuccess, onError)
 }
 export const CreateJobRole = async (value, onSuccess, onError) => {
   await handleApiPostCall(`/role`, value, onSuccess, onError)
@@ -133,37 +118,6 @@ export const AddCloseStatusApiCall = async (value, onSuccess, onError) => {
 
 export const EditClientStatus = async (value, onSuccess, onError) => {
   await handleApiPutCall(`/status/client`, value, onSuccess, onError)
-}
-
-export const AddAdminDepartment = async (value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.post(`/department`, value, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of AddDepartment', data)
-    onSuccess && onSuccess(data)
-    ////
-  } catch (err) {
-    console.log('Got error while calling API - AddDepartment', err)
-    onError && onError(err)
-    ////
-  }
-}
-export const EditAdminDepartment = async (id, value, onSuccess, onError) => {
-  defaultHeaders.Authorization = `Barear ${Cookie.get('userToken')}`
-  try {
-    const { data } = await axiosInstance.put(`/department/${id}`, value, {
-      headers: { ...defaultHeaders },
-    })
-    console.log('Printing data of AddDepartment', data)
-    onSuccess && onSuccess(data)
-    ////
-  } catch (err) {
-    console.log('Got error while calling API - AddDepartment', err)
-    onError && onError(err)
-    ////
-  }
 }
 
 export const AddClientDetail = async (value, onSuccess, onError) => {

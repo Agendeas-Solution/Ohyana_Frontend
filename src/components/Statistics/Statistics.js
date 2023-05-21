@@ -3,7 +3,6 @@ import { Box, TextField, Select, MenuItem, Tab, Tabs } from '@mui/material'
 import './index.css'
 import { REPORT } from '../../constants'
 import moment from 'moment'
-import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import CityGraph from './CityGraph'
@@ -11,7 +10,6 @@ const TeamGraph = React.lazy(() => import('./TeamGraph'))
 const ProductGraph = React.lazy(() => import('./ProductGraph'))
 const Statistics = () => {
   const [value, setValue] = React.useState('1')
-
   const [customRange, setCustomRange] = useState({
     startDate: null,
     endDate: null,
@@ -113,7 +111,6 @@ const Statistics = () => {
                 </>
               )}
             </Box>
-
             <Select
               sx={{
                 width: '130px',

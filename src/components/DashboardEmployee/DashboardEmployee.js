@@ -64,25 +64,6 @@ const DashboardEmployee = () => {
       },
     )
   }
-  const updateCheckListStatus = id => {
-    UpdateCheckListItemStatus(
-      [id, path],
-      res => {
-        setSuccessSnackbar({
-          ...successSnackbar,
-          status: true,
-          message: res.message,
-        })
-      },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err.response.data.message,
-        })
-      },
-    )
-  }
   return (
     <>
       <Box className="main_section">
@@ -218,10 +199,6 @@ const DashboardEmployee = () => {
                   <Typography variant="span">
                     {salesInquiry?.performance?.targets?.remainDays || '0'}
                   </Typography>
-                  {/* <Typography variant="span" className="common_icon">
-                    <TrendingUpRoundedIcon className="common_icon" />
-                    5%
-                  </Typography> */}
                 </Box>
               </Box>
             </Box>
@@ -289,34 +266,6 @@ const DashboardEmployee = () => {
                 </TableBody>
               </Table>
             </TableContainer>
-            {/* <Box className="right_panel_sub_heading">
-              <Typography variant="span">Check In </Typography>
-              <Typography variant="span">:</Typography>
-              <Typography variant="span">
-                {salesInquiry?.attendance?.checkIn || "-"}
-              </Typography>
-            </Box>
-            <Box className="right_panel_sub_heading">
-              <Typography variant="span">Check Out </Typography>
-              <Typography variant="span">:</Typography>
-              <Typography variant="span">
-                {salesInquiry?.attendance?.checkOut || "-"}
-              </Typography>
-            </Box>
-            <Box className="right_panel_sub_heading">
-              <Typography variant="span">Break Time </Typography>
-              <Typography variant="span">:</Typography>
-              <Typography variant="span">
-                {salesInquiry?.attendance?.breakIn || "-"}
-              </Typography>
-            </Box>
-            <Box className="right_panel_sub_heading">
-              <Typography variant="span">Total Hours </Typography>
-              <Typography variant="span">:</Typography>
-              <Typography variant="span">
-                {salesInquiry?.attendance?.breakOut || "-"}
-              </Typography>
-            </Box> */}
           </Box>
         </Box>
         <Box className="detail_row">
@@ -334,48 +283,6 @@ const DashboardEmployee = () => {
             </Box>
 
             <Box className="inner_my_task">
-              {/* <Box className="my_task_subheading">
-                <Typography sx={{ padding: '8px' }} variant="span">
-                  {salesInquiry?.tasks?.title}
-                </Typography>
-                <Typography
-                  sx={{ color: '#8E8E8E', padding: '8px' }}
-                  variant="span"
-                >
-                  Due Date :
-                  {moment(salesInquiry?.tasks?.due_date).format('DD-MM-YYYY')}
-                </Typography>
-              </Box> */}
-
-              {/* <FormGroup>
-                {salesInquiry?.tasks?.checklists &&
-                  salesInquiry?.tasks?.checklists.map(data => {
-                    return (
-                      <Box className="task_list">
-                        <FormControlLabel
-                          sx={{
-                            display: 'flex',
-                            alignItems: 'flex-start',
-                          }}
-                          control={
-                            <Checkbox
-                              sx={{
-                                padding: 0,
-                                margin: '0px 7px',
-                              }}
-                              onChange={() => {
-                                updateCheckListStatus(data?.id)
-                              }}
-                              value={data.done}
-                              defaultChecked={data.done ? true : false}
-                            />
-                          }
-                          label={data?.task}
-                        />
-                      </Box>
-                    )
-                  })}
-              </FormGroup> */}
               <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
                 <Table sx={{ minWidth: 250 }}>
                   <TableHead className="team_overview_table_heading">
@@ -430,25 +337,6 @@ const DashboardEmployee = () => {
                 </Table>
               </TableContainer>
             </Box>
-
-            {/* <FormGroup>
-              {salesInquiry?.tasks?.checklists && salesInquiry?.tasks?.checklists.map((data) => {
-                return (
-                  <Box>
-                    <FormControlLabel
-                      control={<Checkbox
-                        onChange={() => {
-                          updateCheckListStatus(data?.id)
-                        }}
-                        value={data.done}
-                      />}
-                      label={data.task}
-
-                    />
-                  </Box>
-                )
-              })}
-            </FormGroup> */}
           </Box>
 
           <Box className="point_table_section">
@@ -502,7 +390,6 @@ const DashboardEmployee = () => {
                 Star Performers
               </Typography>
             </Box>
-
             {salesInquiry?.starPerformerList.length > 0 &&
               salesInquiry.starPerformerList.map(data => {
                 console.log({ salesInq: salesInquiry })

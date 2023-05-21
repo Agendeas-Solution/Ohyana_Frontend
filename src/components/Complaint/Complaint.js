@@ -18,19 +18,17 @@ import {
   AddStatusInComplaint,
   CloseTicket,
 } from '../../services/apiservices/support'
-
 const Complaint = () => {
   const [complaintDetail, setComplaintDetail] = useState([])
   const [open, setOpen] = React.useState(false)
   const [complaintProcesses, setComplaintProcesses] = useState([])
   const [ticketAnswer, setTicketAnswer] = useState({ id: '', description: '' })
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const theme = useTheme()
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleClickOpen = () => {
     setOpen(true)
   }
-
   const handleClose = () => {
     setOpen(false)
   }
@@ -46,7 +44,11 @@ const Complaint = () => {
         }
       },
       err => {
-        console.log('Printing ', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [])
@@ -66,7 +68,11 @@ const Complaint = () => {
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }
@@ -76,7 +82,13 @@ const Complaint = () => {
     CloseTicket(
       path,
       res => {},
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
   return (

@@ -7,12 +7,12 @@ import PremiumIcon from '../../assets/img/Premium.svg'
 import LeaveAndHolidayIcon from '../../assets/img/Leave_and_Holiday.svg'
 import ExpensePolicyIcon from '../../assets/img/Expense_Policy.svg'
 import IntegrationsIcon from '../../assets/img/Integrations.svg'
-
 import { useNavigate } from 'react-router-dom'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import Poll from '../../assets/img/Poll.svg'
 import PermissionsGate from './PermissionGate'
 import { PERMISSION } from '../../constants'
+
 const Settings = () => {
   const { flagLoader, permissions } = useContext(AuthContext).state
   const navigate = useNavigate()
@@ -32,7 +32,6 @@ const Settings = () => {
           />
           <Typography variant="span">Company Profile</Typography>
         </Box>
-
         <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_ROLE]}>
           <Box
             className="setting_cards_list"
@@ -48,7 +47,6 @@ const Settings = () => {
             <Typography variant="span">Team Role</Typography>
           </Box>
         </PermissionsGate>
-
         {/* permission_control */}
         <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_PRODUCT]}>
           <Box
@@ -65,17 +63,6 @@ const Settings = () => {
             <Typography variant="span">Product</Typography>
           </Box>
         </PermissionsGate>
-
-        {/* <Box
-          className="setting_cards_list"
-          onClick={() => {
-            navigate('/premium')
-          }}
-        >
-          <img className="premium_icon" src={PremiumIcon} alt="ProductIcon" />
-          <Typography variant="span">Premium</Typography>
-        </Box> */}
-
         <Box
           className="setting_cards_list"
           onClick={() => {
@@ -89,12 +76,10 @@ const Settings = () => {
           />
           <Typography variant="span">Leave & Holiday</Typography>
         </Box>
-
         <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_EXPENSE]}>
           <Box
             className="setting_cards_list"
             onClick={() => {
-              // navigate("/departmentlist");
               navigate('/expenselist')
             }}
           >
@@ -106,12 +91,10 @@ const Settings = () => {
             <Typography variant="span">Expense Policy</Typography>
           </Box>
         </PermissionsGate>
-
         <PermissionsGate scopes={[PERMISSION.PERMISSIONS.ACCESS_INTEGRATION]}>
           <Box
             className="setting_cards_list"
             onClick={() => {
-              // navigate("/departmentlist");
               navigate('/integrations')
             }}
           >
@@ -123,20 +106,6 @@ const Settings = () => {
             <Typography variant="span">Integrations</Typography>
           </Box>
         </PermissionsGate>
-
-        {/* <Box
-          className="setting_cards_list"
-          onClick={() => {
-            navigate("/poll");
-          }}
-        >
-          <img
-            className="department_icon"
-            src={Poll}
-            alt="Poll Icon"
-          />
-          <Typography variant="span">Poll</Typography>
-        </Box> */}
       </Box>
     </>
   )

@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Typography,
-  Box,
-  Tabs,
-  Button,
-  Tab,
-  selectClasses,
-  TextField,
-} from '@mui/material'
+import { Typography, Box, Tabs, Button, Tab, TextField } from '@mui/material'
 import StaffExpenses from '../Staff/StaffExpenses'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import { useNavigate } from 'react-router-dom'
@@ -17,8 +9,6 @@ import TabContext from '@mui/lab/TabContext'
 import './index.css'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import {
-  GetHolidayList,
-  AttendanceStatus,
   GetStaffAttendanceList,
   GetStaffLeaveList,
 } from '../../services/apiservices/staffDetail'
@@ -30,17 +20,12 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 const PresentData = React.lazy(() => import('./PresentData'))
 const LeaveData = React.lazy(() => import('./LeaveData'))
 const HolidayData = React.lazy(() => import('./HolidayData'))
-
 const UserProfile = () => {
   const navigate = useNavigate()
   const [value, setValue] = useState('Profile')
   const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const handleChange = (event, newValue) => {
     setValue(newValue)
-  }
-  const [attendanceTab, setAttendanceTab] = useState('1')
-  const handleTabChange = (event, newValue) => {
-    setAttendanceTab(newValue)
   }
   const [userDetail, setUserDetail] = useState({})
   const [activeTab, setActiveTab] = useState('holiday')
@@ -62,7 +47,6 @@ const UserProfile = () => {
     )
   }, [])
   localStorage.setItem('userEmail', userDetail?.email)
-
   useEffect(() => {
     activeTab === 'present' &&
       value === 'Attendance' &&
@@ -98,25 +82,15 @@ const UserProfile = () => {
         err => {},
       )
   }, [activeTab, value])
-
-  const handleCheckIn = type => {
-    AttendanceStatus(
-      type,
-      res => {},
-      err => {},
-    )
-  }
   const handleCloseDialog = () => {
     setLeaveDialogControl(false)
   }
-
   return (
     <>
       <Box className="profile_body_section">
         <Box className="user_profile_header_Section">
           <Box className="username_profile_Section">
             <Box>
-              {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
               {userDetail.imgUrl ? (
                 <img
                   className="user_profile_icon"
@@ -136,7 +110,6 @@ const UserProfile = () => {
               </Typography>
             </Box>
           </Box>
-
           <Box>
             {value === 'Attendance' && (
               <>
@@ -149,7 +122,6 @@ const UserProfile = () => {
                 </Button>
               </>
             )}
-
             <Button className="profile_header_button">
               <EditRoundedIcon
                 onClick={() => {
@@ -159,7 +131,6 @@ const UserProfile = () => {
             </Button>
           </Box>
         </Box>
-
         <TabContext value={value}>
           <Box
             className="my_profile_tabs_root"
@@ -197,7 +168,7 @@ const UserProfile = () => {
                     />
                   )}
                   PopperProps={{
-                    placement: 'bottom-start', // Set placement to 'bottom-start'
+                    placement: 'bottom-start',
                   }}
                 />
               </LocalizationProvider>
