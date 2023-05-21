@@ -32,6 +32,9 @@ import DeleteHolidayDialog from './DeleteHolidayDialog'
 import { LEAVEHOLIDAY } from '../../constants/leaveHolidayConstant'
 import AddEditRegularHolidayDialog from './AddEditRegularHolidayDialog'
 import moment from 'moment'
+import PermissionsGate from '../Settings/PermissionGate'
+import { PERMISSION } from '../../constants'
+
 const HolidayAndLeaveManagement = () => {
   const [date, setDate] = React.useState(dayjs())
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -387,6 +390,7 @@ const HolidayAndLeaveManagement = () => {
       },
     )
   }
+
   return (
     <>
       <Box
@@ -399,15 +403,18 @@ const HolidayAndLeaveManagement = () => {
               <Typography variant="span" className="sub_heading">
                 Occassional Holidays
               </Typography>
-              <Button
-                className="common_button"
-                onClick={() => {
-                  setAddHolidayDetail({ ...addHolidayDetail, status: true })
-                }}
-                variant="span"
-              >
-                + Holiday
-              </Button>
+
+              <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_HOLIDAY]}>
+                <Button
+                  className="common_button"
+                  onClick={() => {
+                    setAddHolidayDetail({ ...addHolidayDetail, status: true })
+                  }}
+                  variant="span"
+                >
+                  + Holiday
+                </Button>
+              </PermissionsGate>
             </Box>
 
             <TableContainer
@@ -452,34 +459,43 @@ const HolidayAndLeaveManagement = () => {
                                 justifyContent: 'flex-end',
                               }}
                             >
-                              <Button
-                                sx={{ marginRight: '10px' }}
-                                className="border_button_small"
-                                onClick={() => {
-                                  setAddHolidayDetail({
-                                    ...addHolidayDetail,
-                                    status: true,
-                                    date: data.date,
-                                    occasion: data.occasion,
-                                    duration: data.duration,
-                                    id: data.id,
-                                  })
-                                }}
+                              <PermissionsGate
+                                scopes={[PERMISSION.PERMISSIONS.EDIT_HOLIDAY]}
                               >
-                                Edit
-                              </Button>
-                              <Button
-                                className="border_button_small"
-                                onClick={() =>
-                                  setDeleteHolidayDialogControl({
-                                    ...deleteHolidayDialogControl,
-                                    status: true,
-                                    id: data.id,
-                                  })
-                                }
+                                <Button
+                                  sx={{ marginRight: '10px' }}
+                                  className="border_button_small"
+                                  onClick={() => {
+                                    setAddHolidayDetail({
+                                      ...addHolidayDetail,
+                                      status: true,
+                                      date: data.date,
+                                      occasion: data.occasion,
+                                      duration: data.duration,
+                                      id: data.id,
+                                    })
+                                  }}
+                                >
+                                  Edit
+                                </Button>
+                              </PermissionsGate>
+
+                              <PermissionsGate
+                                scopes={[PERMISSION.PERMISSIONS.DELETE_HOLIDAY]}
                               >
-                                Delete
-                              </Button>
+                                <Button
+                                  className="border_button_small"
+                                  onClick={() =>
+                                    setDeleteHolidayDialogControl({
+                                      ...deleteHolidayDialogControl,
+                                      status: true,
+                                      id: data.id,
+                                    })
+                                  }
+                                >
+                                  Delete
+                                </Button>
+                              </PermissionsGate>
                             </Box>
                           </TableCell>
                         </TableRow>
@@ -496,19 +512,22 @@ const HolidayAndLeaveManagement = () => {
                 <Typography className="sub_heading" variant="span">
                   Leave Management
                 </Typography>
-                <Button
-                  onClick={() =>
-                    setAddLeaveDialog({
-                      ...addLeaveDialog,
-                      status: true,
-                      type: '',
-                      duration: '',
-                    })
-                  }
-                  className="common_button"
-                >
-                  + Leave
-                </Button>
+
+                <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_LEAVE]}>
+                  <Button
+                    onClick={() =>
+                      setAddLeaveDialog({
+                        ...addLeaveDialog,
+                        status: true,
+                        type: '',
+                        duration: '',
+                      })
+                    }
+                    className="common_button"
+                  >
+                    + Leave
+                  </Button>
+                </PermissionsGate>
               </Box>
 
               <TableContainer sx={{ padding: ' 0px 10px' }}>
@@ -547,33 +566,42 @@ const HolidayAndLeaveManagement = () => {
                                   justifyContent: 'flex-end',
                                 }}
                               >
-                                <Button
-                                  sx={{ marginRight: '10px' }}
-                                  className="border_button_small"
-                                  onClick={() => {
-                                    setAddLeaveDialog({
-                                      ...addLeaveDialog,
-                                      status: true,
-                                      type: row?.type,
-                                      duration: row?.duration,
-                                      id: row?.id,
-                                    })
-                                  }}
+                                <PermissionsGate
+                                  scopes={[PERMISSION.PERMISSIONS.EDIT_LEAVE]}
                                 >
-                                  Edit
-                                </Button>
-                                <Button
-                                  className="border_button_small"
-                                  onClick={() =>
-                                    setDeleteLeaveDialogControl({
-                                      ...deleteLeaveDialogControl,
-                                      status: true,
-                                      id: row.id,
-                                    })
-                                  }
+                                  <Button
+                                    sx={{ marginRight: '10px' }}
+                                    className="border_button_small"
+                                    onClick={() => {
+                                      setAddLeaveDialog({
+                                        ...addLeaveDialog,
+                                        status: true,
+                                        type: row?.type,
+                                        duration: row?.duration,
+                                        id: row?.id,
+                                      })
+                                    }}
+                                  >
+                                    Edit
+                                  </Button>
+                                </PermissionsGate>
+
+                                <PermissionsGate
+                                  scopes={[PERMISSION.PERMISSIONS.DELETE_LEAVE]}
                                 >
-                                  Delete
-                                </Button>
+                                  <Button
+                                    className="border_button_small"
+                                    onClick={() =>
+                                      setDeleteLeaveDialogControl({
+                                        ...deleteLeaveDialogControl,
+                                        status: true,
+                                        id: row.id,
+                                      })
+                                    }
+                                  >
+                                    Delete
+                                  </Button>
+                                </PermissionsGate>
                               </Box>
                             </TableCell>
                           </TableRow>
@@ -589,17 +617,20 @@ const HolidayAndLeaveManagement = () => {
                 <Typography className="sub_heading" variant="span">
                   Regular Holiday On
                 </Typography>
-                <Button
-                  className="common_button"
-                  onClick={() =>
-                    setAddEditRegularDetail({
-                      ...addEditRegularDetail,
-                      status: true,
-                    })
-                  }
-                >
-                  + Add
-                </Button>
+
+                <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_HOLIDAY]}>
+                  <Button
+                    className="common_button"
+                    onClick={() =>
+                      setAddEditRegularDetail({
+                        ...addEditRegularDetail,
+                        status: true,
+                      })
+                    }
+                  >
+                    + Add
+                  </Button>
+                </PermissionsGate>
               </Box>
               {regularHolidayList.length > 0 &&
                 regularHolidayList.map(data => {
@@ -616,32 +647,41 @@ const HolidayAndLeaveManagement = () => {
                             justifyContent: 'flex-end',
                           }}
                         >
-                          <Button
-                            sx={{ marginRight: '10px' }}
-                            className="border_button_small"
-                            onClick={() => {
-                              setAddEditRegularDetail({
-                                ...addEditRegularDetail,
-                                status: true,
-                                id: data.id,
-                                occasion: data.occasion,
-                              })
-                            }}
+                          <PermissionsGate
+                            scopes={[PERMISSION.PERMISSIONS.EDIT_HOLIDAY]}
                           >
-                            Edit
-                          </Button>
-                          <Button
-                            className="border_button_small"
-                            onClick={() =>
-                              setDeleteHolidayDialogControl({
-                                ...deleteHolidayDialogControl,
-                                status: true,
-                                id: data.id,
-                              })
-                            }
+                            <Button
+                              sx={{ marginRight: '10px' }}
+                              className="border_button_small"
+                              onClick={() => {
+                                setAddEditRegularDetail({
+                                  ...addEditRegularDetail,
+                                  status: true,
+                                  id: data.id,
+                                  occasion: data.occasion,
+                                })
+                              }}
+                            >
+                              Edit
+                            </Button>
+                          </PermissionsGate>
+
+                          <PermissionsGate
+                            scopes={[PERMISSION.PERMISSIONS.DELETE_HOLIDAY]}
                           >
-                            Delete
-                          </Button>
+                            <Button
+                              className="border_button_small"
+                              onClick={() =>
+                                setDeleteHolidayDialogControl({
+                                  ...deleteHolidayDialogControl,
+                                  status: true,
+                                  id: data.id,
+                                })
+                              }
+                            >
+                              Delete
+                            </Button>
+                          </PermissionsGate>
                         </Box>
                       </Box>
                     </>

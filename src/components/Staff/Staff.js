@@ -47,7 +47,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import moment from 'moment'
 import { styled, useTheme } from '@mui/material/styles'
-import { TEAM } from '../../constants'
+import { PERMISSION, TEAM } from '../../constants'
+import PermissionsGate from '../Settings/PermissionGate'
 const drawerWidth = 350
 const Loader = React.lazy(() => import('../Loader/Loader'))
 const SuccessSnackbar = React.lazy(() =>
@@ -217,13 +218,15 @@ const Staff = () => {
                 />
               </FormControl>
 
-              <Button
-                onClick={() => navigate('/addeditstaff')}
-                className="main_tab_button"
-                variant="span"
-              >
-                + Add Team
-              </Button>
+              <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_STAFF]}>
+                <Button
+                  onClick={() => navigate('/addeditstaff')}
+                  className="main_tab_button"
+                  variant="span"
+                >
+                  + Add Team
+                </Button>
+              </PermissionsGate>
               {/* <Toolbar> */}
               <IconButton
                 edge="end"
@@ -388,10 +391,10 @@ const Staff = () => {
                         onClick={() => teamLeaderDetails(row?.id)}
                       >
                         <TableCell className="staff_inner_name_tablecell">
-                          <Avatar
+                          {/* <Avatar
                             sx={{ marginRight: '10px' }}
                             src="/static/images/avatar/1.jpg"
-                          />
+                          /> */}
                           {/* <Box>
                             <img
                               style={{ borderRadius: '50%', width: '20%' }}
@@ -450,6 +453,7 @@ const Staff = () => {
                 </Typography>
               </Box>
             </Box>
+
             <Button
               className="common_button"
               onClick={() =>

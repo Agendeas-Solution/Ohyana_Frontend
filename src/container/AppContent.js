@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, Suspense } from 'react'
+import React, { useState, useContext, useEffect, Suspense } from 'react'
 import { Routes, Route, Outlet, Navigate, Switch } from 'react-router-dom'
 import Cookie from 'js-cookie'
 import { clearLoginToken } from '../services/storage'
@@ -11,7 +11,7 @@ import EditProfile from '../components/EditProfile/EditProfile'
 import Dashboard from '../components/Dashboard'
 import Client from '../components/Client/Client'
 import ClientProfile from '../components/ClientProfile/ClientProfile'
-import Department from '../components/Settings/Department'
+import JobRoleAccess from '../components/Settings/Department'
 import Staff from '../components/Staff/Staff'
 import StaffProfile from '../components/Staff/StaffProfile'
 import AddStaffMember from '../components/Staff/AddStaffMember'
@@ -45,12 +45,27 @@ import { PERMISSION } from '../constants'
 const AppContent = () => {
   const { setPermissions } = useContext(AuthContext)
   const { permissions } = useContext(AuthContext).state
+  const [routesPermission, setRoutesPermission] = useState([])
   const ProtectedRoutes = () => {
     return Cookie.get('userToken') ? <Outlet /> : <Navigate to="/login" />
   }
+
   useEffect(() => {
     var retrievedObject = JSON.parse(localStorage.getItem('permissions'))
     setPermissions(retrievedObject)
+
+    // debugger
+    const routeArray = []
+    console.log({ permisjflsl: retrievedObject })
+    for (let permissionRoute of PERMISSION.PERMISSION_ROUTE) {
+      if (permissionRoute.value) {
+        if (retrievedObject.includes(permissionRoute.value))
+          routeArray.push(permissionRoute)
+      } else {
+        routeArray.push(permissionRoute)
+      }
+    }
+    setRoutesPermission(routeArray)
     // socket.on('reJoin', () => {
     //   socket.emit('join', { email: localStorage.getItem('userEmail') })
     // })
@@ -70,11 +85,10 @@ const AppContent = () => {
     <>
       <Suspense fallback={loading}>
         <Routes>
-          <Route path="/" element={<ProtectedRoutes />}>
-            {/* {PERMISSION.PERMISSION_ROUTE.map(data => {
-              console.log({ Data: data })
-            })} */}
-
+          {routesPermission.map(routes => {
+            return <Route path={routes.path} element={routes.component}></Route>
+          })}
+          {/* <Route path="/" element={<ProtectedRoutes />}>
             <Route path="/" element={<UserProfile />}></Route>
             <Route path="/profile" element={<UserProfile />}></Route>
             <Route path="/editprofile" element={<EditProfile />}></Route>
@@ -141,7 +155,7 @@ const AppContent = () => {
             <Route path="/productlist" element={<ProductList />}></Route>
           </Route>
           <Route path="/addproduct" element={<AddProduct />}></Route>
-          <Route path="/editproduct/:id" element={<AddProduct />}></Route>
+          <Route path="/editproduct/:id" element={<AddProduct />}></Route> */}
         </Routes>
       </Suspense>
     </>

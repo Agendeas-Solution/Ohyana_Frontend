@@ -33,19 +33,21 @@ const Settings = () => {
           <Typography variant="span">Company Profile</Typography>
         </Box>
 
-        <Box
-          className="setting_cards_list"
-          onClick={() => {
-            navigate('/jobrolelist')
-          }}
-        >
-          <img
-            className="department_icon"
-            src={DepartmentIcon}
-            alt="department_icon"
-          />
-          <Typography variant="span">Team Role</Typography>
-        </Box>
+        <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_ROLE]}>
+          <Box
+            className="setting_cards_list"
+            onClick={() => {
+              navigate('/jobrolelist')
+            }}
+          >
+            <img
+              className="department_icon"
+              src={DepartmentIcon}
+              alt="department_icon"
+            />
+            <Typography variant="span">Team Role</Typography>
+          </Box>
+        </PermissionsGate>
 
         {/* permission_control */}
         <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_PRODUCT]}>
@@ -88,35 +90,39 @@ const Settings = () => {
           <Typography variant="span">Leave & Holiday</Typography>
         </Box>
 
-        <Box
-          className="setting_cards_list"
-          onClick={() => {
-            // navigate("/departmentlist");
-            navigate('/expenselist')
-          }}
-        >
-          <img
-            className="expense_icon"
-            src={ExpensePolicyIcon}
-            alt="DepartmentIcon"
-          />
-          <Typography variant="span">Expense Policy</Typography>
-        </Box>
+        <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_EXPENSE]}>
+          <Box
+            className="setting_cards_list"
+            onClick={() => {
+              // navigate("/departmentlist");
+              navigate('/expenselist')
+            }}
+          >
+            <img
+              className="expense_icon"
+              src={ExpensePolicyIcon}
+              alt="DepartmentIcon"
+            />
+            <Typography variant="span">Expense Policy</Typography>
+          </Box>
+        </PermissionsGate>
 
-        <Box
-          className="setting_cards_list"
-          onClick={() => {
-            // navigate("/departmentlist");
-            navigate('/integrations')
-          }}
-        >
-          <img
-            className="expense_icon"
-            src={IntegrationsIcon}
-            alt="DepartmentIcon"
-          />
-          <Typography variant="span">Integrations</Typography>
-        </Box>
+        <PermissionsGate scopes={[PERMISSION.PERMISSIONS.ACCESS_INTEGRATION]}>
+          <Box
+            className="setting_cards_list"
+            onClick={() => {
+              // navigate("/departmentlist");
+              navigate('/integrations')
+            }}
+          >
+            <img
+              className="expense_icon"
+              src={IntegrationsIcon}
+              alt="DepartmentIcon"
+            />
+            <Typography variant="span">Integrations</Typography>
+          </Box>
+        </PermissionsGate>
 
         {/* <Box
           className="setting_cards_list"

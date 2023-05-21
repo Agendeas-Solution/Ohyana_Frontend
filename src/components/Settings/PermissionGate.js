@@ -1,5 +1,4 @@
 import React from 'react'
-import { PERMISSION } from '../../constants'
 
 const hasPermission = ({ permissions, scopes }) => {
   const scopesMap = {}

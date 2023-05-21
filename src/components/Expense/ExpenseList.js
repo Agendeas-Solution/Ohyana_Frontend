@@ -28,6 +28,8 @@ import {
   DeleteExpenseType,
   UpdateExpenseType,
 } from '../../services/apiservices/staffDetail'
+import PermissionsGate from '../Settings/PermissionGate'
+import { PERMISSION } from '../../constants'
 const DeleteExpenseTypeDialog = React.lazy(() =>
   import('./DeleteExpenseTypeDialog'),
 )
@@ -160,21 +162,24 @@ const ExpenseList = () => {
           <Typography className="task_card_heading" variant="span">
             Expense List
           </Typography>
-          <Button
-            className="primary_color_button"
-            variant="contained"
-            onClick={() =>
-              setAddExpenseType({
-                ...addExpenseType,
-                status: true,
-                name: '',
-                expenseId: '',
-                description: '',
-              })
-            }
-          >
-            + Expense Type
-          </Button>
+
+          <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_EXPENSE]}>
+            <Button
+              className="primary_color_button"
+              variant="contained"
+              onClick={() =>
+                setAddExpenseType({
+                  ...addExpenseType,
+                  status: true,
+                  name: '',
+                  expenseId: '',
+                  description: '',
+                })
+              }
+            >
+              + Expense Type
+            </Button>
+          </PermissionsGate>
         </Box>
         <Divider />
         <Box className="left_team_profile_section" sx={{ marginTop: '10px' }}>
@@ -210,37 +215,46 @@ const ExpenseList = () => {
                           <Box
                             sx={{ display: 'flex', justifyContent: 'flex-end' }}
                           >
-                            <Button
-                              sx={{
-                                marginRight: '10px',
-                              }}
-                              onClick={() =>
-                                setAddExpenseType({
-                                  ...addExpenseType,
-                                  status: true,
-                                  expenseId: data.id,
-                                  name: data.name,
-                                  description: data.description,
-                                })
-                              }
-                              className="button_color"
-                              variant="outlined"
+                            <PermissionsGate
+                              scopes={[PERMISSION.PERMISSIONS.EDIT_EXPENSE]}
                             >
-                              Edit
-                            </Button>
-                            <Button
-                              className="button_color"
-                              variant="outlined"
-                              onClick={() => {
-                                setDeletexpenseListDialog({
-                                  ...deletexpenseListDialog,
-                                  status: true,
-                                  id: data.id,
-                                })
-                              }}
+                              <Button
+                                sx={{
+                                  marginRight: '10px',
+                                }}
+                                onClick={() =>
+                                  setAddExpenseType({
+                                    ...addExpenseType,
+                                    status: true,
+                                    expenseId: data.id,
+                                    name: data.name,
+                                    description: data.description,
+                                  })
+                                }
+                                className="button_color"
+                                variant="outlined"
+                              >
+                                Edit
+                              </Button>
+                            </PermissionsGate>
+
+                            <PermissionsGate
+                              scopes={[PERMISSION.PERMISSIONS.DELETE_EXPENSE]}
                             >
-                              Delete
-                            </Button>
+                              <Button
+                                className="button_color"
+                                variant="outlined"
+                                onClick={() => {
+                                  setDeletexpenseListDialog({
+                                    ...deletexpenseListDialog,
+                                    status: true,
+                                    id: data.id,
+                                  })
+                                }}
+                              >
+                                Delete
+                              </Button>
+                            </PermissionsGate>
                           </Box>
                         </TableCell>
                       </TableRow>
