@@ -424,11 +424,11 @@ const HolidayAndLeaveManagement = () => {
                   <TableRow>
                     <TableCell>Date</TableCell>
                     <TableCell>Occasion Name</TableCell>
-                    <TableCell>Duration Day</TableCell>
+                    <TableCell className="table_text">Duration Day</TableCell>
                     <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody>
+                <TableBody className="">
                   {holidayList.length > 0 &&
                     holidayList.map(data => {
                       return (
@@ -442,7 +442,9 @@ const HolidayAndLeaveManagement = () => {
                         >
                           <TableCell>{data?.date || '-'}</TableCell>
                           <TableCell>{data?.occasion || '-'} </TableCell>
-                          <TableCell>{data?.duration || '-'}</TableCell>
+                          <TableCell className="table_text">
+                            {data?.duration || '-'}
+                          </TableCell>
 
                           <TableCell>
                             <Box
@@ -532,7 +534,7 @@ const HolidayAndLeaveManagement = () => {
                   <TableHead className="leave_holidays_table_header">
                     <TableRow>
                       <TableCell>Type</TableCell>
-                      <TableCell>Total</TableCell>
+                      <TableCell className="table_text">Total</TableCell>
                       <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
@@ -550,7 +552,9 @@ const HolidayAndLeaveManagement = () => {
                             }}
                           >
                             <TableCell scope="row">{row.type}</TableCell>
-                            <TableCell>{row.duration}</TableCell>
+                            <TableCell className="table_text">
+                              {row.duration}
+                            </TableCell>
                             <TableCell>
                               <Box
                                 sx={{
@@ -662,6 +666,7 @@ const HolidayAndLeaveManagement = () => {
                             scopes={[PERMISSION.PERMISSIONS.DELETE_HOLIDAY]}
                           >
                             <Button
+                              sx={{ marginRight: '10px' }}
                               className="border_button_small"
                               onClick={() =>
                                 setDeleteHolidayDialogControl({

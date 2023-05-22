@@ -476,7 +476,7 @@ const Dashboard = () => {
                       <TableCell>{row?.id || '-'}</TableCell>
                       <TableCell>{row?.client?.name || '-'}</TableCell>
                       <TableCell>
-                        {moment(row?.date).format('L') || '-'}
+                        {moment(row?.date).format('DD-MM-YYYY') || '-'}
                       </TableCell>
                       <TableCell>{row?.order_total || '-'}</TableCell>
                       <TableCell>{row?.orderTrackingStatus || '-'}</TableCell>
