@@ -26,6 +26,8 @@ const StaffPoint = React.lazy(() => import('./StaffPoint'))
 const StaffExpenses = React.lazy(() => import('./StaffExpenses'))
 const StaffDetail = React.lazy(() => import('./staffDetail'))
 const ChangeRoleDialog = React.lazy(() => import('./ChangeRoleDialog'))
+let path = window.location.pathname
+path = path.split('/').pop()
 const StaffProfile = () => {
   const [value, setValue] = useState('1')
   const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
@@ -49,8 +51,7 @@ const StaffProfile = () => {
   const { flagLoader, permissions } = useContext(AuthContext).state
   const [changeRoleDialogControl, setChangeRoleDialogControl] = useState(false)
   const [adminProfileDetail, setAdminProfileDetail] = useState({})
-  let path = window.location.pathname
-  path = path.split('/').pop()
+
   const handleDrawerOpen = () => {
     setOpen(true)
   }

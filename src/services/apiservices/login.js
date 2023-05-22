@@ -19,7 +19,6 @@ export async function login(formData, onSuccess, onError) {
     localStorage.setItem('userImageUrl', data?.data?.userImageUrl)
     onSuccess && onSuccess(data)
   } catch (res_1) {
-    // clearLoginToken()
     onError && onError(res_1)
     console.log(res_1)
   }

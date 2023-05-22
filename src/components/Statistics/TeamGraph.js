@@ -176,7 +176,6 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
           }}
         >
           <Typography variant="span">Overview</Typography>
-
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <FormControl sx={{ width: '200px', marginLeft: '10px' }}>
               <InputLabel>Compare</InputLabel>
@@ -303,7 +302,6 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
               </Table>
             </TableContainer>
           </Box>
-
           <Box sx={{ width: '50%', marginLeft: '25px' }} className="detail_row">
             <Box className="star_performers_section">
               <Box className="my_main_section_header">
@@ -314,8 +312,6 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
                   Star Performers
                 </Typography>
               </Box>
-              {/* {salesInquiry?.starPerformerList.length > 0 &&
-              salesInquiry.starPerformerList.map(data => { */}
               <Box className="a-box">
                 <Box className="img-container">
                   <Box className="img-inner">
@@ -330,7 +326,6 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
                   <h5>Star Performer of the Month.</h5>
                 </Box>
               </Box>
-
               <Box className="a-box">
                 <Box className="img-container">
                   <Box className="img-inner">
@@ -346,31 +341,6 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
                 </Box>
               </Box>
             </Box>
-
-            {/* <Box className="star_performers_section">
-              <Box className="my_main_section_header">
-                <Typography
-                  className="bottom_left_panel_heading"
-                  variant="span"
-                >
-                  Star Performers
-                </Typography>
-              </Box>
-              <Box className="a-box">
-                <Box className="img-container">
-                  <Box className="img-inner">
-                    <Box className="inner-skew">
-                      <img src={StarPerformer} />
-                    </Box>
-                  </Box>
-                </Box>
-                <Box className="text-container">
-                  <h3>Paul Walker</h3>
-                  <h6>Sr. Sales Person</h6>
-                  <h5>Star Performer of the Month.</h5>
-                </Box>
-              </Box>
-            </Box> */}
           </Box>
         </Box>
       </Box>
