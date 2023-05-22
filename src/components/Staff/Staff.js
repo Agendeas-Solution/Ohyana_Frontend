@@ -404,7 +404,7 @@ const Staff = () => {
                           <Typography>{row.name}</Typography>
                         </TableCell>
                         <TableCell align="left">
-                          {row?.attendances
+                          {row?.attendances.length
                             ? row?.attendances[0]?.attendanceType
                             : '-'}
                         </TableCell>
