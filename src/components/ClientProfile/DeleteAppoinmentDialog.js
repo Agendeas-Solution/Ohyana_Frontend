@@ -9,10 +9,6 @@ import {
   Box,
 } from '@mui/material'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
-import {
-  DeleteAdminProduct,
-  DeleteAppointment,
-} from '../../services/apiservices/adminprofile'
 const DeleteAppoinmentDialog = ({
   deleteAppoinmentDialogControl,
   handleCloseAppointmentDialog,

@@ -11,7 +11,6 @@ export async function login(formData, onSuccess, onError) {
     const { data } = await axiosInstance.post(`/login`, formData, {
       headers: { ...defaultHeaders },
     })
-    console.log(data)
     let authToken = data?.data?.token
     setLoginToken(authToken)
     localStorage.setItem('permissions', JSON.stringify(data?.data?.permissions))
@@ -20,7 +19,6 @@ export async function login(formData, onSuccess, onError) {
     onSuccess && onSuccess(data)
   } catch (res_1) {
     onError && onError(res_1)
-    console.log(res_1)
   }
 }
 export const ForgotPassword = async (value, onSuccess, onError) => {
@@ -28,10 +26,8 @@ export const ForgotPassword = async (value, onSuccess, onError) => {
     const { data } = await axiosInstance.post(`/forgot-password`, value, {
       headers: { ...defaultHeaders },
     })
-    console.log('Printing data of ForgotPassword', data)
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log('Got error while calling API - ForgotPassword', err)
     onError && onError(err)
   }
 }
@@ -41,10 +37,8 @@ export const ResetPassword = async (token, value, onSuccess, onError) => {
     const data = await axiosInstance.post(`/reset-password/${token}`, value, {
       headers: { ...defaultHeaders },
     })
-    console.log('Printing data of ResetPassword', data)
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log('Got error while calling API - ResetPassword', err)
     onError && onError(err)
   }
 }

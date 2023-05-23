@@ -79,22 +79,29 @@ const OrderDetail = () => {
         setActiveStep(data[0])
       },
       err => {
-        console.log('Printing OrderList Error', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [])
-  console.log({ or: orderDetail })
   const handleNext = statusValue => {
     UpdateDeliveryStatus(
       parseInt(path),
       { status: statusValue },
-      res => {
+      () => {
         if (activeStep < 3) {
           setActiveStep(prevActiveStep => prevActiveStep + 1)
         }
       },
       err => {
-        console.log('Printing Error', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }
@@ -378,7 +385,6 @@ const OrderDetail = () => {
                 <TableBody>
                   {orderDetail?.order_items ? (
                     orderDetail?.order_items.map(data => {
-                      console.log({ DATA: data })
                       return (
                         <TableRow
                           sx={{

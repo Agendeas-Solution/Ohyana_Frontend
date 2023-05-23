@@ -112,7 +112,11 @@ const EditCompanyProfile = () => {
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
     GetCountryList(
@@ -123,7 +127,11 @@ const EditCompanyProfile = () => {
         }
       },
       err => {
-        console.log('Printing ', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [])
@@ -133,7 +141,6 @@ const EditCompanyProfile = () => {
     data.append('name', companyDetail.companyName)
     data.append('email', companyDetail.email)
     data.append('crmKey', companyDetail.crmKey)
-    console.log(typeof imageUrl)
     if (typeof imageUrl !== 'string') {
       data.append('logo_image', imageUrl)
     }

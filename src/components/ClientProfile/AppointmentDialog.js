@@ -1,10 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Box,
   Button,
   Dialog,
   DialogActions,
-  DialogContent,
   TextField,
   Typography,
   Autocomplete,
@@ -16,9 +15,7 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { AddAdminClientAppointmentDetail } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
-import { Context as ContextSnackbar } from '../../context/pageContext'
 import './index.css'
 import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail.js'
 
@@ -28,7 +25,6 @@ const AppointmentDialog = ({
   setAppointmentDialogControl,
   handleAddEditAppointment,
 }) => {
-  console.log({ appstatus: appointmentDialogControl })
   const [staffDetailList, setStaffDetailList] = useState([])
   useEffect(() => {
     GetAdminStaffDetailList(

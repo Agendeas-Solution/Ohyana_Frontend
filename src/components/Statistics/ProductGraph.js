@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
   Box,
   Typography,
@@ -13,18 +13,18 @@ import {
   createFilterOptions,
 } from '@mui/material'
 import './index.css'
-import { UserData } from './Data'
 import LineChart from './LineChart'
 import { GetProductReport } from '../../services/apiservices/productDetail'
-import { GetCityList } from '../../services/apiservices/clientDetail'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 import {
   GetCity,
   GetState,
 } from '../../services/apiservices/country-state-city'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+
 const ProductGraph = ({ selectedPeriod, customRange }) => {
-  const [comparison, setComparison] = useState()
-  // const [graphData, setGraphData] = useState([])
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [graphData, setGraphData] = useState({})
   const [productList, setProductList] = useState([])
   const [selectedProductList, setSelectedProductList] = useState([])
@@ -41,7 +41,6 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
       productList.find(name => name.id === id),
     )
     setSelectedProductList(selectedProduct)
-    console.log('Selected Product:', selectedProduct)
   }
 
   useEffect(() => {
@@ -58,7 +57,13 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
       res => {
         setStateList(res)
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }, [])
   useEffect(() => {
@@ -77,7 +82,13 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
           }, [])
           setCityList(uniqueCity)
         },
-        err => {},
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
       )
   }, [selectedState])
   useEffect(() => {
@@ -106,6 +117,11 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
         },
         err => {
           setGraphData([])
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
         },
       )
     } else if (selectedPeriod !== 'custom') {
@@ -116,6 +132,11 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
         },
         err => {
           setGraphData([])
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
         },
       )
     }
@@ -126,7 +147,13 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
       res => {
         setProductList(res?.data?.products)
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }, [])
   useEffect(() => {

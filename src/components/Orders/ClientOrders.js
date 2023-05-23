@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {
   Button,
-  Checkbox,
   FormControl,
   IconButton,
   InputAdornment,
@@ -44,7 +43,6 @@ const ClientOrders = () => {
     GetAdminProductList(
       data,
       res => {
-        console.log({ RESPONSE: res })
         if (res?.success) {
           setClientProductList(res?.data?.products)
         }
@@ -158,7 +156,6 @@ const ClientOrders = () => {
         <Box className="below_main_tab_section">
           <Box className="inner_container">
             {clientProductList.map(data => {
-              console.log({ DATA: data })
               return (
                 <Box className="client_product_card">
                   <Box className="task_card_hover">

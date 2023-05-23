@@ -25,7 +25,6 @@ import { GetAdminRole } from '../../services/apiservices/adminprofile'
 import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail'
 import { TEAM } from '../../constants'
 import StarPerformer from '../../assets/img/star_performer.png'
-
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const TeamGraph = ({ selectedPeriod, customRange }) => {
   const [graphData, setGraphData] = useState()

@@ -94,7 +94,6 @@ export const ApproveExpense = async (value, onSuccess, onError) => {
 
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log(err)
     onError && onError(err)
   }
 }
@@ -111,7 +110,6 @@ export const PaymentStatus = async (value, onSuccess, onError) => {
 
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log(err)
     onError && onError(err)
   }
 }

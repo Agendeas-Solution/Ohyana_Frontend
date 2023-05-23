@@ -32,10 +32,10 @@ const Statistics = () => {
             variant="scrollable"
             scrollButtons="auto"
           >
-            <Tab label="Team" value="2" />
             <Tab label="Product" value="1" />
             <Tab label="City" value="3" />
             <Tab label="Customer" value="4" />
+            <Tab label="Team" value="2" />
           </Tabs>
           <Box
             sx={{

@@ -10,9 +10,7 @@ import {
   Button,
 } from '@mui/material'
 import './index.css'
-import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
-import EditReminderDialog from './EditReminderDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import DeleteReminderDialog from './DeleteReminderDialog'
 import { DeleteReminder } from '../../services/apiservices/adminprofile'
@@ -66,7 +64,6 @@ const RemainderTable = ({
         handleReminderDetail()
       },
       err => {
-        console.log('Printing OrderList Error', err)
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,

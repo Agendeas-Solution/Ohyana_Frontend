@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Box, Typography, Button, TextField } from '@mui/material'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { Box, Typography, Button } from '@mui/material'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -9,7 +7,6 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import moment from 'moment'
 import './index.css'
 import {
@@ -99,7 +96,11 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
       id,
       res => {},
       err => {
-        console.log('Printing Error Payment Status Update', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }
@@ -108,7 +109,13 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
       id,
       status,
       res => {},
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
   const handleExpenseApproval = () => {

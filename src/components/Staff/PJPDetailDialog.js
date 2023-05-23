@@ -9,7 +9,6 @@ import {
 } from '@mui/material'
 import { GetPJPDetail } from '../../services/apiservices/teamcall'
 import './index.css'
-import EditPJPDialog from './EditPJPDialog'
 import moment from 'moment'
 
 const PJPDetailDialog = ({
@@ -142,15 +141,6 @@ const PJPDetailDialog = ({
           </DialogContent>
         </Box>
       </Dialog>
-      {/* {pjpDetail.status && (
-        <EditPJPDialog
-          editPJPDetail={editPJPDetail}
-          setEditPJPDetail={setEditPJPDetail}
-          handleEditPJPCloseDialog={handleEditPJPCloseDialog}
-          pjpDetail={pjpDetail}
-          handlePJPDetail={handlePJPDetail}
-        />
-      )} */}
     </>
   )
 }

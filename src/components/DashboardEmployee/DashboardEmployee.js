@@ -1,12 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import {
-  Box,
-  Typography,
-  Button,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-} from '@mui/material'
+import { Box, Typography, Button } from '@mui/material'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -17,10 +10,7 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import './index.css'
 import { GetSalesInquiry } from '../../services/apiservices/staffDetail'
-import { UpdateCheckListItemStatus } from '../../services/apiservices/task'
 import moment from 'moment'
-import StarPerformer from '../../assets/img/star_performer.png'
-import SecondStarPerformer from '../../assets/img/second_star_performer.png'
 import { AttendanceStatus } from '../../services/apiservices/staffDetail'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
@@ -301,7 +291,6 @@ const DashboardEmployee = () => {
                   <TableBody>
                     {salesInquiry?.tasks &&
                       salesInquiry?.tasks?.map(data => {
-                        console.log({ SalesInquiry: salesInquiry })
                         return (
                           <TableRow
                             sx={{
@@ -392,7 +381,6 @@ const DashboardEmployee = () => {
             </Box>
             {salesInquiry?.starPerformerList.length > 0 &&
               salesInquiry.starPerformerList.map(data => {
-                console.log({ salesInq: salesInquiry })
                 return (
                   <Box className="a-box">
                     <Box className="img-container">

@@ -7,7 +7,6 @@ const ViewAppointmentDialog = ({
   viewAppointment,
   handleViewAppointmentDialogClose,
 }) => {
-  console.log({ ViewApp: viewAppointment })
   return (
     <>
       <Dialog

@@ -248,7 +248,6 @@ const Client = () => {
         }
       },
       err => {
-        console.log(err)
         setClientDetails([])
         setClientLoader(false)
       },

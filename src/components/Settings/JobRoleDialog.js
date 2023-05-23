@@ -2,13 +2,10 @@ import React, { useState, useContext } from 'react'
 import {
   Dialog,
   Box,
-  DialogTitle,
-  DialogContent,
   DialogActions,
   Button,
   Typography,
   TextField,
-  TextareaAutosize,
   Autocomplete,
 } from '@mui/material'
 import { CreateJobRole } from '../../services/apiservices/adminprofile'

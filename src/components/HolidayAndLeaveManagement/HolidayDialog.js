@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {
   Dialog,
   Box,
-  DialogContent,
   DialogActions,
   Button,
   Typography,
@@ -11,7 +10,6 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { GetAllLeaveType, ApplyLeave } from '../../services/apiservices/holiday'
 import moment from 'moment'
 
 const HolidayDialog = ({

@@ -1,40 +1,3 @@
-// import React, { useState, useRef } from 'react'
-// const Uploader = () => {
-//   const [image, setImage] = useState('')
-//   const inputFile = useRef(null)
-
-//   const handleFileUpload = e => {
-//     const { files } = e.target
-//     if (files && files.length) {
-//       const filename = files[0].name
-//       var parts = filename.split('.')
-//       const fileType = parts[parts.length - 1]
-//       console.log('fileType', fileType)
-//       setImage(files[0])
-//
-//     }
-//   }
-//   const onButtonClick = () => {
-//     inputFile.current.click()
-//   }
-//   return (
-//     <Box>
-//       <input
-//         style={{ display: 'none' }}
-//         // accept=".zip,.rar"
-//         ref={inputFile}
-//         onChange={handleFileUpload}
-//         type="file"
-//       />
-//       <Box className="button" onClick={onButtonClick}>
-//         Upload
-//       </Box>
-//     </Box>
-//   )
-// }
-
-// export default Uploader
-
 import React, { useState } from 'react'
 import './index.css'
 import AvatarEditor from 'react-avatar-editor'
@@ -51,18 +14,6 @@ const Uploader = ({ imageUrl, setImageUrl }) => {
       setImageUrl(file)
     }
   }
-
-  // const handleScaleChange = e => {
-  //   const scale = parseFloat(e.target.value)
-  //   setScale(scale)
-  // }
-
-  // const handleSave = () => {
-  //   if (editor) {
-  //     const canvas = editor.getImage().toDataURL()
-  //   }
-  // }
-
   return (
     <Box>
       <Box
@@ -87,8 +38,6 @@ const Uploader = ({ imageUrl, setImageUrl }) => {
             <AvatarEditor
               ref={setEditor}
               image={imageUrl}
-              // width={140}
-              // height={140}
               style={{
                 width: '100%',
                 height: '100%',

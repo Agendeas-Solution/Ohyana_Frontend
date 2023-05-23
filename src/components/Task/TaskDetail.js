@@ -38,8 +38,8 @@ const TaskDetail = () => {
   const [taskDetail, setTaskDetail] = useState([])
   const [checkLists, setCheckLists] = useState([])
   const [addCheckList, setAddCheckList] = useState('')
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [countDoneTask, setCountDoneTask] = useState(null)
   const [taskRatio, setTaskRatio] = useState(0)
   const [openMemberDialog, setOpenMemberDialog] = useState(false)
@@ -111,7 +111,11 @@ const TaskDetail = () => {
         setCheckLists(res?.data?.checklists)
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }
@@ -125,7 +129,11 @@ const TaskDetail = () => {
         setCheckLists(res?.data)
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }
@@ -142,7 +150,11 @@ const TaskDetail = () => {
         })
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }
@@ -153,7 +165,11 @@ const TaskDetail = () => {
         setCheckLists(res?.data)
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }

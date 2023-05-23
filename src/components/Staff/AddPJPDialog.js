@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Box,
   Typography,
   Button,
   TextField,
-  DialogContent,
   DialogActions,
   Dialog,
   Autocomplete,
-  CircularProgress,
-  DialogTitle,
-  TextareaAutosize,
-  InputLabel,
-  Select,
-  MenuItem,
   FormControl,
 } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
@@ -21,13 +14,16 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import './index.css'
 import { GetAllClients } from '../../services/apiservices/clientDetail'
-import moment from 'moment'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+
 const AddPJPDialog = ({
   addPJPDetail,
   handleCloseDialog,
   setAddPJPDetail,
   handleAddPJPDetail,
 }) => {
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [searchQuery, setSearchQuery] = useState('')
   const [options, setOptions] = useState([])
   useEffect(() => {
@@ -45,7 +41,11 @@ const AddPJPDialog = ({
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [searchQuery])

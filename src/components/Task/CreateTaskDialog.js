@@ -5,15 +5,12 @@ import {
   Button,
   TextField,
   FormControl,
-  Paper,
-  TextareaAutosize,
   InputLabel,
   Select,
   MenuItem,
 } from '@mui/material'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
-import DialogTitle from '@mui/material/DialogTitle'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
@@ -29,7 +26,6 @@ const CreateTaskDialog = ({
   memberList,
   setMember,
 }) => {
-  console.log({ CreateTask: createTask })
   const [selectedDate, setSelectedDate] = useState(null)
   const [anchorEl, setAnchorEl] = useState(null)
 

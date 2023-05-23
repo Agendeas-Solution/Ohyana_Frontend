@@ -62,12 +62,10 @@ const PresentData = ({ staffAttendanceList }) => {
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      // key={attendanceList.id}
                       sx={{
                         '&:last-child td,th': {
                           border: 0,
                         },
-                        // lineHeight: '3',
                       }}
                     >
                       <TableCell className="tablecell_height">

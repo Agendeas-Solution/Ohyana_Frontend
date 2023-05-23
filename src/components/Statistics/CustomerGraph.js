@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
   Box,
   Typography,
@@ -20,6 +20,8 @@ import {
 } from '../../services/apiservices/productDetail'
 import { GetAllClients } from '../../services/apiservices/clientDetail'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+
 const CustomerGraph = ({ selectedPeriod, customRange }) => {
   const [graphData, setGraphData] = useState({})
   const [productList, setProductList] = useState([])
@@ -27,6 +29,8 @@ const CustomerGraph = ({ selectedPeriod, customRange }) => {
   const [userData, setUserData] = useState({})
   const [clientDetail, setClientDetail] = useState(null)
   const [clientList, setClientList] = useState([])
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [searchQuery, setSearchQuery] = useState('')
   const handleChange = event => {
     const { value } = event.target
@@ -99,7 +103,11 @@ const CustomerGraph = ({ selectedPeriod, customRange }) => {
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [searchQuery])

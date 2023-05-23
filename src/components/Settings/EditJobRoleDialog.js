@@ -2,23 +2,16 @@ import React, { useState, useContext, useEffect } from 'react'
 import {
   Dialog,
   Box,
-  DialogTitle,
-  DialogContent,
   DialogActions,
   Button,
   Typography,
   TextField,
-  TextareaAutosize,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
 } from '@mui/material'
-import {
-  GetAddEditAdminRole,
-  GetAdminRole,
-} from '../../services/apiservices/adminprofile'
-import moment from 'moment'
+import { GetAdminRole } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const EditJobRoleDialog = ({
   editJobRoleDialogControl,
@@ -26,8 +19,8 @@ const EditJobRoleDialog = ({
   handleClose,
   handleEditJobRole,
 }) => {
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
+  const { errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setErrorSnackbar } = useContext(ContextSnackbar)
   const [jobRoleList, setJobRoleList] = useState({})
   const [seniorName, setSeniorName] = useState('')
   useEffect(() => {
@@ -42,7 +35,11 @@ const EditJobRoleDialog = ({
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [])

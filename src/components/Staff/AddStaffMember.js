@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
 import {
-  Typography,
   Box,
   TextField,
   InputLabel,
@@ -8,14 +7,11 @@ import {
   Button,
   Select,
   MenuItem,
-  Paper,
   Autocomplete,
   createFilterOptions,
+  InputAdornment,
 } from '@mui/material'
-import {
-  GetAdminDepartmentList,
-  GetAdminRole,
-} from '../../services/apiservices/adminprofile'
+import { GetAdminRole } from '../../services/apiservices/adminprofile'
 import {
   AddEmployee,
   EditEmployee,
@@ -27,14 +23,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { useNavigate } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { TEAM } from '../../constants'
-import image from '../../assets/img/profile_icon.svg'
-import { PhotoCamera } from '@mui/icons-material'
 import Uploader from '../Uploader/Uploader'
-import moment from 'moment'
-import {
-  GetState,
-  GetStateByCountry,
-} from '../../services/apiservices/country-state-city'
+import { GetState } from '../../services/apiservices/country-state-city'
+import { SentOtp, VerifyOTP } from '../../services/apiservices/register'
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 
 const AddStaffMember = () => {
@@ -44,8 +35,7 @@ const AddStaffMember = () => {
     jobRole: '',
     contactNo: '',
     gender: '',
-    // birthDate: '',
-    birthDate: moment(),
+    birthDate: null,
     state: null,
     jobType: '',
   })
@@ -64,6 +54,12 @@ const AddStaffMember = () => {
     matchFrom: 'start',
     stringify: option => option?.name,
   })
+  const [otpValue, setOtpValue] = useState({
+    value: null,
+    emailVerifyStatus: false,
+    otpVerifyStatus: false,
+  })
+
   useEffect(() => {
     GetState(
       {},
@@ -89,7 +85,11 @@ const AddStaffMember = () => {
           }
         },
         err => {
-          console.log('Printing Error of GetAdminRole', err)
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
         },
       )
     }
@@ -121,7 +121,11 @@ const AddStaffMember = () => {
           }
         },
         err => {
-          console.log('Printing ', err)
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
         },
       )
   }, [])
@@ -140,7 +144,7 @@ const AddStaffMember = () => {
       employeeDetail.append('name', userDetail.employeeName)
       employeeDetail.append('email', userDetail.email)
       employeeDetail.append('roleId', userDetail.jobRole)
-      if (typeof imageUrl !== 'string') {
+      if (typeof imageUrl !== 'string' && imageUrl) {
         employeeDetail.append('profile_image', imageUrl)
       }
       employeeDetail.append('contact_number', userDetail.contactNo)
@@ -150,7 +154,6 @@ const AddStaffMember = () => {
       employeeDetail.append('state_id', userDetail.state.id)
       employeeDetail.append('state_iso2', userDetail.state.iso2)
       employeeDetail.append('jobType', userDetail.jobType)
-
       if (parseInt(path)) {
         employeeDetail.append('id', userDetail.id)
       }
@@ -168,7 +171,6 @@ const AddStaffMember = () => {
                   navigate('/staff')
                 }
               },
-
               err => {
                 setErrorSnackbar({
                   ...errorSnackbar,
@@ -200,15 +202,32 @@ const AddStaffMember = () => {
       console.log(userDetail)
     }
   }
-
-  const [state, setState] = useState('')
-  const loadFile = event => {
-    if (event.target.files) {
-      setState(URL.createObjectURL(event.target.files[0]))
-      console.log(URL.createObjectURL(event.target.files[0]))
-    }
+  const handleSentOtp = () => {
+    SentOtp(
+      { email: userDetail?.email },
+      res => {
+        if (res.success) {
+          setOtpValue({
+            ...otpValue,
+            emailVerifyStatus: true,
+          })
+        }
+      },
+      err => {},
+    )
   }
-
+  const handleOtp = () => {
+    VerifyOTP(
+      { email: userDetail?.email, otp: otpValue.value },
+      res => {
+        setOtpValue({
+          ...otpValue,
+          otpVerifyStatus: true,
+        })
+      },
+      err => {},
+    )
+  }
   return (
     <>
       <Box className="main_section">
@@ -282,11 +301,34 @@ const AddStaffMember = () => {
                 </FormControl>
               </Box>
             </Box>
-
-            {/* Email &&  Job Role  */}
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
+                  label="Email"
+                  type={'email'}
+                  value={userDetail?.email}
+                  onChange={e => {
+                    setUserDetail({ ...userDetail, email: e.target.value })
+                  }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Button
+                          sx={{
+                            margin: '0px',
+                            backgroundColor: '#2E3591',
+                            boxShadow: 'none',
+                          }}
+                          variant="contained"
+                          onClick={handleSentOtp}
+                        >
+                          Send Otp
+                        </Button>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+                {/* <TextField
                   autoComplete="off"
                   label="Email"
                   type="email"
@@ -295,7 +337,7 @@ const AddStaffMember = () => {
                   }}
                   value={userDetail.email}
                   variant="outlined"
-                />
+                /> */}
               </Box>
               <Box className="input_fields">
                 <FormControl>
@@ -317,7 +359,38 @@ const AddStaffMember = () => {
                 </FormControl>
               </Box>
             </Box>
-
+            <Box className="input_field_row">
+              {otpValue.emailVerifyStatus && (
+                <TextField
+                  label="Otp"
+                  type={'number'}
+                  value={otpValue?.value}
+                  onChange={e => {
+                    setOtpValue({
+                      ...otpValue,
+                      value: parseInt(e.target.value),
+                    })
+                  }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Button
+                          sx={{
+                            margin: '0px',
+                            backgroundColor: '#2E3591',
+                            boxShadow: 'none',
+                          }}
+                          variant="contained"
+                          onClick={handleOtp}
+                        >
+                          Verify
+                        </Button>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              )}
+            </Box>
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
@@ -409,9 +482,13 @@ const AddStaffMember = () => {
             </Box> */}
 
             <Button
+              disabled={!otpValue.otpVerifyStatus}
               onClick={handleAddEmployee}
               variant="contained"
-              className="edit_page_save_button"
+              sx={{ width: '30%' }}
+              className={
+                otpValue.otpVerifyStatus ? 'edit_page_save_button' : ''
+              }
             >
               Save
             </Button>

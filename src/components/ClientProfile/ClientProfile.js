@@ -28,9 +28,7 @@ import Stage1 from '../../assets/img/stage_1.svg'
 import Stage2 from '../../assets/img/stage_2.svg'
 import CallNotReceived from '../../assets/img/callnotreceived.svg'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import NoResultFound from '../ErrorComponent/NoResultFound'
 import CloseStatusDialog from './CloseStatusDialog'
-import { Dashboard } from '@mui/icons-material'
 import EditReminderDialog from './EditReminderDialog'
 import StatusTable from './StatusTable'
 import ViewAppointmentDialog from './ViewAppointmentDialog'
@@ -118,12 +116,9 @@ const ClientProfile = () => {
       res => {
         if (res.success) {
           setClientProfileDetail(res?.data)
-          console.log(res?.data)
         }
       },
-      err => {
-        console.log('Printing ', err)
-      },
+      err => {},
     )
   }, [stageDialog])
   const handleAdminClienStatusDetail = () => {
@@ -135,9 +130,7 @@ const ClientProfile = () => {
           setClientStatusList(res?.data)
         }
       },
-      err => {
-        console.log('Printing Error', err)
-      },
+      err => {},
     )
   }
   const handleReminderDetail = () => {
@@ -149,9 +142,7 @@ const ClientProfile = () => {
           setClientReminderList(res.data)
         }
       },
-      err => {
-        console.log('Printing', err)
-      },
+      err => {},
     )
   }
   const handleAppointmentDetail = () => {
@@ -163,9 +154,7 @@ const ClientProfile = () => {
           setClientAppointmentList(res.data)
         }
       },
-      err => {
-        console.log('Printing', err)
-      },
+      err => {},
     )
   }
   const handleAddEditAppointment = () => {
@@ -203,9 +192,7 @@ const ClientProfile = () => {
                 message: res.message,
               })
             },
-            err => {
-              console.log('Error :', err)
-            },
+            err => {},
           )
         : AddAdminClientAppointmentDetail(
             data,
@@ -218,9 +205,7 @@ const ClientProfile = () => {
                 message: res.message,
               })
             },
-            err => {
-              console.log('Error :', err)
-            },
+            err => {},
           )
     }
   }
@@ -657,15 +642,13 @@ const ClientProfile = () => {
               handleAddEditAppointment={handleAddEditAppointment}
             />
           ) : null}
-          {viewAppointment.status === true ? (
+          {viewAppointment.status === true && (
             <ViewAppointmentDialog
               viewAppointment={viewAppointment}
               handleViewAppointmentDialogClose={
                 handleViewAppointmentDialogClose
               }
             />
-          ) : (
-            console.log('nor found view appointment dialog')
           )}
         </Box>
       </Box>

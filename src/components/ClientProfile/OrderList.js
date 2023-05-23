@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Table,
   TableBody,
@@ -13,9 +13,12 @@ import moment from 'moment'
 import { GetSingleClientOrderList } from '../../services/apiservices/orderDetail'
 import { useNavigate } from 'react-router-dom'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const OrderList = () => {
   const [orderList, setOrderList] = useState([])
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const navigate = useNavigate()
   useEffect(() => {
     let path = window.location.pathname
@@ -26,7 +29,11 @@ const OrderList = () => {
         setOrderList(res.data.orders)
       },
       err => {
-        console.log('Printing OrderList Error', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [])

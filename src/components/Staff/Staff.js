@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import {
   Box,
-  TextField,
   Button,
-  Autocomplete,
   MenuItem,
   Table,
   TableBody,
@@ -17,12 +15,9 @@ import {
   OutlinedInput,
   InputAdornment,
   IconButton,
-  Toolbar,
   Typography,
-  Avatar,
   Divider,
   Drawer,
-  FormLabelRadioGroup,
   FormControlLabel,
   Radio,
   Select,
@@ -39,21 +34,16 @@ import {
   GetUsersAttendanceList,
   GetSingleStaffDetailList,
 } from '../../services/apiservices/staffDetail'
-import {
-  GetAdminDepartmentList,
-  GetAdminRole,
-} from '../../services/apiservices/adminprofile'
+import { GetAdminRole } from '../../services/apiservices/adminprofile'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import moment from 'moment'
 import { styled, useTheme } from '@mui/material/styles'
 import { PERMISSION, TEAM } from '../../constants'
 import PermissionsGate from '../Settings/PermissionGate'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 const drawerWidth = 350
 const Loader = React.lazy(() => import('../Loader/Loader'))
-const SuccessSnackbar = React.lazy(() =>
-  import('../SuccessSnackbar/SuccessSnackbar'),
-)
+
 const Staff = () => {
   let navigate = useNavigate()
   const theme = useTheme()
@@ -62,6 +52,8 @@ const Staff = () => {
   const [value, setValue] = useState('1')
   const [open, setOpen] = useState(false)
   const [loader, setLoader] = useState(false)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [attendanceTypeList, setAttendanceTypeList] = useState(
     TEAM.ATTENDANCETYPE,
   )
@@ -126,7 +118,6 @@ const Staff = () => {
   }
   useEffect(() => {
     singleStaffDetails && teamLeaderDetails(staffDetailList[0]?.id)
-    console.log({ Single: singleStaffDetails })
   }, [staffDetailList.length > 0])
 
   const handleGetAdminStaffDetail = () => {
@@ -152,7 +143,11 @@ const Staff = () => {
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
         setStaffDetailList([])
         setLoader(false)
       },
@@ -171,7 +166,11 @@ const Staff = () => {
           setJobRoleList(res.data)
         },
         err => {
-          console.log('Printing Error', err)
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
         },
       )
   }, [open])
@@ -184,7 +183,11 @@ const Staff = () => {
           setUserAttendanceList(res?.data)
         },
         err => {
-          console.log('Printing Error', err)
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
         },
       )
   }, [value, datePicker])

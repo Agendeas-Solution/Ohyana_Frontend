@@ -1,9 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import './index.css'
-import { Box, Typography, Button, TextField } from '@mui/material'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { Box, Typography } from '@mui/material'
 import {
   GetStaffAttendanceList,
   GetStaffLeaveList,
@@ -13,7 +10,6 @@ import moment from 'moment'
 import ApproveLeaveDialog from './ApproveLeaveDialog'
 import StaffAttendancePresent from './StaffAttendancePresent'
 import StaffAttendanceLeave from './StaffAttendanceLeave'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const StaffAttendance = ({
@@ -49,7 +45,6 @@ const StaffAttendance = ({
         })
       },
       err => {
-        console.log(err)
         setErrorSnackbar({
           ...errorSnackbar,
           message: err.message,
