@@ -27,6 +27,7 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 import { ORDER } from '../../constants/orderConstant'
 import PermissionsGate, { CheckPermission } from '../Settings/PermissionGate'
 import { PERMISSION } from '../../constants'
+import moment from 'moment'
 const PaymentDetailDialog = React.lazy(() => import('./PaymentDetailDialog'))
 
 const steps = [
@@ -82,6 +83,7 @@ const OrderDetail = () => {
       },
     )
   }, [])
+  console.log({ or: orderDetail })
   const handleNext = statusValue => {
     UpdateDeliveryStatus(
       parseInt(path),
@@ -174,6 +176,15 @@ const OrderDetail = () => {
               </Typography>
               <Typography variant="span">
                 {orderDetail?.client?.name}
+              </Typography>
+            </Box>
+
+            <Box className="order_detail_row">
+              <Typography className="order_desc_subheading" variant="span ">
+                Order Date
+              </Typography>
+              <Typography variant="span">
+                {moment(orderDetail?.date).format('DD-MM-YYYY')}
               </Typography>
             </Box>
           </Box>
@@ -270,19 +281,45 @@ const OrderDetail = () => {
                 <Stepper activeStep={activeStep} orientation="vertical">
                   {steps.map((step, index) => (
                     <Step key={step.label}>
-                      <StepLabel
-                      // optional={
-                      //   index === 2 ? (
-                      //     <Typography variant="caption">Last step</Typography>
-                      //   ) : null
-                      // }
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                        }}
                       >
-                        {step.label}
-                      </StepLabel>
+                        <StepLabel
+                        // optional={
+                        //   index === 2 ? (
+                        //     <Typography variant="caption">Last step</Typography>
+                        //   ) : null
+                        // }
+                        >
+                          {step.label}
+                        </StepLabel>
+                        {step.label == 'DISPATCH' ? (
+                          <Typography>
+                            {orderDetail?.dispatch_date
+                              ? moment(orderDetail?.dispatch_date).format(
+                                  'DD-MM-YYYY',
+                                )
+                              : ''}
+                          </Typography>
+                        ) : (
+                          <Typography>
+                            {orderDetail?.delivered_date
+                              ? moment(orderDetail?.delivered_date).format(
+                                  'DD-MM-YYYY',
+                                )
+                              : ''}
+                          </Typography>
+                        )}
+                      </Box>
                       <StepContent>
                         <Typography>{step.description}</Typography>
                         <Box sx={{ mb: 2 }}>
-                          <div>
+                          <Box>
                             <Button
                               variant="contained"
                               onClick={() => handleNext(step.label)}
@@ -299,7 +336,7 @@ const OrderDetail = () => {
                             >
                               Back
                             </Button>
-                          </div>
+                          </Box>
                         </Box>
                       </StepContent>
                     </Step>
