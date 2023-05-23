@@ -12,10 +12,7 @@ import {
   Table,
 } from '@mui/material'
 import './index.css'
-import {
-  GetAddEditAdminRole,
-  GetAdminRole,
-} from '../../services/apiservices/adminprofile'
+import { GetAdminRole } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
@@ -26,6 +23,8 @@ const JobRolesList = () => {
   let navigate = useNavigate()
   const { flagLoader, permissions } = useContext(AuthContext).state
   const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleClose = () => {
     setJobRoleDialogControl(false)
   }
@@ -46,7 +45,11 @@ const JobRolesList = () => {
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [])

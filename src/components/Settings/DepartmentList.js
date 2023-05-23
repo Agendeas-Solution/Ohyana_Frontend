@@ -26,7 +26,11 @@ const DepartmentList = () => {
         }
       },
       err => {
-        console.log('Printing Error', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [addEditDepartmentDialogControl])

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Button,
   Paper,
@@ -9,11 +9,6 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material'
-import {
-  GetStaffAttendanceList,
-  GetStaffLeaveList,
-  GrantLeave,
-} from '../../services/apiservices/staffDetail'
 import moment from 'moment'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 

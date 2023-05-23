@@ -6,6 +6,7 @@ import moment from 'moment'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import CityGraph from './CityGraph'
+import CustomerGraph from './CustomerGraph'
 const TeamGraph = React.lazy(() => import('./TeamGraph'))
 const ProductGraph = React.lazy(() => import('./ProductGraph'))
 const Statistics = () => {
@@ -32,8 +33,9 @@ const Statistics = () => {
             scrollButtons="auto"
           >
             <Tab label="Product" value="1" />
-            <Tab label="Team" value="2" />
             <Tab label="City" value="3" />
+            <Tab label="Customer" value="4" />
+            <Tab label="Team" value="2" />
           </Tabs>
           <Box
             sx={{
@@ -144,6 +146,12 @@ const Statistics = () => {
           )}
           {value === '3' && (
             <CityGraph
+              selectedPeriod={selectedPeriod}
+              customRange={customRange}
+            />
+          )}
+          {value === '4' && (
+            <CustomerGraph
               selectedPeriod={selectedPeriod}
               customRange={customRange}
             />

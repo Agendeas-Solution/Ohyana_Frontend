@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
   Box,
   Typography,
   Button,
   TextField,
-  DialogContent,
   DialogActions,
   Dialog,
-  TextareaAutosize,
 } from '@mui/material'
 // import './index.css'
 const ExpenseType = ({

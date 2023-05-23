@@ -21,8 +21,8 @@ import {
 import DeleteProductMyCart from '../ClientProfile/DeleteProductMyCart'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 const MyCart = () => {
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const { errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setErrorSnackbar } = useContext(ContextSnackbar)
   const [deleteProductMyCardDialog, setDeleteProductCardDialog] = useState({
     status: false,
     id: '',
@@ -65,7 +65,7 @@ const MyCart = () => {
       .filter(count => count !== undefined && count !== [])
     PlaceOrders(
       data,
-      res => {},
+      () => {},
       err => {
         setErrorSnackbar({
           ...errorSnackbar,
@@ -91,7 +91,7 @@ const MyCart = () => {
   const handleDeleteProduct = () => {
     DeleteMyCartProduct(
       deleteProductMyCardDialog.id,
-      res => {
+      () => {
         handleDeleteProductDialogClose()
         handleGetAllCartItems()
       },
@@ -185,7 +185,6 @@ const MyCart = () => {
                     {orderList.length > 0 ? (
                       <TableBody>
                         {orderList.map(data => {
-                          console.log({ Data: data })
                           return (
                             <TableRow
                               sx={{

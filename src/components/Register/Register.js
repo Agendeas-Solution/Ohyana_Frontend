@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Typography, TextField, Button } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
-import OutlinedInput from '@mui/material/OutlinedInput'
 import InputAdornment from '@mui/material/InputAdornment'
-import FormControl from '@mui/material/FormControl'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import FormGroup from '@mui/material/FormGroup'
@@ -30,7 +28,8 @@ const Register = () => {
   })
   const [otpValue, setOtpValue] = useState({
     value: null,
-    status: false,
+    emailVerifyStatus: false,
+    otpVerifyStatus: false,
   })
 
   const handleClickShowPassword = () => {
@@ -49,7 +48,7 @@ const Register = () => {
         if (res.success) {
           setOtpValue({
             ...otpValue,
-            status: true,
+            emailVerifyStatus: true,
           })
         }
       },
@@ -59,7 +58,12 @@ const Register = () => {
   const handleOtp = () => {
     VerifyOTP(
       { email: registerData?.email, otp: otpValue.value },
-      res => {},
+      res => {
+        setOtpValue({
+          ...otpValue,
+          otpVerifyStatus: true,
+        })
+      },
       err => {},
     )
   }
@@ -166,7 +170,6 @@ const Register = () => {
                     setRegisterData({ ...registerData, email: e.target.value })
                   }}
                   InputProps={{
-                    readOnly: true,
                     endAdornment: (
                       <InputAdornment position="end">
                         <Button
@@ -178,12 +181,13 @@ const Register = () => {
                           variant="contained"
                           onClick={handleSentOtp}
                         >
-                          Verify
+                          Send Otp
                         </Button>
                       </InputAdornment>
                     ),
                   }}
                 />
+
                 <TextField
                   className="register_input_fields"
                   label="Contact No"
@@ -235,6 +239,37 @@ const Register = () => {
                     ),
                   }}
                 />
+                {otpValue.emailVerifyStatus && (
+                  <TextField
+                    className="register_input_fields"
+                    label="Otp"
+                    type={'number'}
+                    value={otpValue?.value}
+                    onChange={e => {
+                      setOtpValue({
+                        ...otpValue,
+                        value: parseInt(e.target.value),
+                      })
+                    }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Button
+                            sx={{
+                              margin: '0px',
+                              backgroundColor: '#2E3591',
+                              boxShadow: 'none',
+                            }}
+                            variant="contained"
+                            onClick={handleOtp}
+                          >
+                            Verify
+                          </Button>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                )}
               </Box>
               <FormGroup sx={{ marginTop: '10px' }}>
                 <FormControlLabel
@@ -259,10 +294,11 @@ const Register = () => {
               }}
             >
               <Button
+                disabled={otpValue.otpVerifyStatus ? false : true}
                 sx={{ width: '30%' }}
                 onClick={handleRegister}
                 variant="contained"
-                className="register_button"
+                className={otpValue.otpVerifyStatus ? 'register_button' : ''}
               >
                 Sign Up
               </Button>

@@ -2,12 +2,10 @@ import React, { useState, useContext } from 'react'
 import {
   Box,
   Dialog,
-  DialogTitle,
   TextField,
   DialogActions,
   Typography,
   Button,
-  Autocomplete,
   FormControl,
   InputLabel,
   Select,
@@ -32,8 +30,8 @@ const SetTargetDialog = ({
   })
   const [typeOptions, setTypeOptions] = useState(TEAM.TARGETTYPE)
   const [periodOptions, setPeriodOptions] = useState(TEAM.PERIOD)
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleSetTarget = () => {
     SetTarget(
       targetDetail.id,
@@ -48,7 +46,11 @@ const SetTargetDialog = ({
         handleGetTargetList()
       },
       err => {
-        console.log('Printing Feedback Error', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }

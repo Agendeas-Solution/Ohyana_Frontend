@@ -23,7 +23,6 @@ import moment from 'moment'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import './index.css'
-import { AssignMemberParticularTask } from '../../services/apiservices/task'
 import { styled, useTheme } from '@mui/material/styles'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
@@ -37,8 +36,8 @@ const Task = () => {
   const [taskList, setTaskList] = useState([])
   const [openDrawer, setOpenDrawer] = useState(false)
   const [open, setOpen] = useState(false)
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const theme = useTheme()
   const [member, setMember] = useState({})
   const [filterTask, setFilterTask] = useState({
@@ -101,7 +100,11 @@ const Task = () => {
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
         setTaskList([])
       },
     )
@@ -145,7 +148,11 @@ const Task = () => {
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }

@@ -10,7 +10,6 @@ import {
 } from '@mui/material'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
-import { Context as AuthContext } from '../../context/authContext/authContext'
 import { useNavigate } from 'react-router-dom'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import PermissionsGate from './PermissionGate'
@@ -26,8 +25,8 @@ const ProductList = () => {
     name: '',
     type: '',
   })
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const { errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setErrorSnackbar } = useContext(ContextSnackbar)
   const [searchQuery, setSearchQuery] = useState('')
   const [deleteProductDialogControl, setDeleteProductDialogControl] = useState({
     status: false,
@@ -53,7 +52,6 @@ const ProductList = () => {
           status: true,
           message: err.response.data.message,
         })
-        console.log('Printing Error', err)
       },
     )
   }
@@ -100,8 +98,6 @@ const ProductList = () => {
                 }
               />
             </FormControl>
-            {/* permission_control */}
-            {/* {permissions?.editProduct && ( */}
             <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_PRODUCT]}>
               <Button
                 className="main_tab_button"
@@ -109,22 +105,17 @@ const ProductList = () => {
                 onClick={() => {
                   navigate('/addproduct')
                 }}
-                // variant="contained"
               >
                 + Add Product
               </Button>
             </PermissionsGate>
-            {/* )} */}
           </Box>
         </Box>
 
         <Box className="below_main_tab_section">
-          {/* <TabPanel value="ProductList"> */}
           <Box className="row">
             {AdminProductList &&
               AdminProductList.map(row => {
-                console.log({ row: row })
-                let image_url = `${process.env.REACT_APP_API_CALL_URL}/file/${row?.imageUrl}`
                 return (
                   <>
                     <Box
@@ -137,21 +128,6 @@ const ProductList = () => {
                         })
                       }
                     >
-                      {/* <img src={image_url} alt="sample" /> */}
-                      {/* {row.imageUrl ? (
-                        <img
-                          src={row.imageUrl}
-                          alt={row.name}
-                          height={100}
-                          width={100}
-                        />
-                      ) : (
-                        <img
-                          // src="../../assets/img/product-icon.svg"
-                          src={ProductIcon}
-                          alt={row.name}
-                        />
-                      )} */}
                       {row.imageUrl ? (
                         <img
                           src={row.imageUrl}
@@ -167,9 +143,7 @@ const ProductList = () => {
                 )
               })}
           </Box>
-          {/* </TabPanel> */}
         </Box>
-        {/* </TabContext> */}
         <DeleteProductDialog
           deleteProductDialogControl={deleteProductDialogControl}
           handleClose={handleClose}

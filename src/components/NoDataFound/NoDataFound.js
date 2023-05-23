@@ -11,10 +11,6 @@ const NoDataFound = () => {
         <Typography className="no_data_available_tagline" variant="span">
           isNotNull(props.title) == true ? props.title : str_no_data_found
         </Typography>
-        {/* <Button onClick={() => {
-                history.push('/search/newSearch');
-              }} style={{ height: "35px", background: "#2b3c55", borderRadius: "5px", color: "#fff",fontSize:"15px" }}>Back to search
-          </Button> */}
       </Box>
     </Box>
   )

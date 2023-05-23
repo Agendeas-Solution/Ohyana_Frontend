@@ -1,9 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { Box, Typography, Button, TextField } from '@mui/material'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import React, { useState, useEffect, useContext } from 'react'
 import moment from 'moment'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -15,6 +10,7 @@ import Paper from '@mui/material/Paper'
 import { GetTargetList } from '../../services/apiservices/teamcall'
 import SetTargetDialog from './SetTargetDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const StaffTarget = ({
   selectMonth,
@@ -24,9 +20,9 @@ const StaffTarget = ({
 }) => {
   let path = window.location.pathname
   path = path.split('/').pop()
-
   const [targetList, setTargetList] = useState([])
-
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleGetTargetList = () => {
     let data = {
       month: moment(selectMonth.$d).month() + 1,
@@ -41,7 +37,11 @@ const StaffTarget = ({
         }
       },
       err => {
-        console.log('Printing ', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
         setTargetList([])
       },
     )

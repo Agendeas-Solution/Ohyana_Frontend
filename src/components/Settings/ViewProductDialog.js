@@ -1,29 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Box,
-  Tabs,
-  Tab,
   Button,
   Typography,
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
   TextField,
 } from '@mui/material'
-import SampleProduct from '../../assets/img/sample_product.png'
 import { GetProductDetail } from '../../services/apiservices/productDetail'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import Divider from '@mui/material/Divider'
 import { useNavigate } from 'react-router-dom'
-import {
-  DeleteAdminProduct,
-  UpdateProductQuantity,
-} from '../../services/apiservices/adminprofile'
-import { AccountCircle } from '@mui/icons-material'
+import { UpdateProductQuantity } from '../../services/apiservices/adminprofile'
 import PermissionsGate from './PermissionGate'
 import { PERMISSION } from '../../constants'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const ViewProductDialog = ({
   viewProductDialog,
@@ -33,7 +26,8 @@ const ViewProductDialog = ({
 }) => {
   const [productDetail, setProductDetail] = useState({})
   const navigate = useNavigate()
-
+  const { errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setErrorSnackbar } = useContext(ContextSnackbar)
   useEffect(() => {
     GetProductDetail(
       viewProductDialog?.id,
@@ -41,31 +35,29 @@ const ViewProductDialog = ({
       res => {
         setProductDetail(res?.data)
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }, [viewProductDialog?.id])
-
-  const handleDeleteProduct = () => {
-    DeleteAdminProduct(
-      viewProductDialog?.id,
-      res => {
-        handleClose()
-      },
-      err => {
-        console.log('Printing Error', err)
-      },
-    )
-  }
 
   const handleProductQuantityUpdate = () => {
     UpdateProductQuantity(
       viewProductDialog?.id,
       { quantity: parseInt(productDetail?.quantity) },
-      res => {
+      () => {
         handleClose()
       },
       err => {
-        console.log('Printing Error', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }

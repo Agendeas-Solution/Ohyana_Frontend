@@ -4,12 +4,7 @@ import {
   Button,
   Dialog,
   DialogActions,
-  DialogContent,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
   Typography,
-  TextareaAutosize,
   TextField,
   FormControl,
   InputLabel,
@@ -17,11 +12,9 @@ import {
   MenuItem,
   InputAdornment,
 } from '@mui/material'
-import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded'
 import { AddClientStatus } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { CLIENT } from '../../constants/clientConstant'
-import { Folder } from '@mui/icons-material'
 var a
 const StatusDialog = ({
   clientProfileDetail,

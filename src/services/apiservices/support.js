@@ -11,10 +11,8 @@ export const GetComplaintList = async (value, onSuccess, onError) => {
     const { data } = await axiosInstance.get(`/complaint`, {
       headers: { ...defaultHeaders },
     })
-    console.log('Printing data of GetComplaintList', data)
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log('Got error while calling API - GetComplaintList', err)
     onError && onError(err)
   }
 }
@@ -24,10 +22,8 @@ export const GetComplaintDetail = async (value, onSuccess, onError) => {
     const { data } = await axiosInstance.get(`dealer/complaint/${value}`, {
       headers: { ...defaultHeaders },
     })
-    console.log('Printing data of GetComplaintDetail', data)
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log('Got error while calling API - GetComplaintDetail', err)
     onError && onError(err)
   }
 }
@@ -42,10 +38,8 @@ export const AddStatusInComplaint = async (value, onSuccess, onError) => {
         headers: { ...defaultHeaders },
       },
     )
-    console.log('Printing data of AddStatusInComplaint', data)
     onSuccess && onSuccess(data)
   } catch (err) {
-    console.log('Got error while calling API - AddStatusInComplaint', err)
     onError && onError(err)
   }
 }

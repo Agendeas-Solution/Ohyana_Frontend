@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Box,
   Typography,
   Button,
   TextField,
-  DialogContent,
   DialogActions,
   Dialog,
-  DialogTitle,
-  TextareaAutosize,
-  FormControl,
 } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -20,6 +16,7 @@ import {
   UpdatePJPDetail,
 } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const EditPJPDialog = ({
   editPJPDetail,
@@ -30,6 +27,8 @@ const EditPJPDialog = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [options, setOptions] = useState([])
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [pJPDetail, setPJPDetail] = useState({
     pjpId: pjpDetail?.id,
     // date: pjpDetail?.date,
@@ -51,7 +50,11 @@ const EditPJPDialog = ({
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [searchQuery])
@@ -65,7 +68,11 @@ const EditPJPDialog = ({
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }

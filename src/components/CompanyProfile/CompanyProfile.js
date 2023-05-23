@@ -11,8 +11,8 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const CompanyProfile = () => {
   const navigate = useNavigate()
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar).state
+  const { setErrorSnackbar } = useContext(ContextSnackbar)
+  const { errorSnackbar } = useContext(ContextSnackbar).state
   const [companyDetail, setCompanyDetail] = useState({})
   useEffect(() => {
     GetCompanyProfile(
@@ -20,11 +20,9 @@ const CompanyProfile = () => {
       res => {
         if (res.success) {
           setCompanyDetail(res.data)
-          console.log({ res: companyDetail })
         }
       },
       err => {
-        console.log(err)
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,

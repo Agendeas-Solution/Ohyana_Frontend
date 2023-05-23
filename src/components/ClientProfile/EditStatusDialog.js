@@ -4,10 +4,8 @@ import {
   Button,
   Dialog,
   DialogActions,
-  DialogContent,
   TextField,
   Typography,
-  TextareaAutosize,
 } from '@mui/material'
 import { EditClientStatus } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'

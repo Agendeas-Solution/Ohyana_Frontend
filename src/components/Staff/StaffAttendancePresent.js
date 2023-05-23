@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
-  Box,
   Paper,
   Table,
   TableBody,
@@ -9,11 +8,6 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material'
-import {
-  GetStaffAttendanceList,
-  GetStaffLeaveList,
-  GrantLeave,
-} from '../../services/apiservices/staffDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 
 const StaffAttendancePresent = ({ staffAttendanceList }) => {

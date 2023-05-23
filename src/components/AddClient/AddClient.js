@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useContext, lazy } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import {
-  Typography,
   Box,
   TextField,
   Button,
@@ -9,31 +8,22 @@ import {
   Select,
   MenuItem,
   Autocomplete,
-  createTheme,
-  ThemeProvider,
-  Paper,
   createFilterOptions,
 } from '@mui/material'
 import './index.css'
 import {
-  GetAdminProductList,
   AddClientDetail,
   EditClientDetail,
 } from '../../services/apiservices/adminprofile'
 import { useNavigate } from 'react-router-dom'
-import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded'
-import image from '../../assets/img/profile_icon.svg'
 import { GetAdminClientProfileDetail } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-import ProfileImage from '../../assets/img/Profile_Image.svg'
 import Uploader from '../Uploader/Uploader'
-import { PhotoCamera } from '@mui/icons-material'
 import {
   GetCityByStates,
   GetCountryList,
   GetStateByCountry,
 } from '../../services/apiservices/country-state-city'
-import { GetCity } from '../../services/apiservices/country-state-city'
 const AddClient = () => {
   const [userDetail, setUserDetail] = useState({
     clientName: '',
@@ -165,8 +155,6 @@ const AddClient = () => {
   }, [])
 
   const handleAddClient = () => {
-    console.log('Printing UserDetail', userDetail)
-
     if (
       userDetail.clientName !== '' &&
       (userDetail.email || userDetail.contactNo) &&
@@ -193,7 +181,6 @@ const AddClient = () => {
       data.append('address', userDetail.address)
       data.append('max_invesment_amount', userDetail.max_invesment_amount)
       data.append('reference_name', userDetail.reference_name)
-      console.log(typeof imageUrl)
       if (typeof imageUrl !== 'string') {
         data.append('customer_image', imageUrl)
       }

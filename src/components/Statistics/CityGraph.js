@@ -4,17 +4,10 @@ import {
   Typography,
   Autocomplete,
   TextField,
-  OutlinedInput,
-  InputLabel,
-  FormControl,
-  Select,
-  ListItemText,
   Checkbox,
-  MenuItem,
   createFilterOptions,
 } from '@mui/material'
 import './index.css'
-import { UserData } from './Data'
 import LineChart from './LineChart'
 import { GetCityProductReport } from '../../services/apiservices/productDetail'
 import { GetCityList } from '../../services/apiservices/clientDetail'

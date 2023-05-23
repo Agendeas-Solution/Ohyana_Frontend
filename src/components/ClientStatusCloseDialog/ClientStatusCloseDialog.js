@@ -13,7 +13,6 @@ import {
 } from '@mui/material'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import {
-  GetAdminDepartmentList,
   GetAdminRole,
   AddNotificationDetail,
 } from '../../services/apiservices/adminprofile'
@@ -48,23 +47,15 @@ const ClientStatusCloseDialog = ({
             }
           },
           err => {
-            console.log('Printing Error of GetAdminRole', err)
+            setErrorSnackbar({
+              ...errorSnackbar,
+              status: true,
+              message: err?.response?.data?.message,
+            })
           },
         )
     }
   }, [addNotificationDetail?.departmentId])
-
-  useEffect(() => {
-    // GetAdminDepartmentList(
-    //   {},
-    //   res => {
-    //     setDepartmentList(res?.data?.department)
-    //   },
-    //   err => {
-    //     console.log('Printing Error', err)
-    //   },
-    // )
-  }, [])
   const handleAddNotification = () => {
     AddNotificationDetail(
       addNotificationDetail,

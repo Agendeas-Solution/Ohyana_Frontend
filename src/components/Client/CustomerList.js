@@ -11,12 +11,10 @@ import {
 } from '@mui/material'
 import './index.css'
 import CallIcon from '../../assets/img/call.svg'
-import MailIcon from '../../assets/img/mail.svg'
 import moment from 'moment'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { CustomerTake } from '../../services/apiservices/clientDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
-import { Box } from '@mui/system'
 
 const CustomerList = ({
   clientDetails,
@@ -39,7 +37,6 @@ const CustomerList = ({
         }
       },
       err => {
-        console.log('Printing Error', err)
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,

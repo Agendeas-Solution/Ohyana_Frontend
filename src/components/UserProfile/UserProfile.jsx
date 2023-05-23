@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Typography, Box, Tabs, Button, Tab, TextField } from '@mui/material'
 import StaffExpenses from '../Staff/StaffExpenses'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
@@ -16,6 +16,7 @@ import ApplyLeaveDialog from './ApplyLeaveDialog'
 import { GetAllHoliday } from '../../services/apiservices/holiday'
 import moment from 'moment'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 const PresentData = React.lazy(() => import('./PresentData'))
 const LeaveData = React.lazy(() => import('./LeaveData'))
@@ -27,6 +28,8 @@ const UserProfile = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
+  const { errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setErrorSnackbar } = useContext(ContextSnackbar)
   const [userDetail, setUserDetail] = useState({})
   const [activeTab, setActiveTab] = useState('holiday')
   const [staffAttendanceList, setStaffAttendanceList] = useState([])
@@ -42,7 +45,11 @@ const UserProfile = () => {
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [])
@@ -57,7 +64,7 @@ const UserProfile = () => {
             setStaffAttendanceList(res?.data)
           }
         },
-        err => {},
+        () => {},
       )
     activeTab === 'leave' &&
       value === 'Attendance' &&
@@ -68,7 +75,7 @@ const UserProfile = () => {
             setLeaveList(res?.data)
           }
         },
-        err => {},
+        () => {},
       )
     activeTab === 'holiday' &&
       value === 'Attendance' &&
@@ -79,7 +86,7 @@ const UserProfile = () => {
             setHolidayList(res?.data)
           }
         },
-        err => {},
+        () => {},
       )
   }, [activeTab, value])
   const handleCloseDialog = () => {

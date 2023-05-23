@@ -4,7 +4,7 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import './index.css'
 import 'leaflet/dist/leaflet.css'
 import MarkersIcon from '../../assets/img/marker_bg.png'
-import { Box, Dialog } from '@mui/material'
+import { Dialog } from '@mui/material'
 import { GetTeamMemberLocation } from '../../services/apiservices/staffDetail'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 
@@ -21,7 +21,6 @@ const MarkersMap = ({ openMap, handleCloseMap }) => {
         }
       },
       err => {
-        console.log('Printing ', err)
         setMarkers([])
       },
     )

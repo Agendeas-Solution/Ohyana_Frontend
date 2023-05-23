@@ -36,7 +36,11 @@ const CloseStatusDialog = ({
         handleCloseStatusDialogClose()
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }

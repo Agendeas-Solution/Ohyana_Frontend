@@ -1,6 +1,4 @@
 import React, { useContext, useEffect } from 'react'
-import Snackbar from '@mui/material/Snackbar'
-import MuiAlert from '@mui/material/Alert'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { SnackbarProvider, useSnackbar } from 'notistack'
 import { useNavigate } from 'react-router-dom'

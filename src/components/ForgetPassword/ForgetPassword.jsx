@@ -1,4 +1,4 @@
-import React, { useState, useContext, lazy } from 'react'
+import React, { useState, useContext } from 'react'
 import { Box, Typography, TextField, Button } from '@mui/material'
 import Logo from '../../assets/img/Ohyana Logo Blue.svg'
 import { ResetPassword } from '../../services/apiservices/login'

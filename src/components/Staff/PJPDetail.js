@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 import {
-  Autocomplete,
   Box,
   Button,
   Divider,
@@ -11,7 +10,6 @@ import {
   IconButton,
   InputLabel,
   MenuItem,
-  Pagination,
   Paper,
   Radio,
   RadioGroup,
@@ -26,21 +24,12 @@ import {
   Typography,
   createFilterOptions,
 } from '@mui/material'
-import Tab from '@mui/material/Tab'
-import TabContext from '@mui/lab/TabContext'
-import TabList from '@mui/lab/TabList'
-import TabPanel from '@mui/lab/TabPanel'
-import Filter from '../../assets/img/Filter.svg'
-import PJPScheduleTable from './PJPScheduleTable'
 import {
   GetPJPList,
   CreatePJP,
   CompletePJPStatus,
 } from '../../services/apiservices/teamcall'
-import {
-  GetCityList,
-  UpdatePJPDetail,
-} from '../../services/apiservices/clientDetail'
+import { UpdatePJPDetail } from '../../services/apiservices/clientDetail'
 import moment from 'moment'
 import AddPJPDialog from './AddPJPDialog'
 import { Context as ContextSnackbar } from '../../context/pageContext'
@@ -131,7 +120,11 @@ const PJPDetail = ({
         }
       },
       err => {
-        console.log('Printing ', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }
@@ -177,7 +170,11 @@ const PJPDetail = ({
         }
       },
       err => {
-        console.log('Printing ', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
         setPjpList([])
       },
     )
@@ -261,7 +258,6 @@ const PJPDetail = ({
             }
           },
           err => {
-            console.log(err)
             setErrorSnackbar({
               ...errorSnackbar,
               status: true,

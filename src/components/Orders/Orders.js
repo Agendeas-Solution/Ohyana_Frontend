@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
   Box,
   Table,
@@ -35,6 +35,8 @@ import { styled, useTheme } from '@mui/material/styles'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { ORDER } from '../../constants/orderConstant'
+import { Context as ContextSnackbar } from '../../context/pageContext'
+
 const drawerWidth = 350
 const Orders = () => {
   let path = window.location.pathname
@@ -46,6 +48,9 @@ const Orders = () => {
   const [totalResult, setTotalresult] = useState()
   const [currentPage, setCurrentPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
+
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [deliveryStatusList, setDeliveryStatusList] = useState(
     ORDER.DELIVERYSTATUS,
   )
@@ -93,7 +98,11 @@ const Orders = () => {
         setNumbersToDisplayOnPagination(pages)
       },
       err => {
-        console.log('Printing OrderList Error', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
         setOrderList([])
       },
     )

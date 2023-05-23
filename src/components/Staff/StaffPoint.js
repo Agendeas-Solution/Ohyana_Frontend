@@ -1,12 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import {
-  Box,
-  Typography,
-  Button,
-  TextField,
-  Pagination,
-  Divider,
-} from '@mui/material'
+import React, { useContext, useEffect, useState } from 'react'
+import { Box, Typography, Pagination } from '@mui/material'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -14,9 +7,6 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import {
   GetPointRule,
   GetPointTeamMember,
@@ -25,22 +15,21 @@ import {
 import moment from 'moment'
 import NoResultFound from '../ErrorComponent/NoResultFound'
 import AddAppreciationDialog from './AddAppreciationDialog'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const StaffPoint = ({
   selectMonth,
-  setSelectMonth,
   addAppreciationDialogControl,
   setAddAppreciationDialogControl,
 }) => {
   const [pointRule, setPointRule] = useState([])
-  // const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [totalPage, setTotalPage] = useState(1)
   const [totalPoints, setTotalPoints] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [pointsData, setPointsData] = useState([])
-  // const [addAppreciationDialogControl, setAddAppreciationDialogControl] =
-  //   useState(false)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   let path = window.location.pathname
   path = path.split('/').pop()
   useEffect(() => {
@@ -50,7 +39,11 @@ const StaffPoint = ({
         setPointRule(res.data)
       },
       err => {
-        console.log('Printing getPointRule error:', err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [])

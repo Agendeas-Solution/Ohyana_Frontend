@@ -32,7 +32,6 @@ const Dashboard = () => {
       {},
       res => {
         setInquiryData(res.data.data)
-        console.log({ Inq: res.data.data })
       },
       err => {
         setErrorSnackbar({

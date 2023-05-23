@@ -55,7 +55,6 @@ const AppointmentTable = ({
         handleAppointmentDetail()
       },
       err => {
-        console.log('Printing OrderList Error', err)
         setErrorSnackbar({
           ...errorSnackbar,
           status: true,

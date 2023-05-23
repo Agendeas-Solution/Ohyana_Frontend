@@ -2,8 +2,6 @@ import React, { useState, useEffect, useContext } from 'react'
 import {
   Box,
   Typography,
-  Autocomplete,
-  TextField,
   InputLabel,
   FormControl,
   Select,
@@ -11,29 +9,28 @@ import {
   Checkbox,
   MenuItem,
   createFilterOptions,
+  Autocomplete,
+  TextField,
 } from '@mui/material'
 import './index.css'
 import LineChart from './LineChart'
-import { GetProductReport } from '../../services/apiservices/productDetail'
-import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 import {
-  GetCity,
-  GetState,
-} from '../../services/apiservices/country-state-city'
+  GetCustomerReport,
+  GetProductReport,
+} from '../../services/apiservices/productDetail'
+import { GetAllClients } from '../../services/apiservices/clientDetail'
+import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 
-const ProductGraph = ({ selectedPeriod, customRange }) => {
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+const CustomerGraph = ({ selectedPeriod, customRange }) => {
   const [graphData, setGraphData] = useState({})
   const [productList, setProductList] = useState([])
   const [selectedProductList, setSelectedProductList] = useState([])
-  const [stateList, setStateList] = useState([])
-  const [selectedState, setSelectedState] = useState(null)
-  const [cityList, setCityList] = useState([])
-  const [selectedCity, setSelectedCity] = useState(null)
   const [userData, setUserData] = useState({})
-  const [filterCityList, setFilterCityList] = useState([])
+  const [clientDetail, setClientDetail] = useState(null)
+  const [clientList, setClientList] = useState([])
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [searchQuery, setSearchQuery] = useState('')
   const handleChange = event => {
     const { value } = event.target
@@ -42,64 +39,15 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
     )
     setSelectedProductList(selectedProduct)
   }
-
-  useEffect(() => {
-    let data = cityList.filter(data => {
-      if (data.name.toLowerCase().includes(searchQuery)) {
-        return data
-      }
-    })
-    setFilterCityList(data)
-  }, [searchQuery])
-  useEffect(() => {
-    GetState(
-      {},
-      res => {
-        setStateList(res)
-      },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
-    )
-  }, [])
-  useEffect(() => {
-    let data = selectedState?.iso2 ? `/${selectedState?.iso2}/cities` : ''
-    selectedState &&
-      GetCity(
-        data,
-        res => {
-          const uniqueCity = res.reduce((acc, current) => {
-            const x = acc.find(item => item.name === current.name)
-            if (!x) {
-              return acc.concat([current])
-            } else {
-              return acc
-            }
-          }, [])
-          setCityList(uniqueCity)
-        },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
-        },
-      )
-  }, [selectedState])
   useEffect(() => {
     let data = {
       period: selectedPeriod,
     }
-    if (selectedCity) {
-      data['city_id'] = selectedCity.id
-    }
     if (selectedProductList.length > 0) {
       data['productIds'] = selectedProductList.map(data => data.id)
+    }
+    if (clientDetail) {
+      data['clientId'] = clientDetail.id
     }
     if (selectedPeriod === 'custom') {
       data['dateFrom'] = customRange.startDate
@@ -110,42 +58,49 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
       customRange.startDate &&
       customRange.endDate
     ) {
-      GetProductReport(
+      GetCustomerReport(
         data,
         res => {
           setGraphData(res?.data)
         },
         err => {
           setGraphData([])
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
         },
       )
     } else if (selectedPeriod !== 'custom') {
-      GetProductReport(
+      GetCustomerReport(
         data,
         res => {
           setGraphData(res?.data)
         },
         err => {
           setGraphData([])
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
         },
       )
     }
-  }, [selectedPeriod, customRange, selectedProductList, selectedCity])
+  }, [selectedPeriod, customRange, selectedProductList, clientDetail])
   useEffect(() => {
     GetAdminProductList(
       {},
       res => {
         setProductList(res?.data?.products)
+      },
+      err => {},
+    )
+  }, [])
+  useEffect(() => {
+    let data = {
+      size: 10,
+    }
+    if (searchQuery !== '') {
+      data['searchQuery'] = searchQuery
+    }
+    GetAllClients(
+      data,
+      res => {
+        if (res?.success) {
+          setClientList(res?.data?.client)
+        }
       },
       err => {
         setErrorSnackbar({
@@ -155,7 +110,7 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
         })
       },
     )
-  }, [])
+  }, [searchQuery])
   useEffect(() => {
     let datga =
       graphData.label &&
@@ -232,30 +187,29 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
                 ))}
               </Select>
             </FormControl>
-            <Autocomplete
-              sx={{ width: '200px', marginLeft: '10px' }}
-              options={stateList}
-              disableClearable
-              filterOptions={filterOptions}
-              value={selectedState}
-              getOptionLabel={option => option.name}
-              onChange={(e, value) => {
-                setSelectedState(value)
-              }}
-              renderInput={params => <TextField {...params} label="State" />}
-            />
-            <Autocomplete
-              sx={{ width: '200px', marginLeft: '10px' }}
-              options={cityList}
-              disabled={!selectedState}
-              filterOptions={filterOptions}
-              value={selectedCity}
-              getOptionLabel={option => option.name}
-              onChange={(e, value) => {
-                setSelectedCity(value)
-              }}
-              renderInput={params => <TextField {...params} label="City" />}
-            />
+            <FormControl>
+              <Autocomplete
+                filterSelectedOptions
+                options={clientList}
+                value={clientDetail || null}
+                onChange={(e, value) => {
+                  setClientDetail(value)
+                }}
+                onInputChange={e => {
+                  if (e?.target?.value !== '' && e?.target?.value) {
+                    setSearchQuery(e.target.value)
+                  }
+                }}
+                getOptionLabel={option => option?.name}
+                renderInput={params => (
+                  <TextField
+                    {...params}
+                    label="Client Name"
+                    className="dialogue_input_fields"
+                  />
+                )}
+              />
+            </FormControl>
           </Box>
         </Box>
         <Box sx={{ height: '65vh !important' }}>
@@ -266,4 +220,4 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
   )
 }
 
-export default ProductGraph
+export default CustomerGraph

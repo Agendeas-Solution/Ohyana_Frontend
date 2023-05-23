@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, lazy, useRef } from 'react'
+import React, { useEffect, useState, useContext, useRef } from 'react'
 import {
   Box,
   TextField,
@@ -7,11 +7,8 @@ import {
   Button,
   Select,
   MenuItem,
-  Input,
-  Paper,
-  Typography,
 } from '@mui/material'
-import { Form, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './index.css'
 import {
   EditAdminProfile,
@@ -57,13 +54,16 @@ const EditProfile = () => {
         }
       },
       err => {
-        console.log(err)
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }, [])
   const SaveProfile = () => {
     const data = new FormData()
-    console.log(typeof imageUrl)
     if (typeof imageUrl !== 'string') {
       data.append('profile_image', imageUrl)
     }
