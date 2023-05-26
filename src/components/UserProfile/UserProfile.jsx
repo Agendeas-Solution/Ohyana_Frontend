@@ -44,13 +44,7 @@ const UserProfile = () => {
           setUserDetail(res.data)
         }
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [])
   localStorage.setItem('userEmail', userDetail?.email)
@@ -181,7 +175,6 @@ const UserProfile = () => {
               </LocalizationProvider>
             )}
           </Box>
-
           <TabPanel sx={{ padding: '10px' }} value="Attendance">
             <Box className="statistics_data_section">
               <Box className="statistics_data">
@@ -253,7 +246,6 @@ const UserProfile = () => {
                 </Button>
               </Box>
             </Box>
-
             {activeTab === 'present' && (
               <PresentData staffAttendanceList={staffAttendanceList} />
             )}

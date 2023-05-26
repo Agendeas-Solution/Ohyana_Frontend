@@ -25,7 +25,6 @@ const StaffAttendance = React.lazy(() => import('./StaffAttendance'))
 const StaffPoint = React.lazy(() => import('./StaffPoint'))
 const StaffExpenses = React.lazy(() => import('./StaffExpenses'))
 const StaffDetail = React.lazy(() => import('./staffDetail'))
-const ChangeRoleDialog = React.lazy(() => import('./ChangeRoleDialog'))
 let path = window.location.pathname
 path = path.split('/').pop()
 const StaffProfile = () => {
@@ -49,7 +48,6 @@ const StaffProfile = () => {
   const [addAppreciationDialogControl, setAddAppreciationDialogControl] =
     useState(false)
   const { flagLoader, permissions } = useContext(AuthContext).state
-  const [changeRoleDialogControl, setChangeRoleDialogControl] = useState(false)
   const [adminProfileDetail, setAdminProfileDetail] = useState({})
 
   const handleDrawerOpen = () => {
@@ -73,24 +71,16 @@ const StaffProfile = () => {
             setAdminProfileDetail(res?.data)
           }
         },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err.response.data.message,
-          })
-        },
+        err => {},
       )
   }, [value])
 
   const handleOpenMap = () => {
     setOpenMap(true)
   }
-
   const handleCloseMap = () => {
     setOpenMap(false)
   }
-
   return (
     <>
       <Box className="profile_body_section">
@@ -120,7 +110,6 @@ const StaffProfile = () => {
               <PlaceIcon />
               View On Map
             </Button>
-            {/* permission_control */}
             <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_STAFF]}>
               <Button variant="contained" className="profile_header_button">
                 <EditRoundedIcon
@@ -292,7 +281,6 @@ const StaffProfile = () => {
                   </LocalizationProvider>
                 </Box>
               )}
-
               {value == '6' && (
                 <Box className="tab_right_button_section">
                   <Button
@@ -330,7 +318,6 @@ const StaffProfile = () => {
                 </Box>
               )}
             </Box>
-
             <TabPanel sx={{ padding: '0' }} value="4">
               <StaffDetail adminProfileDetail={adminProfileDetail} />
             </TabPanel>
@@ -378,7 +365,6 @@ const StaffProfile = () => {
               />
             </TabPanel>
           </TabContext>
-          <ChangeRoleDialog changeRoleDialogControl={changeRoleDialogControl} />
           {openMap && (
             <MarkersMap handleCloseMap={handleCloseMap} openMap={openMap} />
           )}

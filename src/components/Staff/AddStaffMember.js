@@ -66,13 +66,7 @@ const AddStaffMember = () => {
       res => {
         setStateList(res)
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [])
   useEffect(() => {
@@ -84,13 +78,7 @@ const AddStaffMember = () => {
             setEmployeeJobRole(res.data)
           }
         },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
-        },
+        err => {},
       )
     }
   }, [])
@@ -120,13 +108,7 @@ const AddStaffMember = () => {
             setImageUrl(res?.data?.imgUrl)
           }
         },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
-        },
+        err => {},
       )
   }, [])
   const handleAddEmployee = () => {
@@ -199,7 +181,6 @@ const AddStaffMember = () => {
             )
       }
     } else {
-      console.log(userDetail)
     }
   }
   const handleSentOtp = () => {
@@ -232,44 +213,8 @@ const AddStaffMember = () => {
     <>
       <Box className="main_section">
         <Box className="pofile_edit_section">
-          {/* <Box className="edit_my_profile_image_section">
-            <img src={ProfileImage} alt="profile" />
-            <Button className="common_button">
-              <Uploader />
-            </Button>
-          </Box> */}
-
-          {/* FINAL */}
-          {/* <Paper className="my_profile_upload_image">
-            <Box className="my_profile_image_section">
-              <input
-                type="file"
-                accept="image/*"
-                name="image"
-                id="file"
-                onChange={loadFile}
-                style={{ display: 'none' }}
-              />
-              <img
-                className="image_style"
-                src={state ? state : image}
-                // className={classes.image}
-                id="output"
-                width="130"
-                height="130"
-                alt="test"
-              />
-              <Box className="inner_icon_style">
-                <label htmlFor="file" style={{ cursor: 'pointer' }}>
-                  <PhotoCamera />
-                </label>
-              </Box>
-            </Box>
-          </Paper> */}
-
           <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
           <Box className="edit_profile_detail_section">
-            {/* Employee Name && Select job type */}
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
@@ -313,31 +258,23 @@ const AddStaffMember = () => {
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
-                        <Button
-                          sx={{
-                            margin: '0px',
-                            backgroundColor: '#2E3591',
-                            boxShadow: 'none',
-                          }}
-                          variant="contained"
-                          onClick={handleSentOtp}
-                        >
-                          Send Otp
-                        </Button>
+                        {!parseInt(path) && (
+                          <Button
+                            sx={{
+                              margin: '0px',
+                              backgroundColor: '#2E3591',
+                              boxShadow: 'none',
+                            }}
+                            variant="contained"
+                            onClick={handleSentOtp}
+                          >
+                            Send Otp
+                          </Button>
+                        )}
                       </InputAdornment>
                     ),
                   }}
                 />
-                {/* <TextField
-                  autoComplete="off"
-                  label="Email"
-                  type="email"
-                  onChange={e => {
-                    setUserDetail({ ...userDetail, email: e.target.value })
-                  }}
-                  value={userDetail.email}
-                  variant="outlined"
-                /> */}
               </Box>
               <Box className="input_fields">
                 <FormControl>
@@ -404,17 +341,6 @@ const AddStaffMember = () => {
                   variant="outlined"
                 />
               </Box>
-              {/* <Box className="input_fields">
-                <TextField
-                  autoComplete="off"
-                  label="State"
-                  onChange={e => {
-                    setUserDetail({ ...userDetail, state: e.target.value })
-                  }}
-                  value={userDetail.state}
-                  variant="outlined"
-                />
-              </Box> */}
               <Autocomplete
                 className="input_fields"
                 options={stateList}
@@ -458,36 +384,23 @@ const AddStaffMember = () => {
                     }}
                     renderInput={params => <TextField {...params} />}
                     PopperProps={{
-                      placement: 'bottom-start', // Set placement to 'bottom-start'
+                      placement: 'bottom-start',
                     }}
                   />
                 </LocalizationProvider>
               </Box>
             </Box>
-
-            {/* Password*/}
-            {/* <Box className="input_field_row" sx={{ width: '50%' }}>
-              <Box className="input_fields">
-                <TextField
-                  autoComplete="off"
-                  label="Password"
-                  onChange={e => {
-                    setUserDetail({ ...userDetail, password: e.target.value })
-                  }}
-                  type="password"
-                  value={userDetail.password}
-                  variant="outlined"
-                />
-              </Box>
-            </Box> */}
-
             <Button
-              disabled={!otpValue.otpVerifyStatus}
+              disabled={
+                !otpValue.otpVerifyStatus && !parseInt(path) ? true : false
+              }
               onClick={handleAddEmployee}
               variant="contained"
               sx={{ width: '30%' }}
               className={
-                otpValue.otpVerifyStatus ? 'edit_page_save_button' : ''
+                !otpValue.otpVerifyStatus && !parseInt(path)
+                  ? 'edit_page_save_button'
+                  : ''
               }
             >
               Save
@@ -499,5 +412,4 @@ const AddStaffMember = () => {
     </>
   )
 }
-
 export default AddStaffMember

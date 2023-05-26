@@ -26,7 +26,6 @@ const DueDateDialog = ({
           <DialogTitle className="dialogue_heading">
             Change Due Date
           </DialogTitle>
-
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               inputFormat="dd/MM/yyyy"
@@ -46,7 +45,6 @@ const DueDateDialog = ({
               }}
             />
           </LocalizationProvider>
-
           <DialogActions>
             <Button
               className="dialogue_bottom_button"

@@ -50,13 +50,7 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
       res => {
         setJobRoleList(res.data)
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }
   useEffect(() => {
@@ -84,13 +78,7 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
         res => {
           setGraphData(res?.data)
         },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
-        },
+        err => {},
       )
     } else if (selectedPeriod !== 'custom') {
       GetTeamReport(
@@ -98,13 +86,7 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
         res => {
           setGraphData(res?.data)
         },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
-        },
+        err => {},
       )
     }
     handleJobRole()
@@ -121,11 +103,6 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
       },
       err => {
         setTeamMembersList([])
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
       },
     )
   }

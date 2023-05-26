@@ -15,7 +15,6 @@ import NoResultFound from '../ErrorComponent/NoResultFound'
 import DeleteAppoinmentDialog from './DeleteAppoinmentDialog'
 import { DeleteAppointment } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-
 const AppointmentTable = ({
   handleViewAppointment,
   clientAppointmentList,
@@ -38,7 +37,7 @@ const AppointmentTable = ({
       description: row.description,
       status: true,
       appointmentId: row.id,
-      appointed_member: row.teams,
+      appointed_member: row.appointedMembers,
       appointment_unit: row.appointment_unit,
     })
   }
@@ -106,10 +105,10 @@ const AppointmentTable = ({
                       {index + 1}
                     </TableCell>
                     <TableCell className="table_row_top_align">
-                      {row.memberName}
+                      {row.team.name}
                     </TableCell>
                     <TableCell className="table_row_top_align">
-                      {row.memberRole}
+                      {row.team.role.name}
                     </TableCell>
                     <TableCell className="table_row_top_align">
                       {moment(row?.date).format('DD-MM-YYYY')}
@@ -138,18 +137,6 @@ const AppointmentTable = ({
                       >
                         View
                       </Button>
-                      {/* <Button
-                        className="border_button"
-                        onClick={() => {
-                          setDeleteAppointmentDialogControl({
-                            ...deleteAppoinmentDialogControl,
-                            status: true,
-                            id: row.id,
-                          })
-                        }}
-                      >
-                        Delete
-                      </Button> */}
                     </TableCell>
                   </TableRow>
                 ))}

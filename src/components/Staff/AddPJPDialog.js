@@ -40,13 +40,7 @@ const AddPJPDialog = ({
           setOptions(res?.data?.client)
         }
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [searchQuery])
   useEffect(() => {

@@ -26,9 +26,6 @@ const CreateTaskDialog = ({
   memberList,
   setMember,
 }) => {
-  const [selectedDate, setSelectedDate] = useState(null)
-  const [anchorEl, setAnchorEl] = useState(null)
-
   return (
     <>
       <Dialog open={open} onClose={handleClose}>
@@ -46,11 +43,10 @@ const CreateTaskDialog = ({
                 <TextField {...params} className="dialogue_input_fields" />
               )}
               PopperProps={{
-                placement: 'bottom-start', // Set placement to 'bottom-start'
+                placement: 'bottom-start',
               }}
             />
           </LocalizationProvider>
-
           <TextField
             className="dialogue_input_fields"
             label="Task Name"
@@ -60,7 +56,6 @@ const CreateTaskDialog = ({
               setCreateTask({ ...createTask, title: e.target.value })
             }}
           />
-
           <FormControl className="dialogue_input_fields">
             <InputLabel>Select Members</InputLabel>
             <Select
@@ -75,7 +70,6 @@ const CreateTaskDialog = ({
               })}
             </Select>
           </FormControl>
-
           <TextField
             className="dialogue_input_fields"
             multiline

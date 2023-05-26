@@ -116,13 +116,7 @@ const Client = () => {
           }, [])
           setCityList(uniqueCity)
         },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
-        },
+        err => {},
       )
   }, [selectedCityStateCountry?.state])
   const handleGetCountry = () => {
@@ -133,13 +127,7 @@ const Client = () => {
           setCountryList(res)
         }
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }
   useEffect(() => {
@@ -173,13 +161,7 @@ const Client = () => {
         res => {
           setStateList(res)
         },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
-        },
+        err => {},
       )
   }, [selectedCityStateCountry?.country])
   useEffect(() => {

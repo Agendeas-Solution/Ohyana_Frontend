@@ -112,7 +112,6 @@ const PJPScheduleTable = ({
                             id: pjpData.id,
                           })
                         }
-                        // className="common_button"
                         className="pjp_table_btn"
                       >
                         View

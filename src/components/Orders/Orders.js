@@ -98,11 +98,6 @@ const Orders = () => {
         setNumbersToDisplayOnPagination(pages)
       },
       err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
         setOrderList([])
       },
     )

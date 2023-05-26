@@ -57,13 +57,7 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
       res => {
         setStateList(res)
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [])
   useEffect(() => {
@@ -82,13 +76,7 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
           }, [])
           setCityList(uniqueCity)
         },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
-        },
+        err => {},
       )
   }, [selectedState])
   useEffect(() => {
@@ -117,11 +105,6 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
         },
         err => {
           setGraphData([])
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
         },
       )
     } else if (selectedPeriod !== 'custom') {
@@ -132,11 +115,6 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
         },
         err => {
           setGraphData([])
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
         },
       )
     }
@@ -147,13 +125,7 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
       res => {
         setProductList(res?.data?.products)
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [])
   useEffect(() => {

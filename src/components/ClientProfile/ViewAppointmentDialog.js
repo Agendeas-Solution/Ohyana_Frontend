@@ -53,7 +53,7 @@ const ViewAppointmentDialog = ({
               </Box>
               <Box className="col-md-8">
                 <Typography variant="span">
-                  {viewAppointment?.description?.teams
+                  {viewAppointment?.description?.appointedMembers
                     ?.map(data => data.name)
                     .join(', ')}
                 </Typography>
@@ -73,7 +73,7 @@ const ViewAppointmentDialog = ({
                   {moment(viewAppointment.description?.date).format('LL')},
                   {' ' +
                     moment(
-                      viewAppointment.statusDetail?.time,
+                      viewAppointment.description?.time,
                       'hh:mm:ss',
                     ).format('LT')}
                 </Typography>

@@ -137,21 +137,6 @@ const SetTargetDialog = ({
               />
             </LocalizationProvider>
           </Box>
-          {/* <FormControl className="dialogue_input_fields">
-            <InputLabel>Select Period</InputLabel>
-            <Select
-              label="Select Period"
-              value={feedbackDetail.period}
-              onChange={e => {
-                setFeedBackDetail({ ...feedbackDetail, period: e.target.value })
-              }}
-            >
-              {periodOptions.map(data => {
-                return <MenuItem value={data.days}>{data.period}</MenuItem>
-              })}
-            </Select>
-          </FormControl> */}
-
           <TextField
             className="dialogue_input_fields"
             label="Target Value"
@@ -161,7 +146,6 @@ const SetTargetDialog = ({
               setFeedBackDetail({ ...feedbackDetail, target: e.target.value })
             }}
           />
-
           <DialogActions>
             <Button
               className="dialogue_bottom_button"

@@ -31,10 +31,6 @@ const StaffExpensesDetail = ({
             </Typography>
             <Box>
               <Button
-                // onClick={() => {
-                //   setApprovalDialog(true)
-                // }}
-                // onClick={openApprovalDialog}
                 onClick={() => {
                   setOpenApprovalDialog({
                     ...openApprovalDialog,
@@ -55,14 +51,6 @@ const StaffExpensesDetail = ({
               backgroundColor: '#C4C4C4',
             }}
           />
-
-          {/* <Box className="expenses_detail_section">
-            <Box className="expenses_detail_left_section">
-              <Box className="inner_expenses_detail_left_section">
-                <Typography>Type</Typography>
-              </Box>
-            </Box>
-          </Box> */}
           <Box className="expenses_detail_body_section">
             <Box className="expenses_left_section">
               <Box className="expenses_data">

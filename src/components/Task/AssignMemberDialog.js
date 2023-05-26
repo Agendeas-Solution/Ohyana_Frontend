@@ -10,7 +10,6 @@ import {
   Select,
   MenuItem,
 } from '@mui/material'
-
 const AssignMemberDialog = ({
   handleCloseMemberDialog,
   openMemberDialog,
@@ -24,7 +23,6 @@ const AssignMemberDialog = ({
       <Dialog open={openMemberDialog} onClose={handleCloseMemberDialog}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Assign Member</Typography>
-
           <FormControl className="dialogue_input_fields">
             <InputLabel>Select Members</InputLabel>
             <Select
@@ -39,7 +37,6 @@ const AssignMemberDialog = ({
               })}
             </Select>
           </FormControl>
-
           <DialogActions sx={{ marginTop: '15px' }}>
             <Button
               className="dialogue_button_positive"

@@ -3,13 +3,7 @@ import { Box, Button, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { GetAdminDepartmentList } from '../../services/apiservices/adminprofile'
 import { Context as AuthContext } from '../../context/authContext/authContext'
-const SuccessSnackbar = React.lazy(() =>
-  import('../SuccessSnackbar/SuccessSnackbar'),
-)
-const AddEditDepartmentDialog = React.lazy(() =>
-  import('./AddEditDepartmentDialog'),
-)
-
+// import { AddEditDepartmentDialog } from '../../constants/allImportConstant'
 const DepartmentList = () => {
   let navigate = useNavigate()
   const { flagLoader, permissions } = useContext(AuthContext).state
@@ -25,13 +19,7 @@ const DepartmentList = () => {
           setAdminDepartmentList(res?.data)
         }
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [addEditDepartmentDialogControl])
   const handleClose = () => {
@@ -67,10 +55,10 @@ const DepartmentList = () => {
           )
         })}
       </Box>
-      <AddEditDepartmentDialog
+      {/* <AddEditDepartmentDialog
         addEditDepartmentDialogControl={addEditDepartmentDialogControl}
         handleClose={handleClose}
-      />
+      /> */}
     </>
   )
 }

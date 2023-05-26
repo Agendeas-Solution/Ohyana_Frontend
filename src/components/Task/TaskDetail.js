@@ -110,13 +110,7 @@ const TaskDetail = () => {
         setTaskDetail(res?.data)
         setCheckLists(res?.data?.checklists)
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }
   useEffect(() => {
@@ -285,7 +279,6 @@ const TaskDetail = () => {
               <Typography sx={{ color: '#8E8E8E' }} variant="span">
                 Checklist
               </Typography>
-
               <Slider
                 value={taskRatio || 0}
                 step={1}
@@ -343,7 +336,6 @@ const TaskDetail = () => {
                     }
                   })}
               </FormGroup>
-
               <Box sx={{ marginBottom: '10px', marginRight: '15px' }}>
                 <TextField
                   sx={{ width: '100%', margin: '10px 0px' }}
@@ -367,7 +359,6 @@ const TaskDetail = () => {
                   </Button>
                 </Box>
               </Box>
-
               {completedTask.length > 0 && (
                 <Typography className="completed_heading" variant="span">
                   Completed
@@ -429,12 +420,10 @@ const TaskDetail = () => {
                   <CalendarMonthRoundedIcon sx={{ color: '#2E3591' }} />
                 </Button>
               </Box>
-
               <Typography variant="span" className="common_description_text">
                 {moment(taskDetail?.due_date).format('MMMM Do YYYY, h:mm:ss a')}
               </Typography>
             </Box>
-
             <Box sx={{ margin: '10px 0px' }}>
               <Box sx={{ marginBottom: '16px' }}>
                 <Typography
@@ -448,7 +437,6 @@ const TaskDetail = () => {
                 {taskDetail?.description || '-'}
               </Typography>
             </Box>
-
             <Box sx={{ margin: '10px 0px' }}>
               <Box
                 sx={{
@@ -493,7 +481,6 @@ const TaskDetail = () => {
                 </Typography>
               )}
             </Box>
-
             <Box sx={{ margin: '10px 0px' }}>
               <Box sx={{ marginBottom: '16px' }}>
                 <Typography

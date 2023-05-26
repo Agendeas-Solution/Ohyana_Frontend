@@ -60,13 +60,7 @@ const AddClient = () => {
         res => {
           setStateList(res)
         },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
-        },
+        err => {},
       )
   }, [userDetail?.country])
   useEffect(() => {
@@ -126,16 +120,9 @@ const AddClient = () => {
               referenceName: res.data?.reference_name,
             })
             setImageUrl(res?.data?.imageUrl)
-            debugger
           }
         },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
-        },
+        err => {},
       )
     GetCountryList(
       {},
@@ -184,7 +171,6 @@ const AddClient = () => {
       if (typeof imageUrl !== 'string') {
         data.append('customer_image', imageUrl)
       }
-
       let path = window.location.pathname
       path = path.split('/').pop()
       {

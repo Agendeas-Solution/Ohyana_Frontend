@@ -47,7 +47,6 @@ const EditTitleDialog = ({
               })
             }}
           />
-
           <DialogActions>
             <Button
               className="dialogue_bottom_button"

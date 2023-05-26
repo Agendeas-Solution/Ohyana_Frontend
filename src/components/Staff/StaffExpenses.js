@@ -26,7 +26,6 @@ import StaffPaymentVerificationDialog from './StaffPaymentVerificationDialog'
 
 const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
   const { flagLoader, permissions } = useContext(AuthContext).state
-  // const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const [value, setValue] = useState('1')
   const [expenseList, setExpenseList] = useState([])
   const [expensesData, setExpensesData] = useState([])
@@ -49,7 +48,6 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
     status: false,
   })
   const [expenseDetail, setExpenseDetail] = useState(null)
-
   const handleClose = () => {
     setOpenStaffExpenses({ ...openStaffExpenses, status: false })
   }
@@ -94,7 +92,13 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
   const handlePaymentStatusUpdate = id => {
     PaymentStatusUpdate(
       id,
-      res => {},
+      res => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+      },
       err => {
         setErrorSnackbar({
           ...errorSnackbar,
@@ -108,7 +112,13 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
     StatusUpdate(
       id,
       status,
-      res => {},
+      res => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+      },
       err => {
         setErrorSnackbar({
           ...errorSnackbar,

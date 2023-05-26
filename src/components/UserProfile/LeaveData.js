@@ -41,7 +41,6 @@ const LeaveData = ({ leaveList }) => {
                 <TableCell align="left">Status</TableCell>
               </TableRow>
             </TableHead>
-
             <TableBody className="leave_table_body_data">
               {leaveList.map(row => (
                 <TableRow
@@ -67,7 +66,6 @@ const LeaveData = ({ leaveList }) => {
             </TableBody>
           </Table>
         </TableContainer>
-
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Grid item xs={12} md={6}>
             <CalendarPicker

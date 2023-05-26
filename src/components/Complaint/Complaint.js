@@ -43,13 +43,7 @@ const Complaint = () => {
           setComplaintProcesses(res?.data?.complaint_processes)
         }
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [])
   const handleAddStatus = () => {

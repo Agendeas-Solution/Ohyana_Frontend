@@ -42,8 +42,6 @@ import { PERMISSION, TEAM } from '../../constants'
 import PermissionsGate from '../Settings/PermissionGate'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const drawerWidth = 350
-const Loader = React.lazy(() => import('../Loader/Loader'))
-
 const Staff = () => {
   let navigate = useNavigate()
   const theme = useTheme()
@@ -111,7 +109,7 @@ const Staff = () => {
             setLoader(false)
           }
         },
-        err => {
+        () => {
           setLoader(false)
         },
       )
@@ -142,12 +140,7 @@ const Staff = () => {
           setLoader(false)
         }
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
+      () => {
         setStaffDetailList([])
         setLoader(false)
       },
@@ -165,13 +158,7 @@ const Staff = () => {
         res => {
           setJobRoleList(res.data)
         },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
-        },
+        () => {},
       )
   }, [open])
 
@@ -182,13 +169,7 @@ const Staff = () => {
         res => {
           setUserAttendanceList(res?.data)
         },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
-        },
+        () => {},
       )
   }, [value, datePicker])
 
@@ -220,7 +201,6 @@ const Staff = () => {
                   }
                 />
               </FormControl>
-
               <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_STAFF]}>
                 <Button
                   onClick={() => navigate('/addeditstaff')}
@@ -230,7 +210,6 @@ const Staff = () => {
                   + Add Team
                 </Button>
               </PermissionsGate>
-              {/* <Toolbar> */}
               <IconButton
                 edge="end"
                 onClick={handleDrawerOpen}
@@ -241,7 +220,6 @@ const Staff = () => {
               >
                 <img src={FilterIcon} alt="" />
               </IconButton>
-              {/* </Toolbar> */}
             </Box>
             <Drawer
               sx={{
@@ -321,7 +299,6 @@ const Staff = () => {
                     </Box>
                   </RadioGroup>
                 </FormControl>
-
                 <FormControl sx={{ margin: '10px' }}>
                   <InputLabel>Result for</InputLabel>
                   <Select
@@ -341,7 +318,6 @@ const Staff = () => {
                     })}
                   </Select>
                 </FormControl>
-
                 <FormControl sx={{ margin: '10px' }}>
                   <InputLabel>Job Role</InputLabel>
                   <Select
@@ -362,7 +338,6 @@ const Staff = () => {
               </Box>
             </Drawer>
           </Box>
-
           <Box className="left_team_profile_section">
             <TableContainer>
               <Table className="team_member_table">
@@ -373,7 +348,6 @@ const Staff = () => {
                     <TableCell align="left">Points</TableCell>
                   </TableRow>
                 </TableHead>
-
                 <Divider
                   sx={{ borderColor: '#C4C4C4' }}
                   orientation="vertical"
@@ -394,16 +368,6 @@ const Staff = () => {
                         onClick={() => teamLeaderDetails(row?.id)}
                       >
                         <TableCell className="staff_inner_name_tablecell">
-                          {/* <Avatar
-                            sx={{ marginRight: '10px' }}
-                            src="/static/images/avatar/1.jpg"
-                          /> */}
-                          {/* <Box>
-                            <img
-                              style={{ borderRadius: '50%', width: '20%' }}
-                              src={row.imgUrl}
-                            />
-                          </Box> */}
                           <Typography>{row.name}</Typography>
                         </TableCell>
                         <TableCell align="left">
@@ -422,14 +386,11 @@ const Staff = () => {
           </Box>
         </Box>
       </Box>
-
       <Box className="right_panel">
         <Box className="staff_right_main_header_section">
           <Box className="user_profile_header_Section">
             <Box className="username_profile_Section">
-              {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
               {singleStaffDetails?.memberDetail?.imgUrl ? (
-                // <Box className="user_profile_icon">
                 <img
                   style={{
                     margin: '8px auto',
@@ -438,7 +399,6 @@ const Staff = () => {
                   src={singleStaffDetails?.memberDetail?.imgUrl}
                 />
               ) : (
-                // </Box>
                 <AccountCircleRoundedIcon
                   style={{
                     margin: '8px auto',
@@ -446,7 +406,6 @@ const Staff = () => {
                   className="user_profile_icon"
                 />
               )}
-
               <Box className="username_and_position">
                 <Typography className="username_text" variant="span">
                   {singleStaffDetails?.memberDetail?.name}
@@ -456,7 +415,6 @@ const Staff = () => {
                 </Typography>
               </Box>
             </Box>
-
             <Button
               className="common_button"
               onClick={() =>
@@ -494,8 +452,9 @@ const Staff = () => {
                 Location
               </Typography>
               <Typography variant="span">
-                Office
-                {/* {singleStaffDetails?.memberDetail?.location} */}
+                {TEAM.JOBTYPE.find(
+                  e => e.id == singleStaffDetails?.memberDetail?.jobType,
+                )?.type || '-'}
               </Typography>
             </Box>
           </Box>
@@ -526,11 +485,9 @@ const Staff = () => {
               </Typography>
             </Box>
           </Box>
-
           <Typography className="staff_statistics_box_heading">
             Attendance
           </Typography>
-
           <Box className="staff_statistics_data">
             <Box className="staff_statistics_box first_box">
               <Typography className="text_ellipsis">Total Present</Typography>
@@ -551,11 +508,9 @@ const Staff = () => {
               </Typography>
             </Box>
           </Box>
-
           <Typography className="staff_statistics_box_heading">
             Target
           </Typography>
-
           <Box className="staff_statistics_data">
             <Box className="staff_statistics_box first_box">
               <Typography className="text_ellipsis">Total Days</Typography>
@@ -576,7 +531,6 @@ const Staff = () => {
               </Typography>
             </Box>
           </Box>
-
           <Typography className="staff_statistics_box_heading">
             Expense
           </Typography>

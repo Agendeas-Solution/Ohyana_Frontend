@@ -29,20 +29,15 @@ const ViewProductDialog = ({
   const { errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setErrorSnackbar } = useContext(ContextSnackbar)
   useEffect(() => {
-    GetProductDetail(
-      viewProductDialog?.id,
-      {},
-      res => {
-        setProductDetail(res?.data)
-      },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
-    )
+    viewProductDialog?.id &&
+      GetProductDetail(
+        viewProductDialog?.id,
+        {},
+        res => {
+          setProductDetail(res?.data)
+        },
+        err => {},
+      )
   }, [viewProductDialog?.id])
 
   const handleProductQuantityUpdate = () => {
@@ -70,11 +65,7 @@ const ViewProductDialog = ({
         fullWidth
         maxWidth="sm"
       >
-        <DialogTitle
-          // sx={{ justifyContent: 'space-between' }}
-          // className="product_dialogue_field"
-          className="detail_row product_dialogue_field"
-        >
+        <DialogTitle className="detail_row product_dialogue_field">
           <Typography className="product_dialog_heading" variant="span">
             {productDetail?.name}
           </Typography>
@@ -118,7 +109,6 @@ const ViewProductDialog = ({
           <Box className="product_dialog_detail_section">
             <Box className="product_dialog_left_Section">
               <Box className="dialog_product_image">
-                {/* <img src={SampleProduct} alt="" /> */}
                 <img
                   src={productDetail?.imageUrl}
                   alt={productDetail?.name}

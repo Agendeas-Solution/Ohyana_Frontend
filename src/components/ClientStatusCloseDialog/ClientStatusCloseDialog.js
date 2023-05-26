@@ -46,13 +46,7 @@ const ClientStatusCloseDialog = ({
               setEmployeeJobRole(res.data?.roles)
             }
           },
-          err => {
-            setErrorSnackbar({
-              ...errorSnackbar,
-              status: true,
-              message: err?.response?.data?.message,
-            })
-          },
+          err => {},
         )
     }
   }, [addNotificationDetail?.departmentId])

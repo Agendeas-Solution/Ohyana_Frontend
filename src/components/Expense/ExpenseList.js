@@ -64,13 +64,7 @@ const ExpenseList = () => {
           setExpenseList(res?.data)
         }
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }
   useEffect(() => {

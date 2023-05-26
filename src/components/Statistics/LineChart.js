@@ -12,7 +12,7 @@ const options = {
     x: {
       ticks: {
         font: {
-          size: 13, // set font size for x-axis label
+          size: 13,
         },
       },
     },
@@ -21,14 +21,14 @@ const options = {
       ticks: {
         beginAtZero: true,
         font: {
-          size: 13, // set font size for y-axis label
+          size: 13,
         },
       },
     },
   },
   maintainAspectRatio: false,
   layout: {
-    padding: { bottom: 20, right: 20, left: 20 }, // add space between legend and chart
+    padding: { bottom: 20, right: 20, left: 20 },
   },
   plugins: {
     legend: {
@@ -47,9 +47,9 @@ const options = {
       margin: {
         top: 0,
         bottom: 0,
-        right: 10, // set right margin
-        left: 10, // set left margin
-        y: 0, // remove top margin
+        right: 10,
+        left: 10,
+        y: 0,
       },
     },
   },
