@@ -31,7 +31,7 @@ html {
 }
 
 $colorPrimary: #2e3591;
-$disabledColor: #ddd;
+$disabledColor: #b7b5b5;
 
 .selected-link {
   // background-color: #f1f2f6;
@@ -549,6 +549,15 @@ button {
 .edit_page_save_button {
   margin: 20px !important;
   background-color: $colorPrimary !important;
+  width: 225px;
+  text-transform: capitalize !important;
+  font-size: 17px !important;
+  padding: 10px !important;
+}
+
+.disable_page_save_button {
+  margin: 20px !important;
+  background-color: #E5E5E5 !important;
   width: 225px;
   text-transform: capitalize !important;
   font-size: 17px !important;

@@ -57,3 +57,28 @@
   padding: 7px !important;
   box-shadow: none !important;
 }
+
+.register_main_section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.heading_section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+
+.main_heading {
+  color: black;
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.register_page_fields {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
