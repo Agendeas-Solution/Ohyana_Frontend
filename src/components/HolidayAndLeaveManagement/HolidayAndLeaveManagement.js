@@ -66,13 +66,7 @@ const HolidayAndLeaveManagement = () => {
       res => {
         setLeaveList(res?.data)
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }
   const handleGetAllHoliday = () => {
@@ -81,13 +75,7 @@ const HolidayAndLeaveManagement = () => {
       res => {
         setHolidayList(res?.data)
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }
   const handleGetRegularAllHoliday = () => {
@@ -96,13 +84,7 @@ const HolidayAndLeaveManagement = () => {
       res => {
         setRegularHolidayList(res?.data)
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }
   useEffect(() => {

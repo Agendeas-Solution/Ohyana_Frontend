@@ -31,13 +31,7 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
       res => {
         setLeaveType(res.data)
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [])
   const handleApplyLeave = () => {
@@ -68,7 +62,6 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
       <Dialog open={leaveDialogControl} onClose={handleCloseDialog}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Apply For Leave</Typography>
-
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               disablePast
@@ -84,7 +77,7 @@ const ApplyLeaveDialog = ({ leaveDialogControl, handleCloseDialog }) => {
                 <TextField {...params} className="dialogue_input_fields" />
               )}
               PopperProps={{
-                placement: 'bottom-start', // Set placement to 'bottom-start'
+                placement: 'bottom-start',
               }}
             />
           </LocalizationProvider>

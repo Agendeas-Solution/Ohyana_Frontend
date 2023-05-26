@@ -1,10 +1,18 @@
 import React, { useState, useContext } from 'react'
-import { Box, Typography, TextField, Button } from '@mui/material'
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  InputAdornment,
+  IconButton,
+} from '@mui/material'
 import Logo from '../../assets/img/Ohyana Logo Blue.svg'
 import { ResetPassword } from '../../services/apiservices/login'
 import { useSearchParams } from 'react-router-dom'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { useNavigate } from 'react-router-dom'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 const SuccessSnackbar = React.lazy(() =>
   import('../SuccessSnackbar/SuccessSnackbar'),
 )
@@ -17,10 +25,15 @@ const ForgetPassword = () => {
   const navigate = useNavigate()
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [showPassword, setShowPassword] = useState(true)
 
   let [searchParams, setSearchParams] = useSearchParams()
   let user = searchParams.get('rstPwd')
-  const upddatePassword = () => {
+  const handleClickShowPassword = () => setShowPassword(show => !show)
+  const handleMouseDownPassword = event => {
+    event.preventDefault()
+  }
+  const updatePassword = () => {
     let user = searchParams.get('rstPwd')
     if (password.newPassword === password.confirmPassword) {
       ResetPassword(
@@ -66,11 +79,29 @@ const ForgetPassword = () => {
                 <TextField
                   sx={{ width: '100%' }}
                   label="New Password"
-                  type="password"
+                  type={showPassword ? 'password' : 'text'}
                   value={password.newPassword}
-                  variant="outlined"
                   onChange={e => {
                     setPassword({ ...password, newPassword: e.target.value })
+                  }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          sx={{
+                            margin: '0px',
+                            color: '#2E3591',
+                            boxShadow: 'none',
+                          }}
+                          variant="contained"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
                   }}
                 />
               </Box>
@@ -78,14 +109,32 @@ const ForgetPassword = () => {
                 <TextField
                   sx={{ width: '100%' }}
                   label="Confirm Password"
-                  type="password"
-                  variant="outlined"
+                  type={showPassword ? 'password' : 'text'}
                   value={password.confirmPassword}
                   onChange={e => {
                     setPassword({
                       ...password,
                       confirmPassword: e.target.value,
                     })
+                  }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          sx={{
+                            margin: '0px',
+                            color: '#2E3591',
+                            boxShadow: 'none',
+                          }}
+                          variant="contained"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
                   }}
                 />
               </Box>
@@ -100,7 +149,7 @@ const ForgetPassword = () => {
                 <Button
                   className="dialogue_bottom_button"
                   variant="contained"
-                  onClick={upddatePassword}
+                  onClick={updatePassword}
                 >
                   Update
                 </Button>

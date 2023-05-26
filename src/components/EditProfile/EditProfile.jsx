@@ -53,13 +53,7 @@ const EditProfile = () => {
           setImageUrl(res?.data?.imgUrl)
         }
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [])
   const SaveProfile = () => {

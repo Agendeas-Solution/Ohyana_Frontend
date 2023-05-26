@@ -49,11 +49,6 @@ const ClientOrders = () => {
       },
       err => {
         setClientProductList([])
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err.response.data.message,
-        })
       },
     )
   }

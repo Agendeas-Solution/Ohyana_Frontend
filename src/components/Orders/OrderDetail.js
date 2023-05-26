@@ -61,7 +61,6 @@ const OrderDetail = () => {
   ])
   const [activeStep, setActiveStep] = useState(0)
   const [openPaymentDetailDialog, setOpenPaymentDetailDialog] = useState(false)
-  const [openDispatchOrder, setOpenDispatchOrder] = useState(false)
   let path = window.location.pathname
   path = path.split('/').pop()
   useEffect(() => {
@@ -78,13 +77,7 @@ const OrderDetail = () => {
         }).filter(count => count !== undefined && count !== [])
         setActiveStep(data[0])
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [])
   const handleNext = statusValue => {
@@ -214,13 +207,15 @@ const OrderDetail = () => {
               <PermissionsGate
                 scopes={[PERMISSION.PERMISSIONS.UPDATE_ORDER_PAYMENT_STATUS]}
               >
-                <Button
-                  className="white_buttons"
-                  onClick={handleOpenPaymentDialog}
-                  variant="contained"
-                >
-                  Update
-                </Button>
+                {orderDetail?.paymentStatus !== 'CONFIRMED' && (
+                  <Button
+                    className="white_buttons"
+                    onClick={handleOpenPaymentDialog}
+                    variant="contained"
+                  >
+                    Update
+                  </Button>
+                )}
               </PermissionsGate>
             </Box>
 
@@ -367,24 +362,25 @@ const OrderDetail = () => {
               className="profile_data_table client_detail_table set_box_shadow"
               component={Paper}
             >
-              <Table
-                stickyHeader
-                aria-label="sticky table"
-                sx={{ minWidth: 690, padding: '0px !important' }}
-                className="table_heading"
-              >
-                <TableHead>
-                  <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Price</TableCell>
-                    <TableCell>Quantity</TableCell>
-                    <TableCell>Total Amount</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {orderDetail?.order_items ? (
-                    orderDetail?.order_items.map(data => {
+              {orderDetail?.order_items &&
+              orderDetail?.order_items.length > 0 ? (
+                <Table
+                  stickyHeader
+                  aria-label="sticky table"
+                  sx={{ minWidth: 690, padding: '0px !important' }}
+                  className="table_heading"
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell></TableCell>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Price</TableCell>
+                      <TableCell>Quantity</TableCell>
+                      <TableCell>Total Amount</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {orderDetail?.order_items.map(data => {
                       return (
                         <TableRow
                           sx={{
@@ -411,15 +407,14 @@ const OrderDetail = () => {
                           </TableCell>
                         </TableRow>
                       )
-                    })
-                  ) : (
-                    <NoResultFound />
-                  )}
-                </TableBody>
-              </Table>
+                    })}
+                  </TableBody>
+                </Table>
+              ) : (
+                <NoResultFound />
+              )}
             </TableContainer>
           </Box>
-
           {/* <PermissionsGate
               scopes={[!PERMISSION.PERMISSIONS.UPDATE_ORDER_DELIVERY_STATUS]}
             >

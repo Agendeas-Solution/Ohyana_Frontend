@@ -38,13 +38,7 @@ const StaffPoint = ({
       res => {
         setPointRule(res.data)
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [])
   const handleGetPointTeamMember = () => {

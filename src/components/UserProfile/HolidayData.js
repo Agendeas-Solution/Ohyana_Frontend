@@ -14,7 +14,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import Grid from '@mui/material/Grid'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { CalendarPicker } from '@mui/x-date-pickers/CalendarPicker'
-
 const HolidayData = ({ holidayList }) => {
   const [date, setDate] = React.useState(dayjs())
   return (

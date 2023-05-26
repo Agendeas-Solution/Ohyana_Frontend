@@ -18,18 +18,14 @@ import NoResultFound from '../ErrorComponent/NoResultFound'
 
 const PresentData = ({ staffAttendanceList }) => {
   const [page, setPage] = React.useState(0)
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
   }
-
   const [rowsPerPage, setRowsPerPage] = React.useState(10)
-
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(+event.target.value)
     setPage(0)
   }
-
   return (
     <>
       <TableContainer
@@ -53,7 +49,6 @@ const PresentData = ({ staffAttendanceList }) => {
                 <TableCell>Working Hours</TableCell>
               </TableRow>
             </TableHead>
-
             <TableBody>
               {staffAttendanceList?.attendancePerUser &&
                 staffAttendanceList.attendancePerUser.map(attendanceList => {

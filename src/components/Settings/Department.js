@@ -157,13 +157,7 @@ const JobRoleAccess = () => {
           })
           setExpensePolicy(mergedArray)
         },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err.response.data.message,
-          })
-        },
+        err => {},
       )
   }, [jobRoleList.id])
   const handleUserPermissions = () => {
@@ -282,16 +276,9 @@ const JobRoleAccess = () => {
         if (res.success) {
           setJobRoleList(res.data)
           setSelectedClientStage(res.data.clientStageAccess)
-          debugger
         }
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err.response.data.message,
-        })
-      },
+      err => {},
     )
   }
   useEffect(() => {
@@ -570,13 +557,17 @@ const JobRoleAccess = () => {
               </Button>
             </Box>
             <TableContainer component={Paper} className="set_box_shadow">
-              <Table sx={{ minWidth: 650, border: '1px solid' }}>
+              <Table sx={{ minWidth: 650, border: '2px solid #f1f2f6 ' }}>
                 <TableHead className="job_role_table_heading">
                   <TableRow>
-                    <TableCell sx={{ width: '20%', border: '1px solid' }}>
+                    <TableCell
+                      sx={{ width: '20%', border: '1px solid #f1f2f6' }}
+                    >
                       Type
                     </TableCell>
-                    <TableCell sx={{ width: '75%', border: '1px solid' }}>
+                    <TableCell
+                      sx={{ width: '75%', border: '1px solid #f1f2f6' }}
+                    >
                       Permission
                     </TableCell>
                   </TableRow>

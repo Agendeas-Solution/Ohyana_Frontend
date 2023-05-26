@@ -46,13 +46,7 @@ const ProductList = () => {
           setAdminProductList(res?.data?.products)
         }
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err.response.data.message,
-        })
-      },
+      err => {},
     )
   }
   useEffect(() => {

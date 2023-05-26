@@ -95,7 +95,6 @@ const SideBar = () => {
   return (
     <>
       <div style={{ width: '17%', background: 'white' }}>
-        {/* {flagLoader ? <Loader></Loader> : null} */}
         <div className="main-logo">
           <img src={Logo} alt="Company logo" />
         </div>
@@ -118,7 +117,6 @@ const SideBar = () => {
               Dashboard
             </Typography>
           </Box>
-
           {/* <Box
             to={"/notification"}
             className={`sidebar_icons ${path === "/notification" && "selected-link"
@@ -138,7 +136,6 @@ const SideBar = () => {
               Notifications
             </Typography>
           </Box> */}
-
           {/* permission_control */}
           <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_CLIENT]}>
             <Box
@@ -160,7 +157,6 @@ const SideBar = () => {
               </Typography>
             </Box>
           </PermissionsGate>
-
           {/* permission_control */}
           <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_STAFF]}>
             <Box
@@ -169,8 +165,6 @@ const SideBar = () => {
               }`}
               onClick={() => {
                 handleNavItemClick('/staff', 'Staff')
-                // navigate("/staff");
-                // setActivePage("Staff");
               }}
             >
               <Box className="sidebar_icon_root">

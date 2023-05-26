@@ -33,13 +33,7 @@ const Dashboard = () => {
       res => {
         setInquiryData(res.data.data)
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [])
   const handleCheckIn = type => {
@@ -51,7 +45,6 @@ const Dashboard = () => {
           status: true,
           message: res.message,
         })
-        debugger
         if (type === 'checkIn') {
           setInquiryData({
             ...inquiryData,

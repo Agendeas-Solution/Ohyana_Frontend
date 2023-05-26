@@ -48,13 +48,7 @@ const EditCompanyProfile = () => {
         res => {
           setStateList(res)
         },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err?.response?.data?.message,
-          })
-        },
+        err => {},
       )
   }, [companyDetail?.country])
   useEffect(() => {
@@ -111,13 +105,7 @@ const EditCompanyProfile = () => {
           setImageUrl(res.data.logoUrl)
         }
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
     GetCountryList(
       {},

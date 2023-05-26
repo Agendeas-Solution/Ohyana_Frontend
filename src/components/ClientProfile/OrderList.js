@@ -28,13 +28,7 @@ const OrderList = () => {
       res => {
         setOrderList(res.data.orders)
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [])
   return (

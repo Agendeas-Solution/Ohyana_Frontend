@@ -31,7 +31,6 @@ const EditPJPDialog = ({
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [pJPDetail, setPJPDetail] = useState({
     pjpId: pjpDetail?.id,
-    // date: pjpDetail?.date,
     date: moment().format('LL'),
     description: pjpDetail?.description,
   })
@@ -49,13 +48,7 @@ const EditPJPDialog = ({
           setOptions(res?.data?.client)
         }
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [searchQuery])
   const handleEditPJPDetail = () => {
@@ -118,9 +111,6 @@ const EditPJPDialog = ({
             >
               Save
             </Button>
-            {/* <Button className="cancel-btn" onClick={props.handleClose} autoFocus>
-            Cancel
-          </Button> */}
           </DialogActions>
         </Box>
       </Dialog>

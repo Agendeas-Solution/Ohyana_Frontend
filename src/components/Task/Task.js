@@ -91,7 +91,6 @@ const Task = () => {
     if (filterTask.teamId !== '' && filterTask.teamId) {
       data['teamId'] = filterTask.teamId
     }
-
     GetTaskList(
       data,
       res => {
@@ -100,20 +99,13 @@ const Task = () => {
         }
       },
       err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
         setTaskList([])
       },
     )
   }
-
   useEffect(() => {
     handleTaskList()
   }, [searchQuery, filterTask])
-
   useEffect(() => {
     ;(openDrawer || open) &&
       GetAdminStaffDetailList(
@@ -123,8 +115,7 @@ const Task = () => {
         },
         err => {},
       )
-  }, [openDrawer])
-
+  }, [openDrawer, open])
   const handleCreateTask = () => {
     let data = {
       title: createTask.title,
@@ -283,7 +274,6 @@ const Task = () => {
           </Box>
         </Drawer>
       </Box>
-
       <Box className="below_main_tab_section">
         <Box className="inner_container">
           {taskList.length > 0 ? (

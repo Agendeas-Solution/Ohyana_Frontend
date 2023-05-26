@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Dialog,
   DialogActions,
@@ -11,10 +11,8 @@ import {
   Select,
   MenuItem,
 } from '@mui/material'
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
-import { GetBusinessDetail } from '../../services/apiservices/clientDetail'
-import moment from 'moment'
 import { AddClientStatus } from '../../services/apiservices/adminprofile'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 import { CLIENT } from '../../constants/clientConstant'
 const AddStatusDialog = ({
   setAddStatus,
@@ -29,6 +27,8 @@ const AddStatusDialog = ({
     callNotReceived: true,
   })
   const [followUpType, setFollowUpType] = useState(CLIENT.FOLLOWUP)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const AddStatus = e => {
     let data = {
       description: addStatusDetail?.description,
@@ -40,10 +40,18 @@ const AddStatusDialog = ({
       data,
       res => {
         setAddStatus({ ...addStatus, status: false })
-        // setSuccessSnackbar({ ...successSnackbar, status: true, message: res.message })
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
       },
       err => {
-        // setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.error })
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
       },
     )
   }

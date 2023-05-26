@@ -18,11 +18,9 @@ const StaffAttendance = ({
   activeTab,
   setActiveTab,
 }) => {
-  // const [selectMonth, setSelectMonth] = useState(moment().format('LL'))
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [value, setValue] = useState('1')
-  // const [activeTab, setActiveTab] = useState('present')
   const [staffAttendanceList, setStaffAttendanceList] = useState([])
   const [staffLeaveList, setStaffLeaveList] = useState([])
   const [approveLeave, setApproveLeave] = useState({
@@ -83,7 +81,6 @@ const StaffAttendance = ({
   }, [activeTab, selectMonth])
   return (
     <>
-      {/* <Box className="target_section"> */}
       <Box className="statistics_data_section">
         <Box className="statistics_data">
           <Box className="statistics_box first_box">
@@ -105,71 +102,6 @@ const StaffAttendance = ({
             </Typography>
           </Box>
         </Box>
-
-        {/* <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'start',
-            }}
-          >
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                className="staff_date"
-                views={['month', 'year']}
-                value={selectMonth}
-                onChange={selectMonth => {
-                  setSelectMonth(selectMonth)
-                }}
-                renderInput={params => (
-                  <TextField
-                    sx={{ width: '175px', marginRight: '10px' }}
-                    placeholder="Year and Month"
-                    {...params}
-                    helperText={null}
-                  />
-                )}
-                PopperProps={{
-                  placement: 'bottom-start',
-                }}
-              />
-            </LocalizationProvider>
-            <Box
-              sx={{
-                background: '#F1F2F6',
-                borderRadius: '5px',
-                height: '35px',
-                display: 'flex',
-                flexDirection: 'row',
-              }}
-            >
-              <Button
-                className={
-                  activeTab === 'present'
-                    ? 'active_button'
-                    : 'custom_tab_background'
-                }
-                onClick={() => {
-                  setActiveTab('present')
-                }}
-                variant="contained"
-              >
-                Present
-              </Button>
-              <Button
-                className={
-                  activeTab === 'leave'
-                    ? 'active_button'
-                    : 'custom_tab_background'
-                }
-                onClick={() => {
-                  setActiveTab('leave')
-                }}
-                variant="contained"
-              >
-                Leave
-              </Button>
-            </Box>
-          </Box> */}
       </Box>
 
       {activeTab === 'present' && (
@@ -182,7 +114,6 @@ const StaffAttendance = ({
           staffLeaveList={staffLeaveList}
         />
       )}
-      {/* </Box> */}
       <ApproveLeaveDialog
         approveLeave={approveLeave}
         handleGrantLeave={handleGrantLeave}

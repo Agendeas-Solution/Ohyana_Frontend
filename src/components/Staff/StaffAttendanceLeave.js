@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Button,
   Paper,
@@ -17,8 +17,6 @@ const StaffAttendanceLeave = ({
   approveLeave,
   setApproveLeave,
 }) => {
-  const [value, setValue] = useState('1')
-
   return (
     <>
       <TableContainer className="profile_data_table mt-2" component={Paper}>

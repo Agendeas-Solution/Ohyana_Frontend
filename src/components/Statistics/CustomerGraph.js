@@ -102,13 +102,7 @@ const CustomerGraph = ({ selectedPeriod, customRange }) => {
           setClientList(res?.data?.client)
         }
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [searchQuery])
   useEffect(() => {

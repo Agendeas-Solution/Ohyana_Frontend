@@ -37,13 +37,7 @@ const MyCart = () => {
       res => {
         setOrderList(res.data)
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }
   useEffect(() => {
@@ -83,7 +77,6 @@ const MyCart = () => {
       quantity: parseInt(event.target.value),
     }
     setOrderList(updatedData)
-    debugger
   }
   const handleDeleteProductDialogClose = () => {
     setDeleteProductCardDialog({ ...deleteProductMyCardDialog, status: false })
