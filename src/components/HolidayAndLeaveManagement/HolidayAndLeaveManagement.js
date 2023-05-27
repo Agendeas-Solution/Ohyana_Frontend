@@ -422,12 +422,14 @@ const HolidayAndLeaveManagement = () => {
                             '&:last-child td,th': { border: 0 },
                           }}
                         >
-                          <TableCell>{data?.date || '-'}</TableCell>
+                          <TableCell>
+                            {moment(data?.date).format('DD-MM-YYYY') || '-'}
+                          </TableCell>
                           <TableCell>{data?.occasion || '-'} </TableCell>
                           <TableCell className="table_text">
                             {data?.duration || '-'}
                           </TableCell>
-
+                          z
                           <TableCell>
                             <Box
                               sx={{

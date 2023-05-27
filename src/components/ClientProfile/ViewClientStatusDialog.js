@@ -138,11 +138,11 @@ const ViewClientStatusDialog = ({
                     controlsList="nodownload"
                   >
                     <source
-                      src={`${process.env.REACT_APP_API_CALL_URL}/status/audio/${viewClientStatus.statusDetail?.audioUrl}`}
+                      src={viewClientStatus.statusDetail?.audioUrl}
                       type="audio/mpeg"
                     ></source>
                     <source
-                      src={`${process.env.REACT_APP_API_CALL_URL}/status/audio/${viewClientStatus.statusDetail?.audioUrl}`}
+                      src={viewClientStatus.statusDetail?.audioUrl}
                       type="audio/ogg"
                     ></source>
                   </audio>
