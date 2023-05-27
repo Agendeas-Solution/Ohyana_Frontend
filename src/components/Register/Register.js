@@ -82,29 +82,9 @@ const Register = () => {
         </Box>
 
         <Box className="register_right_section">
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                marginBottom: '50px',
-              }}
-            >
-              <Typography
-                sx={{
-                  color: 'black',
-                  fontWeight: '600',
-                  fontSize: '20px',
-                  marginBottom: '10px',
-                }}
-                variant="span"
-              >
+          <Box className="register_main_section">
+            <Box className="heading_section">
+              <Typography className="main_heading" variant="span">
                 Welcome To Ohyana.
               </Typography>
               <Typography
@@ -116,20 +96,8 @@ const Register = () => {
               </Typography>
             </Box>
 
-            <Box
-              sx={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}
-              >
+            <Box className="register_main_section">
+              <Box className="register_page_fields">
                 <TextField
                   className="register_input_fields"
                   label="Name"
@@ -140,27 +108,6 @@ const Register = () => {
                   }}
                   variant="outlined"
                 />
-                <TextField
-                  className="register_input_fields"
-                  label="Company Name"
-                  placeholder="Company Name"
-                  variant="outlined"
-                  value={registerData?.companyName}
-                  onChange={e => {
-                    setRegisterData({
-                      ...registerData,
-                      companyName: e.target.value,
-                    })
-                  }}
-                />
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}
-              >
                 <TextField
                   className="register_input_fields"
                   label="Email"
@@ -187,23 +134,22 @@ const Register = () => {
                     ),
                   }}
                 />
+              </Box>
 
+              <Box className="register_page_fields">
                 <TextField
                   className="register_input_fields"
-                  label="Contact No"
-                  placeholder="ContactNo"
-                  type="number"
-                  value={registerData?.contact_number}
+                  label="Company Name"
+                  placeholder="Company Name"
+                  variant="outlined"
+                  value={registerData?.companyName}
                   onChange={e => {
                     setRegisterData({
                       ...registerData,
-                      contact_number: e.target.value,
+                      companyName: e.target.value,
                     })
                   }}
-                  variant="outlined"
                 />
-              </Box>
-              <Box className="input_field_row">
                 <TextField
                   className="register_input_fields"
                   label="Password"
@@ -239,6 +185,23 @@ const Register = () => {
                     ),
                   }}
                 />
+              </Box>
+
+              <Box className="register_page_fields">
+                <TextField
+                  className="register_input_fields"
+                  label="Contact No"
+                  placeholder="ContactNo"
+                  type="number"
+                  value={registerData?.contact_number}
+                  onChange={e => {
+                    setRegisterData({
+                      ...registerData,
+                      contact_number: e.target.value,
+                    })
+                  }}
+                  variant="outlined"
+                />
                 {otpValue.emailVerifyStatus && (
                   <TextField
                     className="register_input_fields"
@@ -271,6 +234,7 @@ const Register = () => {
                   />
                 )}
               </Box>
+
               <FormGroup sx={{ marginTop: '10px' }}>
                 <FormControlLabel
                   control={

@@ -489,3 +489,10 @@
   border-radius: 50% !important;
   text-align: center !important;
 }
+
+.otp_input_field {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
