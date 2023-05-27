@@ -246,6 +246,7 @@ const AddStaffMember = () => {
                 </FormControl>
               </Box>
             </Box>
+
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
@@ -296,38 +297,42 @@ const AddStaffMember = () => {
                 </FormControl>
               </Box>
             </Box>
+
             <Box className="input_field_row">
               {otpValue.emailVerifyStatus && (
-                <TextField
-                  label="Otp"
-                  type={'number'}
-                  value={otpValue?.value}
-                  onChange={e => {
-                    setOtpValue({
-                      ...otpValue,
-                      value: parseInt(e.target.value),
-                    })
-                  }}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <Button
-                          sx={{
-                            margin: '0px',
-                            backgroundColor: '#2E3591',
-                            boxShadow: 'none',
-                          }}
-                          variant="contained"
-                          onClick={handleOtp}
-                        >
-                          Verify
-                        </Button>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+                <Box className="otp_input_field">
+                  <TextField
+                    label="Otp"
+                    type={'number'}
+                    value={otpValue?.value}
+                    onChange={e => {
+                      setOtpValue({
+                        ...otpValue,
+                        value: parseInt(e.target.value),
+                      })
+                    }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Button
+                            sx={{
+                              margin: '0px',
+                              backgroundColor: '#2E3591',
+                              boxShadow: 'none',
+                            }}
+                            variant="contained"
+                            onClick={handleOtp}
+                          >
+                            Verify
+                          </Button>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Box>
               )}
             </Box>
+
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
@@ -390,17 +395,23 @@ const AddStaffMember = () => {
                 </LocalizationProvider>
               </Box>
             </Box>
+
             <Button
               disabled={
                 !otpValue.otpVerifyStatus && !parseInt(path) ? true : false
               }
               onClick={handleAddEmployee}
               variant="contained"
-              sx={{ width: '30%' }}
+              sx={{ width: '30%', color: 'white !important' }}
+              // className={
+              //   !otpValue.otpVerifyStatus && !parseInt(path)
+              //     ? 'edit_page_save_button'
+              //     : ''
+              // }
               className={
-                !otpValue.otpVerifyStatus && !parseInt(path)
+                otpValue.otpVerifyStatus && !parseInt(path)
                   ? 'edit_page_save_button'
-                  : ''
+                  : 'disable_page_save_button'
               }
             >
               Save
