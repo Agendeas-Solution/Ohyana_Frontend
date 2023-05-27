@@ -52,6 +52,7 @@ const Login = () => {
           if (res.success) {
             setAuthorize(true)
             setFlagLoader(false)
+            navigate('/dashboard')
             handleNavItemClick('/dashboard', 'Dashboard')
           } else {
             if (res?.data?.error) {
@@ -76,14 +77,12 @@ const Login = () => {
       })
     }
   }
-
   return (
     <>
       <Box className="login_page">
         <Box className="company_logo">
           <img src={Logo} alt="Company logo" />
         </Box>
-
         <Box className="login_form_section">
           <Box className="login_form_body">
             <Box className="login_form_box">

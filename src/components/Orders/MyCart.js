@@ -18,16 +18,21 @@ import {
   GetAllCartItems,
   PlaceOrders,
 } from '../../services/apiservices/orderDetail'
+import { Context as ContextActivePage } from '../../context/pageContext'
 import DeleteProductMyCart from '../ClientProfile/DeleteProductMyCart'
 import NoResultFound from '../ErrorComponent/NoResultFound'
+import { useNavigate } from 'react-router-dom'
 const MyCart = () => {
   const { errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setErrorSnackbar } = useContext(ContextSnackbar)
+  const { setActivePageClient } = useContext(ContextActivePage)
+
   const [deleteProductMyCardDialog, setDeleteProductCardDialog] = useState({
     status: false,
     id: '',
   })
   const [orderList, setOrderList] = useState([])
+  const navigate = useNavigate()
   let path = window.location.pathname
   path = path.split('/').pop()
   const handleGetAllCartItems = () => {
@@ -59,7 +64,10 @@ const MyCart = () => {
       .filter(count => count !== undefined && count !== [])
     PlaceOrders(
       data,
-      () => {},
+      () => {
+        setActivePageClient('Orders')
+        navigate(`/clientprofile/${path}`)
+      },
       err => {
         setErrorSnackbar({
           ...errorSnackbar,

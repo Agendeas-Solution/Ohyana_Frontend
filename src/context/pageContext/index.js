@@ -4,6 +4,8 @@ const cardListReducer = (state, action) => {
   switch (action.type) {
     case 'setActivePage':
       return { ...state, ActivePage: action?.payload }
+    case 'setActivePageClient':
+      return { ...state, activePageClient: action?.payload }
     case 'setEditAppointmentDialogFlag':
       return { ...state, editAppointmentDialogFlag: action.payload }
     case 'setEditRemainderDialogFlag':
@@ -21,6 +23,12 @@ const cardListReducer = (state, action) => {
 const setActivePage = dispatch => async data => {
   dispatch({
     type: 'setActivePage',
+    payload: data,
+  })
+}
+const setActivePageClient = dispatch => async data => {
+  dispatch({
+    type: 'setActivePageClient',
     payload: data,
   })
 }
@@ -60,6 +68,7 @@ export const { Provider, Context } = createDataContext(
   cardListReducer,
   {
     setActivePage,
+    setActivePageClient,
     setEditAppointmentDialogFlag,
     setEditRemainderDialogFlag,
     setSuccessSnackbar,
@@ -68,6 +77,7 @@ export const { Provider, Context } = createDataContext(
   },
   {
     ActivePage: 'Profile',
+    activePageClient: 'Status',
     editAppointmentDialogFlag: false,
     editRemainderDialogFlag: false,
     successSnackbar: { message: '', status: false },
