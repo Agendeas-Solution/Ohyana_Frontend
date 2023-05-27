@@ -93,6 +93,7 @@ const ClientOrders = () => {
   }
 
   const handleDeleteProduct = row => {
+    debugger
     DeleteMyCartProduct(
       row.cartId,
       res => {
@@ -177,24 +178,22 @@ const ClientOrders = () => {
                           <Button
                             variant="contained"
                             className="product_cart_button"
+                            onClick={() => handleDeleteProduct(data)}
                           >
                             <IndeterminateCheckBoxOutlinedIcon
                               sx={{
                                 color: '#2E3591',
                                 fontSize: '26px',
                               }}
-                              onClick={() => handleDeleteProduct(data)}
                             />
                           </Button>
                         ) : (
                           <Button
                             variant="contained"
                             className="product_cart_button"
+                            onClick={() => handleAddToCart(data)}
                           >
-                            <img
-                              src={CartIcon}
-                              onClick={() => handleAddToCart(data)}
-                            />
+                            <img src={CartIcon} />
                           </Button>
                         )}
                       </Box>

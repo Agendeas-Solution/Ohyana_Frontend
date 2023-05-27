@@ -49,8 +49,8 @@ const StatusDialog = React.lazy(() => import('./StatusDialog'))
 const ClientProfile = () => {
   const navigate = useNavigate()
   const [paths, setPaths] = useState(null)
-  const { setActivePage } = useContext(ContextActivePage)
-  const [value, setValue] = useState('1')
+  const { setActivePage, setActivePageClient } = useContext(ContextActivePage)
+  const { activePage, activePageClient } = useContext(ContextActivePage).state
   const { flagLoader, permissions } = useContext(AuthContext).state
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
@@ -106,7 +106,6 @@ const ClientProfile = () => {
     description: '',
     status: false,
   })
-
   let path = window.location.pathname
   path = path.split('/').pop()
   useEffect(() => {
@@ -210,12 +209,12 @@ const ClientProfile = () => {
     }
   }
   useEffect(() => {
-    value === '1' && handleAdminClienStatusDetail()
-    value === '2' && handleReminderDetail()
-    value === '3' && handleAppointmentDetail()
-  }, [value, statusDialog, callDialog])
+    activePageClient === 'Status' && handleAdminClienStatusDetail()
+    activePageClient === 'Reminder' && handleReminderDetail()
+    activePageClient === 'Appointment' && handleAppointmentDetail()
+  }, [activePageClient, statusDialog, callDialog])
   const handleChange = (event, newValue) => {
-    setValue(newValue)
+    setActivePageClient(newValue)
   }
   const handleEditReminder = () => {
     if (
@@ -475,21 +474,21 @@ const ClientProfile = () => {
         </Box>
 
         <Box sx={{ width: '100%', typography: 'body1' }}>
-          <TabContext value={value}>
+          <TabContext value={activePageClient}>
             <Box className="tab_row">
               <TabList
                 sx={{ borderBottom: '1px solid #F1F2F6' }}
                 className="client_profile_tab mb-2"
                 onChange={handleChange}
               >
-                <Tab label="Status" value="1" />
-                <Tab label="Reminder" value="2" />
-                <Tab label="Appointment" value="3" />
-                <Tab label="Orders" value="5" />
-                <Tab label="Profile" value="4" />
+                <Tab label="Status" value="Status" />
+                <Tab label="Reminder" value="Reminder" />
+                <Tab label="Appointment" value="Appointment" />
+                <Tab label="Orders" value="Orders" />
+                <Tab label="Profile" value="Profile" />
               </TabList>
 
-              {value === '1' ? (
+              {activePageClient === 'Status' ? (
                 <>
                   <Box className="tab_right_button_section">
                     <Button onClick={handleCallOpen} className="common_button">
@@ -512,7 +511,7 @@ const ClientProfile = () => {
                   </Box>
                 </>
               ) : null}
-              {value === '2' ? (
+              {activePageClient === 'Reminder' ? (
                 <>
                   <Button
                     onClick={() =>
@@ -525,7 +524,7 @@ const ClientProfile = () => {
                   </Button>
                 </>
               ) : null}
-              {value === '3' ? (
+              {activePageClient === 'Appointment' ? (
                 <>
                   <Button
                     className="common_button"
@@ -536,7 +535,7 @@ const ClientProfile = () => {
                   </Button>
                 </>
               ) : null}
-              {value === '5' ? (
+              {activePageClient === 'Orders' ? (
                 <>
                   <PermissionsGate
                     scopes={[PERMISSION.PERMISSIONS.VIEW_ORDERS]}
@@ -559,7 +558,7 @@ const ClientProfile = () => {
               ) : null}
             </Box>
 
-            <TabPanel sx={{ padding: '0px' }} value="1">
+            <TabPanel sx={{ padding: '0px' }} value="Status">
               <StatusTable
                 clientStatusList={clientStatusList}
                 clientProfileDetail={clientProfileDetail}
@@ -567,7 +566,7 @@ const ClientProfile = () => {
                 handleEditClientStatus={handleEditClientStatus}
               />
             </TabPanel>
-            <TabPanel sx={{ padding: '0px' }} value="2">
+            <TabPanel sx={{ padding: '0px' }} value="Reminder">
               <RemainderTable
                 clientReminderList={clientReminderList}
                 remainderDialog={remainderDialog}
@@ -575,7 +574,7 @@ const ClientProfile = () => {
                 handleReminderDetail={handleReminderDetail}
               />
             </TabPanel>
-            <TabPanel sx={{ padding: '0px' }} value="3">
+            <TabPanel sx={{ padding: '0px' }} value="Appointment">
               <AppointmentTable
                 handleViewAppointment={handleViewAppointment}
                 appointmentDialogControl={appointmentDialogControl}
@@ -585,14 +584,13 @@ const ClientProfile = () => {
                 handleAppointmentDetail={handleAppointmentDetail}
               />
             </TabPanel>
-            <TabPanel sx={{ padding: '0px' }} value="4">
+            <TabPanel sx={{ padding: '0px' }} value="Profile">
               <ProfileTable clientProfileDetail={clientProfileDetail} />
             </TabPanel>
-            <TabPanel sx={{ padding: '0px' }} value="5">
+            <TabPanel sx={{ padding: '0px' }} value="Orders">
               <OrderList />
             </TabPanel>
           </TabContext>
-
           <EditReminderDialog
             remainderDialog={remainderDialog}
             setRemainderDialog={setRemainderDialog}
