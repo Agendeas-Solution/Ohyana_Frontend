@@ -26,7 +26,7 @@ const StatusDialog = ({
   const [addStatusDetail, setAddStatusDetail] = useState({
     clientId: clientProfileDetail.id,
     description: '',
-    audio: {},
+    status_audio_file: {},
     callNotReceived: false,
     followUpType: '',
   })
@@ -40,21 +40,23 @@ const StatusDialog = ({
       a.pause()
       setButtonName('Play')
     }
-    if (addStatusDetail.audio) {
-      a = new Audio(addStatusDetail.audio)
+    if (addStatusDetail.status_audio_file) {
+      a = new Audio(addStatusDetail.status_audio_file)
       a.onended = () => {
         setButtonName('Play')
       }
     }
-  }, [addStatusDetail.audio])
+  }, [addStatusDetail.status_audio_file])
   const AddStatus = async e => {
-    let blob = await fetch(addStatusDetail.audio).then(r => r.blob())
+    let blob = await fetch(addStatusDetail.status_audio_file).then(r =>
+      r.blob(),
+    )
     const formData = new FormData()
     formData.append('clientId', addStatusDetail.clientId)
     formData.append('description', addStatusDetail.description)
     formData.append('followUpType', addStatusDetail.followUpType)
     if (addStatusDetail.callNotReceived === false) {
-      formData.append('audio', blob)
+      formData.append('status_audio_file', blob)
       formData.append('callNotReceived', addStatusDetail.callNotReceived)
     } else {
       formData.append('callNotReceived', addStatusDetail.callNotReceived)
@@ -83,7 +85,7 @@ const StatusDialog = ({
     if (e.target.files[0]) {
       setAddStatusDetail({
         ...addStatusDetail,
-        audio: URL.createObjectURL(e.target.files[0]),
+        status_audio_file: URL.createObjectURL(e.target.files[0]),
       })
     }
   }
@@ -179,7 +181,7 @@ const StatusDialog = ({
           />
           <input
             type="file"
-            accept="audio/*"
+            accept="status_audio_file/*"
             onChange={handleAudioFileChange}
             style={{ display: 'none' }}
             ref={inputRef}

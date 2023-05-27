@@ -169,7 +169,6 @@ const OrderDetail = () => {
               </Typography>
               <Typography variant="span">{orderDetail?.id}</Typography>
             </Box>
-
             <Box className="order_detail_row">
               <Typography className="order_desc_subheading" variant="span ">
                 Order For
@@ -178,7 +177,6 @@ const OrderDetail = () => {
                 {orderDetail?.client?.name}
               </Typography>
             </Box>
-
             <Box className="order_detail_row">
               <Typography className="order_desc_subheading" variant="span ">
                 Order Date
@@ -203,7 +201,6 @@ const OrderDetail = () => {
               <Typography className="common_sub_heading" variant="span">
                 Payment Detail
               </Typography>
-
               <PermissionsGate
                 scopes={[PERMISSION.PERMISSIONS.UPDATE_ORDER_PAYMENT_STATUS]}
               >
@@ -218,14 +215,12 @@ const OrderDetail = () => {
                 )}
               </PermissionsGate>
             </Box>
-
             <Box className="order_detail_row">
               <Typography className="order_desc_subheading" variant="span">
                 Total
               </Typography>
               <Typography variant="span">{orderDetail?.order_total}</Typography>
             </Box>
-
             <Box className="order_detail_row">
               <Typography className="order_desc_subheading" variant="span">
                 Status
@@ -235,7 +230,6 @@ const OrderDetail = () => {
                   orderDetail?.paymentStatus?.toLowerCase()?.substr(1)}
               </Typography>
             </Box>
-
             <Box className="order_detail_row">
               <Typography className="order_desc_subheading" variant="span">
                 Method
@@ -270,15 +264,7 @@ const OrderDetail = () => {
                 <Typography className="common_sub_heading" variant="span">
                   Order Tracking
                 </Typography>
-                {/* <Button
-                className="common_button"
-                onClick={handleOpenDispatchDialog}
-                variant="contained"
-              >
-                Dispatch
-              </Button> */}
               </Box>
-
               <Box sx={{ marginTop: '15px' }}>
                 <Stepper activeStep={activeStep} orientation="vertical">
                   {steps.map((step, index) => (
@@ -291,35 +277,27 @@ const OrderDetail = () => {
                           alignItems: 'center',
                         }}
                       >
-                        <StepLabel
-                        // optional={
-                        //   index === 2 ? (
-                        //     <Typography variant="caption">Last step</Typography>
-                        //   ) : null
-                        // }
-                        >
-                          {step.label}
-                        </StepLabel>
+                        <StepLabel>{step.label}</StepLabel>
                         {step.label == 'DISPATCH' ? (
                           <Typography>
                             {orderDetail?.dispatch_date
-                              ? moment(orderDetail?.dispatch_date).format(
-                                  'DD-MM-YYYY',
-                                )
+                              ? moment(orderDetail?.dispatch_date)
+                                  .utc()
+                                  .format('DD-MM-YYYY')
                               : ''}
                           </Typography>
                         ) : (
                           <Typography>
                             {orderDetail?.delivered_date
-                              ? moment(orderDetail?.delivered_date).format(
-                                  'DD-MM-YYYY',
-                                )
+                              ? moment(orderDetail?.delivered_date)
+                                  .utc()
+                                  .format('DD-MM-YYYY')
                               : ''}
                           </Typography>
                         )}
                       </Box>
                       <StepContent>
-                        <Typography>{step.description}</Typography>
+                        {/* <Typography>{step.description}</Typography> */}
                         <Box sx={{ mb: 2 }}>
                           <Box>
                             <Button
@@ -415,79 +393,8 @@ const OrderDetail = () => {
               )}
             </TableContainer>
           </Box>
-          {/* <PermissionsGate
-              scopes={[!PERMISSION.PERMISSIONS.UPDATE_ORDER_DELIVERY_STATUS]}
-            >
-              <Box
-                sx={{
-                  width: '100%',
-                }}
-              >
-                <TableContainer
-                  className="profile_data_table client_detail_table set_box_shadow"
-                  component={Paper}
-                >
-                  <Table
-                    stickyHeader
-                    aria-label="sticky table"
-                    sx={{ minWidth: 690, padding: '0px !important' }}
-                    className="table_heading"
-                  >
-                    <TableHead>
-                      <TableRow>
-                        <TableCell></TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Price</TableCell>
-                        <TableCell>Quantity</TableCell>
-                        <TableCell>Total Amount</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {orderDetail?.order_items ? (
-                        orderDetail?.order_items.map(data => {
-                          console.log({ DATA: data })
-                          return (
-                            <TableRow
-                              sx={{
-                                '&:last-child td,th': { border: 0 },
-                              }}
-                            >
-                              <TableCell align="right">
-                                <img
-                                  style={{
-                                    border: '1px solid #E5E5E5',
-                                    borderRadius: '5px',
-                                    padding: '4px',
-                                    height: '90px',
-                                    width: '90px',
-                                  }}
-                                  src={data?.product?.productImage}
-                                />
-                              </TableCell>
-                              <TableCell>
-                                {data?.product?.name || '-'}
-                              </TableCell>
-                              <TableCell>
-                                {data?.product?.price || '-'}
-                              </TableCell>
-                              <TableCell>{data?.quantity || '-'}</TableCell>
-                              <TableCell>
-                                {data?.product?.price * data?.quantity || 0}
-                              </TableCell>
-                            </TableRow>
-                          )
-                        })
-                      ) : (
-                        <NoResultFound />
-                      )}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Box>
-            </PermissionsGate> */}
         </Box>
       </Box>
-
       <PaymentDetailDialog
         handleClosePaymentDialog={handleClosePaymentDialog}
         openPaymentDetailDialog={openPaymentDetailDialog}

@@ -33,8 +33,10 @@ const SetTargetDialog = ({
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleSetTarget = () => {
+    let path = window.location.pathname
+    path = path.split('/').pop()
     SetTarget(
-      targetDetail.id,
+      path,
       feedbackDetail,
       res => {
         setSuccessSnackbar({
