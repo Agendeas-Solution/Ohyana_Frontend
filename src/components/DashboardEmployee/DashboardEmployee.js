@@ -206,7 +206,10 @@ const DashboardEmployee = () => {
                 {salesInquiry?.attendance?.date || '-'}
               </Typography>
             </Box>
-            <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
+            <TableContainer
+              component={Paper}
+              sx={{ boxShadow: 'none', background: '#f1f2f6' }}
+            >
               <Table sx={{ minWidth: 250 }}>
                 <TableBody>
                   <TableRow
@@ -258,6 +261,7 @@ const DashboardEmployee = () => {
             </TableContainer>
           </Box>
         </Box>
+
         <Box className="detail_row">
           <Box className="my_task_section">
             <Box className="my_main_section_header">
@@ -273,14 +277,22 @@ const DashboardEmployee = () => {
             </Box>
 
             <Box className="inner_my_task">
-              <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
-                <Table sx={{ minWidth: 250 }}>
+              <TableContainer
+                component={Paper}
+                sx={{ boxShadow: 'none', height: '100%' }}
+              >
+                <Table
+                  className="table_heading"
+                  stickyHeader
+                  aria-label="sticky table"
+                  sx={{ minWidth: 300 }}
+                >
                   <TableHead className="team_overview_table_heading">
                     <TableRow>
                       <TableCell>Name</TableCell>
                       <TableCell>Due Date</TableCell>
                       <TableCell
-                        sx={{ display: 'flex', justifyContent: 'center' }}
+                      // sx={{ display: 'flex', justifyContent: 'center' }}
                       >
                         Completed
                       </TableCell>
@@ -288,6 +300,7 @@ const DashboardEmployee = () => {
                       <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
+
                   <TableBody>
                     {salesInquiry?.tasks &&
                       salesInquiry?.tasks?.map(data => {
