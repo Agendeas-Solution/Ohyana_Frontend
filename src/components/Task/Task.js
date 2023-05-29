@@ -279,17 +279,16 @@ const Task = () => {
           {taskList.length > 0 ? (
             taskList.map(taskData => {
               return (
-                <Box className="task_card">
-                  <Box
-                    className="task_card_hover"
-                    onClick={() => {
-                      navigate(`/taskdetail/${taskData?.id}`)
-                    }}
-                  >
+                <Box
+                  className="task_card task_card_hover"
+                  onClick={() => {
+                    navigate(`/taskdetail/${taskData?.id}`)
+                  }}
+                >
+                  <Box>
                     <Typography className="task_card_heading" variant="span">
                       {taskData.title}
                     </Typography>
-
                     <Typography className="task_description" variant="span">
                       {taskData.description}
                     </Typography>

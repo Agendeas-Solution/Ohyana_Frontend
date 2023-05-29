@@ -118,7 +118,13 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
         },
       )
     }
-  }, [selectedPeriod, customRange, selectedProductList, selectedCity])
+  }, [
+    selectedPeriod,
+    customRange,
+    selectedProductList,
+    selectedCity,
+    selectedState,
+  ])
   useEffect(() => {
     GetAdminProductList(
       {},

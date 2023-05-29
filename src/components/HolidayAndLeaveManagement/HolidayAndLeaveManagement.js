@@ -284,25 +284,6 @@ const HolidayAndLeaveManagement = () => {
       },
     )
   }
-  const DeleteLeaveFunc = id => {
-    DeleteLeaveType(
-      id,
-      res => {
-        setSuccessSnackbar({
-          ...successSnackbar,
-          message: res?.message,
-          status: true,
-        })
-      },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
-    )
-  }
   const AddLeave = () => {
     CreateLeaveType(
       {
@@ -348,7 +329,17 @@ const HolidayAndLeaveManagement = () => {
           duration: '',
           id: '',
         })
-        setLeaveList(res?.data)
+        const newArray = leaveList.map(obj => {
+          if (obj.id === res.data.id) {
+            return {
+              ...obj,
+              duration: res.data.duration,
+            }
+          }
+          return obj
+        })
+        setLeaveList(newArray)
+        debugger
         setSuccessSnackbar({
           ...successSnackbar,
           message: res?.message,
@@ -408,6 +399,8 @@ const HolidayAndLeaveManagement = () => {
                     <TableCell>Occasion Name</TableCell>
                     <TableCell className="table_text">Duration Day</TableCell>
                     <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    {/* <TableCell></TableCell> */}
                   </TableRow>
                 </TableHead>
                 <TableBody className="">
@@ -429,7 +422,6 @@ const HolidayAndLeaveManagement = () => {
                           <TableCell className="table_text">
                             {data?.duration || '-'}
                           </TableCell>
-                          z
                           <TableCell>
                             <Box
                               sx={{
@@ -442,7 +434,10 @@ const HolidayAndLeaveManagement = () => {
                               >
                                 <Button
                                   sx={{ marginRight: '10px' }}
-                                  className="border_button_small"
+                                  // className="border_button_small"
+
+                                  className="button_color"
+                                  variant="outlined"
                                   onClick={() => {
                                     setAddHolidayDetail({
                                       ...addHolidayDetail,
@@ -462,7 +457,9 @@ const HolidayAndLeaveManagement = () => {
                                 scopes={[PERMISSION.PERMISSIONS.DELETE_HOLIDAY]}
                               >
                                 <Button
-                                  className="border_button_small"
+                                  // className="border_button_small"
+                                  className="button_color"
+                                  variant="outlined"
                                   onClick={() =>
                                     setDeleteHolidayDialogControl({
                                       ...deleteHolidayDialogControl,
@@ -523,7 +520,8 @@ const HolidayAndLeaveManagement = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {leaveList.length > 0 &&
+                    {leaveList &&
+                      leaveList.length > 0 &&
                       leaveList.map(row => {
                         return (
                           <TableRow
@@ -551,7 +549,9 @@ const HolidayAndLeaveManagement = () => {
                                 >
                                   <Button
                                     sx={{ marginRight: '10px' }}
-                                    className="border_button_small"
+                                    // className="border_button_small"
+                                    className="button_color"
+                                    variant="outlined"
                                     onClick={() => {
                                       setAddLeaveDialog({
                                         ...addLeaveDialog,
@@ -570,7 +570,9 @@ const HolidayAndLeaveManagement = () => {
                                   scopes={[PERMISSION.PERMISSIONS.DELETE_LEAVE]}
                                 >
                                   <Button
-                                    className="border_button_small"
+                                    className="button_color"
+                                    variant="outlined"
+                                    // className="border_button_small"
                                     onClick={() =>
                                       setDeleteLeaveDialogControl({
                                         ...deleteLeaveDialogControl,
@@ -597,7 +599,6 @@ const HolidayAndLeaveManagement = () => {
                 <Typography className="sub_heading" variant="span">
                   Regular Holiday On
                 </Typography>
-
                 <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_HOLIDAY]}>
                   <Button
                     className="common_button"
@@ -632,7 +633,9 @@ const HolidayAndLeaveManagement = () => {
                           >
                             <Button
                               sx={{ marginRight: '10px' }}
-                              className="border_button_small"
+                              className="button_color"
+                              variant="outlined"
+                              // className="border_button_small"
                               onClick={() => {
                                 setAddEditRegularDetail({
                                   ...addEditRegularDetail,
@@ -645,13 +648,14 @@ const HolidayAndLeaveManagement = () => {
                               Edit
                             </Button>
                           </PermissionsGate>
-
                           <PermissionsGate
                             scopes={[PERMISSION.PERMISSIONS.DELETE_HOLIDAY]}
                           >
                             <Button
                               sx={{ marginRight: '10px' }}
-                              className="border_button_small"
+                              className="button_color"
+                              variant="outlined"
+                              // className="border_button_small"
                               onClick={() =>
                                 setDeleteHolidayDialogControl({
                                   ...deleteHolidayDialogControl,
