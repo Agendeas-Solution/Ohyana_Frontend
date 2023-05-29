@@ -799,6 +799,14 @@ button {
   align-items: center;
 }
 
+.delivery_checkbox_background_color {
+  width: 100% !important;
+  height: 40px;
+  background-color: #f1f2f6;
+  border-radius: 5px;
+  align-items: center;
+}
+
 .expenses_table_height {
   height: 80vh;
 }
@@ -806,6 +814,9 @@ button {
 .leave_and_holiday_main_table {
   width: 70%;
   margin: 6px;
+
+  height: 75%;
+  overflow: auto;
 }
 
 .orders_table_height {
@@ -836,7 +847,7 @@ button {
 
 .leave_data_main {
   border: 1px solid #e5e5e5;
-  height: 52vh;
+  height: 80vh;
   border-top: none;
   margin: 0;
   padding: 0;

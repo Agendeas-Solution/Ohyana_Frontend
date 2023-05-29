@@ -10,7 +10,7 @@
   border: 1px solid #e5e6eb;
   border-radius: 5px;
   height: 37%;
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 .occassional_holiday_section {
@@ -46,6 +46,10 @@
   justify-content: space-between;
   padding-left: 16px;
   padding-bottom: 16px;
+
+  /* flex-direction: column;
+  height: 37%;
+  overflow: auto; */
 }
 
 .leave_management_section {
