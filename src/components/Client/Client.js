@@ -98,6 +98,10 @@ const Client = () => {
   const handleApplyFilter = () => {
     getClientDetails()
   }
+  const handleChangeRowsPerPage = event => {
+    setRowsPerPage(parseInt(event.target.value, 10))
+    setCurrentPage(0)
+  }
   useEffect(() => {
     let data = selectedCityStateCountry?.state?.iso2
       ? `${selectedCityStateCountry?.country?.iso2}/states/${selectedCityStateCountry?.state?.iso2}/cities`
@@ -422,11 +426,13 @@ const Client = () => {
         <Box>
           <Pagination
             className="pagination_style"
+            rowsPerPageOptions={[5, 10, 25]}
             boundaryCount={0}
             siblingCount={0}
             size="small"
             shape="rounded"
             count={numbersToDisplayOnPagination}
+            onRowsPerPageChange={handleChangeRowsPerPage}
             page={currentPage}
             onChange={(e, value) => {
               setCurrentPage(value)

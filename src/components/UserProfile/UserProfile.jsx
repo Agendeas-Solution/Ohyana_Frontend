@@ -312,7 +312,7 @@ const UserProfile = () => {
             </Box>
           </TabPanel>
         </TabContext>
-        {leaveDialogControl.status && (
+        {leaveDialogControl && (
           <ApplyLeaveDialog
             leaveDialogControl={leaveDialogControl}
             handleCloseDialog={handleCloseDialog}
