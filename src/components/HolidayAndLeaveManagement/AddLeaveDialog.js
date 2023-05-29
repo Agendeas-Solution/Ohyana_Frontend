@@ -39,8 +39,8 @@ const AddLeaveDialog = ({
 
           <TextField
             className="dialogue_input_fields"
-            label="Toatal Days"
-            placeholder="Enter total Days for Leave apply"
+            label="Total Days"
+            // placeholder="Enter total Days for Leave apply"
             type="number"
             variant="outlined"
             value={addLeaveDialog.duration}

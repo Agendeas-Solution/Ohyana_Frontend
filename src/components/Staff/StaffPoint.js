@@ -75,6 +75,11 @@ const StaffPoint = ({
       res => {
         handleGetPointTeamMember()
         handleAddAppreciationDialogClose()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
       },
       err => {},
     )

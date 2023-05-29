@@ -20,11 +20,14 @@ import {
 } from '../../services/apiservices/staffDetail'
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
+import { Context as ContextActivePage } from '../../context/pageContext'
 import { TEAM } from '../../constants'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 const Dashboard = () => {
   const navigate = useNavigate()
   const [inquiryData, setInquiryData] = useState([])
+  const { setActivePage } = useContext(ContextActivePage)
+  const [path, setPath] = useState(null)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   useEffect(() => {
@@ -36,6 +39,12 @@ const Dashboard = () => {
       err => {},
     )
   }, [])
+  const handleNavItemClick = (path, name) => {
+    navigate(path)
+    setActivePage(name)
+    setPath(path)
+    localStorage.setItem('path', path)
+  }
   const handleCheckIn = type => {
     AttendanceStatus(
       type,
@@ -363,7 +372,10 @@ const Dashboard = () => {
             </Typography>
             <Button
               className="view_all_button"
-              onClick={() => navigate('/staff')}
+              onClick={() => {
+                navigate('/staff')
+                handleNavItemClick('/staff', 'Staff')
+              }}
             >
               View All {'>'}
             </Button>
@@ -440,7 +452,10 @@ const Dashboard = () => {
             </Typography>
             <Button
               className="view_all_button"
-              onClick={() => navigate('/orders')}
+              onClick={() => {
+                navigate('/orders')
+                handleNavItemClick('/orders', 'Order')
+              }}
             >
               View All {'>'}
             </Button>

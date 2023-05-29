@@ -30,7 +30,7 @@ import ProductList from '../components/Settings/ProductList'
 import Dashboard from '../components/Dashboard'
 import StaffProfile from '../components/Staff/StaffProfile'
 import NoResultFound from '../components/ErrorComponent/NoResultFound'
-
+import Notification from '../components/Notification/Notification'
 export const PERMISSION = {
   PERMISSIONTYPE: [
     { status: false, value: 'EditClient' },
@@ -116,6 +116,10 @@ export const PERMISSION = {
     { path: '/profile', component: <UserProfile /> },
     { path: '/editprofile', component: <EditProfile /> },
     { path: '/dashboard', component: <Dashboard /> },
+    {
+      path: '/notification',
+      component: <Notification />,
+    },
     {
       path: '/clientorders/:id',
       component: <ClientOrders />,
