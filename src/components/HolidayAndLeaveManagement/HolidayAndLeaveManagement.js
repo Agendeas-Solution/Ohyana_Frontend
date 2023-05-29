@@ -329,17 +329,21 @@ const HolidayAndLeaveManagement = () => {
           duration: '',
           id: '',
         })
+
         const newArray = leaveList.map(obj => {
           if (obj.id === res.data.id) {
             return {
               ...obj,
+              type: res.data.type,
               duration: res.data.duration,
             }
           }
           return obj
         })
         setLeaveList(newArray)
+
         debugger
+
         setSuccessSnackbar({
           ...successSnackbar,
           message: res?.message,
