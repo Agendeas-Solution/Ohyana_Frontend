@@ -29,6 +29,7 @@ import AddProduct from '../components/Settings/AddProduct'
 import ProductList from '../components/Settings/ProductList'
 import Dashboard from '../components/Dashboard'
 import StaffProfile from '../components/Staff/StaffProfile'
+import NoResultFound from '../components/ErrorComponent/NoResultFound'
 
 export const PERMISSION = {
   PERMISSIONTYPE: [
@@ -140,7 +141,7 @@ export const PERMISSION = {
       component: <StaffProfile />,
       value: 'ViewStaff',
     },
-    { path: '*', component: <Login /> },
+    { path: '*', component: <NoResultFound /> },
     {
       path: '/addeditstaff/:id',
       component: <AddStaffMember />,

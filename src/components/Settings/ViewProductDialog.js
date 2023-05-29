@@ -17,7 +17,6 @@ import { UpdateProductQuantity } from '../../services/apiservices/adminprofile'
 import PermissionsGate from './PermissionGate'
 import { PERMISSION } from '../../constants'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-
 const ViewProductDialog = ({
   viewProductDialog,
   handleClose,
@@ -98,13 +97,11 @@ const ViewProductDialog = ({
             </PermissionsGate>
           </Box>
         </DialogTitle>
-
         <Divider
           sx={{ borderColor: '#C4C4C4' }}
           orientation="horizontal"
           width="100%"
         />
-
         <DialogContent>
           <Box className="product_dialog_detail_section">
             <Box className="product_dialog_left_Section">
@@ -115,7 +112,6 @@ const ViewProductDialog = ({
                   style={{ height: '100%', width: '100%' }}
                 />
               </Box>
-
               <Box className="update_button_section">
                 <TextField
                   variant="outlined"
@@ -130,7 +126,6 @@ const ViewProductDialog = ({
                   }
                   placeholder="Quantity"
                 />
-
                 <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_PRODUCT]}>
                   <Button
                     sx={{ backgroundColor: '#2E3591', marginLeft: '5px' }}
@@ -158,7 +153,20 @@ const ViewProductDialog = ({
                   {productDetail?.id || '-'}
                 </Typography>
               </Box>
-
+              <Box
+                sx={{ justifyContent: 'space-between' }}
+                className="detail_row product_detail_dia_right_section"
+              >
+                <Typography
+                  className="common_heading product_dialogue_field"
+                  variant="span"
+                >
+                  SkuId
+                </Typography>
+                <Typography variant="span">
+                  {productDetail?.skuId || '-'}
+                </Typography>
+              </Box>
               <Box className="detail_row product_detail_dia_right_section product_dialogue_field">
                 <Typography className="common_heading" variant="span">
                   Price
@@ -176,7 +184,6 @@ const ViewProductDialog = ({
                   {productDetail?.materialType || '-'}
                 </Typography>
               </Box>
-
               <Box className="detail_row product_detail_dia_right_section product_dialogue_field">
                 <Typography className="common_heading" variant="span">
                   Weight
@@ -185,7 +192,6 @@ const ViewProductDialog = ({
                   {productDetail?.weight || '-'}
                 </Typography>
               </Box>
-
               <Box className="detail_row product_detail_dia_right_section product_dialogue_field">
                 <Typography className="common_heading" variant="span">
                   Description

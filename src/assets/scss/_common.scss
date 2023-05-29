@@ -557,7 +557,7 @@ button {
 
 .disable_page_save_button {
   margin: 20px !important;
-  background-color: #E5E5E5 !important;
+  background-color: #e5e5e5 !important;
   width: 225px;
   text-transform: capitalize !important;
   font-size: 17px !important;
@@ -872,6 +872,9 @@ button {
   margin-left: 10px !important;
 }
 
+.task_card_hover {
+  height: 100px;
+}
 .task_card_hover:hover {
   cursor: pointer;
 }
