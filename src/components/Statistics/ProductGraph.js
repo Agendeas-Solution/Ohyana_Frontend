@@ -199,7 +199,11 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
                 }
               >
                 {productList.map(product => (
-                  <MenuItem key={product.id} value={product.id}>
+                  <MenuItem
+                    sx={{ margin: '8px 0px', padding: '0' }}
+                    key={product.id}
+                    value={product.id}
+                  >
                     <Checkbox
                       checked={selectedProductList.some(
                         tag => tag.id === product.id,
