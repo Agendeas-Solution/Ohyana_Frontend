@@ -42,7 +42,6 @@ const EditJobRoleDialog = ({
       <Dialog open={editJobRoleDialogControl.status} onClose={handleClose}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Update Job Role</Typography>
-
           <TextField
             className="dialogue_input_fields"
             label="Job Role"
@@ -90,7 +89,6 @@ const EditJobRoleDialog = ({
               })
             }}
           />
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"

@@ -12,12 +12,7 @@ import StaffAttendancePresent from './StaffAttendancePresent'
 import StaffAttendanceLeave from './StaffAttendanceLeave'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 
-const StaffAttendance = ({
-  selectMonth,
-  setSelectMonth,
-  activeTab,
-  setActiveTab,
-}) => {
+const StaffAttendance = ({ selectMonth, activeTab }) => {
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [value, setValue] = useState('1')
@@ -29,9 +24,6 @@ const StaffAttendance = ({
     id: null,
     leaveStatus: true,
   })
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
   const handleGrantLeave = () => {
     GrantLeave(
       { id: approveLeave.id, leaveStatus: approveLeave?.leaveStatus },
@@ -119,7 +111,6 @@ const StaffAttendance = ({
           </Box>
         </Box>
       </Box>
-
       {activeTab === 'present' && (
         <StaffAttendancePresent staffAttendanceList={staffAttendanceList} />
       )}

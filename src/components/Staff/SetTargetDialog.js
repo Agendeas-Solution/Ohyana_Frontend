@@ -29,7 +29,6 @@ const SetTargetDialog = ({
     target: '',
   })
   const [typeOptions, setTypeOptions] = useState(TEAM.TARGETTYPE)
-  const [periodOptions, setPeriodOptions] = useState(TEAM.PERIOD)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleSetTarget = () => {
@@ -108,7 +107,6 @@ const SetTargetDialog = ({
               />
             </LocalizationProvider>
           </Box>
-
           <Box>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker

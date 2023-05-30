@@ -37,7 +37,6 @@ const ForgotPasswordEmail = () => {
         <Box className="company_logo">
           <img src={Logo} alt="Company logo" />
         </Box>
-
         <Box className="login_form_section">
           <Box className="login_form_body">
             <Box className="login_form_box">

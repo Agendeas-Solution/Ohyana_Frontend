@@ -29,21 +29,9 @@ const IntegrationsDialog = ({
             multiline
             minRows={3}
             maxRows={3}
-            // value={jobRoleDetail.description}
-            // onChange={e => {
-            //   setJobRoleDetail({
-            //     ...jobRoleDetail,
-            //     description: e.target.value,
-            //   })
-            // }}
           />
-
           <DialogActions>
-            <Button
-              className="dialogue_button_positive"
-              variant="contained"
-              //   onClick={addJobRole}
-            >
+            <Button className="dialogue_button_positive" variant="contained">
               Save
             </Button>
             <Button

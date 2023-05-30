@@ -20,7 +20,6 @@ const ExpenseType = ({
       <Dialog open={addExpenseType.status} onClose={handleCloseDialog}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Expense Type</Typography>
-
           <TextField
             className="dialogue_input_fields"
             label="Expense Type"
@@ -33,7 +32,6 @@ const ExpenseType = ({
               })
             }}
           />
-
           <TextField
             className="dialogue_input_fields"
             multiline
@@ -52,7 +50,6 @@ const ExpenseType = ({
               })
             }}
           />
-
           <DialogActions>
             <Button
               className="dialogue_bottom_button"

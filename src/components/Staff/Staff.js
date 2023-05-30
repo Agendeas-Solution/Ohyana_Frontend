@@ -71,7 +71,6 @@ const Staff = () => {
     attendanceType: '',
   })
   const [usersAttendanceList, setUserAttendanceList] = useState([])
-
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -79,7 +78,6 @@ const Staff = () => {
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   }))
-
   const handleDrawerOpen = () => {
     setOpen(true)
   }
@@ -426,18 +424,15 @@ const Staff = () => {
               View
             </Button>
           </Box>
-
           <Box className="staff_right_main_detail_section">
             <Box className="profile_detail_row">
               <Typography className="profile_lable" variant="span">
                 Contact
               </Typography>
-
               <Typography variant="span">
                 {singleStaffDetails?.memberDetail?.contact_number}
               </Typography>
             </Box>
-
             <Box className="profile_detail_row">
               <Typography className="profile_lable" variant="span">
                 Email
@@ -446,7 +441,6 @@ const Staff = () => {
                 {singleStaffDetails?.memberDetail?.email}
               </Typography>
             </Box>
-
             <Box className="profile_detail_row">
               <Typography className="profile_lable" variant="span">
                 Location
@@ -459,12 +453,10 @@ const Staff = () => {
             </Box>
           </Box>
         </Box>
-
         <Box className="bottom_right_part">
           <Typography className="staff_statistics_box_heading">
             Inquiry Status
           </Typography>
-
           <Box className="staff_statistics_data">
             <Box className="staff_statistics_box first_box">
               <Typography>Total Inquiry</Typography>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Box, Typography, TextField, Button } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
@@ -8,6 +8,7 @@ import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import Logo from '../../assets/img/Ohyana Logo.svg'
+import { Context as ContextSnackbar } from '../../context/pageContext'
 import {
   VerifyOTP,
   SentOtp,
@@ -31,7 +32,8 @@ const Register = () => {
     emailVerifyStatus: false,
     otpVerifyStatus: false,
   })
-
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleClickShowPassword = () => {
     setValues({
       ...values,
@@ -52,7 +54,13 @@ const Register = () => {
           })
         }
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
   const handleOtp = () => {
@@ -64,14 +72,32 @@ const Register = () => {
           otpVerifyStatus: true,
         })
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
   const handleRegister = () => {
     RegisterUser(
       registerData,
-      res => {},
-      err => {},
+      res => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
+        })
+      },
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
   return (
@@ -80,7 +106,6 @@ const Register = () => {
         <Box className="register_left_section">
           <img className="Logo_img" src={Logo} alt="" />
         </Box>
-
         <Box className="register_right_section">
           <Box className="register_main_section">
             <Box className="heading_section">
@@ -95,7 +120,6 @@ const Register = () => {
                 a business.
               </Typography>
             </Box>
-
             <Box className="register_main_section">
               <Box className="register_page_fields">
                 <TextField
@@ -135,7 +159,6 @@ const Register = () => {
                   }}
                 />
               </Box>
-
               <Box className="register_page_fields">
                 <TextField
                   className="register_input_fields"
@@ -186,7 +209,6 @@ const Register = () => {
                   }}
                 />
               </Box>
-
               <Box className="register_page_fields">
                 <TextField
                   className="register_input_fields"
@@ -234,7 +256,6 @@ const Register = () => {
                   />
                 )}
               </Box>
-
               <FormGroup sx={{ marginTop: '10px' }}>
                 <FormControlLabel
                   control={
@@ -249,7 +270,6 @@ const Register = () => {
               </FormGroup>
             </Box>
           </Box>
-
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Box
               sx={{

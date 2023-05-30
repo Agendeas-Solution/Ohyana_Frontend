@@ -94,7 +94,6 @@ const DashboardEmployee = () => {
             </Button>
           </Box>
         </Box>
-
         <Box className="performance_attendance_row">
           <Box className="performance_section">
             <Typography className="left_panel_heading" variant="span">
@@ -193,7 +192,6 @@ const DashboardEmployee = () => {
               </Box>
             </Box>
           </Box>
-
           <Box className="attendance_section">
             <Box className="attendance_subheading">
               <Typography className="right_panel_heading" variant="span">
@@ -275,7 +273,6 @@ const DashboardEmployee = () => {
                 View All {'>'}
               </Button>
             </Box>
-
             <Box className="inner_my_task">
               <TableContainer
                 component={Paper}
@@ -340,7 +337,6 @@ const DashboardEmployee = () => {
               </TableContainer>
             </Box>
           </Box>
-
           <Box className="point_table_section">
             <Box className="point_table_heading">
               <Typography className="bottom_right_panel_heading" variant="span">
@@ -348,7 +344,6 @@ const DashboardEmployee = () => {
               </Typography>
               <Button className="view_all_button">View All {'>'}</Button>
             </Box>
-
             <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
               <Table sx={{ minWidth: 250 }}>
                 <TableHead className="team_overview_table_heading">
@@ -358,7 +353,6 @@ const DashboardEmployee = () => {
                     <TableCell align="right">Point</TableCell>
                   </TableRow>
                 </TableHead>
-
                 <TableBody className="tablebody_class">
                   {salesInquiry?.teamPoints.map(value => {
                     return (
@@ -384,7 +378,6 @@ const DashboardEmployee = () => {
             </TableContainer>
           </Box>
         </Box>
-
         <Box className="detail_row">
           <Box className="star_performers_section">
             <Box className="my_main_section_header">

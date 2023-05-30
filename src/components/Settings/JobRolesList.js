@@ -78,9 +78,7 @@ const JobRolesList = () => {
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
-
               <Divider orientation="vertical" variant="middle" flexItem />
-
               <TableBody>
                 {jobRoleList?.roles &&
                   jobRoleList?.roles.map((data, index) => (

@@ -14,12 +14,7 @@ import {
 import { AddClientStatus } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { CLIENT } from '../../constants/clientConstant'
-const AddStatusDialog = ({
-  setAddStatus,
-  addStatus,
-  handleDialogOpen,
-  businessDetail,
-}) => {
+const AddStatusDialog = ({ setAddStatus, addStatus, businessDetail }) => {
   const [addStatusDetail, setAddStatusDetail] = useState({
     followUpType: '',
     description: '',

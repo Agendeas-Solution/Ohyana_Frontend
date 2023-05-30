@@ -97,22 +97,14 @@ const Notification = () => {
     )
   }, [])
 
-  //Route for button coming from api
   const handleView = route => {
     navigate(route)
   }
 
   return (
     <>
-      <Box
-        className="notification_section"
-        // className="orders_table_height body_section_paddingless_pagination"
-        // sx={{ padding: '0px', overflowY: 'auto' }}
-      >
-        <Box
-          // className="main_sections"
-          sx={{ padding: '10px', overflowY: 'auto' }}
-        >
+      <Box className="notification_section">
+        <Box sx={{ padding: '10px', overflowY: 'auto' }}>
           {notificationDetail.length > 0 &&
             notificationDetail.map((rowData, index) => {
               return (
@@ -147,7 +139,6 @@ const Notification = () => {
                           />
                         }
                       </Box>
-
                       <Box
                         sx={{
                           width: '10%',
@@ -161,7 +152,6 @@ const Notification = () => {
                           ).format('LT')}
                         </Typography>
                       </Box>
-
                       <Box
                         sx={{
                           width: '84%',
@@ -214,10 +204,6 @@ const Notification = () => {
             }}
           />
         </Box>
-        {/* <ClientStatusCloseDialog
-          deleteRemainderDialog={deleteRemainderDialog}
-          CloseDeleteRemainder={CloseDeleteRemainder}
-        /> */}
       </Box>
     </>
   )

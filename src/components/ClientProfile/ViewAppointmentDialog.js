@@ -24,7 +24,6 @@ const ViewAppointmentDialog = ({
             </Button>
           </Box>
         </Box>
-
         <DialogContent>
           <Box sx={{ padding: '0px 6px' }}>
             <Box className="client_view_appointment_dialog_data">

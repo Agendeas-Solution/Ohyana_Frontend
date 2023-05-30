@@ -59,7 +59,6 @@ const AddStaffMember = () => {
     emailVerifyStatus: false,
     otpVerifyStatus: false,
   })
-
   useEffect(() => {
     GetState(
       {},
@@ -192,9 +191,20 @@ const AddStaffMember = () => {
             ...otpValue,
             emailVerifyStatus: true,
           })
+          setSuccessSnackbar({
+            ...successSnackbar,
+            status: true,
+            message: res.message,
+          })
         }
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err.response.data.message,
+        })
+      },
     )
   }
   const handleOtp = () => {
@@ -205,8 +215,19 @@ const AddStaffMember = () => {
           ...otpValue,
           otpVerifyStatus: true,
         })
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err.response.data.message,
+        })
+      },
     )
   }
   return (
@@ -246,7 +267,6 @@ const AddStaffMember = () => {
                 </FormControl>
               </Box>
             </Box>
-
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
@@ -297,7 +317,6 @@ const AddStaffMember = () => {
                 </FormControl>
               </Box>
             </Box>
-
             <Box className="input_field_row">
               {otpValue.emailVerifyStatus && (
                 <Box className="otp_input_field">
@@ -332,7 +351,6 @@ const AddStaffMember = () => {
                 </Box>
               )}
             </Box>
-
             <Box className="input_field_row">
               <Box className="input_fields">
                 <TextField
@@ -359,7 +377,6 @@ const AddStaffMember = () => {
                 renderInput={params => <TextField {...params} label="State" />}
               />
             </Box>
-
             {/* Gender*/}
             <Box className="input_field_row">
               <Box className="input_fields">
@@ -403,11 +420,6 @@ const AddStaffMember = () => {
               onClick={handleAddEmployee}
               variant="contained"
               sx={{ width: '30%', color: 'white !important' }}
-              // className={
-              //   !otpValue.otpVerifyStatus && !parseInt(path)
-              //     ? 'edit_page_save_button'
-              //     : ''
-              // }
               className={
                 otpValue.otpVerifyStatus && !parseInt(path)
                   ? 'edit_page_save_button'

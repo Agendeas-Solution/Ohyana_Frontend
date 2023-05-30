@@ -19,13 +19,8 @@ import {
 import './index.css'
 import { useNavigate } from 'react-router-dom'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
-import {
-  GetAllClients,
-  DeleteClientDetail,
-  GetCityList,
-} from '../../services/apiservices/clientDetail'
+import { GetAllClients } from '../../services/apiservices/clientDetail'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-import { Context as AuthContext } from '../../context/authContext/authContext'
 import Drawer from '@mui/material/Drawer'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
@@ -41,7 +36,6 @@ import {
   GetStateByCountry,
 } from '../../services/apiservices/country-state-city'
 import PermissionsGate from '../Settings/PermissionGate'
-
 const drawerWidth = 350
 const CustomerList = React.lazy(() => import('./CustomerList'))
 const BusinessCard = React.lazy(() => import('./BusinessCard'))
@@ -120,7 +114,7 @@ const Client = () => {
           }, [])
           setCityList(uniqueCity)
         },
-        err => {},
+        () => {},
       )
   }, [selectedCityStateCountry?.state])
   const handleGetCountry = () => {
@@ -131,7 +125,7 @@ const Client = () => {
           setCountryList(res)
         }
       },
-      err => {},
+      () => {},
     )
   }
   useEffect(() => {
@@ -165,7 +159,7 @@ const Client = () => {
         res => {
           setStateList(res)
         },
-        err => {},
+        () => {},
       )
   }, [selectedCityStateCountry?.country])
   useEffect(() => {
@@ -233,7 +227,7 @@ const Client = () => {
           setClientLoader(false)
         }
       },
-      err => {
+      () => {
         setClientDetails([])
         setClientLoader(false)
       },

@@ -233,7 +233,6 @@ const SideBar = () => {
               </Typography>
             </Box>
           </PermissionsGate>
-
           <PermissionsGate scopes={[PERMISSION.PERMISSIONS.VIEW_REPORT]}>
             <Box
               className={`sidebar_icons ${
@@ -268,7 +267,6 @@ const SideBar = () => {
               Support
             </Typography>
           </Box> */}
-
           {/* permission_control */}
           <PermissionsGate scopes={[PERMISSION.PERMISSIONS.ACCESS_SETTINGS]}>
             <Box

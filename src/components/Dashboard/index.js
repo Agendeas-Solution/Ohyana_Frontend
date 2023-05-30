@@ -282,7 +282,6 @@ const Dashboard = () => {
               </Box>
             </Box>
           </Box>
-
           <Box className="sales_statistics">
             <Typography
               className="dashboard_sub_heading sales_statistics_heading"
@@ -364,7 +363,6 @@ const Dashboard = () => {
             </Box>
           </Box>
         </Box>
-
         <Box className="team_overview">
           <Box className="team_overview_heading">
             <Typography className="team_overview_inner_heading" variant="span">
@@ -380,7 +378,6 @@ const Dashboard = () => {
               View All {'>'}
             </Button>
           </Box>
-
           <TableContainer component={Paper} className="set_box_shadow">
             <Table sx={{ minWidth: 650 }}>
               <TableHead className="team_overview_table_heading">
@@ -416,7 +413,6 @@ const Dashboard = () => {
                           </Stack>
                           <Typography>{data?.name || '-'}</Typography>
                         </TableCell>
-
                         <TableCell>{data?.role || '-'}</TableCell>
                         <TableCell>{data.attendances || '-'}</TableCell>
                         <TableCell>{data.points || '-'}</TableCell>
@@ -444,7 +440,6 @@ const Dashboard = () => {
             </Table>
           </TableContainer>
         </Box>
-
         <Box className="team_overview">
           <Box className="team_overview_heading">
             <Typography className="team_overview_inner_heading" variant="span">
@@ -505,7 +500,6 @@ const Dashboard = () => {
             </Table>
           </TableContainer>
         </Box>
-
         <Box className="detail_row">
           <Box className="star_performers_section">
             <Box className="my_main_section_header">
@@ -513,14 +507,10 @@ const Dashboard = () => {
                 Star Performers
               </Typography>
             </Box>
-            {/* {salesInquiry?.starPerformerList.length > 0 &&
-              salesInquiry.starPerformerList.map(data => { */}
             {inquiryData?.starPerformerList &&
               inquiryData?.starPerformerList.map(data => (
                 <Box className="a-box">
                   <Box className="img-container">
-                    {/* <Box className="inner-skew"> */}
-                    {/* <Box> */}
                     {data?.imgUrl ? (
                       <img src={data.imgUrl} className="user_profile_icon" />
                     ) : (

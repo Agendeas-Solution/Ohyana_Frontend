@@ -36,7 +36,6 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { ORDER } from '../../constants/orderConstant'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-
 const drawerWidth = 350
 const Orders = () => {
   let path = window.location.pathname
@@ -154,7 +153,6 @@ const Orders = () => {
               }
             />
           </FormControl>
-
           <IconButton
             edge="end"
             onClick={handleDrawerOpen}
@@ -182,11 +180,6 @@ const Orders = () => {
             <DrawerHeader className="drawer_header_section">
               <Box className="filter_main_heading">
                 <IconButton
-                  // sx={{
-                  //   ...(openDrawer && { display: 'flex' }),
-                  //   padding: '0',
-                  //   // margin: '0 0 0 0px',
-                  // }}
                   sx={{ color: '#2e3591', padding: '0px' }}
                   disableRipple={true}
                   onClick={handleDrawerClose}
@@ -210,16 +203,13 @@ const Orders = () => {
                 </Button>
               </Box>
             </DrawerHeader>
-
             <Divider />
-
             <Box className="filter_body_section">
               <FormControl className="filter_body_inner_section">
                 <FormLabel className="filter_body_inner_heading">
                   Delivery
                 </FormLabel>
                 <RadioGroup
-                  // sx={{ margin: '8px 0 auto 8px' }}
                   value={queryParams.delivery}
                   onChange={e => {
                     setQueryParams({ ...queryParams, delivery: e.target.value })
@@ -251,13 +241,11 @@ const Orders = () => {
                   </Box>
                 </RadioGroup>
               </FormControl>
-
               <FormControl className="filter_body_inner_section">
                 <FormLabel className="filter_body_inner_heading">
                   Payment
                 </FormLabel>
                 <RadioGroup
-                  // sx={{ margin: '8px 0 auto 8px' }}
                   value={queryParams.payment}
                   onChange={e => {
                     setQueryParams({ ...queryParams, payment: e.target.value })
@@ -281,7 +269,6 @@ const Orders = () => {
                   </Box>
                 </RadioGroup>
               </FormControl>
-
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   inputFormat="dd/MM/yyyy"
@@ -298,11 +285,10 @@ const Orders = () => {
                       {...params}
                       label="Date"
                       className="orders_drawer_date"
-                      // sx={{ margin: '10px 22px auto 8px' }}
                     />
                   )}
                   PopperProps={{
-                    placement: 'bottom-start', // Set placement to 'bottom-start'
+                    placement: 'bottom-start',
                   }}
                 />
               </LocalizationProvider>
@@ -310,7 +296,6 @@ const Orders = () => {
           </Drawer>
         </Box>
       </Box>
-
       <Box className="body_section_paddingless_pagination">
         <TableContainer
           className="orders_table_height"
@@ -325,7 +310,6 @@ const Orders = () => {
             stickyHeader
             aria-label="sticky table"
             sx={{ minWidth: 690, padding: '0px !important' }}
-            // className="table_heading "
           >
             <TableHead>
               <TableRow>

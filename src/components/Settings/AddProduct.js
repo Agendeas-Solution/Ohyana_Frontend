@@ -42,7 +42,13 @@ const AddProduct = props => {
           })
           setImageUrl(res.data.imageUrl)
         },
-        err => {},
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err?.response?.data?.message,
+          })
+        },
       )
   }, [])
   const handleAddProduct = () => {

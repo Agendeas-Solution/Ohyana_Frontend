@@ -26,7 +26,6 @@ import { PERMISSION } from '../../constants'
 const DeleteExpenseTypeDialog = React.lazy(() =>
   import('./DeleteExpenseTypeDialog'),
 )
-
 const styles = {
   tableHeading: {
     whiteSpace: 'nowrap',
@@ -36,12 +35,11 @@ const styles = {
   },
 }
 const ExpenseType = React.lazy(() => import('./ExpenseType'))
-
 const ExpenseList = () => {
   let navigate = useNavigate()
-
   const { flagLoader, permissions } = useContext(AuthContext).state
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const [expenseList, setExpenseList] = useState([])
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [deletexpenseListDialog, setDeletexpenseListDialog] = useState({
     status: false,
@@ -55,7 +53,6 @@ const ExpenseList = () => {
     name: '',
     description: '',
   })
-  const [expenseList, setExpenseList] = useState([])
   const GetExpenseList = () => {
     GetExpenseTypeList(
       parseInt(path),
