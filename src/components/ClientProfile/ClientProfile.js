@@ -190,7 +190,13 @@ const ClientProfile = () => {
                 message: res.message,
               })
             },
-            err => {},
+            err => {
+              setErrorSnackbar({
+                ...errorSnackbar,
+                status: true,
+                message: err.response.data.message,
+              })
+            },
           )
         : AddAdminClientAppointmentDetail(
             data,
@@ -203,7 +209,13 @@ const ClientProfile = () => {
                 message: res.message,
               })
             },
-            err => {},
+            err => {
+              setErrorSnackbar({
+                ...errorSnackbar,
+                status: true,
+                message: err.response.data.message,
+              })
+            },
           )
     }
   }

@@ -93,7 +93,6 @@ const ClientOrders = () => {
   }
 
   const handleDeleteProduct = row => {
-    debugger
     DeleteMyCartProduct(
       row.cartId,
       res => {
@@ -140,7 +139,16 @@ const ClientOrders = () => {
               onClick={() =>
                 handleClientOrdersClick(`/mycart/${clientId}`, 'Order Detail')
               }
-              className="main_tab_button"
+              disabled={
+                clientProductList.find(value => value.inCart === true)
+                  ? false
+                  : true
+              }
+              className={
+                clientProductList.find(value => value.inCart === true)
+                  ? 'main_tab_button'
+                  : 'main_tab_button_disabled'
+              }
               variant="span"
             >
               My Cart

@@ -30,7 +30,6 @@ const StaffAttendance = ({ selectMonth, activeTab }) => {
       res => {
         const newArray = staffLeaveList.map(obj => {
           if (obj.id === res.data.id) {
-            debugger
             return {
               ...obj,
               status: res.data.status,
@@ -39,10 +38,7 @@ const StaffAttendance = ({ selectMonth, activeTab }) => {
           return obj
         })
         setStaffLeaveList(newArray)
-
-        debugger
         handleCloseDialog()
-
         setSuccessSnackbar({
           ...successSnackbar,
           message: res.message,
@@ -82,7 +78,6 @@ const StaffAttendance = ({ selectMonth, activeTab }) => {
         data,
         res => {
           setStaffLeaveList(res?.data)
-          debugger
         },
         err => {},
       )

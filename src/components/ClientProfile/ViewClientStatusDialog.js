@@ -15,26 +15,6 @@ const ViewClientStatusDialog = ({
   })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
-  const EditStatus = () => {
-    EditClientStatus(
-      editStatusDetail,
-      res => {
-        handleViewStatusDialogClose()
-        setSuccessSnackbar({
-          ...successSnackbar,
-          status: true,
-          message: res.message,
-        })
-      },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err.response.data.message,
-        })
-      },
-    )
-  }
   return (
     <>
       <Dialog

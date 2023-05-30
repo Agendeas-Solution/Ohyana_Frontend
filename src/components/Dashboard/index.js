@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import DonutChart from 'react-donut-chart'
+import { Doughnut } from 'react-chartjs-2'
 import { Box, Typography, Button, Divider } from '@mui/material'
 import './index.css'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
@@ -30,11 +30,42 @@ const Dashboard = () => {
   const [path, setPath] = useState(null)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [doNutChartData, setDoNutChartData] = useState(null)
+  const options = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  }
   useEffect(() => {
     GetInquiryAnalytics(
       {},
       res => {
         setInquiryData(res.data.data)
+        setDoNutChartData({
+          labels: ['Red', 'Blue', 'Yellow', 'Green'],
+          datasets: [
+            {
+              data: [
+                10,
+                40,
+                30,
+                60,
+                res.data.data.inquiry.crtMonIndiaMart,
+                res.data.data.inquiry.crtMonWeb,
+                res.data.data.inquiry.crtMonOther,
+              ],
+              backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+              hoverBackgroundColor: [
+                '#FF6384',
+                '#36A2EB',
+                '#FFCE56',
+                '#4BC0C0',
+              ],
+            },
+          ],
+        })
       },
       err => {},
     )
@@ -97,7 +128,6 @@ const Dashboard = () => {
       },
     )
   }
-
   return (
     <>
       <Box className="main_section">
@@ -166,7 +196,7 @@ const Dashboard = () => {
                 <Box className="inquiry_sub_heading">
                   <Box className="inquiry_detail_box inquiry_detail_left_part">
                     <Box className="inquiry_from_name">
-                      <Box className="inquiries_bullet_point" />
+                      <Box className="inquiries_bullet_point_1" />
                     </Box>
                     <Box className="inquiries_inner_section">
                       <Typography>IndiaMart</Typography>
@@ -186,7 +216,7 @@ const Dashboard = () => {
                   </Box>
                   <Box className="inquiry_detail_box inquiry_detail_right_part">
                     <Box className="inquiry_from_name">
-                      <Box className="inquiries_bullet_point"></Box>
+                      <Box className="inquiries_bullet_point_2"></Box>
                     </Box>
                     <Box className="inquiries_inner_section">
                       <Typography>Website</Typography>
@@ -211,7 +241,7 @@ const Dashboard = () => {
                     marginTop: '12px',
                   }}
                 >
-                  <Box className="inquiry_detail_box inquiry_detail_left_part">
+                  {/* <Box className="inquiry_detail_box inquiry_detail_left_part">
                     <Box className="inquiry_from_name">
                       <Box className="inquiries_bullet_point"></Box>
                     </Box>
@@ -230,10 +260,10 @@ const Dashboard = () => {
                         {inquiryData?.inquiry?.lstMonIndiaMart || 0}
                       </Typography>
                     </Box>
-                  </Box>
+                  </Box> */}
                   <Box className="inquiry_detail_box inquiry_detail_right_part">
                     <Box className="inquiry_from_name">
-                      <Box className="inquiries_bullet_point"></Box>
+                      <Box className="inquiries_bullet_point_3"></Box>
                     </Box>
                     <Box className="inquiries_inner_section">
                       <Typography>Others</Typography>
@@ -253,32 +283,9 @@ const Dashboard = () => {
                 </Box>
               </Box>
               <Box className="doughnut_chart_inquiry">
-                <DonutChart
-                  height={200}
-                  width={200}
-                  legend={false}
-                  emptyOffset={false}
-                  strokeColor={false}
-                  toggledOffset={false}
-                  data={[
-                    {
-                      label: 'hello',
-                      value: 20,
-                    },
-                    {
-                      label: 'hello1',
-                      value: 20,
-                    },
-                    {
-                      label: 'hello',
-                      value: 25,
-                    },
-                    {
-                      label: 'hello',
-                      value: 35,
-                    },
-                  ]}
-                />
+                {doNutChartData && (
+                  <Doughnut data={doNutChartData} options={options} />
+                )}
               </Box>
             </Box>
           </Box>

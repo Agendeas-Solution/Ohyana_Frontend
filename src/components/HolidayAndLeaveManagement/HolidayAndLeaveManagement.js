@@ -341,9 +341,6 @@ const HolidayAndLeaveManagement = () => {
           return obj
         })
         setLeaveList(newArray)
-
-        debugger
-
         setSuccessSnackbar({
           ...successSnackbar,
           message: res?.message,

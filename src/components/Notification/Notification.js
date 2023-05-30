@@ -73,7 +73,6 @@ const Notification = () => {
         }
       },
       err => {
-        console.log(err)
         setNotificationDetail([])
         setLoader(false)
       },
@@ -90,7 +89,6 @@ const Notification = () => {
         }
       },
       err => {
-        console.log(err)
         setNotificationSentDetail([])
         setLoader(false)
       },

@@ -75,7 +75,13 @@ const Complaint = () => {
     path = path.split('/').pop()
     CloseTicket(
       path,
-      res => {},
+      res => {
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
+      },
       err => {
         setErrorSnackbar({
           ...errorSnackbar,

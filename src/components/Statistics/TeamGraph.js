@@ -78,7 +78,9 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
         res => {
           setGraphData(res?.data)
         },
-        err => {},
+        err => {
+          setGraphData([])
+        },
       )
     } else if (selectedPeriod !== 'custom') {
       GetTeamReport(
@@ -86,11 +88,13 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
         res => {
           setGraphData(res?.data)
         },
-        err => {},
+        err => {
+          setGraphData([])
+        },
       )
     }
     handleJobRole()
-  }, [selectedPeriod, selectedTeamMembers, selectedComparison])
+  }, [selectedPeriod, selectedTeamMembers, selectedComparison, selectedJobRole])
   const handleGetTeamMemberList = () => {
     let data = {}
     if (parseInt(selectedJobRole)) {

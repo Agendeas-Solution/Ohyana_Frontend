@@ -90,7 +90,13 @@ const TaskDetail = () => {
         })
         handleSingleTaskDetail()
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
   useEffect(() => {
@@ -157,6 +163,11 @@ const TaskDetail = () => {
       { taskid: path, id: id },
       res => {
         setCheckLists(res?.data)
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
       },
       err => {
         setErrorSnackbar({
@@ -172,8 +183,19 @@ const TaskDetail = () => {
       deleteTaskDialog.id,
       res => {
         navigate('/task')
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
   const handleEditTaskName = () => {
@@ -190,8 +212,19 @@ const TaskDetail = () => {
         })
         handleSingleTaskDetail()
         handleDialogClose()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          status: true,
+          message: res.message,
+        })
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
   const handleEditDueDate = () => {
@@ -205,7 +238,13 @@ const TaskDetail = () => {
         })
         handleDueDateDialogClose()
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
   const handleDialogClose = () => {
@@ -257,7 +296,6 @@ const TaskDetail = () => {
             >
               <EditRoundedIcon />
             </Button>
-
             <Button
               onClick={() =>
                 setDeleteTaskDialog({
@@ -350,7 +388,6 @@ const TaskDetail = () => {
                   <Button onClick={handleAddItem} className="common_button">
                     Add item
                   </Button>
-
                   <Button
                     onClick={() => setAddCheckList('')}
                     className="common_button"
@@ -452,7 +489,6 @@ const TaskDetail = () => {
                 >
                   Assigned Member
                 </Typography>
-
                 {!taskDetail?.team?.email && (
                   <Button
                     onClick={() => setOpenMemberDialog(true)}

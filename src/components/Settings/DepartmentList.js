@@ -6,7 +6,6 @@ import { Context as AuthContext } from '../../context/authContext/authContext'
 // import { AddEditDepartmentDialog } from '../../constants/allImportConstant'
 const DepartmentList = () => {
   let navigate = useNavigate()
-  const { flagLoader, permissions } = useContext(AuthContext).state
   const [AdminDepartmentList, setAdminDepartmentList] = useState([])
   const [addEditDepartmentDialogControl, setAddEditDepartmentDialogControl] =
     useState(false)
@@ -21,9 +20,6 @@ const DepartmentList = () => {
       err => {},
     )
   }, [addEditDepartmentDialogControl])
-  const handleClose = () => {
-    setAddEditDepartmentDialogControl(false)
-  }
 
   return (
     <>

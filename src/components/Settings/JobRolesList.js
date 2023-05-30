@@ -21,9 +21,7 @@ import { PERMISSION } from '../../constants'
 const JobRoleDialog = React.lazy(() => import('./JobRoleDialog'))
 const JobRolesList = () => {
   let navigate = useNavigate()
-  const { flagLoader, permissions } = useContext(AuthContext).state
   const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false)
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleClose = () => {
     setJobRoleDialogControl(false)

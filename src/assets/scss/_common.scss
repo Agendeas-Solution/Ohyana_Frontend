@@ -574,7 +574,9 @@ button {
   border-radius: 50%;
   color: $colorPrimary;
 }
-
+.Chartjs-doughnut-labels {
+  display: none;
+}
 .main_tab_button {
   margin: auto 10px auto 0;
   height: 40px;
@@ -583,7 +585,14 @@ button {
   color: $colorPrimary !important;
   padding-left: 0px;
 }
-
+.main_tab_button_disabled {
+  color: $disabledColor !important;
+  margin: auto 10px auto 0;
+  height: 40px;
+  background-color: #fff !important;
+  text-transform: capitalize !important;
+  padding-left: 0px;
+}
 .add_product_button {
   display: flex;
   width: 100%;

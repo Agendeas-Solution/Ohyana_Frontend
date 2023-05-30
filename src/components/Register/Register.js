@@ -52,6 +52,11 @@ const Register = () => {
             ...otpValue,
             emailVerifyStatus: true,
           })
+          setSuccessSnackbar({
+            ...successSnackbar,
+            message: res?.message,
+            status: true,
+          })
         }
       },
       err => {
@@ -70,6 +75,11 @@ const Register = () => {
         setOtpValue({
           ...otpValue,
           otpVerifyStatus: true,
+        })
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res?.message,
+          status: true,
         })
       },
       err => {

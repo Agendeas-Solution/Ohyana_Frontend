@@ -76,7 +76,6 @@ const AddStatusDialog = ({ setAddStatus, addStatus, businessDetail }) => {
               })}
             </Select>
           </FormControl>
-
           <TextField
             className="dialogue_input_fields"
             multiline
@@ -93,7 +92,6 @@ const AddStatusDialog = ({ setAddStatus, addStatus, businessDetail }) => {
               })
             }}
           />
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"
