@@ -16,7 +16,6 @@ const DispatchOrderDialog = ({
           <Typography className="dialogue_description">
             Are you sure to Dispatch your order ?
           </Typography>
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"

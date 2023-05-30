@@ -50,8 +50,7 @@ const ClientProfile = () => {
   const navigate = useNavigate()
   const [paths, setPaths] = useState(null)
   const { setActivePage, setActivePageClient } = useContext(ContextActivePage)
-  const { activePage, activePageClient } = useContext(ContextActivePage).state
-  const { flagLoader, permissions } = useContext(AuthContext).state
+  const { activePageClient } = useContext(ContextActivePage).state
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [remainderDialog, setRemainderDialog] = useState({
@@ -290,7 +289,6 @@ const ClientProfile = () => {
         description: addPoorContact.description,
       }
     }
-
     AddPoorContact(
       data,
       res => {
@@ -311,7 +309,6 @@ const ClientProfile = () => {
       },
     )
   }
-
   const handleClose = () => {
     setRemainderDialog({
       ...remainderDialog,
@@ -323,7 +320,6 @@ const ClientProfile = () => {
     })
     setStageDialog(false)
   }
-
   const handleCallOpen = () => {
     setAddPoorContact({
       ...addPoorContact,
@@ -337,7 +333,6 @@ const ClientProfile = () => {
       status: false,
     })
   }
-
   const handleStatusOpen = () => {
     setStatusDialog(true)
   }
@@ -373,7 +368,6 @@ const ClientProfile = () => {
       appointmentId: null,
     })
   }
-
   const handleEditClientStatus = (row, clientid) => {
     setEditStatusDialog({
       ...editStatusDialog,
@@ -412,20 +406,15 @@ const ClientProfile = () => {
     setPaths(path)
     localStorage.setItem('path', path)
   }
-
   return (
     <>
       <Box className="profile_body_section">
         <Box className="user_profile_header_Section">
           <Box className="username_profile_Section">
             <Box>
-              {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
               {clientProfileDetail?.imageUrl ? (
                 <img
-                  src={
-                    clientProfileDetail?.imageUrl
-                    // <AccountCircleRoundedIcon className="user_profile_icon" />
-                  }
+                  src={clientProfileDetail?.imageUrl}
                   className="user_profile_icon"
                   alt={clientProfileDetail.name}
                 />
@@ -460,9 +449,7 @@ const ClientProfile = () => {
               </Typography>
             </Box>
           </Box>
-
           <Button className="profile_header_button">
-            {/* permission_control */}
             <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_CLIENT]}>
               <EditRoundedIcon
                 onClick={() => {
@@ -472,7 +459,6 @@ const ClientProfile = () => {
             </PermissionsGate>
           </Button>
         </Box>
-
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={activePageClient}>
             <Box className="tab_row">
@@ -487,7 +473,6 @@ const ClientProfile = () => {
                 <Tab label="Orders" value="Orders" />
                 <Tab label="Profile" value="Profile" />
               </TabList>
-
               {activePageClient === 'Status' ? (
                 <>
                   <Box className="tab_right_button_section">
@@ -542,7 +527,6 @@ const ClientProfile = () => {
                   >
                     <Button
                       className="common_button"
-                      // onClick={handleOrderOpen}
                       onClick={() =>
                         handleClientOrdersClick(
                           `/clientorders/${path}`,
@@ -557,7 +541,6 @@ const ClientProfile = () => {
                 </>
               ) : null}
             </Box>
-
             <TabPanel sx={{ padding: '0px' }} value="Status">
               <StatusTable
                 clientStatusList={clientStatusList}

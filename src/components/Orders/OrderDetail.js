@@ -297,7 +297,6 @@ const OrderDetail = () => {
                         )}
                       </Box>
                       <StepContent>
-                        {/* <Typography>{step.description}</Typography> */}
                         <Box sx={{ mb: 2 }}>
                           <Box>
                             <Button

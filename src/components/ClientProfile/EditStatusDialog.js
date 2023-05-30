@@ -9,7 +9,6 @@ import {
 } from '@mui/material'
 import { EditClientStatus } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-
 const EditStatusDialog = ({ editStatusDialog, handleStatusClose }) => {
   const [editStatusDetail, setEditStatusDetail] = useState({
     description: editStatusDialog?.description,
@@ -17,7 +16,6 @@ const EditStatusDialog = ({ editStatusDialog, handleStatusClose }) => {
   })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
-
   const EditStatus = () => {
     EditClientStatus(
       editStatusDetail,
@@ -60,7 +58,6 @@ const EditStatusDialog = ({ editStatusDialog, handleStatusClose }) => {
               })
             }
           />
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"

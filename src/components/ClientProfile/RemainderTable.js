@@ -21,13 +21,6 @@ const RemainderTable = ({
   setRemainderDialog,
   handleReminderDetail,
 }) => {
-  const [editReminderDetail, setEditReminderDetail] = useState({
-    description: '',
-    date: '',
-    time: '',
-    status: false,
-    id: null,
-  })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [deleteReminderDialogControl, setDeleteReminderDialogControl] =

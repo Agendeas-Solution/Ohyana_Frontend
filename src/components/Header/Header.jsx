@@ -47,7 +47,6 @@ const Header = () => {
         className={pathName === '/login' ? 'login_page_section' : 'header_root'}
       >
         <Box className="header-info">
-          {/* <Box className="user_profile_photo_root"> */}
           <Box
             sx={{
               display: 'flex',
@@ -61,7 +60,6 @@ const Header = () => {
               {ActivePage}
             </Typography>
           </Box>
-
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
             <MenuItem
               onClick={() => {
@@ -77,7 +75,6 @@ const Header = () => {
               Logout
             </MenuItem>
           </Menu>
-
           <Box
             sx={{
               display: 'flex',
@@ -91,7 +88,6 @@ const Header = () => {
               variant="span"
               sx={{ marginRight: '10px', color: '#2E3591' }}
             />
-
             <Stack
               sx={{
                 display: 'flex',
@@ -103,10 +99,8 @@ const Header = () => {
             >
               <img
                 style={{ width: 32, height: 32, borderRadius: '50%' }}
-                // alt="Remy Sharp"
                 src={userImg}
               />
-              {/* <img src={}/> */}
               <KeyboardArrowDownIcon />
             </Stack>
           </Box>

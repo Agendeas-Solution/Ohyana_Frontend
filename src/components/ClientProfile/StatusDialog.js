@@ -98,15 +98,9 @@ const StatusDialog = ({
       setButtonName('Play')
     }
   }
-
   const handleAudioFileChange = event => {
     setAudioFile(event.target.files[0])
   }
-
-  const handleUpload = () => {
-    // TODO: handle the upload logic here
-  }
-
   const handleSelectFile = () => {
     inputRef.current.click()
   }
@@ -116,7 +110,6 @@ const StatusDialog = ({
       <Dialog open={statusDialog} onClose={handleStatusClose}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add Status</Typography>
-
           <FormControl className="dialogue_input_fields">
             <InputLabel>Conversation Type</InputLabel>
             <Select
@@ -135,7 +128,6 @@ const StatusDialog = ({
               })}
             </Select>
           </FormControl>
-
           <TextField
             className="dialogue_input_fields"
             multiline
@@ -153,7 +145,6 @@ const StatusDialog = ({
               })
             }
           />
-          {/* <Box className="dialogue_input_fields" sx={{ flexDirection: 'column' }}> */}
           <TextField
             className="dialogue_input_fields"
             sx={{ marginRight: '5px' }}
@@ -186,14 +177,6 @@ const StatusDialog = ({
             style={{ display: 'none' }}
             ref={inputRef}
           />
-          {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px' }}>
-              <Typography>
-                Call Recording
-              </Typography>
-              <PlayArrowRoundedIcon cononClick={handleClick} sx={{ color: '#2E3591' }}></PlayArrowRoundedIcon>
-            </Box> */}
-          {/* </Box> */}
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"

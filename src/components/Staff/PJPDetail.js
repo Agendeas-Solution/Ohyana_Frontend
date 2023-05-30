@@ -375,11 +375,10 @@ const PJPDetail = ({
                 />
               )}
               PopperProps={{
-                placement: 'bottom-start', // Set placement to 'bottom-start'
+                placement: 'bottom-start',
               }}
             />
           </LocalizationProvider>
-
           <FormControl className="filter_body_inner_section">
             <InputLabel>Select State</InputLabel>
             <Select
@@ -493,7 +492,6 @@ const PJPDetail = ({
                           '-'
                         )}
                       </Box>
-
                       <Button
                         className="border_button"
                         onClick={() =>
@@ -515,7 +513,6 @@ const PJPDetail = ({
           <NoResultFound />
         )}
       </TableContainer>
-
       {addPJPDetail.dialogStatus && (
         <AddPJPDialog
           addPJPDetail={addPJPDetail}

@@ -40,7 +40,6 @@ const EditReminderDialog = ({
               )}
             />
           </LocalizationProvider>
-
           <TextField
             className="dialogue_input_fields"
             label="Time"
@@ -53,7 +52,6 @@ const EditReminderDialog = ({
               })
             }}
           />
-
           <TextField
             className="dialogue_input_fields"
             multiline
@@ -70,7 +68,6 @@ const EditReminderDialog = ({
             }}
             value={remainderDialog.description}
           />
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"

@@ -19,8 +19,8 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
     parentId: '',
     clockIn: moment().format(),
   })
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
 
   const addJobRole = () => {
     if (
@@ -39,7 +39,13 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
             status: true,
           })
         },
-        err => {},
+        err => {
+          setErrorSnackbar({
+            ...errorSnackbar,
+            status: true,
+            message: err.response.data.message,
+          })
+        },
       )
     }
   }
@@ -63,7 +69,6 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
             variant="outlined"
             placeholder="Job Role"
           />
-
           <Autocomplete
             options={jobRoleList?.roles}
             onChange={(e, value) => {
@@ -80,7 +85,6 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
               />
             )}
           />
-
           <TextField
             className="dialogue_input_fields"
             label="Description"
@@ -97,7 +101,6 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
               })
             }}
           />
-
           <TextField
             className="dialogue_input_fields"
             label="Clock In"
@@ -111,7 +114,6 @@ const JobRoleDialog = ({ handleClose, jobRoleDialogControl, jobRoleList }) => {
               })
             }}
           />
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"

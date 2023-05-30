@@ -28,11 +28,9 @@ const PJPDetailDialog = ({
   const handleEditPJPCloseDialog = () => {
     setEditPJPDetail({ ...editPJPDetail, status: false })
   }
-
   const handleEditPJPOpenDialog = () => {
     setEditPJPDetail({ ...editPJPDetail, status: true })
   }
-
   const handlePJPDetail = () => {
     GetPJPDetail(
       pjpDetailDialog.id,
@@ -76,9 +74,7 @@ const PJPDetailDialog = ({
               </Button>
             </Box>
           </Box>
-
           <Divider sx={{ border: '1px solid #C4C4C4', width: '90%' }} />
-
           <DialogContent sx={{ width: '100%' }}>
             <Box className="companyDetail_root p-2">
               <Typography className="profile_data_lable" variant="span">

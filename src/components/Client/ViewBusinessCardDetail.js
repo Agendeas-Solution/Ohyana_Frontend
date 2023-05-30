@@ -77,7 +77,6 @@ const ViewBusinessCardDetail = ({
             </Button>
           </Box>
         </Box>
-
         <DialogContent>
           <Box className="business_card_dialog_section">
             <img

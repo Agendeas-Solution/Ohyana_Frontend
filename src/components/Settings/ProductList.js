@@ -105,7 +105,6 @@ const ProductList = () => {
             </PermissionsGate>
           </Box>
         </Box>
-
         <Box className="below_main_tab_section">
           <Box className="row">
             {AdminProductList &&

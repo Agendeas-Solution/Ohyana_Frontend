@@ -20,7 +20,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import Uploader from '../Uploader/Uploader'
 import moment from 'moment'
-
 const ErrorSnackbar = React.lazy(() => import('../ErrorSnackbar/ErrorSnackbar'))
 
 const EditProfile = () => {

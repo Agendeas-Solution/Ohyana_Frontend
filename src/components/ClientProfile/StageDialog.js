@@ -15,8 +15,8 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 import { CLIENT } from '../../constants'
 const StageDialog = ({ clientProfileDetail, handleClose, stageDialog }) => {
   const [stageStatus, setStageStatus] = useState(clientProfileDetail?.stage)
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleChangeStage = () => {
     EditClientStage(
       clientProfileDetail?.id,
@@ -29,7 +29,13 @@ const StageDialog = ({ clientProfileDetail, handleClose, stageDialog }) => {
           message: res.message,
         })
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
   return (
@@ -70,15 +76,6 @@ const StageDialog = ({ clientProfileDetail, handleClose, stageDialog }) => {
             </Box>
           </Box>
         </DialogContent>
-        {/* <DialogActions className="mt-2"> */}
-        {/* <Button
-            className="dialogue_button_positive"
-            variant="contained"
-            onClick={handleChangeStage}
-          >
-            Update
-          </Button> */}
-
         <DialogActions sx={{ justifyContent: 'center' }}>
           <Button
             className="dialogue_bottom_button"
@@ -88,11 +85,6 @@ const StageDialog = ({ clientProfileDetail, handleClose, stageDialog }) => {
             Update
           </Button>
         </DialogActions>
-
-        {/* <Button variant="contained" onClick={handleClose}>
-            Cancel
-          </Button> */}
-        {/* </DialogActions> */}
       </Dialog>
     </>
   )

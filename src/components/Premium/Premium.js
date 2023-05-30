@@ -35,14 +35,12 @@ const Premium = () => {
                 <Typography variant="span">Print</Typography>
               </Box>
             </Box>
-
             <Divider
               sx={{ borderColor: '#8E8E8E' }}
               orientation="vertical"
               variant="middle"
               flexItem
             />
-
             <Box className="plan_info">
               <Box className="plan_terms ">
                 <Typography className="terms_heading" variant="span">
@@ -59,7 +57,6 @@ const Premium = () => {
             </Box>
           </Box>
         </Box>
-
         <Box className="plan_heading">
           <Box className="plan_title mb-1">
             <Typography
@@ -89,7 +86,6 @@ const Premium = () => {
             </Tabs>
           </Box>
         </Box>
-
         <Box className="row premium_plan m-1">
           <Box className="access_control_box px-3 pe-3 mb-2">
             <Box className="plan_pricing_name p-2">

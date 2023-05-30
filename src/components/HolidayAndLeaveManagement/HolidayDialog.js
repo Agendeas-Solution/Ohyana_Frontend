@@ -24,7 +24,6 @@ const HolidayDialog = ({
       <Dialog open={addHolidayDetail.status} onClose={handleCloseHolidayDialog}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add Holiday</Typography>
-
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               disablePast
@@ -40,11 +39,10 @@ const HolidayDialog = ({
                 <TextField {...params} className="dialogue_input_fields" />
               )}
               PopperProps={{
-                placement: 'bottom-start', // Set placement to 'bottom-start'
+                placement: 'bottom-start',
               }}
             />
           </LocalizationProvider>
-
           <TextField
             className="dialogue_input_fields"
             label="Occasion Name"
@@ -73,7 +71,6 @@ const HolidayDialog = ({
               })
             }}
           />
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"

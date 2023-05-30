@@ -136,7 +136,6 @@ const ClientOrders = () => {
                 }
               />
             </FormControl>
-
             <Button
               onClick={() =>
                 handleClientOrdersClick(`/mycart/${clientId}`, 'Order Detail')
@@ -148,7 +147,6 @@ const ClientOrders = () => {
             </Button>
           </Box>
         </Box>
-
         <Box className="below_main_tab_section">
           <Box className="inner_container">
             {clientProductList.map(data => {

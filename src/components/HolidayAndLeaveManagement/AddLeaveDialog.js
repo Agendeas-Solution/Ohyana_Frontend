@@ -22,7 +22,6 @@ const AddLeaveDialog = ({
       <Dialog open={addLeaveDialog.status} onClose={handleCloseDialog}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Add Leave</Typography>
-
           <TextField
             className="dialogue_input_fields"
             label="Leave Name"
@@ -36,11 +35,9 @@ const AddLeaveDialog = ({
               })
             }}
           />
-
           <TextField
             className="dialogue_input_fields"
             label="Total Days"
-            // placeholder="Enter total Days for Leave apply"
             type="number"
             variant="outlined"
             value={addLeaveDialog.duration}
@@ -51,7 +48,6 @@ const AddLeaveDialog = ({
               })
             }}
           />
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"

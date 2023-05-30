@@ -53,7 +53,6 @@ const CloseStatusDialog = ({
       >
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Close Status</Typography>
-
           <TextField
             className="dialogue_input_fields"
             multiline
@@ -70,7 +69,6 @@ const CloseStatusDialog = ({
               })
             }
           />
-
           <DialogActions>
             <Button
               className="dialogue_button_positive"

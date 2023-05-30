@@ -33,7 +33,6 @@ const CompanyProfile = () => {
           <Box className="username_profile_Section">
             {companyDetail.logoUrl ? (
               <img
-                // src={ProfileImage}
                 src={companyDetail.logoUrl}
                 className="user_profile_icon"
                 alt="profile"
@@ -41,14 +40,12 @@ const CompanyProfile = () => {
             ) : (
               <AccountCircleRoundedIcon className="user_profile_icon" />
             )}
-            {/* <AccountCircleRoundedIcon className="user_profile_icon" /> */}
             <Box className="username_and_position">
               <Typography className="username_text" variant="span">
                 {companyDetail?.name}
               </Typography>
             </Box>
           </Box>
-
           <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_COMPANY]}>
             <Button variant="contained" className="profile_header_button">
               <EditRoundedIcon
@@ -59,7 +56,6 @@ const CompanyProfile = () => {
             </Button>
           </PermissionsGate>
         </Box>
-
         <Box className="companyDetail">
           <Box className="companyDetail_root p-3">
             <Typography className="" variant="span">

@@ -29,19 +29,16 @@ const PaymentDetailDialog = ({
     status: '',
     method: '',
   })
-
   return (
     <>
       <Dialog open={openPaymentDetailDialog} onClose={handleClosePaymentDialog}>
         <Box className="dialogue_main_section">
           <Typography className="dialogue_heading">Payment Detail</Typography>
-
           <Box className="order_payment_details">
             <FormControl className="filter_body_inner_section">
               <FormLabel sx={{ marginBottom: '10px', color: '#000000' }}>
                 Status
               </FormLabel>
-
               <RadioGroup
                 row
                 value={paymentDetail.status}
@@ -77,7 +74,6 @@ const PaymentDetailDialog = ({
               </RadioGroup>
             </FormControl>
           </Box>
-
           <Box>
             <Typography sx={{ marginLeft: '5px' }}>Method</Typography>
             <Autocomplete
@@ -96,7 +92,6 @@ const PaymentDetailDialog = ({
               )}
             />
           </Box>
-
           <DialogActions className="m-auto">
             <Button
               variant="contained"

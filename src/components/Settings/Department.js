@@ -62,7 +62,6 @@ const JobRoleAccess = () => {
     description: '',
     parentId: '',
   })
-
   const [jobRoleList, setJobRoleList] = useState({})
   const [clientType, setClientType] = useState(CLIENT.STAGE)
   const [accessControl, setAccessControl] = useState({

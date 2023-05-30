@@ -26,7 +26,6 @@ const MyCart = () => {
   const { errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setErrorSnackbar } = useContext(ContextSnackbar)
   const { setActivePageClient } = useContext(ContextActivePage)
-
   const [deleteProductMyCardDialog, setDeleteProductCardDialog] = useState({
     status: false,
     id: '',
@@ -128,7 +127,6 @@ const MyCart = () => {
                   </Typography>
                   <Typography variant="span">Name</Typography>
                 </Box>
-
                 <Box
                   sx={{
                     width: '50%',

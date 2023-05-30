@@ -15,7 +15,6 @@ const ViewClientStatusDialog = ({
   })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
-
   const EditStatus = () => {
     EditClientStatus(
       editStatusDetail,
@@ -42,15 +41,11 @@ const ViewClientStatusDialog = ({
         open={viewClientStatus.status}
         onClose={handleViewStatusDialogClose}
       >
-        <Box
-          sx={{ textAlign: 'center', margin: '15px' }}
-          // className="view_appointment_dia_header"
-        >
+        <Box sx={{ textAlign: 'center', margin: '15px' }}>
           <Typography className="view_appointment_dia_heading">
             Detailed Status
           </Typography>
         </Box>
-
         <DialogContent sx={{ minWidth: 450 }}>
           <Box sx={{ padding: '0px 6px' }}>
             <Box className="client_view_appointment_dialog_data">
@@ -68,7 +63,6 @@ const ViewClientStatusDialog = ({
                 </Typography>
               </Box>
             </Box>
-
             <Box className="client_view_appointment_dialog_data">
               <Box className="col-md-4">
                 <Typography
@@ -84,7 +78,6 @@ const ViewClientStatusDialog = ({
                 </Typography>
               </Box>
             </Box>
-
             <Box className="client_view_appointment_dialog_data">
               <Box className="col-md-4">
                 <Typography
@@ -104,7 +97,6 @@ const ViewClientStatusDialog = ({
                 </Typography>
               </Box>
             </Box>
-
             <Box className="client_view_appointment_dialog_data">
               <Box className="col-md-4">
                 <Typography
@@ -120,7 +112,6 @@ const ViewClientStatusDialog = ({
                 </Typography>
               </Box>
             </Box>
-
             {viewClientStatus.statusDetail?.audioUrl && (
               <Box className="client_view_appointment_dialog_data">
                 <Box className="col-md-4">
