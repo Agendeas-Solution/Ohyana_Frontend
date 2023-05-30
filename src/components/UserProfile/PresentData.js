@@ -28,10 +28,7 @@ const PresentData = ({ staffAttendanceList }) => {
   }
   return (
     <>
-      <TableContainer
-        className="expenses_table_height attedance_present_table"
-        component={Paper}
-      >
+      <TableContainer className="expenses_table_height" component={Paper}>
         {staffAttendanceList?.attendancePerUser?.length > 0 ? (
           <Table
             stickyHeader

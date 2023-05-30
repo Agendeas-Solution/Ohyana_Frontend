@@ -215,15 +215,23 @@ const Orders = () => {
                     setQueryParams({ ...queryParams, delivery: e.target.value })
                   }}
                 >
-                  <Box className="checkbox_section">
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      width: '100%',
+                    }}
+                    className="checkbox_section"
+                  >
                     {deliveryStatusList.map(data => {
                       return (
                         <FormControlLabel
                           sx={{
-                            width: '100%',
-                            margin: '4px 0px',
+                            margin: '4px 4px',
+                            // padding: '0 8px',
                           }}
-                          className="checkbox_background_color"
+                          className="delivery_checkbox_background_color"
                           value={data.value}
                           control={<Radio />}
                           label={data.type}

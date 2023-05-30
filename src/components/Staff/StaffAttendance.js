@@ -18,6 +18,7 @@ const StaffAttendance = ({ selectMonth, activeTab }) => {
   const [value, setValue] = useState('1')
   const [staffAttendanceList, setStaffAttendanceList] = useState([])
   const [staffLeaveList, setStaffLeaveList] = useState([])
+
   const [approveLeave, setApproveLeave] = useState({
     status: false,
     id: null,
@@ -27,7 +28,21 @@ const StaffAttendance = ({ selectMonth, activeTab }) => {
     GrantLeave(
       { id: approveLeave.id, leaveStatus: approveLeave?.leaveStatus },
       res => {
+        const newArray = staffLeaveList.map(obj => {
+          if (obj.id === res.data.id) {
+            debugger
+            return {
+              ...obj,
+              status: res.data.status,
+            }
+          }
+          return obj
+        })
+        setStaffLeaveList(newArray)
+
+        debugger
         handleCloseDialog()
+
         setSuccessSnackbar({
           ...successSnackbar,
           message: res.message,
@@ -67,6 +82,7 @@ const StaffAttendance = ({ selectMonth, activeTab }) => {
         data,
         res => {
           setStaffLeaveList(res?.data)
+          debugger
         },
         err => {},
       )
