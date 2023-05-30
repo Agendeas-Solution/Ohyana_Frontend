@@ -1,7 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {
   Dialog,
-  DialogTitle,
   DialogActions,
   Button,
   FormControl,

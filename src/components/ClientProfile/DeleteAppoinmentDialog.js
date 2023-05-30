@@ -1,13 +1,5 @@
-import React, { useContext } from 'react'
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Typography,
-  Box,
-} from '@mui/material'
+import React from 'react'
+import { Dialog, DialogActions, Button, Typography, Box } from '@mui/material'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 const DeleteAppoinmentDialog = ({
   deleteAppoinmentDialogControl,

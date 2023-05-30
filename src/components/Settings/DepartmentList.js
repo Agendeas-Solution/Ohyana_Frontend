@@ -2,11 +2,8 @@ import React, { useEffect, useState, useContext } from 'react'
 import { Box, Button, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { GetAdminDepartmentList } from '../../services/apiservices/adminprofile'
-import { Context as AuthContext } from '../../context/authContext/authContext'
-// import { AddEditDepartmentDialog } from '../../constants/allImportConstant'
 const DepartmentList = () => {
   let navigate = useNavigate()
-  const { flagLoader, permissions } = useContext(AuthContext).state
   const [AdminDepartmentList, setAdminDepartmentList] = useState([])
   const [addEditDepartmentDialogControl, setAddEditDepartmentDialogControl] =
     useState(false)

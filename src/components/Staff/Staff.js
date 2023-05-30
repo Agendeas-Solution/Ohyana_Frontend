@@ -249,7 +249,9 @@ const Staff = () => {
                   </Typography>
                 </Box>
                 <Box>
-                  <Button onClick={handleResetFilter}>Reset</Button>
+                  <Button className="text_button" onClick={handleResetFilter}>
+                    Reset
+                  </Button>
                   <Button
                     onClick={handleApplyFilter}
                     className="common_button"

@@ -1,16 +1,6 @@
-import React, { useContext } from 'react'
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Typography,
-  Box,
-} from '@mui/material'
+import React from 'react'
+import { Dialog, DialogActions, Button, Typography, Box } from '@mui/material'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
-import { DeleteAdminProduct } from '../../services/apiservices/adminprofile'
-import { Context as ContextSnackbar } from '../../context/pageContext'
 const DeleteExpenseTypeDialog = ({
   deletexpenseListDialog,
   handleCloseDialog,

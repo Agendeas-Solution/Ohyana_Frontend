@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { Box, Typography, TextField, Button } from '@mui/material'
 import Logo from '../../assets/img/Ohyana Logo Blue.svg'
-import { useNavigate } from 'react-router-dom'
 import { ForgotPassword } from '../../services/apiservices/login'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import SuccessSnackbar from '../SuccessSnackbar/SuccessSnackbar'

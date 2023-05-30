@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, lazy } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Tabs,
   Tab,
@@ -20,7 +20,6 @@ import './index.css'
 import { useNavigate } from 'react-router-dom'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import { GetAllClients } from '../../services/apiservices/clientDetail'
-import { Context as ContextSnackbar } from '../../context/pageContext'
 import Drawer from '@mui/material/Drawer'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
@@ -53,8 +52,6 @@ const Client = () => {
   const [cityList, setCityList] = useState([])
   const [clientStage, setClientStage] = useState('')
   const [stateList, setStateList] = useState([])
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [selectedCityStateCountry, setSelectedCityStateCountry] = useState({
     city: null,
     state: null,
@@ -328,7 +325,9 @@ const Client = () => {
               <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
             </Box>
             <Box>
-              <Button onClick={handleClearAllFilter}>Reset</Button>
+              <Button className="text_button" onClick={handleClearAllFilter}>
+                Reset
+              </Button>
               <Button
                 className="common_button"
                 onClick={handleApplyFilter}

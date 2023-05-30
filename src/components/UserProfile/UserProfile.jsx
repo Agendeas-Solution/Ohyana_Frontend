@@ -281,29 +281,26 @@ const UserProfile = () => {
                 </Box>
               )}
               <Box className="staff_profile_page">
-                <Typography variant="span" className=" profile_data_lable">
+                <Typography variant="span" className="profile_data_lable">
                   Email:
                 </Typography>
                 <Typography variant="span">{userDetail?.email}</Typography>
               </Box>
               <Box className="staff_profile_page">
-                <Typography className=" profile_data_lable" variant="span">
+                <Typography className="profile_data_lable" variant="span">
                   Birthday
                 </Typography>
                 <Typography variant="span">{userDetail?.birthDay}</Typography>
               </Box>
               <Box className="staff_profile_page">
-                <Typography className=" profile_data_lable" variant="span">
+                <Typography className="profile_data_lable" variant="span">
                   Gender
                 </Typography>
                 <Typography variant="span">{userDetail?.gender}</Typography>
               </Box>
               {userDetail?.city && (
-                <Box className="companyDetail_root p-3">
-                  <Typography
-                    variant="span"
-                    className="companyDetail_field_heading user_profile_color"
-                  >
+                <Box className="staff_profile_page">
+                  <Typography variant="span" className="profile_data_lable">
                     City:
                   </Typography>
                   <Typography variant="span">{userDetail?.city}</Typography>

@@ -7,7 +7,6 @@ import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import { useNavigate } from 'react-router-dom'
-import { Context as AuthContext } from '../../context/authContext/authContext'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { Context as ContextActivePage } from '../../context/pageContext'
 import {
@@ -55,7 +54,7 @@ const ClientProfile = () => {
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [remainderDialog, setRemainderDialog] = useState({
     description: '',
-    date: moment(),
+    date: moment().format('YYYY-MM-DD'),
     time: moment().format(),
     status: false,
     id: null,

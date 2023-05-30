@@ -10,7 +10,6 @@ import {
 } from '@mui/material'
 import Like from '../../assets/img/like.svg'
 import moment from 'moment'
-import { useTheme } from '@mui/material/styles'
 import './index.css'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 import { GetComplaintDetail } from '../../services/apiservices/support'
@@ -24,7 +23,6 @@ const Complaint = () => {
   const [complaintProcesses, setComplaintProcesses] = useState([])
   const [ticketAnswer, setTicketAnswer] = useState({ id: '', description: '' })
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
-  const theme = useTheme()
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleClickOpen = () => {
     setOpen(true)

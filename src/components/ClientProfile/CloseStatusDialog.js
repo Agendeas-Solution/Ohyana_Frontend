@@ -4,9 +4,7 @@ import {
   Button,
   Dialog,
   DialogActions,
-  DialogContent,
   Typography,
-  TextareaAutosize,
   TextField,
 } from '@mui/material'
 import { AddCloseStatusApiCall } from '../../services/apiservices/adminprofile'
