@@ -75,13 +75,25 @@
   width: 100%;
 }
 
-.inquiries_bullet_point {
-  background-color: #ffab00;
+.inquiries_bullet_point_1 {
+  background-color: #ff6384;
+  height: 10px;
+  width: 10px;
+  margin-right: 10px;
+}
+.inquiries_bullet_point_2 {
+  background-color: #36a2eb;
   height: 10px;
   width: 10px;
   margin-right: 10px;
 }
 
+.inquiries_bullet_point_3 {
+  background-color: #ffce56;
+  height: 10px;
+  width: 10px;
+  margin-right: 10px;
+}
 .doughnut_chart_inquiry {
   width: 35%;
   display: flex;

@@ -89,45 +89,6 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
   useEffect(() => {
     handleExpensesList()
   }, [selectMonth])
-  const handlePaymentStatusUpdate = id => {
-    PaymentStatusUpdate(
-      id,
-      res => {
-        setSuccessSnackbar({
-          ...successSnackbar,
-          status: true,
-          message: res.message,
-        })
-      },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
-    )
-  }
-  const handleStatusUpdate = (id, status) => {
-    StatusUpdate(
-      id,
-      status,
-      res => {
-        setSuccessSnackbar({
-          ...successSnackbar,
-          status: true,
-          message: res.message,
-        })
-      },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
-    )
-  }
   const handleExpenseApproval = () => {
     let data = {
       amount: openApprovalDialog.amount,

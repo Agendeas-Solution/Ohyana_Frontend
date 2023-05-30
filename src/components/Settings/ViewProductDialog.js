@@ -25,8 +25,8 @@ const ViewProductDialog = ({
 }) => {
   const [productDetail, setProductDetail] = useState({})
   const navigate = useNavigate()
-  const { errorSnackbar } = useContext(ContextSnackbar)?.state
-  const { setErrorSnackbar } = useContext(ContextSnackbar)
+  const { errorSnackbar, successSnackbar } = useContext(ContextSnackbar)?.state
+  const { setErrorSnackbar, setSuccessSnackbar } = useContext(ContextSnackbar)
   useEffect(() => {
     viewProductDialog?.id &&
       GetProductDetail(
@@ -43,8 +43,13 @@ const ViewProductDialog = ({
     UpdateProductQuantity(
       viewProductDialog?.id,
       { quantity: parseInt(productDetail?.quantity) },
-      () => {
+      res => {
         handleClose()
+        setSuccessSnackbar({
+          ...successSnackbar,
+          message: res.message,
+          status: true,
+        })
       },
       err => {
         setErrorSnackbar({

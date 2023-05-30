@@ -25,8 +25,6 @@ const ProductList = () => {
     name: '',
     type: '',
   })
-  const { errorSnackbar } = useContext(ContextSnackbar)?.state
-  const { setErrorSnackbar } = useContext(ContextSnackbar)
   const [searchQuery, setSearchQuery] = useState('')
   const [deleteProductDialogControl, setDeleteProductDialogControl] = useState({
     status: false,

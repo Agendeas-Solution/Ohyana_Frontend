@@ -217,7 +217,6 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
             <Autocomplete
               sx={{ width: '200px', marginLeft: '10px' }}
               options={stateList}
-              disableClearable
               filterOptions={filterOptions}
               value={selectedState}
               getOptionLabel={option => option.name}

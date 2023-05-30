@@ -17,8 +17,9 @@ const ViewBusinessCardDetail = ({
   const [addStatus, setAddStatus] = useState({
     status: false,
   })
-  const { successSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar } = useContext(ContextSnackbar)
+
+  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [businessDetail, setBusinessDetail] = useState({})
   let imageLink = `${process.env.REACT_APP_API_CALL_URL}/file/${businessDetail?.imageUrl}`
   useEffect(() => {
@@ -48,7 +49,13 @@ const ViewBusinessCardDetail = ({
         })
         handleDialogClose()
       },
-      err => {},
+      err => {
+        setErrorSnackbar({
+          ...errorSnackbar,
+          status: true,
+          message: err?.response?.data?.message,
+        })
+      },
     )
   }
   return (

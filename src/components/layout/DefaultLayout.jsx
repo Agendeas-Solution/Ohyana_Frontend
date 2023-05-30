@@ -19,7 +19,6 @@ const DefaultLayout = () => {
     }
   }, [])
   if (!Cookie.get('userToken')) {
-    debugger
     return <Navigate to="/login" />
   }
   return (

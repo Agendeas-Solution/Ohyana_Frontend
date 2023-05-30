@@ -25,12 +25,7 @@ const MarkersMap = ({ openMap, handleCloseMap }) => {
       },
     )
   }, [])
-  const position = [37.775, -122.418]
   const icon = L.icon({ iconUrl: MarkersIcon, iconSize: [60, 60] })
-  // const icon = L.icon({
-  //   iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png',
-  // })
-
   return (
     <>
       <Dialog
@@ -38,7 +33,6 @@ const MarkersMap = ({ openMap, handleCloseMap }) => {
         open={openMap}
         onClose={handleCloseMap}
       >
-        {/* <Box className="dialogue_map"> */}
         {markers.length > 0 ? (
           <MapContainer
             className="dialogue_map"
@@ -69,7 +63,6 @@ const MarkersMap = ({ openMap, handleCloseMap }) => {
         ) : (
           <NoResultFound />
         )}
-        {/* </Box> */}
       </Dialog>
     </>
   )

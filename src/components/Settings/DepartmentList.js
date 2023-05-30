@@ -18,9 +18,6 @@ const DepartmentList = () => {
       err => {},
     )
   }, [addEditDepartmentDialogControl])
-  const handleClose = () => {
-    setAddEditDepartmentDialogControl(false)
-  }
 
   return (
     <>
