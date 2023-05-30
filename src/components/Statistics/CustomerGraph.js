@@ -14,10 +14,7 @@ import {
 } from '@mui/material'
 import './index.css'
 import LineChart from './LineChart'
-import {
-  GetCustomerReport,
-  GetProductReport,
-} from '../../services/apiservices/productDetail'
+import { GetCustomerReport } from '../../services/apiservices/productDetail'
 import { GetAllClients } from '../../services/apiservices/clientDetail'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'

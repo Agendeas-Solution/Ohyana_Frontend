@@ -26,7 +26,7 @@ const EditReminderDialog = ({
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               inputFormat="dd/MM/yyyy"
-              disablePast
+              disablepast
               label="Date"
               value={remainderDialog.date}
               onChange={e => {

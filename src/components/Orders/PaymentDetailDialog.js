@@ -13,9 +13,6 @@ import {
   FormLabel,
   RadioGroup,
   Radio,
-  InputLabel,
-  Select,
-  MenuItem,
 } from '@mui/material'
 import './index.css'
 

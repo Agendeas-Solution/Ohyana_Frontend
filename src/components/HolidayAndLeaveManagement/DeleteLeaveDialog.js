@@ -2,7 +2,6 @@ import React from 'react'
 import { Dialog, DialogActions, Button, Typography, Box } from '@mui/material'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 const DeleteLeaveDialog = ({
-  setDeleteLeaveDialogControl,
   deleteLeaveDialogControl,
   handleDeleteLeave,
   handleLeaveDeleteDialog,

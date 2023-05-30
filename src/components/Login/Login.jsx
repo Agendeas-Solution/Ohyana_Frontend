@@ -106,6 +106,7 @@ const Login = () => {
                     onChange={e => {
                       setUserDetail({ ...userDetail, email: e.target.value })
                     }}
+                    InputLabelProps={{ shrink: true }}
                   />
                 </Box>
                 <Box sx={{ width: '100%', padding: '20px 20px 0px 20px' }}>
@@ -117,6 +118,7 @@ const Login = () => {
                     onChange={e => {
                       setUserDetail({ ...userDetail, password: e.target.value })
                     }}
+                    InputLabelProps={{ shrink: true }}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">

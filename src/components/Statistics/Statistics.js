@@ -131,7 +131,7 @@ const Statistics = () => {
           </Box>
         </Box>
 
-        <Box className="below_main_tab_section">
+        <Box className="report_main_tab_section">
           {value === '1' && (
             <ProductGraph
               selectedPeriod={selectedPeriod}

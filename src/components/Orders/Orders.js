@@ -193,7 +193,9 @@ const Orders = () => {
                 <Typography sx={{ fontSize: '22px' }}>Filter By</Typography>
               </Box>
               <Box>
-                <Button onClick={handleClearAllFilter}>Reset</Button>
+                <Button className="text_button" onClick={handleClearAllFilter}>
+                  Reset
+                </Button>
                 <Button
                   onClick={handleApplyFilter}
                   className="common_button"
@@ -225,6 +227,7 @@ const Orders = () => {
                     className="checkbox_section"
                   >
                     {deliveryStatusList.map(data => {
+                      debugger
                       return (
                         <FormControlLabel
                           sx={{
@@ -241,6 +244,7 @@ const Orders = () => {
                   </Box>
                 </RadioGroup>
               </FormControl>
+
               <FormControl className="filter_body_inner_section">
                 <FormLabel className="filter_body_inner_heading">
                   Payment
@@ -253,6 +257,7 @@ const Orders = () => {
                 >
                   <Box className="checkbox_section">
                     {paymentStatusList.map(data => {
+                      debugger
                       return (
                         <FormControlLabel
                           sx={{

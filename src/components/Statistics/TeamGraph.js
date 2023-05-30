@@ -140,6 +140,7 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
         datasets: datga,
       })
   }, [graphData])
+
   return (
     <>
       <Box>

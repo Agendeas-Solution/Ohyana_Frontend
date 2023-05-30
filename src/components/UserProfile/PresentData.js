@@ -33,7 +33,7 @@ const PresentData = ({ staffAttendanceList }) => {
           <Table
             stickyHeader
             aria-label="sticky table"
-            sx={{ minWidth: 690, paddingLeft: '0', marginLeft: '-10px' }}
+            sx={{ minWidth: 690, paddingLeft: '0' }}
             className="table_heading custom_table"
           >
             <TableHead>

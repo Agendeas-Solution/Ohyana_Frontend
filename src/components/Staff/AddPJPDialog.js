@@ -78,8 +78,14 @@ const AddPJPDialog = ({
           </FormControl>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
+              slotProps={{
+                textField: {
+                  size: 'small',
+                  error: false,
+                },
+              }}
               inputFormat="dd/MM/yyyy"
-              value={addPJPDetail.date}
+              value={addPJPDetail?.date}
               onChange={e => {
                 setAddPJPDetail({ ...addPJPDetail, date: e })
               }}

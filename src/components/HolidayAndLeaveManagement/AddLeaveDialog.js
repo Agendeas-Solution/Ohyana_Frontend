@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
   Box,
   Typography,
@@ -8,7 +8,6 @@ import {
   DialogActions,
   Dialog,
 } from '@mui/material'
-import dayjs from 'dayjs'
 import './index.css'
 const AddLeaveDialog = ({
   addLeaveDialog,

@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect, Suspense } from 'react'
-import { Routes, Route, Outlet, Navigate } from 'react-router-dom'
-import Cookie from 'js-cookie'
+import { Routes, Route } from 'react-router-dom'
 import { Context as AuthContext } from '../context/authContext/authContext'
 import { PERMISSION } from '../constants'
 // const socket = io('http://192.168.1.65:9009')

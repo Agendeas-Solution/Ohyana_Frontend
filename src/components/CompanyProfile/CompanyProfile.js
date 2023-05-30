@@ -11,7 +11,6 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const CompanyProfile = () => {
   const navigate = useNavigate()
-  const { setErrorSnackbar } = useContext(ContextSnackbar)
   const { errorSnackbar } = useContext(ContextSnackbar).state
   const [companyDetail, setCompanyDetail] = useState({})
   useEffect(() => {

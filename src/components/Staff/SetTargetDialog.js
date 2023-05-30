@@ -78,7 +78,7 @@ const SetTargetDialog = ({
               })}
             </Select>
           </FormControl>
-          <Box sx={{ marginRight: '10px' }}>
+          <Box>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 className="dialogue_input_fields"

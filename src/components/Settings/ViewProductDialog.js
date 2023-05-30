@@ -124,6 +124,7 @@ const ViewProductDialog = ({
                       quantity: e.target.value,
                     })
                   }
+                  InputLabelProps={{ shrink: true }}
                   placeholder="Quantity"
                 />
                 <PermissionsGate scopes={[PERMISSION.PERMISSIONS.EDIT_PRODUCT]}>
@@ -161,7 +162,7 @@ const ViewProductDialog = ({
                   className="common_heading product_dialogue_field"
                   variant="span"
                 >
-                  SkuId
+                  Sku Id
                 </Typography>
                 <Typography variant="span">
                   {productDetail?.skuId || '-'}

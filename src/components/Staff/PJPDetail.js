@@ -313,7 +313,9 @@ const PJPDetail = ({
             </Typography>
           </Box>
           <Box>
-            <Button onClick={handleClearAllFilter}>Reset</Button>
+            <Button className="text_button" onClick={handleClearAllFilter}>
+              Reset
+            </Button>
             <Button
               className="common_button"
               onClick={handleApplyFilter}
