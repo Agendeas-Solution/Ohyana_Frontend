@@ -215,7 +215,9 @@ const DashboardEmployee = () => {
                       '&:last-child td, &:last-child th': { border: 0 },
                     }}
                   >
-                    <TableCell align="right">Check In</TableCell>
+                    <TableCell className="attendance_content" align="right">
+                      Check In
+                    </TableCell>
                     <TableCell align="left">:</TableCell>
                     <TableCell align="left">
                       {salesInquiry?.userAttendance?.checkIn || '-'}
@@ -226,7 +228,9 @@ const DashboardEmployee = () => {
                       '&:last-child td, &:last-child th': { border: 0 },
                     }}
                   >
-                    <TableCell align="right">Check Out</TableCell>
+                    <TableCell className="attendance_content" align="right">
+                      Check Out
+                    </TableCell>
                     <TableCell align="left">:</TableCell>
                     <TableCell align="left">
                       {salesInquiry?.userAttendance?.checkOut || '-'}
@@ -237,7 +241,9 @@ const DashboardEmployee = () => {
                       '&:last-child td, &:last-child th': { border: 0 },
                     }}
                   >
-                    <TableCell align="right">Break Time</TableCell>
+                    <TableCell className="attendance_content" align="right">
+                      Break Time
+                    </TableCell>
                     <TableCell align="left">:</TableCell>
                     <TableCell align="left">
                       {salesInquiry?.userAttendance?.breakIn || '-'}
@@ -248,7 +254,9 @@ const DashboardEmployee = () => {
                       '&:last-child td, &:last-child th': { border: 0 },
                     }}
                   >
-                    <TableCell align="right">Total Hours</TableCell>
+                    <TableCell className="attendance_content" align="right">
+                      Total Hours
+                    </TableCell>
                     <TableCell align="left">:</TableCell>
                     <TableCell align="left">
                       {salesInquiry?.userAttendance?.breakOut || '-'}

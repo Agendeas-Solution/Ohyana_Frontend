@@ -24,7 +24,7 @@ const ViewAppointmentDialog = ({
             </Button>
           </Box>
         </Box>
-        <DialogContent>
+        <DialogContent sx={{ minWidth: 450 }}>
           <Box sx={{ padding: '0px 6px' }}>
             <Box className="client_view_appointment_dialog_data">
               <Box>
