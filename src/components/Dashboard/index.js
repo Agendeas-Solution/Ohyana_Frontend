@@ -32,9 +32,18 @@ const Dashboard = () => {
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [doNutChartData, setDoNutChartData] = useState(null)
   const options = {
+    responsive: true,
+    cutout: 70,
     plugins: {
       legend: {
         display: false,
+      },
+    },
+    elements: {
+      arc: {
+        borderWidth: 0,
+        outerRadius: '80%',
+        innerRadius: '40%',
       },
     },
   }
@@ -44,11 +53,10 @@ const Dashboard = () => {
       res => {
         setInquiryData(res.data.data)
         setDoNutChartData({
-          labels: ['Red', 'Blue', 'Yellow', 'Green'],
+          labels: ['IndiaMart', 'Website', 'Others'],
           datasets: [
             {
               data: [
-                10,
                 40,
                 30,
                 60,
@@ -63,6 +71,7 @@ const Dashboard = () => {
                 '#FFCE56',
                 '#4BC0C0',
               ],
+              categoryPercentage: 0.7,
             },
           ],
         })

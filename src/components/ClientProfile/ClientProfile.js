@@ -239,48 +239,51 @@ const ClientProfile = () => {
       }
       if (remainderDialog.id) {
         data['reminderId'] = remainderDialog.id
+        // data['clientId'] = parseInt(path)
       } else if (clientProfileDetail.id) {
         data['clientId'] = clientProfileDetail.id
       }
-      parseInt(remainderDialog?.id) &&
-        EditAdminClientReminderDetail(
-          data,
-          res => {
-            handleClose()
-            handleReminderDetail()
-            setSuccessSnackbar({
-              ...successSnackbar,
-              status: true,
-              message: res.message,
-            })
-          },
-          err => {
-            setErrorSnackbar({
-              ...errorSnackbar,
-              status: true,
-              message: err.response.data.message,
-            })
-          },
-        )
-      AddAdminClientReminderDetail(
-        data,
-        res => {
-          handleClose()
-          handleReminderDetail()
-          setSuccessSnackbar({
-            ...successSnackbar,
-            status: true,
-            message: res.message,
-          })
-        },
-        err => {
-          setErrorSnackbar({
-            ...errorSnackbar,
-            status: true,
-            message: err.response.data.message,
-          })
-        },
-      )
+      {
+        parseInt(remainderDialog?.id)
+          ? EditAdminClientReminderDetail(
+              data,
+              res => {
+                handleClose()
+                handleReminderDetail()
+                setSuccessSnackbar({
+                  ...successSnackbar,
+                  status: true,
+                  message: res.message,
+                })
+              },
+              err => {
+                setErrorSnackbar({
+                  ...errorSnackbar,
+                  status: true,
+                  message: err.response.data.message,
+                })
+              },
+            )
+          : AddAdminClientReminderDetail(
+              data,
+              res => {
+                handleClose()
+                handleReminderDetail()
+                setSuccessSnackbar({
+                  ...successSnackbar,
+                  status: true,
+                  message: res.message,
+                })
+              },
+              err => {
+                setErrorSnackbar({
+                  ...errorSnackbar,
+                  status: true,
+                  message: err.response.data.message,
+                })
+              },
+            )
+      }
     }
   }
   const handleAddPoorContact = () => {

@@ -22,7 +22,6 @@ const JobRoleDialog = React.lazy(() => import('./JobRoleDialog'))
 const JobRolesList = () => {
   let navigate = useNavigate()
   const [jobRoleDialogControl, setJobRoleDialogControl] = useState(false)
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const handleClose = () => {
     setJobRoleDialogControl(false)
   }
@@ -89,7 +88,7 @@ const JobRolesList = () => {
                           {data.name || '-'}
                         </TableCell>
                         <TableCell className="table_row_top_align">
-                          {data.name || '-'}
+                          {data?.senior?.name || '-'}
                         </TableCell>
                         <TableCell className="description_text text-wrap">
                           {data.description || '-'}
