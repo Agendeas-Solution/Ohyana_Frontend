@@ -95,7 +95,9 @@
   margin-right: 10px;
 }
 .doughnut_chart_inquiry {
-  width: 35%;
+  /* width: 35%; */
+  width: 200px;
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -50,6 +50,7 @@ const steps = [
 const OrderDetail = () => {
   const [orderDetail, setOrderDetail] = useState([])
   const [orderItems, setOrderItems] = useState([])
+  const [orderStatus, setOrderStatus] = useState(ORDER.DELIVERYSTATUS)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [paymentMethodList, setPaymentMethodList] = useState([
@@ -71,11 +72,13 @@ const OrderDetail = () => {
       res => {
         setOrderDetail(res.data.orderDetail)
         setOrderItems(res.data.orderDetail.order_items)
-        let data = ORDER.DELIVERYSTATUS.map(data => {
-          if (data.type === res.data.orderDetail.orderTrackingStatus) {
-            return data.id
-          }
-        }).filter(count => count !== undefined && count !== [])
+        let data = orderStatus
+          .map(data => {
+            if (data.type === res.data.orderDetail.orderTrackingStatus) {
+              return data.value
+            }
+          })
+          .filter(count => count !== undefined && count !== [])
         setActiveStep(data[0])
       },
       err => {},
@@ -85,7 +88,8 @@ const OrderDetail = () => {
     UpdateDeliveryStatus(
       parseInt(path),
       { status: statusValue },
-      () => {
+      res => {
+        // setOrderDetail({ ...orderDetail, delivered_date: res.data.order.delivered_date })
         if (activeStep < 3) {
           setActiveStep(prevActiveStep => prevActiveStep + 1)
         }
