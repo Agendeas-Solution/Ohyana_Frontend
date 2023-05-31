@@ -149,7 +149,7 @@ textarea:focus {
 
 .main_section {
   display: flex;
-  height: 92%;
+  height: 90%;
   background-color: #fff;
   border-radius: 5px;
   padding: 10px;
@@ -1096,4 +1096,8 @@ button {
 
 .view_all_button {
   color: #2e3591 !important;
+}
+
+.MuiStepIcon-text	{
+  color: red !important;
 }

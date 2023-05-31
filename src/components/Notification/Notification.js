@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Box, Typography, Pagination } from '@mui/material'
+import { Box, Typography, Pagination, Button } from '@mui/material'
 import './index.css'
 import { GetNotification } from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
@@ -128,6 +128,7 @@ const Notification = () => {
                           />
                         }
                       </Box>
+
                       <Box
                         sx={{
                           width: '10%',
@@ -141,6 +142,7 @@ const Notification = () => {
                           ).format('LT')}
                         </Typography>
                       </Box>
+
                       <Box
                         sx={{
                           width: '84%',
@@ -158,21 +160,23 @@ const Notification = () => {
                           {rowData.description}
                         </Typography>
                       </Box>
-                      {/* <Box>
-                                                {rowData?.button &&
-                                                    JSON.parse(rowData?.button).map(value => {
-                                                        return (
-                                                            <Button
-                                                                sx={{ backgroundColor: '#2E3591' }}
-                                                                className="notification_button"
-                                                                variant="contained"
-                                                                onClick={() => handleView(value?.path)}
-                                                            >
-                                                                {value?.name}
-                                                            </Button>
-                                                        )
-                                                    })}
-                                            </Box> */}
+
+                      <Box>
+                        {rowData?.button &&
+                          // JSON.parse(rowData?.button).map(value => {
+                          rowData?.button.map(value => {
+                            return (
+                              <Button
+                                sx={{ backgroundColor: '#2E3591' }}
+                                className="notification_button"
+                                variant="contained"
+                                onClick={() => handleView(value?.path)}
+                              >
+                                {value?.name}
+                              </Button>
+                            )
+                          })}
+                      </Box>
                     </Box>
                   </Box>
                 </>

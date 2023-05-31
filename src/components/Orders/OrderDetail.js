@@ -15,6 +15,7 @@ import {
   Step,
   StepLabel,
   StepContent,
+  StepIcon,
 } from '@mui/material'
 import './index.css'
 import {
@@ -303,6 +304,7 @@ const OrderDetail = () => {
                               variant="contained"
                               onClick={() => handleNext(step.label)}
                               sx={{ mt: 1, mr: 1 }}
+                              // sx={{ mt: 1, mr: 1, background: '#2e3591' }}
                             >
                               {index === steps.length - 1
                                 ? 'Finish'
@@ -373,6 +375,7 @@ const OrderDetail = () => {
                                 height: '90px',
                                 width: '90px',
                               }}
+                              alt=""
                               src={data?.product?.productImage}
                             />
                           </TableCell>
