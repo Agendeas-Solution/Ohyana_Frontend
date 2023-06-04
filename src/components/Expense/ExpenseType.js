@@ -7,7 +7,6 @@ import {
   DialogActions,
   Dialog,
 } from '@mui/material'
-// import './index.css'
 const ExpenseType = ({
   addExpenseType,
   handleEditExpenses,

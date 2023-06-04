@@ -8,6 +8,7 @@ import {
   TableRow,
   Paper,
   Button,
+  Pagination,
 } from '@mui/material'
 import moment from 'moment'
 import { GetSingleClientOrderList } from '../../services/apiservices/orderDetail'
@@ -17,20 +18,30 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const OrderList = () => {
   const [orderList, setOrderList] = useState([])
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [numbersToDisplayOnPagination, setNumbersToDisplayOnPagination] =
+    useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const [totalResult, setTotalresult] = useState()
+
   const navigate = useNavigate()
   useEffect(() => {
     let path = window.location.pathname
     path = path.split('/').pop()
     GetSingleClientOrderList(
-      { clientId: parseInt(path) },
+      { clientId: parseInt(path), page: currentPage, size: rowsPerPage },
       res => {
-        setOrderList(res.data.orders)
+        setOrderList(res?.data?.orders)
+        setTotalresult(res?.data?.totalPage)
+        let pages =
+          res?.data?.totalPage > 0
+            ? Math.ceil(res?.data?.totalPage / rowsPerPage)
+            : null
+        setNumbersToDisplayOnPagination(pages)
       },
       err => {},
     )
-  }, [])
+  }, [currentPage])
   return (
     <>
       <TableContainer className="profile_data_table" component={Paper}>
@@ -103,6 +114,18 @@ const OrderList = () => {
           <NoResultFound />
         )}
       </TableContainer>
+      <Pagination
+        className="pagination_style"
+        boundaryCount={0}
+        siblingCount={0}
+        size="small"
+        shape="rounded"
+        count={numbersToDisplayOnPagination}
+        page={currentPage}
+        onChange={(e, value) => {
+          setCurrentPage(value)
+        }}
+      />
     </>
   )
 }

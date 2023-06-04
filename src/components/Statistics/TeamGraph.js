@@ -25,7 +25,6 @@ import { GetAdminRole } from '../../services/apiservices/adminprofile'
 import { GetAdminStaffDetailList } from '../../services/apiservices/staffDetail'
 import { TEAM } from '../../constants'
 import StarPerformer from '../../assets/img/star_performer.png'
-import { Context as ContextSnackbar } from '../../context/pageContext'
 const TeamGraph = ({ selectedPeriod, customRange }) => {
   const [graphData, setGraphData] = useState()
   const [userData, setUserData] = useState({})
@@ -35,8 +34,6 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
   const [selectedTeamMembers, setSelectedTeamMembers] = useState([])
   const [comparisonList, setComparisonList] = useState(TEAM.COMPARISONTYPE)
   const [selectedComparison, setSelectedComparison] = useState('points')
-  const { errorSnackbar } = useContext(ContextSnackbar)?.state
-  const { setErrorSnackbar } = useContext(ContextSnackbar)
   const handleChange = event => {
     const { value } = event.target
     const selectedMembers = value.map(id =>
@@ -219,11 +216,9 @@ const TeamGraph = ({ selectedPeriod, customRange }) => {
             </FormControl>
           </Box>
         </Box>
-
         <Box sx={{ height: '65vh !important' }}>
           {userData?.datasets && <BarChart chartData={userData} />}
         </Box>
-
         <Box
           sx={{
             display: 'flex',

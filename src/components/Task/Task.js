@@ -10,6 +10,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Pagination,
 } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
@@ -44,6 +45,11 @@ const Task = () => {
     due_date: null,
     teamId: '',
   })
+  const [currentPage, setCurrentPage] = useState(1)
+  const [rowsPerPage, setRowsPerPage] = useState(12)
+  const [totalResult, setTotalresult] = useState()
+  const [numbersToDisplayOnPagination, setNumbersToDisplayOnPagination] =
+    useState(0)
   const [searchQuery, setSearchQuery] = useState('')
   const [createTask, setCreateTask] = useState({
     title: '',
@@ -80,7 +86,10 @@ const Task = () => {
     })
   }
   const handleTaskList = () => {
-    let data = {}
+    let data = {
+      page: currentPage,
+      size: rowsPerPage,
+    }
     if (searchQuery !== '' && searchQuery) {
       data['searchQuery'] = searchQuery
     }
@@ -95,7 +104,13 @@ const Task = () => {
       data,
       res => {
         if (res?.success) {
-          setTaskList(res?.data)
+          setTaskList(res?.data?.tasks)
+          setTotalresult(res?.data?.totalPage)
+          let pages =
+            res?.data?.totalPage > 0
+              ? Math.ceil(res?.data?.totalPage / rowsPerPage)
+              : null
+          setNumbersToDisplayOnPagination(pages)
         }
       },
       err => {
@@ -105,7 +120,7 @@ const Task = () => {
   }
   useEffect(() => {
     handleTaskList()
-  }, [searchQuery, filterTask])
+  }, [searchQuery, filterTask, currentPage])
   useEffect(() => {
     ;(openDrawer || open) &&
       GetAdminStaffDetailList(
@@ -314,6 +329,18 @@ const Task = () => {
             <NoResultFound />
           )}
         </Box>
+        <Pagination
+          className="pagination_style"
+          boundaryCount={0}
+          siblingCount={0}
+          size="small"
+          shape="rounded"
+          count={numbersToDisplayOnPagination}
+          page={currentPage}
+          onChange={(e, value) => {
+            setCurrentPage(value)
+          }}
+        />
         <CreateTaskDialog
           handleClose={handleClose}
           fullScreen={fullScreen}

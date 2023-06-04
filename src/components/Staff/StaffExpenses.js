@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Box, Typography, Button } from '@mui/material'
+import { Box, Typography, Button, Pagination } from '@mui/material'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -24,13 +24,17 @@ import { Context as ContextSnackbar } from '../../context/pageContext'
 import StaffExpensesApprovalDialog from './StaffExpensesApprovalDialog'
 import StaffPaymentVerificationDialog from './StaffPaymentVerificationDialog'
 
-const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
-  const { flagLoader, permissions } = useContext(AuthContext).state
+const StaffExpenses = ({ selectMonth }) => {
   const [value, setValue] = useState('1')
   const [expenseList, setExpenseList] = useState([])
   const [expensesData, setExpensesData] = useState([])
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const [totalResult, setTotalresult] = useState()
+  const [numbersToDisplayOnPagination, setNumbersToDisplayOnPagination] =
+    useState(0)
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
@@ -73,6 +77,8 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
     let data = {
       month: moment(selectMonth.$d).month() + 1,
       year: moment(selectMonth.$d).format('YYYY'),
+      page: currentPage,
+      size: rowsPerPage,
     }
     if (parseInt(path)) {
       data['teamId'] = parseInt(path)
@@ -82,13 +88,22 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
       res => {
         setExpenseList(res.data.expenses)
         setExpensesData(res.data)
+        setTotalresult(res?.data?.totalPage)
+        let pages =
+          res?.data?.totalPage > 0
+            ? Math.ceil(res?.data?.totalPage / rowsPerPage)
+            : null
+        setNumbersToDisplayOnPagination(pages)
       },
-      err => {},
+      err => {
+        setExpenseList([])
+        setExpensesData([])
+      },
     )
   }
   useEffect(() => {
     handleExpensesList()
-  }, [selectMonth])
+  }, [selectMonth, currentPage])
   const handleExpenseApproval = () => {
     let data = {
       amount: openApprovalDialog.amount,
@@ -242,6 +257,18 @@ const StaffExpenses = ({ selectMonth, setSelectMonth }) => {
           <NoResultFound />
         )}
       </TableContainer>
+      <Pagination
+        className="pagination_style"
+        boundaryCount={0}
+        siblingCount={0}
+        size="small"
+        shape="rounded"
+        count={numbersToDisplayOnPagination}
+        page={currentPage}
+        onChange={(e, value) => {
+          setCurrentPage(value)
+        }}
+      />
       <StaffExpensesDetail
         openStaffExpenses={openStaffExpenses}
         closeStaffExpenses={handleClose}

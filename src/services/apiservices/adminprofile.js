@@ -5,7 +5,6 @@ import {
   handleApiPostCall,
   handleApiPutCall,
 } from './api-manager'
-import axiosInstance from './axios'
 import Cookie from 'js-cookie'
 const defaultHeaders = {
   'Content-Type': 'application/json',
@@ -38,6 +37,9 @@ export const GetAdminDepartmentList = async (value, onSuccess, onError) => {
 
 export const GetAdminProductList = async (value, onSuccess, onError) => {
   await handleApiGetCall(`/product`, value, onSuccess, onError)
+}
+export const GetAdminProductListReport = async (value, onSuccess, onError) => {
+  await handleApiGetCall(`/product?selection=true`, value, onSuccess, onError)
 }
 
 export const DeleteAdminProduct = async (value, onSuccess, onError) => {

@@ -10,6 +10,7 @@ import {
   IconButton,
   InputLabel,
   MenuItem,
+  Pagination,
   Paper,
   Radio,
   RadioGroup,
@@ -88,9 +89,6 @@ const PJPDetail = ({
   const [totalResult, setTotalresult] = useState(null)
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
   const handleCloseDialog = () => {
     setAddPJPDetail({
       ...addPJPDetail,
@@ -515,6 +513,18 @@ const PJPDetail = ({
           <NoResultFound />
         )}
       </TableContainer>
+      <Pagination
+        className="pagination_style"
+        boundaryCount={0}
+        siblingCount={0}
+        size="small"
+        shape="rounded"
+        count={numbersToDisplayOnPagination}
+        page={currentPage}
+        onChange={(e, value) => {
+          setCurrentPage(value)
+        }}
+      />
       {addPJPDetail.dialogStatus && (
         <AddPJPDialog
           addPJPDetail={addPJPDetail}

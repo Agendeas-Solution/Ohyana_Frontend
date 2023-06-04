@@ -35,7 +35,6 @@ import { styled, useTheme } from '@mui/material/styles'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { ORDER } from '../../constants/orderConstant'
-import { Context as ContextSnackbar } from '../../context/pageContext'
 const drawerWidth = 350
 const Orders = () => {
   let path = window.location.pathname
@@ -47,9 +46,6 @@ const Orders = () => {
   const [totalResult, setTotalresult] = useState()
   const [currentPage, setCurrentPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
-
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [deliveryStatusList, setDeliveryStatusList] = useState(
     ORDER.DELIVERYSTATUS,
   )
@@ -164,7 +160,6 @@ const Orders = () => {
           >
             <img src={FilterIcon} alt="" />
           </IconButton>
-
           <Drawer
             onClose={handleDrawerClose}
             sx={{
@@ -227,15 +222,13 @@ const Orders = () => {
                     className="checkbox_section"
                   >
                     {deliveryStatusList.map(data => {
-                      debugger
                       return (
                         <FormControlLabel
                           sx={{
                             margin: '4px 4px',
-                            // padding: '0 8px',
                           }}
                           className="delivery_checkbox_background_color"
-                          value={data.value}
+                          value={data.type}
                           control={<Radio />}
                           label={data.type}
                         />
@@ -244,7 +237,6 @@ const Orders = () => {
                   </Box>
                 </RadioGroup>
               </FormControl>
-
               <FormControl className="filter_body_inner_section">
                 <FormLabel className="filter_body_inner_heading">
                   Payment
@@ -257,7 +249,6 @@ const Orders = () => {
                 >
                   <Box className="checkbox_section">
                     {paymentStatusList.map(data => {
-                      debugger
                       return (
                         <FormControlLabel
                           sx={{
@@ -386,5 +377,4 @@ const Orders = () => {
     </Box>
   )
 }
-
 export default Orders

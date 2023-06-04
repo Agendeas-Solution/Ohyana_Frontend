@@ -7,6 +7,7 @@ import {
   FormControl,
   IconButton,
   InputAdornment,
+  Pagination,
 } from '@mui/material'
 import { GetAdminProductList } from '../../services/apiservices/adminprofile'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
@@ -31,6 +32,11 @@ const ProductList = () => {
     id: null,
     type: '',
   })
+  const [currentPage, setCurrentPage] = useState(1)
+  const [rowsPerPage, setRowsPerPage] = useState(15)
+  const [totalResult, setTotalresult] = useState()
+  const [numbersToDisplayOnPagination, setNumbersToDisplayOnPagination] =
+    useState(0)
   const [value, setValue] = useState('ProductList')
   const [viewProductDialog, setViewProductDialog] = useState({
     status: false,
@@ -38,10 +44,19 @@ const ProductList = () => {
   const [AdminProductList, setAdminProductList] = useState([])
   const handleGetAdminProduct = () => {
     GetAdminProductList(
-      {},
+      {
+        page: currentPage,
+        size: rowsPerPage,
+      },
       res => {
         if (res.success) {
-          setAdminProductList(res?.data?.products)
+          setTotalresult(res?.data?.totalPage)
+          let pages =
+            res?.data?.totalPage > 0
+              ? Math.ceil(res?.data?.totalPage / rowsPerPage)
+              : null
+          setNumbersToDisplayOnPagination(pages)
+          setAdminProductList(res?.data?.proudcts)
         }
       },
       err => {},
@@ -49,7 +64,7 @@ const ProductList = () => {
   }
   useEffect(() => {
     handleGetAdminProduct()
-  }, [])
+  }, [currentPage])
   const handleClose = () => {
     setDeleteProductDialogControl({
       ...deleteProductDialogControl,
@@ -134,7 +149,20 @@ const ProductList = () => {
                 )
               })}
           </Box>
+          <Pagination
+            className="pagination_style"
+            boundaryCount={0}
+            siblingCount={0}
+            size="small"
+            shape="rounded"
+            count={numbersToDisplayOnPagination}
+            page={currentPage}
+            onChange={(e, value) => {
+              setCurrentPage(value)
+            }}
+          />
         </Box>
+
         <DeleteProductDialog
           deleteProductDialogControl={deleteProductDialogControl}
           handleClose={handleClose}
