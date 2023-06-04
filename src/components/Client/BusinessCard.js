@@ -16,7 +16,6 @@ const BusinessCard = ({ clientDetails }) => {
       <Box className="business_card_section">
         {clientDetails.length > 0 ? (
           clientDetails.map(data => {
-            let Image_Link = `${process.env.REACT_APP_API_CALL_URL}/file/${data?.imageUrl}`
             return (
               <Box
                 className="business_card"

@@ -10,8 +10,10 @@ import {
 import './index.css'
 import LineChart from './LineChart'
 import { GetCityProductReport } from '../../services/apiservices/productDetail'
-import { GetCityList } from '../../services/apiservices/clientDetail'
-import { GetAdminProductList } from '../../services/apiservices/adminprofile'
+import {
+  GetAdminProductList,
+  GetAdminProductListReport,
+} from '../../services/apiservices/adminprofile'
 import {
   GetCity,
   GetState,
@@ -71,23 +73,16 @@ const CityGraph = ({ selectedPeriod, customRange }) => {
       )
     }
   }, [selectedPeriod, customRange, selectedProduct, selectedCityList])
-  useEffect(() => {
-    GetAdminProductList(
+  const handleProductList = () => {
+    GetAdminProductListReport(
       {},
       res => {
         setProductList(res?.data?.products)
       },
       err => {},
     )
-    GetCityList(
-      {},
-      res => {
-        setCityList(res?.data)
-      },
-      err => {},
-    )
-  }, [])
-  useEffect(() => {
+  }
+  const handleStateList = () => {
     GetState(
       {},
       res => {
@@ -95,7 +90,7 @@ const CityGraph = ({ selectedPeriod, customRange }) => {
       },
       err => {},
     )
-  }, [])
+  }
   useEffect(() => {
     let data = selectedState?.iso2 ? `/${selectedState?.iso2}/cities` : ''
     selectedState &&
@@ -174,6 +169,7 @@ const CityGraph = ({ selectedPeriod, customRange }) => {
               disableClearable
               filterOptions={filterOptions}
               value={selectedState}
+              onOpen={stateList.length < 1 ? handleStateList : null}
               getOptionLabel={option => option.name}
               onChange={(e, value) => {
                 setSelectedState(value)
@@ -219,6 +215,7 @@ const CityGraph = ({ selectedPeriod, customRange }) => {
               disablePortal
               options={productList}
               value={selectedProduct}
+              onOpen={productList.length < 1 ? handleProductList : null}
               getOptionLabel={option => option.name}
               onChange={(e, value) => {
                 setSelectedProduct(value)

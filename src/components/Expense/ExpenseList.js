@@ -13,8 +13,6 @@ import {
 } from '@mui/material'
 import './index.css'
 import { Context as ContextSnackbar } from '../../context/pageContext'
-import { Context as AuthContext } from '../../context/authContext/authContext'
-import { useNavigate } from 'react-router-dom'
 import {
   GetExpenseTypeList,
   CreateExpenseType,
@@ -36,8 +34,6 @@ const styles = {
 }
 const ExpenseType = React.lazy(() => import('./ExpenseType'))
 const ExpenseList = () => {
-  let navigate = useNavigate()
-  const { flagLoader, permissions } = useContext(AuthContext).state
   const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
   const [expenseList, setExpenseList] = useState([])
   const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)

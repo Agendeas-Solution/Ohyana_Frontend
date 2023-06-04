@@ -131,13 +131,7 @@ const AddClient = () => {
           setCountryList(res)
         }
       },
-      err => {
-        setErrorSnackbar({
-          ...errorSnackbar,
-          status: true,
-          message: err?.response?.data?.message,
-        })
-      },
+      err => {},
     )
   }, [])
 
@@ -167,7 +161,7 @@ const AddClient = () => {
       data.append('country_iso2', userDetail.country.iso2)
       data.append('address', userDetail.address)
       data.append('max_invesment_amount', userDetail.max_invesment_amount)
-      data.append('reference_name', userDetail.reference_name)
+      data.append('reference_name', userDetail.referenceName)
       if (typeof imageUrl !== 'string') {
         data.append('customer_image', imageUrl)
       }

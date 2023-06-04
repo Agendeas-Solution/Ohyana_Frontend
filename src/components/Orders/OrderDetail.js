@@ -89,7 +89,17 @@ const OrderDetail = () => {
       parseInt(path),
       { status: statusValue },
       res => {
-        // setOrderDetail({ ...orderDetail, delivered_date: res.data.order.delivered_date })
+        if (res.data.order.delivered_date) {
+          setOrderDetail({
+            ...orderDetail,
+            delivered_date: res?.data?.order?.delivered_date,
+          })
+        } else if (res?.data?.order?.dispatch_date) {
+          setOrderDetail({
+            ...orderDetail,
+            dispatch_date: res?.data?.order?.dispatch_date,
+          })
+        }
         if (activeStep < 3) {
           setActiveStep(prevActiveStep => prevActiveStep + 1)
         }
@@ -308,7 +318,6 @@ const OrderDetail = () => {
                               variant="contained"
                               onClick={() => handleNext(step.label)}
                               sx={{ mt: 1, mr: 1 }}
-                              // sx={{ mt: 1, mr: 1, background: '#2e3591' }}
                             >
                               {index === steps.length - 1
                                 ? 'Finish'

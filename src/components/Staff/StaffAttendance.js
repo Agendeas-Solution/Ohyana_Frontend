@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import './index.css'
-import { Box, Typography } from '@mui/material'
+import { Box, Pagination, Typography } from '@mui/material'
 import {
   GetStaffAttendanceList,
   GetStaffLeaveList,
@@ -18,7 +18,11 @@ const StaffAttendance = ({ selectMonth, activeTab }) => {
   const [value, setValue] = useState('1')
   const [staffAttendanceList, setStaffAttendanceList] = useState([])
   const [staffLeaveList, setStaffLeaveList] = useState([])
-
+  const [currentPage, setCurrentPage] = useState(1)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const [totalResult, setTotalresult] = useState()
+  const [numbersToDisplayOnPagination, setNumbersToDisplayOnPagination] =
+    useState(0)
   const [approveLeave, setApproveLeave] = useState({
     status: false,
     id: null,
@@ -64,12 +68,20 @@ const StaffAttendance = ({ selectMonth, activeTab }) => {
       month: moment(selectMonth.$d).month() + 1,
       year: moment(selectMonth.$d).format('YYYY'),
       teamId: parseInt(path),
+      page: currentPage,
+      size: rowsPerPage,
     }
     activeTab === 'present' &&
       GetStaffAttendanceList(
         data,
         res => {
           setStaffAttendanceList(res?.data)
+          setTotalresult(res?.data?.totalPage)
+          let pages =
+            res?.data?.totalPage > 0
+              ? Math.ceil(res?.data?.totalPage / rowsPerPage)
+              : null
+          setNumbersToDisplayOnPagination(pages)
         },
         err => {},
       )
@@ -78,10 +90,16 @@ const StaffAttendance = ({ selectMonth, activeTab }) => {
         data,
         res => {
           setStaffLeaveList(res?.data)
+          setTotalresult(res?.data?.totalPage)
+          let pages =
+            res?.data?.totalPage > 0
+              ? Math.ceil(res?.data?.totalPage / rowsPerPage)
+              : null
+          setNumbersToDisplayOnPagination(pages)
         },
         err => {},
       )
-  }, [activeTab, selectMonth])
+  }, [activeTab, selectMonth, currentPage])
   return (
     <>
       <Box className="statistics_data_section">
@@ -89,19 +107,19 @@ const StaffAttendance = ({ selectMonth, activeTab }) => {
           <Box className="statistics_box first_box">
             <Typography variant="span">Total Days</Typography>
             <Typography variant="span">
-              {staffAttendanceList?.totalDays || '-'}
+              {staffAttendanceList?.totalDays || 0}
             </Typography>
           </Box>
           <Box className="statistics_box second_box">
             <Typography variant="span">Absent Days</Typography>
             <Typography variant="span">
-              {staffAttendanceList?.absentDays || '-'}
+              {staffAttendanceList?.absentDays || 0}
             </Typography>
           </Box>
           <Box className="statistics_box third_box">
             <Typography variant="span">Late Days</Typography>
             <Typography variant="span">
-              {staffAttendanceList?.lateDays || '-'}
+              {staffAttendanceList?.lateDays || 0}
             </Typography>
           </Box>
         </Box>
@@ -116,6 +134,18 @@ const StaffAttendance = ({ selectMonth, activeTab }) => {
           staffLeaveList={staffLeaveList}
         />
       )}
+      <Pagination
+        className="pagination_style"
+        boundaryCount={0}
+        siblingCount={0}
+        size="small"
+        shape="rounded"
+        count={numbersToDisplayOnPagination}
+        page={currentPage}
+        onChange={(e, value) => {
+          setCurrentPage(value)
+        }}
+      />
       <ApproveLeaveDialog
         approveLeave={approveLeave}
         handleGrantLeave={handleGrantLeave}

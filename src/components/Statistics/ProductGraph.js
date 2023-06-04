@@ -15,16 +15,13 @@ import {
 import './index.css'
 import LineChart from './LineChart'
 import { GetProductReport } from '../../services/apiservices/productDetail'
-import { GetAdminProductList } from '../../services/apiservices/adminprofile'
+import { GetAdminProductListReport } from '../../services/apiservices/adminprofile'
 import {
   GetCity,
   GetState,
 } from '../../services/apiservices/country-state-city'
-import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const ProductGraph = ({ selectedPeriod, customRange }) => {
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
   const [graphData, setGraphData] = useState({})
   const [productList, setProductList] = useState([])
   const [selectedProductList, setSelectedProductList] = useState([])
@@ -51,7 +48,7 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
     })
     setFilterCityList(data)
   }, [searchQuery])
-  useEffect(() => {
+  const handleStateList = () => {
     GetState(
       {},
       res => {
@@ -59,7 +56,7 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
       },
       err => {},
     )
-  }, [])
+  }
   useEffect(() => {
     let data = selectedState?.iso2 ? `/${selectedState?.iso2}/cities` : ''
     selectedState &&
@@ -118,22 +115,16 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
         },
       )
     }
-  }, [
-    selectedPeriod,
-    customRange,
-    selectedProductList,
-    selectedCity,
-    selectedState,
-  ])
-  useEffect(() => {
-    GetAdminProductList(
+  }, [selectedPeriod, customRange, selectedProductList, selectedCity])
+  const handleProductList = () => {
+    GetAdminProductListReport(
       {},
       res => {
         setProductList(res?.data?.products)
       },
       err => {},
     )
-  }, [])
+  }
   useEffect(() => {
     let datga =
       graphData.label &&
@@ -190,6 +181,7 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
               <Select
                 label="Select Product"
                 multiple
+                onOpen={productList.length < 1 ? handleProductList : null}
                 value={selectedProductList.map(product => product.id)}
                 onChange={handleChange}
                 renderValue={selected =>
@@ -198,26 +190,28 @@ const ProductGraph = ({ selectedPeriod, customRange }) => {
                     .join(', ')
                 }
               >
-                {productList.map(product => (
-                  <MenuItem
-                    sx={{ margin: '8px 0px', padding: '0' }}
-                    key={product.id}
-                    value={product.id}
-                  >
-                    <Checkbox
-                      checked={selectedProductList.some(
-                        tag => tag.id === product.id,
-                      )}
-                    />
-                    <ListItemText primary={product.name} />
-                  </MenuItem>
-                ))}
+                {productList &&
+                  productList.map(product => (
+                    <MenuItem
+                      sx={{ margin: '8px 0px', padding: '0' }}
+                      key={product.id}
+                      value={product.id}
+                    >
+                      <Checkbox
+                        checked={selectedProductList.some(
+                          tag => tag.id === product.id,
+                        )}
+                      />
+                      <ListItemText primary={product.name} />
+                    </MenuItem>
+                  ))}
               </Select>
             </FormControl>
             <Autocomplete
               sx={{ width: '200px', marginLeft: '10px' }}
               options={stateList}
               filterOptions={filterOptions}
+              onOpen={stateList.length < 1 ? handleStateList : null}
               value={selectedState}
               getOptionLabel={option => option.name}
               onChange={(e, value) => {

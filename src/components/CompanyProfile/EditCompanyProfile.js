@@ -84,7 +84,6 @@ const EditCompanyProfile = () => {
       {},
       res => {
         if (res?.success) {
-          debugger
           setCompanyDetail({
             ...companyDetail,
             companyName: res.data?.name,

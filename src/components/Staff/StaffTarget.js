@@ -10,25 +10,35 @@ import Paper from '@mui/material/Paper'
 import { GetTargetList } from '../../services/apiservices/teamcall'
 import SetTargetDialog from './SetTargetDialog'
 import NoResultFound from '../ErrorComponent/NoResultFound'
-import { Context as ContextSnackbar } from '../../context/pageContext'
-
+import { Pagination } from '@mui/material'
 const StaffTarget = ({ selectMonth, targetDetail, setTargetDetail }) => {
   let path = window.location.pathname
   path = path.split('/').pop()
   const [targetList, setTargetList] = useState([])
-  const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
-  const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const [totalResult, setTotalresult] = useState()
+  const [numbersToDisplayOnPagination, setNumbersToDisplayOnPagination] =
+    useState(0)
   const handleGetTargetList = () => {
     let data = {
       month: moment(selectMonth.$d).month() + 1,
       year: moment(selectMonth.$d).format('YYYY'),
       teamId: parseInt(path),
+      page: currentPage,
+      size: rowsPerPage,
     }
     GetTargetList(
       data,
       res => {
         if (res.success) {
-          setTargetList(res?.data)
+          setTargetList(res?.data?.targets)
+          setTotalresult(res?.data?.totalPage)
+          let pages =
+            res?.data?.totalPage > 0
+              ? Math.ceil(res?.data?.totalPage / rowsPerPage)
+              : null
+          setNumbersToDisplayOnPagination(pages)
         }
       },
       err => {
@@ -39,7 +49,7 @@ const StaffTarget = ({ selectMonth, targetDetail, setTargetDetail }) => {
 
   useEffect(() => {
     handleGetTargetList()
-  }, [selectMonth])
+  }, [selectMonth, currentPage])
 
   const handleCloseTargetDetailDialog = () => {
     setTargetDetail({ ...targetDetail, status: false })
@@ -108,6 +118,18 @@ const StaffTarget = ({ selectMonth, targetDetail, setTargetDetail }) => {
           <NoResultFound />
         )}
       </TableContainer>
+      <Pagination
+        className="pagination_style"
+        boundaryCount={0}
+        siblingCount={0}
+        size="small"
+        shape="rounded"
+        count={numbersToDisplayOnPagination}
+        page={currentPage}
+        onChange={(e, value) => {
+          setCurrentPage(value)
+        }}
+      />
       {targetDetail.status && (
         <SetTargetDialog
           targetDetail={targetDetail}

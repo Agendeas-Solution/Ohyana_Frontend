@@ -16,7 +16,10 @@ import './index.css'
 import LineChart from './LineChart'
 import { GetCustomerReport } from '../../services/apiservices/productDetail'
 import { GetAllClients } from '../../services/apiservices/clientDetail'
-import { GetAdminProductList } from '../../services/apiservices/adminprofile'
+import {
+  GetAdminProductList,
+  GetAdminProductListReport,
+} from '../../services/apiservices/adminprofile'
 import { Context as ContextSnackbar } from '../../context/pageContext'
 
 const CustomerGraph = ({ selectedPeriod, customRange }) => {
@@ -76,16 +79,16 @@ const CustomerGraph = ({ selectedPeriod, customRange }) => {
       )
     }
   }, [selectedPeriod, customRange, selectedProductList, clientDetail])
-  useEffect(() => {
-    GetAdminProductList(
+  const handleProductList = () => {
+    GetAdminProductListReport(
       {},
       res => {
         setProductList(res?.data?.products)
       },
       err => {},
     )
-  }, [])
-  useEffect(() => {
+  }
+  const handleClientList = () => {
     let data = {
       size: 10,
     }
@@ -101,6 +104,9 @@ const CustomerGraph = ({ selectedPeriod, customRange }) => {
       },
       err => {},
     )
+  }
+  useEffect(() => {
+    searchQuery !== '' && handleClientList()
   }, [searchQuery])
   useEffect(() => {
     let datga =
@@ -158,6 +164,7 @@ const CustomerGraph = ({ selectedPeriod, customRange }) => {
               <Select
                 label="Select Product"
                 multiple
+                onOpen={productList.length < 1 ? handleProductList : null}
                 value={selectedProductList.map(product => product.id)}
                 onChange={handleChange}
                 renderValue={selected =>
@@ -187,6 +194,7 @@ const CustomerGraph = ({ selectedPeriod, customRange }) => {
                 filterSelectedOptions
                 options={clientList}
                 value={clientDetail || null}
+                onOpen={clientList.length < 1 ? handleClientList : null}
                 onChange={(e, value) => {
                   setClientDetail(value)
                 }}
