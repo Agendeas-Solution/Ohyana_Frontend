@@ -44,7 +44,7 @@ const ClientOrders = () => {
       data,
       res => {
         if (res?.success) {
-          setClientProductList(res?.data?.products)
+          setClientProductList(res?.data?.proudcts)
         }
       },
       err => {
